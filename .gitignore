@@ -1,4 +1,10 @@
 /.vs
-/MasjidOnline.Backend.Net.Api.Model/obj
-/MasjidOnline.Backend.Net.Api.Web/MasjidOnline.Backend.Net.Api.Web.csproj.user
-/MasjidOnline.Backend.Net.Api.Web/obj
+/MasjidOnline.Backend.Api.Model/bin
+/MasjidOnline.Backend.Api.Model/obj
+/MasjidOnline.Backend.Api.Web/bin
+/MasjidOnline.Backend.Api.Web/obj
+/MasjidOnline.Backend.Api.Web/MasjidOnline.Backend.Api.Web.csproj.user
+/MasjidOnline.Backend.Business/bin
+/MasjidOnline.Backend.Business/obj
+/MasjidOnline.Backend.Business.Interface/bin
+/MasjidOnline.Backend.Business.Interface/obj

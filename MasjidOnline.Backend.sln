@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Backend.Net.Api.Web", "MasjidOnline.Backend.Net.Api.Web\MasjidOnline.Backend.Net.Api.Web.csproj", "{86C5F90E-1610-45D1-A323-366CEEFF5C7A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Backend.Api.Web", "MasjidOnline.Backend.Api.Web\MasjidOnline.Backend.Api.Web.csproj", "{86C5F90E-1610-45D1-A323-366CEEFF5C7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Backend.Net.Api.Model", "MasjidOnline.Backend.Net.Api.Model\MasjidOnline.Backend.Net.Api.Model.csproj", "{48951FEE-122C-497D-A269-0E0D6809A716}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Backend.Api.Model", "MasjidOnline.Backend.Api.Model\MasjidOnline.Backend.Api.Model.csproj", "{48951FEE-122C-497D-A269-0E0D6809A716}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Backend.Business", "MasjidOnline.Backend.Business\MasjidOnline.Backend.Business.csproj", "{A80AA91D-AD5D-4865-83CF-C4E9A979CB9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Backend.Business.Interface", "MasjidOnline.Backend.Business.Interface\MasjidOnline.Backend.Business.Interface.csproj", "{1AE01BB6-4C00-48AC-9D69-A77595B1BD25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{48951FEE-122C-497D-A269-0E0D6809A716}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48951FEE-122C-497D-A269-0E0D6809A716}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48951FEE-122C-497D-A269-0E0D6809A716}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A80AA91D-AD5D-4865-83CF-C4E9A979CB9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A80AA91D-AD5D-4865-83CF-C4E9A979CB9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A80AA91D-AD5D-4865-83CF-C4E9A979CB9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A80AA91D-AD5D-4865-83CF-C4E9A979CB9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AE01BB6-4C00-48AC-9D69-A77595B1BD25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AE01BB6-4C00-48AC-9D69-A77595B1BD25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AE01BB6-4C00-48AC-9D69-A77595B1BD25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AE01BB6-4C00-48AC-9D69-A77595B1BD25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
