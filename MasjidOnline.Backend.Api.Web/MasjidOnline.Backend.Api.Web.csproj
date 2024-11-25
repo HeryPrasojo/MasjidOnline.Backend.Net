@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MasjidOnline.Backend.Api.Model\MasjidOnline.Backend.Api.Model.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Backend.Business.Interface\MasjidOnline.Backend.Business.Interface.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Backend.Business\MasjidOnline.Backend.Business.csproj" />
+  </ItemGroup>
+
+</Project>
