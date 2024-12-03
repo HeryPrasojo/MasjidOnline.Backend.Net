@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MasjidOnline.Backend.Api.Model\MasjidOnline.Backend.Api.Model.csproj" />
     <ProjectReference Include="..\MasjidOnline.Backend.Business.Interface\MasjidOnline.Backend.Business.Interface.csproj" />
   </ItemGroup>
 
