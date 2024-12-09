@@ -1,12 +1,10 @@
 using MasjidOnline.Api.Web;
-using MasjidOnline.Business.Authentication;
-using MasjidOnline.Business.Interface.Authentication;
+using MasjidOnline.Business;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 
 var webApplicationBuilder = WebApplication.CreateBuilder(args);
 
-webApplicationBuilder.Services.AddSingleton<ILoginBusiness, LoginBusiness>();
+webApplicationBuilder.Services.AddBusiness();
 
 var webApplication = webApplicationBuilder.Build();
 
