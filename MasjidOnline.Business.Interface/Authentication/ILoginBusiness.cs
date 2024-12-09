@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Backend.Business.Interface.Authentication;
+﻿namespace MasjidOnline.Business.Interface.Authentication;
 
 public interface ILoginBusiness
 {

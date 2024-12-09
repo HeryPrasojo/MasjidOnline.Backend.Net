@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using MasjidOnline.Backend.Api.Model.Authentication;
-using MasjidOnline.Backend.Business.Interface.Authentication;
+using MasjidOnline.Business.Interface.Authentication;
 
-namespace MasjidOnline.Backend.Api.Web.RouteEndpoint;
+namespace MasjidOnline.Api.Web.RouteEndpoint;
 
 public static class AuthenticationEndPoint
 {
