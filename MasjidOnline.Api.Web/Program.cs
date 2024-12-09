@@ -1,6 +1,6 @@
-using MasjidOnline.Backend.Api.Web;
-using MasjidOnline.Backend.Business.Authentication;
-using MasjidOnline.Backend.Business.Interface.Authentication;
+using MasjidOnline.Api.Web;
+using MasjidOnline.Business.Authentication;
+using MasjidOnline.Business.Interface.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
