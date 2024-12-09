@@ -8,3 +8,11 @@
 /MasjidOnline.Business/obj
 /MasjidOnline.Business.Interface/bin
 /MasjidOnline.Business.Interface/obj
+/MasjidOnline.Data/bin
+/MasjidOnline.Data/obj
+/MasjidOnline.Data.Interface/bin
+/MasjidOnline.Data.Interface/obj
+/MasjidOnline.Data.EntityFramework/bin
+/MasjidOnline.Data.EntityFramework/obj
+/MasjidOnline.Data.EntityFramework.SqLite/bin
+/MasjidOnline.Data.EntityFramework.SqLite/obj
