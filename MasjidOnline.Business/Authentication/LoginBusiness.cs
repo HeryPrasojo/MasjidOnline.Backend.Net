@@ -1,7 +1,7 @@
 ﻿using MasjidOnline.Backend.Api.Model.User;
-using MasjidOnline.Backend.Business.Interface.Authentication;
+using MasjidOnline.Business.Interface.Authentication;
 
-namespace MasjidOnline.Backend.Business.Authentication;
+namespace MasjidOnline.Business.Authentication;
 
 public class LoginBusiness : ILoginBusiness
 {
