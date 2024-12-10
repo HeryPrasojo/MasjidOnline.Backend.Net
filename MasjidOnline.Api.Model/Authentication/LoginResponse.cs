@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Backend.Api.Model.Authentication;
+﻿namespace MasjidOnline.Api.Model.Authentication;
 
 public class LoginResponse
 {

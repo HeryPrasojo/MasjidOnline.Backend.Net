@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MasjidOnline.Backend.Api.Model;
+namespace MasjidOnline.Api.Model;
 
 public abstract class ResponseBase
 {

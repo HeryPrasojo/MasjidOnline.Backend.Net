@@ -1,5 +1,5 @@
-﻿using MasjidOnline.Business.Authentication;
-using MasjidOnline.Business.Interface.Authentication;
+﻿using MasjidOnline.Business.Interface.User;
+using MasjidOnline.Business.User;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MasjidOnline.Business;

@@ -1,6 +1,6 @@
-﻿namespace MasjidOnline.Backend.Api.Model.User;
+﻿namespace MasjidOnline.Api.Model.User;
 
 public class RegisterRequest
 {
-    public string Email { get; set; }
+    public required string Email { get; set; }
 }

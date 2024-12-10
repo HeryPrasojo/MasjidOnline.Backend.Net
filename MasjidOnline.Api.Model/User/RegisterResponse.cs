@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Backend.Api.Model.User;
+﻿namespace MasjidOnline.Api.Model.User;
 
 public class RegisterResponse
 {

@@ -16,3 +16,5 @@
 /MasjidOnline.Data.EntityFramework/obj
 /MasjidOnline.Data.EntityFramework.SqLite/bin
 /MasjidOnline.Data.EntityFramework.SqLite/obj
+/MasjidOnline.Entity/bin
+/MasjidOnline.Entity/obj
