@@ -31,6 +31,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.User"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.User.Interface", "MasjidOnline.Business.User.Interface\MasjidOnline.Business.User.Interface.csproj", "{EFFE5EE5-A934-44D0-BEB8-096C59BD007C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Hash512", "MasjidOnline.Service.Hash512\MasjidOnline.Service.Hash512.csproj", "{5AD118F6-BB54-47BA-8DD5-236BF4A5B8B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Hash512.Model", "MasjidOnline.Service.Hash512.Model\MasjidOnline.Service.Hash512.Model.csproj", "{0A6E4996-484B-437F-B57C-7CD5A7FC0189}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Hash512.Interface", "MasjidOnline.Service.Hash512.Interface\MasjidOnline.Service.Hash512.Interface.csproj", "{8D90AE91-D2FE-40FD-8803-64936DD4BA19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +99,18 @@ Global
 		{EFFE5EE5-A934-44D0-BEB8-096C59BD007C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFFE5EE5-A934-44D0-BEB8-096C59BD007C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFFE5EE5-A934-44D0-BEB8-096C59BD007C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AD118F6-BB54-47BA-8DD5-236BF4A5B8B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AD118F6-BB54-47BA-8DD5-236BF4A5B8B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AD118F6-BB54-47BA-8DD5-236BF4A5B8B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AD118F6-BB54-47BA-8DD5-236BF4A5B8B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A6E4996-484B-437F-B57C-7CD5A7FC0189}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A6E4996-484B-437F-B57C-7CD5A7FC0189}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A6E4996-484B-437F-B57C-7CD5A7FC0189}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A6E4996-484B-437F-B57C-7CD5A7FC0189}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D90AE91-D2FE-40FD-8803-64936DD4BA19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D90AE91-D2FE-40FD-8803-64936DD4BA19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D90AE91-D2FE-40FD-8803-64936DD4BA19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D90AE91-D2FE-40FD-8803-64936DD4BA19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
