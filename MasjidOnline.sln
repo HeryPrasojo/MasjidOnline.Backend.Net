@@ -21,6 +21,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Data.Interface
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Entity", "MasjidOnline.Entity\MasjidOnline.Entity.csproj", "{B2A147D3-EF60-4E54-A8F6-95D39E7E2C28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Captcha", "MasjidOnline.Service.Captcha\MasjidOnline.Service.Captcha.csproj", "{DBAFD5F2-BCD1-40BF-A883-935F9E03CC70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Captcha.Interface", "MasjidOnline.Service.Captcha.Interface\MasjidOnline.Service.Captcha.Interface.csproj", "{7D5816CE-24A0-4D7C-A063-94BEC186A006}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Captcha.Model", "MasjidOnline.Service.Captcha.Model\MasjidOnline.Service.Captcha.Model.csproj", "{0CF1F1E3-1AA0-478A-BE6B-B9AD785BFCAB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +69,18 @@ Global
 		{B2A147D3-EF60-4E54-A8F6-95D39E7E2C28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2A147D3-EF60-4E54-A8F6-95D39E7E2C28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2A147D3-EF60-4E54-A8F6-95D39E7E2C28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBAFD5F2-BCD1-40BF-A883-935F9E03CC70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBAFD5F2-BCD1-40BF-A883-935F9E03CC70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBAFD5F2-BCD1-40BF-A883-935F9E03CC70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBAFD5F2-BCD1-40BF-A883-935F9E03CC70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D5816CE-24A0-4D7C-A063-94BEC186A006}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D5816CE-24A0-4D7C-A063-94BEC186A006}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D5816CE-24A0-4D7C-A063-94BEC186A006}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D5816CE-24A0-4D7C-A063-94BEC186A006}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CF1F1E3-1AA0-478A-BE6B-B9AD785BFCAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CF1F1E3-1AA0-478A-BE6B-B9AD785BFCAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CF1F1E3-1AA0-478A-BE6B-B9AD785BFCAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CF1F1E3-1AA0-478A-BE6B-B9AD785BFCAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
