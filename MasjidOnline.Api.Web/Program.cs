@@ -1,10 +1,10 @@
 using MasjidOnline.Api.Web;
-using MasjidOnline.Business;
+using MasjidOnline.Business.Donation;
 using Microsoft.AspNetCore.Builder;
 
 var webApplicationBuilder = WebApplication.CreateBuilder(args);
 
-webApplicationBuilder.Services.AddBusiness();
+webApplicationBuilder.Services.AddDonationBusiness();
 
 var webApplication = webApplicationBuilder.Build();
 
