@@ -7,9 +7,15 @@ public static class WebApplicationExtensions
 {
     public static WebApplication MapEndpoint(this WebApplication webApplication)
     {
-        var authenticationGroup = webApplication.MapGroup("/authentication");
+        var donationGroup = webApplication.MapGroup("/donation");
 
-        authenticationGroup.MapPost("/login", AuthenticationEndPoint.Login);
+        donationGroup.MapPost("/donate", DonationEndPoint.Donate);
+
+
+        var userGroup = webApplication.MapGroup("/user");
+
+        userGroup.MapPost("/login", UserEndPoint.Login);
+
 
         return webApplication;
     }
