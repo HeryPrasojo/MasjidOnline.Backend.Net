@@ -7,10 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Api.Web", "Mas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Api.Model", "MasjidOnline.Api.Model\MasjidOnline.Api.Model.csproj", "{48951FEE-122C-497D-A269-0E0D6809A716}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business", "MasjidOnline.Business\MasjidOnline.Business.csproj", "{A80AA91D-AD5D-4865-83CF-C4E9A979CB9E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Interface", "MasjidOnline.Business.Interface\MasjidOnline.Business.Interface.csproj", "{1AE01BB6-4C00-48AC-9D69-A77595B1BD25}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Data", "MasjidOnline.Data\MasjidOnline.Data.csproj", "{68E142D7-F104-4655-BE96-4C33891C19C1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Data.EntityFramework", "MasjidOnline.Data.EntityFramework\MasjidOnline.Data.EntityFramework.csproj", "{28E366D3-361D-4A53-A664-6D6DE75AE2B9}"
@@ -27,6 +23,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Captch
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Captcha.Model", "MasjidOnline.Service.Captcha.Model\MasjidOnline.Service.Captcha.Model.csproj", "{0CF1F1E3-1AA0-478A-BE6B-B9AD785BFCAB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Donation", "MasjidOnline.Business.Donation\MasjidOnline.Business.Donation.csproj", "{8E56A3AB-158B-453A-B747-631CE496DB6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Donation.Interface", "MasjidOnline.Business.Donation.Interface\MasjidOnline.Business.Donation.Interface.csproj", "{B979E9C7-35EB-4C3F-BDCE-7F89D50E41E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.User", "MasjidOnline.Business.User\MasjidOnline.Business.User.csproj", "{EF410C23-78CD-4924-A083-DC1F0606E32E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.User.Interface", "MasjidOnline.Business.User.Interface\MasjidOnline.Business.User.Interface.csproj", "{EFFE5EE5-A934-44D0-BEB8-096C59BD007C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,14 +45,6 @@ Global
 		{48951FEE-122C-497D-A269-0E0D6809A716}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48951FEE-122C-497D-A269-0E0D6809A716}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48951FEE-122C-497D-A269-0E0D6809A716}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A80AA91D-AD5D-4865-83CF-C4E9A979CB9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A80AA91D-AD5D-4865-83CF-C4E9A979CB9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A80AA91D-AD5D-4865-83CF-C4E9A979CB9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A80AA91D-AD5D-4865-83CF-C4E9A979CB9E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1AE01BB6-4C00-48AC-9D69-A77595B1BD25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1AE01BB6-4C00-48AC-9D69-A77595B1BD25}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1AE01BB6-4C00-48AC-9D69-A77595B1BD25}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1AE01BB6-4C00-48AC-9D69-A77595B1BD25}.Release|Any CPU.Build.0 = Release|Any CPU
 		{68E142D7-F104-4655-BE96-4C33891C19C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{68E142D7-F104-4655-BE96-4C33891C19C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68E142D7-F104-4655-BE96-4C33891C19C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -81,6 +77,22 @@ Global
 		{0CF1F1E3-1AA0-478A-BE6B-B9AD785BFCAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CF1F1E3-1AA0-478A-BE6B-B9AD785BFCAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CF1F1E3-1AA0-478A-BE6B-B9AD785BFCAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E56A3AB-158B-453A-B747-631CE496DB6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E56A3AB-158B-453A-B747-631CE496DB6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E56A3AB-158B-453A-B747-631CE496DB6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E56A3AB-158B-453A-B747-631CE496DB6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B979E9C7-35EB-4C3F-BDCE-7F89D50E41E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B979E9C7-35EB-4C3F-BDCE-7F89D50E41E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B979E9C7-35EB-4C3F-BDCE-7F89D50E41E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B979E9C7-35EB-4C3F-BDCE-7F89D50E41E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF410C23-78CD-4924-A083-DC1F0606E32E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF410C23-78CD-4924-A083-DC1F0606E32E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF410C23-78CD-4924-A083-DC1F0606E32E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF410C23-78CD-4924-A083-DC1F0606E32E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFFE5EE5-A934-44D0-BEB8-096C59BD007C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFFE5EE5-A934-44D0-BEB8-096C59BD007C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFFE5EE5-A934-44D0-BEB8-096C59BD007C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFFE5EE5-A934-44D0-BEB8-096C59BD007C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

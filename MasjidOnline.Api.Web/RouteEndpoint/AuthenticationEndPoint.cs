@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using MasjidOnline.Api.Model.Authentication;
-using MasjidOnline.Business.Interface.User;
+using MasjidOnline.Business.User.Interface;
 
 namespace MasjidOnline.Api.Web.RouteEndpoint;
 

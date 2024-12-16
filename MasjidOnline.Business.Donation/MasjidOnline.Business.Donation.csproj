@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MasjidOnline.Api.Model\MasjidOnline.Api.Model.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Business.Donation.Interface\MasjidOnline.Business.Donation.Interface.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Data.Interface\MasjidOnline.Data.Interface.csproj" />
+  </ItemGroup>
+
+</Project>
