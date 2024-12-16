@@ -1,5 +1,5 @@
 ﻿using MasjidOnline.Api.Model.Donation;
-using MasjidOnline.Business.Interface.Donation;
+using MasjidOnline.Business.Donation.Interface;
 using MasjidOnline.Data.Interface;
 
 namespace MasjidOnline.Business.Donation;
