@@ -7,7 +7,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddDonationBusiness(this IServiceCollection services)
     {
-        services.AddSingleton<IDonateBusiness, DonateBusiness>();
+        services.AddSingleton<IAnonymDonateBusiness, AnonymDonateBusiness>();
 
         return services;
     }
