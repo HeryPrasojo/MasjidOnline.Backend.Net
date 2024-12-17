@@ -3,7 +3,7 @@ using MasjidOnline.Data.Interface;
 
 namespace MasjidOnline.Data.EntityFramework;
 
-public class DataAccess(DataContext _dataContext) : IDataAccess
+public abstract class DataAccess(DataContext _dataContext) : IDataAccess
 {
     private ICaptchaQuestionRepository? _captchaQuestionRepository;
 

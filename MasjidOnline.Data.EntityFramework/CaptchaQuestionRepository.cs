@@ -7,10 +7,10 @@ namespace MasjidOnline.Data.EntityFramework;
 
 public class CaptchaQuestionRepository(DataContext _dataContext) : ICaptchaQuestionRepository
 {
-    public DbSet<CaptchaQuestion> _captchaQuestion = _dataContext.Set<CaptchaQuestion>();
+    public DbSet<CaptchaQuestion> _dbSet = _dataContext.Set<CaptchaQuestion>();
 
     public async Task AddAsync(CaptchaQuestion captchaQuestion)
     {
-        await _captchaQuestion.AddAsync(captchaQuestion);
+        await _dbSet.AddAsync(captchaQuestion);
     }
 }

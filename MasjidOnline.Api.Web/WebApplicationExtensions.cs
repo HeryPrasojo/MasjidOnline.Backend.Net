@@ -9,7 +9,7 @@ public static class WebApplicationExtensions
     {
         var donationGroup = webApplication.MapGroup("/donation");
 
-        donationGroup.MapPost("/donate", DonationEndPoint.Donate);
+        donationGroup.MapPost("/anonymDonate", DonationEndPoint.AnonymDonate);
 
 
         var userGroup = webApplication.MapGroup("/user");
