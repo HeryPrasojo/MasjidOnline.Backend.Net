@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MasjidOnline.Api.Model\MasjidOnline.Api.Model.csproj" />
+  </ItemGroup>
+
 </Project>
