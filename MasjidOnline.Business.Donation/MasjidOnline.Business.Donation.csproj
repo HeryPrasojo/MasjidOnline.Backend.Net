@@ -14,8 +14,6 @@
     <ProjectReference Include="..\MasjidOnline.Api.Model\MasjidOnline.Api.Model.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Donation.Interface\MasjidOnline.Business.Donation.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Data.Interface\MasjidOnline.Data.Interface.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Service.Captcha.Interface\MasjidOnline.Service.Captcha.Interface.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Service.Hash512.Interface\MasjidOnline.Service.Hash512.Interface.csproj" />
   </ItemGroup>
 
 </Project>

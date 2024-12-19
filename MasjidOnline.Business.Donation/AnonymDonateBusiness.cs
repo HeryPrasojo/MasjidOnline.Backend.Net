@@ -2,9 +2,6 @@
 using MasjidOnline.Api.Model.Donation;
 using MasjidOnline.Business.Donation.Interface;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Entity;
-using MasjidOnline.Service.Captcha.Interface;
-using MasjidOnline.Service.Hash512.Interface;
 
 namespace MasjidOnline.Business.Donation;
 

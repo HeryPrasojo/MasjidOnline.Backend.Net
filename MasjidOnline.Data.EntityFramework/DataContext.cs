@@ -5,10 +5,12 @@ namespace MasjidOnline.Data.EntityFramework;
 
 public abstract class DataContext(DbContextOptions _dbContextOptions) : DbContext(_dbContextOptions)
 {
-    //protected override void OnModelCreating(ModelBuilder modelBuilder)
-    //{
-    //    base.OnModelCreating(modelBuilder);
-    //}
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<CaptchaQuestion>().HasKey(e => e.Id);
+    }
 
     //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //{
