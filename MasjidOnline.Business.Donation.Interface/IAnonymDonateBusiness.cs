@@ -4,5 +4,5 @@ namespace MasjidOnline.Business.Donation.Interface;
 
 public interface IAnonymDonateBusiness
 {
-    Task<AnonymDonateResponse> DonateAsync(string? sessionId);
+    Task<AnonymDonateResponse> DonateAsync(string? sessionId, AnonymDonateRequest anonymDonateRequest);
 }
