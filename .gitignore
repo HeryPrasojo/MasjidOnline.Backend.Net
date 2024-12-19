@@ -4,6 +4,10 @@
 /MasjidOnline.Api.Web/bin
 /MasjidOnline.Api.Web/obj
 /MasjidOnline.Api.Web/MasjidOnline.Api.Web.csproj.user
+/MasjidOnline.Business.Captcha/bin
+/MasjidOnline.Business.Captcha/obj
+/MasjidOnline.Business.Captcha.Interface/bin
+/MasjidOnline.Business.Captcha.Interface/obj
 /MasjidOnline.Business.Donation/bin
 /MasjidOnline.Business.Donation/obj
 /MasjidOnline.Business.Donation.Interface/bin
