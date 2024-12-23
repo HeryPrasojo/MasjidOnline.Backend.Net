@@ -11,7 +11,9 @@ public static class ServiceCollectionExtensions
     {
         services.AddDbContextPool<SqLiteDataContext>(b =>
             {
-                b.UseSqlite("Data Source=MasjidOnline.sqlite3;");
+                var connectionString = configurationManager.GetConnectionString("ConnectionString");
+
+                b.UseSqlite(connectionString);
             },
             poolSize: 2);
 

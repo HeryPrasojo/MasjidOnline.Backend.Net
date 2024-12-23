@@ -1,9 +1,11 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace MasjidOnline.Entity;
 
 public class CaptchaQuestion
 {
+    [Key]
     public int Id { get; set; }
 
     public required string SessionId { get; set; }
