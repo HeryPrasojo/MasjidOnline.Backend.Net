@@ -48,4 +48,11 @@ public class CaptchaBusiness(
             Stream = generateImageResponse.Stream,
         };
     }
+
+    public async Task AnswerAsync(string sessionId)
+    {
+        if (sessionId == default) return;
+
+        _dataAccess
+    }
 }
