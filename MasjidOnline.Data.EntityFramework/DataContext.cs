@@ -16,12 +16,4 @@ public abstract class DataContext(DbContextOptions _dbContextOptions) : DbContex
     //{
     //    optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=SchoolDb;Trusted_Connection=True;");
     //}
-
-        modelBuilder.Entity<CaptchaQuestion>();
-    }
-
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //{
-    //    optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=SchoolDb;Trusted_Connection=True;");
-    //}
 }

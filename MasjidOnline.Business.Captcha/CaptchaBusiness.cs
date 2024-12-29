@@ -53,6 +53,6 @@ public class CaptchaBusiness(
     {
         if (sessionId == default) return;
 
-        _dataAccess
+        //_dataAccess
     }
 }
