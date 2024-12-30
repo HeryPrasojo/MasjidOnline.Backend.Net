@@ -12,8 +12,8 @@ public class AnonymDonateBusiness(
     {
         if (sessionId == default) return new()
         {
-            Message = "sessionId == default",
-            Result = ResponseResult.InputInvalid,
+            ResultMessage = "sessionId == default",
+            ResultCode = ResponseResult.InputInvalid,
         };
 
         //await _dataAccess.CaptchaQuestionRepository.AddAsync(captchaQuestion);
@@ -41,7 +41,7 @@ public class AnonymDonateBusiness(
 
         return new()
         {
-            Result = ResponseResult.Success,
+            ResultCode = ResponseResult.Success,
             SessionId = sessionId,
         };
         // todo

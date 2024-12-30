@@ -37,13 +37,13 @@ public class CaptchaBusiness(
 
         if (changed != 1) return new()
         {
-            Message = "Data save failed",
-            Result = ResponseResult.Error,
+            ResultMessage = "Data save failed",
+            ResultCode = ResponseResult.Error,
         };
 
         return new()
         {
-            Result = ResponseResult.Success,
+            ResultCode = ResponseResult.Success,
             SessionId = sessionId,
             Stream = generateImageResponse.Stream,
         };

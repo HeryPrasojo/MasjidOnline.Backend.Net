@@ -11,8 +11,11 @@ public class CaptchaQuestionRepository(DataContext _dataContext) : ICaptchaQuest
 
     public async Task AddAsync(CaptchaQuestion captchaQuestion)
     {
-        captchaQuestion.Id = (await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0) + 1;
-
         await _dbSet.AddAsync(captchaQuestion);
+    }
+
+    public async Task<int> GetMaxIdAsync()
+    {
+        return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
     }
 }

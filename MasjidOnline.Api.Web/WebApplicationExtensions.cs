@@ -23,7 +23,5 @@ public static class WebApplicationExtensions
 
 
         return webApplication;
-
-        return webApplication;
     }
 }
