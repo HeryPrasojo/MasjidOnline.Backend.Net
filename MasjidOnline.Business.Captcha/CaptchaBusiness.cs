@@ -12,6 +12,7 @@ namespace MasjidOnline.Business.Captcha;
 public class CaptchaBusiness(
     ICaptchaService _captchaService,
     IDataAccess _dataAccess,
+    IEntityIdGenerator _entityIdGenerator,
     IHash512Service _hash512Service) : ICaptchaBusiness
 {
     public async Task<CreateResponse> CreateAsync(string? sessionId)
@@ -26,6 +27,7 @@ public class CaptchaBusiness(
 
         var captchaQuestion = new CaptchaQuestion
         {
+            Id = _entityIdGenerator.CaptchaQuestionId,
             CreateDateTime = DateTime.UtcNow,
             Degree = generateImageResponse.Degree,
             SessionId = sessionId,
