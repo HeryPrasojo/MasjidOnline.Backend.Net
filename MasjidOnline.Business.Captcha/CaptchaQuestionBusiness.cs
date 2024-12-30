@@ -9,11 +9,11 @@ using MasjidOnline.Service.Hash512.Interface;
 
 namespace MasjidOnline.Business.Captcha;
 
-public class CaptchaCreateBusiness(
+public class CaptchaQuestionBusiness(
     ICaptchaService _captchaService,
     IDataAccess _dataAccess,
     IEntityIdGenerator _entityIdGenerator,
-    IHash512Service _hash512Service) : ICaptchaCreateBusiness
+    IHash512Service _hash512Service) : ICaptchaQuestionBusiness
 {
     public async Task<CreateResponse> CreateAsync(string? sessionId)
     {

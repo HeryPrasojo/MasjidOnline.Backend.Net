@@ -7,7 +7,7 @@ namespace MasjidOnline.Api.Web.RouteEndpoint;
 
 public static class CaptchaEndPoint
 {
-    public static async Task<IResult> CreateAsync(HttpContext httpContext, ICaptchaCreateBusiness captchaBusiness)
+    public static async Task<IResult> CreateAsync(HttpContext httpContext, ICaptchaQuestionBusiness captchaBusiness)
     {
         var sessionId = httpContext.Request.Cookies[Constant.AnonymousSessionIdName];
 
