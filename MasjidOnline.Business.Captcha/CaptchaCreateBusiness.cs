@@ -9,7 +9,7 @@ using MasjidOnline.Service.Hash512.Interface;
 
 namespace MasjidOnline.Business.Captcha;
 
-public class CaptchaBusiness(
+public class CaptchaCreateBusiness(
     ICaptchaService _captchaService,
     IDataAccess _dataAccess,
     IEntityIdGenerator _entityIdGenerator,
