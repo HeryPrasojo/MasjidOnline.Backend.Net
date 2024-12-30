@@ -13,7 +13,7 @@ public class CaptchaBusiness(
     ICaptchaService _captchaService,
     IDataAccess _dataAccess,
     IEntityIdGenerator _entityIdGenerator,
-    IHash512Service _hash512Service) : ICaptchaBusiness
+    IHash512Service _hash512Service) : ICaptchaCreateBusiness
 {
     public async Task<CreateResponse> CreateAsync(string? sessionId)
     {
