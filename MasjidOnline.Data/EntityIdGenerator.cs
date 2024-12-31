@@ -4,11 +4,11 @@ using MasjidOnline.Data.Interface;
 
 namespace MasjidOnline.Data;
 
-public class EntityIdGenerator(IDataAccess _dataAccess) : IEntityIdGenerator
+public class EntityIdGenerator() : IEntityIdGenerator
 {
-    public async Task InitializeAsync()
+    public async Task InitializeAsync(IDataAccess dataAccess)
     {
-        _captchaQuestionId = await _dataAccess.CaptchaQuestionRepository.GetMaxIdAsync();
+        _captchaQuestionId = await dataAccess.CaptchaQuestionRepository.GetMaxIdAsync();
     }
 
     private int _captchaQuestionId;

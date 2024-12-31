@@ -35,7 +35,17 @@ if (entityIdGenerator == default)
     throw new ApplicationException("Get IEntityIdGenerator service fail");
 }
 
-await entityIdGenerator.InitializeAsync();
+using (var scope = webApplication.Services.CreateScope())
+{
+    var dataAccess = scope.ServiceProvider.GetService<IDataAccess>();
+
+    if (dataAccess == default)
+    {
+        throw new ApplicationException("Get IDataAccess service fail");
+    }
+
+    await entityIdGenerator.InitializeAsync(dataAccess);
+}
 
 
 //webApplication.UseHttpsRedirection();

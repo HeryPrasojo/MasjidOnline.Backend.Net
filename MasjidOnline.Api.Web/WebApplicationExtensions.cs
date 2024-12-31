@@ -9,7 +9,7 @@ public static class WebApplicationExtensions
     {
         var captchaGroup = webApplication.MapGroup("/captcha");
 
-        captchaGroup.MapPost("/create", CaptchaEndPoint.CreateAsync);
+        captchaGroup.MapPost("/createQuestion", CaptchaEndPoint.CreateQuestionAsync);
 
 
         var donationGroup = webApplication.MapGroup("/donation");

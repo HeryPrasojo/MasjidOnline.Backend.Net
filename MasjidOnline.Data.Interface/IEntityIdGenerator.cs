@@ -6,5 +6,5 @@ public interface IEntityIdGenerator
 {
     int CaptchaQuestionId { get; }
 
-    Task InitializeAsync();
+    Task InitializeAsync(IDataAccess dataAccess);
 }

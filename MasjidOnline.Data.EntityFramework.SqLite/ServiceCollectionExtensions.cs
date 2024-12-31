@@ -9,15 +9,13 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddSqLiteEntityFrameworkDataAccess(this IServiceCollection services, IConfigurationManager configurationManager)
     {
-        services.AddDbContextPool<SqLiteDataContext>(b =>
+        services.AddDbContextPool<DataContext, SqLiteDataContext>(b =>
             {
                 var connectionString = configurationManager.GetConnectionString("ConnectionString");
 
                 b.UseSqlite(connectionString);
             },
             poolSize: 2);
-
-        services.AddScoped<DataContext, SqLiteDataContext>();
 
         services.AddScoped<IDataAccess, SqLiteDataAccess>();
 
