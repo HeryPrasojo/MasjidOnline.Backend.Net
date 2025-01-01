@@ -13,6 +13,9 @@ public static class CaptchaEndPoint
 
         var createResponse = await captchaQuestionBusiness.CreateAsync(sessionId);
 
+        httpContext.Response.Headers.Add("Mo-Captcha-Result-Code", createResponse.ResultCode.ToString());
+        httpContext.Response.Headers.Add("Mo-Captcha-Result-Message", createResponse.ResultMessage);
+
         if (createResponse.ResultCode != ResponseResult.Success) return default!;
 
 

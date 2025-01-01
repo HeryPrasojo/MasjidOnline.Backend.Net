@@ -15,6 +15,7 @@ public class CaptchaQuestionBusiness(
     IEntityIdGenerator _entityIdGenerator,
     IHash512Service _hash512Service) : ICaptchaQuestionBusiness
 {
+    // todo validate user session exists (captcha not needed)
     public async Task<CreateResponse> CreateAsync(string? sessionId)
     {
         if (sessionId != default)
@@ -34,6 +35,14 @@ public class CaptchaQuestionBusiness(
                         ResultCode = ResponseResult.Success,
                         SessionId = sessionId,
                         Stream = existingGenerateImageResponse.Stream,
+                    };
+                }
+
+                if (captchaAnswer.IsMatch)
+                {
+                    return new()
+                    {
+                        ResultCode = ResponseResult.CaptchaPassed,
                     };
                 }
             }
@@ -62,8 +71,8 @@ public class CaptchaQuestionBusiness(
 
         if (changed != 1) return new()
         {
-            ResultMessage = "Data save failed",
             ResultCode = ResponseResult.Error,
+            ResultMessage = "Data save failed",
         };
 
         return new()
