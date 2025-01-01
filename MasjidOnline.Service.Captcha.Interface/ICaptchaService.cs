@@ -4,5 +4,6 @@ namespace MasjidOnline.Service.Captcha.Interface;
 
 public interface ICaptchaService
 {
-    GenerateImageResponse GenerateImage();
+    GenerateImageResponse GenerateImage(float degree);
+    GenerateImageResponse GenerateRandomImage();
 }

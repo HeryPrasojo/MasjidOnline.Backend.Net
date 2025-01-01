@@ -24,6 +24,8 @@
 /MasjidOnline.Data.EntityFramework/obj
 /MasjidOnline.Data.EntityFramework.SqLite/bin
 /MasjidOnline.Data.EntityFramework.SqLite/obj
+/MasjidOnline.Data.Model/bin
+/MasjidOnline.Data.Model/obj
 /MasjidOnline.Entity/bin
 /MasjidOnline.Entity/obj
 /MasjidOnline.Service.Captcha/bin

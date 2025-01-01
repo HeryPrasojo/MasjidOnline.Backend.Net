@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MasjidOnline.Data.Interface\MasjidOnline.Data.Interface.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Data.Model\MasjidOnline.Data.Model.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Data\MasjidOnline.Data.csproj" />
   </ItemGroup>
 
 </Project>

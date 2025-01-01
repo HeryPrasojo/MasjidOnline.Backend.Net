@@ -22,7 +22,18 @@ public class CaptchaService : ICaptchaService
 
     private readonly Random _random = new();
 
-    public GenerateImageResponse GenerateImage()
+    public GenerateImageResponse GenerateImage(float degree)
+    {
+        var index = Array.IndexOf(_degree, degree);
+
+        return new GenerateImageResponse
+        {
+            Degree = _degree[index],
+            Stream = new MemoryStream(_captcha[index]),
+        };
+    }
+
+    public GenerateImageResponse GenerateRandomImage()
     {
         var number = _random.Next(1, 8);
 

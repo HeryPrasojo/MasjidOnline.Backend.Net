@@ -6,9 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MasjidOnline.Data.Model\MasjidOnline.Data.Model.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Entity\MasjidOnline.Entity.csproj" />
-  </ItemGroup>
-
 </Project>
