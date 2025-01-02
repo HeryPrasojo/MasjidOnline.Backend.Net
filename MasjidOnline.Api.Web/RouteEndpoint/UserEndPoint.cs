@@ -3,9 +3,9 @@ using MasjidOnline.Api.Model.Authentication;
 
 namespace MasjidOnline.Api.Web.RouteEndpoint;
 
-public static class UserEndPoint
+internal static class UserEndPoint
 {
-    public static async Task<LoginResponse> LoginAsync()
+    internal static async Task<LoginResponse> LoginAsync()
     {
         return default;
     }

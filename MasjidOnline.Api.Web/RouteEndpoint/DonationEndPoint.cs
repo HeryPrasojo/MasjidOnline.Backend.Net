@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Http;
 
 namespace MasjidOnline.Api.Web.RouteEndpoint;
 
-public static class DonationEndPoint
+internal static class DonationEndPoint
 {
-    public static async Task<AnonymDonateResponse> AnonymDonateAsync(
+    internal static async Task<AnonymDonateResponse> AnonymDonateAsync(
         HttpContext httpContext,
         IAnonymDonateBusiness anonymDonateBusiness,
         AnonymDonateRequest anonymDonateRequest)

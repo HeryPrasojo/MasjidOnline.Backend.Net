@@ -15,12 +15,19 @@ public class CaptchaQuestionBusiness(
     IEntityIdGenerator _entityIdGenerator,
     IHash512Service _hash512Service) : ICaptchaQuestionBusiness
 {
-    // todo validate user session exists (captcha not needed)
-    public async Task<CreateResponse> CreateAsync(string? sessionId)
+    public async Task AnswerAsync(string anonymousSessionId, AnswerQuestionRequest answerQuestionRequest)
     {
-        if (sessionId != default)
+        if (anonymousSessionId == default) return;
+
+        //_dataAccess
+    }
+
+    // todo validate user session exists (captcha not needed)
+    public async Task<CreateQuestionResponse> CreateAsync(string? anonymousSessionId)
+    {
+        if (anonymousSessionId != default)
         {
-            var existingCaptchaQuestion = await _dataAccess.CaptchaQuestionRepository.GetForCreateAsync(sessionId);
+            var existingCaptchaQuestion = await _dataAccess.CaptchaQuestionRepository.GetForCreateAsync(anonymousSessionId);
 
             if (existingCaptchaQuestion != default)
             {
@@ -33,7 +40,7 @@ public class CaptchaQuestionBusiness(
                     return new()
                     {
                         ResultCode = ResponseResult.Success,
-                        SessionId = sessionId,
+                        SessionId = anonymousSessionId,
                         Stream = existingGenerateImageResponse.Stream,
                     };
                 }
@@ -49,9 +56,9 @@ public class CaptchaQuestionBusiness(
         }
 
 
-        if (sessionId == default)
+        if (anonymousSessionId == default)
         {
-            sessionId = _hash512Service.HashRandom();
+            anonymousSessionId = _hash512Service.HashRandom();
         }
 
         var generateImageResponse = _captchaService.GenerateRandomImage();
@@ -62,7 +69,7 @@ public class CaptchaQuestionBusiness(
             Id = _entityIdGenerator.CaptchaQuestionId,
             CreateDateTime = DateTime.UtcNow,
             Degree = generateImageResponse.Degree,
-            SessionId = sessionId,
+            SessionId = anonymousSessionId,
         };
 
         await _dataAccess.CaptchaQuestionRepository.AddAsync(newCaptchaQuestion);
@@ -78,15 +85,8 @@ public class CaptchaQuestionBusiness(
         return new()
         {
             ResultCode = ResponseResult.Success,
-            SessionId = sessionId,
+            SessionId = anonymousSessionId,
             Stream = generateImageResponse.Stream,
         };
-    }
-
-    public async Task AnswerAsync(string sessionId)
-    {
-        if (sessionId == default) return;
-
-        //_dataAccess
     }
 }

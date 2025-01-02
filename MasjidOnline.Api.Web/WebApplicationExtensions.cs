@@ -3,13 +3,14 @@ using Microsoft.AspNetCore.Builder;
 
 namespace MasjidOnline.Api.Web;
 
-public static class WebApplicationExtensions
+internal static class WebApplicationExtensions
 {
-    public static WebApplication MapEndpoint(this WebApplication webApplication)
+    internal static WebApplication MapEndpoint(this WebApplication webApplication)
     {
         var captchaGroup = webApplication.MapGroup("/captcha");
 
         captchaGroup.MapPost("/createQuestion", CaptchaEndPoint.CreateQuestionAsync);
+        captchaGroup.MapPost("/answerQuestion", CaptchaEndPoint.AnswerQuestionAsync);
 
 
         var donationGroup = webApplication.MapGroup("/donation");
