@@ -27,6 +27,8 @@ public abstract class DataAccessUpdate(DataContext _dataContext) : DataAccess(_d
 
             await CreateTableCaptchaAnswerAsync();
         }
+
+        await SaveAsync();
     }
 
     protected abstract Task<bool> CheckTableExistsAsync(string name);
