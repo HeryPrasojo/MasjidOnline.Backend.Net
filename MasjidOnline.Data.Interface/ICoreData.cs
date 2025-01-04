@@ -3,7 +3,7 @@ using MasjidOnline.Data.Interface.Captcha;
 
 namespace MasjidOnline.Data.Interface;
 
-public interface IDataAccess
+public interface ICoreData
 {
     ICaptchaQuestionRepository CaptchaQuestionRepository { get; }
     ICaptchaAnswerRepository CaptchaAnswerRepository { get; }

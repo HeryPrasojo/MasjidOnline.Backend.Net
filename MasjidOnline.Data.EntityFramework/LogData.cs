@@ -2,6 +2,6 @@
 
 namespace MasjidOnline.Data.EntityFramework;
 
-public class LoggingDataAccess : ILoggingDataAccess
+public class LogData : ILogData
 {
 }

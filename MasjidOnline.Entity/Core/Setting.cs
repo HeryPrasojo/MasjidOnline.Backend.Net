@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MasjidOnline.Entity;
+namespace MasjidOnline.Entity.Core;
 
 public class Setting
 {

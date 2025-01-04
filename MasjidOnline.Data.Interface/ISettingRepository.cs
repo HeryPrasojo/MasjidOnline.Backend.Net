@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using MasjidOnline.Entity;
+using MasjidOnline.Entity.Core;
 
 namespace MasjidOnline.Data.Interface;
 

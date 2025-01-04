@@ -3,12 +3,12 @@ using System.Threading.Tasks;
 using MasjidOnline.Api.Model.Captcha;
 using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Entity;
+using MasjidOnline.Entity.Core;
 
 namespace MasjidOnline.Business.Captcha;
 
 public class CaptchaAnswerBusiness(
-    IDataAccess _dataAccess,
+    ICoreData _dataAccess,
     IEntityIdGenerator _entityIdGenerator) : ICaptchaAnswerBusiness
 {
     public async Task<AnswerQuestionResponse> AnswerAsync(string anonymousSessionId, AnswerQuestionRequest answerQuestionRequest)

@@ -3,6 +3,6 @@ using MasjidOnline.Data.Interface;
 
 namespace MasjidOnline.Business.User;
 
-public class RegisterBusiness(IDataAccess dataAccess) : IRegisterBusiness
+public class RegisterBusiness(ICoreData dataAccess) : IRegisterBusiness
 {
 }

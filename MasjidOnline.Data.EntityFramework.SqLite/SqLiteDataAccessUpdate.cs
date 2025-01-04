@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite;
 
-public class SqLiteDataAccessUpdate(DataContext _dataContext) : DataAccessUpdate(_dataContext)
+public class SqLiteDataAccessUpdate(DataContext _dataContext) : CoreDefinitionData(_dataContext)
 {
     protected override async Task<bool> CheckTableExistsAsync(string name)
     {

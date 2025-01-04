@@ -1,4 +1,5 @@
 ﻿using System;
+using MasjidOnline.Data.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,7 +15,7 @@ internal static class MoExceptionHandlerExtensions
             {
                 using (var serviceScope = webApplication.Services.CreateScope())
                 {
-                    var dataAccess = serviceScope.ServiceProvider.GetService<ILoggingDataAccess>();
+                    var dataAccess = serviceScope.ServiceProvider.GetService<ILogData>();
 
                     if (dataAccess == default)
                     {

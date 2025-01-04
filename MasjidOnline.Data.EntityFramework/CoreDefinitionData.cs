@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Entity;
+using MasjidOnline.Entity.Core;
 
 namespace MasjidOnline.Data.EntityFramework;
 
-public abstract class DataAccessUpdate(DataContext _dataContext) : DataAccess(_dataContext), IDataAccessUpdate
+public abstract class CoreDefinitionData(DataContext _dataContext) : CoreData(_dataContext), ICoreDefinitionData
 {
     public async Task InitializeDatabaseAsync()
     {

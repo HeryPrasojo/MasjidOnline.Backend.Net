@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using MasjidOnline.Api.Model.Captcha;
 using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Entity;
+using MasjidOnline.Entity.Core;
 using MasjidOnline.Service.Captcha.Interface;
 using MasjidOnline.Service.Hash512.Interface;
 
@@ -11,7 +11,7 @@ namespace MasjidOnline.Business.Captcha;
 
 public class CaptchaQuestionBusiness(
     ICaptchaService _captchaService,
-    IDataAccess _dataAccess,
+    ICoreData _dataAccess,
     IEntityIdGenerator _entityIdGenerator,
     IHash512Service _hash512Service) : ICaptchaQuestionBusiness
 {

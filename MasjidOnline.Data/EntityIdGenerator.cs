@@ -9,7 +9,7 @@ public class EntityIdGenerator() : IEntityIdGenerator
     private long _captchaAnswerId;
     private long _captchaQuestionId;
 
-    public async Task InitializeAsync(IDataAccess dataAccess)
+    public async Task InitializeAsync(ICoreData dataAccess)
     {
         _captchaAnswerId = await dataAccess.CaptchaAnswerRepository.GetMaxIdAsync();
         _captchaQuestionId = await dataAccess.CaptchaQuestionRepository.GetMaxIdAsync();

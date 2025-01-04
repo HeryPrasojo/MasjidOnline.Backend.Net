@@ -7,5 +7,5 @@ public interface IEntityIdGenerator
     long CaptchaQuestionId { get; }
     long CaptchaAnswerId { get; }
 
-    Task InitializeAsync(IDataAccess dataAccess);
+    Task InitializeAsync(ICoreData dataAccess);
 }

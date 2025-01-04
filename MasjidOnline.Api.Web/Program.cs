@@ -48,7 +48,7 @@ var webApplication = webApplicationBuilder.Build();
 
 using (var serviceScope = webApplication.Services.CreateScope())
 {
-    var dataAccessUpdate = serviceScope.ServiceProvider.GetService<IDataAccessUpdate>();
+    var dataAccessUpdate = serviceScope.ServiceProvider.GetService<ICoreDefinitionData>();
 
     if (dataAccessUpdate == default)
     {
@@ -72,7 +72,7 @@ if (entityIdGenerator == default)
 
 using (var serviceScope = webApplication.Services.CreateScope())
 {
-    var dataAccess = serviceScope.ServiceProvider.GetService<IDataAccess>();
+    var dataAccess = serviceScope.ServiceProvider.GetService<ICoreData>();
 
     if (dataAccess == default)
     {

@@ -6,7 +6,7 @@ using MasjidOnline.Data.Interface;
 namespace MasjidOnline.Business.Donation;
 
 public class AnonymDonateBusiness(
-    IDataAccess _dataAccess) : IAnonymDonateBusiness
+    ICoreData _dataAccess) : IAnonymDonateBusiness
 {
     public async Task<AnonymDonateResponse> DonateAsync(string? sessionId, AnonymDonateRequest anonymDonateRequest)
     {

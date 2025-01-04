@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MasjidOnline.Entity;
+namespace MasjidOnline.Entity.Core;
 
 public class Donation
 {

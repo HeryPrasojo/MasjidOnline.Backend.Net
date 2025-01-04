@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Entity;
+using MasjidOnline.Entity.Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework;
