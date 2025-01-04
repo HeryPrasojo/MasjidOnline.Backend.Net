@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using MasjidOnline.Data.Interface;
+using MasjidOnline.Data.Interface.Core;
 using MasjidOnline.Entity.Core;
 using Microsoft.EntityFrameworkCore;
 
-namespace MasjidOnline.Data.EntityFramework;
+namespace MasjidOnline.Data.EntityFramework.Core;
 
 public class SettingRepository(DataContext _dataContext) : ISettingRepository
 {

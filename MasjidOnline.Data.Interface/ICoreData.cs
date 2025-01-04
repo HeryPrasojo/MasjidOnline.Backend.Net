@@ -1,14 +1,15 @@
 ﻿using System.Threading.Tasks;
-using MasjidOnline.Data.Interface.Captcha;
+using MasjidOnline.Data.Interface.Core;
+using MasjidOnline.Data.Interface.Core.Captcha;
 
 namespace MasjidOnline.Data.Interface;
 
 public interface ICoreData
 {
-    ICaptchaQuestionRepository CaptchaQuestionRepository { get; }
-    ICaptchaAnswerRepository CaptchaAnswerRepository { get; }
+    ICaptchaQuestionRepository CaptchaQuestion { get; }
+    ICaptchaAnswerRepository CaptchaAnswer { get; }
 
-    ISettingRepository SettingRepository { get; }
+    ISettingRepository Setting { get; }
 
     Task<int> SaveAsync();
 }

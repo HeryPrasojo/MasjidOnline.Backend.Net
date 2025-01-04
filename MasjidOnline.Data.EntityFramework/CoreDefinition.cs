@@ -4,7 +4,7 @@ using MasjidOnline.Entity.Core;
 
 namespace MasjidOnline.Data.EntityFramework;
 
-public abstract class CoreDefinitionData(DataContext _dataContext) : CoreData(_dataContext), ICoreDefinitionData
+public abstract class CoreDefinition(DataContext _dataContext) : CoreData(_dataContext), ICoreDefinition
 {
     public async Task InitializeDatabaseAsync()
     {
@@ -20,7 +20,7 @@ public abstract class CoreDefinitionData(DataContext _dataContext) : CoreData(_d
                 Value = "1",
             };
 
-            await SettingRepository.AddAsync(setting);
+            await Setting.AddAsync(setting);
 
 
             await CreateTableCaptchaQuestionAsync();

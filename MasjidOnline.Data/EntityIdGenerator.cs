@@ -11,8 +11,8 @@ public class EntityIdGenerator() : IEntityIdGenerator
 
     public async Task InitializeAsync(ICoreData dataAccess)
     {
-        _captchaAnswerId = await dataAccess.CaptchaAnswerRepository.GetMaxIdAsync();
-        _captchaQuestionId = await dataAccess.CaptchaQuestionRepository.GetMaxIdAsync();
+        _captchaAnswerId = await dataAccess.CaptchaAnswer.GetMaxIdAsync();
+        _captchaQuestionId = await dataAccess.CaptchaQuestion.GetMaxIdAsync();
     }
 
     public long CaptchaAnswerId => Interlocked.Increment(ref _captchaAnswerId);

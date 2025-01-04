@@ -11,7 +11,7 @@ namespace MasjidOnline.Business.Captcha;
 
 public class CaptchaQuestionBusiness(
     ICaptchaService _captchaService,
-    ICoreData _dataAccess,
+    ICoreData _coreData,
     IEntityIdGenerator _entityIdGenerator,
     IHash512Service _hash512Service) : ICaptchaQuestionBusiness
 {
@@ -20,11 +20,11 @@ public class CaptchaQuestionBusiness(
     {
         if (anonymousSessionId != default)
         {
-            var existingCaptchaQuestion = await _dataAccess.CaptchaQuestionRepository.GetForCreateAsync(anonymousSessionId);
+            var existingCaptchaQuestion = await _coreData.CaptchaQuestion.GetForCreateAsync(anonymousSessionId);
 
             if (existingCaptchaQuestion != default)
             {
-                var captchaAnswer = await _dataAccess.CaptchaAnswerRepository.GetForCreateQuestionAsync(existingCaptchaQuestion.Id);
+                var captchaAnswer = await _coreData.CaptchaAnswer.GetForCreateQuestionAsync(existingCaptchaQuestion.Id);
 
                 if (captchaAnswer == default)
                 {
@@ -65,9 +65,9 @@ public class CaptchaQuestionBusiness(
             SessionId = anonymousSessionId,
         };
 
-        await _dataAccess.CaptchaQuestionRepository.AddAsync(newCaptchaQuestion);
+        await _coreData.CaptchaQuestion.AddAsync(newCaptchaQuestion);
 
-        var changed = await _dataAccess.SaveAsync();
+        var changed = await _coreData.SaveAsync();
 
         if (changed != 1) return new()
         {

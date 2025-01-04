@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
-using MasjidOnline.Data.EntityFramework.Captcha;
+using MasjidOnline.Data.EntityFramework.Core;
+using MasjidOnline.Data.EntityFramework.Core.Captcha;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.Captcha;
+using MasjidOnline.Data.Interface.Core;
+using MasjidOnline.Data.Interface.Core.Captcha;
 
 namespace MasjidOnline.Data.EntityFramework;
 
-// todo rename to CoreDataAccess
 public abstract class CoreData : ICoreData
 {
     protected readonly DataContext _dataContext;
@@ -22,12 +23,12 @@ public abstract class CoreData : ICoreData
     }
 
 
-    public ICaptchaAnswerRepository CaptchaAnswerRepository => _captchaAnswerRepository ??= new CaptchaAnswerRepository(_dataContext);
+    public ICaptchaAnswerRepository CaptchaAnswer => _captchaAnswerRepository ??= new CaptchaAnswerRepository(_dataContext);
 
-    public ICaptchaQuestionRepository CaptchaQuestionRepository => _captchaQuestionRepository ??= new CaptchaQuestionRepository(_dataContext);
+    public ICaptchaQuestionRepository CaptchaQuestion => _captchaQuestionRepository ??= new CaptchaQuestionRepository(_dataContext);
 
 
-    public ISettingRepository SettingRepository => _settingRepository ??= new SettingRepository(_dataContext);
+    public ISettingRepository Setting => _settingRepository ??= new SettingRepository(_dataContext);
 
 
     public async Task<int> SaveAsync()

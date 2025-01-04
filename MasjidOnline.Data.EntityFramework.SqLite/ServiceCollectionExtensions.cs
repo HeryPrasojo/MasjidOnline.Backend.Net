@@ -18,8 +18,8 @@ public static class ServiceCollectionExtensions
             },
             poolSize: 2);
 
-        services.AddScoped<ICoreData, SqLiteDataAccess>();
-        services.AddScoped<ICoreDefinitionData, SqLiteDataAccessUpdate>();
+        services.AddScoped<ICoreData, SqLiteCoreData>();
+        services.AddScoped<ICoreDefinition, SqLiteCoreDefinition>();
 
         return services;
     }

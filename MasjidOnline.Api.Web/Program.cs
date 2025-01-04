@@ -48,14 +48,14 @@ var webApplication = webApplicationBuilder.Build();
 
 using (var serviceScope = webApplication.Services.CreateScope())
 {
-    var dataAccessUpdate = serviceScope.ServiceProvider.GetService<ICoreDefinitionData>();
+    var coreDefinition = serviceScope.ServiceProvider.GetService<ICoreDefinition>();
 
-    if (dataAccessUpdate == default)
+    if (coreDefinition == default)
     {
-        throw new ApplicationException("Get IEntityIdGenerator service fail");
+        throw new ApplicationException($"Get {nameof(ICoreDefinition)} service fail");
     }
 
-    await dataAccessUpdate.InitializeDatabaseAsync();
+    await coreDefinition.InitializeDatabaseAsync();
 }
 
 #endregion
@@ -72,14 +72,14 @@ if (entityIdGenerator == default)
 
 using (var serviceScope = webApplication.Services.CreateScope())
 {
-    var dataAccess = serviceScope.ServiceProvider.GetService<ICoreData>();
+    var coreData = serviceScope.ServiceProvider.GetService<ICoreData>();
 
-    if (dataAccess == default)
+    if (coreData == default)
     {
-        throw new ApplicationException("Get IDataAccess service fail");
+        throw new ApplicationException($"Get {nameof(ICoreData)} service fail");
     }
 
-    await entityIdGenerator.InitializeAsync(dataAccess);
+    await entityIdGenerator.InitializeAsync(coreData);
 }
 
 #endregion

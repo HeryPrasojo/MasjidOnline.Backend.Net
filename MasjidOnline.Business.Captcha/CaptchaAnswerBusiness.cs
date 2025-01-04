@@ -8,7 +8,7 @@ using MasjidOnline.Entity.Core;
 namespace MasjidOnline.Business.Captcha;
 
 public class CaptchaAnswerBusiness(
-    ICoreData _dataAccess,
+    ICoreData _coreData,
     IEntityIdGenerator _entityIdGenerator) : ICaptchaAnswerBusiness
 {
     public async Task<AnswerQuestionResponse> AnswerAsync(string anonymousSessionId, AnswerQuestionRequest answerQuestionRequest)
@@ -26,7 +26,7 @@ public class CaptchaAnswerBusiness(
         };
 
 
-        var captchaQuestion = await _dataAccess.CaptchaQuestionRepository.GetForAnswerAsync(anonymousSessionId);
+        var captchaQuestion = await _coreData.CaptchaQuestion.GetForAnswerAsync(anonymousSessionId);
 
         if (captchaQuestion == default) return new()
         {
@@ -44,7 +44,7 @@ public class CaptchaAnswerBusiness(
             IsMatch = captchaQuestion.Degree == answerQuestionRequest.Degree,
         };
 
-        await _dataAccess.CaptchaAnswerRepository.AddAsync(captchaAnswer);
+        await _coreData.CaptchaAnswer.AddAsync(captchaAnswer);
 
 
 

@@ -2,7 +2,7 @@
 
 namespace MasjidOnline.Data.Interface;
 
-public interface ICoreDefinitionData
+public interface ICoreDefinition
 {
     Task InitializeDatabaseAsync();
 }

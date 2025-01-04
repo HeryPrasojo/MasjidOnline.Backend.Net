@@ -2,7 +2,7 @@
 using MasjidOnline.Data.Model.Captcha;
 using MasjidOnline.Entity.Core;
 
-namespace MasjidOnline.Data.Interface.Captcha;
+namespace MasjidOnline.Data.Interface.Core.Captcha;
 
 public interface ICaptchaAnswerRepository
 {
