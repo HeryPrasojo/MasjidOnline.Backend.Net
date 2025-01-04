@@ -13,13 +13,13 @@ internal static class DonationEndPoint
         IAnonymDonateBusiness anonymDonateBusiness,
         AnonymDonateRequest anonymDonateRequest)
     {
-        var sessionId = httpContext.Request.Cookies[Constant.AnonymousSessionIdName];
+        var sessionId = httpContext.Request.Cookies[Constant.HttpCookieSessionName.AnonymousId];
 
         var anonymDonateResponse = await anonymDonateBusiness.DonateAsync(sessionId, anonymDonateRequest);
 
         if (sessionId == default)
         {
-            httpContext.Response.Cookies.Append(Constant.AnonymousSessionIdName, anonymDonateResponse.SessionId!);
+            httpContext.Response.Cookies.Append(Constant.HttpCookieSessionName.AnonymousId, anonymDonateResponse.SessionId!);
         }
 
         anonymDonateResponse.SessionId = default;

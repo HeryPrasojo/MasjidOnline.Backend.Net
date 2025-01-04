@@ -4,7 +4,7 @@ namespace MasjidOnline.Entity;
 
 public class CaptchaQuestion
 {
-    public required int Id { get; set; }
+    public required long Id { get; set; }
 
     public required string SessionId { get; set; }
 

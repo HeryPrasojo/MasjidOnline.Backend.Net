@@ -5,5 +5,5 @@ namespace MasjidOnline.Data.Interface.Captcha;
 
 public interface ICaptchaAnswerRepository
 {
-    Task<CaptchaAnswerForCreateQuestion?> GetForCreateQuestionAsync(int captchaQuestionId);
+    Task<CaptchaAnswerForCreateQuestion?> GetForCreateQuestionAsync(long captchaQuestionId);
 }

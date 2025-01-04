@@ -11,7 +11,7 @@ public class CaptchaAnswerRepository(DataContext _dataContext) : ICaptchaAnswerR
 {
     private readonly DbSet<CaptchaAnswer> _dbSet = _dataContext.Set<CaptchaAnswer>();
 
-    public async Task<CaptchaAnswerForCreateQuestion?> GetForCreateQuestionAsync(int captchaQuestionId)
+    public async Task<CaptchaAnswerForCreateQuestion?> GetForCreateQuestionAsync(long captchaQuestionId)
     {
         return await _dbSet.Where(e => e.CaptchaQuestionId == captchaQuestionId)
             .Select(e => new CaptchaAnswerForCreateQuestion

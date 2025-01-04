@@ -9,7 +9,10 @@ public abstract class DataContext(DbContextOptions _dbContextOptions) : DbContex
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<CaptchaAnswer>();
         modelBuilder.Entity<CaptchaQuestion>();
+
+        modelBuilder.Entity<Setting>();
     }
 
     //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

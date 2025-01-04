@@ -13,11 +13,13 @@ public static class ServiceCollectionExtensions
             {
                 var connectionString = configurationManager.GetConnectionString("ConnectionString");
 
-                b.UseSqlite(connectionString);
+                b.UseSqlite(
+                    connectionString);
             },
             poolSize: 2);
 
         services.AddScoped<IDataAccess, SqLiteDataAccess>();
+        services.AddScoped<IDataAccessUpdate, SqLiteDataAccessUpdate>();
 
         return services;
     }

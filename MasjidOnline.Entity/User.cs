@@ -2,7 +2,7 @@
 
 public class User
 {
-    public required int Id { get; set; }
+    public required long Id { get; set; }
 
     /// <summary>
     /// primary email address

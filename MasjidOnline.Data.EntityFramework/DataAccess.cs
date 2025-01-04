@@ -5,36 +5,29 @@ using MasjidOnline.Data.Interface.Captcha;
 
 namespace MasjidOnline.Data.EntityFramework;
 
-public abstract class DataAccess(DataContext _dataContext) : IDataAccess
+public abstract class DataAccess : IDataAccess
 {
+    protected readonly DataContext _dataContext;
+
     private ICaptchaAnswerRepository? _captchaAnswerRepository;
     private ICaptchaQuestionRepository? _captchaQuestionRepository;
 
-    public ICaptchaAnswerRepository CaptchaAnswerRepository
-    {
-        get
-        {
-            if (_captchaAnswerRepository == default)
-            {
-                _captchaAnswerRepository = new CaptchaAnswerRepository(_dataContext);
-            }
+    private ISettingRepository? _settingRepository;
 
-            return _captchaAnswerRepository;
-        }
+
+    public DataAccess(DataContext dataContext)
+    {
+        _dataContext = dataContext;
     }
 
-    public ICaptchaQuestionRepository CaptchaQuestionRepository
-    {
-        get
-        {
-            if (_captchaQuestionRepository == default)
-            {
-                _captchaQuestionRepository = new CaptchaQuestionRepository(_dataContext);
-            }
 
-            return _captchaQuestionRepository;
-        }
-    }
+    public ICaptchaAnswerRepository CaptchaAnswerRepository => _captchaAnswerRepository ??= new CaptchaAnswerRepository(_dataContext);
+
+    public ICaptchaQuestionRepository CaptchaQuestionRepository => _captchaQuestionRepository ??= new CaptchaQuestionRepository(_dataContext);
+
+
+    public ISettingRepository SettingRepository => _settingRepository ??= new SettingRepository(_dataContext);
+
 
     public async Task<int> SaveAsync()
     {

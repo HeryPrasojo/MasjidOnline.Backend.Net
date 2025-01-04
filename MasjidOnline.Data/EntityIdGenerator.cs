@@ -11,8 +11,8 @@ public class EntityIdGenerator() : IEntityIdGenerator
         _captchaQuestionId = await dataAccess.CaptchaQuestionRepository.GetMaxIdAsync();
     }
 
-    private int _captchaQuestionId;
-    public int CaptchaQuestionId => Interlocked.Increment(ref _captchaQuestionId);
+    private long _captchaQuestionId;
+    public long CaptchaQuestionId => Interlocked.Increment(ref _captchaQuestionId);
 
 
 }

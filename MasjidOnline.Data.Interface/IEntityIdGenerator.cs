@@ -4,7 +4,7 @@ namespace MasjidOnline.Data.Interface;
 
 public interface IEntityIdGenerator
 {
-    int CaptchaQuestionId { get; }
+    long CaptchaQuestionId { get; }
 
     Task InitializeAsync(IDataAccess dataAccess);
 }

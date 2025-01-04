@@ -1,4 +1,5 @@
 using System;
+using MasjidOnline.Api.Model;
 using MasjidOnline.Api.Web;
 using MasjidOnline.Business.Captcha;
 using MasjidOnline.Business.Donation;
@@ -12,6 +13,19 @@ using Microsoft.Extensions.DependencyInjection;
 
 var webApplicationBuilder = WebApplication.CreateBuilder(args);
 
+webApplicationBuilder.Services.AddCors(corsOptions =>
+{
+    corsOptions.AddDefaultPolicy(corsPolicyBuilder =>
+    {
+        corsPolicyBuilder.WithOrigins("http://masjidonline.localhost")
+            .WithExposedHeaders(Constant.HttpHeaderName.ResultCode, Constant.HttpHeaderName.ResultMessage)
+            .AllowCredentials();
+    });
+});
+
+
+#region add dependency
+
 webApplicationBuilder.Services.AddCaptchaService();
 
 webApplicationBuilder.Services.AddHash512Service();
@@ -24,9 +38,30 @@ webApplicationBuilder.Services.AddDonationBusiness();
 
 webApplicationBuilder.Services.AddCaptchaBusiness();
 
+#endregion
+
 
 var webApplication = webApplicationBuilder.Build();
 
+
+#region initialize database
+
+using (var serviceScope = webApplication.Services.CreateScope())
+{
+    var dataAccessUpdate = serviceScope.ServiceProvider.GetService<IDataAccessUpdate>();
+
+    if (dataAccessUpdate == default)
+    {
+        throw new ApplicationException("Get IEntityIdGenerator service fail");
+    }
+
+    await dataAccessUpdate.InitializeDatabaseAsync();
+}
+
+#endregion
+
+
+#region initialize EntityIdGenerator
 
 var entityIdGenerator = webApplication.Services.GetService<IEntityIdGenerator>();
 
@@ -35,9 +70,9 @@ if (entityIdGenerator == default)
     throw new ApplicationException("Get IEntityIdGenerator service fail");
 }
 
-using (var scope = webApplication.Services.CreateScope())
+using (var serviceScope = webApplication.Services.CreateScope())
 {
-    var dataAccess = scope.ServiceProvider.GetService<IDataAccess>();
+    var dataAccess = serviceScope.ServiceProvider.GetService<IDataAccess>();
 
     if (dataAccess == default)
     {
@@ -47,8 +82,12 @@ using (var scope = webApplication.Services.CreateScope())
     await entityIdGenerator.InitializeAsync(dataAccess);
 }
 
+#endregion
+
 
 //webApplication.UseHttpsRedirection();
+
+webApplication.UseCors();
 
 webApplication.MapEndpoint();
 

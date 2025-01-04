@@ -11,19 +11,19 @@ internal static class CaptchaEndPoint
 {
     internal static async Task<IResult> CreateQuestionAsync(HttpContext httpContext, ICaptchaQuestionBusiness captchaQuestionBusiness)
     {
-        var anonymousSessionId = httpContext.Request.Cookies[Constant.AnonymousSessionIdName];
+        var anonymousSessionId = httpContext.Request.Cookies[Constant.HttpCookieSessionName.AnonymousId];
 
         var createResponse = await captchaQuestionBusiness.CreateAsync(anonymousSessionId);
 
-        httpContext.Response.Headers["Mo-Captcha-Result-Code"] = createResponse.ResultCode.ToString();
-        httpContext.Response.Headers["Mo-Captcha-Result-Message"] = createResponse.ResultMessage;
+        httpContext.Response.Headers[Constant.HttpHeaderName.ResultCode] = createResponse.ResultCode.ToString();
+        httpContext.Response.Headers[Constant.HttpHeaderName.ResultMessage] = createResponse.ResultMessage;
 
         if (createResponse.ResultCode != ResponseResult.Success) return default!;
 
 
         if (anonymousSessionId == default)
         {
-            httpContext.Response.Cookies.Append(Constant.AnonymousSessionIdName, createResponse.SessionId!);
+            httpContext.Response.Cookies.Append(Constant.HttpCookieSessionName.AnonymousId, createResponse.SessionId!);
         }
 
         return Results.Stream(createResponse.Stream!, "image/png");
