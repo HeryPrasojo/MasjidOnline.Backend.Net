@@ -5,6 +5,7 @@ using MasjidOnline.Data.Interface.Captcha;
 
 namespace MasjidOnline.Data.EntityFramework;
 
+// todo rename to CoreDataAccess
 public abstract class DataAccess : IDataAccess
 {
     protected readonly DataContext _dataContext;

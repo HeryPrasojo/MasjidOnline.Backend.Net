@@ -1,6 +1,6 @@
 using System;
 using MasjidOnline.Api.Model;
-using MasjidOnline.Api.Web;
+using MasjidOnline.Api.Web.WebApplicationExtension;
 using MasjidOnline.Business.Captcha;
 using MasjidOnline.Business.Donation;
 using MasjidOnline.Data;
@@ -85,10 +85,10 @@ using (var serviceScope = webApplication.Services.CreateScope())
 #endregion
 
 
-//webApplication.UseHttpsRedirection();
+webApplication.UseCustomExceptionHandler();
 
 webApplication.UseCors();
 
-webApplication.MapEndpoint();
+webApplication.MapEndpoints();
 
 webApplication.Run();

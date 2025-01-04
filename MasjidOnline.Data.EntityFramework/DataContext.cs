@@ -9,6 +9,7 @@ public abstract class DataContext(DbContextOptions _dbContextOptions) : DbContex
     {
         base.OnModelCreating(modelBuilder);
 
+        // todo move captcha to separate database
         modelBuilder.Entity<CaptchaAnswer>();
         modelBuilder.Entity<CaptchaQuestion>();
 

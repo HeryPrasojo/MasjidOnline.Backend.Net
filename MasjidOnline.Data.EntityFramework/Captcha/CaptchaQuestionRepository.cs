@@ -23,6 +23,18 @@ public class CaptchaQuestionRepository(DataContext _dataContext) : ICaptchaQuest
     }
 
 
+    public async Task<CaptchaQuestionForAnswer?> GetForAnswerAsync(string sessionId)
+    {
+        return await _dbSet.Where(e => e.SessionId == sessionId)
+            .OrderByDescending(e => e.Id)
+            .Select(e => new CaptchaQuestionForAnswer
+            {
+                Id = e.Id,
+                Degree = e.Degree,
+            })
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<CaptchaQuestionForCreate?> GetForCreateAsync(string sessionId)
     {
         return await _dbSet.Where(e => e.SessionId == sessionId)

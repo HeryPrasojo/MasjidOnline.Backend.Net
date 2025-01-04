@@ -1,11 +1,11 @@
 ﻿using MasjidOnline.Api.Web.RouteEndpoint;
 using Microsoft.AspNetCore.Builder;
 
-namespace MasjidOnline.Api.Web;
+namespace MasjidOnline.Api.Web.WebApplicationExtension;
 
-internal static class WebApplicationExtensions
+internal static class MoEndpointsExtensions
 {
-    internal static WebApplication MapEndpoint(this WebApplication webApplication)
+    internal static WebApplication MapEndpoints(this WebApplication webApplication)
     {
         var captchaGroup = webApplication.MapGroup("/captcha");
 

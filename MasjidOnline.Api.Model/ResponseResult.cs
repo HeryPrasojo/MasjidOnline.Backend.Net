@@ -2,7 +2,8 @@
 {
     Success = 0,
     InputInvalid = 1,
-    Error = 2,
+    InputNotMatch = 2,
+    Error = 3,
 
     CaptchaPassed = 11,
 }

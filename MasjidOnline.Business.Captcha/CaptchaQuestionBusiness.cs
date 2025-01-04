@@ -15,13 +15,6 @@ public class CaptchaQuestionBusiness(
     IEntityIdGenerator _entityIdGenerator,
     IHash512Service _hash512Service) : ICaptchaQuestionBusiness
 {
-    public async Task AnswerAsync(string anonymousSessionId, AnswerQuestionRequest answerQuestionRequest)
-    {
-        if (anonymousSessionId == default) return;
-
-        //_dataAccess
-    }
-
     // todo validate user session exists (captcha not needed)
     public async Task<CreateQuestionResponse> CreateAsync(string? anonymousSessionId)
     {

@@ -31,7 +31,7 @@ internal static class CaptchaEndPoint
 
     internal static async Task AnswerQuestionAsync(
         HttpContext httpContext,
-        ICaptchaQuestionBusiness captchaQuestionBusiness,
+         ICaptchaAnswerBusiness captchaAnswerBusiness,
         AnswerQuestionRequest answerQuestionRequest)
     {
         throw new NotImplementedException();

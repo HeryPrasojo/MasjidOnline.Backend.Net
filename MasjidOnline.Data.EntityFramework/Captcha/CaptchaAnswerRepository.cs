@@ -11,6 +11,18 @@ public class CaptchaAnswerRepository(DataContext _dataContext) : ICaptchaAnswerR
 {
     private readonly DbSet<CaptchaAnswer> _dbSet = _dataContext.Set<CaptchaAnswer>();
 
+    public async Task AddAsync(CaptchaAnswer captchaAnswer)
+    {
+        await _dbSet.AddAsync(captchaAnswer);
+    }
+
+
+    public async Task<int> GetMaxIdAsync()
+    {
+        return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
+    }
+
+
     public async Task<CaptchaAnswerForCreateQuestion?> GetForCreateQuestionAsync(long captchaQuestionId)
     {
         return await _dbSet.Where(e => e.CaptchaQuestionId == captchaQuestionId)

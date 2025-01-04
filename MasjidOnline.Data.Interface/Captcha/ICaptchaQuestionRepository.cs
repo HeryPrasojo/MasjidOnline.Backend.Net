@@ -7,6 +7,7 @@ namespace MasjidOnline.Data.Interface.Captcha;
 public interface ICaptchaQuestionRepository
 {
     Task AddAsync(CaptchaQuestion captchaQuestion);
+    Task<CaptchaQuestionForAnswer?> GetForAnswerAsync(string sessionId);
     Task<CaptchaQuestionForCreate?> GetForCreateAsync(string sessionId);
     Task<int> GetMaxIdAsync();
 }
