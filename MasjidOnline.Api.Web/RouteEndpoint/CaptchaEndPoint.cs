@@ -11,6 +11,7 @@ internal static class CaptchaEndPoint
 {
     internal static async Task<IResult> CreateQuestionAsync(HttpContext httpContext, ICaptchaQuestionBusiness captchaQuestionBusiness)
     {
+        throw new Exception("test");
         var anonymousSessionId = httpContext.Request.Cookies[Constant.HttpCookieSessionName.AnonymousId];
 
         var createResponse = await captchaQuestionBusiness.CreateAsync(anonymousSessionId);
@@ -31,9 +32,9 @@ internal static class CaptchaEndPoint
 
     internal static async Task AnswerQuestionAsync(
         HttpContext httpContext,
-         ICaptchaAnswerBusiness captchaAnswerBusiness,
+        ICaptchaAnswerBusiness captchaAnswerBusiness,
         AnswerQuestionRequest answerQuestionRequest)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 }

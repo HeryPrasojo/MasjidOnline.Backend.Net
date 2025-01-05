@@ -13,6 +13,6 @@ public abstract class CoreDataContext(DbContextOptions _dbContextOptions) : DbCo
         modelBuilder.Entity<CaptchaAnswer>();
         modelBuilder.Entity<CaptchaQuestion>();
 
-        modelBuilder.Entity<Setting>();
+        modelBuilder.Entity<CoreSetting>();
     }
 }

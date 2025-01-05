@@ -7,10 +7,10 @@ namespace MasjidOnline.Data.EntityFramework.Core;
 
 public class CoreSettingRepository(CoreDataContext _dataContext) : ICoreSettingRepository
 {
-    private readonly DbSet<Setting> _dbSet = _dataContext.Set<Setting>();
+    private readonly DbSet<CoreSetting> _dbSet = _dataContext.Set<CoreSetting>();
 
-    public async Task AddAsync(Setting setting)
+    public async Task AddAsync(CoreSetting coreSetting)
     {
-        await _dbSet.AddAsync(setting);
+        await _dbSet.AddAsync(coreSetting);
     }
 }

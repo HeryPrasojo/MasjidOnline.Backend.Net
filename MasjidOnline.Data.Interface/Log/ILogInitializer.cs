@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Data.Interface;
+﻿namespace MasjidOnline.Data.Interface.Log;
 
 public interface ILogInitializer : IInitializer
 {

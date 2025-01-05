@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace MasjidOnline.Data.Interface;
+namespace MasjidOnline.Data.Interface.Log;
 
 public interface ILogData
 {

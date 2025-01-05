@@ -2,7 +2,7 @@
 
 namespace MasjidOnline.Api.Model.Captcha;
 
-public class CreateQuestionResponse : ResponseBase
+public class CreateQuestionResponse : Response
 {
     public Stream? Stream { get; set; }
     public string? SessionId { get; set; }

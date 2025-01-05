@@ -1,8 +1,7 @@
 ﻿using System.Threading.Tasks;
-using MasjidOnline.Data.Interface.Core;
 using MasjidOnline.Data.Interface.Core.Captcha;
 
-namespace MasjidOnline.Data.Interface;
+namespace MasjidOnline.Data.Interface.Core;
 
 public interface ICoreData : IData
 {

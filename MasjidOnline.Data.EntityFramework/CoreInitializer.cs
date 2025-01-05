@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using MasjidOnline.Data.Interface;
+using MasjidOnline.Data.Interface.Core;
 using MasjidOnline.Entity.Core;
 
 namespace MasjidOnline.Data.EntityFramework;
@@ -16,7 +16,7 @@ public abstract class CoreInitializer(
         {
             await CreateTableCoreSettingAsync();
 
-            var setting = new Setting
+            var setting = new CoreSetting
             {
                 Key = CoreSettingKey.DatabaseVersion,
                 Value = "1",
@@ -33,7 +33,6 @@ public abstract class CoreInitializer(
         await SaveAsync();
     }
 
-    //protected abstract Task<bool> CheckTableExistsAsync(string name);
 
     protected abstract Task<int> CreateTableCaptchaQuestionAsync();
 

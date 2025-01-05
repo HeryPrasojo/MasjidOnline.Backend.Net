@@ -1,34 +1,40 @@
 ﻿using System.Threading.Tasks;
-using MasjidOnline.Data.Interface;
+using MasjidOnline.Data.Interface.Log;
+using MasjidOnline.Entity.Log;
 
 namespace MasjidOnline.Data.EntityFramework;
 
-public class LogInitializer(
-    LogDataContext _dataContext,
-    ILogDefinition _definition) : LogData(_dataContext), ILogInitializer
+public abstract class LogInitializer : LogData, ILogInitializer
 {
+    private readonly ILogDefinition _logDefinition;
+
+    public LogInitializer(
+        LogDataContext logDataContext,
+        ILogDefinition logDefinition) : base(logDataContext)
+    {
+        _logDefinition = logDefinition;
+    }
+
     public async Task InitializeDatabaseAsync()
     {
-        var settingTableExists = await _definition.CheckTableExistsAsync("LogSetting");
+        var settingTableExists = await _logDefinition.CheckTableExistsAsync("LogSetting");
 
         if (!settingTableExists)
         {
-            //await CreateTableCoreSettingAsync();
+            await CreateTableLogSettingAsync();
 
-            //var setting = new Setting
-            //{
-            //    Key = CoreSettingKey.DatabaseVersion,
-            //    Value = "1",
-            //};
+            var setting = new LogSetting
+            {
+                Key = LogSettingKey.DatabaseVersion,
+                Value = "1",
+            };
 
-            //await CoreSetting.AddAsync(setting);
-
-
-            //await CreateTableCaptchaQuestionAsync();
-
-            //await CreateTableCaptchaAnswerAsync();
+            await LogSetting.AddAsync(setting);
         }
 
         await SaveAsync();
     }
+
+
+    protected abstract Task<int> CreateTableLogSettingAsync();
 }

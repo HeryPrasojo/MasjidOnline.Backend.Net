@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using MasjidOnline.Data.Interface;
+using MasjidOnline.Data.Interface.Log;
 using Microsoft.EntityFrameworkCore;
 
-namespace MasjidOnline.Data.EntityFramework.SqLite;
+namespace MasjidOnline.Data.EntityFramework.SqLite.Log;
 
-public class SqLiteCoreDefinition(CoreDataContext _dataContext) : Definition, ICoreDefinition
+public class SqLiteLogDefinition(LogDataContext _dataContext) : Definition, ILogDefinition
 {
     public override async Task<bool> CheckTableExistsAsync(string name)
     {

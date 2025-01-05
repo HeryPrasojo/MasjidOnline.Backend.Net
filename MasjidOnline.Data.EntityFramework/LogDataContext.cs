@@ -1,18 +1,14 @@
-﻿using MasjidOnline.Entity.Core;
+﻿using MasjidOnline.Entity.Log;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework;
 
-public class LogDataContext(DbContextOptions _dbContextOptions) : DbContext(_dbContextOptions)
+public abstract class LogDataContext(DbContextOptions _dbContextOptions) : DbContext(_dbContextOptions)
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        // todo move captcha to separate database
-        modelBuilder.Entity<CaptchaAnswer>();
-        modelBuilder.Entity<CaptchaQuestion>();
-
-        modelBuilder.Entity<Setting>();
+        modelBuilder.Entity<LogSetting>();
     }
 }

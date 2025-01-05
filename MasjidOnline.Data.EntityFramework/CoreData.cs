@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.Core;
 using MasjidOnline.Data.EntityFramework.Core.Captcha;
-using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Core;
 using MasjidOnline.Data.Interface.Core.Captcha;
 

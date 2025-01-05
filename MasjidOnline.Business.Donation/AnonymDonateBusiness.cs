@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using MasjidOnline.Api.Model.Donation;
 using MasjidOnline.Business.Donation.Interface;
-using MasjidOnline.Data.Interface;
+using MasjidOnline.Data.Interface.Core;
 
 namespace MasjidOnline.Business.Donation;
 

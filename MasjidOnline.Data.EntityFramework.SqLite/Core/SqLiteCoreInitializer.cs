@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using MasjidOnline.Data.Interface;
+using MasjidOnline.Data.Interface.Core;
 using Microsoft.EntityFrameworkCore;
 
-namespace MasjidOnline.Data.EntityFramework.SqLite;
+namespace MasjidOnline.Data.EntityFramework.SqLite.Core;
 
 public class SqLiteCoreInitializer(
     CoreDataContext _dataContext,

@@ -5,5 +5,5 @@ namespace MasjidOnline.Data.Interface.Core;
 
 public interface ICoreSettingRepository
 {
-    Task AddAsync(Setting setting);
+    Task AddAsync(CoreSetting setting);
 }

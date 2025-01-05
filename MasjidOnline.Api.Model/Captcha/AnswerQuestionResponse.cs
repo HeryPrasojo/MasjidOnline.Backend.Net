@@ -1,5 +1,5 @@
 ﻿namespace MasjidOnline.Api.Model.Captcha;
 
-public class AnswerQuestionResponse : ResponseBase
+public class AnswerQuestionResponse : Response
 {
 }

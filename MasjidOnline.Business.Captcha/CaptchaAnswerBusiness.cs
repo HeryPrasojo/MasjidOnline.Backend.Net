@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MasjidOnline.Api.Model.Captcha;
 using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Data.Interface.Core;
 using MasjidOnline.Entity.Core;
 
 namespace MasjidOnline.Business.Captcha;
@@ -57,7 +58,8 @@ public class CaptchaAnswerBusiness(
             };
         }
 
-
+        // todo
+        throw new Exception("todo");
         //_dataAccess
     }
 }

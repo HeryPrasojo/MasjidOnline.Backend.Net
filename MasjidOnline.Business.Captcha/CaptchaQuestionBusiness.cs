@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MasjidOnline.Api.Model.Captcha;
 using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Data.Interface.Core;
 using MasjidOnline.Entity.Core;
 using MasjidOnline.Service.Captcha.Interface;
 using MasjidOnline.Service.Hash512.Interface;
@@ -38,13 +39,10 @@ public class CaptchaQuestionBusiness(
                     };
                 }
 
-                if (captchaAnswer.IsMatch)
+                if (captchaAnswer.IsMatch) return new()
                 {
-                    return new()
-                    {
-                        ResultCode = ResponseResult.CaptchaPassed,
-                    };
-                }
+                    ResultCode = ResponseResult.CaptchaPassed,
+                };
             }
         }
 
@@ -69,11 +67,7 @@ public class CaptchaQuestionBusiness(
 
         var changed = await _coreData.SaveAsync();
 
-        if (changed != 1) return new()
-        {
-            ResultCode = ResponseResult.Error,
-            ResultMessage = "Data save failed",
-        };
+        if (changed != 1) return new() { ResultCode = ResponseResult.Error, ResultMessage = "Data save failed", };
 
         return new()
         {

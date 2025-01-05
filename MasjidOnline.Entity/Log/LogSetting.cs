@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MasjidOnline.Entity.Core;
+namespace MasjidOnline.Entity.Log;
 
-public class CoreSetting
+public class LogSetting
 {
     [Key]
     public required string Key { get; set; }

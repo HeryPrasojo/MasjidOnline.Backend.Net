@@ -1,17 +1,23 @@
 using System;
 using MasjidOnline.Api.Model;
+using MasjidOnline.Api.Web;
 using MasjidOnline.Api.Web.WebApplicationExtension;
 using MasjidOnline.Business.Captcha;
 using MasjidOnline.Business.Donation;
 using MasjidOnline.Data;
 using MasjidOnline.Data.EntityFramework.SqLite;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Data.Interface.Core;
+using MasjidOnline.Data.Interface.Log;
 using MasjidOnline.Service.Captcha;
 using MasjidOnline.Service.Hash512;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 var webApplicationBuilder = WebApplication.CreateBuilder(args);
+
+webApplicationBuilder.Configuration.AddJsonFile("appsettings.Local.json", true);
 
 webApplicationBuilder.Services.AddCors(corsOptions =>
 {
@@ -30,7 +36,7 @@ webApplicationBuilder.Services.AddCaptchaService();
 
 webApplicationBuilder.Services.AddHash512Service();
 
-webApplicationBuilder.Services.AddSqLiteEntityFrameworkDataAccess(webApplicationBuilder.Configuration);
+webApplicationBuilder.Services.AddSqLiteEntityFrameworkData(webApplicationBuilder.Configuration);
 
 webApplicationBuilder.Services.AddEntityIdGenerator();
 
@@ -58,7 +64,7 @@ using (var serviceScope = webApplication.Services.CreateScope())
     {
         if (definition == default)
         {
-            throw new ApplicationException($"Get {nameof(ICoreInitializer)} service fail");
+            throw new ApplicationException($"Get {definition} service fail");
         }
 
         await definition.InitializeDatabaseAsync();
@@ -92,7 +98,7 @@ using (var serviceScope = webApplication.Services.CreateScope())
 #endregion
 
 
-webApplication.UseCustomExceptionHandler();
+webApplication.UseMiddleware<ExceptionHandlerMiddleware>();
 
 webApplication.UseCors();
 
