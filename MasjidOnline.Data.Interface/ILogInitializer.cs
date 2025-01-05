@@ -1,5 +1,5 @@
 ﻿namespace MasjidOnline.Data.Interface;
 
-public interface ILogDefinition : IDefinition
+public interface ILogInitializer : IInitializer
 {
 }

@@ -3,7 +3,7 @@ using MasjidOnline.Data.Interface;
 
 namespace MasjidOnline.Data.EntityFramework;
 
-public class LogData(DataContext _dataContext) : ILogData
+public class LogData(LogDataContext _dataContext) : ILogData
 {
 
     public async Task<int> SaveAsync()

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite;
 
-public class SqLiteCoreDefinition(CoreDataContext _dataContext) : Definition, ICoreDefinition
+public class SqLiteLogDefinition(LogDataContext _dataContext) : Definition, ILogDefinition
 {
     public override async Task<bool> CheckTableExistsAsync(string name)
     {

@@ -4,23 +4,25 @@ using MasjidOnline.Entity.Core;
 
 namespace MasjidOnline.Data.EntityFramework;
 
-public abstract class CoreDefinition(DataContext _dataContext) : CoreData(_dataContext), ICoreDefinition
+public abstract class CoreInitializer(
+    CoreDataContext _dataContext,
+    ICoreDefinition _coreDefinition) : CoreData(_dataContext), ICoreInitializer
 {
     public async Task InitializeDatabaseAsync()
     {
-        var settingTableExists = await CheckTableExistsAsync("Setting");
+        var settingTableExists = await _coreDefinition.CheckTableExistsAsync("CoreSetting");
 
         if (!settingTableExists)
         {
-            await CreateTableSettingAsync();
+            await CreateTableCoreSettingAsync();
 
             var setting = new Setting
             {
-                Key = SettingKey.DatabaseVersion,
+                Key = CoreSettingKey.DatabaseVersion,
                 Value = "1",
             };
 
-            await Setting.AddAsync(setting);
+            await CoreSetting.AddAsync(setting);
 
 
             await CreateTableCaptchaQuestionAsync();
@@ -31,11 +33,11 @@ public abstract class CoreDefinition(DataContext _dataContext) : CoreData(_dataC
         await SaveAsync();
     }
 
-    protected abstract Task<bool> CheckTableExistsAsync(string name);
+    //protected abstract Task<bool> CheckTableExistsAsync(string name);
 
     protected abstract Task<int> CreateTableCaptchaQuestionAsync();
 
     protected abstract Task<int> CreateTableCaptchaAnswerAsync();
 
-    protected abstract Task<int> CreateTableSettingAsync();
+    protected abstract Task<int> CreateTableCoreSettingAsync();
 }

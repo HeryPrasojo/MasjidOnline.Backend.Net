@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Core;
 
-public class SettingRepository(DataContext _dataContext) : ISettingRepository
+public class CoreSettingRepository(CoreDataContext _dataContext) : ICoreSettingRepository
 {
     private readonly DbSet<Setting> _dbSet = _dataContext.Set<Setting>();
 

@@ -1,5 +1,5 @@
 ﻿namespace MasjidOnline.Data.EntityFramework.SqLite;
 
-public class SqLiteCoreData(DataContext _dataContext) : CoreData(_dataContext)
+public class SqLiteCoreData(CoreDataContext _coreDataContext) : CoreData(_coreDataContext)
 {
 }

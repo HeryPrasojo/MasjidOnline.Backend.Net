@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Core.Captcha;
 
-public class CaptchaQuestionRepository(DataContext _dataContext) : ICaptchaQuestionRepository
+public class CaptchaQuestionRepository(CoreDataContext _dataContext) : ICaptchaQuestionRepository
 {
     private readonly DbSet<CaptchaQuestion> _dbSet = _dataContext.Set<CaptchaQuestion>();
 

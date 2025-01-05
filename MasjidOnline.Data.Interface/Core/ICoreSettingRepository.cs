@@ -3,7 +3,7 @@ using MasjidOnline.Entity.Core;
 
 namespace MasjidOnline.Data.Interface.Core;
 
-public interface ISettingRepository
+public interface ICoreSettingRepository
 {
     Task AddAsync(Setting setting);
 }

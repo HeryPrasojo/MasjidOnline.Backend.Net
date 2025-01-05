@@ -1,8 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿namespace MasjidOnline.Data.Interface;
 
-namespace MasjidOnline.Data.Interface;
-
-public interface ICoreDefinition
+public interface ICoreDefinition : IDefinition
 {
-    Task InitializeDatabaseAsync();
 }

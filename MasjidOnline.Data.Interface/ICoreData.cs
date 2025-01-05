@@ -4,12 +4,12 @@ using MasjidOnline.Data.Interface.Core.Captcha;
 
 namespace MasjidOnline.Data.Interface;
 
-public interface ICoreData
+public interface ICoreData : IData
 {
     ICaptchaQuestionRepository CaptchaQuestion { get; }
     ICaptchaAnswerRepository CaptchaAnswer { get; }
 
-    ISettingRepository Setting { get; }
+    ICoreSettingRepository CoreSetting { get; }
 
     Task<int> SaveAsync();
 }

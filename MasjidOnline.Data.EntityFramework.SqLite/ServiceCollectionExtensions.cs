@@ -9,7 +9,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddSqLiteEntityFrameworkDataAccess(this IServiceCollection services, IConfigurationManager configurationManager)
     {
-        services.AddDbContextPool<DataContext, SqLiteDataContext>(b =>
+        services.AddDbContextPool<CoreDataContext, SqLiteCoreDataContext>(b =>
             {
                 var connectionString = configurationManager.GetConnectionString("ConnectionString");
 
@@ -19,7 +19,7 @@ public static class ServiceCollectionExtensions
             poolSize: 2);
 
         services.AddScoped<ICoreData, SqLiteCoreData>();
-        services.AddScoped<ICoreDefinition, SqLiteCoreDefinition>();
+        services.AddScoped<ICoreInitializer, SqLiteCoreInitializer>();
 
         return services;
     }

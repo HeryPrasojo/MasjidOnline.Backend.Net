@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework;
 
-public abstract class DataContext(DbContextOptions _dbContextOptions) : DbContext(_dbContextOptions)
+public abstract class CoreDataContext(DbContextOptions _dbContextOptions) : DbContext(_dbContextOptions)
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -15,9 +15,4 @@ public abstract class DataContext(DbContextOptions _dbContextOptions) : DbContex
 
         modelBuilder.Entity<Setting>();
     }
-
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //{
-    //    optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=SchoolDb;Trusted_Connection=True;");
-    //}
 }

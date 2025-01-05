@@ -9,15 +9,15 @@ namespace MasjidOnline.Data.EntityFramework;
 
 public abstract class CoreData : ICoreData
 {
-    protected readonly DataContext _dataContext;
+    protected readonly CoreDataContext _dataContext;
 
     private ICaptchaAnswerRepository? _captchaAnswerRepository;
     private ICaptchaQuestionRepository? _captchaQuestionRepository;
 
-    private ISettingRepository? _settingRepository;
+    private ICoreSettingRepository? _coreSettingRepository;
 
 
-    public CoreData(DataContext dataContext)
+    public CoreData(CoreDataContext dataContext)
     {
         _dataContext = dataContext;
     }
@@ -28,7 +28,7 @@ public abstract class CoreData : ICoreData
     public ICaptchaQuestionRepository CaptchaQuestion => _captchaQuestionRepository ??= new CaptchaQuestionRepository(_dataContext);
 
 
-    public ISettingRepository Setting => _settingRepository ??= new SettingRepository(_dataContext);
+    public ICoreSettingRepository CoreSetting => _coreSettingRepository ??= new CoreSettingRepository(_dataContext);
 
 
     public async Task<int> SaveAsync()

@@ -48,14 +48,21 @@ var webApplication = webApplicationBuilder.Build();
 
 using (var serviceScope = webApplication.Services.CreateScope())
 {
-    var coreDefinition = serviceScope.ServiceProvider.GetService<ICoreDefinition>();
-
-    if (coreDefinition == default)
+    var definitions = new IInitializer?[]
     {
-        throw new ApplicationException($"Get {nameof(ICoreDefinition)} service fail");
-    }
+        serviceScope.ServiceProvider.GetService<ICoreInitializer>(),
+        serviceScope.ServiceProvider.GetService<ILogInitializer>(),
+    };
 
-    await coreDefinition.InitializeDatabaseAsync();
+    foreach (var definition in definitions)
+    {
+        if (definition == default)
+        {
+            throw new ApplicationException($"Get {nameof(ICoreInitializer)} service fail");
+        }
+
+        await definition.InitializeDatabaseAsync();
+    }
 }
 
 #endregion
