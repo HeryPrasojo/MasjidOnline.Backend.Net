@@ -1,5 +1,7 @@
-﻿namespace MasjidOnline.Data.EntityFramework;
+﻿using MasjidOnline.Data.Interface;
 
-public class LogDefinition
+namespace MasjidOnline.Data.EntityFramework;
+
+public class LogDefinition(DataContext _dataContext) : LogData(_dataContext), ILogDefinition
 {
 }
