@@ -76,7 +76,7 @@ using (var serviceScope = webApplication.Services.CreateScope())
 
 #region initialize EntityIdGenerator
 
-var entityIdGenerator = webApplication.Services.GetService<IEntityIdGenerator>();
+var entityIdGenerator = webApplication.Services.GetService<ICoreEntityIdGenerator>();
 
 if (entityIdGenerator == default)
 {

@@ -1,9 +1,13 @@
-﻿public enum ResponseResult
+﻿namespace MasjidOnline.Api.Model
 {
-    Success = 0,
-    InputInvalid = 1,
-    InputNotMatch = 2,
-    Error = 3,
+    public enum ResponseResult
+    {
+        Success = 0,
+        Error = 9,
+        InputInvalid = 11,
+        InputMismatch = 21,
+        DataMismatch = 22,
 
-    CaptchaPassed = 11,
+        CaptchaPassed = 111,
+    }
 }

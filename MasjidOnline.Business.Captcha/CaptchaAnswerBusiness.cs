@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using MasjidOnline.Api.Model;
 using MasjidOnline.Api.Model.Captcha;
 using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Data.Interface;
@@ -10,7 +11,7 @@ namespace MasjidOnline.Business.Captcha;
 
 public class CaptchaAnswerBusiness(
     ICoreData _coreData,
-    IEntityIdGenerator _entityIdGenerator) : ICaptchaAnswerBusiness
+    ICoreEntityIdGenerator _entityIdGenerator) : ICaptchaAnswerBusiness
 {
     public async Task<AnswerQuestionResponse> AnswerAsync(string anonymousSessionId, AnswerQuestionRequest answerQuestionRequest)
     {
@@ -31,7 +32,7 @@ public class CaptchaAnswerBusiness(
 
         if (captchaQuestion == default) return new()
         {
-            ResultCode = ResponseResult.InputNotMatch,
+            ResultCode = ResponseResult.InputMismatch,
             ResultMessage = $"{nameof(anonymousSessionId)}: {anonymousSessionId}",
         };
 
@@ -53,7 +54,7 @@ public class CaptchaAnswerBusiness(
         {
             return new()
             {
-                ResultCode = ResponseResult.InputNotMatch,
+                ResultCode = ResponseResult.InputMismatch,
                 ResultMessage = $"{nameof(answerQuestionRequest.Degree)}: {answerQuestionRequest.Degree}",
             };
         }

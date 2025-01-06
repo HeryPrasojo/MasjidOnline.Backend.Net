@@ -6,32 +6,23 @@ using MasjidOnline.Data.Interface.Core.Captcha;
 
 namespace MasjidOnline.Data.EntityFramework;
 
-public abstract class CoreData : ICoreData
+public abstract class CoreData(CoreDataContext _coreDataContext) : ICoreData
 {
-    protected readonly CoreDataContext _dataContext;
-
     private ICaptchaAnswerRepository? _captchaAnswerRepository;
     private ICaptchaQuestionRepository? _captchaQuestionRepository;
 
     private ICoreSettingRepository? _coreSettingRepository;
 
+    public ICaptchaAnswerRepository CaptchaAnswer => _captchaAnswerRepository ??= new CaptchaAnswerRepository(_coreDataContext);
 
-    public CoreData(CoreDataContext dataContext)
-    {
-        _dataContext = dataContext;
-    }
+    public ICaptchaQuestionRepository CaptchaQuestion => _captchaQuestionRepository ??= new CaptchaQuestionRepository(_coreDataContext);
 
 
-    public ICaptchaAnswerRepository CaptchaAnswer => _captchaAnswerRepository ??= new CaptchaAnswerRepository(_dataContext);
-
-    public ICaptchaQuestionRepository CaptchaQuestion => _captchaQuestionRepository ??= new CaptchaQuestionRepository(_dataContext);
-
-
-    public ICoreSettingRepository CoreSetting => _coreSettingRepository ??= new CoreSettingRepository(_dataContext);
+    public ICoreSettingRepository CoreSetting => _coreSettingRepository ??= new CoreSettingRepository(_coreDataContext);
 
 
     public async Task<int> SaveAsync()
     {
-        return await _dataContext.SaveChangesAsync();
+        return await _coreDataContext.SaveChangesAsync();
     }
 }

@@ -7,7 +7,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddEntityIdGenerator(this IServiceCollection services)
     {
-        services.AddSingleton<IEntityIdGenerator, EntityIdGenerator>();
+        services.AddSingleton<ICoreEntityIdGenerator, CoreEntityIdGenerator>();
 
         return services;
     }

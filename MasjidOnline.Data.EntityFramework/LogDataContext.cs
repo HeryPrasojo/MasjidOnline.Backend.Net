@@ -9,6 +9,8 @@ public abstract class LogDataContext(DbContextOptions _dbContextOptions) : DbCon
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<ErrorException>();
+
         modelBuilder.Entity<LogSetting>();
     }
 }

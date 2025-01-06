@@ -5,15 +5,15 @@ using MasjidOnline.Data.Interface.Core;
 
 namespace MasjidOnline.Data;
 
-public class EntityIdGenerator() : IEntityIdGenerator
+public class CoreEntityIdGenerator() : ICoreEntityIdGenerator
 {
     private long _captchaAnswerId;
     private long _captchaQuestionId;
 
-    public async Task InitializeAsync(ICoreData dataAccess)
+    public async Task InitializeAsync(ICoreData coreData)
     {
-        _captchaAnswerId = await dataAccess.CaptchaAnswer.GetMaxIdAsync();
-        _captchaQuestionId = await dataAccess.CaptchaQuestion.GetMaxIdAsync();
+        _captchaAnswerId = await coreData.CaptchaAnswer.GetMaxIdAsync();
+        _captchaQuestionId = await coreData.CaptchaQuestion.GetMaxIdAsync();
     }
 
     public long CaptchaAnswerId => Interlocked.Increment(ref _captchaAnswerId);

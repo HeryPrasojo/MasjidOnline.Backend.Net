@@ -3,10 +3,10 @@ using MasjidOnline.Data.Interface.Core;
 
 namespace MasjidOnline.Data.Interface;
 
-public interface IEntityIdGenerator
+public interface ICoreEntityIdGenerator
 {
     long CaptchaQuestionId { get; }
     long CaptchaAnswerId { get; }
 
-    Task InitializeAsync(ICoreData dataAccess);
+    Task InitializeAsync(ICoreData coreData);
 }

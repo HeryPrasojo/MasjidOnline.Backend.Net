@@ -30,11 +30,15 @@ public abstract class LogInitializer : LogData, ILogInitializer
             };
 
             await LogSetting.AddAsync(setting);
+
+
+            await CreateTableErrorExceptionAsync();
         }
 
         await SaveAsync();
     }
 
+    protected abstract Task CreateTableErrorExceptionAsync();
 
     protected abstract Task<int> CreateTableLogSettingAsync();
 }

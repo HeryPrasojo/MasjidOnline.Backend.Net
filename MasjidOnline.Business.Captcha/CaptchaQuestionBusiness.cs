@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using MasjidOnline.Api.Model;
 using MasjidOnline.Api.Model.Captcha;
 using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Data.Interface;
@@ -13,7 +14,7 @@ namespace MasjidOnline.Business.Captcha;
 public class CaptchaQuestionBusiness(
     ICaptchaService _captchaService,
     ICoreData _coreData,
-    IEntityIdGenerator _entityIdGenerator,
+    ICoreEntityIdGenerator _entityIdGenerator,
     IHash512Service _hash512Service) : ICaptchaQuestionBusiness
 {
     // todo validate user session exists (captcha not needed)

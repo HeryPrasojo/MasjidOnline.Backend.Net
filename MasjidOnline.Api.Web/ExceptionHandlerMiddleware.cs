@@ -2,21 +2,16 @@
 using System.Text.Json;
 using System.Threading.Tasks;
 using MasjidOnline.Api.Model;
+using MasjidOnline.Api.Model.Exception;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Log;
 using Microsoft.AspNetCore.Http;
 
 namespace MasjidOnline.Api.Web;
 
-public class ExceptionHandlerMiddleware
+public class ExceptionHandlerMiddleware(RequestDelegate _nextRequestDelegate)
 {
-    private readonly RequestDelegate _nextRequestDelegate;
-
-    public ExceptionHandlerMiddleware(RequestDelegate nextRequestDelegate)
-    {
-        _nextRequestDelegate = nextRequestDelegate;
-    }
-
-    public async Task Invoke(HttpContext httpContext, ILogData logData)
+    public async Task Invoke(HttpContext httpContext, ILogData logData, ILogEntityIdGenerator logEntityIdGenerator)
     {
         try
         {
@@ -24,11 +19,11 @@ public class ExceptionHandlerMiddleware
         }
         catch (Exception exception)
         {
-            await HandleExceptionAsync(httpContext, exception, logData);
+            await HandleExceptionAsync(httpContext, exception, logData, logEntityIdGenerator);
         }
     }
 
-    private Task HandleExceptionAsync(HttpContext httpContext, Exception exception, ILogData logData)
+    private static async Task HandleExceptionAsync(HttpContext httpContext, Exception exception, ILogData logData, ILogEntityIdGenerator logEntityIdGenerator)
     {
         httpContext.Response.ContentType = "application/json";
 
@@ -38,10 +33,27 @@ public class ExceptionHandlerMiddleware
             ResultMessage = exception.Message,
         };
 
+        if (exception is InputInvalidException) response.ResultCode = ResponseResult.InputInvalid;
+        else if (exception is InputMismatchException) response.ResultCode = ResponseResult.InputMismatch;
+        else if (exception is DataMismatchException) response.ResultCode = ResponseResult.DataMismatch;
+
+
         var responseString = JsonSerializer.Serialize(response, options: JsonSerializerOptions.Web);
 
-        httpContext.Response.WriteAsync(responseString);
+        await httpContext.Response.WriteAsync(responseString);
 
-        return Task.CompletedTask;
+
+        if (response.ResultCode == ResponseResult.Error)
+        {
+            var errorExceptionEntity = new Entity.Log.ErrorException
+            {
+                Id = logEntityIdGenerator.ErrorExceptionId,
+                CreateDateTime = DateTime.UtcNow,
+            };
+
+            await logData.ErrorException.AddAsync(errorExceptionEntity);
+
+            await logData.SaveAsync();
+        }
     }
 }
