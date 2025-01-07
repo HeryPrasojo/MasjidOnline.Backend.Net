@@ -1,16 +1,14 @@
 ﻿using System.Threading.Tasks;
-using MasjidOnline.Data.Interface.Core;
-using MasjidOnline.Entity.Core;
 using Microsoft.EntityFrameworkCore;
 
-namespace MasjidOnline.Data.EntityFramework.Core;
+namespace MasjidOnline.Data.EntityFramework.Captcha;
 
-public class CoreSettingRepository(CoreDataContext _dataContext) : ICoreSettingRepository
+public class CaptchaSettingRepository(CaptchaDataContext _dataContext) : ICaptchaSettingRepository
 {
-    private readonly DbSet<CoreSetting> _dbSet = _dataContext.Set<CoreSetting>();
+    private readonly DbSet<CaptchaSetting> _dbSet = _dataContext.Set<CaptchaSetting>();
 
-    public async Task AddAsync(CoreSetting coreSetting)
+    public async Task AddAsync(CaptchaSetting captchaSetting)
     {
-        await _dbSet.AddAsync(coreSetting);
+        await _dbSet.AddAsync(captchaSetting);
     }
 }
