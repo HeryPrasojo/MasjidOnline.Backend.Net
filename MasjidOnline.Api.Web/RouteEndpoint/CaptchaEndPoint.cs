@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MasjidOnline.Api.Model;
 using MasjidOnline.Api.Model.Captcha;
 using MasjidOnline.Business.Captcha.Interface;
@@ -11,10 +10,9 @@ internal static class CaptchaEndPoint
 {
     internal static async Task<IResult> CreateQuestionAsync(HttpContext httpContext, ICaptchaQuestionBusiness captchaQuestionBusiness)
     {
-        throw new Exception("test");
-        var anonymousSessionId = httpContext.Request.Cookies[Constant.HttpCookieSessionName.AnonymousId];
+        var sessionId = httpContext.Request.Cookies[Constant.HttpCookieSessionName];
 
-        var createResponse = await captchaQuestionBusiness.CreateAsync(anonymousSessionId);
+        var createResponse = await captchaQuestionBusiness.CreateAsync(sessionId);
 
         httpContext.Response.Headers[Constant.HttpHeaderName.ResultCode] = createResponse.ResultCode.ToString();
         httpContext.Response.Headers[Constant.HttpHeaderName.ResultMessage] = createResponse.ResultMessage;
@@ -22,9 +20,9 @@ internal static class CaptchaEndPoint
         if (createResponse.ResultCode != ResponseResult.Success) return default!;
 
 
-        if (anonymousSessionId == default)
+        if (sessionId == default)
         {
-            httpContext.Response.Cookies.Append(Constant.HttpCookieSessionName.AnonymousId, createResponse.SessionId!);
+            httpContext.Response.Cookies.Append(Constant.HttpCookieSessionName, createResponse.SessionId!);
         }
 
         return Results.Stream(createResponse.Stream!, "image/png");

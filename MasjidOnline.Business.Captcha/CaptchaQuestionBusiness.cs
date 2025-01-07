@@ -18,11 +18,11 @@ public class CaptchaQuestionBusiness(
     IHash512Service _hash512Service) : ICaptchaQuestionBusiness
 {
     // todo validate user session exists (captcha not needed)
-    public async Task<CreateQuestionResponse> CreateAsync(string? anonymousSessionId)
+    public async Task<CreateQuestionResponse> CreateAsync(string? sessionId)
     {
-        if (anonymousSessionId != default)
+        if (sessionId != default)
         {
-            var existingCaptchaQuestion = await _coreData.CaptchaQuestion.GetForCreateAsync(anonymousSessionId);
+            var existingCaptchaQuestion = await _coreData.CaptchaQuestion.GetForCreateAsync(sessionId);
 
             if (existingCaptchaQuestion != default)
             {
@@ -35,7 +35,7 @@ public class CaptchaQuestionBusiness(
                     return new()
                     {
                         ResultCode = ResponseResult.Success,
-                        SessionId = anonymousSessionId,
+                        SessionId = sessionId,
                         Stream = existingGenerateImageResponse.Stream,
                     };
                 }
@@ -48,9 +48,9 @@ public class CaptchaQuestionBusiness(
         }
 
 
-        if (anonymousSessionId == default)
+        if (sessionId == default)
         {
-            anonymousSessionId = _hash512Service.HashRandom();
+            sessionId = _hash512Service.HashRandom();
         }
 
         var generateImageResponse = _captchaService.GenerateRandomImage();
@@ -61,7 +61,7 @@ public class CaptchaQuestionBusiness(
             Id = _entityIdGenerator.CaptchaQuestionId,
             CreateDateTime = DateTime.UtcNow,
             Degree = generateImageResponse.Degree,
-            SessionId = anonymousSessionId,
+            SessionId = sessionId,
         };
 
         await _coreData.CaptchaQuestion.AddAsync(newCaptchaQuestion);
@@ -73,7 +73,7 @@ public class CaptchaQuestionBusiness(
         return new()
         {
             ResultCode = ResponseResult.Success,
-            SessionId = anonymousSessionId,
+            SessionId = sessionId,
             Stream = generateImageResponse.Stream,
         };
     }

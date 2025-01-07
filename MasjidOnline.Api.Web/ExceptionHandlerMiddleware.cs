@@ -40,7 +40,7 @@ public class ExceptionHandlerMiddleware(RequestDelegate _nextRequestDelegate)
 
         var responseString = JsonSerializer.Serialize(response, options: JsonSerializerOptions.Web);
 
-        await httpContext.Response.WriteAsync(responseString);
+        var responseWriteTask = httpContext.Response.WriteAsync(responseString);
 
 
         if (response.ResultCode == ResponseResult.Error)
@@ -55,5 +55,8 @@ public class ExceptionHandlerMiddleware(RequestDelegate _nextRequestDelegate)
 
             await logData.SaveAsync();
         }
+
+
+        responseWriteTask.Wait();
     }
 }
