@@ -7,6 +7,7 @@ using MasjidOnline.Business.Donation;
 using MasjidOnline.Data;
 using MasjidOnline.Data.EntityFramework.SqLite;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Data.Interface.Captcha;
 using MasjidOnline.Data.Interface.Core;
 using MasjidOnline.Data.Interface.Log;
 using MasjidOnline.Service.Captcha;
@@ -56,7 +57,7 @@ using (var serviceScope = webApplication.Services.CreateScope())
 {
     var definitions = new IInitializer?[]
     {
-        serviceScope.ServiceProvider.GetService<ICoreInitializer>(),
+        serviceScope.ServiceProvider.GetService<ICaptchaInitializer>(),
         serviceScope.ServiceProvider.GetService<ILogInitializer>(),
     };
 

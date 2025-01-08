@@ -9,10 +9,6 @@ public abstract class CoreDataContext(DbContextOptions _dbContextOptions) : DbCo
     {
         base.OnModelCreating(modelBuilder);
 
-        // todo move captcha to separate database
-        modelBuilder.Entity<CaptchaAnswer>();
-        modelBuilder.Entity<CaptchaQuestion>();
-
         modelBuilder.Entity<CoreSetting>();
     }
 }

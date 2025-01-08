@@ -1,4 +1,6 @@
 ﻿using System.Threading.Tasks;
+using MasjidOnline.Data.Interface.Captcha;
+using MasjidOnline.Entity.Captcha;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Captcha;

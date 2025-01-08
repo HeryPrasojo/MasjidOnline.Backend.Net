@@ -20,33 +20,4 @@ public class SqLiteCoreInitializer(
 
         return await _dataContext.Database.ExecuteSqlAsync(sql);
     }
-
-    protected override async Task<int> CreateTableCaptchaQuestionAsync()
-    {
-        FormattableString sql = @$"
-            CREATE TABLE CaptchaQuestion
-            (
-                Id INTEGER PRIMARY KEY,
-                SessionId TEXT NOT NULL,
-                Degree REAL NOT NULL,
-                CreateDateTime TEXT NOT NULL
-            )";
-
-        return await _dataContext.Database.ExecuteSqlAsync(sql);
-    }
-
-    protected override async Task<int> CreateTableCaptchaAnswerAsync()
-    {
-        FormattableString sql = @$"
-            CREATE TABLE CaptchaAnswer
-            (
-                Id INTEGER PRIMARY KEY,
-                CaptchaQuestionId TEXT NOT NULL,
-                Degree REAL NOT NULL,
-                IsMatch REAL NOT NULL,
-                CreateDateTime TEXT NOT NULL
-            )";
-
-        return await _dataContext.Database.ExecuteSqlAsync(sql);
-    }
 }

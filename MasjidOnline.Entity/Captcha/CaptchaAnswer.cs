@@ -1,15 +1,16 @@
 ﻿using System;
 
-namespace MasjidOnline.Entity.Core;
+namespace MasjidOnline.Entity.Captcha;
 
-public class CaptchaQuestion
+public class CaptchaAnswer
 {
     public required long Id { get; set; }
 
-    // todo convert to byte[64]
-    public required string SessionId { get; set; }
+    public required long CaptchaQuestionId { get; set; }
 
     public required float Degree { get; set; }
+
+    public required bool IsMatch { get; set; }
 
     public required DateTime CreateDateTime { get; set; }
 }

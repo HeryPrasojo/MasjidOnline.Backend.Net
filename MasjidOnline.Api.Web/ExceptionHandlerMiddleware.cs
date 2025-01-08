@@ -48,6 +48,8 @@ public class ExceptionHandlerMiddleware(RequestDelegate _nextRequestDelegate)
             var errorExceptionEntity = new Entity.Log.ErrorException
             {
                 Id = logEntityIdGenerator.ErrorExceptionId,
+                Message = exception.Message,
+                StackTrace = exception.StackTrace,
                 CreateDateTime = DateTime.UtcNow,
             };
 

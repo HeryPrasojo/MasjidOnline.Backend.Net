@@ -4,14 +4,14 @@ using MasjidOnline.Api.Model;
 using MasjidOnline.Api.Model.Captcha;
 using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.Core;
-using MasjidOnline.Entity.Core;
+using MasjidOnline.Data.Interface.Captcha;
+using MasjidOnline.Entity.Captcha;
 
 namespace MasjidOnline.Business.Captcha;
 
 public class CaptchaAnswerBusiness(
-    ICoreData _coreData,
-    ICoreEntityIdGenerator _entityIdGenerator) : ICaptchaAnswerBusiness
+    ICaptchaData _captchaData,
+    ICaptchaEntityIdGenerator _captchaEntityIdGenerator) : ICaptchaAnswerBusiness
 {
     public async Task<AnswerQuestionResponse> AnswerAsync(string anonymousSessionId, AnswerQuestionRequest answerQuestionRequest)
     {
@@ -28,7 +28,7 @@ public class CaptchaAnswerBusiness(
         };
 
 
-        var captchaQuestion = await _coreData.CaptchaQuestion.GetForAnswerAsync(anonymousSessionId);
+        var captchaQuestion = await _captchaData.CaptchaQuestion.GetForAnswerAsync(anonymousSessionId);
 
         if (captchaQuestion == default) return new()
         {
@@ -39,14 +39,14 @@ public class CaptchaAnswerBusiness(
 
         var captchaAnswer = new CaptchaAnswer
         {
-            Id = _entityIdGenerator.CaptchaAnswerId,
+            Id = _captchaEntityIdGenerator.CaptchaAnswerId,
             CaptchaQuestionId = captchaQuestion.Id,
             CreateDateTime = DateTime.UtcNow,
             Degree = captchaQuestion.Degree,
             IsMatch = captchaQuestion.Degree == answerQuestionRequest.Degree,
         };
 
-        await _coreData.CaptchaAnswer.AddAsync(captchaAnswer);
+        await _captchaData.CaptchaAnswer.AddAsync(captchaAnswer);
 
 
 

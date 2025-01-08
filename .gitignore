@@ -3,6 +3,7 @@
 /MasjidOnline.Api.Model/obj
 /MasjidOnline.Api.Web/bin
 /MasjidOnline.Api.Web/obj
+/MasjidOnline.Api.Web/appsettings.Local.json
 /MasjidOnline.Api.Web/MasjidOnline.Api.Web.csproj.user
 /MasjidOnline.Business.Captcha/bin
 /MasjidOnline.Business.Captcha/obj

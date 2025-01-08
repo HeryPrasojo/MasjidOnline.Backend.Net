@@ -4,8 +4,8 @@ using MasjidOnline.Api.Model;
 using MasjidOnline.Api.Model.Captcha;
 using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.Core;
-using MasjidOnline.Entity.Core;
+using MasjidOnline.Data.Interface.Captcha;
+using MasjidOnline.Entity.Captcha;
 using MasjidOnline.Service.Captcha.Interface;
 using MasjidOnline.Service.Hash512.Interface;
 
@@ -13,8 +13,8 @@ namespace MasjidOnline.Business.Captcha;
 
 public class CaptchaQuestionBusiness(
     ICaptchaService _captchaService,
-    ICoreData _coreData,
-    ICoreEntityIdGenerator _entityIdGenerator,
+    ICaptchaData _captchaData,
+    ICaptchaEntityIdGenerator _captchaEntityIdGenerator,
     IHash512Service _hash512Service) : ICaptchaQuestionBusiness
 {
     // todo validate user session exists (captcha not needed)
@@ -22,11 +22,11 @@ public class CaptchaQuestionBusiness(
     {
         if (sessionId != default)
         {
-            var existingCaptchaQuestion = await _coreData.CaptchaQuestion.GetForCreateAsync(sessionId);
+            var existingCaptchaQuestion = await _captchaData.CaptchaQuestion.GetForCreateAsync(sessionId);
 
             if (existingCaptchaQuestion != default)
             {
-                var captchaAnswer = await _coreData.CaptchaAnswer.GetForCreateQuestionAsync(existingCaptchaQuestion.Id);
+                var captchaAnswer = await _captchaData.CaptchaAnswer.GetForCreateQuestionAsync(existingCaptchaQuestion.Id);
 
                 if (captchaAnswer == default)
                 {
@@ -58,15 +58,15 @@ public class CaptchaQuestionBusiness(
 
         var newCaptchaQuestion = new CaptchaQuestion
         {
-            Id = _entityIdGenerator.CaptchaQuestionId,
+            Id = _captchaEntityIdGenerator.CaptchaQuestionId,
             CreateDateTime = DateTime.UtcNow,
             Degree = generateImageResponse.Degree,
             SessionId = sessionId,
         };
 
-        await _coreData.CaptchaQuestion.AddAsync(newCaptchaQuestion);
+        await _captchaData.CaptchaQuestion.AddAsync(newCaptchaQuestion);
 
-        var changed = await _coreData.SaveAsync();
+        var changed = await _captchaData.SaveAsync();
 
         if (changed != 1) return new() { ResultCode = ResponseResult.Error, ResultMessage = "Data save failed", };
 

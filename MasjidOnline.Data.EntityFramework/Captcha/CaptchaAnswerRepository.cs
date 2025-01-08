@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using MasjidOnline.Data.Interface.Core.Captcha;
+using MasjidOnline.Data.Interface.Captcha;
 using MasjidOnline.Data.Model.Captcha;
-using MasjidOnline.Entity.Core;
+using MasjidOnline.Entity.Captcha;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Captcha;

@@ -16,27 +16,20 @@ public abstract class CoreInitializer(
         {
             await CreateTableCoreSettingAsync();
 
-            var setting = new CoreSetting
+            var coreSetting = new CoreSetting
             {
                 Key = CoreSettingKey.DatabaseVersion,
                 Value = "1",
             };
 
-            await CoreSetting.AddAsync(setting);
+            await CoreSetting.AddAsync(coreSetting);
 
 
-            await CreateTableCaptchaQuestionAsync();
-
-            await CreateTableCaptchaAnswerAsync();
         }
 
         await SaveAsync();
     }
 
-
-    protected abstract Task<int> CreateTableCaptchaQuestionAsync();
-
-    protected abstract Task<int> CreateTableCaptchaAnswerAsync();
 
     protected abstract Task<int> CreateTableCoreSettingAsync();
 }

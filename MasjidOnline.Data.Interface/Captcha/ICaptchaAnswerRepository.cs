@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using MasjidOnline.Data.Model.Captcha;
-using MasjidOnline.Entity.Core;
+using MasjidOnline.Entity.Captcha;
 
-namespace MasjidOnline.Data.Interface.Core.Captcha;
+namespace MasjidOnline.Data.Interface.Captcha;
 
 public interface ICaptchaAnswerRepository
 {

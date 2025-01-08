@@ -22,8 +22,10 @@ public class SqLiteLogInitializer : LogInitializer
         FormattableString sql = @$"
             CREATE TABLE ErrorException
             (
-                Key TEXT PRIMARY KEY,
-                Value TEXT NOT NULL
+                Id INTEGER PRIMARY KEY,
+                Message TEXT NOT NULL,
+                StackTrace TEXT,
+                CreateDateTime TEXT NOT NULL
             )";
 
         return await _logDataContext.Database.ExecuteSqlAsync(sql);
