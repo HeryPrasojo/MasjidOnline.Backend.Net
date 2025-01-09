@@ -27,7 +27,7 @@ public class SqLiteCaptchaInitializer(
             CREATE TABLE CaptchaQuestion
             (
                 Id INTEGER PRIMARY KEY,
-                SessionId TEXT NOT NULL,
+                SessionId BLOB NOT NULL,
                 Degree REAL NOT NULL,
                 CreateDateTime TEXT NOT NULL
             )";

@@ -23,9 +23,9 @@ public class CaptchaQuestionRepository(CaptchaDataContext _captchaDataContext) :
     }
 
 
-    public async Task<CaptchaQuestionForAnswer?> GetForAnswerAsync(string sessionId)
+    public async Task<CaptchaQuestionForAnswer?> GetForAnswerAsync(byte[] sessionId)
     {
-        return await _dbSet.Where(e => e.SessionId == sessionId)
+        return await _dbSet.Where(e => e.SessionId.SequenceEqual(sessionId))
             .OrderByDescending(e => e.Id)
             .Select(e => new CaptchaQuestionForAnswer
             {
@@ -35,9 +35,9 @@ public class CaptchaQuestionRepository(CaptchaDataContext _captchaDataContext) :
             .FirstOrDefaultAsync();
     }
 
-    public async Task<CaptchaQuestionForCreate?> GetForCreateAsync(string sessionId)
+    public async Task<CaptchaQuestionForCreate?> GetForCreateAsync(byte[] sessionId)
     {
-        return await _dbSet.Where(e => e.SessionId == sessionId)
+        return await _dbSet.Where(e => e.SessionId.SequenceEqual(sessionId))
             .OrderByDescending(e => e.Id)
             .Select(e => new CaptchaQuestionForCreate
             {

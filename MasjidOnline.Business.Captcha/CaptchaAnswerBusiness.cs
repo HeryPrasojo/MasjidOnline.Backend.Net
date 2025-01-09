@@ -13,7 +13,7 @@ public class CaptchaAnswerBusiness(
     ICaptchaData _captchaData,
     ICaptchaEntityIdGenerator _captchaEntityIdGenerator) : ICaptchaAnswerBusiness
 {
-    public async Task<AnswerQuestionResponse> AnswerAsync(string anonymousSessionId, AnswerQuestionRequest answerQuestionRequest)
+    public async Task<AnswerQuestionResponse> AnswerAsync(byte[] anonymousSessionId, AnswerQuestionRequest answerQuestionRequest)
     {
         if (anonymousSessionId == default) return new()
         {

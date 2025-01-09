@@ -2,5 +2,5 @@
 
 public interface IHash512Service
 {
-    string HashRandom();
+    byte[] HashRandom();
 }
