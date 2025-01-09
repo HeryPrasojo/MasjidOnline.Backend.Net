@@ -1,6 +1,7 @@
 ﻿
 namespace MasjidOnline.Api.Model.Exception;
 
+// todo consider move to MasjidOnline.Api.Web
 public class DataMismatchException : System.Exception
 {
     public DataMismatchException()

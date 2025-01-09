@@ -13,12 +13,13 @@ public class CaptchaAnswerBusiness(
     ICaptchaData _captchaData,
     ICaptchaEntityIdGenerator _captchaEntityIdGenerator) : ICaptchaAnswerBusiness
 {
-    public async Task<AnswerQuestionResponse> AnswerAsync(byte[] anonymousSessionId, AnswerQuestionRequest answerQuestionRequest)
+    public async Task<AnswerQuestionResponse> AnswerAsync(byte[] sessionId, AnswerQuestionRequest answerQuestionRequest)
     {
-        if (anonymousSessionId == default) return new()
+        // todo switch return to exception
+        if (sessionId == default) return new()
         {
             ResultCode = ResponseResult.InputInvalid,
-            ResultMessage = $"{nameof(anonymousSessionId)} required",
+            ResultMessage = $"{nameof(sessionId)} required",
         };
 
         if (answerQuestionRequest == default) return new()
@@ -28,12 +29,12 @@ public class CaptchaAnswerBusiness(
         };
 
 
-        var captchaQuestion = await _captchaData.CaptchaQuestion.GetForAnswerAsync(anonymousSessionId);
+        var captchaQuestion = await _captchaData.CaptchaQuestion.GetForAnswerAsync(sessionId);
 
         if (captchaQuestion == default) return new()
         {
             ResultCode = ResponseResult.InputMismatch,
-            ResultMessage = $"{nameof(anonymousSessionId)}: {anonymousSessionId}",
+            ResultMessage = $"{nameof(sessionId)}: {sessionId}",
         };
 
 
@@ -59,8 +60,9 @@ public class CaptchaAnswerBusiness(
             };
         }
 
-        // todo
-        throw new Exception("todo");
-        //_dataAccess
+        return new()
+        {
+            ResultCode = ResponseResult.Success,
+        };
     }
 }
