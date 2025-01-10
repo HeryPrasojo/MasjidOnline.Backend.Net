@@ -11,5 +11,6 @@
         DataMismatch = 22,
 
         CaptchaPassed = 111,
+        CaptchaWrong = 112,
     }
 }

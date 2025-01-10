@@ -1,10 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿namespace MasjidOnline.Data.Interface.Log;
 
-namespace MasjidOnline.Data.Interface.Log;
-
-public interface ILogData
+public interface ILogData : IData
 {
     IErrorExceptionRepository ErrorException { get; }
-
-    Task<int> SaveAsync();
 }

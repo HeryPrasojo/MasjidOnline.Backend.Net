@@ -5,10 +5,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite.Core;
 
-public class SqLiteCoreInitializer(
-    CoreDataContext _dataContext,
-    ICoreDefinition _coreDefinition) : CoreInitializer(_dataContext, _coreDefinition)
+public class SqLiteCoreInitializer : CoreInitializer
 {
+    public SqLiteCoreInitializer(
+        CoreDataContext coreDataContext,
+        ICoreDefinition coreDefinition) : base(coreDataContext, coreDefinition)
+    {
+    }
+
     protected override async Task<int> CreateTableCoreSettingAsync()
     {
         FormattableString sql = @$"
@@ -18,6 +22,6 @@ public class SqLiteCoreInitializer(
                 Value TEXT NOT NULL
             )";
 
-        return await _dataContext.Database.ExecuteSqlAsync(sql);
+        return await _coreDataContext.Database.ExecuteSqlAsync(sql);
     }
 }

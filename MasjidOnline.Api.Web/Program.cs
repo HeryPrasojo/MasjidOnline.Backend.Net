@@ -1,4 +1,3 @@
-using System;
 using MasjidOnline.Api.Model;
 using MasjidOnline.Api.Web;
 using MasjidOnline.Api.Web.WebApplicationExtension;
@@ -26,7 +25,8 @@ webApplicationBuilder.Services.AddCors(corsOptions =>
     {
         corsPolicyBuilder.WithOrigins("http://masjidonline.localhost")
             .WithExposedHeaders(Constant.HttpHeaderName.ResultCode, Constant.HttpHeaderName.ResultMessage)
-            .AllowCredentials();
+            .AllowCredentials()
+            .AllowAnyHeader();
     });
 });
 
@@ -55,21 +55,9 @@ var webApplication = webApplicationBuilder.Build();
 
 using (var serviceScope = webApplication.Services.CreateScope())
 {
-    var definitions = new IInitializer?[]
-    {
-        serviceScope.ServiceProvider.GetService<ICaptchaInitializer>(),
-        serviceScope.ServiceProvider.GetService<ILogInitializer>(),
-    };
-
-    foreach (var definition in definitions)
-    {
-        if (definition == default)
-        {
-            throw new ApplicationException($"Get {definition} service fail");
-        }
-
-        await definition.InitializeDatabaseAsync();
-    }
+    serviceScope.ServiceProvider.GetService<ICoreInitializer>();
+    serviceScope.ServiceProvider.GetService<ICaptchaInitializer>();
+    serviceScope.ServiceProvider.GetService<ILogInitializer>();
 }
 
 #endregion
@@ -77,24 +65,9 @@ using (var serviceScope = webApplication.Services.CreateScope())
 
 #region initialize EntityIdGenerator
 
-var entityIdGenerator = webApplication.Services.GetService<ICoreEntityIdGenerator>();
-
-if (entityIdGenerator == default)
-{
-    throw new ApplicationException("Get IEntityIdGenerator service fail");
-}
-
-using (var serviceScope = webApplication.Services.CreateScope())
-{
-    var coreData = serviceScope.ServiceProvider.GetService<ICoreData>();
-
-    if (coreData == default)
-    {
-        throw new ApplicationException($"Get {nameof(ICoreData)} service fail");
-    }
-
-    await entityIdGenerator.InitializeAsync(coreData);
-}
+webApplication.Services.GetService<ICoreIdGenerator>();
+webApplication.Services.GetService<ICaptchaIdGenerator>();
+webApplication.Services.GetService<ILogIdGenerator>();
 
 #endregion
 

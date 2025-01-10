@@ -7,9 +7,9 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddEntityIdGenerator(this IServiceCollection services)
     {
-        services.AddSingleton<ICoreEntityIdGenerator, CoreEntityIdGenerator>();
-        services.AddSingleton<ICaptchaEntityIdGenerator, CaptchaEntityIdGenerator>();
-        services.AddSingleton<ILogEntityIdGenerator, LogEntityIdGenerator>();
+        services.AddSingleton<ICoreIdGenerator, CoreIdGenerator>();
+        services.AddSingleton<ICaptchaIdGenerator, CaptchaIdGenerator>();
+        services.AddSingleton<ILogIdGenerator, LogIdGenerator>();
 
         return services;
     }

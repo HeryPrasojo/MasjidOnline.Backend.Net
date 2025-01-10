@@ -6,18 +6,16 @@ namespace MasjidOnline.Data.EntityFramework;
 
 public abstract class LogInitializer : LogData, ILogInitializer
 {
-    private readonly ILogDefinition _logDefinition;
-
     public LogInitializer(
         LogDataContext logDataContext,
         ILogDefinition logDefinition) : base(logDataContext)
     {
-        _logDefinition = logDefinition;
+        InitializeDatabaseAsync(logDefinition).Wait();
     }
 
-    public async Task InitializeDatabaseAsync()
+    private async Task InitializeDatabaseAsync(ILogDefinition logDefinition)
     {
-        var settingTableExists = await _logDefinition.CheckTableExistsAsync("LogSetting");
+        var settingTableExists = await logDefinition.CheckTableExistsAsync("LogSetting");
 
         if (!settingTableExists)
         {

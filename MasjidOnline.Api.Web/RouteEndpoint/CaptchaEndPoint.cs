@@ -34,11 +34,15 @@ internal static class CaptchaEndPoint
         return Results.Stream(createResponse.Stream!, "image/png");
     }
 
-    internal static async Task AnswerQuestionAsync(
+    internal static async Task<AnswerQuestionResponse> AnswerQuestionAsync(
         HttpContext httpContext,
         ICaptchaAnswerBusiness captchaAnswerBusiness,
         AnswerQuestionRequest answerQuestionRequest)
     {
-        //throw new NotImplementedException();
+        var sessionIdBase64 = httpContext.Request.Cookies[Constant.HttpCookieSessionName];
+
+        var sessionId = sessionIdBase64 == default ? default : Convert.FromBase64String(sessionIdBase64!);
+
+        return await captchaAnswerBusiness.AnswerAsync(sessionId, answerQuestionRequest);
     }
 }

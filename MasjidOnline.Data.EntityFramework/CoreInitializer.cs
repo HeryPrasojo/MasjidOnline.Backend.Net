@@ -4,13 +4,18 @@ using MasjidOnline.Entity.Core;
 
 namespace MasjidOnline.Data.EntityFramework;
 
-public abstract class CoreInitializer(
-    CoreDataContext _dataContext,
-    ICoreDefinition _coreDefinition) : CoreData(_dataContext), ICoreInitializer
+public abstract class CoreInitializer : CoreData, ICoreInitializer
 {
-    public async Task InitializeDatabaseAsync()
+    public CoreInitializer(
+        CoreDataContext coreDataContext,
+        ICoreDefinition coreDefinition) : base(coreDataContext)
     {
-        var settingTableExists = await _coreDefinition.CheckTableExistsAsync("CoreSetting");
+        InitializeDatabaseAsync(coreDefinition).Wait();
+    }
+
+    private async Task InitializeDatabaseAsync(ICoreDefinition coreDefinition)
+    {
+        var settingTableExists = await coreDefinition.CheckTableExistsAsync("CoreSetting");
 
         if (!settingTableExists)
         {

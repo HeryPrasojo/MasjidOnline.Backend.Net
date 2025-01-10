@@ -8,14 +8,17 @@ public class Hash512Service : IHash512Service
 {
     private readonly Random _random = new();
 
-    public byte[] HashRandom()
+    public byte[] RandomDigestBytes
     {
-        var number = _random.NextInt64();
+        get
+        {
+            var number = _random.NextInt64();
 
-        var bytes = BitConverter.GetBytes(number);
+            var bytes = BitConverter.GetBytes(number);
 
-        return SHA512.HashData(bytes);
-
-        //return Convert.ToBase64String(digest);
+            return SHA512.HashData(bytes);
+        }
     }
+
+    public string RandomDigestString => Convert.ToBase64String(RandomDigestBytes);
 }

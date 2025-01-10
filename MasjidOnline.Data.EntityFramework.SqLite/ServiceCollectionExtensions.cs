@@ -23,8 +23,8 @@ public static class ServiceCollectionExtensions
             poolSize: 2);
 
         services.AddScoped<ICoreData, SqLiteCoreData>();
-        services.AddScoped<ICoreDefinition, SqLiteCoreDefinition>();
-        services.AddScoped<ICoreInitializer, SqLiteCoreInitializer>();
+        services.AddTransient<ICoreDefinition, SqLiteCoreDefinition>();
+        services.AddTransient<ICoreInitializer, SqLiteCoreInitializer>();
 
 
         services.AddDbContextPool<CaptchaDataContext, SqLiteCaptchaDataContext>(b =>
@@ -36,8 +36,8 @@ public static class ServiceCollectionExtensions
             poolSize: 2);
 
         services.AddScoped<ICaptchaData, SqLiteCaptchaData>();
-        services.AddScoped<ICaptchaDefinition, SqLiteCaptchaDefinition>();
-        services.AddScoped<ICaptchaInitializer, SqLiteCaptchaInitializer>();
+        services.AddTransient<ICaptchaDefinition, SqLiteCaptchaDefinition>();
+        services.AddTransient<ICaptchaInitializer, SqLiteCaptchaInitializer>();
 
 
         services.AddDbContextPool<LogDataContext, SqLiteLogDataContext>(b =>
@@ -49,8 +49,8 @@ public static class ServiceCollectionExtensions
             poolSize: 2);
 
         services.AddScoped<ILogData, SqLiteLogData>();
-        services.AddScoped<ILogDefinition, SqLiteLogDefinition>();
-        services.AddScoped<ILogInitializer, SqLiteLogInitializer>();
+        services.AddTransient<ILogDefinition, SqLiteLogDefinition>();
+        services.AddTransient<ILogInitializer, SqLiteLogInitializer>();
 
         return services;
     }

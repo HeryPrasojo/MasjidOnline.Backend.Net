@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MasjidOnline.Api.Model;
 using MasjidOnline.Api.Model.Captcha;
+using MasjidOnline.Api.Model.Exception;
 using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Captcha;
@@ -14,7 +15,7 @@ namespace MasjidOnline.Business.Captcha;
 public class CaptchaQuestionBusiness(
     ICaptchaService _captchaService,
     ICaptchaData _captchaData,
-    ICaptchaEntityIdGenerator _captchaEntityIdGenerator,
+    ICaptchaIdGenerator _captchaIdGenerator,
     IHash512Service _hash512Service) : ICaptchaQuestionBusiness
 {
     // todo validate user session exists (captcha not needed)
@@ -50,7 +51,7 @@ public class CaptchaQuestionBusiness(
 
         if (sessionId == default)
         {
-            sessionId = _hash512Service.HashRandom();
+            sessionId = _hash512Service.RandomDigestBytes;
         }
 
         var generateImageResponse = _captchaService.GenerateRandomImage();
@@ -58,7 +59,7 @@ public class CaptchaQuestionBusiness(
 
         var newCaptchaQuestion = new CaptchaQuestion
         {
-            Id = _captchaEntityIdGenerator.CaptchaQuestionId,
+            Id = _captchaIdGenerator.CaptchaQuestionId,
             CreateDateTime = DateTime.UtcNow,
             Degree = generateImageResponse.Degree,
             SessionId = sessionId,
@@ -68,7 +69,7 @@ public class CaptchaQuestionBusiness(
 
         var changed = await _captchaData.SaveAsync();
 
-        if (changed != 1) return new() { ResultCode = ResponseResult.Error, ResultMessage = "Data save failed", };
+        if (changed != 1) throw new ErrorException("Data save failed");
 
         return new()
         {

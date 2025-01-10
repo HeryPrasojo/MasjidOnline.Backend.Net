@@ -1,5 +1,5 @@
 ﻿namespace MasjidOnline.Data.Interface.Core;
 
-public interface ICoreInitializer : IInitializer
+public interface ICoreInitializer
 {
 }

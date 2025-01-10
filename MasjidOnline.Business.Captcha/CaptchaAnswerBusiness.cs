@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MasjidOnline.Api.Model;
 using MasjidOnline.Api.Model.Captcha;
+using MasjidOnline.Api.Model.Exception;
 using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Captcha;
@@ -11,43 +12,32 @@ namespace MasjidOnline.Business.Captcha;
 
 public class CaptchaAnswerBusiness(
     ICaptchaData _captchaData,
-    ICaptchaEntityIdGenerator _captchaEntityIdGenerator) : ICaptchaAnswerBusiness
+    ICaptchaIdGenerator _captchaIdGenerator) : ICaptchaAnswerBusiness
 {
-    public async Task<AnswerQuestionResponse> AnswerAsync(byte[] sessionId, AnswerQuestionRequest answerQuestionRequest)
+    public async Task<AnswerQuestionResponse> AnswerAsync(byte[]? sessionId, AnswerQuestionRequest answerQuestionRequest)
     {
-        // todo switch return to exception
-        if (sessionId == default) return new()
-        {
-            ResultCode = ResponseResult.InputInvalid,
-            ResultMessage = $"{nameof(sessionId)} required",
-        };
+        if (sessionId == default) throw new InputInvalidException(nameof(sessionId));
 
-        if (answerQuestionRequest == default) return new()
-        {
-            ResultCode = ResponseResult.InputInvalid,
-            ResultMessage = $"{nameof(answerQuestionRequest)} required",
-        };
+        if (answerQuestionRequest == default) throw new InputInvalidException(nameof(answerQuestionRequest));
 
 
         var captchaQuestion = await _captchaData.CaptchaQuestion.GetForAnswerAsync(sessionId);
 
-        if (captchaQuestion == default) return new()
-        {
-            ResultCode = ResponseResult.InputMismatch,
-            ResultMessage = $"{nameof(sessionId)}: {sessionId}",
-        };
+        if (captchaQuestion == default) throw new InputMismatchException($"{nameof(sessionId)}: {sessionId}");
 
 
         var captchaAnswer = new CaptchaAnswer
         {
-            Id = _captchaEntityIdGenerator.CaptchaAnswerId,
+            Id = _captchaIdGenerator.CaptchaAnswerId,
             CaptchaQuestionId = captchaQuestion.Id,
             CreateDateTime = DateTime.UtcNow,
-            Degree = captchaQuestion.Degree,
+            Degree = answerQuestionRequest.Degree,
             IsMatch = captchaQuestion.Degree == answerQuestionRequest.Degree,
         };
 
         await _captchaData.CaptchaAnswer.AddAsync(captchaAnswer);
+
+        await _captchaData.SaveAsync();
 
 
 
@@ -55,7 +45,7 @@ public class CaptchaAnswerBusiness(
         {
             return new()
             {
-                ResultCode = ResponseResult.InputMismatch,
+                ResultCode = ResponseResult.CaptchaWrong,
                 ResultMessage = $"{nameof(answerQuestionRequest.Degree)}: {answerQuestionRequest.Degree}",
             };
         }

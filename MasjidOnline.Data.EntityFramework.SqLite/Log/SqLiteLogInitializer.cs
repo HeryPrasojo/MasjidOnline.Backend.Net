@@ -7,14 +7,11 @@ namespace MasjidOnline.Data.EntityFramework.SqLite.Log;
 
 public class SqLiteLogInitializer : LogInitializer
 {
-    private readonly LogDataContext _logDataContext;
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "<Pending>")]
+    //[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "<Pending>")]
     public SqLiteLogInitializer(
         LogDataContext logDataContext,
         ILogDefinition logDefinition) : base(logDataContext, logDefinition)
     {
-        _logDataContext = logDataContext;
     }
 
     protected override async Task<int> CreateTableErrorExceptionAsync()

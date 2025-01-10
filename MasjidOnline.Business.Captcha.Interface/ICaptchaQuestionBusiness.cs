@@ -5,5 +5,5 @@ namespace MasjidOnline.Business.Captcha.Interface;
 
 public interface ICaptchaQuestionBusiness
 {
-    Task<CreateQuestionResponse> CreateAsync(byte[]? anonymousSessionId);
+    Task<CreateQuestionResponse> CreateAsync(byte[]? sessionId);
 }

@@ -11,7 +11,7 @@ namespace MasjidOnline.Api.Web;
 
 public class ExceptionHandlerMiddleware(RequestDelegate _nextRequestDelegate)
 {
-    public async Task Invoke(HttpContext httpContext, ILogData logData, ILogEntityIdGenerator logEntityIdGenerator)
+    public async Task Invoke(HttpContext httpContext, ILogData logData, ILogIdGenerator logIdGenerator)
     {
         try
         {
@@ -19,11 +19,11 @@ public class ExceptionHandlerMiddleware(RequestDelegate _nextRequestDelegate)
         }
         catch (Exception exception)
         {
-            await HandleExceptionAsync(httpContext, exception, logData, logEntityIdGenerator);
+            await HandleExceptionAsync(httpContext, exception, logData, logIdGenerator);
         }
     }
 
-    private static async Task HandleExceptionAsync(HttpContext httpContext, Exception exception, ILogData logData, ILogEntityIdGenerator logEntityIdGenerator)
+    private static async Task HandleExceptionAsync(HttpContext httpContext, Exception exception, ILogData logData, ILogIdGenerator logIdGenerator)
     {
         httpContext.Response.ContentType = "application/json";
 
@@ -47,7 +47,7 @@ public class ExceptionHandlerMiddleware(RequestDelegate _nextRequestDelegate)
         {
             var errorExceptionEntity = new Entity.Log.ErrorException
             {
-                Id = logEntityIdGenerator.ErrorExceptionId,
+                Id = logIdGenerator.ErrorExceptionId,
                 Message = exception.Message,
                 StackTrace = exception.StackTrace,
                 CreateDateTime = DateTime.UtcNow,

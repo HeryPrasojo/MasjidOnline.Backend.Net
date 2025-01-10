@@ -5,10 +5,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite.Captcha;
 
-public class SqLiteCaptchaInitializer(
-    CaptchaDataContext _captchaDataContext,
-    ICaptchaDefinition _captchaDefinition) : CaptchaInitializer(_captchaDataContext, _captchaDefinition)
+public class SqLiteCaptchaInitializer : CaptchaInitializer
 {
+    public SqLiteCaptchaInitializer(
+        CaptchaDataContext captchaDataContext,
+        ICaptchaDefinition captchaDefinition) : base(captchaDataContext, captchaDefinition)
+    {
+    }
+
     protected override async Task<int> CreateTableCaptchaSettingAsync()
     {
         FormattableString sql = @$"
@@ -41,9 +45,9 @@ public class SqLiteCaptchaInitializer(
             CREATE TABLE CaptchaAnswer
             (
                 Id INTEGER PRIMARY KEY,
-                CaptchaQuestionId TEXT NOT NULL,
+                CaptchaQuestionId INTEGER NOT NULL,
                 Degree REAL NOT NULL,
-                IsMatch REAL NOT NULL,
+                IsMatch INTEGER NOT NULL,
                 CreateDateTime TEXT NOT NULL
             )";
 
