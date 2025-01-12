@@ -26,13 +26,16 @@ public class CaptchaAnswerBusiness(
         if (captchaQuestion == default) throw new InputMismatchException($"{nameof(sessionId)}: {sessionId}");
 
 
+        var degreeDiff = ((captchaQuestion.Degree + answerQuestionRequest.Degree) % 360f);
+        var tolerance = 45f;
+
         var captchaAnswer = new CaptchaAnswer
         {
             Id = _captchaIdGenerator.CaptchaAnswerId,
             CaptchaQuestionId = captchaQuestion.Id,
             CreateDateTime = DateTime.UtcNow,
             Degree = answerQuestionRequest.Degree,
-            IsMatch = captchaQuestion.Degree == answerQuestionRequest.Degree,
+            IsMatch = (degreeDiff < tolerance) && (degreeDiff > -tolerance),
         };
 
         await _captchaData.CaptchaAnswer.AddAsync(captchaAnswer);

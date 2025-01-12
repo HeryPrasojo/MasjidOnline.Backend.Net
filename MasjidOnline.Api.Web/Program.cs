@@ -2,7 +2,7 @@ using MasjidOnline.Api.Model;
 using MasjidOnline.Api.Web;
 using MasjidOnline.Api.Web.WebApplicationExtension;
 using MasjidOnline.Business.Captcha;
-using MasjidOnline.Business.Donation;
+using MasjidOnline.Business.Infaq;
 using MasjidOnline.Data;
 using MasjidOnline.Data.EntityFramework.SqLite;
 using MasjidOnline.Data.Interface;

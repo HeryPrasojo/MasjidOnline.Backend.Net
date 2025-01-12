@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MasjidOnline.Api.Model\MasjidOnline.Api.Model.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Business.Donation.Interface\MasjidOnline.Business.Donation.Interface.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Business.Infaq.Interface\MasjidOnline.Business.Infaq.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Data.Interface\MasjidOnline.Data.Interface.csproj" />
   </ItemGroup>
 

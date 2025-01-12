@@ -2,7 +2,7 @@
 
 namespace MasjidOnline.Entity.Core;
 
-public class Donation
+public class Infaq
 {
     public required long Id { get; set; }
 

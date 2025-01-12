@@ -21,7 +21,7 @@ internal static class CaptchaEndPoint
         httpContext.Response.Headers[Constant.HttpHeaderName.ResultCode] = createResponse.ResultCode.ToString();
         httpContext.Response.Headers[Constant.HttpHeaderName.ResultMessage] = createResponse.ResultMessage;
 
-        if (createResponse.ResultCode != ResponseResult.Success) return default!;
+        if (createResponse.ResultCode != ResponseResult.Success) return Results.Empty;
 
 
         if (sessionId == default)

@@ -13,9 +13,9 @@ internal static class MoEndpointsExtensions
         captchaGroup.MapPost("/answerQuestion", CaptchaEndPoint.AnswerQuestionAsync);
 
 
-        var donationGroup = webApplication.MapGroup("/donation");
+        var infaqGroup = webApplication.MapGroup("/infaq");
 
-        donationGroup.MapPost("/anonym/donate", DonationEndPoint.AnonymDonateAsync);
+        infaqGroup.MapPost("/anonym/infaq", InfaqEndPoint.AnonymInfaqAsync);
 
 
         var userGroup = webApplication.MapGroup("/user");

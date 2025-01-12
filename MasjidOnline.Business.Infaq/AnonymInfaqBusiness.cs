@@ -1,15 +1,15 @@
 ﻿using System.Threading.Tasks;
 using MasjidOnline.Api.Model;
-using MasjidOnline.Api.Model.Donation;
-using MasjidOnline.Business.Donation.Interface;
+using MasjidOnline.Api.Model.Infaq;
+using MasjidOnline.Business.Infaq.Interface;
 using MasjidOnline.Data.Interface.Core;
 
-namespace MasjidOnline.Business.Donation;
+namespace MasjidOnline.Business.Infaq;
 
-public class AnonymDonateBusiness(
-    ICoreData _dataAccess) : IAnonymDonateBusiness
+public class AnonymInfaqBusiness(
+    ICoreData _dataAccess) : IAnonymInfaqBusiness
 {
-    public async Task<AnonymDonateResponse> DonateAsync(string? sessionId, AnonymDonateRequest anonymDonateRequest)
+    public async Task<AnonymInfaqResponse> DonateAsync(string? sessionId, AnonymInfaqRequest anonymInfaqRequest)
     {
         if (sessionId == default) return new()
         {

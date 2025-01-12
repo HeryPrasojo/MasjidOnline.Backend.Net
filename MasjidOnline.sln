@@ -23,9 +23,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Captch
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Captcha.Model", "MasjidOnline.Service.Captcha.Model\MasjidOnline.Service.Captcha.Model.csproj", "{0CF1F1E3-1AA0-478A-BE6B-B9AD785BFCAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Donation", "MasjidOnline.Business.Donation\MasjidOnline.Business.Donation.csproj", "{8E56A3AB-158B-453A-B747-631CE496DB6E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Infaq", "MasjidOnline.Business.Infaq\MasjidOnline.Business.Infaq.csproj", "{8E56A3AB-158B-453A-B747-631CE496DB6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Donation.Interface", "MasjidOnline.Business.Donation.Interface\MasjidOnline.Business.Donation.Interface.csproj", "{B979E9C7-35EB-4C3F-BDCE-7F89D50E41E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Infaq.Interface", "MasjidOnline.Business.Infaq.Interface\MasjidOnline.Business.Infaq.Interface.csproj", "{B979E9C7-35EB-4C3F-BDCE-7F89D50E41E1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.User", "MasjidOnline.Business.User\MasjidOnline.Business.User.csproj", "{EF410C23-78CD-4924-A083-DC1F0606E32E}"
 EndProject

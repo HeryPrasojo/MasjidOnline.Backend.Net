@@ -1,17 +1,17 @@
 ﻿using System.Threading.Tasks;
 using MasjidOnline.Api.Model;
-using MasjidOnline.Api.Model.Donation;
-using MasjidOnline.Business.Donation.Interface;
+using MasjidOnline.Api.Model.Infaq;
+using MasjidOnline.Business.Infaq.Interface;
 using Microsoft.AspNetCore.Http;
 
 namespace MasjidOnline.Api.Web.RouteEndpoint;
 
-internal static class DonationEndPoint
+internal static class InfaqEndPoint
 {
-    internal static async Task<AnonymDonateResponse> AnonymDonateAsync(
+    internal static async Task<AnonymInfaqResponse> AnonymInfaqAsync(
         HttpContext httpContext,
-        IAnonymDonateBusiness anonymDonateBusiness,
-        AnonymDonateRequest anonymDonateRequest)
+        IAnonymInfaqBusiness anonymDonateBusiness,
+        AnonymInfaqRequest anonymDonateRequest)
     {
         var sessionId = httpContext.Request.Cookies[Constant.HttpCookieSessionName];
 
