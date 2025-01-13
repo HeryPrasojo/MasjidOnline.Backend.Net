@@ -31,9 +31,9 @@ public class SqLiteCaptchaInitializer : CaptchaInitializer
             CREATE TABLE CaptchaQuestion
             (
                 Id INTEGER PRIMARY KEY,
+                DateTime TEXT NOT NULL,
                 SessionId BLOB NOT NULL,
-                Degree REAL NOT NULL,
-                CreateDateTime TEXT NOT NULL
+                Degree REAL NOT NULL
             )";
 
         return await _captchaDataContext.Database.ExecuteSqlAsync(sql);
@@ -45,10 +45,10 @@ public class SqLiteCaptchaInitializer : CaptchaInitializer
             CREATE TABLE CaptchaAnswer
             (
                 Id INTEGER PRIMARY KEY,
+                DateTime TEXT NOT NULL,
                 CaptchaQuestionId INTEGER NOT NULL,
                 Degree REAL NOT NULL,
-                IsMatch INTEGER NOT NULL,
-                CreateDateTime TEXT NOT NULL
+                IsMatch INTEGER NOT NULL
             )";
 
         return await _captchaDataContext.Database.ExecuteSqlAsync(sql);

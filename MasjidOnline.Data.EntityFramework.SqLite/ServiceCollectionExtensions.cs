@@ -1,9 +1,11 @@
 ﻿using MasjidOnline.Data.EntityFramework.SqLite.Captcha;
 using MasjidOnline.Data.EntityFramework.SqLite.Core;
 using MasjidOnline.Data.EntityFramework.SqLite.Log;
+using MasjidOnline.Data.EntityFramework.SqLite.Transaction;
 using MasjidOnline.Data.Interface.Captcha;
 using MasjidOnline.Data.Interface.Core;
 using MasjidOnline.Data.Interface.Log;
+using MasjidOnline.Data.Interface.Transaction;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +26,7 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<ICoreData, SqLiteCoreData>();
         services.AddTransient<ICoreDefinition, SqLiteCoreDefinition>();
-        services.AddTransient<ICoreInitializer, SqLiteCoreInitializer>();
+        services.AddTransient<ITransactionInitializer, SqLiteCoreInitializer>();
 
 
         services.AddDbContextPool<CaptchaDataContext, SqLiteCaptchaDataContext>(b =>
@@ -38,6 +40,19 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ICaptchaData, SqLiteCaptchaData>();
         services.AddTransient<ICaptchaDefinition, SqLiteCaptchaDefinition>();
         services.AddTransient<ICaptchaInitializer, SqLiteCaptchaInitializer>();
+
+
+        services.AddDbContextPool<TransactionDataContext, SqLiteTransactionDataContext>(b =>
+            {
+                var connectionString = configurationManager.GetConnectionString("Transaction");
+
+                b.UseSqlite(connectionString);
+            },
+            poolSize: 2);
+
+        services.AddScoped<ITransactionData, SqLiteTransactionData>();
+        services.AddTransient<ITransactionDefinition, SqLiteTransactionDefinition>();
+        services.AddTransient<ITransactionInitializer, SqLiteTransactionInitializer>();
 
 
         services.AddDbContextPool<LogDataContext, SqLiteLogDataContext>(b =>

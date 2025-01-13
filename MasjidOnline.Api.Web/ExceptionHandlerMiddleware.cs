@@ -53,9 +53,7 @@ public class ExceptionHandlerMiddleware(RequestDelegate _nextRequestDelegate)
                 CreateDateTime = DateTime.UtcNow,
             };
 
-            await logData.ErrorException.AddAsync(errorExceptionEntity);
-
-            await logData.SaveAsync();
+            await logData.ErrorException.AddAndSaveAsync(errorExceptionEntity);
         }
 
 

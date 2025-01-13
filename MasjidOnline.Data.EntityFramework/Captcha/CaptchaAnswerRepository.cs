@@ -1,7 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Captcha;
-using MasjidOnline.Data.Model.Captcha;
 using MasjidOnline.Entity.Captcha;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +16,13 @@ public class CaptchaAnswerRepository(CaptchaDataContext _captchaDataContext) : I
         await _dbSet.AddAsync(captchaAnswer);
     }
 
+    public async Task<int> AddAndSaveAsync(CaptchaAnswer captchaAnswer)
+    {
+        await AddAsync(captchaAnswer);
+
+        return await SaveAsync();
+    }
+
 
     public async Task<int> GetMaxIdAsync()
     {
@@ -23,13 +30,22 @@ public class CaptchaAnswerRepository(CaptchaDataContext _captchaDataContext) : I
     }
 
 
-    public async Task<CaptchaAnswerForCreateQuestion?> GetForCreateQuestionAsync(long captchaQuestionId)
+    public async Task<bool> GetAnyIsMatchByCaptchaQuestionIdsAsync(IEnumerable<long> captchaQuestionIds)
+    {
+        return await _dbSet.AnyAsync(a => captchaQuestionIds.Any(i => i == a.CaptchaQuestionId) && a.IsMatch);
+    }
+
+    // todo return 1 field only
+    public async Task<bool?> GetIsMatchByCaptchaQuestionIdAsync(long captchaQuestionId)
     {
         return await _dbSet.Where(e => e.CaptchaQuestionId == captchaQuestionId)
-            .Select(e => new CaptchaAnswerForCreateQuestion
-            {
-                IsMatch = e.IsMatch,
-            })
+            .Select(e => e.IsMatch)
             .FirstOrDefaultAsync();
+    }
+
+
+    private async Task<int> SaveAsync()
+    {
+        return await _captchaDataContext.SaveChangesAsync();
     }
 }

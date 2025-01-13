@@ -14,9 +14,22 @@ public class ErrorExceptionRepository(LogDataContext _logDataContext) : IErrorEx
         await _dbSet.AddAsync(errorException);
     }
 
+    public async Task<int> AddAndSaveAsync(ErrorException errorException)
+    {
+        await AddAsync(errorException);
+
+        return await SaveAsync();
+    }
+
 
     public async Task<int> GetMaxIdAsync()
     {
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
+    }
+
+
+    private async Task<int> SaveAsync()
+    {
+        return await _logDataContext.SaveChangesAsync();
     }
 }

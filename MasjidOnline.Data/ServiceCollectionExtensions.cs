@@ -10,6 +10,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ICoreIdGenerator, CoreIdGenerator>();
         services.AddSingleton<ICaptchaIdGenerator, CaptchaIdGenerator>();
         services.AddSingleton<ILogIdGenerator, LogIdGenerator>();
+        services.AddSingleton<ITransactionIdGenerator, TransactionIdGenerator>();
 
         return services;
     }

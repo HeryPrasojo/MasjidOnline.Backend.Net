@@ -20,9 +20,9 @@ public class SqLiteLogInitializer : LogInitializer
             CREATE TABLE ErrorException
             (
                 Id INTEGER PRIMARY KEY,
+                DateTime TEXT NOT NULL,
                 Message TEXT NOT NULL,
-                StackTrace TEXT,
-                CreateDateTime TEXT NOT NULL
+                StackTrace TEXT
             )";
 
         return await _logDataContext.Database.ExecuteSqlAsync(sql);

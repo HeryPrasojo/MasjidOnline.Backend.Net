@@ -1,10 +1,11 @@
 ﻿using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Core;
+using MasjidOnline.Data.Interface.Transaction;
 using MasjidOnline.Entity.Core;
 
 namespace MasjidOnline.Data.EntityFramework;
 
-public abstract class CoreInitializer : CoreData, ICoreInitializer
+public abstract class CoreInitializer : CoreData, ITransactionInitializer
 {
     public CoreInitializer(
         CoreDataContext coreDataContext,

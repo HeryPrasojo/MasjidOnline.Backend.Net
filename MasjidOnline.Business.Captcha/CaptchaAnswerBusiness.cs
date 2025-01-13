@@ -33,15 +33,14 @@ public class CaptchaAnswerBusiness(
         {
             Id = _captchaIdGenerator.CaptchaAnswerId,
             CaptchaQuestionId = captchaQuestion.Id,
-            CreateDateTime = DateTime.UtcNow,
+            DateTime = DateTime.UtcNow,
             Degree = answerQuestionRequest.Degree,
             IsMatch = (degreeDiff < tolerance) && (degreeDiff > -tolerance),
         };
 
-        await _captchaData.CaptchaAnswer.AddAsync(captchaAnswer);
+        var changed = await _captchaData.CaptchaAnswer.AddAndSaveAsync(captchaAnswer);
 
-        await _captchaData.SaveAsync();
-
+        if (changed != 1) throw new ErrorException("Data save failed");
 
 
         if (!captchaAnswer.IsMatch)

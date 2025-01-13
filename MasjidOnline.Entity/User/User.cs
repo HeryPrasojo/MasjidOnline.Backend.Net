@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Entity.Core;
+﻿namespace MasjidOnline.Entity.User;
 
 public class User
 {

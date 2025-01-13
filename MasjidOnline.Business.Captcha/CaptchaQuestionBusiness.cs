@@ -27,9 +27,9 @@ public class CaptchaQuestionBusiness(
 
             if (existingCaptchaQuestion != default)
             {
-                var captchaAnswer = await _captchaData.CaptchaAnswer.GetForCreateQuestionAsync(existingCaptchaQuestion.Id);
+                var isMatch = await _captchaData.CaptchaAnswer.GetIsMatchByCaptchaQuestionIdAsync(existingCaptchaQuestion.Id);
 
-                if (captchaAnswer == default)
+                if (isMatch == default)
                 {
                     var existingGenerateImageResponse = _captchaService.GenerateImage(existingCaptchaQuestion.Degree);
 
@@ -41,7 +41,7 @@ public class CaptchaQuestionBusiness(
                     };
                 }
 
-                if (captchaAnswer.IsMatch) return new()
+                if (isMatch == true) return new()
                 {
                     ResultCode = ResponseResult.CaptchaPassed,
                 };
@@ -60,14 +60,12 @@ public class CaptchaQuestionBusiness(
         var newCaptchaQuestion = new CaptchaQuestion
         {
             Id = _captchaIdGenerator.CaptchaQuestionId,
-            CreateDateTime = DateTime.UtcNow,
+            DateTime = DateTime.UtcNow,
             Degree = generateImageResponse.Degree,
             SessionId = sessionId,
         };
 
-        await _captchaData.CaptchaQuestion.AddAsync(newCaptchaQuestion);
-
-        var changed = await _captchaData.SaveAsync();
+        var changed = await _captchaData.CaptchaQuestion.AddAndSaveAsync(newCaptchaQuestion);
 
         if (changed != 1) throw new ErrorException("Data save failed");
 

@@ -12,5 +12,7 @@
 
         CaptchaPassed = 111,
         CaptchaWrong = 112,
+        CaptchaNeeded = 113,
+        CaptchaNotPassed = 114,
     }
 }

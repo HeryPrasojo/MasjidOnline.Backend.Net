@@ -1,50 +1,59 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using MasjidOnline.Api.Model;
+using MasjidOnline.Api.Model.Exception;
 using MasjidOnline.Api.Model.Infaq;
 using MasjidOnline.Business.Infaq.Interface;
-using MasjidOnline.Data.Interface.Core;
+using MasjidOnline.Data.Interface.Captcha;
+using MasjidOnline.Data.Interface.Transaction;
+using MasjidOnline.Entity.Transaction;
 
 namespace MasjidOnline.Business.Infaq;
 
 public class AnonymInfaqBusiness(
-    ICoreData _dataAccess) : IAnonymInfaqBusiness
+    ITransactionData _transactionData,
+    ICaptchaData _captchaData) : IAnonymInfaqBusiness
 {
-    public async Task<AnonymInfaqResponse> DonateAsync(string? sessionId, AnonymInfaqRequest anonymInfaqRequest)
+    public async Task<AnonymInfaqResponse> InfaqAsync(byte[] sessionId, AnonymInfaqRequest anonymInfaqRequest)
     {
-        if (sessionId == default) return new()
+        if (sessionId == default) throw new InputInvalidException(nameof(sessionId));
+
+
+        // todo check session logged in
+
+
+        var captchaQuestionIds = await _captchaData.CaptchaQuestion.GetIdsBySessionIdAsync(sessionId);
+
+        if (!captchaQuestionIds.Any()) return new()
         {
-            ResultMessage = "sessionId == default",
-            ResultCode = ResponseResult.InputInvalid,
+            ResultCode = ResponseResult.CaptchaNeeded,
         };
 
-        //await _dataAccess.CaptchaQuestionRepository.AddAsync(captchaQuestion);
 
+        var isAnyMatch = await _captchaData.CaptchaAnswer.GetAnyIsMatchByCaptchaQuestionIdsAsync(captchaQuestionIds);
 
-        //var generateImageResponse = _captchaService.GenerateImage();
-
-
-        //var captchaQuestion = new CaptchaQuestion
-        //{
-        //    CreateDateTime = DateTime.UtcNow,
-        //    Degree = generateImageResponse.Degree,
-        //    SessionId = sessionId,
-        //};
-
-        //await _dataAccess.CaptchaQuestionRepository.AddAsync(captchaQuestion);
-
-        //var changed = await _dataAccess.SaveAsync();
-
-        //if (changed != 1) return new()
-        //{
-        //    Message = "Data save failed",
-        //    Result = ResponseResult.Error,
-        //};
-
-        return new()
+        if (!isAnyMatch) return new()
         {
-            ResultCode = ResponseResult.Success,
-            SessionId = sessionId,
+            ResultCode = ResponseResult.CaptchaNotPassed,
         };
-        // todo
+
+
+        var transaction = new Transaction
+        {
+            Amount = ,
+            DateTime =,
+            Files =,
+            Id =,
+            ManualBankTransferSourceBankId =,
+            PaymentStatus =,
+            PaymentType =,
+            Type =,
+            UserId =,
+            UserName =,
+            UserType =,
+        };
+
+        await _transactionData.Transaction.AddAsync(transaction);
+        // undone
     }
 }

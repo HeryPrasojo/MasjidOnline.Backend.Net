@@ -9,6 +9,7 @@ using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Captcha;
 using MasjidOnline.Data.Interface.Core;
 using MasjidOnline.Data.Interface.Log;
+using MasjidOnline.Data.Interface.Transaction;
 using MasjidOnline.Service.Captcha;
 using MasjidOnline.Service.Hash512;
 using Microsoft.AspNetCore.Builder;
@@ -58,6 +59,7 @@ using (var serviceScope = webApplication.Services.CreateScope())
     serviceScope.ServiceProvider.GetService<ICoreInitializer>();
     serviceScope.ServiceProvider.GetService<ICaptchaInitializer>();
     serviceScope.ServiceProvider.GetService<ILogInitializer>();
+    serviceScope.ServiceProvider.GetService<ITransactionInitializer>();
 }
 
 #endregion
@@ -68,6 +70,7 @@ using (var serviceScope = webApplication.Services.CreateScope())
 webApplication.Services.GetService<ICoreIdGenerator>();
 webApplication.Services.GetService<ICaptchaIdGenerator>();
 webApplication.Services.GetService<ILogIdGenerator>();
+webApplication.Services.GetService<ITransactionIdGenerator>();
 
 #endregion
 

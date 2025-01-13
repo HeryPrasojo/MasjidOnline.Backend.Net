@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Captcha;
 using MasjidOnline.Data.Model.Captcha;
@@ -16,6 +17,20 @@ public class CaptchaQuestionRepository(CaptchaDataContext _captchaDataContext) :
         await _dbSet.AddAsync(captchaQuestion);
     }
 
+    public async Task<int> AddAndSaveAsync(CaptchaQuestion captchaQuestion)
+    {
+        await AddAsync(captchaQuestion);
+
+        return await SaveAsync();
+    }
+
+
+    public async Task<IEnumerable<long>> GetIdsBySessionIdAsync(byte[] sessionId)
+    {
+        return await _dbSet.Where(e => e.SessionId == sessionId)
+            .Select(e => e.Id)
+            .ToArrayAsync();
+    }
 
     public async Task<int> GetMaxIdAsync()
     {
@@ -45,5 +60,11 @@ public class CaptchaQuestionRepository(CaptchaDataContext _captchaDataContext) :
                 Degree = e.Degree,
             })
             .FirstOrDefaultAsync();
+    }
+
+
+    private async Task<int> SaveAsync()
+    {
+        return await _captchaDataContext.SaveChangesAsync();
     }
 }

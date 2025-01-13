@@ -10,20 +10,20 @@ internal static class InfaqEndPoint
 {
     internal static async Task<AnonymInfaqResponse> AnonymInfaqAsync(
         HttpContext httpContext,
-        IAnonymInfaqBusiness anonymDonateBusiness,
-        AnonymInfaqRequest anonymDonateRequest)
+        IAnonymInfaqBusiness anonymInfaqBusiness,
+        AnonymInfaqRequest anonymInfaqRequest)
     {
         var sessionId = httpContext.Request.Cookies[Constant.HttpCookieSessionName];
 
-        var anonymDonateResponse = await anonymDonateBusiness.DonateAsync(sessionId, anonymDonateRequest);
+        var anonymInfaqResponse = await anonymInfaqBusiness.InfaqAsync(sessionId, anonymInfaqRequest);
 
         if (sessionId == default)
         {
-            httpContext.Response.Cookies.Append(Constant.HttpCookieSessionName, anonymDonateResponse.SessionId!);
+            httpContext.Response.Cookies.Append(Constant.HttpCookieSessionName, anonymInfaqResponse.SessionId!);
         }
 
-        anonymDonateResponse.SessionId = default;
+        anonymInfaqResponse.SessionId = default;
 
-        return anonymDonateResponse;
+        return anonymInfaqResponse;
     }
 }
