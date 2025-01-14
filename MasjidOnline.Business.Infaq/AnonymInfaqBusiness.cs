@@ -18,6 +18,13 @@ public class AnonymInfaqBusiness(
     {
         if (sessionId == default) throw new InputInvalidException(nameof(sessionId));
 
+        if (anonymInfaqRequest == default) throw new InputInvalidException(nameof(anonymInfaqRequest));
+
+        if (anonymInfaqRequest.Amount == default) throw new InputInvalidException(nameof(anonymInfaqRequest.Amount));
+
+        if (anonymInfaqRequest.Name == default) throw new InputInvalidException(nameof(anonymInfaqRequest.Name));
+
+        if (anonymInfaqRequest.PaymentType == default) throw new InputInvalidException(nameof(anonymInfaqRequest.PaymentType));
 
         // todo check session logged in
 
