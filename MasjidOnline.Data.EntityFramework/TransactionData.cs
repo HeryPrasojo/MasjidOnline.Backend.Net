@@ -1,20 +1,13 @@
 ﻿using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.Transactions;
-using MasjidOnline.Data.Interface.Transaction;
+using MasjidOnline.Data.Interface.Transactions;
 
 namespace MasjidOnline.Data.EntityFramework;
 
-public class TransactionData : ITransactionData
+public class TransactionData(TransactionDataContext _transactionDataContext) : ITransactionData
 {
-    protected readonly TransactionDataContext _transactionDataContext;
-
     private ITransactionRepository? _transactionRepository;
     private ITransactionSettingRepository? _transactionSettingRepository;
-
-    public TransactionData(TransactionDataContext transactionDataContext)
-    {
-        _transactionDataContext = transactionDataContext;
-    }
 
     public async Task<int> SaveAsync()
     {

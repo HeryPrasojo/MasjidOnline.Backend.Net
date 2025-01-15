@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MasjidOnline.Api.Model;
 using MasjidOnline.Api.Model.Infaq;
 using MasjidOnline.Business.Infaq.Interface;
@@ -13,7 +14,9 @@ internal static class InfaqEndPoint
         IAnonymInfaqBusiness anonymInfaqBusiness,
         AnonymInfaqRequest anonymInfaqRequest)
     {
-        var sessionId = httpContext.Request.Cookies[Constant.HttpCookieSessionName];
+        var sessionIdBase64 = httpContext.Request.Cookies[Constant.HttpCookieSessionName];
+
+        var sessionId = sessionIdBase64 == default ? default : Convert.FromBase64String(sessionIdBase64!);
 
         var anonymInfaqResponse = await anonymInfaqBusiness.InfaqAsync(sessionId, anonymInfaqRequest);
 

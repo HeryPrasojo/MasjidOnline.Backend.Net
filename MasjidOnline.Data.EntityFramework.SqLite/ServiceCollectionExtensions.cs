@@ -5,7 +5,7 @@ using MasjidOnline.Data.EntityFramework.SqLite.Transaction;
 using MasjidOnline.Data.Interface.Captcha;
 using MasjidOnline.Data.Interface.Core;
 using MasjidOnline.Data.Interface.Log;
-using MasjidOnline.Data.Interface.Transaction;
+using MasjidOnline.Data.Interface.Transactions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,9 +24,8 @@ public static class ServiceCollectionExtensions
             },
             poolSize: 2);
 
-        services.AddScoped<ICoreData, SqLiteCoreData>();
         services.AddTransient<ICoreDefinition, SqLiteCoreDefinition>();
-        services.AddTransient<ITransactionInitializer, SqLiteCoreInitializer>();
+        services.AddTransient<ICoreInitializer, SqLiteCoreInitializer>();
 
 
         services.AddDbContextPool<CaptchaDataContext, SqLiteCaptchaDataContext>(b =>
@@ -37,7 +36,6 @@ public static class ServiceCollectionExtensions
             },
             poolSize: 2);
 
-        services.AddScoped<ICaptchaData, SqLiteCaptchaData>();
         services.AddTransient<ICaptchaDefinition, SqLiteCaptchaDefinition>();
         services.AddTransient<ICaptchaInitializer, SqLiteCaptchaInitializer>();
 
@@ -50,7 +48,6 @@ public static class ServiceCollectionExtensions
             },
             poolSize: 2);
 
-        services.AddScoped<ITransactionData, SqLiteTransactionData>();
         services.AddTransient<ITransactionDefinition, SqLiteTransactionDefinition>();
         services.AddTransient<ITransactionInitializer, SqLiteTransactionInitializer>();
 
@@ -63,7 +60,6 @@ public static class ServiceCollectionExtensions
             },
             poolSize: 2);
 
-        services.AddScoped<ILogData, SqLiteLogData>();
         services.AddTransient<ILogDefinition, SqLiteLogDefinition>();
         services.AddTransient<ILogInitializer, SqLiteLogInitializer>();
 

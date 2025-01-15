@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Threading.Tasks;
 using MasjidOnline.Api.Model;
-using MasjidOnline.Api.Model.Exception;
+using MasjidOnline.Api.Model.Exceptions;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Log;
 using Microsoft.AspNetCore.Http;
@@ -45,15 +45,15 @@ public class ExceptionHandlerMiddleware(RequestDelegate _nextRequestDelegate)
 
         if (response.ResultCode == ResponseResult.Error)
         {
-            var errorExceptionEntity = new Entity.Log.ErrorException
+            var errorExceptionEntity = new Entity.Log.Exception
             {
                 Id = logIdGenerator.ErrorExceptionId,
                 Message = exception.Message,
                 StackTrace = exception.StackTrace,
-                CreateDateTime = DateTime.UtcNow,
+                DateTime = DateTime.UtcNow,
             };
 
-            await logData.ErrorException.AddAndSaveAsync(errorExceptionEntity);
+            await logData.Exception.AddAndSaveAsync(errorExceptionEntity);
         }
 
 

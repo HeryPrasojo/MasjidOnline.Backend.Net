@@ -1,4 +1,4 @@
-﻿using MasjidOnline.Entity.Transaction;
+﻿using MasjidOnline.Entity.Transactions;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework;
@@ -9,7 +9,7 @@ public abstract class TransactionDataContext(DbContextOptions _dbContextOptions)
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<Entity.Transaction.Transaction>();
+        modelBuilder.Entity<Transaction>();
 
         modelBuilder.Entity<TransactionSetting>();
     }

@@ -2,4 +2,5 @@
 
 public interface ITransactionIdGenerator
 {
+    long TransactionId { get; }
 }

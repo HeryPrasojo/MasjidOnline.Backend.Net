@@ -1,20 +1,24 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Api.Model;
-using MasjidOnline.Api.Model.Exception;
+using MasjidOnline.Api.Model.Exceptions;
 using MasjidOnline.Api.Model.Infaq;
 using MasjidOnline.Business.Infaq.Interface;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Captcha;
-using MasjidOnline.Data.Interface.Transaction;
-using MasjidOnline.Entity.Transaction;
+using MasjidOnline.Data.Interface.Transactions;
+using MasjidOnline.Entity.Payments;
+using MasjidOnline.Entity.Transactions;
 
 namespace MasjidOnline.Business.Infaq;
 
 public class AnonymInfaqBusiness(
     ITransactionData _transactionData,
+    ITransactionIdGenerator _transactionIdGenerator,
     ICaptchaData _captchaData) : IAnonymInfaqBusiness
 {
-    public async Task<AnonymInfaqResponse> InfaqAsync(byte[] sessionId, AnonymInfaqRequest anonymInfaqRequest)
+    public async Task<AnonymInfaqResponse> InfaqAsync(byte[]? sessionId, AnonymInfaqRequest anonymInfaqRequest)
     {
         if (sessionId == default) throw new InputInvalidException(nameof(sessionId));
 
@@ -47,19 +51,21 @@ public class AnonymInfaqBusiness(
 
         var transaction = new Transaction
         {
-            Amount = ,
-            DateTime =,
-            Files =,
-            Id =,
-            ManualBankTransferSourceBankId =,
-            PaymentStatus =,
-            PaymentType =,
-            Type =,
+            Amount = anonymInfaqRequest.Amount,
+            DateTime = DateTime.UtcNow,
+            Id = _transactionIdGenerator.TransactionId,
+            PaymentStatus = PaymentStatus.Pending,
+            PaymentType = (PaymentType)anonymInfaqRequest.PaymentType,
+            Type = TransactionType.Infaq,
             UserId =,
             UserName =,
             UserType =,
         };
 
+        if (anonymInfaqRequest.ManualBankTransferSourceBankId != default)
+        {
+            transaction.ManualBankTransferSourceBankId = anonymInfaqRequest.ManualBankTransferSourceBankId;
+        }
         await _transactionData.Transaction.AddAsync(transaction);
         // undone
     }

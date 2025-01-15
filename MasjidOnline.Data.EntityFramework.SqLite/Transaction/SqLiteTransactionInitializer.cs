@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Threading.Tasks;
-using MasjidOnline.Data.Interface.Transaction;
+using MasjidOnline.Data.Initializer;
+using MasjidOnline.Data.Interface.Transactions;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite.Transaction;
 
 public class SqLiteTransactionInitializer : TransactionInitializer
 {
+    private readonly TransactionDataContext _transactionDataContext;
+
     public SqLiteTransactionInitializer(
         TransactionDataContext transactionDataContext,
-        ITransactionDefinition transactionDefinition) : base(transactionDataContext, transactionDefinition)
+        ITransactionData transactionData,
+        ITransactionDefinition transactionDefinition) : base(transactionData, transactionDefinition)
     {
+        _transactionDataContext = transactionDataContext;
     }
 
     protected override async Task<int> CreateTableTransactionSettingAsync()

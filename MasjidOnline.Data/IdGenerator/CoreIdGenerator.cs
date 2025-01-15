@@ -3,7 +3,7 @@ using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Core;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MasjidOnline.Data;
+namespace MasjidOnline.Data.IdGenerator;
 
 public class CoreIdGenerator : ICoreIdGenerator
 {

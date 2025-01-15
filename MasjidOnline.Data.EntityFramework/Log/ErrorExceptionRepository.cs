@@ -7,14 +7,14 @@ namespace MasjidOnline.Data.EntityFramework.Log;
 
 public class ErrorExceptionRepository(LogDataContext _logDataContext) : IErrorExceptionRepository
 {
-    private readonly DbSet<ErrorException> _dbSet = _logDataContext.Set<ErrorException>();
+    private readonly DbSet<Exception> _dbSet = _logDataContext.Set<Exception>();
 
-    public async Task AddAsync(ErrorException errorException)
+    public async Task AddAsync(Exception errorException)
     {
         await _dbSet.AddAsync(errorException);
     }
 
-    public async Task<int> AddAndSaveAsync(ErrorException errorException)
+    public async Task<int> AddAndSaveAsync(Exception errorException)
     {
         await AddAsync(errorException);
 

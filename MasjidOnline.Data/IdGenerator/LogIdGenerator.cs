@@ -4,7 +4,7 @@ using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Log;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MasjidOnline.Data;
+namespace MasjidOnline.Data.IdGenerator;
 
 public class LogIdGenerator : ILogIdGenerator
 {
@@ -17,7 +17,7 @@ public class LogIdGenerator : ILogIdGenerator
         var logData = serviceScope.ServiceProvider.GetService<ILogData>()
             ?? throw new ApplicationException($"Get ILogData service fail");
 
-        _errorExceptionId = logData.ErrorException.GetMaxIdAsync().Result;
+        _errorExceptionId = logData.Exception.GetMaxIdAsync().Result;
     }
 
     public long ErrorExceptionId => Interlocked.Increment(ref _errorExceptionId);

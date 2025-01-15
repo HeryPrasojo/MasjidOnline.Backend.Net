@@ -1,4 +1,5 @@
-﻿using MasjidOnline.Data.Interface;
+﻿using MasjidOnline.Data.IdGenerator;
+using MasjidOnline.Data.Interface;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MasjidOnline.Data;

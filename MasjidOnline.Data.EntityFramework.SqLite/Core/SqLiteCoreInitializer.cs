@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using MasjidOnline.Data.Initializer;
 using MasjidOnline.Data.Interface.Core;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,10 +8,14 @@ namespace MasjidOnline.Data.EntityFramework.SqLite.Core;
 
 public class SqLiteCoreInitializer : CoreInitializer
 {
+    private readonly CoreDataContext _coreDataContext;
+
     public SqLiteCoreInitializer(
         CoreDataContext coreDataContext,
-        ICoreDefinition coreDefinition) : base(coreDataContext, coreDefinition)
+        ICoreData coreData,
+        ICoreDefinition coreDefinition) : base(coreData, coreDefinition)
     {
+        _coreDataContext = coreDataContext;
     }
 
     protected override async Task<int> CreateTableCoreSettingAsync()

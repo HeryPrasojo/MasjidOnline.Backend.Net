@@ -12,7 +12,7 @@ public class AnonymInfaqRequest
 
     public required PaymentType PaymentType { get; set; }
 
-    public int ManualBankTransferSourceBankId { get; set; }
+    public int? ManualBankTransferSourceBankId { get; set; }
 
     public IEnumerable<IFormFile>? Files { get; set; }
 }

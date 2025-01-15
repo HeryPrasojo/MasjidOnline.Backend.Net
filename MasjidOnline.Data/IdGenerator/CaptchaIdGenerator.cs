@@ -4,8 +4,9 @@ using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Captcha;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MasjidOnline.Data;
+namespace MasjidOnline.Data.IdGenerator;
 
+// move to a new child folder MasjidOnline.Data.IdGenerator
 public class CaptchaIdGenerator : ICaptchaIdGenerator
 {
     private long _captchaAnswerId;

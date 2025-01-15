@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MasjidOnline.Entity.Transaction;
+namespace MasjidOnline.Entity.Transactions;
 
 public class TransactionSetting
 {

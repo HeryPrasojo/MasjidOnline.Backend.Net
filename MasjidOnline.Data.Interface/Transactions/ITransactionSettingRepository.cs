@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using MasjidOnline.Entity.Transaction;
+using MasjidOnline.Entity.Transactions;
 
-namespace MasjidOnline.Data.Interface.Transaction;
+namespace MasjidOnline.Data.Interface.Transactions;
 
 public interface ITransactionSettingRepository
 {

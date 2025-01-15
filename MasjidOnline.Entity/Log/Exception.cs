@@ -2,7 +2,7 @@
 
 namespace MasjidOnline.Entity.Log;
 
-public class ErrorException
+public class Exception
 {
     public required long Id { get; set; }
 

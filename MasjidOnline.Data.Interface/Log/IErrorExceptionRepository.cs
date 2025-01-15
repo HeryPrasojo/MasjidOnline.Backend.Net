@@ -5,7 +5,7 @@ namespace MasjidOnline.Data.Interface.Log;
 
 public interface IErrorExceptionRepository
 {
-    Task<int> AddAndSaveAsync(ErrorException errorException);
-    Task AddAsync(ErrorException errorException);
+    Task<int> AddAndSaveAsync(Exception errorException);
+    Task AddAsync(Exception errorException);
     Task<int> GetMaxIdAsync();
 }

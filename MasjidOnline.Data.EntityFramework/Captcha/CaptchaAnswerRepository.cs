@@ -35,11 +35,10 @@ public class CaptchaAnswerRepository(CaptchaDataContext _captchaDataContext) : I
         return await _dbSet.AnyAsync(a => captchaQuestionIds.Any(i => i == a.CaptchaQuestionId) && a.IsMatch);
     }
 
-    // todo return 1 field only
     public async Task<bool?> GetIsMatchByCaptchaQuestionIdAsync(long captchaQuestionId)
     {
         return await _dbSet.Where(e => e.CaptchaQuestionId == captchaQuestionId)
-            .Select(e => e.IsMatch)
+            .Select(e => (bool?)e.IsMatch)
             .FirstOrDefaultAsync();
     }
 

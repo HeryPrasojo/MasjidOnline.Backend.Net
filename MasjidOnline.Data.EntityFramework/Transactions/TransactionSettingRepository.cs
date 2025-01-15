@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using MasjidOnline.Data.Interface.Transaction;
-using MasjidOnline.Entity.Transaction;
+using MasjidOnline.Data.Interface.Transactions;
+using MasjidOnline.Entity.Transactions;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Transactions;

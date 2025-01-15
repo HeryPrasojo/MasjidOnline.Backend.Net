@@ -1,15 +1,17 @@
+using System;
 using MasjidOnline.Api.Model;
 using MasjidOnline.Api.Web;
 using MasjidOnline.Api.Web.WebApplicationExtension;
 using MasjidOnline.Business.Captcha;
 using MasjidOnline.Business.Infaq;
 using MasjidOnline.Data;
+using MasjidOnline.Data.EntityFramework;
 using MasjidOnline.Data.EntityFramework.SqLite;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Captcha;
 using MasjidOnline.Data.Interface.Core;
 using MasjidOnline.Data.Interface.Log;
-using MasjidOnline.Data.Interface.Transaction;
+using MasjidOnline.Data.Interface.Transactions;
 using MasjidOnline.Service.Captcha;
 using MasjidOnline.Service.Hash512;
 using Microsoft.AspNetCore.Builder;
@@ -38,6 +40,8 @@ webApplicationBuilder.Services.AddCaptchaService();
 
 webApplicationBuilder.Services.AddHash512Service();
 
+webApplicationBuilder.Services.AddData();
+
 webApplicationBuilder.Services.AddSqLiteEntityFrameworkData(webApplicationBuilder.Configuration);
 
 webApplicationBuilder.Services.AddEntityIdGenerator();
@@ -56,10 +60,23 @@ var webApplication = webApplicationBuilder.Build();
 
 using (var serviceScope = webApplication.Services.CreateScope())
 {
-    serviceScope.ServiceProvider.GetService<ICoreInitializer>();
-    serviceScope.ServiceProvider.GetService<ICaptchaInitializer>();
-    serviceScope.ServiceProvider.GetService<ILogInitializer>();
-    serviceScope.ServiceProvider.GetService<ITransactionInitializer>();
+    var initializers = new IInitializer?[]
+    {
+        serviceScope.ServiceProvider.GetService<ICoreInitializer>(),
+        serviceScope.ServiceProvider.GetService<ICaptchaInitializer>(),
+        serviceScope.ServiceProvider.GetService<ILogInitializer>(),
+        serviceScope.ServiceProvider.GetService<ITransactionInitializer>(),
+    };
+
+    foreach (var initializer in initializers)
+    {
+        if (initializer == default)
+        {
+            throw new ApplicationException("Get IInitializer service fail");
+        }
+
+        await initializer.InitializeDatabaseAsync();
+    }
 }
 
 #endregion

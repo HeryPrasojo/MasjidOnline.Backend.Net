@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.Transaction;
+using MasjidOnline.Data.Interface.Transactions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MasjidOnline.Data;
+namespace MasjidOnline.Data.IdGenerator;
 
 public class TransactionIdGenerator : ITransactionIdGenerator
 {

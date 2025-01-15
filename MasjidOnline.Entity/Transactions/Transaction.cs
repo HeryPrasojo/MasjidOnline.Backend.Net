@@ -2,7 +2,7 @@
 using MasjidOnline.Entity.Payments;
 using MasjidOnline.Entity.User;
 
-namespace MasjidOnline.Entity.Transaction;
+namespace MasjidOnline.Entity.Transactions;
 
 public class Transaction
 {
@@ -24,8 +24,5 @@ public class Transaction
 
     public required PaymentType PaymentType { get; set; }
 
-    public int ManualBankTransferSourceBankId { get; set; }
-
-    // todo move to a new entity
-    public sbyte Files { get; set; }
+    public int? ManualBankTransferSourceBankId { get; set; }
 }

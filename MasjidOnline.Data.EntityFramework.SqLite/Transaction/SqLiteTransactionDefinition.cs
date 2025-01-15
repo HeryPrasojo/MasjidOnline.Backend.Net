@@ -1,4 +1,4 @@
-﻿using MasjidOnline.Data.Interface.Transaction;
+﻿using MasjidOnline.Data.Interface.Transactions;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite.Transaction;
 

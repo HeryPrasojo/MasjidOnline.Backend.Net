@@ -2,5 +2,6 @@
 
 public interface ILogData : IData
 {
-    IErrorExceptionRepository ErrorException { get; }
+    IErrorExceptionRepository Exception { get; }
+    ILogSettingRepository LogSetting { get; }
 }

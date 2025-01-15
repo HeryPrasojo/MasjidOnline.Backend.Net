@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using MasjidOnline.Api.Model;
 using MasjidOnline.Api.Model.Captcha;
-using MasjidOnline.Api.Model.Exception;
+using MasjidOnline.Api.Model.Exceptions;
 using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Captcha;

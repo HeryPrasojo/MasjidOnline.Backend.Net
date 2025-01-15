@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Data.Interface.Transaction;
+﻿namespace MasjidOnline.Data.Interface.Transactions;
 
 public interface ITransactionDefinition : IDefinition
 {

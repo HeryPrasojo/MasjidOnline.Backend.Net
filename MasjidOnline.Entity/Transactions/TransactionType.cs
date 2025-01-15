@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Entity.Transaction;
+﻿namespace MasjidOnline.Entity.Transactions;
 
 public enum TransactionType
 {

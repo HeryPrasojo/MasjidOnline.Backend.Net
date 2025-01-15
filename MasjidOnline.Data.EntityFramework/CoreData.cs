@@ -4,16 +4,9 @@ using MasjidOnline.Data.Interface.Core;
 
 namespace MasjidOnline.Data.EntityFramework;
 
-public abstract class CoreData : ICoreData
+public class CoreData(CoreDataContext _coreDataContext) : ICoreData
 {
-    protected readonly CoreDataContext _coreDataContext;
-
     private ICoreSettingRepository? _coreSettingRepository;
-
-    public CoreData(CoreDataContext coreDataContext)
-    {
-        _coreDataContext = coreDataContext;
-    }
 
     public ICoreSettingRepository CoreSetting => _coreSettingRepository ??= new CoreSettingRepository(_coreDataContext);
 
