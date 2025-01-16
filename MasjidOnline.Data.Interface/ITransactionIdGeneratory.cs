@@ -3,4 +3,5 @@
 public interface ITransactionIdGenerator
 {
     long TransactionId { get; }
+    long TransactionFileId { get; }
 }

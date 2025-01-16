@@ -4,19 +4,8 @@ using MasjidOnline.Entity.Transactions;
 
 namespace MasjidOnline.Data.Initializer;
 
-public abstract class TransactionInitializer : ITransactionInitializer
+public abstract class TransactionInitializer(ITransactionData _transactionData, ITransactionDefinition _transactionDefinition) : ITransactionInitializer
 {
-    private readonly ITransactionData _transactionData;
-    private readonly ITransactionDefinition _transactionDefinition;
-
-    public TransactionInitializer(
-        ITransactionData transactionData,
-        ITransactionDefinition transactionDefinition)
-    {
-        _transactionData = transactionData;
-        _transactionDefinition = transactionDefinition;
-    }
-
     public async Task InitializeDatabaseAsync()
     {
         var settingTableExists = await _transactionDefinition.CheckTableExistsAsync("TransactionSetting");
@@ -46,7 +35,7 @@ public abstract class TransactionInitializer : ITransactionInitializer
 
     protected abstract Task<int> CreateTableTransactionSettingAsync();
 
-    protected abstract Task CreateTableTransactionAsync();
+    protected abstract Task<int> CreateTableTransactionAsync();
 
-    protected abstract Task CreateTableTransactionFileAsync();
+    protected abstract Task<int> CreateTableTransactionFileAsync();
 }

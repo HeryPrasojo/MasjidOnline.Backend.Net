@@ -6,18 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite.Captcha;
 
-public class SqLiteCaptchaInitializer : CaptchaInitializer
+public class SqLiteCaptchaInitializer(
+    CaptchaDataContext _captchaDataContext,
+    ICaptchaData _captchaData,
+    ICaptchaDefinition _captchaDefinition) : CaptchaInitializer(_captchaData, _captchaDefinition)
 {
-    private readonly CaptchaDataContext _captchaDataContext;
-
-    public SqLiteCaptchaInitializer(
-        CaptchaDataContext captchaDataContext,
-        ICaptchaData captchaData,
-        ICaptchaDefinition captchaDefinition) : base(captchaData, captchaDefinition)
-    {
-        _captchaDataContext = captchaDataContext;
-    }
-
     protected override async Task<int> CreateTableCaptchaSettingAsync()
     {
         FormattableString sql = @$"

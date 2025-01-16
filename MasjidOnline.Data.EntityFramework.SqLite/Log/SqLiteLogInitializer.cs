@@ -6,19 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite.Log;
 
-public class SqLiteLogInitializer : LogInitializer
+public class SqLiteLogInitializer(
+    LogDataContext _logDataContext,
+    ILogData _logData,
+    ILogDefinition _logDefinition) : LogInitializer(_logData, _logDefinition)
 {
-    private readonly LogDataContext _logDataContext;
-
-    //[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "<Pending>")]
-    public SqLiteLogInitializer(
-        LogDataContext logDataContext,
-        ILogData logData,
-        ILogDefinition logDefinition) : base(logData, logDefinition)
-    {
-        _logDataContext = logDataContext;
-    }
-
     protected override async Task<int> CreateTableErrorExceptionAsync()
     {
         FormattableString sql = @$"

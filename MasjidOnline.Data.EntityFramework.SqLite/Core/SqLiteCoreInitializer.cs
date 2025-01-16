@@ -6,18 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite.Core;
 
-public class SqLiteCoreInitializer : CoreInitializer
+public class SqLiteCoreInitializer(
+    CoreDataContext _coreDataContext,
+    ICoreData _coreData,
+    ICoreDefinition _coreDefinition) : CoreInitializer(_coreData, _coreDefinition)
 {
-    private readonly CoreDataContext _coreDataContext;
-
-    public SqLiteCoreInitializer(
-        CoreDataContext coreDataContext,
-        ICoreData coreData,
-        ICoreDefinition coreDefinition) : base(coreData, coreDefinition)
-    {
-        _coreDataContext = coreDataContext;
-    }
-
     protected override async Task<int> CreateTableCoreSettingAsync()
     {
         FormattableString sql = @$"

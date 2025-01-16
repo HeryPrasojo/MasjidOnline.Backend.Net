@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Api.Model;
@@ -10,6 +11,7 @@ using MasjidOnline.Data.Interface.Captcha;
 using MasjidOnline.Data.Interface.Transactions;
 using MasjidOnline.Entity.Payments;
 using MasjidOnline.Entity.Transactions;
+using MasjidOnline.Library.Extentions;
 
 namespace MasjidOnline.Business.Infaq;
 
@@ -26,7 +28,7 @@ public class AnonymInfaqBusiness(
 
         if (anonymInfaqRequest.Amount == default) throw new InputInvalidException(nameof(anonymInfaqRequest.Amount));
 
-        if (anonymInfaqRequest.Name == default) throw new InputInvalidException(nameof(anonymInfaqRequest.Name));
+        if (anonymInfaqRequest.MunfiqName.IsNullOrEmptyOrWhiteSpace()) throw new InputInvalidException(nameof(anonymInfaqRequest.MunfiqName));
 
         if (anonymInfaqRequest.PaymentType == default) throw new InputInvalidException(nameof(anonymInfaqRequest.PaymentType));
 
@@ -57,16 +59,52 @@ public class AnonymInfaqBusiness(
             PaymentStatus = PaymentStatus.Pending,
             PaymentType = (PaymentType)anonymInfaqRequest.PaymentType,
             Type = TransactionType.Infaq,
-            UserId =,
-            UserName =,
-            UserType =,
+            UserId = default,
+            MunfiqName = anonymInfaqRequest.MunfiqName,
+            UserType = Entity.User.UserType.Anonymous,
         };
 
-        if (anonymInfaqRequest.ManualBankTransferSourceBankId != default)
+        if (!anonymInfaqRequest.ManualBankTransferNotes.IsNullOrEmptyOrWhiteSpace())
         {
-            transaction.ManualBankTransferSourceBankId = anonymInfaqRequest.ManualBankTransferSourceBankId;
+            transaction.ManualBankTransferNotes = anonymInfaqRequest.ManualBankTransferNotes;
         }
+
         await _transactionData.Transaction.AddAsync(transaction);
+
+
+        if (anonymInfaqRequest.Files != default)
+        {
+            foreach (var file in anonymInfaqRequest.Files)
+            {
+                if (file.Length > 1048576) throw new InputInvalidException(nameof(anonymInfaqRequest.Files));
+
+                var transactionFile = new TransactionFile
+                {
+                    Id = _transactionIdGenerator.TransactionFileId,
+                    TransactionId = transaction.Id,
+                };
+
+                var fileStreamOptions = new FileStreamOptions
+                {
+                    Access = FileAccess.Write,
+                    Mode = FileMode.CreateNew,
+                    Options = FileOptions.WriteThrough,
+                    PreallocationSize = file.Length,
+                    Share = FileShare.None,
+                };
+
+                using var fileStream = new FileStream("..\\..\\upload\\transaction\\", fileStreamOptions);
+
+                await file.CopyToAsync(fileStream);
+
+                await fileStream.FlushAsync();
+
+                fileStream.Close();
+            }
+        }
+
+        //throw new NotImplementedException();
+
         // undone
     }
 }

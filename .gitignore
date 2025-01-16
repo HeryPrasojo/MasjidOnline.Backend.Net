@@ -29,6 +29,8 @@
 /MasjidOnline.Data.Model/obj
 /MasjidOnline.Entity/bin
 /MasjidOnline.Entity/obj
+/MasjidOnline.Library/bin
+/MasjidOnline.Library/obj
 /MasjidOnline.Service.Captcha/bin
 /MasjidOnline.Service.Captcha/obj
 /MasjidOnline.Service.Captcha.Interface/bin

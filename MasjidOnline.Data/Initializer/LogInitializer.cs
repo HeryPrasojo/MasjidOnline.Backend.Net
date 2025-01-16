@@ -4,19 +4,8 @@ using MasjidOnline.Entity.Log;
 
 namespace MasjidOnline.Data.Initializer;
 
-public abstract class LogInitializer : ILogInitializer
+public abstract class LogInitializer(ILogData _logData, ILogDefinition _logDefinition) : ILogInitializer
 {
-    private readonly ILogData _logData;
-    private readonly ILogDefinition _logDefinition;
-
-    public LogInitializer(
-        ILogData logData,
-        ILogDefinition logDefinition)
-    {
-        _logData = logData;
-        _logDefinition = logDefinition;
-    }
-
     public async Task InitializeDatabaseAsync()
     {
         var settingTableExists = await _logDefinition.CheckTableExistsAsync("LogSetting");

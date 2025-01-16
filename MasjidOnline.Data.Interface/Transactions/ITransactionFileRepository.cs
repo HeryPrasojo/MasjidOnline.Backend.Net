@@ -3,9 +3,8 @@ using MasjidOnline.Entity.Transactions;
 
 namespace MasjidOnline.Data.Interface.Transactions;
 
-public interface ITransactionRepository
+public interface ITransactionFileRepository
 {
-    Task AddAsync(Transaction transaction);
-    Task<int> AddAndSaveAsync(Transaction transaction);
+    Task AddAsync(TransactionFile transactionFile);
     Task<int> GetMaxIdAsync();
 }

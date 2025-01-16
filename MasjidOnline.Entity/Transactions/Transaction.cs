@@ -18,11 +18,11 @@ public class Transaction
 
     public long? UserId { get; set; }
 
-    public string? UserName { get; set; }
+    public string? MunfiqName { get; set; }
 
     public required decimal Amount { get; set; }
 
     public required PaymentType PaymentType { get; set; }
 
-    public int? ManualBankTransferSourceBankId { get; set; }
+    public string? ManualBankTransferNotes { get; set; }
 }

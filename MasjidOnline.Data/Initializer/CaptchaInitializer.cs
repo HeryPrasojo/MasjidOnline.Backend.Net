@@ -4,19 +4,8 @@ using MasjidOnline.Entity.Captcha;
 
 namespace MasjidOnline.Data.Initializer;
 
-public abstract class CaptchaInitializer : ICaptchaInitializer
+public abstract class CaptchaInitializer(ICaptchaData _captchaData, ICaptchaDefinition _captchaDefinition) : ICaptchaInitializer
 {
-    private readonly ICaptchaData _captchaData;
-    private readonly ICaptchaDefinition _captchaDefinition;
-
-    public CaptchaInitializer(
-        ICaptchaData captchaData,
-        ICaptchaDefinition captchaDefinition)
-    {
-        _captchaData = captchaData;
-        _captchaDefinition = captchaDefinition;
-    }
-
     public async Task InitializeDatabaseAsync()
     {
         var settingTableExists = await _captchaDefinition.CheckTableExistsAsync("CaptchaSetting");
