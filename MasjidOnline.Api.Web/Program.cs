@@ -8,11 +8,10 @@ using MasjidOnline.Data;
 using MasjidOnline.Data.EntityFramework;
 using MasjidOnline.Data.EntityFramework.SqLite;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.Captcha;
-using MasjidOnline.Data.Interface.Core;
-using MasjidOnline.Data.Interface.Log;
-using MasjidOnline.Data.Interface.Transactions;
+using MasjidOnline.Data.Interface.IdGenerator;
+using MasjidOnline.Data.Interface.Initializer;
 using MasjidOnline.Service.Captcha;
+using MasjidOnline.Service.FieldValidator;
 using MasjidOnline.Service.Hash512;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -38,13 +37,17 @@ webApplicationBuilder.Services.AddCors(corsOptions =>
 
 webApplicationBuilder.Services.AddCaptchaService();
 
+webApplicationBuilder.Services.AddFieldValidator();
+
 webApplicationBuilder.Services.AddHash512Service();
+
 
 webApplicationBuilder.Services.AddData();
 
 webApplicationBuilder.Services.AddSqLiteEntityFrameworkData(webApplicationBuilder.Configuration);
 
 webApplicationBuilder.Services.AddEntityIdGenerator();
+
 
 webApplicationBuilder.Services.AddDonationBusiness();
 

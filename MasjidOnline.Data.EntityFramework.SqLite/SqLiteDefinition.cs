@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite;
 
-public abstract class SqLiteDefinition(DbContext dbContext) : IDefinition
+public abstract class SqLiteDefinition(DbContext _dbContext) : IDefinition
 {
     public async Task<bool> CheckTableExistsAsync(string name)
     {
         FormattableString sql = $"SELECT COUNT(*) Value FROM sqlite_master WHERE type='table' AND name={name}";
 
-        var queryable = dbContext.Database.SqlQuery<long>(sql);
+        var queryable = _dbContext.Database.SqlQuery<long>(sql);
 
         var count = await queryable.SingleAsync();
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MasjidOnline.Api.Model.Payment;
 using Microsoft.AspNetCore.Http;
 
@@ -11,6 +12,8 @@ public class AnonymInfaqRequest
     public required decimal Amount { get; set; }
 
     public required PaymentType PaymentType { get; set; }
+
+    public DateTime? ManualBankTransferDateTime { get; set; }
 
     public string? ManualBankTransferNotes { get; set; }
 

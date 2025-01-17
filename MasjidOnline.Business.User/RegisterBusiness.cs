@@ -1,5 +1,5 @@
 ﻿using MasjidOnline.Business.User.Interface;
-using MasjidOnline.Data.Interface.Core;
+using MasjidOnline.Data.Interface.Datas;
 
 namespace MasjidOnline.Business.User;
 

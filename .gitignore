@@ -37,6 +37,10 @@
 /MasjidOnline.Service.Captcha.Interface/obj
 /MasjidOnline.Service.Captcha.Model/bin
 /MasjidOnline.Service.Captcha.Model/obj
+/MasjidOnline.Service.FieldValidator/bin
+/MasjidOnline.Service.FieldValidator/obj
+/MasjidOnline.Service.FieldValidator.Interface/bin
+/MasjidOnline.Service.FieldValidator.Interface/obj
 /MasjidOnline.Service.Hash512/bin
 /MasjidOnline.Service.Hash512/obj
 /MasjidOnline.Service.Hash512.Interface/bin

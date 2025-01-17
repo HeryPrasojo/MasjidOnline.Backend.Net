@@ -2,10 +2,9 @@
 using System.Threading.Tasks;
 using MasjidOnline.Api.Model;
 using MasjidOnline.Api.Model.Captcha;
-using MasjidOnline.Api.Model.Exceptions;
 using MasjidOnline.Business.Captcha.Interface;
-using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.Captcha;
+using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.Captcha;
 using MasjidOnline.Service.Captcha.Interface;
 using MasjidOnline.Service.Hash512.Interface;
@@ -49,10 +48,7 @@ public class CaptchaQuestionBusiness(
         }
 
 
-        if (sessionId == default)
-        {
-            sessionId = _hash512Service.RandomDigestBytes;
-        }
+        sessionId ??= _hash512Service.RandomDigestBytes;
 
         var generateImageResponse = _captchaService.GenerateRandomImage();
 
@@ -65,9 +61,8 @@ public class CaptchaQuestionBusiness(
             SessionId = sessionId,
         };
 
-        var changed = await _captchaData.CaptchaQuestion.AddAndSaveAsync(newCaptchaQuestion);
+        await _captchaData.CaptchaQuestion.AddAndSaveAsync(newCaptchaQuestion);
 
-        if (changed != 1) throw new ErrorException("Data save failed");
 
         return new()
         {

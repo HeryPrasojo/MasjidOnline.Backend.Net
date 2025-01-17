@@ -1,11 +1,9 @@
-﻿using MasjidOnline.Data.EntityFramework.SqLite.Captcha;
-using MasjidOnline.Data.EntityFramework.SqLite.Core;
-using MasjidOnline.Data.EntityFramework.SqLite.Log;
-using MasjidOnline.Data.EntityFramework.SqLite.Transaction;
-using MasjidOnline.Data.Interface.Captcha;
-using MasjidOnline.Data.Interface.Core;
-using MasjidOnline.Data.Interface.Log;
-using MasjidOnline.Data.Interface.Transactions;
+﻿using MasjidOnline.Data.EntityFramework.DataContext;
+using MasjidOnline.Data.EntityFramework.SqLite.DataContext;
+using MasjidOnline.Data.EntityFramework.SqLite.Definition;
+using MasjidOnline.Data.EntityFramework.SqLite.Initializer;
+using MasjidOnline.Data.Interface.Definition;
+using MasjidOnline.Data.Interface.Initializer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

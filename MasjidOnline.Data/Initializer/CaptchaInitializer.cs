@@ -1,5 +1,7 @@
 ﻿using System.Threading.Tasks;
-using MasjidOnline.Data.Interface.Captcha;
+using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.Definition;
+using MasjidOnline.Data.Interface.Initializer;
 using MasjidOnline.Entity.Captcha;
 
 namespace MasjidOnline.Data.Initializer;
@@ -26,9 +28,9 @@ public abstract class CaptchaInitializer(ICaptchaData _captchaData, ICaptchaDefi
             await CreateTableCaptchaQuestionAsync();
 
             await CreateTableCaptchaAnswerAsync();
-        }
 
-        await _captchaData.SaveAsync();
+            await _captchaData.SaveAsync();
+        }
     }
 
 

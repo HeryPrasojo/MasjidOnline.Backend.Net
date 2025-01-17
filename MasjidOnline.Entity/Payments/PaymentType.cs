@@ -2,7 +2,8 @@
 
 public enum PaymentType
 {
+    None = 0,
     Cash = 11,
-    ManualBankTransfer = 22,
-    PurwantaraVirtualAccountBankTransfer = 111,
+    ManualBankTransfer = 21,
+    PurwantaraVirtualAccountBankTransfer = 31,
 }

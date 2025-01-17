@@ -1,5 +1,7 @@
 ﻿using System.Threading.Tasks;
-using MasjidOnline.Data.Interface.Core;
+using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.Definition;
+using MasjidOnline.Data.Interface.Initializer;
 using MasjidOnline.Entity.Core;
 
 namespace MasjidOnline.Data.Initializer;
@@ -21,9 +23,9 @@ public abstract class CoreInitializer(ICoreData _coreData, ICoreDefinition _core
             };
 
             await _coreData.CoreSetting.AddAsync(coreSetting);
-        }
 
-        await _coreData.SaveAsync();
+            await _coreData.SaveAsync();
+        }
     }
 
 

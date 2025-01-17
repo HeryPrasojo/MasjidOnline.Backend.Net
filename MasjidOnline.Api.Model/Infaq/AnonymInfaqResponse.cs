@@ -2,5 +2,4 @@
 
 public class AnonymInfaqResponse : Response
 {
-    public string? SessionId { get; set; }
 }

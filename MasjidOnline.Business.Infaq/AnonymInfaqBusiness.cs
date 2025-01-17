@@ -3,39 +3,43 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Api.Model;
-using MasjidOnline.Api.Model.Exceptions;
 using MasjidOnline.Api.Model.Infaq;
 using MasjidOnline.Business.Infaq.Interface;
-using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.Captcha;
-using MasjidOnline.Data.Interface.Transactions;
+using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.Payments;
 using MasjidOnline.Entity.Transactions;
+using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Library.Extentions;
+using MasjidOnline.Service.FieldValidator.Interface;
 
 namespace MasjidOnline.Business.Infaq;
 
 public class AnonymInfaqBusiness(
+    ICaptchaData _captchaData,
+    IFieldValidatorService _fieldValidatorService,
     ITransactionData _transactionData,
-    ITransactionIdGenerator _transactionIdGenerator,
-    ICaptchaData _captchaData) : IAnonymInfaqBusiness
+    ITransactionIdGenerator _transactionIdGenerator) : IAnonymInfaqBusiness
 {
     public async Task<AnonymInfaqResponse> InfaqAsync(byte[]? sessionId, AnonymInfaqRequest anonymInfaqRequest)
     {
-        if (sessionId == default) throw new InputInvalidException(nameof(sessionId));
+        _fieldValidatorService.ValidateRequired(sessionId);
 
-        if (anonymInfaqRequest == default) throw new InputInvalidException(nameof(anonymInfaqRequest));
+        _fieldValidatorService.ValidateRequired(anonymInfaqRequest);
 
-        if (anonymInfaqRequest.Amount == default) throw new InputInvalidException(nameof(anonymInfaqRequest.Amount));
+        _fieldValidatorService.ValidateRequired(anonymInfaqRequest.Amount);
 
-        if (anonymInfaqRequest.MunfiqName.IsNullOrEmptyOrWhiteSpace()) throw new InputInvalidException(nameof(anonymInfaqRequest.MunfiqName));
+        _fieldValidatorService.ValidateRequired(anonymInfaqRequest.PaymentType);
 
-        if (anonymInfaqRequest.PaymentType == default) throw new InputInvalidException(nameof(anonymInfaqRequest.PaymentType));
+        anonymInfaqRequest.MunfiqName = _fieldValidatorService.ValidateRequiredTextShort(anonymInfaqRequest.MunfiqName);
+
+        anonymInfaqRequest.ManualBankTransferNotes = _fieldValidatorService.ValidateRequiredTextShort(anonymInfaqRequest.ManualBankTransferNotes);
+
 
         // todo check session logged in
 
 
-        var captchaQuestionIds = await _captchaData.CaptchaQuestion.GetIdsBySessionIdAsync(sessionId);
+        var captchaQuestionIds = await _captchaData.CaptchaQuestion.GetIdsBySessionIdAsync(sessionId!);
 
         if (!captchaQuestionIds.Any()) return new()
         {
@@ -53,15 +57,16 @@ public class AnonymInfaqBusiness(
 
         var transaction = new Transaction
         {
-            Amount = anonymInfaqRequest.Amount,
-            DateTime = DateTime.UtcNow,
             Id = _transactionIdGenerator.TransactionId,
+            Amount = anonymInfaqRequest.Amount,
+            CreateDateTime = DateTime.UtcNow,
             PaymentStatus = PaymentStatus.Pending,
             PaymentType = (PaymentType)anonymInfaqRequest.PaymentType,
             Type = TransactionType.Infaq,
             UserId = default,
             MunfiqName = anonymInfaqRequest.MunfiqName,
-            UserType = Entity.User.UserType.Anonymous,
+
+            ManualBankTransferDateTime = anonymInfaqRequest.ManualBankTransferDateTime,
         };
 
         if (!anonymInfaqRequest.ManualBankTransferNotes.IsNullOrEmptyOrWhiteSpace())
@@ -100,11 +105,17 @@ public class AnonymInfaqBusiness(
                 await fileStream.FlushAsync();
 
                 fileStream.Close();
+
+                await _transactionData.TransactionFile.AddAsync(transactionFile);
             }
         }
 
-        //throw new NotImplementedException();
 
-        // undone
+        await _transactionData.SaveAsync();
+
+        return new()
+        {
+            ResultCode = ResponseResult.Success,
+        };
     }
 }

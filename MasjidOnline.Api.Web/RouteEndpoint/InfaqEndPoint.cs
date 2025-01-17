@@ -20,13 +20,6 @@ internal static class InfaqEndPoint
 
         var anonymInfaqResponse = await anonymInfaqBusiness.InfaqAsync(sessionId, anonymInfaqRequest);
 
-        if (sessionId == default)
-        {
-            httpContext.Response.Cookies.Append(Constant.HttpCookieSessionName, anonymInfaqResponse.SessionId!);
-        }
-
-        anonymInfaqResponse.SessionId = default;
-
         return anonymInfaqResponse;
     }
 }

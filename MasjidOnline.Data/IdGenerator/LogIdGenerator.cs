@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Threading;
-using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.Log;
+using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.IdGenerator;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MasjidOnline.Data.IdGenerator;
 
 public class LogIdGenerator : ILogIdGenerator
 {
-    private long _errorExceptionId;
+    private int _errorExceptionId;
 
     public LogIdGenerator(IServiceProvider serviceProvider)
     {
@@ -20,7 +20,7 @@ public class LogIdGenerator : ILogIdGenerator
         _errorExceptionId = logData.Exception.GetMaxIdAsync().Result;
     }
 
-    public long ErrorExceptionId => Interlocked.Increment(ref _errorExceptionId);
+    public int ErrorExceptionId => Interlocked.Increment(ref _errorExceptionId);
 
 
 }

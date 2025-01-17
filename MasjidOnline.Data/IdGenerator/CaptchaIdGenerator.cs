@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
-using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.Captcha;
+using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.IdGenerator;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MasjidOnline.Data.IdGenerator;
@@ -9,8 +9,8 @@ namespace MasjidOnline.Data.IdGenerator;
 // move to a new child folder MasjidOnline.Data.IdGenerator
 public class CaptchaIdGenerator : ICaptchaIdGenerator
 {
-    private long _captchaAnswerId;
-    private long _captchaQuestionId;
+    private int _captchaAnswerId;
+    private int _captchaQuestionId;
 
     public CaptchaIdGenerator(IServiceProvider serviceProvider)
     {
@@ -23,9 +23,9 @@ public class CaptchaIdGenerator : ICaptchaIdGenerator
         _captchaQuestionId = captchaData.CaptchaQuestion.GetMaxIdAsync().Result;
     }
 
-    public long CaptchaAnswerId => Interlocked.Increment(ref _captchaAnswerId);
+    public int CaptchaAnswerId => Interlocked.Increment(ref _captchaAnswerId);
 
-    public long CaptchaQuestionId => Interlocked.Increment(ref _captchaQuestionId);
+    public int CaptchaQuestionId => Interlocked.Increment(ref _captchaQuestionId);
 
 
 }

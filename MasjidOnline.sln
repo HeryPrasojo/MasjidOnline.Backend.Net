@@ -50,6 +50,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Library", "MasjidOnline.Library\MasjidOnline.Library.csproj", "{E768578B-4EED-4C9E-B830-2F306EBEC850}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.FieldValidator", "MasjidOnline.Service.FieldValidator\MasjidOnline.Service.FieldValidator.csproj", "{913E339C-94E8-48A9-B2DE-CD9D9DAE07CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.FieldValidator.Interface", "MasjidOnline.Service.FieldValidator.Interface\MasjidOnline.Service.FieldValidator.Interface.csproj", "{47D8223F-0038-4848-BFEF-8E53B10C24F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -140,6 +144,14 @@ Global
 		{E768578B-4EED-4C9E-B830-2F306EBEC850}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E768578B-4EED-4C9E-B830-2F306EBEC850}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E768578B-4EED-4C9E-B830-2F306EBEC850}.Release|Any CPU.Build.0 = Release|Any CPU
+		{913E339C-94E8-48A9-B2DE-CD9D9DAE07CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{913E339C-94E8-48A9-B2DE-CD9D9DAE07CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{913E339C-94E8-48A9-B2DE-CD9D9DAE07CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{913E339C-94E8-48A9-B2DE-CD9D9DAE07CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47D8223F-0038-4848-BFEF-8E53B10C24F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47D8223F-0038-4848-BFEF-8E53B10C24F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47D8223F-0038-4848-BFEF-8E53B10C24F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47D8223F-0038-4848-BFEF-8E53B10C24F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

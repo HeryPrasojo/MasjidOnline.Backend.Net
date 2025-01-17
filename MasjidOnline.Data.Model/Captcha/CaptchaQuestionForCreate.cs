@@ -2,7 +2,7 @@
 
 public class CaptchaQuestionForCreate
 {
-    public required long Id { get; set; }
+    public required int Id { get; set; }
 
     public required float Degree { get; set; }
 }

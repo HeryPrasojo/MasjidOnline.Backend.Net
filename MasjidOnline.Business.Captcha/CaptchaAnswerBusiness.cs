@@ -2,26 +2,28 @@
 using System.Threading.Tasks;
 using MasjidOnline.Api.Model;
 using MasjidOnline.Api.Model.Captcha;
-using MasjidOnline.Api.Model.Exceptions;
 using MasjidOnline.Business.Captcha.Interface;
-using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.Captcha;
+using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.Captcha;
+using MasjidOnline.Library.Exceptions;
+using MasjidOnline.Service.FieldValidator.Interface;
 
 namespace MasjidOnline.Business.Captcha;
 
 public class CaptchaAnswerBusiness(
     ICaptchaData _captchaData,
-    ICaptchaIdGenerator _captchaIdGenerator) : ICaptchaAnswerBusiness
+    ICaptchaIdGenerator _captchaIdGenerator,
+    IFieldValidatorService _fieldValidatorService) : ICaptchaAnswerBusiness
 {
     public async Task<AnswerQuestionResponse> AnswerAsync(byte[]? sessionId, AnswerQuestionRequest answerQuestionRequest)
     {
-        if (sessionId == default) throw new InputInvalidException(nameof(sessionId));
+        _fieldValidatorService.ValidateRequired(sessionId);
 
-        if (answerQuestionRequest == default) throw new InputInvalidException(nameof(answerQuestionRequest));
+        _fieldValidatorService.ValidateRequired(answerQuestionRequest);
 
 
-        var captchaQuestion = await _captchaData.CaptchaQuestion.GetForAnswerAsync(sessionId);
+        var captchaQuestion = await _captchaData.CaptchaQuestion.GetForAnswerAsync(sessionId!);
 
         if (captchaQuestion == default) throw new InputMismatchException($"{nameof(sessionId)}: {sessionId}");
 
@@ -38,9 +40,7 @@ public class CaptchaAnswerBusiness(
             IsMatch = (degreeDiff < tolerance) && (degreeDiff > -tolerance),
         };
 
-        var changed = await _captchaData.CaptchaAnswer.AddAndSaveAsync(captchaAnswer);
-
-        if (changed != 1) throw new ErrorException("Data save failed");
+        await _captchaData.CaptchaAnswer.AddAndSaveAsync(captchaAnswer);
 
 
         if (!captchaAnswer.IsMatch)

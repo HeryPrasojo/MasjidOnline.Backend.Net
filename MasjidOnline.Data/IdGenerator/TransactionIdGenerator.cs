@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Threading;
-using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.Transactions;
+using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.IdGenerator;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MasjidOnline.Data.IdGenerator;
 
 public class TransactionIdGenerator : ITransactionIdGenerator
 {
-    private long _transactionId;
-    private long _transactionFileId;
+    private int _transactionId;
+    private int _transactionFileId;
 
     public TransactionIdGenerator(IServiceProvider serviceProvider)
     {
@@ -23,7 +23,7 @@ public class TransactionIdGenerator : ITransactionIdGenerator
         _transactionFileId = transactionData.TransactionFile.GetMaxIdAsync().Result;
     }
 
-    public long TransactionId => Interlocked.Increment(ref _transactionId);
+    public int TransactionId => Interlocked.Increment(ref _transactionId);
 
-    public long TransactionFileId => Interlocked.Increment(ref _transactionFileId);
+    public int TransactionFileId => Interlocked.Increment(ref _transactionFileId);
 }

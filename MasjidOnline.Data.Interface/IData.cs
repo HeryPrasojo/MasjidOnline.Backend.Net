@@ -4,5 +4,5 @@ namespace MasjidOnline.Data.Interface;
 
 public interface IData
 {
-    Task<int> SaveAsync();
+    Task SaveAsync();
 }

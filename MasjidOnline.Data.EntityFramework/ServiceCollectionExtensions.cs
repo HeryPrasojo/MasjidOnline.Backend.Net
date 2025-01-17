@@ -1,7 +1,5 @@
-﻿using MasjidOnline.Data.Interface.Captcha;
-using MasjidOnline.Data.Interface.Core;
-using MasjidOnline.Data.Interface.Log;
-using MasjidOnline.Data.Interface.Transactions;
+﻿using MasjidOnline.Data.EntityFramework.Datas;
+using MasjidOnline.Data.Interface.Datas;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MasjidOnline.Data.EntityFramework;
