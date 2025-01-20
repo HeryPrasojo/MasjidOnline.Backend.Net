@@ -8,10 +8,11 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddData(this IServiceCollection services)
     {
-        services.AddScoped<ICoreData, CoreData>();
         services.AddScoped<ICaptchaData, CaptchaData>();
+        services.AddScoped<ICoreData, CoreData>();
+        services.AddScoped<IEventData, EventData>();
         services.AddScoped<ITransactionData, TransactionData>();
-        services.AddScoped<ILogData, LogData>();
+        services.AddScoped<IUserData, UserData>();
 
         return services;
     }

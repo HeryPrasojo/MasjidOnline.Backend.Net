@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Data.Interface.Definition;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite;
 
-public abstract class SqLiteDefinition(DbContext _dbContext) : IDefinition
+public class SqLiteDefinition<TDataContext>(TDataContext tDataContext) : IDefinition, ICaptchaDefinition, ICoreDefinition, IEventDefinition, ITransactionDefinition, IUserDefinition where TDataContext : DbContext
 {
     public async Task<bool> CheckTableExistsAsync(string name)
     {
         FormattableString sql = $"SELECT COUNT(*) Value FROM sqlite_master WHERE type='table' AND name={name}";
 
-        var queryable = _dbContext.Database.SqlQuery<long>(sql);
+        var queryable = tDataContext.Database.SqlQuery<long>(sql);
 
         var count = await queryable.SingleAsync();
 

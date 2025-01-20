@@ -11,7 +11,7 @@ namespace MasjidOnline.Api.Web;
 
 public class ExceptionHandlerMiddleware(RequestDelegate _nextRequestDelegate)
 {
-    public async Task Invoke(HttpContext httpContext, ILogData logData, ILogIdGenerator logIdGenerator)
+    public async Task Invoke(HttpContext httpContext, IEventData eventData, IEventIdGenerator eventIdGenerator)
     {
         try
         {
@@ -19,11 +19,11 @@ public class ExceptionHandlerMiddleware(RequestDelegate _nextRequestDelegate)
         }
         catch (Exception exception)
         {
-            await HandleExceptionAsync(httpContext, exception, logData, logIdGenerator);
+            await HandleExceptionAsync(httpContext, exception, eventData, eventIdGenerator);
         }
     }
 
-    private static async Task HandleExceptionAsync(HttpContext httpContext, Exception exception, ILogData logData, ILogIdGenerator logIdGenerator)
+    private static async Task HandleExceptionAsync(HttpContext httpContext, Exception exception, IEventData eventData, IEventIdGenerator eventIdGenerator)
     {
         httpContext.Response.ContentType = "application/json";
 
@@ -45,15 +45,15 @@ public class ExceptionHandlerMiddleware(RequestDelegate _nextRequestDelegate)
 
         if (response.ResultCode == ResponseResult.Error)
         {
-            var errorExceptionEntity = new Entity.Log.Exception
+            var errorExceptionEntity = new Entity.Event.Exception
             {
-                Id = logIdGenerator.ErrorExceptionId,
+                Id = eventIdGenerator.ExceptionId,
                 Message = exception.Message,
                 StackTrace = exception.StackTrace,
                 DateTime = DateTime.UtcNow,
             };
 
-            await logData.Exception.AddAndSaveAsync(errorExceptionEntity);
+            await eventData.Exception.AddAndSaveAsync(errorExceptionEntity);
         }
 
 

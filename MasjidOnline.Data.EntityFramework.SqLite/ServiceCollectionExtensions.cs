@@ -1,6 +1,5 @@
 ﻿using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.EntityFramework.SqLite.DataContext;
-using MasjidOnline.Data.EntityFramework.SqLite.Definition;
 using MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 using MasjidOnline.Data.Interface.Definition;
 using MasjidOnline.Data.Interface.Initializer;
@@ -14,18 +13,6 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddSqLiteEntityFrameworkData(this IServiceCollection services, IConfigurationManager configurationManager)
     {
-        services.AddDbContextPool<CoreDataContext, SqLiteCoreDataContext>(b =>
-            {
-                var connectionString = configurationManager.GetConnectionString("Core");
-
-                b.UseSqlite(connectionString);
-            },
-            poolSize: 2);
-
-        services.AddTransient<ICoreDefinition, SqLiteCoreDefinition>();
-        services.AddTransient<ICoreInitializer, SqLiteCoreInitializer>();
-
-
         services.AddDbContextPool<CaptchaDataContext, SqLiteCaptchaDataContext>(b =>
             {
                 var connectionString = configurationManager.GetConnectionString("Captcha");
@@ -34,8 +21,23 @@ public static class ServiceCollectionExtensions
             },
             poolSize: 2);
 
-        services.AddTransient<ICaptchaDefinition, SqLiteCaptchaDefinition>();
-        services.AddTransient<ICaptchaInitializer, SqLiteCaptchaInitializer>();
+
+        services.AddDbContextPool<CoreDataContext, SqLiteCoreDataContext>(b =>
+            {
+                var connectionString = configurationManager.GetConnectionString("Core");
+
+                b.UseSqlite(connectionString);
+            },
+            poolSize: 2);
+
+
+        services.AddDbContextPool<EventDataContext, SqLiteEventDataContext>(b =>
+            {
+                var connectionString = configurationManager.GetConnectionString("Event");
+
+                b.UseSqlite(connectionString);
+            },
+            poolSize: 2);
 
 
         services.AddDbContextPool<TransactionDataContext, SqLiteTransactionDataContext>(b =>
@@ -46,20 +48,27 @@ public static class ServiceCollectionExtensions
             },
             poolSize: 2);
 
-        services.AddTransient<ITransactionDefinition, SqLiteTransactionDefinition>();
-        services.AddTransient<ITransactionInitializer, SqLiteTransactionInitializer>();
 
-
-        services.AddDbContextPool<LogDataContext, SqLiteLogDataContext>(b =>
+        services.AddDbContextPool<UserDataContext, SqLiteUserDataContext>(b =>
             {
-                var connectionString = configurationManager.GetConnectionString("Log");
+                var connectionString = configurationManager.GetConnectionString("User");
 
                 b.UseSqlite(connectionString);
             },
             poolSize: 2);
 
-        services.AddTransient<ILogDefinition, SqLiteLogDefinition>();
-        services.AddTransient<ILogInitializer, SqLiteLogInitializer>();
+
+        services.AddTransient<ICaptchaInitializer, SqLiteCaptchaInitializer>();
+        services.AddTransient<ICoreInitializer, SqLiteCoreInitializer>();
+        services.AddTransient<IEventInitializer, SqLiteEventInitializer>();
+        services.AddTransient<ITransactionInitializer, SqLiteTransactionInitializer>();
+        services.AddTransient<IUserInitializer, SqLiteUserInitializer>();
+
+        services.AddTransient<ICaptchaDefinition, SqLiteDefinition<SqLiteCaptchaDataContext>>();
+        services.AddTransient<ICoreDefinition, SqLiteDefinition<SqLiteCoreDataContext>>();
+        services.AddTransient<IEventDefinition, SqLiteDefinition<SqLiteEventDataContext>>();
+        services.AddTransient<ITransactionDefinition, SqLiteDefinition<SqLiteTransactionDataContext>>();
+        services.AddTransient<IUserDefinition, SqLiteDefinition<SqLiteUserDataContext>>();
 
         return services;
     }

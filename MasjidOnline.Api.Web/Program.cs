@@ -67,8 +67,9 @@ using (var serviceScope = webApplication.Services.CreateScope())
     {
         serviceScope.ServiceProvider.GetService<ICoreInitializer>(),
         serviceScope.ServiceProvider.GetService<ICaptchaInitializer>(),
-        serviceScope.ServiceProvider.GetService<ILogInitializer>(),
+        serviceScope.ServiceProvider.GetService<IEventInitializer>(),
         serviceScope.ServiceProvider.GetService<ITransactionInitializer>(),
+        serviceScope.ServiceProvider.GetService<IUserInitializer>(),
     };
 
     foreach (var initializer in initializers)
@@ -89,8 +90,9 @@ using (var serviceScope = webApplication.Services.CreateScope())
 
 webApplication.Services.GetService<ICoreIdGenerator>();
 webApplication.Services.GetService<ICaptchaIdGenerator>();
-webApplication.Services.GetService<ILogIdGenerator>();
+webApplication.Services.GetService<IEventIdGenerator>();
 webApplication.Services.GetService<ITransactionIdGenerator>();
+webApplication.Services.GetService<IUserIdGenerator>();
 
 #endregion
 

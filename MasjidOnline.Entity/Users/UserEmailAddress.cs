@@ -2,7 +2,7 @@
 
 public class UserEmailAddress
 {
-    public required int Id { get; set; }
+    public virtual required int Id { get; set; }
 
     public required int UserId { get; set; }
 

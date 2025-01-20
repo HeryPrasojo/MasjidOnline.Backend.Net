@@ -8,4 +8,6 @@ namespace MasjidOnline.Data.Interface.IdGenerator;
 
 public interface IUserIdGenerator
 {
+    int UserId { get; }
+    int UserEmailAddressId { get; }
 }
