@@ -15,12 +15,12 @@ public class UserIdGenerator : IUserIdGenerator
     {
         using var serviceScope = serviceProvider.CreateScope();
 
-        var transactionData = serviceScope.ServiceProvider.GetService<IUserData>()
+        var userData = serviceScope.ServiceProvider.GetService<IUserData>()
             ?? throw new ApplicationException($"Get IUserData service fail");
 
-        _userId = transactionData.User.GetMaxIdAsync().Result;
+        _userId = userData.User.GetMaxIdAsync().Result;
 
-        _userEmailAddressId = transactionData.UserEmailAddress.GetMaxIdAsync().Result;
+        _userEmailAddressId = userData.UserEmailAddress.GetMaxIdAsync().Result;
     }
 
     public int UserId => Interlocked.Increment(ref _userId);

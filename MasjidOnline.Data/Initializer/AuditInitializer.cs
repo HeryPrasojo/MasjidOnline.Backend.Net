@@ -2,6 +2,7 @@
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.Definition;
 using MasjidOnline.Data.Interface.Initializer;
+using MasjidOnline.Entity.Audit;
 
 namespace MasjidOnline.Data.Initializer;
 

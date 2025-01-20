@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MasjidOnline.Entity.Audit;
+using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.DataContext;
 
