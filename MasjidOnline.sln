@@ -54,6 +54,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.FieldV
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.FieldValidator.Interface", "MasjidOnline.Service.FieldValidator.Interface\MasjidOnline.Service.FieldValidator.Interface.csproj", "{47D8223F-0038-4848-BFEF-8E53B10C24F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service", "MasjidOnline.Service\MasjidOnline.Service.csproj", "{F0837E90-8E50-4656-A18E-CDB766D824CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -152,6 +154,10 @@ Global
 		{47D8223F-0038-4848-BFEF-8E53B10C24F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47D8223F-0038-4848-BFEF-8E53B10C24F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47D8223F-0038-4848-BFEF-8E53B10C24F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0837E90-8E50-4656-A18E-CDB766D824CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0837E90-8E50-4656-A18E-CDB766D824CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0837E90-8E50-4656-A18E-CDB766D824CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0837E90-8E50-4656-A18E-CDB766D824CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

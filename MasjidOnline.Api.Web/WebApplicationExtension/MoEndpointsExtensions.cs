@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 
 namespace MasjidOnline.Api.Web.WebApplicationExtension;
 
+// todo rename to WebApplicationExtension, and move to MasjidOnline.Api.Web.
 internal static class MoEndpointsExtensions
 {
     internal static WebApplication MapEndpoints(this WebApplication webApplication)

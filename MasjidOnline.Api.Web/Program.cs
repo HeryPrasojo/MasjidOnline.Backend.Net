@@ -10,6 +10,7 @@ using MasjidOnline.Data.EntityFramework.SqLite;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Data.Interface.Initializer;
+using MasjidOnline.Service;
 using MasjidOnline.Service.Captcha;
 using MasjidOnline.Service.FieldValidator;
 using MasjidOnline.Service.Hash512;
@@ -52,6 +53,9 @@ webApplicationBuilder.Services.AddEntityIdGenerator();
 webApplicationBuilder.Services.AddDonationBusiness();
 
 webApplicationBuilder.Services.AddCaptchaBusiness();
+
+
+webApplicationBuilder.Services.AddService();
 
 #endregion
 
