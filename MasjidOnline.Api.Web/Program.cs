@@ -10,6 +10,7 @@ using MasjidOnline.Data.EntityFramework.SqLite;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Data.Interface.Initializer;
+using MasjidOnline.Service;
 using MasjidOnline.Service.Captcha;
 using MasjidOnline.Service.FieldValidator;
 using MasjidOnline.Service.Hash512;
@@ -53,6 +54,9 @@ webApplicationBuilder.Services.AddDonationBusiness();
 
 webApplicationBuilder.Services.AddCaptchaBusiness();
 
+
+webApplicationBuilder.Services.AddService();
+
 #endregion
 
 
@@ -65,6 +69,7 @@ using (var serviceScope = webApplication.Services.CreateScope())
 {
     var initializers = new IInitializer?[]
     {
+        //serviceScope.ServiceProvider.GetService<IAuditInitializer>(),
         serviceScope.ServiceProvider.GetService<ICoreInitializer>(),
         serviceScope.ServiceProvider.GetService<ICaptchaInitializer>(),
         serviceScope.ServiceProvider.GetService<IEventInitializer>(),
@@ -88,6 +93,7 @@ using (var serviceScope = webApplication.Services.CreateScope())
 
 #region initialize EntityIdGenerator
 
+webApplication.Services.GetService<IAuditIdGenerator>();
 webApplication.Services.GetService<ICoreIdGenerator>();
 webApplication.Services.GetService<ICaptchaIdGenerator>();
 webApplication.Services.GetService<IEventIdGenerator>();

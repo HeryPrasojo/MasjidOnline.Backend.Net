@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite;
 
-public class SqLiteDefinition<TDataContext>(TDataContext tDataContext) : IDefinition, ICaptchaDefinition, ICoreDefinition, IEventDefinition, ITransactionDefinition, IUserDefinition where TDataContext : DbContext
+public class SqLiteDefinition<TDataContext>(TDataContext tDataContext) : IDefinition, IAuditDefinition, ICaptchaDefinition, ICoreDefinition, IEventDefinition, ITransactionDefinition, IUserDefinition where TDataContext : DbContext
 {
     public async Task<bool> CheckTableExistsAsync(string name)
     {

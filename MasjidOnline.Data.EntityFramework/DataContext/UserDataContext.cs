@@ -1,11 +1,12 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Entity.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.DataContext;
 
-public abstract class UserDataContext(DbContextOptions _dbContextOptions) : DbContext(_dbContextOptions)
+public abstract class UserDataContext(DbContextOptions _dbContextOptions, IAuditData _auditData) : DbContext(_dbContextOptions)
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -20,38 +21,29 @@ public abstract class UserDataContext(DbContextOptions _dbContextOptions) : DbCo
 
     public override int SaveChanges()
     {
-        OnBeforeSaveChanges();
+        var changesCount = base.SaveChanges();
 
-        var changedCount = base.SaveChanges();
-
-        return changedCount;
+        return changesCount;
     }
 
     public override int SaveChanges(bool acceptAllChangesOnSuccess)
     {
-        return base.SaveChanges(acceptAllChangesOnSuccess);
+        var changesCount = base.SaveChanges(acceptAllChangesOnSuccess);
+
+        return changesCount;
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        return base.SaveChangesAsync(cancellationToken);
+        var saveChangesTask = base.SaveChangesAsync(cancellationToken);
+
+        return saveChangesTask;
     }
 
     public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
     {
-        return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
-    }
+        var saveChangesTask = base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
 
-    private void OnBeforeSaveChanges()
-    {
-        var entries = base.ChangeTracker.Entries();
-
-        foreach (var entry in entries)
-        {
-            if (entry.Entity is User user)
-            {
-                // undone
-            }
-        }
+        return saveChangesTask;
     }
 }

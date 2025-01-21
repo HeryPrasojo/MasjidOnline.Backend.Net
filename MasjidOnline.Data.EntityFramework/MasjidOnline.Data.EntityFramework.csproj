@@ -14,6 +14,7 @@
     <ProjectReference Include="..\MasjidOnline.Data.Interface\MasjidOnline.Data.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Data.Model\MasjidOnline.Data.Model.csproj" />
     <ProjectReference Include="..\MasjidOnline.Data\MasjidOnline.Data.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Service\MasjidOnline.Service.csproj" />
   </ItemGroup>
 
 </Project>
