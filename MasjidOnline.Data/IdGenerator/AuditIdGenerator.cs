@@ -1,8 +1,7 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace MasjidOnline.Data.IdGenerator;
 
@@ -11,16 +10,11 @@ public class AuditIdGenerator : IAuditIdGenerator
     private int _userLogId;
     private int _userEmailAddressLogId;
 
-    public AuditIdGenerator(IServiceProvider serviceProvider)
+    public async Task InitializeAsync(IAuditData auditData)
     {
-        using var serviceScope = serviceProvider.CreateScope();
+        _userLogId = await auditData.UserLog.GetMaxIdAsync();
 
-        var auditData = serviceScope.ServiceProvider.GetService<IAuditData>()
-            ?? throw new ApplicationException($"Get IAuditData service fail");
-
-        _userLogId = auditData.UserLog.GetMaxIdAsync().Result;
-
-        _userEmailAddressLogId = auditData.UserEmailAddressLog.GetMaxIdAsync().Result;
+        _userEmailAddressLogId = await auditData.UserEmailAddressLog.GetMaxIdAsync();
     }
 
     public int UserLogId => Interlocked.Increment(ref _userLogId);

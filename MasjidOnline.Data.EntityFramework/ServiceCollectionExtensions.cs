@@ -13,7 +13,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ICoreData, CoreData>();
         services.AddScoped<IEventData, EventData>();
         services.AddScoped<ITransactionData, TransactionData>();
-        services.AddScoped<IUserData, UserData>();
+        //services.AddScoped<IUserData, UserData>();
 
         return services;
     }
