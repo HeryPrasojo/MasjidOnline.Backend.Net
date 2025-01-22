@@ -75,7 +75,7 @@ using (var serviceScope = webApplication.Services.CreateScope())
         serviceScope.ServiceProvider.GetService<ICaptchaInitializer>(),
         serviceScope.ServiceProvider.GetService<IEventInitializer>(),
         serviceScope.ServiceProvider.GetService<ITransactionInitializer>(),
-        //serviceScope.ServiceProvider.GetService<IUserInitializer>(),
+        serviceScope.ServiceProvider.GetService<IUserInitializer>(),
     };
 
     foreach (var initializer in initializers)
@@ -97,16 +97,18 @@ using (var serviceScope = webApplication.Services.CreateScope())
 using (var serviceScope = webApplication.Services.CreateScope())
 {
     var auditData = serviceScope.ServiceProvider.GetService<IAuditData>() ?? throw new ApplicationException("Get IAuditData service fail");
+    var Data = serviceScope.ServiceProvider.GetService<IAuditData>() ?? throw new ApplicationException("Get IAuditData service fail");
 
     var auditIdGenerator = webApplication.Services.GetService<IAuditIdGenerator>() ?? throw new ApplicationException("Get IAuditIdGenerator service fail");
 
     await auditIdGenerator.InitializeAsync(auditData);
 
+
     webApplication.Services.GetService<ICoreIdGenerator>();
     webApplication.Services.GetService<ICaptchaIdGenerator>();
     webApplication.Services.GetService<IEventIdGenerator>();
     webApplication.Services.GetService<ITransactionIdGenerator>();
-    //webApplication.Services.GetService<IUserIdGenerator>();
+    webApplication.Services.GetService<IUserIdGenerator>();
 }
 
 #endregion

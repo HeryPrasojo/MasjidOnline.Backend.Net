@@ -1,26 +1,19 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace MasjidOnline.Data.IdGenerator;
 
-// move to a new child folder MasjidOnline.Data.IdGenerator
 public class CaptchaIdGenerator : ICaptchaIdGenerator
 {
     private int _captchaAnswerId;
     private int _captchaQuestionId;
 
-    public CaptchaIdGenerator(IServiceProvider serviceProvider)
+    public async Task InitializeAsync(ICaptchaData captchaData)
     {
-        using var serviceScope = serviceProvider.CreateScope();
-
-        var captchaData = serviceScope.ServiceProvider.GetService<ICaptchaData>()
-            ?? throw new ApplicationException($"Get ICaptchaData service fail");
-
-        _captchaAnswerId = captchaData.CaptchaAnswer.GetMaxIdAsync().Result;
-        _captchaQuestionId = captchaData.CaptchaQuestion.GetMaxIdAsync().Result;
+        _captchaAnswerId = await captchaData.CaptchaAnswer.GetMaxIdAsync();
+        _captchaQuestionId = await captchaData.CaptchaQuestion.GetMaxIdAsync();
     }
 
     public int CaptchaAnswerId => Interlocked.Increment(ref _captchaAnswerId);

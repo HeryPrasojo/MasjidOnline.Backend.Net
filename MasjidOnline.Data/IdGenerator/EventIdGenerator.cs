@@ -1,26 +1,20 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace MasjidOnline.Data.IdGenerator;
 
 public class EventIdGenerator : IEventIdGenerator
 {
-    private int _errorExceptionId;
+    private int _exceptionId;
 
-    public EventIdGenerator(IServiceProvider serviceProvider)
+    public async Task InitializeAsync(IEventData eventData)
     {
-        using var serviceScope = serviceProvider.CreateScope();
-
-        var eventData = serviceScope.ServiceProvider.GetService<IEventData>()
-            ?? throw new ApplicationException($"Get IEventData service fail");
-
-        _errorExceptionId = eventData.Exception.GetMaxIdAsync().Result;
+        _exceptionId = await eventData.Exception.GetMaxIdAsync();
     }
 
-    public int ExceptionId => Interlocked.Increment(ref _errorExceptionId);
+    public int ExceptionId => Interlocked.Increment(ref _exceptionId);
 
 
 }
