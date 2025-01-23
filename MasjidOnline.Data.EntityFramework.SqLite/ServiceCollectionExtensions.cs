@@ -58,13 +58,13 @@ public static class ServiceCollectionExtensions
             poolSize: 2);
 
 
-        //services.AddDbContextPool<UserDataContext, SqLiteUserDataContext>(b =>
-        //    {
-        //        var connectionString = configurationManager.GetConnectionString("User");
+        services.AddDbContextPool<UserDataContext, SqLiteUserDataContext>(b =>
+            {
+                var connectionString = configurationManager.GetConnectionString("User");
 
-        //        b.UseSqlite(connectionString);
-        //    },
-        //    poolSize: 2);
+                b.UseSqlite(connectionString);
+            },
+            poolSize: 2);
 
 
         services.AddTransient<IAuditInitializer, SqLiteAuditInitializer>();
@@ -72,14 +72,14 @@ public static class ServiceCollectionExtensions
         services.AddTransient<ICoreInitializer, SqLiteCoreInitializer>();
         services.AddTransient<IEventInitializer, SqLiteEventInitializer>();
         services.AddTransient<ITransactionInitializer, SqLiteTransactionInitializer>();
-        //services.AddTransient<IUserInitializer, SqLiteUserInitializer>();
+        services.AddTransient<IUserInitializer, SqLiteUserInitializer>();
 
         services.AddTransient<IAuditDefinition, SqLiteDefinition<SqLiteAuditDataContext>>();
         services.AddTransient<ICaptchaDefinition, SqLiteDefinition<SqLiteCaptchaDataContext>>();
         services.AddTransient<ICoreDefinition, SqLiteDefinition<SqLiteCoreDataContext>>();
         services.AddTransient<IEventDefinition, SqLiteDefinition<SqLiteEventDataContext>>();
         services.AddTransient<ITransactionDefinition, SqLiteDefinition<SqLiteTransactionDataContext>>();
-        //services.AddTransient<IUserDefinition, SqLiteDefinition<SqLiteUserDataContext>>();
+        services.AddTransient<IUserDefinition, SqLiteDefinition<SqLiteUserDataContext>>();
 
         return services;
     }
