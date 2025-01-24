@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using MasjidOnline.Api.Model;
 using MasjidOnline.Api.Web;
 using MasjidOnline.Api.Web.WebApplicationExtension;
@@ -18,110 +19,90 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-var webApplicationBuilder = WebApplication.CreateBuilder(args);
+var webApplication = BuildApplication(args);
 
-webApplicationBuilder.Configuration.AddJsonFile("appsettings.Local.json", true);
+await InitializeAsync(webApplication);
 
-webApplicationBuilder.Services.AddCors(corsOptions =>
+webApplication.UseMiddleware<ExceptionHandlerMiddleware>();
+
+webApplication.UseCors();
+
+webApplication.MapEndpoints();
+
+webApplication.Run();
+
+
+static WebApplication BuildApplication(string[] args)
 {
-    corsOptions.AddDefaultPolicy(corsPolicyBuilder =>
+    var webApplicationBuilder = WebApplication.CreateBuilder(args);
+
+    webApplicationBuilder.Configuration.AddJsonFile("appsettings.Local.json", true);
+
+    webApplicationBuilder.Services.AddCors(corsOptions =>
     {
-        corsPolicyBuilder.WithOrigins("http://masjidonline.localhost")
-            .WithExposedHeaders(Constant.HttpHeaderName.ResultCode, Constant.HttpHeaderName.ResultMessage)
-            .AllowCredentials()
-            .AllowAnyHeader();
+        corsOptions.AddDefaultPolicy(corsPolicyBuilder =>
+        {
+            corsPolicyBuilder.WithOrigins("http://masjidonline.localhost")
+                .WithExposedHeaders(Constant.HttpHeaderName.ResultCode, Constant.HttpHeaderName.ResultMessage)
+                .AllowCredentials()
+                .AllowAnyHeader();
+        });
     });
-});
 
 
-#region add dependency
+    #region add dependency
 
-webApplicationBuilder.Services.AddCaptchaService();
+    webApplicationBuilder.Services.AddCaptchaService();
 
-webApplicationBuilder.Services.AddFieldValidator();
+    webApplicationBuilder.Services.AddFieldValidator();
 
-webApplicationBuilder.Services.AddHash512Service();
-
-
-webApplicationBuilder.Services.AddData();
-
-webApplicationBuilder.Services.AddSqLiteEntityFrameworkData(webApplicationBuilder.Configuration);
-
-webApplicationBuilder.Services.AddEntityIdGenerator();
+    webApplicationBuilder.Services.AddHash512Service();
 
 
-webApplicationBuilder.Services.AddDonationBusiness();
+    webApplicationBuilder.Services.AddData();
 
-webApplicationBuilder.Services.AddCaptchaBusiness();
+    webApplicationBuilder.Services.AddSqLiteEntityFrameworkData(webApplicationBuilder.Configuration);
 
-
-webApplicationBuilder.Services.AddService();
-
-#endregion
+    webApplicationBuilder.Services.AddEntityIdGenerator();
 
 
-var webApplication = webApplicationBuilder.Build();
+    webApplicationBuilder.Services.AddDonationBusiness();
+
+    webApplicationBuilder.Services.AddCaptchaBusiness();
 
 
-#region initialize database, EntityIdGenerator
+    webApplicationBuilder.Services.AddService();
 
-using (var serviceScope = webApplication.Services.CreateScope())
+    #endregion
+
+
+    return webApplicationBuilder.Build();
+}
+
+static async Task InitializeAsync(WebApplication webApplication)
 {
-    var auditData = serviceScope.ServiceProvider.GetService<IAuditData>()
-        ?? throw new ApplicationException($"Get {nameof(IAuditData)} service fail");
+    using var serviceScope = webApplication.Services.CreateScope();
 
-    var coreData = serviceScope.ServiceProvider.GetService<ICoreData>()
-        ?? throw new ApplicationException($"Get {nameof(ICoreData)} service fail");
+    var auditData = GetService<IAuditData>(serviceScope.ServiceProvider);
+    var coreData = GetService<ICoreData>(serviceScope.ServiceProvider);
+    var captchaData = GetService<ICaptchaData>(serviceScope.ServiceProvider);
+    var eventData = GetService<IEventData>(serviceScope.ServiceProvider);
+    var transactionData = GetService<ITransactionData>(serviceScope.ServiceProvider);
+    var userData = GetService<IUserData>(serviceScope.ServiceProvider);
 
-    var captchaData = serviceScope.ServiceProvider.GetService<ICaptchaData>()
-        ?? throw new ApplicationException($"Get {nameof(ICaptchaData)} service fail");
+    var auditInitializer = GetService<IAuditInitializer>(serviceScope.ServiceProvider);
+    var coreInitializer = GetService<ICoreInitializer>(serviceScope.ServiceProvider);
+    var captchaInitializer = GetService<ICaptchaInitializer>(serviceScope.ServiceProvider);
+    var eventInitializer = GetService<IEventInitializer>(serviceScope.ServiceProvider);
+    var transactionInitializer = GetService<ITransactionInitializer>(serviceScope.ServiceProvider);
+    var userInitializer = GetService<IUserInitializer>(serviceScope.ServiceProvider);
 
-    var eventData = serviceScope.ServiceProvider.GetService<IEventData>()
-        ?? throw new ApplicationException($"Get {nameof(IEventData)} service fail");
-
-    var transactionData = serviceScope.ServiceProvider.GetService<ITransactionData>()
-        ?? throw new ApplicationException($"Get {nameof(ITransactionData)} service fail");
-
-    var userData = serviceScope.ServiceProvider.GetService<IUserData>()
-        ?? throw new ApplicationException($"Get {nameof(IUserData)} service fail");
-
-
-    var auditInitializer = serviceScope.ServiceProvider.GetService<IAuditInitializer>()
-        ?? throw new ApplicationException($"Get {nameof(IAuditInitializer)} service fail");
-
-    var coreInitializer = serviceScope.ServiceProvider.GetService<ICoreInitializer>()
-        ?? throw new ApplicationException($"Get {nameof(ICoreInitializer)} service fail");
-
-    var captchaInitializer = serviceScope.ServiceProvider.GetService<ICaptchaInitializer>()
-        ?? throw new ApplicationException($"Get {nameof(ICaptchaInitializer)} service fail");
-
-    var eventInitializer = serviceScope.ServiceProvider.GetService<IEventInitializer>()
-        ?? throw new ApplicationException($"Get {nameof(IEventInitializer)} service fail");
-
-    var transactionInitializer = serviceScope.ServiceProvider.GetService<ITransactionInitializer>()
-        ?? throw new ApplicationException($"Get {nameof(ITransactionInitializer)} service fail");
-
-    var userInitializer = serviceScope.ServiceProvider.GetService<IUserInitializer>()
-        ?? throw new ApplicationException($"Get {nameof(IUserInitializer)} service fail");
-
-
-    var auditIdGenerator = serviceScope.ServiceProvider.GetService<IAuditIdGenerator>()
-        ?? throw new ApplicationException($"Get {nameof(IAuditIdGenerator)} service fail");
-
-    var coreIdGenerator = serviceScope.ServiceProvider.GetService<ICoreIdGenerator>()
-        ?? throw new ApplicationException($"Get {nameof(ICoreIdGenerator)} service fail");
-
-    var captchaIdGenerator = serviceScope.ServiceProvider.GetService<ICaptchaIdGenerator>()
-        ?? throw new ApplicationException($"Get {nameof(ICaptchaIdGenerator)} service fail");
-
-    var eventIdGenerator = serviceScope.ServiceProvider.GetService<IEventIdGenerator>()
-        ?? throw new ApplicationException($"Get {nameof(IEventIdGenerator)} service fail");
-
-    var transactionIdGenerator = serviceScope.ServiceProvider.GetService<ITransactionIdGenerator>()
-        ?? throw new ApplicationException($"Get {nameof(ITransactionIdGenerator)} service fail");
-
-    var userIdGenerator = serviceScope.ServiceProvider.GetService<IUserIdGenerator>()
-        ?? throw new ApplicationException($"Get {nameof(IUserIdGenerator)} service fail");
+    var auditIdGenerator = GetService<IAuditIdGenerator>(serviceScope.ServiceProvider);
+    var coreIdGenerator = GetService<ICoreIdGenerator>(serviceScope.ServiceProvider);
+    var captchaIdGenerator = GetService<ICaptchaIdGenerator>(serviceScope.ServiceProvider);
+    var eventIdGenerator = GetService<IEventIdGenerator>(serviceScope.ServiceProvider);
+    var transactionIdGenerator = GetService<ITransactionIdGenerator>(serviceScope.ServiceProvider);
+    var userIdGenerator = GetService<IUserIdGenerator>(serviceScope.ServiceProvider);
 
 
     await auditInitializer.InitializeDatabaseAsync(auditData);
@@ -139,13 +120,7 @@ using (var serviceScope = webApplication.Services.CreateScope())
     await userIdGenerator.InitializeAsync(userData);
 }
 
-#endregion
-
-
-webApplication.UseMiddleware<ExceptionHandlerMiddleware>();
-
-webApplication.UseCors();
-
-webApplication.MapEndpoints();
-
-webApplication.Run();
+static TService GetService<TService>(IServiceProvider serviceProvider)
+{
+    return serviceProvider.GetService<TService>() ?? throw new ApplicationException($"Get {typeof(TService).Name} service fail");
+}
