@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.DataContext;
 
-public abstract class CaptchaDataContext(DbContextOptions _dbContextOptions) : DbContext(_dbContextOptions)
+public class CaptchaDataContext(DbContextOptions _dbContextOptions) : DbContext(_dbContextOptions)
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
