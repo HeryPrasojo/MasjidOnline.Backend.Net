@@ -1,10 +1,9 @@
 ﻿using MasjidOnline.Api.Web.RouteEndpoint;
 using Microsoft.AspNetCore.Builder;
 
-namespace MasjidOnline.Api.Web.WebApplicationExtension;
+namespace MasjidOnline.Api.Web;
 
-// todo rename to WebApplicationExtension, and move to MasjidOnline.Api.Web.
-internal static class MoEndpointsExtensions
+internal static class WebApplicationExtension
 {
     internal static WebApplication MapEndpoints(this WebApplication webApplication)
     {
