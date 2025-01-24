@@ -13,8 +13,6 @@ public class Transaction
 
     public required TransactionType Type { get; set; }
 
-    // todo move to user, add 1 anonym user and refer UserId to it.
-
     public int UserId { get; set; }
 
     public string? MunfiqName { get; set; }

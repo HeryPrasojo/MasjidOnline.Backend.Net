@@ -3,7 +3,8 @@
 public enum UserType
 {
     None = 0,
-    Anonymous = 11,
-    Internal = 21,
-    External = 31,
+    System = 11,
+    Anonymous = 21, // todo add 1 anonym user and refer UserId to it.
+    Internal = 31,
+    External = 41,
 }
