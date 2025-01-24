@@ -79,6 +79,7 @@ static WebApplication BuildApplication(string[] args)
     return webApplicationBuilder.Build();
 }
 
+
 static async Task InitializeAsync(WebApplication webApplication)
 {
     using var serviceScope = webApplication.Services.CreateScope();

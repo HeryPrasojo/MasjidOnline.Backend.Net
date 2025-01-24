@@ -7,12 +7,13 @@ using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Data.Interface.Repository.Audit;
 using MasjidOnline.Entity.Audit;
 using MasjidOnline.Entity.Users;
+using MasjidOnline.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace MasjidOnline.Data.EntityFramework.Datas;
 
-public class AuditData(AuditDataContext _auditDataContext, IAuditIdGenerator _auditIdGenerator/*, UserSession _userSession*/) : IAuditData
+public class AuditData(AuditDataContext _auditDataContext, IAuditIdGenerator _auditIdGenerator, UserSession _userSession) : IAuditData
 {
     private DbSet<UserLog>? _userLogDbSet;
     private DbSet<UserEmailAddressLog>? _userEmailAddressLogDbSet;
@@ -63,7 +64,7 @@ public class AuditData(AuditDataContext _auditDataContext, IAuditIdGenerator _au
                     Name = user.Name,
                     UserType = user.UserType,
 
-                    SessionUserId = 0 /*_userSession.UserId*/,
+                    SessionUserId = _userSession.UserId,
                     DateTime = utcNow,
                 };
 
@@ -83,7 +84,7 @@ public class AuditData(AuditDataContext _auditDataContext, IAuditIdGenerator _au
                     EmailAddress = userEmailAddress.EmailAddress,
                     UserId = userEmailAddress.UserId,
 
-                    SessionUserId = 0 /*_userSession.UserId*/,
+                    SessionUserId = _userSession.UserId,
                     DateTime = utcNow,
                 };
 
