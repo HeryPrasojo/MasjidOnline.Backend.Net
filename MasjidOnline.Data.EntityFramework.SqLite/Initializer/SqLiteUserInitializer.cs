@@ -16,7 +16,8 @@ public class SqLiteUserInitializer(
         FormattableString sql = @$"
             CREATE TABLE UserSetting
             (
-                Key TEXT PRIMARY KEY,
+                Id INTEGER PRIMARY KEY,
+                Description TEXT NOT NULL,
                 Value TEXT NOT NULL
             )";
 

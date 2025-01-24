@@ -18,7 +18,8 @@ public abstract class CoreInitializer(ICoreDefinition _coreDefinition) : ICoreIn
 
             var coreSetting = new CoreSetting
             {
-                Key = CoreSettingKey.DatabaseVersion,
+                Id = (int)CoreSettingId.DatabaseVersion,
+                Description = nameof(CoreSettingId.DatabaseVersion),
                 Value = "1",
             };
 

@@ -16,7 +16,8 @@ public class SqLiteTransactionInitializer(
         FormattableString sql = @$"
             CREATE TABLE TransactionSetting
             (
-                Key TEXT PRIMARY KEY,
+                Id INTEGER PRIMARY KEY,
+                Description TEXT NOT NULL,
                 Value TEXT NOT NULL
             )";
 

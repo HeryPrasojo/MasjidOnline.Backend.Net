@@ -16,7 +16,8 @@ public class SqLiteAuditInitializer(
         FormattableString sql = @$"
             CREATE TABLE AuditSetting
             (
-                Key TEXT PRIMARY KEY,
+                Id INTEGER PRIMARY KEY,
+                Description TEXT NOT NULL,
                 Value TEXT NOT NULL
             )";
 

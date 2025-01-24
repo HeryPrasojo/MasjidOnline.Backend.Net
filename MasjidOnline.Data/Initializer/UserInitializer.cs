@@ -19,7 +19,8 @@ public abstract class UserInitializer(IUserDefinition _userDefinition) : IUserIn
 
             var userSetting = new UserSetting
             {
-                Key = UserSettingKey.DatabaseVersion,
+                Id = (int)UserSettingId.DatabaseVersion,
+                Description = nameof(UserSettingId.DatabaseVersion),
                 Value = "1",
             };
 

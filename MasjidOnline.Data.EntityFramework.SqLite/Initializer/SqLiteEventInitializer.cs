@@ -30,7 +30,8 @@ public class SqLiteEventInitializer(
         FormattableString sql = @$"
             CREATE TABLE EventSetting
             (
-                Key TEXT PRIMARY KEY,
+                Id INTEGER PRIMARY KEY,
+                Description TEXT NOT NULL,
                 Value TEXT NOT NULL
             )";
 

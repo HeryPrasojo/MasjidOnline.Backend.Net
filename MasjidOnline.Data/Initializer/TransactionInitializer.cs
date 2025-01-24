@@ -19,7 +19,8 @@ public abstract class TransactionInitializer(ITransactionDefinition _transaction
 
             var transactionSetting = new TransactionSetting
             {
-                Key = TransactionSettingKey.DatabaseVersion,
+                Id = (int)TransactionSettingId.DatabaseVersion,
+                Description = nameof(TransactionSettingId.DatabaseVersion),
                 Value = "1",
             };
 

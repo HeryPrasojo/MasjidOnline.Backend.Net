@@ -18,7 +18,8 @@ public abstract class CaptchaInitializer(ICaptchaDefinition _captchaDefinition) 
 
             var captchaSetting = new CaptchaSetting
             {
-                Key = CaptchaSettingKey.DatabaseVersion,
+                Id = (int)CaptchaSettingId.DatabaseVersion,
+                Description = nameof(CaptchaSettingId.DatabaseVersion),
                 Value = "1",
             };
 

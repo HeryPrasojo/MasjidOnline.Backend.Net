@@ -16,7 +16,8 @@ public class SqLiteCoreInitializer(
         FormattableString sql = @$"
             CREATE TABLE CoreSetting
             (
-                Key TEXT PRIMARY KEY,
+                Id INTEGER PRIMARY KEY,
+                Description TEXT NOT NULL,
                 Value TEXT NOT NULL
             )";
 

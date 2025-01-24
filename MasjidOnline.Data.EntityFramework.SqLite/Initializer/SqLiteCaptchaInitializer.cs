@@ -16,7 +16,8 @@ public class SqLiteCaptchaInitializer(
         FormattableString sql = @$"
             CREATE TABLE CaptchaSetting
             (
-                Key TEXT PRIMARY KEY,
+                Id INTEGER PRIMARY KEY,
+                Description TEXT NOT NULL,
                 Value TEXT NOT NULL
             )";
 

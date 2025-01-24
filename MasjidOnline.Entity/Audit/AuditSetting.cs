@@ -1,12 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace MasjidOnline.Entity.Audit;
+﻿namespace MasjidOnline.Entity.Audit;
 
 public class AuditSetting
 {
-    // todo move primary key to enum, use this as description.
-    [Key]
-    public required string Key { get; set; }
+    public required int Id { get; set; }
+
+    public required string Description { get; set; }
 
     public required string Value { get; set; }
 }

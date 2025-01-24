@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace MasjidOnline.Entity.Captcha;
+﻿namespace MasjidOnline.Entity.Captcha;
 
 public class CaptchaSetting
 {
-    [Key]
-    public required string Key { get; set; }
+    public required int Id { get; set; }
+
+    public required string Description { get; set; }
 
     public required string Value { get; set; }
 }
