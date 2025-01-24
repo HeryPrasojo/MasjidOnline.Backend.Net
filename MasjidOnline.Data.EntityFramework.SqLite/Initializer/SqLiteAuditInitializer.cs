@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Initializer;
-using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.Definition;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,8 +9,7 @@ namespace MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 
 public class SqLiteAuditInitializer(
     AuditDataContext _auditDataContext,
-    IAuditData _auditData,
-    IAuditDefinition _auditDefinition) : AuditInitializer(_auditData, _auditDefinition)
+    IAuditDefinition _auditDefinition) : AuditInitializer(_auditDefinition)
 {
     protected override async Task<int> CreateTableAuditSettingAsync()
     {
@@ -20,6 +18,42 @@ public class SqLiteAuditInitializer(
             (
                 Key TEXT PRIMARY KEY,
                 Value TEXT NOT NULL
+            )";
+
+        return await _auditDataContext.Database.ExecuteSqlAsync(sql);
+    }
+
+    protected override async Task<int> CreateTableUserLogAsync()
+    {
+        FormattableString sql = @$"
+            CREATE TABLE UserLog
+            (
+                UserLogId INTEGER PRIMARY KEY,
+                SessionUserId INTEGER NOT NULL,
+                DateTime TEXT NOT NULL,
+
+                Id INTEGER NOT NULL,
+                Name TEXT NOT NULL,
+                UserType INTEGER NOT NULL,
+                EmailAddressId INTEGER NOT NULL
+            )";
+
+        return await _auditDataContext.Database.ExecuteSqlAsync(sql);
+    }
+
+    protected override async Task<int> CreateTableUserEmailAddressLogAsync()
+    {
+        FormattableString sql = @$"
+            CREATE TABLE UserEmailAddressLog
+            (
+                UserEmailAddressLogId INTEGER PRIMARY KEY,
+                SessionUserId INTEGER NOT NULL,
+                DateTime TEXT NOT NULL,
+
+                Id INTEGER NOT NULL,
+                UserId INTEGER NOT NULL,
+                EmailAddress TEXT NOT NULL,
+                Disabled INTEGER NOT NULL
             )";
 
         return await _auditDataContext.Database.ExecuteSqlAsync(sql);

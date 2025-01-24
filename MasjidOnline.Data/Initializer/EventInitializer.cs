@@ -6,9 +6,9 @@ using MasjidOnline.Entity.Event;
 
 namespace MasjidOnline.Data.Initializer;
 
-public abstract class EventInitializer(IEventData _eventData, IEventDefinition _eventDefinition) : IEventInitializer
+public abstract class EventInitializer(IEventDefinition _eventDefinition) : IEventInitializer
 {
-    public async Task InitializeDatabaseAsync()
+    public async Task InitializeDatabaseAsync(IEventData eventData)
     {
         var settingTableExists = await _eventDefinition.CheckTableExistsAsync("EventSetting");
 
@@ -22,12 +22,12 @@ public abstract class EventInitializer(IEventData _eventData, IEventDefinition _
                 Value = "1",
             };
 
-            await _eventData.EventSetting.AddAsync(setting);
+            await eventData.EventSetting.AddAsync(setting);
 
 
             await CreateTableErrorExceptionAsync();
 
-            await _eventData.SaveAsync();
+            await eventData.SaveAsync();
         }
     }
 

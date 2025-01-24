@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Initializer;
-using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.Definition;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,8 +9,7 @@ namespace MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 
 public class SqLiteEventInitializer(
     EventDataContext _eventDataContext,
-    IEventData _eventData,
-    IEventDefinition _eventDefinition) : EventInitializer(_eventData, _eventDefinition)
+    IEventDefinition _eventDefinition) : EventInitializer(_eventDefinition)
 {
     protected override async Task<int> CreateTableErrorExceptionAsync()
     {

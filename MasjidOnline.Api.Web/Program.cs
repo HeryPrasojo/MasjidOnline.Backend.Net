@@ -7,7 +7,6 @@ using MasjidOnline.Business.Infaq;
 using MasjidOnline.Data;
 using MasjidOnline.Data.EntityFramework;
 using MasjidOnline.Data.EntityFramework.SqLite;
-using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Data.Interface.Initializer;
@@ -64,35 +63,7 @@ webApplicationBuilder.Services.AddService();
 var webApplication = webApplicationBuilder.Build();
 
 
-#region initialize database
-
-using (var serviceScope = webApplication.Services.CreateScope())
-{
-    var initializers = new IInitializer?[]
-    {
-        serviceScope.ServiceProvider.GetService<IAuditInitializer>(),
-        serviceScope.ServiceProvider.GetService<ICoreInitializer>(),
-        serviceScope.ServiceProvider.GetService<ICaptchaInitializer>(),
-        serviceScope.ServiceProvider.GetService<IEventInitializer>(),
-        serviceScope.ServiceProvider.GetService<ITransactionInitializer>(),
-        serviceScope.ServiceProvider.GetService<IUserInitializer>(),
-    };
-
-    foreach (var initializer in initializers)
-    {
-        if (initializer == default)
-        {
-            throw new ApplicationException("Get IInitializer service fail");
-        }
-
-        await initializer.InitializeDatabaseAsync();
-    }
-}
-
-#endregion
-
-
-#region initialize EntityIdGenerator
+#region initialize database, EntityIdGenerator
 
 using (var serviceScope = webApplication.Services.CreateScope())
 {
@@ -134,32 +105,31 @@ using (var serviceScope = webApplication.Services.CreateScope())
         ?? throw new ApplicationException($"Get {nameof(IUserInitializer)} service fail");
 
 
+    var auditIdGenerator = serviceScope.ServiceProvider.GetService<IAuditIdGenerator>()
+        ?? throw new ApplicationException($"Get {nameof(IAuditIdGenerator)} service fail");
+
+    var coreIdGenerator = serviceScope.ServiceProvider.GetService<ICoreIdGenerator>()
+        ?? throw new ApplicationException($"Get {nameof(ICoreIdGenerator)} service fail");
+
+    var captchaIdGenerator = serviceScope.ServiceProvider.GetService<ICaptchaIdGenerator>()
+        ?? throw new ApplicationException($"Get {nameof(ICaptchaIdGenerator)} service fail");
+
+    var eventIdGenerator = serviceScope.ServiceProvider.GetService<IEventIdGenerator>()
+        ?? throw new ApplicationException($"Get {nameof(IEventIdGenerator)} service fail");
+
+    var transactionIdGenerator = serviceScope.ServiceProvider.GetService<ITransactionIdGenerator>()
+        ?? throw new ApplicationException($"Get {nameof(ITransactionIdGenerator)} service fail");
+
+    var userIdGenerator = serviceScope.ServiceProvider.GetService<IUserIdGenerator>()
+        ?? throw new ApplicationException($"Get {nameof(IUserIdGenerator)} service fail");
+
+
     await auditInitializer.InitializeDatabaseAsync(auditData);
     await coreInitializer.InitializeDatabaseAsync(coreData);
     await captchaInitializer.InitializeDatabaseAsync(captchaData);
     await eventInitializer.InitializeDatabaseAsync(eventData);
     await transactionInitializer.InitializeDatabaseAsync(transactionData);
     await userInitializer.InitializeDatabaseAsync(userData);
-
-
-    var auditIdGenerator = webApplication.Services.GetService<IAuditIdGenerator>()
-        ?? throw new ApplicationException($"Get {nameof(IAuditIdGenerator)} service fail");
-
-    var coreIdGenerator = webApplication.Services.GetService<ICoreIdGenerator>()
-        ?? throw new ApplicationException($"Get {nameof(ICoreIdGenerator)} service fail");
-
-    var captchaIdGenerator = webApplication.Services.GetService<ICaptchaIdGenerator>()
-        ?? throw new ApplicationException($"Get {nameof(ICaptchaIdGenerator)} service fail");
-
-    var eventIdGenerator = webApplication.Services.GetService<IEventIdGenerator>()
-        ?? throw new ApplicationException($"Get {nameof(IEventIdGenerator)} service fail");
-
-    var transactionIdGenerator = webApplication.Services.GetService<ITransactionIdGenerator>()
-        ?? throw new ApplicationException($"Get {nameof(ITransactionIdGenerator)} service fail");
-
-    var userIdGenerator = webApplication.Services.GetService<IUserIdGenerator>()
-        ?? throw new ApplicationException($"Get {nameof(IUserIdGenerator)} service fail");
-
 
     await auditIdGenerator.InitializeAsync(auditData);
     await coreIdGenerator.InitializeAsync(coreData);

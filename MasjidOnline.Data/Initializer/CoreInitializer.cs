@@ -6,9 +6,9 @@ using MasjidOnline.Entity.Core;
 
 namespace MasjidOnline.Data.Initializer;
 
-public abstract class CoreInitializer(ICoreData _coreData, ICoreDefinition _coreDefinition) : ICoreInitializer
+public abstract class CoreInitializer(ICoreDefinition _coreDefinition) : ICoreInitializer
 {
-    public async Task InitializeDatabaseAsync()
+    public async Task InitializeDatabaseAsync(ICoreData coreData)
     {
         var settingTableExists = await _coreDefinition.CheckTableExistsAsync("CoreSetting");
 
@@ -22,9 +22,9 @@ public abstract class CoreInitializer(ICoreData _coreData, ICoreDefinition _core
                 Value = "1",
             };
 
-            await _coreData.CoreSetting.AddAsync(coreSetting);
+            await coreData.CoreSetting.AddAsync(coreSetting);
 
-            await _coreData.SaveAsync();
+            await coreData.SaveAsync();
         }
     }
 

@@ -6,9 +6,9 @@ using MasjidOnline.Entity.Users;
 
 namespace MasjidOnline.Data.Initializer;
 
-public abstract class UserInitializer(IUserData _userData, IUserDefinition _userDefinition) : IUserInitializer
+public abstract class UserInitializer(IUserDefinition _userDefinition) : IUserInitializer
 {
-    public async Task InitializeDatabaseAsync()
+    public async Task InitializeDatabaseAsync(IUserData userData)
     {
         var settingTableExists = await _userDefinition.CheckTableExistsAsync("UserSetting");
 
@@ -23,14 +23,14 @@ public abstract class UserInitializer(IUserData _userData, IUserDefinition _user
                 Value = "1",
             };
 
-            await _userData.UserSetting.AddAsync(userSetting);
+            await userData.UserSetting.AddAsync(userSetting);
 
 
             await CreateTableUserAsync();
 
             await CreateTableUserEmailAddressAsync();
 
-            await _userData.SaveAsync();
+            await userData.SaveAsync();
         }
     }
 

@@ -13,7 +13,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ICaptchaIdGenerator, CaptchaIdGenerator>();
         services.AddSingleton<IEventIdGenerator, EventIdGenerator>();
         services.AddSingleton<ITransactionIdGenerator, TransactionIdGenerator>();
-        //services.AddSingleton<IUserIdGenerator, UserIdGenerator>();
+        services.AddSingleton<IUserIdGenerator, UserIdGenerator>();
 
         return services;
     }
