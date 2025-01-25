@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Api.Model;
+﻿namespace MasjidOnline.Api.Web;
 
 public static class Constant
 {

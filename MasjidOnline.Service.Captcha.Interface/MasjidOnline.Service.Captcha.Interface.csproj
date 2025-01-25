@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MasjidOnline.Service.Captcha.Model\MasjidOnline.Service.Captcha.Model.csproj" />
-  </ItemGroup>
-
 </Project>

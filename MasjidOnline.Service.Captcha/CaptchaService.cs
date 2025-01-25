@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using MasjidOnline.Service.Captcha.Interface;
-using MasjidOnline.Service.Captcha.Model;
+using MasjidOnline.Service.Captcha.Interface.Model;
 
 namespace MasjidOnline.Service.Captcha;
 

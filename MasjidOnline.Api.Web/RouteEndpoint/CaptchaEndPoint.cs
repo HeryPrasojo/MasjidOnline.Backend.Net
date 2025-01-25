@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using MasjidOnline.Api.Model;
-using MasjidOnline.Api.Model.Captcha;
 using MasjidOnline.Business.Captcha.Interface;
+using MasjidOnline.Business.Captcha.Interface.Model;
 using Microsoft.AspNetCore.Http;
 
 namespace MasjidOnline.Api.Web.RouteEndpoint;

@@ -1,6 +1,6 @@
-﻿namespace MasjidOnline.Api.Model;
+﻿namespace MasjidOnline.Business.Interface.Model;
 
-public class Response
+public abstract class Response
 {
     public required ResponseResult ResultCode { get; set; }
     public string? ResultMessage { get; set; }

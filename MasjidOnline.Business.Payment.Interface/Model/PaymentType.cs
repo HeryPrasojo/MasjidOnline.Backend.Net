@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Api.Model.Payment;
+﻿namespace MasjidOnline.Business.Payment.Interface.Model;
 
 public enum PaymentType
 {

@@ -23,8 +23,8 @@ public class AuditData(AuditDataContext _auditDataContext, IAuditIdGenerator _au
     private IUserLogRepository? _userLogRepository;
 
     public IAuditSettingRepository AuditSetting => _auditSettingRepository ??= new AuditSettingRepository(_auditDataContext);
-    //public IUserEmailAddressLogRepository UserEmailAddressLog => _userEmailAddressLogRepository ??= new UserEmailAddressLogRepository(_auditDataContext);
-    //public IUserLogRepository UserLog => _userLogRepository ??= new UserLogRepository(_auditDataContext);
+    public IUserEmailAddressLogRepository UserEmailAddressLog => _userEmailAddressLogRepository ??= new UserEmailAddressLogRepository(_auditDataContext);
+    public IUserLogRepository UserLog => _userLogRepository ??= new UserLogRepository(_auditDataContext);
 
     public async Task AddAsync(ChangeTracker changeTracker)
     {

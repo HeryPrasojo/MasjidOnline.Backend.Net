@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Data.Model.Captcha;
+﻿namespace MasjidOnline.Data.Interface.Model.Captcha;
 
 // todo move to data interface
 public class CaptchaQuestionForAnswer

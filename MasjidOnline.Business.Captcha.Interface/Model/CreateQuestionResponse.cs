@@ -1,6 +1,7 @@
 ﻿using System.IO;
+using MasjidOnline.Business.Interface.Model;
 
-namespace MasjidOnline.Api.Model.Captcha;
+namespace MasjidOnline.Business.Captcha.Interface.Model;
 
 public class CreateQuestionResponse : Response
 {

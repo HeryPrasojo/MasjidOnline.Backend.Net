@@ -1,6 +1,4 @@
 /.vs
-/MasjidOnline.Api.Model/bin
-/MasjidOnline.Api.Model/obj
 /MasjidOnline.Api.Web/bin
 /MasjidOnline.Api.Web/obj
 /MasjidOnline.Api.Web/appsettings.Local.json
@@ -13,6 +11,10 @@
 /MasjidOnline.Business.Infaq/obj
 /MasjidOnline.Business.Infaq.Interface/bin
 /MasjidOnline.Business.Infaq.Interface/obj
+/MasjidOnline.Business.Interface/bin
+/MasjidOnline.Business.Interface/obj
+/MasjidOnline.Business.Payment.Interface/bin
+/MasjidOnline.Business.Payment.Interface/obj
 /MasjidOnline.Business.User/bin
 /MasjidOnline.Business.User/obj
 /MasjidOnline.Business.User.Interface/bin
@@ -25,8 +27,6 @@
 /MasjidOnline.Data.EntityFramework/obj
 /MasjidOnline.Data.EntityFramework.SqLite/bin
 /MasjidOnline.Data.EntityFramework.SqLite/obj
-/MasjidOnline.Data.Model/bin
-/MasjidOnline.Data.Model/obj
 /MasjidOnline.Entity/bin
 /MasjidOnline.Entity/obj
 /MasjidOnline.Library/bin
@@ -37,8 +37,6 @@
 /MasjidOnline.Service.Captcha/obj
 /MasjidOnline.Service.Captcha.Interface/bin
 /MasjidOnline.Service.Captcha.Interface/obj
-/MasjidOnline.Service.Captcha.Model/bin
-/MasjidOnline.Service.Captcha.Model/obj
 /MasjidOnline.Service.FieldValidator/bin
 /MasjidOnline.Service.FieldValidator/obj
 /MasjidOnline.Service.FieldValidator.Interface/bin

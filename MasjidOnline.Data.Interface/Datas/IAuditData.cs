@@ -8,6 +8,6 @@ public interface IAuditData : IData
     IAuditSettingRepository AuditSetting { get; }
 
     Task AddAsync(ChangeTracker changeTracker);
-    //IUserLogRepository UserLog { get; }
-    //IUserEmailAddressLogRepository UserEmailAddressLog { get; }
+    IUserLogRepository UserLog { get; }
+    IUserEmailAddressLogRepository UserEmailAddressLog { get; }
 }

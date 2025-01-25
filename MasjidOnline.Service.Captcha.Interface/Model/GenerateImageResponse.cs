@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace MasjidOnline.Service.Captcha.Model;
+namespace MasjidOnline.Service.Captcha.Interface.Model;
 
 // todo move to captcha interface
 public class GenerateImageResponse

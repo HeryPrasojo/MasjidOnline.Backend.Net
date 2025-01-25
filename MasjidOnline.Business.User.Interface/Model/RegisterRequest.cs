@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Api.Model.User;
+﻿namespace MasjidOnline.Business.User.Interface.Model;
 
 public class RegisterRequest
 {

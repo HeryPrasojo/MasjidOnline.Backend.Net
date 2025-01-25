@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using MasjidOnline.Api.Model.Payment;
-using Microsoft.AspNetCore.Http;
+﻿using MasjidOnline.Business.Payment.Interface.Model;
 
-namespace MasjidOnline.Api.Model.Infaq;
+namespace MasjidOnline.Business.Infaq.Interface.Model;
 
 public class AnonymInfaqRequest
 {
@@ -17,5 +14,5 @@ public class AnonymInfaqRequest
 
     public string? ManualBankTransferNotes { get; set; }
 
-    public IEnumerable<IFormFile>? Files { get; set; }
+    public IEnumerable<Stream>? Files { get; set; }
 }

@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MasjidOnline.Api.Model\MasjidOnline.Api.Model.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Captcha.Interface\MasjidOnline.Business.Captcha.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Data.Interface\MasjidOnline.Data.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Entity\MasjidOnline.Entity.csproj" />

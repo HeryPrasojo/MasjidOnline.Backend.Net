@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using MasjidOnline.Api.Model;
-using MasjidOnline.Api.Model.Infaq;
 using MasjidOnline.Business.Infaq.Interface;
+using MasjidOnline.Business.Infaq.Interface.Model;
 using Microsoft.AspNetCore.Http;
 
 namespace MasjidOnline.Api.Web.RouteEndpoint;

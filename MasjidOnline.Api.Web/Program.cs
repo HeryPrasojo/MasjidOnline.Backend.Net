@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using MasjidOnline.Api.Model;
 using MasjidOnline.Api.Web;
 using MasjidOnline.Business.Captcha;
 using MasjidOnline.Business.Infaq;

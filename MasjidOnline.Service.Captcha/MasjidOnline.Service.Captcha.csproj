@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MasjidOnline.Service.Captcha.Interface\MasjidOnline.Service.Captcha.Interface.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Service.Captcha.Model\MasjidOnline.Service.Captcha.Model.csproj" />
   </ItemGroup>
 
   <ItemGroup>

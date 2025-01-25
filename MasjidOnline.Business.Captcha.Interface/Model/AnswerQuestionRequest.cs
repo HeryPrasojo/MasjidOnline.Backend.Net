@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Api.Model.Captcha;
+﻿namespace MasjidOnline.Business.Captcha.Interface.Model;
 
 public class AnswerQuestionRequest
 {

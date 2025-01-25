@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using MasjidOnline.Api.Model.User;
 using MasjidOnline.Business.User.Interface;
+using MasjidOnline.Business.User.Interface.Model;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Service;
 

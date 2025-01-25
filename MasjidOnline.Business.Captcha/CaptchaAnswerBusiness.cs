@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using MasjidOnline.Api.Model;
-using MasjidOnline.Api.Model.Captcha;
 using MasjidOnline.Business.Captcha.Interface;
+using MasjidOnline.Business.Captcha.Interface.Model;
+using MasjidOnline.Business.Interface.Model;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.Captcha;

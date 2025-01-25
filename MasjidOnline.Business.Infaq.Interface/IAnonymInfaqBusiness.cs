@@ -1,4 +1,4 @@
-﻿using MasjidOnline.Api.Model.Infaq;
+﻿using MasjidOnline.Business.Infaq.Interface.Model;
 
 namespace MasjidOnline.Business.Infaq.Interface;
 
