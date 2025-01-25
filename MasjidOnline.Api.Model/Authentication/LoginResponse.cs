@@ -1,5 +1,5 @@
 ﻿namespace MasjidOnline.Api.Model.Authentication;
 
-public class LoginResponse
+public class LoginResponse : Response
 {
 }

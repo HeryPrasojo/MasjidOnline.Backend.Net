@@ -1,5 +1,5 @@
 ﻿namespace MasjidOnline.Api.Model.User;
 
-public class RegisterResponse : Response
+public class AddResponse : Response
 {
 }

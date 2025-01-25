@@ -19,18 +19,14 @@ public class AuditData(AuditDataContext _auditDataContext, IAuditIdGenerator _au
     private DbSet<UserEmailAddressLog>? _userEmailAddressLogDbSet;
 
     private IAuditSettingRepository? _auditSettingRepository;
-
-    private IUserLogRepository? _userLogRepository;
     private IUserEmailAddressLogRepository? _userEmailAddressLogRepository;
-
+    private IUserLogRepository? _userLogRepository;
 
     public IAuditSettingRepository AuditSetting => _auditSettingRepository ??= new AuditSettingRepository(_auditDataContext);
+    //public IUserEmailAddressLogRepository UserEmailAddressLog => _userEmailAddressLogRepository ??= new UserEmailAddressLogRepository(_auditDataContext);
+    //public IUserLogRepository UserLog => _userLogRepository ??= new UserLogRepository(_auditDataContext);
 
-    public IUserLogRepository UserLog => _userLogRepository ??= new UserLogRepository(_auditDataContext);
-    public IUserEmailAddressLogRepository UserEmailAddressLog => _userEmailAddressLogRepository ??= new UserEmailAddressLogRepository(_auditDataContext);
-
-
-    public void addAudit(ChangeTracker changeTracker)
+    public async Task AddAsync(ChangeTracker changeTracker)
     {
         var entityEntries = changeTracker.Entries();
 
@@ -57,18 +53,16 @@ public class AuditData(AuditDataContext _auditDataContext, IAuditIdGenerator _au
                 var userLog = new UserLog
                 {
                     UserLogId = _auditIdGenerator.UserLogId,
+                    SessionUserId = _userSession.UserId,
+                    DateTime = utcNow,
 
                     Id = user.Id,
-
                     EmailAddressId = user.EmailAddressId,
                     Name = user.Name,
                     UserType = user.UserType,
-
-                    SessionUserId = _userSession.UserId,
-                    DateTime = utcNow,
                 };
 
-                _userLogDbSet.Add(userLog);
+                await _userLogDbSet.AddAsync(userLog);
             }
             else if (entityEntry.Entity is UserEmailAddress userEmailAddress)
             {
@@ -77,18 +71,16 @@ public class AuditData(AuditDataContext _auditDataContext, IAuditIdGenerator _au
                 var userEmailAddressLog = new UserEmailAddressLog
                 {
                     UserEmailAddressLogId = _auditIdGenerator.UserEmailAddressLogId,
+                    SessionUserId = _userSession.UserId,
+                    DateTime = utcNow,
 
                     Id = userEmailAddress.Id,
-
                     Disabled = userEmailAddress.Disabled,
                     EmailAddress = userEmailAddress.EmailAddress,
                     UserId = userEmailAddress.UserId,
-
-                    SessionUserId = _userSession.UserId,
-                    DateTime = utcNow,
                 };
 
-                _userEmailAddressLogDbSet.Add(userEmailAddressLog);
+                await _userEmailAddressLogDbSet.AddAsync(userEmailAddressLog);
             }
         }
     }
