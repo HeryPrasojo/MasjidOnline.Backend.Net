@@ -8,7 +8,8 @@ internal static class UserEndPoint
 {
     internal static async Task<AddResponse> Addsync(IAdditionBusiness additionBusiness, AddRequest addRequest)
     {
-        additionBusiness.;
+        // undone 2
+        //additionBusiness.;
 
         return default;
     }

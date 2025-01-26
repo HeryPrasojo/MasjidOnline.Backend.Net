@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Text.Json;
 using System.Threading.Tasks;
-using MasjidOnline.Api.Model;
+using MasjidOnline.Business.Interface.Model;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Library.Exceptions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
 
 namespace MasjidOnline.Api.Web;
 
 public class ExceptionHandlerMiddleware(RequestDelegate _nextRequestDelegate)
 {
-    public async Task Invoke(HttpContext httpContext, IEventData eventData, IEventIdGenerator eventIdGenerator)
+    public async Task Invoke(HttpContext httpContext, IHostEnvironment hostEnvironment, IEventData eventData, IEventIdGenerator eventIdGenerator)
     {
         try
         {
@@ -19,19 +20,22 @@ public class ExceptionHandlerMiddleware(RequestDelegate _nextRequestDelegate)
         }
         catch (Exception exception)
         {
-            await HandleExceptionAsync(httpContext, exception, eventData, eventIdGenerator);
+            await HandleExceptionAsync(httpContext, hostEnvironment, exception, eventData, eventIdGenerator);
         }
     }
 
-    private static async Task HandleExceptionAsync(HttpContext httpContext, Exception exception, IEventData eventData, IEventIdGenerator eventIdGenerator)
+    private static async Task HandleExceptionAsync(HttpContext httpContext, IHostEnvironment hostEnvironment, Exception exception, IEventData eventData, IEventIdGenerator eventIdGenerator)
     {
         httpContext.Response.ContentType = "application/json";
 
-        var response = new Response
+        var response = new ExceptionResponse
         {
             ResultCode = ResponseResult.Error,
             ResultMessage = exception.Message,
+            StackTrace = exception.StackTrace,
         };
+
+        if (hostEnvironment.IsDevelopment()) response.StackTrace = exception.StackTrace;
 
         if (exception is InputInvalidException) response.ResultCode = ResponseResult.InputInvalid;
         else if (exception is InputMismatchException) response.ResultCode = ResponseResult.InputMismatch;

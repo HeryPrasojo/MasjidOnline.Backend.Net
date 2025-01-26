@@ -4,6 +4,7 @@ using MasjidOnline.Api.Web;
 using MasjidOnline.Business.Captcha;
 using MasjidOnline.Business.Infaq;
 using MasjidOnline.Business.Interface.Model;
+using MasjidOnline.Business.User;
 using MasjidOnline.Data;
 using MasjidOnline.Data.EntityFramework;
 using MasjidOnline.Data.EntityFramework.SqLite;
@@ -105,9 +106,10 @@ static async Task InitializeAsync(WebApplication webApplication)
     await userInitializer.InitializeDatabaseAsync(userData);
 
 
-    var userBusiness = GetService<IUserBusiness>(serviceScope.ServiceProvider);
+    var userAdditionBusiness = GetService<MasjidOnline.Business.User.Interface.IAdditionBusiness>(serviceScope.ServiceProvider);
 
-    userBusiness.;
+    // undone 1
+    //userAdditionBusiness.;
 
 
     await auditIdGenerator.InitializeAsync(auditData);
