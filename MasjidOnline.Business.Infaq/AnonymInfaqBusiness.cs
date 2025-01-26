@@ -21,7 +21,7 @@ public class AnonymInfaqBusiness(
     ITransactionData _transactionData,
     ITransactionIdGenerator _transactionIdGenerator) : IAnonymInfaqBusiness
 {
-    // todo user 
+    // todo use user session
     public async Task<AnonymInfaqResponse> InfaqAsync(byte[]? sessionId, AnonymInfaqRequest anonymInfaqRequest)
     {
         _fieldValidatorService.ValidateRequired(sessionId);

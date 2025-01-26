@@ -15,6 +15,8 @@ public abstract class UserInitializer(IUserDefinition _userDefinition) : IUserIn
         if (!settingTableExists)
         {
             await CreateTableUserSettingAsync();
+            await CreateTableUserAsync();
+            await CreateTableUserEmailAddressAsync();
 
 
             var userSetting = new UserSetting
@@ -25,11 +27,6 @@ public abstract class UserInitializer(IUserDefinition _userDefinition) : IUserIn
             };
 
             await userData.UserSetting.AddAsync(userSetting);
-
-
-            await CreateTableUserAsync();
-
-            await CreateTableUserEmailAddressAsync();
 
             await userData.SaveAsync();
         }

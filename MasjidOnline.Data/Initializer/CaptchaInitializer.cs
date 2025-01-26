@@ -15,6 +15,9 @@ public abstract class CaptchaInitializer(ICaptchaDefinition _captchaDefinition) 
         if (!settingTableExists)
         {
             await CreateTableCaptchaSettingAsync();
+            await CreateTableCaptchaQuestionAsync();
+            await CreateTableCaptchaAnswerAsync();
+
 
             var captchaSetting = new CaptchaSetting
             {
@@ -24,11 +27,6 @@ public abstract class CaptchaInitializer(ICaptchaDefinition _captchaDefinition) 
             };
 
             await captchaData.CaptchaSetting.AddAsync(captchaSetting);
-
-
-            await CreateTableCaptchaQuestionAsync();
-
-            await CreateTableCaptchaAnswerAsync();
 
             await captchaData.SaveAsync();
         }

@@ -15,6 +15,8 @@ public abstract class TransactionInitializer(ITransactionDefinition _transaction
         if (!settingTableExists)
         {
             await CreateTableTransactionSettingAsync();
+            await CreateTableTransactionAsync();
+            await CreateTableTransactionFileAsync();
 
 
             var transactionSetting = new TransactionSetting
@@ -25,11 +27,6 @@ public abstract class TransactionInitializer(ITransactionDefinition _transaction
             };
 
             await transactionData.TransactionSetting.AddAsync(transactionSetting);
-
-
-            await CreateTableTransactionAsync();
-
-            await CreateTableTransactionFileAsync();
 
             await transactionData.SaveAsync();
         }

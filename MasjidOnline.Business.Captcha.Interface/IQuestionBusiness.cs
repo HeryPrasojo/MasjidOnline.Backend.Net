@@ -3,7 +3,7 @@ using MasjidOnline.Business.Captcha.Interface.Model;
 
 namespace MasjidOnline.Business.Captcha.Interface;
 
-public interface ICaptchaQuestionBusiness
+public interface IQuestionBusiness
 {
     Task<CreateQuestionResponse> CreateAsync(byte[]? sessionId);
 }

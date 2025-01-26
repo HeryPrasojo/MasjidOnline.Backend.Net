@@ -16,6 +16,7 @@ public abstract class CoreInitializer(ICoreDefinition _coreDefinition) : ICoreIn
         {
             await CreateTableCoreSettingAsync();
 
+
             var coreSetting = new CoreSetting
             {
                 Id = (int)CoreSettingId.DatabaseVersion,

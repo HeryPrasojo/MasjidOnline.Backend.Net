@@ -7,9 +7,9 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddCaptchaBusiness(this IServiceCollection services)
     {
-        services.AddScoped<ICaptchaQuestionBusiness, CaptchaQuestionBusiness>();
+        services.AddScoped<IQuestionBusiness, QuestionBusiness>();
 
-        services.AddScoped<ICaptchaAnswerBusiness, CaptchaAnswerBusiness>();
+        services.AddScoped<IAnswerBusiness, AnswerBusiness>();
 
         return services;
     }

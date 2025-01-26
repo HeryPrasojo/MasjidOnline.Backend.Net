@@ -15,6 +15,8 @@ public abstract class EventInitializer(IEventDefinition _eventDefinition) : IEve
         if (!settingTableExists)
         {
             await CreateTableEventSettingAsync();
+            await CreateTableErrorExceptionAsync();
+
 
             var setting = new EventSetting
             {
@@ -24,9 +26,6 @@ public abstract class EventInitializer(IEventDefinition _eventDefinition) : IEve
             };
 
             await eventData.EventSetting.AddAsync(setting);
-
-
-            await CreateTableErrorExceptionAsync();
 
             await eventData.SaveAsync();
         }

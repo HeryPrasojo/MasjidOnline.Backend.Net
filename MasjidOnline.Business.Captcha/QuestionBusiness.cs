@@ -11,11 +11,11 @@ using MasjidOnline.Service.Hash512.Interface;
 
 namespace MasjidOnline.Business.Captcha;
 
-public class CaptchaQuestionBusiness(
+public class QuestionBusiness(
     ICaptchaService _captchaService,
     ICaptchaData _captchaData,
     ICaptchaIdGenerator _captchaIdGenerator,
-    IHash512Service _hash512Service) : ICaptchaQuestionBusiness
+    IHash512Service _hash512Service) : IQuestionBusiness
 {
     // todo validate user session exists (captcha not needed)
     public async Task<CreateQuestionResponse> CreateAsync(byte[]? sessionId)

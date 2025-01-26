@@ -11,10 +11,10 @@ using MasjidOnline.Service.FieldValidator.Interface;
 
 namespace MasjidOnline.Business.Captcha;
 
-public class CaptchaAnswerBusiness(
+public class AnswerBusiness(
     ICaptchaData _captchaData,
     ICaptchaIdGenerator _captchaIdGenerator,
-    IFieldValidatorService _fieldValidatorService) : ICaptchaAnswerBusiness
+    IFieldValidatorService _fieldValidatorService) : IAnswerBusiness
 {
     public async Task<AnswerQuestionResponse> AnswerAsync(byte[]? sessionId, AnswerQuestionRequest answerQuestionRequest)
     {

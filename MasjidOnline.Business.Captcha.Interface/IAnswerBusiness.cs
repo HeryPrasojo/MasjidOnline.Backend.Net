@@ -3,8 +3,7 @@ using MasjidOnline.Business.Captcha.Interface.Model;
 
 namespace MasjidOnline.Business.Captcha.Interface;
 
-// todo rename to IAnswerBusiness
-public interface ICaptchaAnswerBusiness
+public interface IAnswerBusiness
 {
     Task<AnswerQuestionResponse> AnswerAsync(byte[]? sessionId, AnswerQuestionRequest answerQuestionRequest);
 }
