@@ -1,15 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using MasjidOnline.Business.Interface.Model;
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.EntityFramework.Repository.Audit;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Data.Interface.Repository.Audit;
+using MasjidOnline.Data.Mapper;
 using MasjidOnline.Entity.Audit;
 using MasjidOnline.Entity.Users;
-using MasjidOnline.Service;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace MasjidOnline.Data.EntityFramework.Datas;
 
@@ -26,59 +27,25 @@ public class AuditData(AuditDataContext _auditDataContext, IAuditIdGenerator _au
     public IUserEmailAddressLogRepository UserEmailAddressLog => _userEmailAddressLogRepository ??= new UserEmailAddressLogRepository(_auditDataContext);
     public IUserLogRepository UserLog => _userLogRepository ??= new UserLogRepository(_auditDataContext);
 
-    public async Task AddAsync(ChangeTracker changeTracker)
+    public async Task AddAsync(IEnumerable<object> objects)
     {
-        var entityEntries = changeTracker.Entries();
+        var utcNow = DateTime.UtcNow;
 
-        foreach (var entityEntry in entityEntries)
+        foreach (var obj in objects)
         {
-            var entityStates = new[]
-            {
-                EntityState.Added,
-                EntityState.Deleted,
-                EntityState.Modified,
-            };
-
-            var exists = Array.Exists(entityStates, s => s == entityEntry.State);
-
-            if (!exists) continue;
-
-
-            var utcNow = DateTime.UtcNow;
-
-            if (entityEntry.Entity is User user)
+            if (obj is User user)
             {
                 _userLogDbSet ??= _auditDataContext.Set<UserLog>();
 
-                var userLog = new UserLog
-                {
-                    UserLogId = _auditIdGenerator.UserLogId,
-                    SessionUserId = _userSession.UserId,
-                    DateTime = utcNow,
-
-                    Id = user.Id,
-                    EmailAddressId = user.EmailAddressId,
-                    Name = user.Name,
-                    UserType = user.UserType,
-                };
+                var userLog = user.MapUserLog(_auditIdGenerator.UserLogId, _userSession.UserId, utcNow);
 
                 await _userLogDbSet.AddAsync(userLog);
             }
-            else if (entityEntry.Entity is UserEmailAddress userEmailAddress)
+            else if (obj is UserEmailAddress userEmailAddress)
             {
                 _userEmailAddressLogDbSet ??= _auditDataContext.Set<UserEmailAddressLog>();
 
-                var userEmailAddressLog = new UserEmailAddressLog
-                {
-                    UserEmailAddressLogId = _auditIdGenerator.UserEmailAddressLogId,
-                    SessionUserId = _userSession.UserId,
-                    DateTime = utcNow,
-
-                    Id = userEmailAddress.Id,
-                    Disabled = userEmailAddress.Disabled,
-                    EmailAddress = userEmailAddress.EmailAddress,
-                    UserId = userEmailAddress.UserId,
-                };
+                var userEmailAddressLog = userEmailAddress.MapUserEmailAddressLog(_auditIdGenerator.UserEmailAddressLogId, _userSession.UserId, utcNow);
 
                 await _userEmailAddressLogDbSet.AddAsync(userEmailAddressLog);
             }

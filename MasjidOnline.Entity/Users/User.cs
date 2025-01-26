@@ -12,4 +12,6 @@ public class User
     /// primary email address
     /// </summary>
     public required int EmailAddressId { get; set; }
+
+    public required string Password { get; set; }
 }

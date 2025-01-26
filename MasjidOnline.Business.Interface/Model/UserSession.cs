@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Service;
+﻿namespace MasjidOnline.Business.Interface.Model;
 
 public class UserSession
 {

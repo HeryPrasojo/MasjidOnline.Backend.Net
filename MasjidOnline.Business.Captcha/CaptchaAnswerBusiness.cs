@@ -19,7 +19,6 @@ public class CaptchaAnswerBusiness(
     public async Task<AnswerQuestionResponse> AnswerAsync(byte[]? sessionId, AnswerQuestionRequest answerQuestionRequest)
     {
         _fieldValidatorService.ValidateRequired(sessionId);
-
         _fieldValidatorService.ValidateRequired(answerQuestionRequest);
 
 

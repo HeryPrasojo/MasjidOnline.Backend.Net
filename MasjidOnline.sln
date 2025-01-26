@@ -46,8 +46,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.FieldV
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.FieldValidator.Interface", "MasjidOnline.Service.FieldValidator.Interface\MasjidOnline.Service.FieldValidator.Interface.csproj", "{47D8223F-0038-4848-BFEF-8E53B10C24F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service", "MasjidOnline.Service\MasjidOnline.Service.csproj", "{F0837E90-8E50-4656-A18E-CDB766D824CB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Payment.Interface", "MasjidOnline.Business.Payment.Interface\MasjidOnline.Business.Payment.Interface.csproj", "{E75E3128-D049-4CCD-91BD-636B7D5CBBA2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Interface", "MasjidOnline.Business.Interface\MasjidOnline.Business.Interface.csproj", "{D33F70CF-AB89-450A-BAC9-7E0E68B5A4B4}"
@@ -134,10 +132,6 @@ Global
 		{47D8223F-0038-4848-BFEF-8E53B10C24F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47D8223F-0038-4848-BFEF-8E53B10C24F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47D8223F-0038-4848-BFEF-8E53B10C24F9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F0837E90-8E50-4656-A18E-CDB766D824CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F0837E90-8E50-4656-A18E-CDB766D824CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F0837E90-8E50-4656-A18E-CDB766D824CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F0837E90-8E50-4656-A18E-CDB766D824CB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E75E3128-D049-4CCD-91BD-636B7D5CBBA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E75E3128-D049-4CCD-91BD-636B7D5CBBA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E75E3128-D049-4CCD-91BD-636B7D5CBBA2}.Release|Any CPU.ActiveCfg = Release|Any CPU

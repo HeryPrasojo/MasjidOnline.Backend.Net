@@ -43,6 +43,13 @@ public class FieldValidatorService : IFieldValidatorService
         if (value == default) throw new InputInvalidException(valueExpression);
     }
 
+    public void ValidateRequiredDateTimePast(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    {
+        if (value == default) throw new InputInvalidException(valueExpression);
+
+        if (value >= DateTime.UtcNow) throw new InputInvalidException(valueExpression);
+    }
+
     public string ValidateRequiredTextShort(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
         if (value == default) throw new InputInvalidException(valueExpression);

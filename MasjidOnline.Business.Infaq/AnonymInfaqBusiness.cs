@@ -21,19 +21,17 @@ public class AnonymInfaqBusiness(
     ITransactionData _transactionData,
     ITransactionIdGenerator _transactionIdGenerator) : IAnonymInfaqBusiness
 {
+    // todo user 
     public async Task<AnonymInfaqResponse> InfaqAsync(byte[]? sessionId, AnonymInfaqRequest anonymInfaqRequest)
     {
         _fieldValidatorService.ValidateRequired(sessionId);
-
         _fieldValidatorService.ValidateRequired(anonymInfaqRequest);
-
         _fieldValidatorService.ValidateRequired(anonymInfaqRequest.Amount);
-
         _fieldValidatorService.ValidateRequired(anonymInfaqRequest.PaymentType);
-
-        anonymInfaqRequest.MunfiqName = _fieldValidatorService.ValidateRequiredTextShort(anonymInfaqRequest.MunfiqName);
+        _fieldValidatorService.ValidateRequiredDateTimePast(anonymInfaqRequest.ManualBankTransferDateTime);
 
         anonymInfaqRequest.ManualBankTransferNotes = _fieldValidatorService.ValidateRequiredTextShort(anonymInfaqRequest.ManualBankTransferNotes);
+        anonymInfaqRequest.MunfiqName = _fieldValidatorService.ValidateRequiredTextShort(anonymInfaqRequest.MunfiqName);
 
 
         // todo check session logged in

@@ -20,5 +20,5 @@ public class Hash512Service : IHash512Service
         }
     }
 
-    public string RandomDigestString => Convert.ToBase64String(RandomDigestBytes);
+    public string RandomDigestBase64String => Convert.ToBase64String(RandomDigestBytes);
 }

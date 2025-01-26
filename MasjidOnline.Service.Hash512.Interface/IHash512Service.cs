@@ -3,5 +3,5 @@
 public interface IHash512Service
 {
     byte[] RandomDigestBytes { get; }
-    string RandomDigestString { get; }
+    string RandomDigestBase64String { get; }
 }

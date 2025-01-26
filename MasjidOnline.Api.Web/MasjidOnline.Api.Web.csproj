@@ -15,7 +15,6 @@
     <ProjectReference Include="..\MasjidOnline.Service.Captcha\MasjidOnline.Service.Captcha.csproj" />
     <ProjectReference Include="..\MasjidOnline.Service.FieldValidator\MasjidOnline.Service.FieldValidator.csproj" />
     <ProjectReference Include="..\MasjidOnline.Service.Hash512\MasjidOnline.Service.Hash512.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Service\MasjidOnline.Service.csproj" />
   </ItemGroup>
 
 </Project>
