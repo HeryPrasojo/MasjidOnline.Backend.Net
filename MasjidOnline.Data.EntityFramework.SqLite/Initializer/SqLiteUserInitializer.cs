@@ -45,8 +45,7 @@ public class SqLiteUserInitializer(
             (
                 Id INTEGER PRIMARY KEY,
                 UserId INTEGER NOT NULL,
-                EmailAddress TEXT NOT NULL,
-                Disabled INTEGER NOT NULL
+                EmailAddress TEXT NOT NULL
             )";
 
         return await _userDataContext.Database.ExecuteSqlAsync(sql);

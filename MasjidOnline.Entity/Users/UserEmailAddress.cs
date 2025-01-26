@@ -7,6 +7,4 @@ public class UserEmailAddress
     public required int UserId { get; set; }
 
     public required string EmailAddress { get; set; }
-
-    public required bool Disabled { get; set; }
 }

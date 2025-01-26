@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 using MasjidOnline.Api.Web;
 using MasjidOnline.Business.Captcha;
 using MasjidOnline.Business.Infaq;
+using MasjidOnline.Business.Interface.Model;
 using MasjidOnline.Data;
 using MasjidOnline.Data.EntityFramework;
 using MasjidOnline.Data.EntityFramework.SqLite;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Data.Interface.Initializer;
-using MasjidOnline.Service;
 using MasjidOnline.Service.Captcha;
 using MasjidOnline.Service.FieldValidator;
 using MasjidOnline.Service.Hash512;
@@ -41,7 +41,7 @@ static WebApplication BuildApplication(string[] args)
         corsOptions.AddDefaultPolicy(corsPolicyBuilder =>
         {
             corsPolicyBuilder.WithOrigins("http://masjidonline.localhost")
-                .WithExposedHeaders(Constant.HttpHeaderName.ResultCode, Constant.HttpHeaderName.ResultMessage)
+                .WithExposedHeaders(MasjidOnline.Api.Web.Constant.HttpHeaderName.ResultCode, MasjidOnline.Api.Web.Constant.HttpHeaderName.ResultMessage)
                 .AllowCredentials()
                 .AllowAnyHeader();
         });
@@ -51,25 +51,18 @@ static WebApplication BuildApplication(string[] args)
     #region add dependency
 
     webApplicationBuilder.Services.AddCaptchaService();
-
     webApplicationBuilder.Services.AddFieldValidator();
-
     webApplicationBuilder.Services.AddHash512Service();
 
-
     webApplicationBuilder.Services.AddData();
-
     webApplicationBuilder.Services.AddSqLiteEntityFrameworkData(webApplicationBuilder.Configuration);
-
     webApplicationBuilder.Services.AddEntityIdGenerator();
 
-
     webApplicationBuilder.Services.AddDonationBusiness();
-
     webApplicationBuilder.Services.AddCaptchaBusiness();
+    webApplicationBuilder.Services.AddUserBusiness();
 
-
-    webApplicationBuilder.Services.AddService();
+    webApplicationBuilder.Services.AddScoped<UserSession>();
 
     #endregion
 
@@ -110,6 +103,12 @@ static async Task InitializeAsync(WebApplication webApplication)
     await eventInitializer.InitializeDatabaseAsync(eventData);
     await transactionInitializer.InitializeDatabaseAsync(transactionData);
     await userInitializer.InitializeDatabaseAsync(userData);
+
+
+    var userBusiness = GetService<IUserBusiness>(serviceScope.ServiceProvider);
+
+    userBusiness.;
+
 
     await auditIdGenerator.InitializeAsync(auditData);
     await coreIdGenerator.InitializeAsync(coreData);

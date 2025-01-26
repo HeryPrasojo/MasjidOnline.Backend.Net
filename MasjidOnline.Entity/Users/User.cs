@@ -13,5 +13,5 @@ public class User
     /// </summary>
     public required int EmailAddressId { get; set; }
 
-    public required string Password { get; set; }
+    public string? Password { get; set; }
 }

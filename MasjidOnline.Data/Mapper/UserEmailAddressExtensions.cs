@@ -15,7 +15,6 @@ public static class UserEmailAddressExtensions
             DateTime = dateTime,
 
             Id = userEmailAddress.Id,
-            Disabled = userEmailAddress.Disabled,
             EmailAddress = userEmailAddress.EmailAddress,
             UserId = userEmailAddress.UserId,
         };
