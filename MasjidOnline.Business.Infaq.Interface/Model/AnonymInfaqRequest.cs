@@ -10,9 +10,9 @@ public class AnonymInfaqRequest
 
     public required PaymentType PaymentType { get; set; }
 
-    public DateTime? ManualBankTransferDateTime { get; set; }
+    public DateTime? ManualDateTime { get; set; }
 
-    public string? ManualBankTransferNotes { get; set; }
+    public string? ManualNotes { get; set; }
 
     public IEnumerable<Stream>? Files { get; set; }
 }

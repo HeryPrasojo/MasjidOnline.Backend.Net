@@ -22,8 +22,9 @@ public class Transaction
     public required PaymentType PaymentType { get; set; }
 
 
-    // todo rename ManualBankTransfer* to Manual* to generalize PaymentType Manual*
-    public DateTime? ManualBankTransferDateTime { get; set; }
+    // PaymentType.Manual*
 
-    public string? ManualBankTransferNotes { get; set; }
+    public DateTime? ManualDateTime { get; set; }
+
+    public string? ManualNotes { get; set; }
 }

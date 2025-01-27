@@ -28,9 +28,9 @@ public class AnonymInfaqBusiness(
         _fieldValidatorService.ValidateRequired(anonymInfaqRequest);
         _fieldValidatorService.ValidateRequired(anonymInfaqRequest.Amount);
         _fieldValidatorService.ValidateRequired(anonymInfaqRequest.PaymentType);
-        _fieldValidatorService.ValidateRequiredDateTimePast(anonymInfaqRequest.ManualBankTransferDateTime);
+        _fieldValidatorService.ValidateRequiredDateTimePast(anonymInfaqRequest.ManualDateTime);
 
-        anonymInfaqRequest.ManualBankTransferNotes = _fieldValidatorService.ValidateRequiredTextShort(anonymInfaqRequest.ManualBankTransferNotes);
+        anonymInfaqRequest.ManualNotes = _fieldValidatorService.ValidateRequiredTextShort(anonymInfaqRequest.ManualNotes);
         anonymInfaqRequest.MunfiqName = _fieldValidatorService.ValidateRequiredTextShort(anonymInfaqRequest.MunfiqName);
 
 
@@ -64,12 +64,12 @@ public class AnonymInfaqBusiness(
             UserId = default,
             MunfiqName = anonymInfaqRequest.MunfiqName,
 
-            ManualBankTransferDateTime = anonymInfaqRequest.ManualBankTransferDateTime,
+            ManualDateTime = anonymInfaqRequest.ManualDateTime,
         };
 
-        if (!anonymInfaqRequest.ManualBankTransferNotes.IsNullOrEmptyOrWhiteSpace())
+        if (!anonymInfaqRequest.ManualNotes.IsNullOrEmptyOrWhiteSpace())
         {
-            transaction.ManualBankTransferNotes = anonymInfaqRequest.ManualBankTransferNotes;
+            transaction.ManualNotes = anonymInfaqRequest.ManualNotes;
         }
 
         await _transactionData.Transaction.AddAsync(transaction);
