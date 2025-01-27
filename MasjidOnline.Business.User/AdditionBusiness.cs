@@ -47,9 +47,8 @@ public class AdditionBusiness(
     {
         _fieldValidatorService.ValidateRequired(addRequest);
 
+        addRequest.EmailAddress = _fieldValidatorService.ValidateRequiredEmailAddress(addRequest.EmailAddress);
         addRequest.Name = _fieldValidatorService.ValidateRequiredTextShort(addRequest.Name);
-        // todo validate email address
-        addRequest.EmailAddress = _fieldValidatorService.ValidateRequiredTextShort(addRequest.EmailAddress);
 
         var user = new Entity.Users.User
         {

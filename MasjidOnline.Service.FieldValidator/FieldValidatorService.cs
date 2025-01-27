@@ -1,4 +1,6 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Globalization;
+using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
 
@@ -48,6 +50,52 @@ public class FieldValidatorService : IFieldValidatorService
         if (value == default) throw new InputInvalidException(valueExpression);
 
         if (value >= DateTime.UtcNow) throw new InputInvalidException(valueExpression);
+    }
+
+    public string ValidateRequiredEmailAddress(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    {
+        if (value == default) throw new InputInvalidException(valueExpression);
+
+        try
+        {
+            value = Regex.Replace(
+                value,
+                @"(@)(.+)$",
+                match =>
+                {
+                    var idn = new IdnMapping();
+
+                    string domainName = idn.GetAscii(match.Groups[2].Value);
+
+                    return match.Groups[1].Value + domainName;
+                },
+                RegexOptions.None,
+                TimeSpan.FromMilliseconds(200));
+        }
+        catch (Exception exception)
+        {
+            throw new InputInvalidException(valueExpression, exception);
+        }
+
+
+        bool isMatch;
+
+        try
+        {
+            isMatch = Regex.IsMatch(
+                value,
+                @"^[^@\s]+@[^@\s]+\.[^@\s]+$",
+                RegexOptions.IgnoreCase,
+                TimeSpan.FromMilliseconds(250));
+        }
+        catch (Exception exception)
+        {
+            throw new InputInvalidException(valueExpression, exception);
+        }
+
+        if (!isMatch) throw new InputInvalidException(valueExpression);
+
+        return value;
     }
 
     public string ValidateRequiredTextShort(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
