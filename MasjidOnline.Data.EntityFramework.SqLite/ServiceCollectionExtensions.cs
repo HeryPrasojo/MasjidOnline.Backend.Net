@@ -1,4 +1,6 @@
-﻿using MasjidOnline.Data.EntityFramework.DataContext;
+﻿using System;
+using MasjidOnline.Business.Interface.Model.Options;
+using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 using MasjidOnline.Data.Interface.Definition;
 using MasjidOnline.Data.Interface.Initializer;
@@ -10,61 +12,16 @@ namespace MasjidOnline.Data.EntityFramework.SqLite;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddSqLiteEntityFrameworkData(this IServiceCollection services, IConfigurationManager configurationManager)
+    public static IServiceCollection AddSqLiteEntityFrameworkData(this IServiceCollection services, IConfiguration configurationManager)
     {
-        services.AddDbContextPool<AuditDataContext>(b =>
-            {
-                var connectionString = configurationManager.GetConnectionString("Audit");
+        var option = configurationManager.Get<Option>() ?? throw new ApplicationException($"Get {nameof(Option)} fail");
 
-                b.UseSqlite(connectionString);
-            },
-            poolSize: 2);
-
-
-        services.AddDbContextPool<CaptchaDataContext, CaptchaDataContext>(b =>
-            {
-                var connectionString = configurationManager.GetConnectionString("Captcha");
-
-                b.UseSqlite(connectionString);
-            },
-            poolSize: 2);
-
-
-        services.AddDbContextPool<CoreDataContext, CoreDataContext>(b =>
-            {
-                var connectionString = configurationManager.GetConnectionString("Core");
-
-                b.UseSqlite(connectionString);
-            },
-            poolSize: 2);
-
-
-        services.AddDbContextPool<EventDataContext, EventDataContext>(b =>
-            {
-                var connectionString = configurationManager.GetConnectionString("Event");
-
-                b.UseSqlite(connectionString);
-            },
-            poolSize: 2);
-
-
-        services.AddDbContextPool<TransactionDataContext, TransactionDataContext>(b =>
-            {
-                var connectionString = configurationManager.GetConnectionString("Transaction");
-
-                b.UseSqlite(connectionString);
-            },
-            poolSize: 2);
-
-
-        services.AddDbContextPool<UserDataContext, UserDataContext>(b =>
-            {
-                var connectionString = configurationManager.GetConnectionString("User");
-
-                b.UseSqlite(connectionString);
-            },
-            poolSize: 2);
-
+        services.AddDbContextPool<AuditDataContext>(b => b.UseSqlite(option.ConnectionStrings.Audit), poolSize: 2);
+        services.AddDbContextPool<CaptchaDataContext, CaptchaDataContext>(b => b.UseSqlite(option.ConnectionStrings.Captcha), poolSize: 2);
+        services.AddDbContextPool<CoreDataContext, CoreDataContext>(b => b.UseSqlite(option.ConnectionStrings.Core), poolSize: 2);
+        services.AddDbContextPool<EventDataContext, EventDataContext>(b => b.UseSqlite(option.ConnectionStrings.Event), poolSize: 2);
+        services.AddDbContextPool<TransactionDataContext, TransactionDataContext>(b => b.UseSqlite(option.ConnectionStrings.Transaction), poolSize: 2);
+        services.AddDbContextPool<UserDataContext, UserDataContext>(b => b.UseSqlite(option.ConnectionStrings.User), poolSize: 2);
 
         services.AddTransient<IAuditInitializer, SqLiteAuditInitializer>();
         services.AddTransient<ICaptchaInitializer, SqLiteCaptchaInitializer>();

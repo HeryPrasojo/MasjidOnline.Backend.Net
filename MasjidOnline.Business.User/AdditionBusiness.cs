@@ -1,21 +1,25 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface.Model;
+using MasjidOnline.Business.Interface.Model.Options;
 using MasjidOnline.Business.User.Interface;
 using MasjidOnline.Business.User.Interface.Model;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.Users;
 using MasjidOnline.Service.FieldValidator.Interface;
+using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Business.User;
 
 public class AdditionBusiness(
+    IOptionsSnapshot<Option> optionsSnapshot,
     IUserData _userData,
     IUserIdGenerator _userIdGenerator,
     IFieldValidatorService _fieldValidatorService,
     UserSession _userSession) : IAdditionBusiness
 {
+    // todo move to rootAdditionBusiness
     public async Task AddRoot()
     {
         _userSession.UserId = Constant.RootUserId;
@@ -34,7 +38,7 @@ public class AdditionBusiness(
         var userEmailAddress = new UserEmailAddress
         {
             Id = user.EmailAddressId,
-            EmailAddress = Constant.RootUserEmailAddress,
+            EmailAddress = optionsSnapshot.Value.RootUserEmailAddress,
             UserId = user.Id,
         };
 

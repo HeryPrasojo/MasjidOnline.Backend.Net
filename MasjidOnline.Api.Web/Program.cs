@@ -4,6 +4,7 @@ using MasjidOnline.Api.Web;
 using MasjidOnline.Business.Captcha;
 using MasjidOnline.Business.Infaq;
 using MasjidOnline.Business.Interface.Model;
+using MasjidOnline.Business.Interface.Model.Options;
 using MasjidOnline.Business.User;
 using MasjidOnline.Data;
 using MasjidOnline.Data.EntityFramework;
@@ -22,6 +23,8 @@ var webApplication = BuildApplication(args);
 
 await InitializeAsync(webApplication);
 
+var option = webApplication.Configuration.Get<Option>();
+
 webApplication.UseMiddleware<ExceptionHandlerMiddleware>();
 
 webApplication.UseCors();
@@ -35,7 +38,11 @@ static WebApplication BuildApplication(string[] args)
 {
     var webApplicationBuilder = WebApplication.CreateBuilder(args);
 
-    webApplicationBuilder.Configuration.AddJsonFile("appsettings.Local.json", true);
+    webApplicationBuilder.Configuration.AddJsonFile("appsettings.Local.json", true, true);
+
+    var option = webApplicationBuilder.Configuration.Get<Option>();
+
+    webApplicationBuilder.Services.AddOptions<Option>();
 
     webApplicationBuilder.Services.AddCors(corsOptions =>
     {
@@ -50,6 +57,8 @@ static WebApplication BuildApplication(string[] args)
 
 
     #region add dependency
+
+    // todo change transient and scoped to singleton as much as possible, and pass transient and scoped to method parameter.
 
     webApplicationBuilder.Services.AddCaptchaService();
     webApplicationBuilder.Services.AddFieldValidator();
