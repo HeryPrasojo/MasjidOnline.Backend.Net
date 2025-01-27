@@ -13,12 +13,11 @@ namespace MasjidOnline.Business.Captcha;
 
 public class QuestionBusiness(
     ICaptchaService _captchaService,
-    ICaptchaData _captchaData,
     ICaptchaIdGenerator _captchaIdGenerator,
     IHash512Service _hash512Service) : IQuestionBusiness
 {
     // todo validate user session exists (captcha not needed)
-    public async Task<CreateQuestionResponse> CreateAsync(byte[]? sessionId)
+    public async Task<CreateQuestionResponse> CreateAsync(ICaptchaData _captchaData, byte[]? sessionId)
     {
         if (sessionId != default)
         {

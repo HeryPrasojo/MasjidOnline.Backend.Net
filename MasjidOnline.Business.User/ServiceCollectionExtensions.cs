@@ -8,7 +8,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddUserBusiness(this IServiceCollection services)
     {
-        services.AddScoped<IAdditionBusiness, AdditionBusiness>();
+        services.AddSingleton<IAdditionBusiness, AdditionBusiness>();
 
         return services;
     }

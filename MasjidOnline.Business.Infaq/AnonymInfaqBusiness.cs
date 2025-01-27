@@ -16,13 +16,15 @@ using MasjidOnline.Service.FieldValidator.Interface;
 namespace MasjidOnline.Business.Infaq;
 
 public class AnonymInfaqBusiness(
-    ICaptchaData _captchaData,
     IFieldValidatorService _fieldValidatorService,
-    ITransactionData _transactionData,
     ITransactionIdGenerator _transactionIdGenerator) : IAnonymInfaqBusiness
 {
     // todo use user session
-    public async Task<AnonymInfaqResponse> InfaqAsync(byte[]? sessionId, AnonymInfaqRequest anonymInfaqRequest)
+    public async Task<AnonymInfaqResponse> InfaqAsync(
+        ICaptchaData _captchaData,
+        ITransactionData _transactionData,
+        byte[]? sessionId,
+        AnonymInfaqRequest anonymInfaqRequest)
     {
         _fieldValidatorService.ValidateRequired(sessionId);
         _fieldValidatorService.ValidateRequired(anonymInfaqRequest);

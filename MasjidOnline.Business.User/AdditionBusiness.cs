@@ -1,53 +1,21 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface.Model;
-using MasjidOnline.Business.Interface.Model.Options;
 using MasjidOnline.Business.User.Interface;
 using MasjidOnline.Business.User.Interface.Model;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.Users;
 using MasjidOnline.Service.FieldValidator.Interface;
-using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Business.User;
 
 public class AdditionBusiness(
-    IOptionsSnapshot<Option> optionsSnapshot,
-    IUserData _userData,
     IUserIdGenerator _userIdGenerator,
     IFieldValidatorService _fieldValidatorService,
     UserSession _userSession) : IAdditionBusiness
 {
-    // todo move to rootAdditionBusiness
-    public async Task AddRoot()
-    {
-        _userSession.UserId = Constant.RootUserId;
-
-        var user = new Entity.Users.User
-        {
-            Id = Constant.RootUserId,
-            EmailAddressId = Constant.RootUserId,
-            Name = "Root",
-            UserType = UserType.Root,
-        };
-
-        await _userData.User.AddAsync(user);
-
-
-        var userEmailAddress = new UserEmailAddress
-        {
-            Id = user.EmailAddressId,
-            EmailAddress = optionsSnapshot.Value.RootUserEmailAddress,
-            UserId = user.Id,
-        };
-
-        await _userData.UserEmailAddress.AddAsync(userEmailAddress);
-
-        await _userData.SaveAsync();
-    }
-
-    public async Task<AddResponse> AddAsync(AddRequest addRequest)
+    public async Task<AddResponse> AddAsync(IUserData _userData, AddRequest addRequest)
     {
         _fieldValidatorService.ValidateRequired(addRequest);
 

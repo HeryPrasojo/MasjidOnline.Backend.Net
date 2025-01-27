@@ -58,8 +58,6 @@ static WebApplication BuildApplication(string[] args)
 
     #region add dependency
 
-    // todo change transient and scoped to singleton as much as possible, and pass transient and scoped to method parameter.
-
     webApplicationBuilder.Services.AddCaptchaService();
     webApplicationBuilder.Services.AddFieldValidator();
     webApplicationBuilder.Services.AddHash512Service();
