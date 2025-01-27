@@ -9,7 +9,7 @@ namespace MasjidOnline.Business.User;
 
 public class InitializerBusiness
 {
-    public async Task AddRoot(IOptionsMonitor<Option> optionsMonitor, UserSession _userSession, IUserData _userData)
+    public async Task InitializeAsync(IOptionsMonitor<Option> optionsMonitor, UserSession _userSession, IUserData _userData)
     {
         _userSession.UserId = Constant.RootUserId;
 
@@ -34,5 +34,7 @@ public class InitializerBusiness
         await _userData.UserEmailAddress.AddAsync(userEmailAddress);
 
         await _userData.SaveAsync();
+
+        // undone 4
     }
 }

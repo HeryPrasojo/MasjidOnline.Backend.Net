@@ -12,10 +12,9 @@ namespace MasjidOnline.Business.User;
 
 public class AdditionBusiness(
     IUserIdGenerator _userIdGenerator,
-    IFieldValidatorService _fieldValidatorService,
-    UserSession _userSession) : IAdditionBusiness
+    IFieldValidatorService _fieldValidatorService) : IAdditionBusiness
 {
-    public async Task<AddResponse> AddAsync(IUserData _userData, AddRequest addRequest)
+    public async Task<AddResponse> AddAsync(UserSession _userSession, IUserData _userData, AddRequest addRequest)
     {
         _fieldValidatorService.ValidateRequired(addRequest);
 
