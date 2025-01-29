@@ -2,7 +2,7 @@
 
 public class User
 {
-    public virtual required int Id { get; set; }
+    public required int Id { get; set; }
 
     public required string Name { get; set; }
 

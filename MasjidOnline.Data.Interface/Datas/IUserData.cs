@@ -5,6 +5,7 @@ namespace MasjidOnline.Data.Interface.Datas;
 
 public interface IUserData
 {
+    IPasswordCodeRepository PasswordCode { get; }
     IUserRepository User { get; }
     IUserEmailAddressRepository UserEmailAddress { get; }
     IUserSettingRepository UserSetting { get; }

@@ -43,3 +43,7 @@
 /MasjidOnline.Service.Hash512/obj
 /MasjidOnline.Service.Hash512.Interface/bin
 /MasjidOnline.Service.Hash512.Interface/obj
+/MasjidOnline.Service.Mail.Interface/bin
+/MasjidOnline.Service.Mail.Interface/obj
+/MasjidOnline.Service.Mail.MailKit/bin
+/MasjidOnline.Service.Mail.MailKit/obj

@@ -11,6 +11,7 @@ using MasjidOnline.Data.Mapper;
 using MasjidOnline.Entity.Audit;
 using MasjidOnline.Entity.Users;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace MasjidOnline.Data.EntityFramework.Datas;
 
@@ -27,13 +28,25 @@ public class AuditData(AuditDataContext _auditDataContext, IAuditIdGenerator _au
     public IUserEmailAddressLogRepository UserEmailAddressLog => _userEmailAddressLogRepository ??= new UserEmailAddressLogRepository(_auditDataContext);
     public IUserLogRepository UserLog => _userLogRepository ??= new UserLogRepository(_auditDataContext);
 
-    public async Task AddAsync(IEnumerable<object> objects)
+    internal async Task AddAsync(IEnumerable<EntityEntry> entityEntries)
     {
+        var entityStates = new[]
+       {
+            EntityState.Added,
+            EntityState.Deleted,
+            EntityState.Modified,
+        };
+
         var utcNow = DateTime.UtcNow;
 
-        foreach (var obj in objects)
+        foreach (var entityEntry in entityEntries)
         {
-            if (obj is User user)
+            var exists = Array.Exists(entityStates, s => s == entityEntry.State);
+
+            if (!exists) continue;
+
+
+            if (entityEntry.Entity is User user)
             {
                 _userLogDbSet ??= _auditDataContext.Set<UserLog>();
 
@@ -41,7 +54,7 @@ public class AuditData(AuditDataContext _auditDataContext, IAuditIdGenerator _au
 
                 await _userLogDbSet.AddAsync(userLog);
             }
-            else if (obj is UserEmailAddress userEmailAddress)
+            else if (entityEntry.Entity is UserEmailAddress userEmailAddress)
             {
                 _userEmailAddressLogDbSet ??= _auditDataContext.Set<UserEmailAddressLog>();
 

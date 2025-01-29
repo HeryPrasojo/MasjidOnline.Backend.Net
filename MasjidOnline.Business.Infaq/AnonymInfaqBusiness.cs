@@ -59,7 +59,7 @@ public class AnonymInfaqBusiness(
         {
             Id = _transactionIdGenerator.TransactionId,
             Amount = anonymInfaqRequest.Amount,
-            CreateDateTime = DateTime.UtcNow,
+            DateTime = DateTime.UtcNow,
             PaymentStatus = PaymentStatus.Pending,
             PaymentType = (PaymentType)anonymInfaqRequest.PaymentType,
             Type = TransactionType.Infaq,

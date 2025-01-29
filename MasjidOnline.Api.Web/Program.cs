@@ -15,7 +15,10 @@ using MasjidOnline.Data.Interface.Initializer;
 using MasjidOnline.Service.Captcha;
 using MasjidOnline.Service.FieldValidator;
 using MasjidOnline.Service.Hash512;
+using MasjidOnline.Service.Mail.Interface.Model;
+using MasjidOnline.Service.Mail.MailKit;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -42,6 +45,7 @@ static WebApplication BuildApplication(string[] args)
 
     var option = webApplicationBuilder.Configuration.Get<Option>();
 
+    webApplicationBuilder.Services.AddOptions<MailOption>("Mail");
     webApplicationBuilder.Services.AddOptions<Option>();
 
     webApplicationBuilder.Services.AddCors(corsOptions =>
@@ -59,8 +63,9 @@ static WebApplication BuildApplication(string[] args)
     #region add dependency
 
     webApplicationBuilder.Services.AddCaptchaService();
-    webApplicationBuilder.Services.AddFieldValidator();
+    webApplicationBuilder.Services.AddFieldValidatorService();
     webApplicationBuilder.Services.AddHash512Service();
+    webApplicationBuilder.Services.AddMailKitMailService();
 
     webApplicationBuilder.Services.AddData();
     webApplicationBuilder.Services.AddSqLiteEntityFrameworkData(webApplicationBuilder.Configuration);
@@ -74,6 +79,8 @@ static WebApplication BuildApplication(string[] args)
 
     #endregion
 
+
+    webApplicationBuilder.WebHost.UseShutdownTimeout(TimeSpan.FromSeconds(16));
 
     return webApplicationBuilder.Build();
 }

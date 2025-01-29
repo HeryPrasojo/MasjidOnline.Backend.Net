@@ -7,7 +7,7 @@ public class Transaction
 {
     public required int Id { get; set; }
 
-    public required DateTime CreateDateTime { get; set; }
+    public required DateTime DateTime { get; set; }
 
     public required PaymentStatus PaymentStatus { get; set; }
 

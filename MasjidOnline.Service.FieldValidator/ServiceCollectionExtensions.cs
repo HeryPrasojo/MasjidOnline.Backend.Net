@@ -5,7 +5,7 @@ namespace MasjidOnline.Service.FieldValidator;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddFieldValidator(this IServiceCollection services)
+    public static IServiceCollection AddFieldValidatorService(this IServiceCollection services)
     {
         services.AddSingleton<IFieldValidatorService, FieldValidatorService>();
 

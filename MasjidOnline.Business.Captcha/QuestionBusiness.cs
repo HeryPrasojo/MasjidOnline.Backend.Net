@@ -17,6 +17,7 @@ public class QuestionBusiness(
     IHash512Service _hash512Service) : IQuestionBusiness
 {
     // todo validate user session exists (captcha not needed)
+    // add interval
     public async Task<CreateQuestionResponse> CreateAsync(ICaptchaData _captchaData, byte[]? sessionId)
     {
         if (sessionId != default)

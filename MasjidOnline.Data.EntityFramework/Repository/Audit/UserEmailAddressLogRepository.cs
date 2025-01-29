@@ -15,10 +15,4 @@ public class UserEmailAddressLogRepository(AuditDataContext _auditDataContext) :
     {
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
     }
-
-
-    private async Task<int> SaveAsync()
-    {
-        return await _auditDataContext.SaveChangesAsync();
-    }
 }
