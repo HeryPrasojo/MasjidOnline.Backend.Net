@@ -98,6 +98,27 @@ public class FieldValidatorService : IFieldValidatorService
         return value;
     }
 
+    public byte[] ValidateRequiredTextHex(string? value, int valueLength, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    {
+        if (value == default) throw new InputInvalidException(valueExpression);
+
+
+        value = value.Trim();
+        // undone 6
+        var length = value.Length;
+
+        if (length != valueLength) throw new InputInvalidException(valueExpression);
+
+        try
+        {
+            return Convert.FromHexString(value);
+        }
+        catch (Exception exception)
+        {
+            throw new InputInvalidException(valueExpression, exception);
+        }
+    }
+
     public string ValidateRequiredTextShort(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
         if (value == default) throw new InputInvalidException(valueExpression);

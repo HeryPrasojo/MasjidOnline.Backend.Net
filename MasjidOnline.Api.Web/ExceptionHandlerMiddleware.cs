@@ -51,10 +51,12 @@ public class ExceptionHandlerMiddleware(RequestDelegate _nextRequestDelegate)
         {
             var errorExceptionEntity = new Entity.Event.Exception
             {
+                DateTime = DateTime.UtcNow,
                 Id = eventIdGenerator.ExceptionId,
+                InnerMessage = exception.InnerException?.Message,
+                InnerStackTrace = exception.InnerException?.StackTrace,
                 Message = exception.Message,
                 StackTrace = exception.StackTrace,
-                DateTime = DateTime.UtcNow,
             };
 
             await eventData.Exception.AddAndSaveAsync(errorExceptionEntity);

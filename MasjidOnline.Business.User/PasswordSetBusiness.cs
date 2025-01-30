@@ -19,7 +19,7 @@ public class PasswordSetBusiness(
 
         if (setPasswordRequest.Password != setPasswordRequest.PasswordRepeat) throw new InputInvalidException(nameof(setPasswordRequest.PasswordRepeat));
 
-        _userData.PasswordCode.;
+        _userData.PasswordCode.GetByCodeAsync();
 
         // undone 5
     }

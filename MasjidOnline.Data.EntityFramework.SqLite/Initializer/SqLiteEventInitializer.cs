@@ -19,7 +19,9 @@ public class SqLiteEventInitializer(
                 Id INTEGER PRIMARY KEY,
                 DateTime TEXT NOT NULL,
                 Message TEXT NOT NULL,
-                StackTrace TEXT
+                StackTrace TEXT,
+                InnerMessage TEXT NULL,
+                InnerStackTrace TEXT
             )";
 
         return await _eventDataContext.Database.ExecuteSqlAsync(sql);
