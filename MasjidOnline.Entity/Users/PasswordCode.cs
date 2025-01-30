@@ -4,7 +4,7 @@ namespace MasjidOnline.Entity.Users;
 
 public class PasswordCode
 {
-    public required string Code { get; set; }
+    public required byte[] Code { get; set; }
 
     public required DateTime DateTime { get; set; }
 

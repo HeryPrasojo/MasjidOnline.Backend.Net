@@ -14,4 +14,9 @@ public class PasswordCodeRepository(UserDataContext _passwordCodeDataContext) : 
     {
         await _dbSet.AddAsync(PasswordCode);
     }
+
+    public async Task<PasswordCode?> GetByCodeAsync(byte[] code)
+    {
+        return await _dbSet.FirstOrDefaultAsync(e => e.Code == code);
+    }
 }

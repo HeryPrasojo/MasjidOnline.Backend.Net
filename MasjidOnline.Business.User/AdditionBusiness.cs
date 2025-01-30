@@ -32,7 +32,7 @@ public class AdditionBusiness(
         await _userData.User.AddAsync(user);
 
 
-        var userEmailAddress = new Entity.Users.UserEmailAddress
+        var userEmailAddress = new UserEmailAddress
         {
             Id = user.EmailAddressId,
             EmailAddress = addRequest.EmailAddress,

@@ -47,7 +47,7 @@ public class InitializerBusiness(
 
         var passwordCode = new PasswordCode
         {
-            Code = _hash512Service.RandomDigestHexString,
+            Code = _hash512Service.RandomDigestBytes,
             DateTime = DateTime.UtcNow,
             IsUsed = false,
             UserId = user.Id,
@@ -59,14 +59,14 @@ public class InitializerBusiness(
         await _userData.SaveAsync();
 
 
-        var uri = option.Uri.UserPassword + passwordCode.Code;
+        var uri = option.Uri.UserPassword + Convert.ToHexString(passwordCode.Code);
 
         var mailMessage = new MailMessage
         {
             BodyHtml = $"<p>Please use the following link to set your password: <a href='{uri}'>{uri}</a></p>",
             BodyText = "Please use the following link to set your password: " + uri,
             Subject = "MasjidOnline Password",
-            To = new[] { new MailAddress(user.Name, userEmailAddress.EmailAddress) },
+            To = [new MailAddress(user.Name, userEmailAddress.EmailAddress)],
         };
 
         await _mailSenderService.SendMailAsync(mailMessage);

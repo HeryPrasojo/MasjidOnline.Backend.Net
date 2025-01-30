@@ -10,7 +10,7 @@ public abstract class AuditInitializer(IAuditDefinition _auditDefinition) : IAud
 {
     public async Task InitializeDatabaseAsync(IAuditData auditData)
     {
-        var settingTableExists = await _auditDefinition.CheckTableExistsAsync("AuditSetting");
+        var settingTableExists = await _auditDefinition.CheckTableExistsAsync(nameof(AuditSetting));
 
         if (!settingTableExists)
         {

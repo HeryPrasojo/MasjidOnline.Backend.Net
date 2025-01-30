@@ -10,11 +10,13 @@ public abstract class UserInitializer(IUserDefinition _userDefinition) : IUserIn
 {
     public async Task InitializeDatabaseAsync(IUserData userData)
     {
-        var settingTableExists = await _userDefinition.CheckTableExistsAsync("UserSetting");
+        var settingTableExists = await _userDefinition.CheckTableExistsAsync(nameof(UserSetting));
 
         if (!settingTableExists)
         {
             await CreateTableUserSettingAsync();
+
+            await CreateTablePasswordCodeAsync();
             await CreateTableUserAsync();
             await CreateTableUserEmailAddressAsync();
 
@@ -35,7 +37,7 @@ public abstract class UserInitializer(IUserDefinition _userDefinition) : IUserIn
 
     protected abstract Task<int> CreateTableUserSettingAsync();
 
+    protected abstract Task<int> CreateTablePasswordCodeAsync();
     protected abstract Task<int> CreateTableUserAsync();
-
     protected abstract Task<int> CreateTableUserEmailAddressAsync();
 }

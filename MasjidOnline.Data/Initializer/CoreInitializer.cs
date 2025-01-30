@@ -10,7 +10,7 @@ public abstract class CoreInitializer(ICoreDefinition _coreDefinition) : ICoreIn
 {
     public async Task InitializeDatabaseAsync(ICoreData coreData)
     {
-        var settingTableExists = await _coreDefinition.CheckTableExistsAsync("CoreSetting");
+        var settingTableExists = await _coreDefinition.CheckTableExistsAsync(nameof(CoreSetting));
 
         if (!settingTableExists)
         {

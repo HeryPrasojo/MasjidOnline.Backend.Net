@@ -10,7 +10,7 @@ public abstract class CaptchaInitializer(ICaptchaDefinition _captchaDefinition) 
 {
     public async Task InitializeDatabaseAsync(ICaptchaData captchaData)
     {
-        var settingTableExists = await _captchaDefinition.CheckTableExistsAsync("CaptchaSetting");
+        var settingTableExists = await _captchaDefinition.CheckTableExistsAsync(nameof(CaptchaSetting));
 
         if (!settingTableExists)
         {

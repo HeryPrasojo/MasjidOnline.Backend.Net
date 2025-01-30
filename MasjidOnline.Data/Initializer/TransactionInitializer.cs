@@ -10,7 +10,7 @@ public abstract class TransactionInitializer(ITransactionDefinition _transaction
 {
     public async Task InitializeDatabaseAsync(ITransactionData transactionData)
     {
-        var settingTableExists = await _transactionDefinition.CheckTableExistsAsync("TransactionSetting");
+        var settingTableExists = await _transactionDefinition.CheckTableExistsAsync(nameof(TransactionSetting));
 
         if (!settingTableExists)
         {

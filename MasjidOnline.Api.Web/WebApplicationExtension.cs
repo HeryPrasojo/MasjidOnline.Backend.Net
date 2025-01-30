@@ -22,6 +22,7 @@ internal static class WebApplicationExtension
 
         userGroup.MapPost("/add", UserEndPoint.Addsync);
         userGroup.MapPost("/login", UserEndPoint.LoginAsync);
+        userGroup.MapPost("/setPassword", UserEndPoint.SetPasswordAsync);
 
 
         return webApplication;

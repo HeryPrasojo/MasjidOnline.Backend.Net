@@ -24,6 +24,21 @@ public class SqLiteUserInitializer(
         return await _userDataContext.Database.ExecuteSqlAsync(sql);
     }
 
+    protected override async Task<int> CreateTablePasswordCodeAsync()
+    {
+        FormattableString sql = @$"
+            CREATE TABLE PasswordCode
+            (
+                Code BLOB PRIMARY KEY,
+                DateTime TEXT NOT NULL,
+                Name TEXT NOT NULL,
+                UserId INTEGER NOT NULL,
+                IsUsed INTEGER NOT NULL
+            )";
+
+        return await _userDataContext.Database.ExecuteSqlAsync(sql);
+    }
+
     protected override async Task<int> CreateTableUserAsync()
     {
         FormattableString sql = @$"

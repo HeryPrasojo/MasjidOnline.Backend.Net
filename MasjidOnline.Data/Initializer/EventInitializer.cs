@@ -10,7 +10,7 @@ public abstract class EventInitializer(IEventDefinition _eventDefinition) : IEve
 {
     public async Task InitializeDatabaseAsync(IEventData eventData)
     {
-        var settingTableExists = await _eventDefinition.CheckTableExistsAsync("EventSetting");
+        var settingTableExists = await _eventDefinition.CheckTableExistsAsync(nameof(EventSetting));
 
         if (!settingTableExists)
         {

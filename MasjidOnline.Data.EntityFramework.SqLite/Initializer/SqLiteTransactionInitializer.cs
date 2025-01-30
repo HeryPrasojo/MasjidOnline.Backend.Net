@@ -30,7 +30,7 @@ public class SqLiteTransactionInitializer(
             CREATE TABLE [Transaction]
             (
                 Id INTEGER PRIMARY KEY,
-                CreateDateTime TEXT NOT NULL,
+                DateTime TEXT NOT NULL,
                 PaymentStatus INTEGER NOT NULL,
                 Type INTEGER NOT NULL,
                 UserType INTEGER NOT NULL,
