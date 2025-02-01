@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.Json;
 using System.Threading.Tasks;
+using MasjidOnline.Business.Interface.Model;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
@@ -12,7 +13,7 @@ namespace MasjidOnline.Api.Web;
 
 public class Middleware(RequestDelegate _nextRequestDelegate, IHostEnvironment _hostEnvironment, IEventIdGenerator _eventIdGenerator)
 {
-    public async Task Invoke(HttpContext httpContext, IEventData eventData)
+    public async Task Invoke(HttpContext httpContext, IEventData eventData, Session session)
     {
         try
         {
