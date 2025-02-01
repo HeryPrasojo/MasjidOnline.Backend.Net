@@ -7,4 +7,5 @@ public interface IUserRepository
 {
     Task AddAsync(User user);
     Task<int> GetMaxIdAsync();
+    void UpdatePassword(int id, byte[] password);
 }

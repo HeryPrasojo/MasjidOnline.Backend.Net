@@ -15,6 +15,19 @@ public class UserRepository(UserDataContext _userDataContext) : IUserRepository
         await _dbSet.AddAsync(user);
     }
 
+    public void UpdatePassword(int id, byte[] password)
+    {
+        var user = new User
+        {
+            Id = id,
+            Password = password
+        };
+
+        _dbSet.Attach(user)
+            .Property(e => e.Password)
+            .IsModified = true;
+    }
+
     public async Task<int> GetMaxIdAsync()
     {
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;

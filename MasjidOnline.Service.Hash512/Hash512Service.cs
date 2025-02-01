@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography;
+using System.Text;
 using MasjidOnline.Service.Hash512.Interface;
 
 namespace MasjidOnline.Service.Hash512;
@@ -23,4 +24,16 @@ public class Hash512Service : IHash512Service
     public string RandomDigestBase64String => Convert.ToBase64String(RandomDigestBytes);
 
     public string RandomDigestHexString => Convert.ToHexString(RandomDigestBytes);
+
+    public byte[] Hash(byte[] bytes)
+    {
+        return SHA512.HashData(bytes);
+    }
+
+    public byte[] Hash(string text)
+    {
+        var bytes = UTF8Encoding.UTF8.GetBytes(text);
+
+        return SHA512.HashData(bytes);
+    }
 }

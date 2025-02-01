@@ -24,11 +24,9 @@ public class FieldValidatorService : IFieldValidatorService
         return value;
     }
 
-    public void ValidateRequired(decimal? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    public void ValidateRequired<TObject>(TObject? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default) where TObject : class
     {
-        if (!value.HasValue) throw new InputInvalidException(valueExpression);
-
-        if (value < 1m) throw new InputInvalidException(valueExpression);
+        if (value == default) throw new InputInvalidException(valueExpression);
     }
 
     public void ValidateRequired(Enum? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
@@ -40,21 +38,63 @@ public class FieldValidatorService : IFieldValidatorService
         if (!Enum.IsDefined(valueType, value)) throw new InputInvalidException(valueExpression);
     }
 
-    public void ValidateRequired<TObject>(TObject? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default) where TObject : class
+    public void ValidateRequired(string? value, int valueMaximumLength, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
-        if (value == default) throw new InputInvalidException(valueExpression);
+        if (value is null) throw new InputInvalidException(valueExpression);
+
+
+        value = value.Trim();
+
+        var length = value.Length;
+
+        if (length == 0) throw new InputInvalidException(valueExpression);
+
+        if (length > valueMaximumLength) throw new InputInvalidException(valueExpression);
     }
 
-    public void ValidateRequiredDateTimePast(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    public byte[] ValidateRequiredHex(string? value, int valueLength, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    {
+        if (value == default) throw new InputInvalidException(valueExpression);
+
+
+        value = value.Trim();
+
+        if (value.Length != valueLength) throw new InputInvalidException(valueExpression);
+
+
+        try
+        {
+            return Convert.FromHexString(value);
+        }
+        catch (Exception exception)
+        {
+            throw new InputInvalidException(valueExpression, exception);
+        }
+    }
+
+    public void ValidateRequiredPast(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
         if (value == default) throw new InputInvalidException(valueExpression);
 
         if (value >= DateTime.UtcNow) throw new InputInvalidException(valueExpression);
     }
 
+    public void ValidateRequiredPlus(decimal? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    {
+        if (!value.HasValue) throw new InputInvalidException(valueExpression);
+
+        if (value < 1m) throw new InputInvalidException(valueExpression);
+    }
+
     public string ValidateRequiredEmailAddress(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
         if (value == default) throw new InputInvalidException(valueExpression);
+
+
+        value = value.Trim();
+
+        if (value.Length > 254) throw new InputInvalidException(valueExpression);
+
 
         try
         {
@@ -96,27 +136,6 @@ public class FieldValidatorService : IFieldValidatorService
         if (!isMatch) throw new InputInvalidException(valueExpression);
 
         return value;
-    }
-
-    public byte[] ValidateRequiredTextHex(string? value, int valueLength, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
-    {
-        if (value == default) throw new InputInvalidException(valueExpression);
-
-
-        value = value.Trim();
-        // undone 6
-        var length = value.Length;
-
-        if (length != valueLength) throw new InputInvalidException(valueExpression);
-
-        try
-        {
-            return Convert.FromHexString(value);
-        }
-        catch (Exception exception)
-        {
-            throw new InputInvalidException(valueExpression, exception);
-        }
     }
 
     public string ValidateRequiredTextShort(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)

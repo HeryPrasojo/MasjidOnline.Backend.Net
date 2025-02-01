@@ -10,7 +10,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace MasjidOnline.Api.Web;
 
-public class ExceptionHandlerMiddleware(RequestDelegate _nextRequestDelegate)
+public class ExceptionMiddleware(RequestDelegate _nextRequestDelegate)
 {
     public async Task Invoke(HttpContext httpContext, IHostEnvironment hostEnvironment, IEventData eventData, IEventIdGenerator eventIdGenerator)
     {
@@ -28,19 +28,39 @@ public class ExceptionHandlerMiddleware(RequestDelegate _nextRequestDelegate)
     {
         httpContext.Response.ContentType = "application/json";
 
+
         var response = new ExceptionResponse
         {
-            ResultCode = ResponseResult.Error,
-            ResultMessage = exception.Message,
-            StackTrace = exception.StackTrace,
+            ResultCode = default,
         };
 
-        if (hostEnvironment.IsDevelopment()) response.StackTrace = exception.StackTrace;
+        if (exception is InputInvalidException)
+        {
+            response.ResultCode = ResponseResult.InputInvalid;
+            response.ResultMessage = exception.Message;
+        }
+        else if (exception is InputMismatchException)
+        {
+            response.ResultCode = ResponseResult.InputMismatch;
+            response.ResultMessage = exception.Message;
+        }
+        else if (exception is DataMismatchException)
+        {
+            response.ResultCode = ResponseResult.DataMismatch;
+            response.ResultMessage = exception.Message;
+        }
+        else
+        {
+            response.ResultCode = ResponseResult.Error;
 
-        if (exception is InputInvalidException) response.ResultCode = ResponseResult.InputInvalid;
-        else if (exception is InputMismatchException) response.ResultCode = ResponseResult.InputMismatch;
-        else if (exception is DataMismatchException) response.ResultCode = ResponseResult.DataMismatch;
-
+            if (hostEnvironment.IsDevelopment())
+            {
+                response.ResultMessage = $"{exception.GetType().Name}: {exception.Message}";
+                response.StackTrace = exception.StackTrace;
+                response.InnerMessage = exception.InnerException?.Message;
+                response.InnerStackTrace = exception.InnerException?.StackTrace;
+            }
+        }
 
         var responseString = JsonSerializer.Serialize(response, options: JsonSerializerOptions.Web);
 
@@ -55,7 +75,7 @@ public class ExceptionHandlerMiddleware(RequestDelegate _nextRequestDelegate)
                 Id = eventIdGenerator.ExceptionId,
                 InnerMessage = exception.InnerException?.Message,
                 InnerStackTrace = exception.InnerException?.StackTrace,
-                Message = exception.Message,
+                Message = $"{exception.GetType().Name}: {exception.Message}",
                 StackTrace = exception.StackTrace,
             };
 

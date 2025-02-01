@@ -19,7 +19,7 @@ public class AnonymInfaqBusiness(
     IFieldValidatorService _fieldValidatorService,
     ITransactionIdGenerator _transactionIdGenerator) : IAnonymInfaqBusiness
 {
-    // todo use user session
+    // todo use user session string/text
     public async Task<AnonymInfaqResponse> InfaqAsync(
         ICaptchaData _captchaData,
         ITransactionData _transactionData,
@@ -28,9 +28,9 @@ public class AnonymInfaqBusiness(
     {
         _fieldValidatorService.ValidateRequired(sessionId);
         _fieldValidatorService.ValidateRequired(anonymInfaqRequest);
-        _fieldValidatorService.ValidateRequired(anonymInfaqRequest.Amount);
+        _fieldValidatorService.ValidateRequiredPlus(anonymInfaqRequest.Amount);
         _fieldValidatorService.ValidateRequired(anonymInfaqRequest.PaymentType);
-        _fieldValidatorService.ValidateRequiredDateTimePast(anonymInfaqRequest.ManualDateTime);
+        _fieldValidatorService.ValidateRequiredPast(anonymInfaqRequest.ManualDateTime);
 
         anonymInfaqRequest.ManualNotes = _fieldValidatorService.ValidateRequiredTextShort(anonymInfaqRequest.ManualNotes);
         anonymInfaqRequest.MunfiqName = _fieldValidatorService.ValidateRequiredTextShort(anonymInfaqRequest.MunfiqName);

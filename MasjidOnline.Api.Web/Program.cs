@@ -28,9 +28,11 @@ await InitializeAsync(webApplication);
 
 var option = webApplication.Configuration.Get<Option>();
 
-webApplication.UseMiddleware<ExceptionHandlerMiddleware>();
+webApplication.UseMiddleware<ExceptionMiddleware>();
 
 webApplication.UseCors();
+
+// undone 6
 
 webApplication.MapEndpoints();
 
