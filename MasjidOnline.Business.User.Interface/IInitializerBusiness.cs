@@ -6,5 +6,5 @@ namespace MasjidOnline.Business.User.Interface;
 
 public interface IInitializerBusiness
 {
-    Task InitializeAsync(UserSession _userSession, IUserData _userData);
+    Task InitializeAsync(Session _userSession, IUserData _userData);
 }

@@ -14,7 +14,7 @@ public class AdditionBusiness(
     IUserIdGenerator _userIdGenerator,
     IFieldValidatorService _fieldValidatorService) : IAdditionBusiness
 {
-    public async Task<AddResponse> AddAsync(UserSession _userSession, IUserData _userData, AddRequest addRequest)
+    public async Task<AddResponse> AddAsync(Session _userSession, IUserData _userData, AddRequest addRequest)
     {
         _fieldValidatorService.ValidateRequired(addRequest);
 

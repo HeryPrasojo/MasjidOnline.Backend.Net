@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace MasjidOnline.Data.EntityFramework.Datas;
 
-public class AuditData(AuditDataContext _auditDataContext, IAuditIdGenerator _auditIdGenerator, UserSession _userSession) : IAuditData
+public class AuditData(AuditDataContext _auditDataContext, IAuditIdGenerator _auditIdGenerator, Session _userSession) : IAuditData
 {
     private DbSet<UserLog>? _userLogDbSet;
     private DbSet<UserEmailAddressLog>? _userEmailAddressLogDbSet;

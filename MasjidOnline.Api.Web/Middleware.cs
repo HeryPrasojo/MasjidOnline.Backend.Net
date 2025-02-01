@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.Json;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Interface.Model;
+using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Library.Exceptions;
@@ -10,9 +10,9 @@ using Microsoft.Extensions.Hosting;
 
 namespace MasjidOnline.Api.Web;
 
-public class ExceptionMiddleware(RequestDelegate _nextRequestDelegate)
+public class Middleware(RequestDelegate _nextRequestDelegate, IHostEnvironment _hostEnvironment, IEventIdGenerator _eventIdGenerator)
 {
-    public async Task Invoke(HttpContext httpContext, IHostEnvironment hostEnvironment, IEventData eventData, IEventIdGenerator eventIdGenerator)
+    public async Task Invoke(HttpContext httpContext, IEventData eventData)
     {
         try
         {
@@ -20,11 +20,11 @@ public class ExceptionMiddleware(RequestDelegate _nextRequestDelegate)
         }
         catch (Exception exception)
         {
-            await HandleExceptionAsync(httpContext, hostEnvironment, exception, eventData, eventIdGenerator);
+            await HandleExceptionAsync(httpContext, exception, eventData);
         }
     }
 
-    private static async Task HandleExceptionAsync(HttpContext httpContext, IHostEnvironment hostEnvironment, Exception exception, IEventData eventData, IEventIdGenerator eventIdGenerator)
+    private async Task HandleExceptionAsync(HttpContext httpContext, Exception exception, IEventData eventData)
     {
         httpContext.Response.ContentType = "application/json";
 
@@ -53,7 +53,7 @@ public class ExceptionMiddleware(RequestDelegate _nextRequestDelegate)
         {
             response.ResultCode = ResponseResult.Error;
 
-            if (hostEnvironment.IsDevelopment())
+            if (_hostEnvironment.IsDevelopment())
             {
                 response.ResultMessage = $"{exception.GetType().Name}: {exception.Message}";
                 response.StackTrace = exception.StackTrace;
@@ -72,7 +72,7 @@ public class ExceptionMiddleware(RequestDelegate _nextRequestDelegate)
             var errorExceptionEntity = new Entity.Event.Exception
             {
                 DateTime = DateTime.UtcNow,
-                Id = eventIdGenerator.ExceptionId,
+                Id = _eventIdGenerator.ExceptionId,
                 InnerMessage = exception.InnerException?.Message,
                 InnerStackTrace = exception.InnerException?.StackTrace,
                 Message = $"{exception.GetType().Name}: {exception.Message}",

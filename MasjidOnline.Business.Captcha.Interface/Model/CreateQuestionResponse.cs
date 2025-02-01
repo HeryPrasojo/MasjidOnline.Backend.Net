@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using MasjidOnline.Business.Interface.Model;
+using MasjidOnline.Business.Interface.Model.Responses;
 
 namespace MasjidOnline.Business.Captcha.Interface.Model;
 

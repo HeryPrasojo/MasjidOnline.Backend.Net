@@ -17,7 +17,7 @@ public class InitializerBusiness(
     IHash512Service _hash512Service,
     IMailSenderService _mailSenderService) : IInitializerBusiness
 {
-    public async Task InitializeAsync(UserSession _userSession, IUserData _userData)
+    public async Task InitializeAsync(Session _userSession, IUserData _userData)
     {
         _userSession.UserId = Constant.RootUserId;
 

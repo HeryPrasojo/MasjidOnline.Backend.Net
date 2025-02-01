@@ -13,7 +13,7 @@ public class PasswordSetBusiness(
     IFieldValidatorService _fieldValidatorService,
     IHash512Service _hash512Service) : IPasswordSetBusiness
 {
-    public async Task SetAsync(UserSession _userSession, IUserData _userData, SetPasswordRequest setPasswordRequest)
+    public async Task SetAsync(Session _userSession, IUserData _userData, SetPasswordRequest setPasswordRequest)
     {
         var passwordCodeBytes = _fieldValidatorService.ValidateRequiredHex(setPasswordRequest.PasswordCode, 128);
         setPasswordRequest.Password = _fieldValidatorService.ValidateRequiredTextShort(setPasswordRequest.Password);

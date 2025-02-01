@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Business.Interface.Model;
+﻿namespace MasjidOnline.Business.Interface.Model.Responses;
 
 public abstract class Response
 {

@@ -28,7 +28,7 @@ await InitializeAsync(webApplication);
 
 var option = webApplication.Configuration.Get<Option>();
 
-webApplication.UseMiddleware<ExceptionMiddleware>();
+webApplication.UseMiddleware<Middleware>();
 
 webApplication.UseCors();
 
@@ -77,7 +77,7 @@ static WebApplication BuildApplication(string[] args)
     webApplicationBuilder.Services.AddCaptchaBusiness();
     webApplicationBuilder.Services.AddUserBusiness();
 
-    webApplicationBuilder.Services.AddScoped<UserSession>();
+    webApplicationBuilder.Services.AddScoped<Session>();
 
     #endregion
 
