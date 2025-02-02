@@ -33,6 +33,8 @@ public class ExceptionMiddleware(
         httpContext.Response.ContentType = "application/json";
 
 
+        var isDevelopmentEnvironment = _hostEnvironment.IsDevelopment();
+
         var response = new ExceptionResponse
         {
             ResultCode = default,
@@ -41,23 +43,26 @@ public class ExceptionMiddleware(
         if (exception is InputInvalidException)
         {
             response.ResultCode = ResponseResult.InputInvalid;
-            response.ResultMessage = exception.Message;
+
+            if (isDevelopmentEnvironment) response.ResultMessage = exception.Message;
         }
         else if (exception is InputMismatchException)
         {
             response.ResultCode = ResponseResult.InputMismatch;
-            response.ResultMessage = exception.Message;
+
+            if (isDevelopmentEnvironment) response.ResultMessage = exception.Message;
         }
         else if (exception is DataMismatchException)
         {
             response.ResultCode = ResponseResult.DataMismatch;
-            response.ResultMessage = exception.Message;
+
+            if (isDevelopmentEnvironment) response.ResultMessage = exception.Message;
         }
         else
         {
             response.ResultCode = ResponseResult.Error;
 
-            if (_hostEnvironment.IsDevelopment())
+            if (isDevelopmentEnvironment)
             {
                 response.ResultMessage = $"{exception.GetType().Name}: {exception.Message}";
                 response.StackTrace = exception.StackTrace;

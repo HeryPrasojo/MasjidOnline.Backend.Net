@@ -31,7 +31,8 @@ public class SqLiteSessionsInitializer(
             (
                 Id BLOB PRIMARY KEY,
                 DateTime TEXT NOT NULL,
-                UserId INTEGER NOT NULL,
+                PreviousId BLOB,
+                UserId INTEGER NOT NULL
             )";
 
         return await _sessionDataContext.Database.ExecuteSqlAsync(sql);

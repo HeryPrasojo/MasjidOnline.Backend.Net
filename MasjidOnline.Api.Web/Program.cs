@@ -32,7 +32,7 @@ webApplication.UseMiddleware<ExceptionMiddleware>();
 
 webApplication.UseCors();
 
-// undone 6
+webApplication.UseMiddleware<SessionMiddleware>();
 
 webApplication.MapEndpoints();
 

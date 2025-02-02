@@ -5,5 +5,6 @@ namespace MasjidOnline.Data.Interface.Repository.Sessions;
 
 public interface ISessionRepository
 {
-    Task AddAsync(Session setting);
+    Task AddAndSaveAsync(Session setting);
+    Task<Session?> GetFirstByIdAsync(byte[] id);
 }

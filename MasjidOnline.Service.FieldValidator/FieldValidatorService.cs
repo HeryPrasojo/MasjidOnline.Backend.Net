@@ -52,6 +52,26 @@ public class FieldValidatorService : IFieldValidatorService
         if (length > valueMaximumLength) throw new InputInvalidException(valueExpression);
     }
 
+    public byte[] ValidateRequiredBase64(string? value, int valueLength, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    {
+        if (value == default) throw new InputInvalidException(valueExpression);
+
+
+        value = value.Trim();
+
+        if (value.Length != valueLength) throw new InputInvalidException(valueExpression);
+
+
+        try
+        {
+            return Convert.FromBase64String(value);
+        }
+        catch (Exception exception)
+        {
+            throw new InputInvalidException(valueExpression, exception);
+        }
+    }
+
     public byte[] ValidateRequiredHex(string? value, int valueLength, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
         if (value == default) throw new InputInvalidException(valueExpression);

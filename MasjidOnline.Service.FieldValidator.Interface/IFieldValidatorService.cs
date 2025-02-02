@@ -13,4 +13,5 @@ public interface IFieldValidatorService
     string ValidateRequiredTextShort(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default);
     byte[] ValidateRequiredHex(string? value, int valueLength = 0, [CallerArgumentExpression("value")] string? valueExpression = null);
     void ValidateRequired(string? value, int valueMaximumLength, [CallerArgumentExpression("value")] string? valueExpression = null);
+    byte[] ValidateRequiredBase64(string? value, int valueLength, [CallerArgumentExpression("value")] string? valueExpression = null);
 }

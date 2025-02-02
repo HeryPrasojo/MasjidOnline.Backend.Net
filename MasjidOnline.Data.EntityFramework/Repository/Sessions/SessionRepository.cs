@@ -10,13 +10,15 @@ public class SessionRepository(SessionsDataContext _sessionDataContext) : ISessi
 {
     private readonly DbSet<Session> _dbSet = _sessionDataContext.Set<Session>();
 
-    public async Task AddAsync(Session session)
+    public async Task AddAndSaveAsync(Session session)
     {
         await _dbSet.AddAsync(session);
+
+        await _sessionDataContext.SaveChangesAsync();
     }
 
-    public async Task<int> GetMaxIdAsync()
+    public async Task<Session?> GetFirstByIdAsync(byte[] id)
     {
-        return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
+        return await _dbSet.FirstOrDefaultAsync(e => e.Id == id);
     }
 }
