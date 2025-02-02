@@ -26,13 +26,13 @@ var webApplication = BuildApplication(args);
 
 await InitializeAsync(webApplication);
 
-var option = webApplication.Configuration.Get<Option>();
+var option = webApplication.Configuration.Get<Option>() ?? throw new ApplicationException($"Get {nameof(Option)} fail");
 
 webApplication.UseMiddleware<ExceptionMiddleware>();
 
 webApplication.UseCors();
 
-webApplication.UseMiddleware<SessionMiddleware>();
+webApplication.UseMiddleware<AuthenticationMiddleware>();
 
 webApplication.MapEndpoints();
 
@@ -45,7 +45,7 @@ static WebApplication BuildApplication(string[] args)
 
     webApplicationBuilder.Configuration.AddJsonFile("appsettings.Local.json", true, true);
 
-    var option = webApplicationBuilder.Configuration.Get<Option>();
+    var option = webApplicationBuilder.Configuration.Get<Option>() ?? throw new ApplicationException($"Get {nameof(Option)} fail");
 
     webApplicationBuilder.Services.AddOptions<MailOption>("Mail");
     webApplicationBuilder.Services.AddOptions<Option>();
@@ -54,7 +54,7 @@ static WebApplication BuildApplication(string[] args)
     {
         corsOptions.AddDefaultPolicy(corsPolicyBuilder =>
         {
-            corsPolicyBuilder.WithOrigins("http://masjidonline.localhost")
+            corsPolicyBuilder.WithOrigins(option.Uri.WebOrigin)
                 .WithExposedHeaders(MasjidOnline.Api.Web.Constant.HttpHeaderName.ResultCode, MasjidOnline.Api.Web.Constant.HttpHeaderName.ResultMessage)
                 .AllowCredentials()
                 .AllowAnyHeader();
@@ -96,30 +96,34 @@ static async Task InitializeAsync(WebApplication webApplication)
     var coreData = GetService<ICoreData>(serviceScope.ServiceProvider);
     var captchaData = GetService<ICaptchaData>(serviceScope.ServiceProvider);
     var eventData = GetService<IEventData>(serviceScope.ServiceProvider);
-    var transactionData = GetService<ITransactionsData>(serviceScope.ServiceProvider);
-    var userData = GetService<IUsersData>(serviceScope.ServiceProvider);
+    var sessionsData = GetService<ISessionsData>(serviceScope.ServiceProvider);
+    var transactionsData = GetService<ITransactionsData>(serviceScope.ServiceProvider);
+    var usersData = GetService<IUsersData>(serviceScope.ServiceProvider);
 
     var auditInitializer = GetService<IAuditInitializer>(serviceScope.ServiceProvider);
     var coreInitializer = GetService<ICoreInitializer>(serviceScope.ServiceProvider);
     var captchaInitializer = GetService<ICaptchaInitializer>(serviceScope.ServiceProvider);
     var eventInitializer = GetService<IEventInitializer>(serviceScope.ServiceProvider);
-    var transactionInitializer = GetService<ITransactionsInitializer>(serviceScope.ServiceProvider);
-    var userInitializer = GetService<IUsersInitializer>(serviceScope.ServiceProvider);
+    var sessionsInitializer = GetService<ISessionsInitializer>(serviceScope.ServiceProvider);
+    var transactionsInitializer = GetService<ITransactionsInitializer>(serviceScope.ServiceProvider);
+    var usersInitializer = GetService<IUsersInitializer>(serviceScope.ServiceProvider);
 
     var auditIdGenerator = GetService<IAuditIdGenerator>(serviceScope.ServiceProvider);
     var coreIdGenerator = GetService<ICoreIdGenerator>(serviceScope.ServiceProvider);
     var captchaIdGenerator = GetService<ICaptchaIdGenerator>(serviceScope.ServiceProvider);
     var eventIdGenerator = GetService<IEventIdGenerator>(serviceScope.ServiceProvider);
-    var transactionIdGenerator = GetService<ITransactionsIdGenerator>(serviceScope.ServiceProvider);
-    var userIdGenerator = GetService<IUsersIdGenerator>(serviceScope.ServiceProvider);
+    var sessionsIdGenerator = GetService<ISessionsIdGenerator>(serviceScope.ServiceProvider);
+    var transactionsIdGenerator = GetService<ITransactionsIdGenerator>(serviceScope.ServiceProvider);
+    var usersIdGenerator = GetService<IUsersIdGenerator>(serviceScope.ServiceProvider);
 
 
     await auditInitializer.InitializeDatabaseAsync(auditData);
     await coreInitializer.InitializeDatabaseAsync(coreData);
     await captchaInitializer.InitializeDatabaseAsync(captchaData);
     await eventInitializer.InitializeDatabaseAsync(eventData);
-    await transactionInitializer.InitializeDatabaseAsync(transactionData);
-    await userInitializer.InitializeDatabaseAsync(userData);
+    await sessionsInitializer.InitializeDatabaseAsync(sessionsData);
+    await transactionsInitializer.InitializeDatabaseAsync(transactionsData);
+    await usersInitializer.InitializeDatabaseAsync(usersData);
 
 
     var userAdditionBusiness = GetService<MasjidOnline.Business.User.Interface.IAdditionBusiness>(serviceScope.ServiceProvider);
@@ -132,8 +136,9 @@ static async Task InitializeAsync(WebApplication webApplication)
     await coreIdGenerator.InitializeAsync(coreData);
     await captchaIdGenerator.InitializeAsync(captchaData);
     await eventIdGenerator.InitializeAsync(eventData);
-    await transactionIdGenerator.InitializeAsync(transactionData);
-    await userIdGenerator.InitializeAsync(userData);
+    await sessionsIdGenerator.InitializeAsync(sessionsData);
+    await transactionsIdGenerator.InitializeAsync(transactionsData);
+    await usersIdGenerator.InitializeAsync(usersData);
 }
 
 static TService GetService<TService>(IServiceProvider serviceProvider)

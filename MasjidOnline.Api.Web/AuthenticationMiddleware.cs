@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace MasjidOnline.Api.Web;
 
-public class SessionMiddleware(
+public class AuthenticationMiddleware(
     RequestDelegate _nextRequestDelegate,
     IFieldValidatorService _fieldValidatorService,
     IHash512Service _hash512Service)
@@ -35,7 +35,9 @@ public class SessionMiddleware(
             {
                 await CreateAnonymousSession(sessionsData, session);
 
-                requestSessionIdBase64 = default;
+                requestSessionIdBase64 = Convert.ToBase64String(session.Id);
+
+                httpContext.Response.Cookies.Append(Web.Constant.HttpCookieSessionName, requestSessionIdBase64);
             }
             else
             {
@@ -48,9 +50,6 @@ public class SessionMiddleware(
 
         if (requestSessionIdBase64 == default)
         {
-            requestSessionIdBase64 = Convert.ToBase64String(session.Id);
-
-            httpContext.Response.Cookies.Append(Web.Constant.HttpCookieSessionName, requestSessionIdBase64);
         }
     }
 
