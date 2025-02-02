@@ -20,22 +20,25 @@ public static class ServiceCollectionExtensions
         services.AddDbContextPool<CaptchaDataContext, CaptchaDataContext>(b => b.UseSqlite(option.ConnectionStrings.Captcha), poolSize: 2);
         services.AddDbContextPool<CoreDataContext, CoreDataContext>(b => b.UseSqlite(option.ConnectionStrings.Core), poolSize: 2);
         services.AddDbContextPool<EventDataContext, EventDataContext>(b => b.UseSqlite(option.ConnectionStrings.Event), poolSize: 2);
-        services.AddDbContextPool<TransactionDataContext, TransactionDataContext>(b => b.UseSqlite(option.ConnectionStrings.Transaction), poolSize: 2);
-        services.AddDbContextPool<UserDataContext, UserDataContext>(b => b.UseSqlite(option.ConnectionStrings.User), poolSize: 2);
+        services.AddDbContextPool<SessionsDataContext, SessionsDataContext>(b => b.UseSqlite(option.ConnectionStrings.Sessions), poolSize: 2);
+        services.AddDbContextPool<TransactionsDataContext, TransactionsDataContext>(b => b.UseSqlite(option.ConnectionStrings.Transactions), poolSize: 2);
+        services.AddDbContextPool<UsersDataContext, UsersDataContext>(b => b.UseSqlite(option.ConnectionStrings.Users), poolSize: 2);
 
         services.AddTransient<IAuditInitializer, SqLiteAuditInitializer>();
         services.AddTransient<ICaptchaInitializer, SqLiteCaptchaInitializer>();
         services.AddTransient<ICoreInitializer, SqLiteCoreInitializer>();
         services.AddTransient<IEventInitializer, SqLiteEventInitializer>();
-        services.AddTransient<ITransactionInitializer, SqLiteTransactionInitializer>();
-        services.AddTransient<IUserInitializer, SqLiteUserInitializer>();
+        services.AddTransient<ISessionsInitializer, SqLiteSessionsInitializer>();
+        services.AddTransient<ITransactionsInitializer, SqLiteTransactionsInitializer>();
+        services.AddTransient<IUsersInitializer, SqLiteUserInitializer>();
 
         services.AddTransient<IAuditDefinition, SqLiteDefinition<AuditDataContext>>();
         services.AddTransient<ICaptchaDefinition, SqLiteDefinition<CaptchaDataContext>>();
         services.AddTransient<ICoreDefinition, SqLiteDefinition<CoreDataContext>>();
         services.AddTransient<IEventDefinition, SqLiteDefinition<EventDataContext>>();
-        services.AddTransient<ITransactionDefinition, SqLiteDefinition<TransactionDataContext>>();
-        services.AddTransient<IUserDefinition, SqLiteDefinition<UserDataContext>>();
+        services.AddTransient<ISessionsDefinition, SqLiteDefinition<SessionsDataContext>>();
+        services.AddTransient<ITransactionsDefinition, SqLiteDefinition<TransactionsDataContext>>();
+        services.AddTransient<IUsersDefinition, SqLiteDefinition<UsersDataContext>>();
 
         return services;
     }

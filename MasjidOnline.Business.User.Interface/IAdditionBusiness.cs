@@ -7,5 +7,5 @@ namespace MasjidOnline.Business.User.Interface;
 
 public interface IAdditionBusiness
 {
-    Task<AddResponse> AddAsync(Session _userSession, IUserData _userData, AddRequest addRequest);
+    Task<AddResponse> AddAsync(Session _userSession, IUsersData _userData, AddRequest addRequest);
 }

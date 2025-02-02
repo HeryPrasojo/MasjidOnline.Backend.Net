@@ -6,7 +6,7 @@ using MasjidOnline.Data.Interface.Repository.Users;
 
 namespace MasjidOnline.Data.EntityFramework.Datas;
 
-public class UserData(UserDataContext _userDataContext, IAuditData _auditData) : IUserData
+public class UsersData(UsersDataContext _userDataContext, IAuditData _auditData) : IUsersData
 {
     private IUserSettingRepository? _userSettingRepository;
 

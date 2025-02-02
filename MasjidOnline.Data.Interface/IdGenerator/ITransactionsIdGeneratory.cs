@@ -3,10 +3,10 @@ using MasjidOnline.Data.Interface.Datas;
 
 namespace MasjidOnline.Data.Interface.IdGenerator;
 
-public interface ITransactionIdGenerator
+public interface ITransactionsIdGenerator
 {
     int TransactionId { get; }
     int TransactionFileId { get; }
 
-    Task InitializeAsync(ITransactionData transactionData);
+    Task InitializeAsync(ITransactionsData transactionData);
 }

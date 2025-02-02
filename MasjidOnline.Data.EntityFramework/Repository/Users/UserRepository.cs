@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Users;
 
-public class UserRepository(UserDataContext _userDataContext) : IUserRepository
+public class UserRepository(UsersDataContext _userDataContext) : IUserRepository
 {
     private readonly DbSet<User> _dbSet = _userDataContext.Set<User>();
 

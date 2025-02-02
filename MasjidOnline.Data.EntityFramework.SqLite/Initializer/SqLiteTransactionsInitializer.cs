@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 
-public class SqLiteTransactionInitializer(
-    TransactionDataContext _transactionDataContext,
-    ITransactionDefinition _transactionDefinition) : TransactionInitializer(_transactionDefinition)
+public class SqLiteTransactionsInitializer(
+    TransactionsDataContext _transactionDataContext,
+    ITransactionsDefinition _transactionDefinition) : TransactionInitializer(_transactionDefinition)
 {
     protected override async Task<int> CreateTableTransactionSettingAsync()
     {

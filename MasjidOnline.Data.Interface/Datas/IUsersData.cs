@@ -3,7 +3,7 @@ using MasjidOnline.Data.Interface.Repository.Users;
 
 namespace MasjidOnline.Data.Interface.Datas;
 
-public interface IUserData
+public interface IUsersData
 {
     IPasswordCodeRepository PasswordCode { get; }
     IUserRepository User { get; }

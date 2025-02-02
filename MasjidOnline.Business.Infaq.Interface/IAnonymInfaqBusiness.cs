@@ -5,5 +5,5 @@ namespace MasjidOnline.Business.Infaq.Interface;
 
 public interface IAnonymInfaqBusiness
 {
-    Task<AnonymInfaqResponse> InfaqAsync(ICaptchaData _captchaData, ITransactionData _transactionData, byte[]? sessionId, AnonymInfaqRequest anonymInfaqRequest);
+    Task<AnonymInfaqResponse> InfaqAsync(ICaptchaData _captchaData, ITransactionsData _transactionData, byte[]? sessionId, AnonymInfaqRequest anonymInfaqRequest);
 }

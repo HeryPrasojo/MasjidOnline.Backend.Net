@@ -11,7 +11,10 @@ using Microsoft.Extensions.Hosting;
 
 namespace MasjidOnline.Api.Web;
 
-public class Middleware(RequestDelegate _nextRequestDelegate, IHostEnvironment _hostEnvironment, IEventIdGenerator _eventIdGenerator)
+public class ExceptionMiddleware(
+    RequestDelegate _nextRequestDelegate,
+    IHostEnvironment _hostEnvironment,
+    IEventIdGenerator _eventIdGenerator)
 {
     public async Task Invoke(HttpContext httpContext, IEventData eventData, Session session)
     {

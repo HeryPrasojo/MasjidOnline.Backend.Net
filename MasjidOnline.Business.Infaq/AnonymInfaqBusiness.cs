@@ -17,12 +17,12 @@ namespace MasjidOnline.Business.Infaq;
 
 public class AnonymInfaqBusiness(
     IFieldValidatorService _fieldValidatorService,
-    ITransactionIdGenerator _transactionIdGenerator) : IAnonymInfaqBusiness
+    ITransactionsIdGenerator _transactionIdGenerator) : IAnonymInfaqBusiness
 {
     // todo use user session string/text
     public async Task<AnonymInfaqResponse> InfaqAsync(
         ICaptchaData _captchaData,
-        ITransactionData _transactionData,
+        ITransactionsData _transactionData,
         byte[]? sessionId,
         AnonymInfaqRequest anonymInfaqRequest)
     {

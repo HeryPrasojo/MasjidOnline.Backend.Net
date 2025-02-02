@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Transactions;
 
-public class TransactionRepository(TransactionDataContext _transactionDataContext) : ITransactionRepository
+public class TransactionRepository(TransactionsDataContext _transactionDataContext) : ITransactionRepository
 {
     private readonly DbSet<Transaction> _dbSet = _transactionDataContext.Set<Transaction>();
 

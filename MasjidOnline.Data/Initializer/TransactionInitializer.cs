@@ -6,9 +6,9 @@ using MasjidOnline.Entity.Transactions;
 
 namespace MasjidOnline.Data.Initializer;
 
-public abstract class TransactionInitializer(ITransactionDefinition _transactionDefinition) : ITransactionInitializer
+public abstract class TransactionInitializer(ITransactionsDefinition _transactionDefinition) : ITransactionsInitializer
 {
-    public async Task InitializeDatabaseAsync(ITransactionData transactionData)
+    public async Task InitializeDatabaseAsync(ITransactionsData transactionData)
     {
         var settingTableExists = await _transactionDefinition.CheckTableExistsAsync(nameof(TransactionSetting));
 

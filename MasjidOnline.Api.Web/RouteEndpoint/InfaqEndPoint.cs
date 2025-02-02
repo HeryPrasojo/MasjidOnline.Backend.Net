@@ -13,7 +13,7 @@ internal static class InfaqEndPoint
         HttpContext httpContext,
         IAnonymInfaqBusiness anonymInfaqBusiness,
         ICaptchaData _captchaData,
-        ITransactionData _transactionData,
+        ITransactionsData _transactionData,
         AnonymInfaqRequest anonymInfaqRequest)
     {
         var sessionIdBase64 = httpContext.Request.Cookies[Constant.HttpCookieSessionName];

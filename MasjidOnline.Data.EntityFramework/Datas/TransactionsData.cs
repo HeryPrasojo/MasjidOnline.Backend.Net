@@ -6,7 +6,7 @@ using MasjidOnline.Data.Interface.Repository.Transactions;
 
 namespace MasjidOnline.Data.EntityFramework.Datas;
 
-public class TransactionData(TransactionDataContext _transactionDataContext) : ITransactionData
+public class TransactionsData(TransactionsDataContext _transactionDataContext) : ITransactionsData
 {
     private ITransactionSettingRepository? _transactionSettingRepository;
 

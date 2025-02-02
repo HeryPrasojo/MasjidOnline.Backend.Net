@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Users;
 
-public class PasswordCodeRepository(UserDataContext _passwordCodeDataContext) : IPasswordCodeRepository
+public class PasswordCodeRepository(UsersDataContext _passwordCodeDataContext) : IPasswordCodeRepository
 {
     private readonly DbSet<PasswordCode> _dbSet = _passwordCodeDataContext.Set<PasswordCode>();
 

@@ -5,12 +5,12 @@ using MasjidOnline.Data.Interface.IdGenerator;
 
 namespace MasjidOnline.Data.IdGenerator;
 
-public class TransactionIdGenerator : ITransactionIdGenerator
+public class TransactionIdGenerator : ITransactionsIdGenerator
 {
     private int _transactionId;
     private int _transactionFileId;
 
-    public async Task InitializeAsync(ITransactionData transactionData)
+    public async Task InitializeAsync(ITransactionsData transactionData)
     {
         _transactionId = await transactionData.Transaction.GetMaxIdAsync();
         _transactionFileId = await transactionData.TransactionFile.GetMaxIdAsync();

@@ -28,7 +28,7 @@ await InitializeAsync(webApplication);
 
 var option = webApplication.Configuration.Get<Option>();
 
-webApplication.UseMiddleware<Middleware>();
+webApplication.UseMiddleware<ExceptionMiddleware>();
 
 webApplication.UseCors();
 
@@ -96,22 +96,22 @@ static async Task InitializeAsync(WebApplication webApplication)
     var coreData = GetService<ICoreData>(serviceScope.ServiceProvider);
     var captchaData = GetService<ICaptchaData>(serviceScope.ServiceProvider);
     var eventData = GetService<IEventData>(serviceScope.ServiceProvider);
-    var transactionData = GetService<ITransactionData>(serviceScope.ServiceProvider);
-    var userData = GetService<IUserData>(serviceScope.ServiceProvider);
+    var transactionData = GetService<ITransactionsData>(serviceScope.ServiceProvider);
+    var userData = GetService<IUsersData>(serviceScope.ServiceProvider);
 
     var auditInitializer = GetService<IAuditInitializer>(serviceScope.ServiceProvider);
     var coreInitializer = GetService<ICoreInitializer>(serviceScope.ServiceProvider);
     var captchaInitializer = GetService<ICaptchaInitializer>(serviceScope.ServiceProvider);
     var eventInitializer = GetService<IEventInitializer>(serviceScope.ServiceProvider);
-    var transactionInitializer = GetService<ITransactionInitializer>(serviceScope.ServiceProvider);
-    var userInitializer = GetService<IUserInitializer>(serviceScope.ServiceProvider);
+    var transactionInitializer = GetService<ITransactionsInitializer>(serviceScope.ServiceProvider);
+    var userInitializer = GetService<IUsersInitializer>(serviceScope.ServiceProvider);
 
     var auditIdGenerator = GetService<IAuditIdGenerator>(serviceScope.ServiceProvider);
     var coreIdGenerator = GetService<ICoreIdGenerator>(serviceScope.ServiceProvider);
     var captchaIdGenerator = GetService<ICaptchaIdGenerator>(serviceScope.ServiceProvider);
     var eventIdGenerator = GetService<IEventIdGenerator>(serviceScope.ServiceProvider);
-    var transactionIdGenerator = GetService<ITransactionIdGenerator>(serviceScope.ServiceProvider);
-    var userIdGenerator = GetService<IUserIdGenerator>(serviceScope.ServiceProvider);
+    var transactionIdGenerator = GetService<ITransactionsIdGenerator>(serviceScope.ServiceProvider);
+    var userIdGenerator = GetService<IUsersIdGenerator>(serviceScope.ServiceProvider);
 
 
     await auditInitializer.InitializeDatabaseAsync(auditData);

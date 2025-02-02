@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.DataContext;
 
-public class UserDataContext(DbContextOptions _dbContextOptions) : DbContext(_dbContextOptions)
+public class UsersDataContext(DbContextOptions _dbContextOptions) : DbContext(_dbContextOptions)
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

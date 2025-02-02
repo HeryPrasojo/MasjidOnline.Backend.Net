@@ -5,12 +5,12 @@ using MasjidOnline.Data.Interface.IdGenerator;
 
 namespace MasjidOnline.Data.IdGenerator;
 
-public class UserIdGenerator : IUserIdGenerator
+public class UserIdGenerator : IUsersIdGenerator
 {
     private int _userId;
     private int _userEmailAddressId;
 
-    public async Task InitializeAsync(IUserData userData)
+    public async Task InitializeAsync(IUsersData userData)
     {
         _userId = await userData.User.GetMaxIdAsync();
         _userEmailAddressId = await userData.UserEmailAddress.GetMaxIdAsync();

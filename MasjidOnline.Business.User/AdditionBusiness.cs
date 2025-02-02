@@ -11,10 +11,10 @@ using MasjidOnline.Service.FieldValidator.Interface;
 namespace MasjidOnline.Business.User;
 
 public class AdditionBusiness(
-    IUserIdGenerator _userIdGenerator,
+    IUsersIdGenerator _userIdGenerator,
     IFieldValidatorService _fieldValidatorService) : IAdditionBusiness
 {
-    public async Task<AddResponse> AddAsync(Session _userSession, IUserData _userData, AddRequest addRequest)
+    public async Task<AddResponse> AddAsync(Session _userSession, IUsersData _userData, AddRequest addRequest)
     {
         _fieldValidatorService.ValidateRequired(addRequest);
 

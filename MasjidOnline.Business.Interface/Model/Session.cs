@@ -2,9 +2,7 @@
 
 public class Session
 {
-    public required byte[] RequestSessionId { get; set; }
-
-    public required byte[] ResponseSessionId { get; set; }
+    public required byte[] SessionId { get; set; }
 
     public required int UserId { get; set; }
 }
