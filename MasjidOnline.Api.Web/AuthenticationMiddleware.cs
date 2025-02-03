@@ -16,7 +16,7 @@ public class AuthenticationMiddleware(
 {
     public async Task Invoke(HttpContext httpContext, ISessionsData sessionsData, Session session)
     {
-        var requestSessionIdBase64 = httpContext.Request.Cookies[Web.Constant.HttpCookieSessionName];
+        var requestSessionIdBase64 = httpContext.Request.Cookies[Constant.HttpCookieSessionName];
 
         if (requestSessionIdBase64 == default)
         {
@@ -29,15 +29,11 @@ public class AuthenticationMiddleware(
 
             var sessionEntity = await sessionsData.Session.GetFirstByIdAsync(requestSessionIdBytes);
 
-            if (sessionEntity == default) throw new InputMismatchException(Web.Constant.HttpCookieSessionName);
+            if (sessionEntity == default) throw new InputMismatchException(Constant.HttpCookieSessionName);
 
             if (sessionEntity.DateTime < DateTime.UtcNow.AddDays(-16))
             {
-                await CreateAnonymousSession(sessionsData, session);
-
-                requestSessionIdBase64 = Convert.ToBase64String(session.Id);
-
-                httpContext.Response.Cookies.Append(Web.Constant.HttpCookieSessionName, requestSessionIdBase64);
+                await CreateAnonymousSession(sessionsData, session, previousId: requestSessionIdBytes);
             }
             else
             {
@@ -46,17 +42,26 @@ public class AuthenticationMiddleware(
             }
         }
 
-        await _nextRequestDelegate(httpContext);
-
-        if (requestSessionIdBase64 == default)
+        httpContext.Response.OnStarting(() =>
         {
-        }
+            if (session.NewId != default)
+            {
+                var responseSessionIdBase64 = Convert.ToBase64String(session.NewId);
+
+                httpContext.Response.Cookies.Append(Constant.HttpCookieSessionName, responseSessionIdBase64);
+            }
+
+            return Task.CompletedTask;
+        });
+
+        await _nextRequestDelegate(httpContext);
     }
 
     private async Task CreateAnonymousSession(ISessionsData sessionsData, Session session, byte[]? previousId = default)
     {
         session.Id = _hash512Service.RandomDigestBytes;
         session.UserId = Business.Interface.Model.Constant.AnonymousUserId;
+        session.NewId = session.Id;
 
 
         var sessionEntity = new Entity.Sessions.Session

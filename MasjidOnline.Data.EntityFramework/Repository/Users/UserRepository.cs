@@ -15,7 +15,17 @@ public class UserRepository(UsersDataContext _userDataContext) : IUserRepository
         await _dbSet.AddAsync(user);
     }
 
-    public void UpdatePassword(int id, byte[] password)
+    public async Task<bool> GetAnyByIdAsync(int id)
+    {
+        return await _dbSet.AnyAsync(e => e.Id == id);
+    }
+
+    public async Task<int> GetMaxIdAsync()
+    {
+        return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
+    }
+
+    public void UpdatePasswordAndSaveAsync(int id, byte[] password)
     {
         var user = new User
         {
@@ -26,10 +36,7 @@ public class UserRepository(UsersDataContext _userDataContext) : IUserRepository
         _dbSet.Attach(user)
             .Property(e => e.Password)
             .IsModified = true;
-    }
 
-    public async Task<int> GetMaxIdAsync()
-    {
-        return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
+        _userDataContext.SaveChangesAsync();
     }
 }

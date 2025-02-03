@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
+using MasjidOnline.Business.Interface.Model;
 using MasjidOnline.Business.User.Interface;
 using MasjidOnline.Business.User.Interface.Model;
-using Microsoft.AspNetCore.Http;
+using MasjidOnline.Data.Interface.Datas;
 
 namespace MasjidOnline.Api.Web.RouteEndpoint;
 
@@ -17,11 +18,17 @@ internal static class UserEndPoint
 
     internal static async Task<LoginResponse> LoginAsync(ILoginBusiness loginBusiness)
     {
+        // undone 4
         return default;
     }
 
-    internal static async Task SetPasswordAsync(HttpContext context)
+    internal static async Task<SetPasswordResponse> SetPasswordAsync(
+        Session session,
+        ISessionsData sessionsData,
+        IUsersData usersData,
+        IPasswordSetBusiness passwordSetBusiness,
+        SetPasswordRequest setPasswordRequest)
     {
-        // undone 4
+        return await passwordSetBusiness.SetAsync(session, sessionsData, usersData, setPasswordRequest);
     }
 }

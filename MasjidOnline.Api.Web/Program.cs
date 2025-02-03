@@ -43,12 +43,15 @@ static WebApplication BuildApplication(string[] args)
 {
     var webApplicationBuilder = WebApplication.CreateBuilder(args);
 
+
     webApplicationBuilder.Configuration.AddJsonFile("appsettings.Local.json", true, true);
 
     var option = webApplicationBuilder.Configuration.Get<Option>() ?? throw new ApplicationException($"Get {nameof(Option)} fail");
 
     webApplicationBuilder.Services.AddOptions<MailOption>("Mail");
+
     webApplicationBuilder.Services.AddOptions<Option>();
+
 
     webApplicationBuilder.Services.AddCors(corsOptions =>
     {
@@ -116,6 +119,10 @@ static async Task InitializeAsync(WebApplication webApplication)
     var transactionsIdGenerator = GetService<ITransactionsIdGenerator>(serviceScope.ServiceProvider);
     var usersIdGenerator = GetService<IUsersIdGenerator>(serviceScope.ServiceProvider);
 
+    var session = GetService<Session>(serviceScope.ServiceProvider);
+
+    var userInitializerBusiness = GetService<MasjidOnline.Business.User.Interface.IInitializerBusiness>(serviceScope.ServiceProvider);
+
 
     await auditInitializer.InitializeDatabaseAsync(auditData);
     await coreInitializer.InitializeDatabaseAsync(coreData);
@@ -126,12 +133,6 @@ static async Task InitializeAsync(WebApplication webApplication)
     await usersInitializer.InitializeDatabaseAsync(usersData);
 
 
-    var userAdditionBusiness = GetService<MasjidOnline.Business.User.Interface.IAdditionBusiness>(serviceScope.ServiceProvider);
-
-    // undone 1
-    //userAdditionBusiness.;
-
-
     await auditIdGenerator.InitializeAsync(auditData);
     await coreIdGenerator.InitializeAsync(coreData);
     await captchaIdGenerator.InitializeAsync(captchaData);
@@ -139,6 +140,9 @@ static async Task InitializeAsync(WebApplication webApplication)
     await sessionsIdGenerator.InitializeAsync(sessionsData);
     await transactionsIdGenerator.InitializeAsync(transactionsData);
     await usersIdGenerator.InitializeAsync(usersData);
+
+
+    await userInitializerBusiness.InitializeAsync(session, usersData);
 }
 
 static TService GetService<TService>(IServiceProvider serviceProvider)

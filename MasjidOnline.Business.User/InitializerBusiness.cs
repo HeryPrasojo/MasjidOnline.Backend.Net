@@ -17,9 +17,14 @@ public class InitializerBusiness(
     IHash512Service _hash512Service,
     IMailSenderService _mailSenderService) : IInitializerBusiness
 {
-    public async Task InitializeAsync(Session _userSession, IUsersData _userData)
+    public async Task InitializeAsync(Session _session, IUsersData _usersData)
     {
-        _userSession.UserId = Constant.RootUserId;
+        _session.UserId = Constant.RootUserId;
+
+        var any = await _usersData.User.GetAnyByIdAsync(_session.UserId);
+
+        if (any) return;
+
 
         var option = _optionsMonitor.CurrentValue;
 
@@ -32,7 +37,7 @@ public class InitializerBusiness(
             UserType = UserType.Root,
         };
 
-        await _userData.User.AddAsync(user);
+        await _usersData.User.AddAsync(user);
 
 
         var userEmailAddress = new UserEmailAddress
@@ -42,7 +47,7 @@ public class InitializerBusiness(
             UserId = user.Id,
         };
 
-        await _userData.UserEmailAddress.AddAsync(userEmailAddress);
+        await _usersData.UserEmailAddress.AddAsync(userEmailAddress);
 
 
         var passwordCode = new PasswordCode
@@ -53,10 +58,10 @@ public class InitializerBusiness(
             UserId = user.Id,
         };
 
-        await _userData.PasswordCode.AddAsync(passwordCode);
+        await _usersData.PasswordCode.AddAsync(passwordCode);
 
 
-        await _userData.SaveAsync();
+        await _usersData.SaveAsync();
 
 
         var uri = option.Uri.UserPassword + Convert.ToHexString(passwordCode.Code);
