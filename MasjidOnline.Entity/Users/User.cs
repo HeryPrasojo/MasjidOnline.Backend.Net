@@ -11,7 +11,7 @@ public class User
     /// <summary>
     /// primary email address
     /// </summary>
-    public int EmailAddressId { get; set; }
+    public string EmailAddress { get; set; } = default!;
 
     public byte[]? Password { get; set; }
 }

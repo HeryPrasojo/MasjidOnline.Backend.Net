@@ -13,5 +13,5 @@ public class PasswordCode
 
     // optimization
 
-    public required bool IsUsed { get; set; }
+    public DateTime? UseDateTime { get; set; }
 }

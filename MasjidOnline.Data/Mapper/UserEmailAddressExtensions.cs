@@ -14,7 +14,6 @@ public static class UserEmailAddressExtensions
             SessionUserId = sessionUserId,
             DateTime = dateTime,
 
-            Id = userEmailAddress.Id,
             EmailAddress = userEmailAddress.EmailAddress,
             UserId = userEmailAddress.UserId,
         };

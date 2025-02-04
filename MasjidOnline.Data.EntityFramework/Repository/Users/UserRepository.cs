@@ -20,6 +20,11 @@ public class UserRepository(UsersDataContext _userDataContext) : IUserRepository
         return await _dbSet.AnyAsync(e => e.Id == id);
     }
 
+    public async Task<bool> GetAnyByIdAsync(int id)
+    {
+        return await _dbSet.AnyAsync(e => e.Pasword == id);
+    }
+
     public async Task<int> GetMaxIdAsync()
     {
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;

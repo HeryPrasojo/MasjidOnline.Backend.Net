@@ -24,7 +24,7 @@ public class AdditionBusiness(
         var user = new Entity.Users.User
         {
             Id = _userIdGenerator.UserId,
-            EmailAddressId = _userIdGenerator.UserEmailAddressId,
+            EmailAddress = addRequest.EmailAddress,
             Name = addRequest.Name,
             UserType = UserType.Internal,
         };
@@ -34,7 +34,6 @@ public class AdditionBusiness(
 
         var userEmailAddress = new UserEmailAddress
         {
-            Id = user.EmailAddressId,
             EmailAddress = addRequest.EmailAddress,
             UserId = user.Id,
         };

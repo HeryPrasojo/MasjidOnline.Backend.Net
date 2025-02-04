@@ -33,7 +33,7 @@ public class SqLiteUserInitializer(
                 DateTime TEXT NOT NULL,
                 Name TEXT NOT NULL,
                 UserId INTEGER NOT NULL,
-                IsUsed INTEGER NOT NULL
+                UseDateTime TEXT
             )";
 
         return await _userDataContext.Database.ExecuteSqlAsync(sql);
@@ -47,7 +47,7 @@ public class SqLiteUserInitializer(
                 Id INTEGER PRIMARY KEY,
                 Name TEXT NOT NULL,
                 UserType INTEGER NOT NULL,
-                EmailAddressId INTEGER NOT NULL,
+                EmailAddress TEXT NOT NULL,
                 Password BLOB
             )";
 
@@ -59,9 +59,8 @@ public class SqLiteUserInitializer(
         FormattableString sql = @$"
             CREATE TABLE UserEmailAddress
             (
-                Id INTEGER PRIMARY KEY,
-                UserId INTEGER NOT NULL,
-                EmailAddress TEXT NOT NULL
+                EmailAddress TEXT PRIMARY KEY,
+                UserId INTEGER NOT NULL
             )";
 
         return await _userDataContext.Database.ExecuteSqlAsync(sql);

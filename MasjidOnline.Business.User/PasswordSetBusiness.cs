@@ -28,7 +28,7 @@ public class PasswordSetBusiness(
 
         if (passwordCode == default) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
 
-        if (passwordCode.IsUsed) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+        if (passwordCode.UseDateTime != default) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
 
 
         var passwordBytes = _hash512Service.Hash(setPasswordRequest.Password);

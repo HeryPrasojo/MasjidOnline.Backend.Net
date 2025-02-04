@@ -15,7 +15,7 @@ public static class UserExtensions
             DateTime = dateTime,
 
             Id = user.Id,
-            EmailAddressId = user.EmailAddressId,
+            EmailAddress = user.EmailAddress,
             Name = user.Name,
             Password = user.Password,
             UserType = user.UserType,

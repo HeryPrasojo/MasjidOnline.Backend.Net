@@ -15,8 +15,8 @@ public class UserEmailAddressRepository(UsersDataContext _userDataContext) : IUs
         await _dbSet.AddAsync(userEmailAddress);
     }
 
-    public async Task<int> GetMaxIdAsync()
+    public async Task<UserEmailAddress?> GetFirstByEmailAddressAsync(string emailAddress)
     {
-        return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
+        return await _dbSet.FirstOrDefaultAsync(e => e.EmailAddress == emailAddress);
     }
 }

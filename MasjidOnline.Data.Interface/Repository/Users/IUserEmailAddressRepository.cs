@@ -6,5 +6,5 @@ namespace MasjidOnline.Data.Interface.Repository.Users;
 public interface IUserEmailAddressRepository
 {
     Task AddAsync(UserEmailAddress userEmailAddress);
-    Task<int> GetMaxIdAsync();
+    Task<UserEmailAddress?> GetFirstByEmailAddressAsync(string emailAddress);
 }

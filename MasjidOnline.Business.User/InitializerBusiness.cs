@@ -32,7 +32,7 @@ public class InitializerBusiness(
         var user = new Entity.Users.User
         {
             Id = Constant.RootUserId,
-            EmailAddressId = Constant.RootUserId,
+            EmailAddress = option.RootUserEmailAddress,
             Name = "Root",
             UserType = UserType.Root,
         };
@@ -42,7 +42,6 @@ public class InitializerBusiness(
 
         var userEmailAddress = new UserEmailAddress
         {
-            Id = user.EmailAddressId,
             EmailAddress = option.RootUserEmailAddress,
             UserId = user.Id,
         };
@@ -54,7 +53,6 @@ public class InitializerBusiness(
         {
             Code = _hash512Service.RandomDigestBytes,
             DateTime = DateTime.UtcNow,
-            IsUsed = false,
             UserId = user.Id,
         };
 
