@@ -24,7 +24,7 @@ public class PasswordSetBusiness(
         if (setPasswordRequest.Password != setPasswordRequest.PasswordRepeat) throw new InputInvalidException(nameof(setPasswordRequest.PasswordRepeat));
 
 
-        var passwordCode = await _usersData.PasswordCode.GetFirstByCodeAsync(passwordCodeBytes);
+        var passwordCode = await _usersData.PasswordCode.GetForPasswordSetAsync(passwordCodeBytes);
 
         if (passwordCode == default) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
 

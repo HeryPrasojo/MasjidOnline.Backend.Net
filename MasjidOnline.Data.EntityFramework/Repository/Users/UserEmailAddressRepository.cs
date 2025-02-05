@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
+using MasjidOnline.Data.Interface.Model.User;
 using MasjidOnline.Data.Interface.Repository.Users;
 using MasjidOnline.Entity.Users;
 using Microsoft.EntityFrameworkCore;
@@ -15,8 +17,13 @@ public class UserEmailAddressRepository(UsersDataContext _userDataContext) : IUs
         await _dbSet.AddAsync(userEmailAddress);
     }
 
-    public async Task<UserEmailAddress?> GetFirstByEmailAddressAsync(string emailAddress)
+    public async Task<UserEmailAddressForLogin?> GetForLoginAsync(string emailAddress)
     {
-        return await _dbSet.FirstOrDefaultAsync(e => e.EmailAddress == emailAddress);
+        return await _dbSet.Where(e => e.EmailAddress == emailAddress)
+            .Select(e => new UserEmailAddressForLogin
+            {
+                UserId = e.UserId,
+            })
+            .FirstOrDefaultAsync();
     }
 }

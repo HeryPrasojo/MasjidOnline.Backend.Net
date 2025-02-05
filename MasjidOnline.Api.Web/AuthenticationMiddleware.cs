@@ -27,7 +27,7 @@ public class AuthenticationMiddleware(
             var requestSessionIdBytes = _fieldValidatorService.ValidateRequiredBase64(requestSessionIdBase64, 80, Web.Constant.HttpCookieSessionName);
 
 
-            var sessionEntity = await sessionsData.Session.GetFirstByIdAsync(requestSessionIdBytes);
+            var sessionEntity = await sessionsData.Session.GetForAuthenticationAsync(requestSessionIdBytes);
 
             if (sessionEntity == default) throw new InputMismatchException(Constant.HttpCookieSessionName);
 

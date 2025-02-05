@@ -28,7 +28,7 @@ public class CaptchaQuestionRepository(CaptchaDataContext _captchaDataContext) :
 
     public async Task<IEnumerable<int>> GetIdsBySessionIdAsync(byte[] sessionId)
     {
-        return await _dbSet.Where(e => e.SessionId == sessionId)
+        return await _dbSet.Where(e => e.SessionId.SequenceEqual(sessionId))
             .Select(e => e.Id)
             .ToArrayAsync();
     }

@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
+using MasjidOnline.Data.Interface.Model.Session;
 using MasjidOnline.Data.Interface.Repository.Sessions;
 using MasjidOnline.Entity.Sessions;
 using Microsoft.EntityFrameworkCore;
@@ -17,8 +19,15 @@ public class SessionRepository(SessionsDataContext _sessionDataContext) : ISessi
         await _sessionDataContext.SaveChangesAsync();
     }
 
-    public async Task<Session?> GetFirstByIdAsync(byte[] id)
+    public async Task<SessionForAuthentication?> GetForAuthenticationAsync(byte[] id)
     {
-        return await _dbSet.FirstOrDefaultAsync(e => e.Id == id);
+        return await _dbSet.Where(e => e.Id.SequenceEqual(id))
+            .Select(e => new SessionForAuthentication
+            {
+                DateTime = e.DateTime,
+                Id = e.Id,
+                UserId = e.UserId,
+            })
+            .FirstOrDefaultAsync();
     }
 }
