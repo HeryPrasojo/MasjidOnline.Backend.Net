@@ -11,8 +11,8 @@ public class UserLogRepository(AuditDataContext _auditDataContext) : IUserLogRep
     private readonly DbSet<UserLog> _dbSet = _auditDataContext.Set<UserLog>();
 
 
-    public async Task<int> GetMaxIdAsync()
+    public async Task<int> GetMaxUserLogIdAsync()
     {
-        return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
+        return await _dbSet.MaxAsync(e => (int?)e.UserLogId) ?? 0;
     }
 }

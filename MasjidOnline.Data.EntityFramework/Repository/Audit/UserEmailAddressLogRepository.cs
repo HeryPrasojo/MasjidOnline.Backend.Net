@@ -11,8 +11,8 @@ public class UserEmailAddressLogRepository(AuditDataContext _auditDataContext) :
     private readonly DbSet<UserEmailAddressLog> _dbSet = _auditDataContext.Set<UserEmailAddressLog>();
 
 
-    public async Task<int> GetMaxIdAsync()
+    public async Task<int> GetMaxUserEmailAddressLogIdAsync()
     {
-        return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
+        return await _dbSet.MaxAsync(e => (int?)e.UserEmailAddressLogId) ?? 0;
     }
 }

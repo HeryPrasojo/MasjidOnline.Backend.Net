@@ -15,7 +15,7 @@ public class AnswerBusiness(
     ICaptchaIdGenerator _captchaIdGenerator,
     IFieldValidatorService _fieldValidatorService) : IAnswerBusiness
 {
-    public async Task<AnswerQuestionResponse> AnswerAsync(ICaptchaData _captchaData, byte[]? sessionId, AnswerQuestionRequest answerQuestionRequest)
+    public async Task<Response> AnswerAsync(ICaptchaData _captchaData, byte[]? sessionId, AnswerQuestionRequest answerQuestionRequest)
     {
         _fieldValidatorService.ValidateRequired(sessionId); // todo change to text/string validation
         _fieldValidatorService.ValidateRequired(answerQuestionRequest);

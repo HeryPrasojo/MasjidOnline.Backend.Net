@@ -38,7 +38,7 @@ internal static class CaptchaEndPoint
         return Results.Stream(createResponse.Stream!, "image/png");
     }
 
-    internal static async Task<AnswerQuestionResponse> AnswerQuestionAsync(
+    internal static async Task<Response> AnswerQuestionAsync(
         HttpContext httpContext,
         IAnswerBusiness captchaAnswerBusiness,
         ICaptchaData _captchaData,

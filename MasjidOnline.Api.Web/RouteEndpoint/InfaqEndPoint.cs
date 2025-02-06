@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MasjidOnline.Business.Infaq.Interface;
 using MasjidOnline.Business.Infaq.Interface.Model;
+using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Data.Interface.Datas;
 using Microsoft.AspNetCore.Http;
 
@@ -9,7 +10,7 @@ namespace MasjidOnline.Api.Web.RouteEndpoint;
 
 internal static class InfaqEndPoint
 {
-    internal static async Task<AnonymInfaqResponse> AnonymInfaqAsync(
+    internal static async Task<Response> AnonymInfaqAsync(
         HttpContext httpContext,
         IAnonymInfaqBusiness anonymInfaqBusiness,
         ICaptchaData _captchaData,

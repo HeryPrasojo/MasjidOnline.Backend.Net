@@ -12,9 +12,9 @@ public class AuditIdGenerator : IAuditIdGenerator
 
     public async Task InitializeAsync(IAuditData auditData)
     {
-        _userLogId = await auditData.UserLog.GetMaxIdAsync();
+        _userLogId = await auditData.UserLog.GetMaxUserLogIdAsync();
 
-        _userEmailAddressLogId = await auditData.UserEmailAddressLog.GetMaxIdAsync();
+        _userEmailAddressLogId = await auditData.UserEmailAddressLog.GetMaxUserEmailAddressLogIdAsync();
     }
 
     public int UserLogId => Interlocked.Increment(ref _userLogId);

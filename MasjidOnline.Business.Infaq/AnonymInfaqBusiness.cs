@@ -20,7 +20,7 @@ public class AnonymInfaqBusiness(
     ITransactionsIdGenerator _transactionIdGenerator) : IAnonymInfaqBusiness
 {
     // todo use user session string/text
-    public async Task<AnonymInfaqResponse> InfaqAsync(
+    public async Task<Response> InfaqAsync(
         ICaptchaData _captchaData,
         ITransactionsData _transactionData,
         byte[]? sessionId,

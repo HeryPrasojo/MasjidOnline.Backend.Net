@@ -14,26 +14,26 @@ public class AuthenticationMiddleware(
     IFieldValidatorService _fieldValidatorService,
     IHash512Service _hash512Service)
 {
-    public async Task Invoke(HttpContext httpContext, ISessionsData sessionsData, Session session)
+    public async Task Invoke(HttpContext httpContext, ISessionsData _sessionsData, Session session)
     {
         var requestSessionIdBase64 = httpContext.Request.Cookies[Constant.HttpCookieSessionName];
 
         if (requestSessionIdBase64 == default)
         {
-            await CreateAnonymousSession(sessionsData, session);
+            await CreateAnonymousSession(_sessionsData, session);
         }
         else
         {
-            var requestSessionIdBytes = _fieldValidatorService.ValidateRequiredBase64(requestSessionIdBase64, 80, Web.Constant.HttpCookieSessionName);
+            var requestSessionIdBytes = _fieldValidatorService.ValidateRequiredBase64(requestSessionIdBase64, 80, Constant.HttpCookieSessionName);
 
 
-            var sessionEntity = await sessionsData.Session.GetForAuthenticationAsync(requestSessionIdBytes);
+            var sessionEntity = await _sessionsData.Session.GetForAuthenticationAsync(requestSessionIdBytes);
 
             if (sessionEntity == default) throw new InputMismatchException(Constant.HttpCookieSessionName);
 
             if (sessionEntity.DateTime < DateTime.UtcNow.AddDays(-16))
             {
-                await CreateAnonymousSession(sessionsData, session, previousId: requestSessionIdBytes);
+                await CreateAnonymousSession(_sessionsData, session, previousId: requestSessionIdBytes);
             }
             else
             {
