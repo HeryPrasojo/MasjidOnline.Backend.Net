@@ -3,62 +3,49 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Business.Captcha.Interface.Model;
 using MasjidOnline.Business.Interface.Model.Responses;
+using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.Captcha;
 using MasjidOnline.Service.Captcha.Interface;
-using MasjidOnline.Service.Hash512.Interface;
 
 namespace MasjidOnline.Business.Captcha;
 
 public class QuestionBusiness(
     ICaptchaService _captchaService,
-    ICaptchaIdGenerator _captchaIdGenerator,
-    IHash512Service _hash512Service) : IQuestionBusiness
+    ICaptchaIdGenerator _captchaIdGenerator) : IQuestionBusiness
 {
     // todo validate user session exists (captcha not needed)
-    // add interval
-    public async Task<CreateQuestionResponse> CreateAsync(ICaptchaData _captchaData, byte[]? sessionId)
+    public async Task<CreateQuestionResponse> CreateAsync(ICaptchaData _captchaData, ISessionBusiness _sessionBusiness)
     {
-        if (sessionId != default)
+        var existingCaptchaQuestion = await _captchaData.CaptchaQuestion.GetForCreateAsync(_sessionBusiness.Id);
+
+        if (existingCaptchaQuestion != default)
         {
-            var existingCaptchaQuestion = await _captchaData.CaptchaQuestion.GetForCreateAsync(sessionId);
-
-            if (existingCaptchaQuestion != default)
+            if (existingCaptchaQuestion.IsMatched) return new()
             {
-                var isMatch = await _captchaData.CaptchaAnswer.GetIsMatchByCaptchaQuestionIdAsync(existingCaptchaQuestion.Id);
+                ResultCode = ResponseResult.CaptchaPassed,
+            };
 
-                if (isMatch == default)
-                {
-                    var existingGenerateImageResponse = _captchaService.GenerateImage(existingCaptchaQuestion.Degree);
 
-                    return new()
-                    {
-                        ResultCode = ResponseResult.Success,
-                        SessionId = sessionId,
-                        Stream = existingGenerateImageResponse.Stream,
-                    };
-                }
+            var existingImage = _captchaService.GenerateImage(existingCaptchaQuestion.Degree);
 
-                if (isMatch == true) return new()
-                {
-                    ResultCode = ResponseResult.CaptchaPassed,
-                };
-            }
+            return new()
+            {
+                ResultCode = ResponseResult.Success,
+                Stream = existingImage.Stream,
+            };
         }
 
 
-        sessionId ??= _hash512Service.RandomDigestBytes;
-
         var generateImageResponse = _captchaService.GenerateRandomImage();
-
 
         var newCaptchaQuestion = new CaptchaQuestion
         {
             Id = _captchaIdGenerator.CaptchaQuestionId,
             DateTime = DateTime.UtcNow,
             Degree = generateImageResponse.Degree,
-            SessionId = sessionId,
+            SessionId = _sessionBusiness.Id,
         };
 
         await _captchaData.CaptchaQuestion.AddAndSaveAsync(newCaptchaQuestion);
@@ -67,7 +54,6 @@ public class QuestionBusiness(
         return new()
         {
             ResultCode = ResponseResult.Success,
-            SessionId = sessionId,
             Stream = generateImageResponse.Stream,
         };
     }

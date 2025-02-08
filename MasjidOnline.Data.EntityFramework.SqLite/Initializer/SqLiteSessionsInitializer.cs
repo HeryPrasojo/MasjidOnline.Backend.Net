@@ -29,7 +29,8 @@ public class SqLiteSessionsInitializer(
         FormattableString sql = @$"
             CREATE TABLE Session
             (
-                Id BLOB PRIMARY KEY,
+                Id INTEGER PRIMARY KEY,
+                Digest INTEGER NOT NULL,
                 DateTime TEXT NOT NULL,
                 PreviousId BLOB,
                 UserId INTEGER NOT NULL

@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MasjidOnline.Business.Infaq.Interface;
 using MasjidOnline.Business.Infaq.Interface.Model;
 using MasjidOnline.Business.Interface.Model.Responses;
+using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface.Datas;
 using Microsoft.AspNetCore.Http;
 
@@ -14,15 +14,10 @@ internal static class InfaqEndPoint
         HttpContext httpContext,
         IAnonymInfaqBusiness anonymInfaqBusiness,
         ICaptchaData _captchaData,
+        ISessionBusiness _sessionBusiness,
         ITransactionsData _transactionData,
         AnonymInfaqRequest anonymInfaqRequest)
     {
-        var sessionIdBase64 = httpContext.Request.Cookies[Constant.HttpCookieSessionName];
-
-        var sessionId = sessionIdBase64 == default ? default : Convert.FromBase64String(sessionIdBase64!);
-
-        var anonymInfaqResponse = await anonymInfaqBusiness.InfaqAsync(_captchaData, _transactionData, sessionId, anonymInfaqRequest);
-
-        return anonymInfaqResponse;
+        return await anonymInfaqBusiness.InfaqAsync(_captchaData, _sessionBusiness, _transactionData, anonymInfaqRequest);
     }
 }

@@ -31,7 +31,7 @@ public class SqLiteCaptchaInitializer(
             (
                 Id INTEGER PRIMARY KEY,
                 DateTime TEXT NOT NULL,
-                SessionId BLOB NOT NULL,
+                SessionId INTEGER NOT NULL,
                 Degree REAL NOT NULL
             )";
 

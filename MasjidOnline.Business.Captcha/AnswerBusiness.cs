@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Business.Captcha.Interface.Model;
 using MasjidOnline.Business.Interface.Model.Responses;
+using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.Captcha;
@@ -15,15 +16,14 @@ public class AnswerBusiness(
     ICaptchaIdGenerator _captchaIdGenerator,
     IFieldValidatorService _fieldValidatorService) : IAnswerBusiness
 {
-    public async Task<Response> AnswerAsync(ICaptchaData _captchaData, byte[]? sessionId, AnswerQuestionRequest answerQuestionRequest)
+    public async Task<Response> AnswerAsync(ICaptchaData _captchaData, ISessionBusiness _sessionBusiness, AnswerQuestionRequest answerQuestionRequest)
     {
-        _fieldValidatorService.ValidateRequired(sessionId); // todo change to text/string validation
         _fieldValidatorService.ValidateRequired(answerQuestionRequest);
 
 
-        var captchaQuestion = await _captchaData.CaptchaQuestion.GetForAnswerAsync(sessionId!);
+        var captchaQuestion = await _captchaData.CaptchaQuestion.GetForAnswerAsync(_sessionBusiness.Id);
 
-        if (captchaQuestion == default) throw new InputMismatchException($"{nameof(sessionId)}: {sessionId}");
+        if (captchaQuestion == default) throw new InputMismatchException($"{nameof(_sessionBusiness.Id)}: {_sessionBusiness.Id}");
 
 
         var degreeDiff = ((captchaQuestion.Degree + answerQuestionRequest.Degree) % 360f);

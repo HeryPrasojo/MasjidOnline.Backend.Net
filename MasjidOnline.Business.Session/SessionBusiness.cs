@@ -15,23 +15,21 @@ public class SessionBusiness(
     ISessionsData _sessionsData,
     ISessionsIdGenerator _sessionsIdGenerator) : ISessionBusiness
 {
-    public byte[]? Id { get; private set; }
-    public string IdBase64 => Id == default ? throw new ErrorException(nameof(Id)) : Convert.ToBase64String(Id);
-    public bool IsIdNew { get; private set; }
-    public int UserId { get; private set; }
+    private byte[]? digest;
 
-    public void Initialize()
-    {
-        UserId = Constant.RootUserId;
-    }
+    public int Id { get; private set; }
+    public string DigestBase64 => digest == default ? throw new ErrorException(nameof(digest)) : Convert.ToBase64String(digest);
+    public bool IsDigestNew { get; private set; }
+    public int UserId { get; private set; }
 
     public async Task ChangeAsync(int userId)
     {
-        var previousId = Id;
+        var previousId = digest;
 
         var session = new Entity.Sessions.Session
         {
             DateTime = DateTime.UtcNow,
+            Digest = _sessionsIdGenerator.SessionDigest,
             Id = _sessionsIdGenerator.SessionId,
             PreviousId = previousId,
             UserId = UserId,
@@ -40,8 +38,9 @@ public class SessionBusiness(
         await _sessionsData.Session.AddAndSaveAsync(session);
 
 
+        digest = session.Digest;
         Id = session.Id;
-        IsIdNew = true;
+        IsDigestNew = true;
         UserId = session.UserId;
     }
 
@@ -66,7 +65,7 @@ public class SessionBusiness(
             }
             else
             {
-                Id = sessionEntity.Id;
+                digest = sessionEntity.Id;
                 UserId = sessionEntity.UserId;
             }
         }

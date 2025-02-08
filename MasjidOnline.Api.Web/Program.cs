@@ -124,7 +124,7 @@ static async Task InitializeAsync(WebApplication webApplication)
     var userInitializerBusiness = GetService<MasjidOnline.Business.User.Interface.IInitializerBusiness>(serviceScope.ServiceProvider);
 
 
-    sessionBusiness.Initialize();
+    await sessionBusiness.ChangeAsync(MasjidOnline.Business.Interface.Model.Constant.RootUserId);
 
     await auditInitializer.InitializeDatabaseAsync(auditData);
     await coreInitializer.InitializeDatabaseAsync(coreData);

@@ -8,7 +8,10 @@ public class CaptchaQuestion
 
     public required DateTime DateTime { get; set; }
 
-    public required byte[] SessionId { get; set; }
+    public required int SessionId { get; set; }
 
     public required float Degree { get; set; }
+
+
+    public bool IsMatched { get; set; }
 }

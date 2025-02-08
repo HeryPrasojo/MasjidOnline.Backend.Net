@@ -19,13 +19,18 @@ public class SessionRepository(SessionsDataContext _sessionDataContext) : ISessi
         await _sessionDataContext.SaveChangesAsync();
     }
 
+    public async Task<int> GetMaxIdAsync()
+    {
+        return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
+    }
+
     public async Task<SessionForAuthentication?> GetForAuthenticationAsync(byte[] id)
     {
-        return await _dbSet.Where(e => e.Id.SequenceEqual(id))
+        return await _dbSet.Where(e => e.Digest.SequenceEqual(id))
             .Select(e => new SessionForAuthentication
             {
                 DateTime = e.DateTime,
-                Id = e.Id,
+                Id = e.Digest,
                 UserId = e.UserId,
             })
             .FirstOrDefaultAsync();

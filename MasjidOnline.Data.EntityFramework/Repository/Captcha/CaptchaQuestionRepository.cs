@@ -26,9 +26,9 @@ public class CaptchaQuestionRepository(CaptchaDataContext _captchaDataContext) :
     }
 
 
-    public async Task<IEnumerable<int>> GetIdsBySessionIdAsync(byte[] sessionId)
+    public async Task<IEnumerable<int>> GetIdsBySessionIdAsync(int sessionId)
     {
-        return await _dbSet.Where(e => e.SessionId.SequenceEqual(sessionId))
+        return await _dbSet.Where(e => e.SessionId == sessionId)
             .Select(e => e.Id)
             .ToArrayAsync();
     }
@@ -39,9 +39,9 @@ public class CaptchaQuestionRepository(CaptchaDataContext _captchaDataContext) :
     }
 
 
-    public async Task<CaptchaQuestionForAnswer?> GetForAnswerAsync(byte[] sessionId)
+    public async Task<CaptchaQuestionForAnswer?> GetForAnswerAsync(int sessionId)
     {
-        return await _dbSet.Where(e => e.SessionId.SequenceEqual(sessionId))
+        return await _dbSet.Where(e => e.SessionId == sessionId)
             .OrderByDescending(e => e.Id)
             .Select(e => new CaptchaQuestionForAnswer
             {
@@ -51,14 +51,15 @@ public class CaptchaQuestionRepository(CaptchaDataContext _captchaDataContext) :
             .FirstOrDefaultAsync();
     }
 
-    public async Task<CaptchaQuestionForCreate?> GetForCreateAsync(byte[] sessionId)
+    public async Task<CaptchaQuestionForCreate?> GetForCreateAsync(int sessionId)
     {
-        return await _dbSet.Where(e => e.SessionId.SequenceEqual(sessionId))
+        return await _dbSet.Where(e => e.SessionId == sessionId)
             .OrderByDescending(e => e.Id)
             .Select(e => new CaptchaQuestionForCreate
             {
-                Id = e.Id,
                 Degree = e.Degree,
+                Id = e.Id,
+                IsMatched = e.IsMatched,
             })
             .FirstOrDefaultAsync();
     }

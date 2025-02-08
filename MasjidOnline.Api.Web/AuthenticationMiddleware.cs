@@ -14,9 +14,9 @@ public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate)
 
         httpContext.Response.OnStarting(() =>
         {
-            if (_sessionBusiness.IsIdNew)
+            if (_sessionBusiness.IsDigestNew)
             {
-                httpContext.Response.Cookies.Append(Constant.HttpCookieSessionName, _sessionBusiness.IdBase64);
+                httpContext.Response.Cookies.Append(Constant.HttpCookieSessionName, _sessionBusiness.DigestBase64);
             }
 
             return Task.CompletedTask;

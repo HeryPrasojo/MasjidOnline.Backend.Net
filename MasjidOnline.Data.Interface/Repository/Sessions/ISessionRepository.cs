@@ -8,4 +8,5 @@ public interface ISessionRepository
 {
     Task AddAndSaveAsync(Session setting);
     Task<SessionForAuthentication?> GetForAuthenticationAsync(byte[] id);
+    Task<int> GetMaxIdAsync();
 }

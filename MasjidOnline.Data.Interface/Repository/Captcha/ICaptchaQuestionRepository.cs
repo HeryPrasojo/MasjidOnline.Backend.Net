@@ -9,8 +9,8 @@ public interface ICaptchaQuestionRepository
 {
     Task AddAndSaveAsync(CaptchaQuestion captchaQuestion);
     Task AddAsync(CaptchaQuestion captchaQuestion);
-    Task<CaptchaQuestionForAnswer?> GetForAnswerAsync(byte[] sessionId);
-    Task<CaptchaQuestionForCreate?> GetForCreateAsync(byte[] sessionId);
-    Task<IEnumerable<int>> GetIdsBySessionIdAsync(byte[] sessionId);
+    Task<CaptchaQuestionForAnswer?> GetForAnswerAsync(int sessionId);
+    Task<CaptchaQuestionForCreate?> GetForCreateAsync(int sessionId);
+    Task<IEnumerable<int>> GetIdsBySessionIdAsync(int sessionId);
     Task<int> GetMaxIdAsync();
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.Infaq.Interface;
 using MasjidOnline.Business.Infaq.Interface.Model;
 using MasjidOnline.Business.Interface.Model.Responses;
+using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.Payments;
@@ -19,14 +20,12 @@ public class AnonymInfaqBusiness(
     IFieldValidatorService _fieldValidatorService,
     ITransactionsIdGenerator _transactionIdGenerator) : IAnonymInfaqBusiness
 {
-    // todo use user session string/text
     public async Task<Response> InfaqAsync(
         ICaptchaData _captchaData,
+        ISessionBusiness _sessionBusiness,
         ITransactionsData _transactionData,
-        byte[]? sessionId,
         AnonymInfaqRequest anonymInfaqRequest)
     {
-        _fieldValidatorService.ValidateRequired(sessionId);
         _fieldValidatorService.ValidateRequired(anonymInfaqRequest);
         _fieldValidatorService.ValidateRequiredPlus(anonymInfaqRequest.Amount);
         _fieldValidatorService.ValidateRequired(anonymInfaqRequest.PaymentType);
@@ -39,7 +38,7 @@ public class AnonymInfaqBusiness(
         // todo check session logged in
 
 
-        var captchaQuestionIds = await _captchaData.CaptchaQuestion.GetIdsBySessionIdAsync(sessionId!);
+        var captchaQuestionIds = await _captchaData.CaptchaQuestion.GetIdsBySessionIdAsync(_sessionBusiness.Id);
 
         if (!captchaQuestionIds.Any()) return new()
         {

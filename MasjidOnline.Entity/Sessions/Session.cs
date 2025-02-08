@@ -4,7 +4,9 @@ namespace MasjidOnline.Entity.Sessions;
 
 public class Session
 {
-    public required byte[] Id { get; set; }
+    public required int Id { get; set; }
+
+    public required byte[] Digest { get; set; }
 
     public required DateTime DateTime { get; set; }
 
