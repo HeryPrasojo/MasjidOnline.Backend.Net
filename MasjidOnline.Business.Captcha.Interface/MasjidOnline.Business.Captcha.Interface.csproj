@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MasjidOnline.Business.Interface\MasjidOnline.Business.Interface.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Data.Interface\MasjidOnline.Data.Interface.csproj" />
   </ItemGroup>
 
 </Project>

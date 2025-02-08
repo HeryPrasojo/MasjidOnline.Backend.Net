@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Business.Interface.Model.Options;
+﻿namespace MasjidOnline.Data.Interface.Model.Options;
 
 public class ConnectionStrings
 {

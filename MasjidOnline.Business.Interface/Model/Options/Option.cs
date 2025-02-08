@@ -1,4 +1,6 @@
-﻿namespace MasjidOnline.Business.Interface.Model.Options;
+﻿using MasjidOnline.Data.Interface.Model.Options;
+
+namespace MasjidOnline.Business.Interface.Model.Options;
 
 public class Option
 {
