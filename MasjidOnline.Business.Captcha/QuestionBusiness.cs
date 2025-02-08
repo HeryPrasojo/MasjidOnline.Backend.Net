@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Business.Captcha.Interface.Model;
+using MasjidOnline.Business.Interface.Model;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface.Datas;
@@ -15,9 +16,14 @@ public class QuestionBusiness(
     ICaptchaService _captchaService,
     ICaptchaIdGenerator _captchaIdGenerator) : IQuestionBusiness
 {
-    // todo validate user session exists (captcha not needed)
     public async Task<CreateQuestionResponse> CreateAsync(ICaptchaData _captchaData, ISessionBusiness _sessionBusiness)
     {
+        if (_sessionBusiness.UserId != Constant.AnonymousUserId) return new()
+        {
+            ResultCode = ResponseResult.CaptchaPassed,
+        };
+
+
         var existingCaptchaQuestion = await _captchaData.CaptchaQuestion.GetForCreateAsync(_sessionBusiness.Id);
 
         if (existingCaptchaQuestion != default)

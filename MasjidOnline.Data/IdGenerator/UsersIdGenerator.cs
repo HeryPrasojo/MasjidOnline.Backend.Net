@@ -13,6 +13,8 @@ public class UsersIdGenerator(IHash512Service _hash512Service) : IUsersIdGenerat
     public async Task InitializeAsync(IUsersData userData)
     {
         _userId = await userData.User.GetMaxIdAsync();
+
+        if (_userId < 11) _userId = 11;
     }
 
     public int UserId => Interlocked.Increment(ref _userId);

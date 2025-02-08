@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Infaq.Interface;
 using MasjidOnline.Business.Infaq.Interface.Model;
+using MasjidOnline.Business.Interface.Model;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface.Datas;
@@ -35,22 +36,19 @@ public class AnonymInfaqBusiness(
         anonymInfaqRequest.MunfiqName = _fieldValidatorService.ValidateRequiredTextShort(anonymInfaqRequest.MunfiqName);
 
 
-        // todo check session logged in
-
-
-        var captchaQuestionIds = await _captchaData.CaptchaQuestion.GetIdsBySessionIdAsync(_sessionBusiness.Id);
-
-        if (!captchaQuestionIds.Any()) return new()
+        if (_sessionBusiness.UserId == Constant.AnonymousUserId)
         {
-            ResultCode = ResponseResult.CaptchaNeeded,
-        };
+            var captchaQuestions = await _captchaData.CaptchaQuestion.GetForAnonymInfaqAsync(_sessionBusiness.Id);
 
+            if (!captchaQuestions.Any()) return new()
+            {
+                ResultCode = ResponseResult.CaptchaNeeded,
+            };
 
-        var isAnyMatch = await _captchaData.CaptchaAnswer.GetAnyIsMatchByCaptchaQuestionIdsAsync(captchaQuestionIds);
-
-        if (!isAnyMatch) return new()
-        {
-            ResultCode = ResponseResult.CaptchaNotPassed,
+            if (!captchaQuestions.Any(e => e.IsMatched)) return new()
+            {
+                ResultCode = ResponseResult.CaptchaNotPassed,
+            };
         };
 
 
@@ -62,7 +60,7 @@ public class AnonymInfaqBusiness(
             PaymentStatus = PaymentStatus.Pending,
             PaymentType = (PaymentType)anonymInfaqRequest.PaymentType,
             Type = TransactionType.Infaq,
-            UserId = default,
+            UserId = _sessionBusiness.UserId,
             MunfiqName = anonymInfaqRequest.MunfiqName,
 
             ManualDateTime = anonymInfaqRequest.ManualDateTime,

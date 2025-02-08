@@ -64,6 +64,18 @@ public class CaptchaQuestionRepository(CaptchaDataContext _captchaDataContext) :
             .FirstOrDefaultAsync();
     }
 
+    public async Task<IEnumerable<CaptchaQuestionForAnonymInfaq>> GetForAnonymInfaqAsync(int sessionId)
+    {
+        return await _dbSet.Where(e => e.SessionId == sessionId)
+            .OrderByDescending(e => e.Id)
+            .Select(e => new CaptchaQuestionForAnonymInfaq
+            {
+                Id = e.Id,
+                IsMatched = e.IsMatched,
+            })
+            .ToArrayAsync();
+    }
+
 
     private async Task<int> SaveAsync()
     {

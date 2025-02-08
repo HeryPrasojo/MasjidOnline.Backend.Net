@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace MasjidOnline.Entity.Captcha;
-// todo remove, move IsMatch to CaptchaQuestion, create partition.
+
 public class CaptchaAnswer
 {
     public required int Id { get; set; }
