@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Interface.Model;
+using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.EntityFramework.Repository.Audit;
 using MasjidOnline.Data.Interface.Datas;
@@ -15,7 +15,10 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace MasjidOnline.Data.EntityFramework.Datas;
 
-public class AuditData(AuditDataContext _auditDataContext, IAuditIdGenerator _auditIdGenerator, Session _userSession) : IAuditData
+public class AuditData(
+    AuditDataContext _auditDataContext,
+    IAuditIdGenerator _auditIdGenerator,
+    ISessionBusiness _sessionBusiness) : IAuditData
 {
     private DbSet<UserLog>? _userLogDbSet;
     private DbSet<UserEmailAddressLog>? _userEmailAddressLogDbSet;
@@ -50,7 +53,7 @@ public class AuditData(AuditDataContext _auditDataContext, IAuditIdGenerator _au
             {
                 _userLogDbSet ??= _auditDataContext.Set<UserLog>();
 
-                var userLog = user.MapUserLog(_auditIdGenerator.UserLogId, _userSession.UserId, utcNow);
+                var userLog = user.MapUserLog(_auditIdGenerator.UserLogId, _sessionBusiness.UserId, utcNow);
 
                 await _userLogDbSet.AddAsync(userLog);
             }
@@ -58,7 +61,7 @@ public class AuditData(AuditDataContext _auditDataContext, IAuditIdGenerator _au
             {
                 _userEmailAddressLogDbSet ??= _auditDataContext.Set<UserEmailAddressLog>();
 
-                var userEmailAddressLog = userEmailAddress.MapUserEmailAddressLog(_auditIdGenerator.UserEmailAddressLogId, _userSession.UserId, utcNow);
+                var userEmailAddressLog = userEmailAddress.MapUserEmailAddressLog(_auditIdGenerator.UserEmailAddressLogId, _sessionBusiness.UserId, utcNow);
 
                 await _userEmailAddressLogDbSet.AddAsync(userEmailAddressLog);
             }

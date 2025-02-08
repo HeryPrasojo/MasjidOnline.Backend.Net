@@ -1,7 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
-using MasjidOnline.Business.Interface.Model;
+﻿using System.Threading.Tasks;
 using MasjidOnline.Business.Interface.Model.Responses;
+using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface;
 using MasjidOnline.Business.User.Interface.Model;
 using MasjidOnline.Data.Interface.Datas;
@@ -15,7 +14,7 @@ public class PasswordSetBusiness(
     IFieldValidatorService _fieldValidatorService,
     IHash512Service _hash512Service) : IPasswordSetBusiness
 {
-    public async Task<Response> SetAsync(Session _session, ISessionsData _sessionsData, IUsersData _usersData, SetPasswordRequest setPasswordRequest)
+    public async Task<Response> SetAsync(ISessionBusiness _sessionBusiness, ISessionsData _sessionsData, IUsersData _usersData, SetPasswordRequest setPasswordRequest)
     {
         var passwordCodeBytes = _fieldValidatorService.ValidateRequiredHex(setPasswordRequest.PasswordCode, 128);
         setPasswordRequest.Password = _fieldValidatorService.ValidateRequiredTextShort(setPasswordRequest.Password);
@@ -34,23 +33,13 @@ public class PasswordSetBusiness(
         var passwordBytes = _hash512Service.Hash(setPasswordRequest.Password);
 
         // todo use inter database transaction
-        _usersData.User.UpdatePasswordAndSaveAsync(passwordCode.UserId, passwordBytes);
+        var updateTask = _usersData.User.UpdatePasswordAndSaveAsync(passwordCode.UserId, passwordBytes);
 
 
-        var sessionEntity = new Entity.Sessions.Session
-        {
-            DateTime = DateTime.UtcNow,
-            Id = _hash512Service.RandomDigestBytes,
-            PreviousId = _session.Id,
-            UserId = passwordCode.UserId,
-        };
-
-        await _sessionsData.Session.AddAndSaveAsync(sessionEntity);
+        var changeTask = _sessionBusiness.ChangeAsync(passwordCode.UserId);
 
 
-        _session.Id = sessionEntity.Id;
-        _session.UserId = sessionEntity.UserId;
-        _session.NewId = sessionEntity.Id;
+        await Task.WhenAll(updateTask, changeTask);
 
         return new()
         {

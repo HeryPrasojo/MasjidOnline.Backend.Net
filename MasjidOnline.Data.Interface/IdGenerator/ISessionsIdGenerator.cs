@@ -5,6 +5,7 @@ namespace MasjidOnline.Data.Interface.IdGenerator;
 
 public interface ISessionsIdGenerator
 {
+    byte[] SessionId { get; }
 
     Task InitializeAsync(ISessionsData sessionData);
 }

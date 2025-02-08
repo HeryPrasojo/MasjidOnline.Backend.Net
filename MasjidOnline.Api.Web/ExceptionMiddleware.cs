@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text.Json;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Interface.Model;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
@@ -16,7 +15,7 @@ public class ExceptionMiddleware(
     IHostEnvironment _hostEnvironment,
     IEventIdGenerator _eventIdGenerator)
 {
-    public async Task Invoke(HttpContext httpContext, IEventData eventData, Session session)
+    public async Task Invoke(HttpContext httpContext, IEventData eventData)
     {
         try
         {

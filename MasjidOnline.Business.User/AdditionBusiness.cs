@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Interface.Model;
+using MasjidOnline.Business.Interface.Model.Options;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.User.Interface;
 using MasjidOnline.Business.User.Interface.Model;
@@ -8,29 +8,35 @@ using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.Users;
 using MasjidOnline.Service.FieldValidator.Interface;
+using MasjidOnline.Service.Mail.Interface;
+using MasjidOnline.Service.Mail.Interface.Model;
+using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Business.User;
 
 public class AdditionBusiness(
-    IUsersIdGenerator _userIdGenerator,
+    IOptionsMonitor<Option> _optionsMonitor,
+    IMailSenderService _mailSenderService,
+    IUsersIdGenerator _usersIdGenerator,
     IFieldValidatorService _fieldValidatorService) : IAdditionBusiness
 {
-    public async Task<Response> AddAsync(Session _userSession, IUsersData _userData, AddRequest addRequest)
+    public async Task<Response> AddAsync(IUsersData _usersData, AddRequest addRequest)
     {
         _fieldValidatorService.ValidateRequired(addRequest);
 
         addRequest.EmailAddress = _fieldValidatorService.ValidateRequiredEmailAddress(addRequest.EmailAddress);
         addRequest.Name = _fieldValidatorService.ValidateRequiredTextShort(addRequest.Name);
 
+
         var user = new Entity.Users.User
         {
-            Id = _userIdGenerator.UserId,
+            Id = _usersIdGenerator.UserId,
             EmailAddress = addRequest.EmailAddress,
             Name = addRequest.Name,
             UserType = UserType.Internal,
         };
 
-        await _userData.User.AddAsync(user);
+        await _usersData.User.AddAsync(user);
 
 
         var userEmailAddress = new UserEmailAddress
@@ -39,11 +45,36 @@ public class AdditionBusiness(
             UserId = user.Id,
         };
 
-        await _userData.UserEmailAddress.AddAsync(userEmailAddress);
+        await _usersData.UserEmailAddress.AddAsync(userEmailAddress);
 
-        await _userData.SaveAsync();
 
-        // undone 3
-        throw new NotImplementedException();
+        var passwordCode = new PasswordCode
+        {
+            Code = _usersIdGenerator.PasswordCodeCode,
+            DateTime = DateTime.UtcNow,
+            UserId = user.Id,
+        };
+
+        await _usersData.PasswordCode.AddAsync(passwordCode);
+
+        await _usersData.SaveAsync();
+
+
+        var uri = _optionsMonitor.CurrentValue.Uri.UserPassword + Convert.ToHexString(passwordCode.Code);
+
+        var mailMessage = new MailMessage
+        {
+            BodyHtml = $"<p>Please use the following link to set your password: <a href='{uri}'>{uri}</a> first.</p>",
+            BodyText = $"Please use the following link to set your password: {uri} first",
+            Subject = "MasjidOnline Password",
+            To = [new MailAddress(user.Name, userEmailAddress.EmailAddress)],
+        };
+
+        await _mailSenderService.SendMailAsync(mailMessage);
+
+        return new()
+        {
+            ResultCode = ResponseResult.Success
+        };
     }
 }

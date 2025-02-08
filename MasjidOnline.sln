@@ -54,6 +54,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Mail.M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Mail.Interface", "MasjidOnline.Service.Mail.Interface\MasjidOnline.Service.Mail.Interface.csproj", "{47EA932D-324B-43AE-A42A-1B855C414F13}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Session", "MasjidOnline.Business.Session\MasjidOnline.Business.Session.csproj", "{92780EE7-EA9F-4CE5-939F-1C028B5EF84E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Session.Interface", "MasjidOnline.Business.Session.Interface\MasjidOnline.Business.Session.Interface.csproj", "{EAB563B8-B6A6-47C9-9AFC-D4FDB439F70B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -152,6 +156,14 @@ Global
 		{47EA932D-324B-43AE-A42A-1B855C414F13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47EA932D-324B-43AE-A42A-1B855C414F13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47EA932D-324B-43AE-A42A-1B855C414F13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92780EE7-EA9F-4CE5-939F-1C028B5EF84E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92780EE7-EA9F-4CE5-939F-1C028B5EF84E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92780EE7-EA9F-4CE5-939F-1C028B5EF84E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92780EE7-EA9F-4CE5-939F-1C028B5EF84E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAB563B8-B6A6-47C9-9AFC-D4FDB439F70B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAB563B8-B6A6-47C9-9AFC-D4FDB439F70B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAB563B8-B6A6-47C9-9AFC-D4FDB439F70B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAB563B8-B6A6-47C9-9AFC-D4FDB439F70B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

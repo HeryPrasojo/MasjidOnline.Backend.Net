@@ -11,8 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MasjidOnline.Business.Interface\MasjidOnline.Business.Interface.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Business.Session.Interface\MasjidOnline.Business.Session.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Data.Interface\MasjidOnline.Data.Interface.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Service.Hash512.Interface\MasjidOnline.Service.Hash512.Interface.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Library\MasjidOnline.Library.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Service.FieldValidator.Interface\MasjidOnline.Service.FieldValidator.Interface.csproj" />
   </ItemGroup>
 
 </Project>

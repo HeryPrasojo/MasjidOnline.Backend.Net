@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Interface.Model;
 using MasjidOnline.Business.Interface.Model.Responses;
+using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface;
 using MasjidOnline.Business.User.Interface.Model;
 using MasjidOnline.Data.Interface.Datas;
@@ -13,7 +13,7 @@ namespace MasjidOnline.Business.User;
 
 public class LoginBusiness(IHash512Service _hash512Service) : ILoginBusiness
 {
-    public async Task<Response> LoginAsync(IUsersData _usersData, ISessionsData _sessionsData, Session session, LoginRequest loginRequest)
+    public async Task<Response> LoginAsync(IUsersData _usersData, ISessionsData _sessionsData, ISessionBusiness _sessionBusiness, LoginRequest loginRequest)
     {
         var userEmailAddress = await _usersData.UserEmailAddress.GetForLoginAsync(loginRequest.EmailAddress);
 
@@ -32,22 +32,7 @@ public class LoginBusiness(IHash512Service _hash512Service) : ILoginBusiness
         if (!requestPasswordHashBytes.SequenceEqual(user.Password)) throw new InputMismatchException(nameof(loginRequest.Password));
 
 
-        var previousSessionId = session.Id;
-
-        session.Id = _hash512Service.RandomDigestBytes;
-        session.NewId = session.Id;
-        session.UserId = userEmailAddress.UserId;
-
-
-        var sessionEntity = new Entity.Sessions.Session
-        {
-            DateTime = DateTime.UtcNow,
-            Id = session.Id,
-            PreviousId = previousSessionId,
-            UserId = session.UserId,
-        };
-
-        await _sessionsData.Session.AddAndSaveAsync(sessionEntity);
+        await _sessionBusiness.ChangeAsync(userEmailAddress.UserId);
 
         return new()
         {

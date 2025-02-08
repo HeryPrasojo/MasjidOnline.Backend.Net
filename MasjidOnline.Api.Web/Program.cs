@@ -3,8 +3,9 @@ using System.Threading.Tasks;
 using MasjidOnline.Api.Web;
 using MasjidOnline.Business.Captcha;
 using MasjidOnline.Business.Infaq;
-using MasjidOnline.Business.Interface.Model;
 using MasjidOnline.Business.Interface.Model.Options;
+using MasjidOnline.Business.Session;
+using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User;
 using MasjidOnline.Data;
 using MasjidOnline.Data.EntityFramework;
@@ -78,9 +79,8 @@ static WebApplication BuildApplication(string[] args)
 
     webApplicationBuilder.Services.AddDonationBusiness();
     webApplicationBuilder.Services.AddCaptchaBusiness();
+    webApplicationBuilder.Services.AddSessionBusiness();
     webApplicationBuilder.Services.AddUserBusiness();
-
-    webApplicationBuilder.Services.AddScoped<Session>();
 
     #endregion
 
@@ -119,10 +119,12 @@ static async Task InitializeAsync(WebApplication webApplication)
     var transactionsIdGenerator = GetService<ITransactionsIdGenerator>(serviceScope.ServiceProvider);
     var usersIdGenerator = GetService<IUsersIdGenerator>(serviceScope.ServiceProvider);
 
-    var session = GetService<Session>(serviceScope.ServiceProvider);
+    var sessionBusiness = GetService<ISessionBusiness>(serviceScope.ServiceProvider);
 
     var userInitializerBusiness = GetService<MasjidOnline.Business.User.Interface.IInitializerBusiness>(serviceScope.ServiceProvider);
 
+
+    sessionBusiness.Initialize();
 
     await auditInitializer.InitializeDatabaseAsync(auditData);
     await coreInitializer.InitializeDatabaseAsync(coreData);
@@ -142,7 +144,7 @@ static async Task InitializeAsync(WebApplication webApplication)
     await usersIdGenerator.InitializeAsync(usersData);
 
 
-    await userInitializerBusiness.InitializeAsync(session, usersData);
+    await userInitializerBusiness.InitializeAsync(sessionBusiness, usersData);
 }
 
 static TService GetService<TService>(IServiceProvider serviceProvider)

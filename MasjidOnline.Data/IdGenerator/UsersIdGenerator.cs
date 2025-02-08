@@ -2,10 +2,11 @@
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
+using MasjidOnline.Service.Hash512.Interface;
 
 namespace MasjidOnline.Data.IdGenerator;
 
-public class UserIdGenerator : IUsersIdGenerator
+public class UsersIdGenerator(IHash512Service _hash512Service) : IUsersIdGenerator
 {
     private int _userId;
 
@@ -15,5 +16,7 @@ public class UserIdGenerator : IUsersIdGenerator
     }
 
     public int UserId => Interlocked.Increment(ref _userId);
+
+    public byte[] PasswordCodeCode => _hash512Service.RandomDigestBytes;
 
 }
