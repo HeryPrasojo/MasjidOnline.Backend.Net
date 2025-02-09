@@ -1,12 +1,11 @@
-﻿using System.Threading.Tasks;
-using MasjidOnline.Data.EntityFramework.DataContext;
+﻿using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.EntityFramework.Repository.Users;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.Repository.Users;
 
 namespace MasjidOnline.Data.EntityFramework.Datas;
 
-public class UsersData(UsersDataContext _userDataContext, IAuditData _auditData) : IUsersData
+public class UsersData(UsersDataContext _userDataContext, IAuditData _auditData) : DataWithAudit(_userDataContext, _auditData), IUsersData
 {
     private IUserSettingRepository? _userSettingRepository;
 
@@ -23,18 +22,4 @@ public class UsersData(UsersDataContext _userDataContext, IAuditData _auditData)
     public IUserRepository User => _userRepository ??= new UserRepository(_userDataContext);
 
     public IUserEmailAddressRepository UserEmailAddress => _userEmailAddressRepository ??= new UserEmailAddressRepository(_userDataContext);
-
-
-    public async Task SaveAsync()
-    {
-        var entityEntries = _userDataContext.ChangeTracker.Entries();
-
-        var auditData = (AuditData)_auditData;
-
-        await auditData.AddAsync(entityEntries);
-
-        await _userDataContext.SaveChangesAsync();
-
-        await auditData.SaveAsync();
-    }
 }

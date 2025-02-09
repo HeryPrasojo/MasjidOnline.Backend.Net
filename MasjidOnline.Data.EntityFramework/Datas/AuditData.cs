@@ -11,14 +11,13 @@ using MasjidOnline.Data.Mapper;
 using MasjidOnline.Entity.Audit;
 using MasjidOnline.Entity.Users;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace MasjidOnline.Data.EntityFramework.Datas;
 
 public class AuditData(
     AuditDataContext _auditDataContext,
     IAuditIdGenerator _auditIdGenerator,
-    ISessionBusiness _sessionBusiness) : IAuditData
+    ISessionBusiness _sessionBusiness) : Data(_auditDataContext), IAuditData
 {
     private DbSet<UserLog>? _userLogDbSet;
     private DbSet<UserEmailAddressLog>? _userEmailAddressLogDbSet;
@@ -31,25 +30,13 @@ public class AuditData(
     public IUserEmailAddressLogRepository UserEmailAddressLog => _userEmailAddressLogRepository ??= new UserEmailAddressLogRepository(_auditDataContext);
     public IUserLogRepository UserLog => _userLogRepository ??= new UserLogRepository(_auditDataContext);
 
-    internal async Task AddAsync(IEnumerable<EntityEntry> entityEntries)
+    public async Task AddAsync(IEnumerable<object> entities)
     {
-        var entityStates = new[]
-       {
-            EntityState.Added,
-            EntityState.Deleted,
-            EntityState.Modified,
-        };
-
         var utcNow = DateTime.UtcNow;
 
-        foreach (var entityEntry in entityEntries)
+        foreach (var entity in entities)
         {
-            var exists = Array.Exists(entityStates, s => s == entityEntry.State);
-
-            if (!exists) continue;
-
-
-            if (entityEntry.Entity is User user)
+            if (entity is User user)
             {
                 _userLogDbSet ??= _auditDataContext.Set<UserLog>();
 
@@ -57,7 +44,7 @@ public class AuditData(
 
                 await _userLogDbSet.AddAsync(userLog);
             }
-            else if (entityEntry.Entity is UserEmailAddress userEmailAddress)
+            else if (entity is UserEmailAddress userEmailAddress)
             {
                 _userEmailAddressLogDbSet ??= _auditDataContext.Set<UserEmailAddressLog>();
 
@@ -66,10 +53,5 @@ public class AuditData(
                 await _userEmailAddressLogDbSet.AddAsync(userEmailAddressLog);
             }
         }
-    }
-
-    public async Task SaveAsync()
-    {
-        await _auditDataContext.SaveChangesAsync();
     }
 }
