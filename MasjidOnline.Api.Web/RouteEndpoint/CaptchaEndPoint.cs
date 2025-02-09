@@ -27,7 +27,6 @@ internal static class CaptchaEndPoint
     }
 
     internal static async Task<Response> AnswerQuestionAsync(
-        HttpContext httpContext,
         IAnswerBusiness captchaAnswerBusiness,
         ICaptchaData _captchaData,
         ISessionBusiness _sessionBusiness,
