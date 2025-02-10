@@ -22,6 +22,11 @@ public class TransactionRepository(TransactionsDataContext _transactionDataConte
         await SaveAsync();
     }
 
+    public async Task<int> GetAsync()
+    {
+        return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
+    }
+
     public async Task<int> GetMaxIdAsync()
     {
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;

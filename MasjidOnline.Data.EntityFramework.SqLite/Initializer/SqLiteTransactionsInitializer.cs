@@ -31,13 +31,12 @@ public class SqLiteTransactionsInitializer(
             (
                 Id INTEGER PRIMARY KEY,
                 DateTime TEXT NOT NULL,
-                PaymentStatus INTEGER NOT NULL,
                 Type INTEGER NOT NULL,
-                UserType INTEGER NOT NULL,
+                PaymentStatus INTEGER NOT NULL,
+                PaymentType INTEGER NOT NULL,
                 UserId INTEGER NULL,
                 MunfiqName INTEGER NOT NULL,
                 Amount REAL NOT NULL,
-                PaymentType INTEGER NOT NULL,
                 ManualBankTransferDateTime TEXT NOT NULL,
                 ManualBankTransferNotes TEXT NOT NULL
             )";
