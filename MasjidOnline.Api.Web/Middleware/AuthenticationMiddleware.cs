@@ -2,7 +2,7 @@
 using MasjidOnline.Business.Session.Interface;
 using Microsoft.AspNetCore.Http;
 
-namespace MasjidOnline.Api.Web;
+namespace MasjidOnline.Api.Web.Middleware;
 
 public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate)
 {
@@ -15,9 +15,7 @@ public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate)
         httpContext.Response.OnStarting(() =>
         {
             if (_sessionBusiness.IsDigestNew)
-            {
                 httpContext.Response.Cookies.Append(Constant.HttpCookieSessionName, _sessionBusiness.DigestBase64);
-            }
 
             return Task.CompletedTask;
         });

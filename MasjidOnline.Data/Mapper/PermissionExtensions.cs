@@ -15,7 +15,7 @@ public static class PermissionExtensions
             DateTime = dateTime,
 
             UserId = permission.UserId,
-            UserAddInternal = permission.UserAddInternal,
+            UserInternalAdd = permission.UserInternalAdd,
         };
     }
 }

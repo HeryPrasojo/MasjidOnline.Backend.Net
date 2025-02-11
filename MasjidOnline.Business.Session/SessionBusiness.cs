@@ -15,6 +15,7 @@ public class SessionBusiness(
     ISessionsData _sessionsData,
     ISessionsIdGenerator _sessionsIdGenerator) : ISessionBusiness
 {
+    // todo encrypt
     private byte[]? digest;
 
     public int Id { get; private set; }
@@ -69,5 +70,16 @@ public class SessionBusiness(
                 UserId = sessionEntity.UserId;
             }
         }
+    }
+
+
+    // hack move these all to somewhere else
+    public void Authorize(bool userInternalAdd = false)
+    {
+    }
+
+    public void ThrowAnonymous()
+    {
+        if (UserId == Constant.AnonymousUserId) throw new PermissionException(nameof(Constant.AnonymousUserId));
     }
 }

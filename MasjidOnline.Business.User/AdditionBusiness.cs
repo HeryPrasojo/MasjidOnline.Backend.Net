@@ -23,7 +23,8 @@ public class AdditionBusiness(
 {
     public async Task<Response> AddAsync(ISessionBusiness _sessionBusiness, IUsersData _usersData, AddRequest addRequest)
     {
-        _sessionBusiness.Id;
+        _sessionBusiness.ThrowAnonymous();
+        _sessionBusiness.Authorize();
 
 
         _fieldValidatorService.ValidateRequired(addRequest);

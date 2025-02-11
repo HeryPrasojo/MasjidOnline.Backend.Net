@@ -1,6 +1,8 @@
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using MasjidOnline.Api.Web;
+using MasjidOnline.Api.Web.Middleware;
 using MasjidOnline.Business.Captcha;
 using MasjidOnline.Business.Infaq;
 using MasjidOnline.Business.Interface.Model.Options;
@@ -23,6 +25,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 var webApplication = BuildApplication(args);
 
@@ -30,7 +33,14 @@ await InitializeAsync(webApplication);
 
 var option = webApplication.Configuration.Get<Option>() ?? throw new ApplicationException($"Get {nameof(Option)} fail");
 
-webApplication.UseMiddleware<ExceptionMiddleware>();
+if (webApplication.Environment.IsDevelopment() || Debugger.IsAttached)
+{
+    webApplication.UseMiddleware<DevelopmentExceptionMiddleware>();
+}
+else
+{
+    webApplication.UseMiddleware<ExceptionMiddleware>();
+}
 
 webApplication.UseCors();
 
@@ -60,7 +70,7 @@ static WebApplication BuildApplication(string[] args)
         corsOptions.AddDefaultPolicy(corsPolicyBuilder =>
         {
             corsPolicyBuilder.WithOrigins(option.Uri.WebOrigin)
-                .WithExposedHeaders(MasjidOnline.Api.Web.Constant.HttpHeaderName.ResultCode, MasjidOnline.Api.Web.Constant.HttpHeaderName.ResultMessage)
+                .WithExposedHeaders(Constant.HttpHeaderName.ResultCode, Constant.HttpHeaderName.ResultMessage)
                 .AllowCredentials()
                 .AllowAnyHeader();
         });

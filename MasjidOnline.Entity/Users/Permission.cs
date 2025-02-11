@@ -4,5 +4,5 @@ public class Permission
 {
     public required int UserId { get; set; }
 
-    public required bool UserAddInternal { get; set; }
+    public required bool UserInternalAdd { get; set; }
 }

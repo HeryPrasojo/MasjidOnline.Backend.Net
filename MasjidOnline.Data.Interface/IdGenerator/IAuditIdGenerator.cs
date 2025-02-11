@@ -7,6 +7,7 @@ public interface IAuditIdGenerator
 {
     int UserLogId { get; }
     int UserEmailAddressLogId { get; }
+    int PermissionLogId { get; }
 
     Task InitializeAsync(IAuditData auditData);
 }
