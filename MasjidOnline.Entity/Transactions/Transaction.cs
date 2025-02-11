@@ -9,8 +9,6 @@ public class Transaction
 
     public required DateTime DateTime { get; set; }
 
-    public required PaymentStatus PaymentStatus { get; set; }
-
     public required TransactionType Type { get; set; }
 
     public int UserId { get; set; }
@@ -19,8 +17,10 @@ public class Transaction
 
     public required decimal Amount { get; set; }
 
+
     public required PaymentType PaymentType { get; set; }
 
+    public required PaymentStatus PaymentStatus { get; set; }
 
     // PaymentType.Manual*
 
