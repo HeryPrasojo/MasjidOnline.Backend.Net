@@ -39,6 +39,18 @@ public class SqLiteUserInitializer(
         return await _userDataContext.Database.ExecuteSqlAsync(sql);
     }
 
+    protected override async Task<int> CreateTablePermissionAsync()
+    {
+        FormattableString sql = @$"
+            CREATE TABLE Permission
+            (
+                UserId INTEGER PRIMARY KEY,
+                UserAddInternal INTEGER NOT NULL
+            )";
+
+        return await _userDataContext.Database.ExecuteSqlAsync(sql);
+    }
+
     protected override async Task<int> CreateTableUserAsync()
     {
         FormattableString sql = @$"

@@ -9,6 +9,8 @@ public class UsersDataContext(DbContextOptions _dbContextOptions) : DbContext(_d
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<PasswordCode>();
+        modelBuilder.Entity<Permission>();
         modelBuilder.Entity<User>();
         modelBuilder.Entity<UserEmailAddress>();
 

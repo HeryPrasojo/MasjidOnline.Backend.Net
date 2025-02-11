@@ -44,7 +44,7 @@ public class SessionBusiness(
         UserId = session.UserId;
     }
 
-    public async Task StartAsync(string? idBase64, [CallerArgumentExpression("idBase64")] string? idBase64Expression = default)
+    public async Task StartAsync(string? idBase64, [CallerArgumentExpression(nameof(idBase64))] string? idBase64Expression = default)
     {
         if (idBase64 == default)
         {

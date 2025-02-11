@@ -11,5 +11,5 @@ public interface ISessionBusiness
     int Id { get; }
 
     Task ChangeAsync(int userId);
-    Task StartAsync(string? idBase64, [CallerArgumentExpression("idBase64")] string? idBase64Expression = null);
+    Task StartAsync(string? idBase64, [CallerArgumentExpression(nameof(idBase64))] string? idBase64Expression = null);
 }

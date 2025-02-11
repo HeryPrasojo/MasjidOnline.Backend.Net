@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface.Model.Options;
 using MasjidOnline.Business.Interface.Model.Responses;
+using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface;
 using MasjidOnline.Business.User.Interface.Model;
 using MasjidOnline.Data.Interface.Datas;
@@ -20,8 +21,11 @@ public class AdditionBusiness(
     IUsersIdGenerator _usersIdGenerator,
     IFieldValidatorService _fieldValidatorService) : IAdditionBusiness
 {
-    public async Task<Response> AddAsync(IUsersData _usersData, AddRequest addRequest)
+    public async Task<Response> AddAsync(ISessionBusiness _sessionBusiness, IUsersData _usersData, AddRequest addRequest)
     {
+        _sessionBusiness.Id;
+
+
         _fieldValidatorService.ValidateRequired(addRequest);
 
         addRequest.EmailAddress = _fieldValidatorService.ValidateRequiredEmailAddress(addRequest.EmailAddress);

@@ -19,14 +19,17 @@ public class AuditData(
     IAuditIdGenerator _auditIdGenerator,
     ISessionBusiness _sessionBusiness) : Data(_auditDataContext), IAuditData
 {
+    private DbSet<PermissionLog>? _permissionLogDbSet;
     private DbSet<UserLog>? _userLogDbSet;
     private DbSet<UserEmailAddressLog>? _userEmailAddressLogDbSet;
 
     private IAuditSettingRepository? _auditSettingRepository;
+    private IPermissionLogRepository? _permissionLogRepository;
     private IUserEmailAddressLogRepository? _userEmailAddressLogRepository;
     private IUserLogRepository? _userLogRepository;
 
     public IAuditSettingRepository AuditSetting => _auditSettingRepository ??= new AuditSettingRepository(_auditDataContext);
+    public IPermissionLogRepository PermissionLog => _permissionLogRepository ??= new PermissionLogRepository(_auditDataContext);
     public IUserEmailAddressLogRepository UserEmailAddressLog => _userEmailAddressLogRepository ??= new UserEmailAddressLogRepository(_auditDataContext);
     public IUserLogRepository UserLog => _userLogRepository ??= new UserLogRepository(_auditDataContext);
 
@@ -51,6 +54,14 @@ public class AuditData(
                 var userEmailAddressLog = userEmailAddress.MapUserEmailAddressLog(_auditIdGenerator.UserEmailAddressLogId, _sessionBusiness.UserId, utcNow);
 
                 await _userEmailAddressLogDbSet.AddAsync(userEmailAddressLog);
+            }
+            else if (entity is Permission permission)
+            {
+                _permissionLogDbSet ??= _auditDataContext.Set<PermissionLog>();
+
+                var permissionLog = permission.MapPermissionLog(_auditIdGenerator.PermissionLogId, _sessionBusiness.UserId, utcNow);
+
+                await _permissionLogDbSet.AddAsync(permissionLog);
             }
         }
     }

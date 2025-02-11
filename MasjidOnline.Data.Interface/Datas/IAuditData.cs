@@ -8,6 +8,7 @@ public interface IAuditData : IData
 {
     IAuditSettingRepository AuditSetting { get; }
 
+    IPermissionLogRepository PermissionLog { get; }
     IUserLogRepository UserLog { get; }
     IUserEmailAddressLogRepository UserEmailAddressLog { get; }
 

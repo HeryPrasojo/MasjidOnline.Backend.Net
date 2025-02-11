@@ -9,8 +9,11 @@ namespace MasjidOnline.Api.Web.RouteEndpoint;
 
 internal static class UserEndPoint
 {
-    // undone 2 authorization
-    internal static async Task<Response> Addsync(IAdditionBusiness _additionBusiness, IUsersData _usersData, AddRequest addRequest)
+    internal static async Task<Response> Addsync(
+        IAdditionBusiness _additionBusiness,
+        ISessionBusiness _sessionBusiness,
+        IUsersData _usersData,
+        AddRequest addRequest)
     {
         return await _additionBusiness.AddAsync(_usersData, addRequest);
     }

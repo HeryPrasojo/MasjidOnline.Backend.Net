@@ -17,6 +17,7 @@ public abstract class UserInitializer(IUsersDefinition _userDefinition) : IUsers
             await CreateTableUserSettingAsync();
 
             await CreateTablePasswordCodeAsync();
+            await CreateTablePermissionAsync();
             await CreateTableUserAsync();
             await CreateTableUserEmailAddressAsync();
 
@@ -38,6 +39,7 @@ public abstract class UserInitializer(IUsersDefinition _userDefinition) : IUsers
     protected abstract Task<int> CreateTableUserSettingAsync();
 
     protected abstract Task<int> CreateTablePasswordCodeAsync();
+    protected abstract Task<int> CreateTablePermissionAsync();
     protected abstract Task<int> CreateTableUserAsync();
     protected abstract Task<int> CreateTableUserEmailAddressAsync();
 }

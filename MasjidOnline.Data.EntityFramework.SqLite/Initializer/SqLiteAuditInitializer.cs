@@ -24,6 +24,22 @@ public class SqLiteAuditInitializer(
         return await _auditDataContext.Database.ExecuteSqlAsync(sql);
     }
 
+    protected override async Task<int> CreateTablePermissionLogAsync()
+    {
+        FormattableString sql = @$"
+            CREATE TABLE PermissionLog
+            (
+                PermissionLogId INTEGER PRIMARY KEY,
+                SessionUserId INTEGER NOT NULL,
+                DateTime TEXT NOT NULL,
+
+                UserId INTEGER NOT NULL,
+                UserAddInternal INTEGER NOT NULL
+            )";
+
+        return await _auditDataContext.Database.ExecuteSqlAsync(sql);
+    }
+
     protected override async Task<int> CreateTableUserLogAsync()
     {
         FormattableString sql = @$"
