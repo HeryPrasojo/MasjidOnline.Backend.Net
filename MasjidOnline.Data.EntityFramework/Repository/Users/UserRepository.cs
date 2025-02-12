@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Model.User;
@@ -17,10 +17,24 @@ public class UserRepository(UsersDataContext _userDataContext) : IUserRepository
         await _dbSet.AddAsync(user);
     }
 
+
     public async Task<bool> GetAnyByIdAsync(int id)
     {
         return await _dbSet.AnyAsync(e => e.Id == id);
     }
+
+    public async Task<int> GetMaxIdAsync()
+    {
+        return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
+    }
+
+    public async Task<UserType> GetTypeByIdAsync(int userId)
+    {
+        return await _dbSet.Where(e => e.Id == userId)
+            .Select(e => e.Type)
+            .FirstOrDefaultAsync();
+    }
+
 
     public async Task<UserForLogin?> GetForLoginAsync(int id)
     {
@@ -32,10 +46,6 @@ public class UserRepository(UsersDataContext _userDataContext) : IUserRepository
             .FirstOrDefaultAsync();
     }
 
-    public async Task<int> GetMaxIdAsync()
-    {
-        return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
-    }
 
     public async Task UpdatePasswordAndSaveAsync(int id, byte[] password)
     {

@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Model.User;
 using MasjidOnline.Entity.Users;
 
@@ -10,5 +10,6 @@ public interface IUserRepository
     Task<bool> GetAnyByIdAsync(int id);
     Task<UserForLogin?> GetForLoginAsync(int id);
     Task<int> GetMaxIdAsync();
+    Task<UserType> GetTypeByIdAsync(int userId);
     Task UpdatePasswordAndSaveAsync(int id, byte[] password);
 }

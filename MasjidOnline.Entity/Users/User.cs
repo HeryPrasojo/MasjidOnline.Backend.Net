@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Entity.Users;
+namespace MasjidOnline.Entity.Users;
 
 public class User
 {
@@ -6,7 +6,7 @@ public class User
 
     public string Name { get; set; } = default!;
 
-    public UserType UserType { get; set; }
+    public UserType Type { get; set; }
 
     /// <summary>
     /// primary email address

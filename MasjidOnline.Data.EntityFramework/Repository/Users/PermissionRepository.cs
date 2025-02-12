@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.Users;
 using MasjidOnline.Entity.Users;
@@ -13,5 +13,11 @@ public class PermissionRepository(UsersDataContext _userDataContext) : IPermissi
     public async Task AddAsync(Permission permission)
     {
         await _dbSet.AddAsync(permission);
+    }
+
+    // hack multiple specific column only
+    public async Task<Permission?> GetByUserIdAsync(int userId)
+    {
+        return await _dbSet.FirstOrDefaultAsync(e => e.UserId == userId);
     }
 }

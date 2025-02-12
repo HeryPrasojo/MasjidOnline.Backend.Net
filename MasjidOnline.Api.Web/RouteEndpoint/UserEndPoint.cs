@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface;
@@ -15,7 +15,7 @@ internal static class UserEndPoint
         IUsersData _usersData,
         AddRequest addRequest)
     {
-        return await _additionBusiness.AddAsync(_usersData, addRequest);
+        return await _additionBusiness.AddAsync(_sessionBusiness, _usersData, addRequest);
     }
 
     internal static async Task<Response> LoginAsync(

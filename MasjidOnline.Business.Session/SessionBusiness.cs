@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface.Model;
@@ -70,16 +70,5 @@ public class SessionBusiness(
                 UserId = sessionEntity.UserId;
             }
         }
-    }
-
-
-    // hack move these all to somewhere else
-    public void Authorize(bool userInternalAdd = false)
-    {
-    }
-
-    public void ThrowAnonymous()
-    {
-        if (UserId == Constant.AnonymousUserId) throw new PermissionException(nameof(Constant.AnonymousUserId));
     }
 }

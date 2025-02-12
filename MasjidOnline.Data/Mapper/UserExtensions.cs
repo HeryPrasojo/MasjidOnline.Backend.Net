@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using MasjidOnline.Entity.Audit;
 using MasjidOnline.Entity.Users;
 
@@ -18,7 +18,7 @@ public static class UserExtensions
             EmailAddress = user.EmailAddress,
             Name = user.Name,
             Password = user.Password,
-            UserType = user.UserType,
+            Type = user.Type,
         };
     }
 }

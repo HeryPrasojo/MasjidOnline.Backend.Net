@@ -1,9 +1,8 @@
-﻿namespace MasjidOnline.Entity.Users;
+namespace MasjidOnline.Entity.Users;
 
 public enum UserType
 {
     Anonymous = 0,
-    Root = 11,
-    Internal = 31,
-    External = 41,
+    External = 2,
+    Internal = 8,
 }

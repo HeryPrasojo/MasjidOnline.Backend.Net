@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
+using MasjidOnline.Business.AuthorizationBusiness.Interface;
 using MasjidOnline.Business.Interface.Model.Options;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
@@ -17,14 +18,17 @@ namespace MasjidOnline.Business.User;
 
 public class AdditionBusiness(
     IOptionsMonitor<Option> _optionsMonitor,
+    IAuthorizationBusiness _authorizationBusiness,
     IMailSenderService _mailSenderService,
     IUsersIdGenerator _usersIdGenerator,
     IFieldValidatorService _fieldValidatorService) : IAdditionBusiness
 {
-    public async Task<Response> AddAsync(ISessionBusiness _sessionBusiness, IUsersData _usersData, AddRequest addRequest)
+    public async Task<Response> AddAsync(
+        ISessionBusiness _sessionBusiness,
+        IUsersData _usersData,
+        AddRequest addRequest)
     {
-        _sessionBusiness.ThrowAnonymous();
-        _sessionBusiness.Authorize();
+        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _usersData, userInternalAdd: true);
 
 
         _fieldValidatorService.ValidateRequired(addRequest);
@@ -38,7 +42,7 @@ public class AdditionBusiness(
             Id = _usersIdGenerator.UserId,
             EmailAddress = addRequest.EmailAddress,
             Name = addRequest.Name,
-            UserType = UserType.Internal,
+            Type = UserType.Internal,
         };
 
         await _usersData.User.AddAsync(user);

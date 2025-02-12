@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface.Model;
 using MasjidOnline.Business.Interface.Model.Options;
@@ -33,7 +33,7 @@ public class InitializerBusiness(
             Id = Constant.RootUserId,
             EmailAddress = option.RootUserEmailAddress,
             Name = "Root",
-            UserType = UserType.Root,
+            Type = UserType.Internal,
         };
 
         await _usersData.User.AddAsync(user);
@@ -56,6 +56,16 @@ public class InitializerBusiness(
         };
 
         await _usersData.PasswordCode.AddAsync(passwordCode);
+
+
+        var permission = new Permission
+        {
+            UserId = user.Id,
+
+            UserInternalAdd = true,
+        };
+
+        await _usersData.Permission.AddAsync(permission);
 
 
         await _usersData.SaveAsync();

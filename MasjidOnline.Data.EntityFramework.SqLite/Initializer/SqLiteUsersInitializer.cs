@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Initializer;
@@ -58,7 +58,7 @@ public class SqLiteUserInitializer(
             (
                 Id INTEGER PRIMARY KEY,
                 Name TEXT NOT NULL,
-                UserType INTEGER NOT NULL,
+                Type INTEGER NOT NULL,
                 EmailAddress TEXT NOT NULL,
                 Password BLOB
             )";
