@@ -17,7 +17,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ITransactionsIdGenerator, TransactionsIdGenerator>();
         services.AddSingleton<IUsersIdGenerator, UsersIdGenerator>();
 
-        services.AddSingleton<IDataTransaction, DataTransaction>();
+        services.AddScoped<IDataTransaction, DataTransaction>();
 
         return services;
     }

@@ -12,11 +12,10 @@ using MasjidOnline.Service.Hash512.Interface;
 namespace MasjidOnline.Business.User;
 
 public class PasswordSetBusiness(
-    IDataTransaction _dataTransaction,
     IFieldValidatorService _fieldValidatorService,
     IHash512Service _hash512Service) : IPasswordSetBusiness
 {
-    public async Task<Response> SetAsync(ISessionBusiness _sessionBusiness, IUsersData _usersData, SetPasswordRequest setPasswordRequest)
+    public async Task<Response> SetAsync(IDataTransaction _dataTransaction, ISessionBusiness _sessionBusiness, IUsersData _usersData, SetPasswordRequest setPasswordRequest)
     {
         var passwordCodeBytes = _fieldValidatorService.ValidateRequiredHex(setPasswordRequest.PasswordCode, 128);
         setPasswordRequest.Password = _fieldValidatorService.ValidateRequiredTextShort(setPasswordRequest.Password);
@@ -36,7 +35,7 @@ public class PasswordSetBusiness(
 
         var passwordBytes = _hash512Service.Hash(setPasswordRequest.Password);
 
-        await _usersData.User.UpdatePasswordAndSaveAsync(passwordCode.UserId, passwordBytes);
+        await _usersData.User.UpdatePasswordndSaveAsync(passwordCode.UserId, passwordBytes);
 
 
         await _sessionBusiness.ChangeAsync(passwordCode.UserId);

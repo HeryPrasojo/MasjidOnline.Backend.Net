@@ -5,6 +5,7 @@ using MasjidOnline.Data.Interface.Datas;
 using Microsoft.EntityFrameworkCore;
 namespace MasjidOnline.Data.EntityFramework;
 
+// todo add transaction
 public abstract class DataWithAudit(DbContext _dbContext, IAuditData _auditData) : Data(_dbContext), IData
 {
     public override async Task SaveAsync()
