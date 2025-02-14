@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using MasjidOnline.Entity.Payments;
 
 namespace MasjidOnline.Entity.Transactions;
@@ -21,6 +21,7 @@ public class Transaction
     public required PaymentType PaymentType { get; set; }
 
     public required PaymentStatus PaymentStatus { get; set; }
+
 
     // PaymentType.Manual*
 

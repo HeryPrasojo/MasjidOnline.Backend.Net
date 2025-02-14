@@ -47,7 +47,7 @@ public class UserRepository(UsersDataContext _userDataContext) : IUserRepository
     }
 
 
-    public async Task UpdatePasswordAndSaveAsync(int id, byte[] password)
+    public void UpdatePassword(int id, byte[] password)
     {
         var user = new User
         {
@@ -58,7 +58,5 @@ public class UserRepository(UsersDataContext _userDataContext) : IUserRepository
         _dbSet.Attach(user)
             .Property(e => e.Password)
             .IsModified = true;
-
-        await _userDataContext.SaveChangesAsync();
     }
 }

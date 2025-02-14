@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface;
 
@@ -6,7 +6,7 @@ namespace MasjidOnline.Data;
 
 public class DataTransaction : IDataTransaction
 {
-    private List<IData> _datas = new List<IData>();
+    private readonly List<IData> _datas = [];
 
     public async Task BeginAsync(params IData[] datas)
     {

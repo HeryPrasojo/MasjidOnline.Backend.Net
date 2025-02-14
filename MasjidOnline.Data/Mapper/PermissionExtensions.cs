@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using MasjidOnline.Entity.Audit;
 using MasjidOnline.Entity.Users;
 
@@ -16,6 +16,7 @@ public static class PermissionExtensions
 
             UserId = permission.UserId,
             UserInternalAdd = permission.UserInternalAdd,
+            TransactionInfaqRead = permission.TransactionInfaqRead,
         };
     }
 }

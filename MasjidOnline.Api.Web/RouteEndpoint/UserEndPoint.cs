@@ -3,6 +3,7 @@ using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface;
 using MasjidOnline.Business.User.Interface.Model;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Datas;
 
 namespace MasjidOnline.Api.Web.RouteEndpoint;
@@ -28,11 +29,12 @@ internal static class UserEndPoint
     }
 
     internal static async Task<Response> SetPasswordAsync(
+        IDataTransaction _dataTransaction,
         ISessionBusiness _sessionBusiness,
         IUsersData _usersData,
         IPasswordSetBusiness _passwordSetBusiness,
         SetPasswordRequest setPasswordRequest)
     {
-        return await _passwordSetBusiness.SetAsync(_sessionBusiness, _usersData, setPasswordRequest);
+        return await _passwordSetBusiness.SetAsync(_dataTransaction, _sessionBusiness, _usersData, setPasswordRequest);
     }
 }

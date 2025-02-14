@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface;
@@ -35,12 +35,12 @@ public class PasswordSetBusiness(
 
         var passwordBytes = _hash512Service.Hash(setPasswordRequest.Password);
 
-        await _usersData.User.UpdatePasswordndSaveAsync(passwordCode.UserId, passwordBytes);
+        _usersData.User.UpdatePassword(passwordCode.UserId, passwordBytes);
 
 
         await _sessionBusiness.ChangeAsync(passwordCode.UserId);
 
-        await _dataTransaction.CommitAsync(_usersData);
+        await _dataTransaction.CommitAsync();
 
         return new()
         {

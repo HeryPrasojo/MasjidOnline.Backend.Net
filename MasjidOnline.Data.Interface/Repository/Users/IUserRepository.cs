@@ -11,5 +11,5 @@ public interface IUserRepository
     Task<UserForLogin?> GetForLoginAsync(int id);
     Task<int> GetMaxIdAsync();
     Task<UserType> GetTypeByIdAsync(int userId);
-    Task UpdatePasswordAndSaveAsync(int id, byte[] password);
+    void UpdatePassword(int id, byte[] password);
 }

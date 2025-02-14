@@ -63,6 +63,7 @@ public class InitializerBusiness(
             UserId = user.Id,
 
             UserInternalAdd = true,
+            TransactionInfaqRead = true,
         };
 
         await _usersData.Permission.AddAsync(permission);

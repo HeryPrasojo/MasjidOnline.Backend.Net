@@ -1,10 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
-using MasjidOnline.Data.Interface.Repository;
+using MasjidOnline.Data.Interface.Model.Repository;
+using MasjidOnline.Data.Interface.Model.Transaction;
 using MasjidOnline.Data.Interface.Repository.Transactions;
 using MasjidOnline.Entity.Transactions;
 using Microsoft.EntityFrameworkCore;
@@ -27,15 +26,19 @@ public class TransactionRepository(TransactionsDataContext _transactionDataConte
         await SaveAsync();
     }
 
-    public async Task<IEnumerable<Transaction>> QueryAsync(Expression<Func<Transaction, object>> orderBy, OrderByDirection orderByDirection = default)
+    public async Task<IEnumerable<Transaction>> QueryAsync(TabularQueryOrderBy tabularQueryOrderBy = default, OrderByDirection orderByDirection = default, int skip = 0, int take = 1)
     {
         var queryable = _dbSet.AsQueryable();
 
-        if (orderByDirection != default)
+        if (tabularQueryOrderBy == TabularQueryOrderBy.Id)
         {
-            if (orderByDirection == OrderByDirection.Ascending) queryable = queryable.OrderBy(orderBy);
+            if (orderByDirection == OrderByDirection.Ascending) queryable = queryable.OrderBy(e => e.Id);
+            else queryable = queryable.OrderByDescending(e => e.Id);
         }
-        OrderByDescending(e => e.Id)
+
+        return await queryable.Skip(skip)
+            .Take(take)
+            .ToArrayAsync();
     }
 
     public async Task<int> GetMaxIdAsync()

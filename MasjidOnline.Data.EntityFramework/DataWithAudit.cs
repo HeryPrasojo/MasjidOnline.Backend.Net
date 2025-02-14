@@ -1,15 +1,16 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Datas;
 using Microsoft.EntityFrameworkCore;
 namespace MasjidOnline.Data.EntityFramework;
 
-// todo add transaction
-public abstract class DataWithAudit(DbContext _dbContext, IAuditData _auditData) : Data(_dbContext), IData
+public abstract class DataWithAudit(DbContext _dbContext, IAuditData _auditData, IDataTransaction _dataTransaction) : Data(_dbContext), IData
 {
     public override async Task SaveAsync()
     {
+        await _dataTransaction.BeginAsync(_auditData);
+
         var entityEntries = _dbContext.ChangeTracker.Entries();
 
         var entityStates = new[]
@@ -24,8 +25,8 @@ public abstract class DataWithAudit(DbContext _dbContext, IAuditData _auditData)
 
         await _auditData.AddAsync(entities);
 
-        await _dbContext.SaveChangesAsync();
+        await base.SaveAsync();
 
-        await _auditData.SaveAsync();
+        await _dataTransaction.CommitAsync();
     }
 }
