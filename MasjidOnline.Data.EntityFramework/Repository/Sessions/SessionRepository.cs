@@ -24,13 +24,13 @@ public class SessionRepository(SessionsDataContext _sessionDataContext) : ISessi
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
     }
 
-    public async Task<SessionForAuthentication?> GetForAuthenticationAsync(byte[] id)
+    public async Task<SessionForAuthentication?> GetForAuthenticationAsync(byte[] digest)
     {
-        return await _dbSet.Where(e => e.Digest.SequenceEqual(id))
+        return await _dbSet.Where(e => e.Digest.SequenceEqual(digest))
             .Select(e => new SessionForAuthentication
             {
                 DateTime = e.DateTime,
-                Id = e.Digest,
+                Id = e.Id,
                 UserId = e.UserId,
             })
             .FirstOrDefaultAsync();

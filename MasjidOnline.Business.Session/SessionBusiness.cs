@@ -66,7 +66,8 @@ public class SessionBusiness(
             }
             else
             {
-                digest = sessionEntity.Id;
+                digest = requestSessionIdBytes;
+                Id = sessionEntity.Id;
                 UserId = sessionEntity.UserId;
             }
         }
