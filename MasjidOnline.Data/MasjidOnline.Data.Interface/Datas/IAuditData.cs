@@ -12,5 +12,5 @@ public interface IAuditData : IDataWithoutAudit
     IUserLogRepository UserLog { get; }
     IUserEmailAddressLogRepository UserEmailAddressLog { get; }
 
-    Task AddAsync(IEnumerable<object> entities);
+    Task AddAsync(IEnumerable<object> entities, int userId);
 }

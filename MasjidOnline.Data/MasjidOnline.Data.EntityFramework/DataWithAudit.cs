@@ -5,9 +5,12 @@ using MasjidOnline.Data.Interface.Datas;
 using Microsoft.EntityFrameworkCore;
 namespace MasjidOnline.Data.EntityFramework;
 
-public abstract class DataWithAudit(DbContext _dbContext, IAuditData _auditData, IDataTransaction _dataTransaction) : DataWithoutAudit(_dbContext), IDataWithoutAudit
+public abstract class DataWithAudit(
+    DbContext _dbContext,
+    IAuditData _auditData,
+    IDataTransaction _dataTransaction) : Data(_dbContext), IData, IDataWithAudit
 {
-    public override async Task SaveAsync()
+    public async Task SaveAsync(int userId)
     {
         await _dataTransaction.BeginAsync(_auditData);
 
@@ -23,9 +26,9 @@ public abstract class DataWithAudit(DbContext _dbContext, IAuditData _auditData,
         var entities = entityEntries.Where(e => entityStates.Any(s => s == e.State))
             .Select(e => e.Entity);
 
-        await _auditData.AddAsync(entities);
+        await _auditData.AddAsync(entities, userId);
 
-        await base.SaveAsync();
+        await _dbContext.SaveChangesAsync();
 
         await _dataTransaction.CommitAsync();
     }

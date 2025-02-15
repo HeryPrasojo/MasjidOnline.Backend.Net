@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.EntityFramework.Repository.Audit;
 using MasjidOnline.Data.Interface.Datas;
@@ -13,11 +12,10 @@ using MasjidOnline.Entity.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Datas;
-// todo change ISessionBusiness dependency to userId via method parameter
+
 public class AuditData(
     AuditDataContext _auditDataContext,
-    IAuditIdGenerator _auditIdGenerator,
-    ISessionBusiness _sessionBusiness) : DataWithoutAudit(_auditDataContext), IAuditData
+    IAuditIdGenerator _auditIdGenerator) : DataWithoutAudit(_auditDataContext), IAuditData
 {
     private DbSet<PermissionLog>? _permissionLogDbSet;
     private DbSet<UserLog>? _userLogDbSet;
@@ -33,7 +31,7 @@ public class AuditData(
     public IUserEmailAddressLogRepository UserEmailAddressLog => _userEmailAddressLogRepository ??= new UserEmailAddressLogRepository(_auditDataContext);
     public IUserLogRepository UserLog => _userLogRepository ??= new UserLogRepository(_auditDataContext);
 
-    public async Task AddAsync(IEnumerable<object> entities)
+    public async Task AddAsync(IEnumerable<object> entities, int userId)
     {
         var utcNow = DateTime.UtcNow;
 
@@ -43,7 +41,7 @@ public class AuditData(
             {
                 _userLogDbSet ??= _auditDataContext.Set<UserLog>();
 
-                var userLog = user.MapUserLog(_auditIdGenerator.UserLogId, _sessionBusiness.UserId, utcNow);
+                var userLog = user.MapUserLog(_auditIdGenerator.UserLogId, userId, utcNow);
 
                 await _userLogDbSet.AddAsync(userLog);
             }
@@ -51,7 +49,7 @@ public class AuditData(
             {
                 _userEmailAddressLogDbSet ??= _auditDataContext.Set<UserEmailAddressLog>();
 
-                var userEmailAddressLog = userEmailAddress.MapUserEmailAddressLog(_auditIdGenerator.UserEmailAddressLogId, _sessionBusiness.UserId, utcNow);
+                var userEmailAddressLog = userEmailAddress.MapUserEmailAddressLog(_auditIdGenerator.UserEmailAddressLogId, userId, utcNow);
 
                 await _userEmailAddressLogDbSet.AddAsync(userEmailAddressLog);
             }
@@ -59,7 +57,7 @@ public class AuditData(
             {
                 _permissionLogDbSet ??= _auditDataContext.Set<PermissionLog>();
 
-                var permissionLog = permission.MapPermissionLog(_auditIdGenerator.PermissionLogId, _sessionBusiness.UserId, utcNow);
+                var permissionLog = permission.MapPermissionLog(_auditIdGenerator.PermissionLogId, userId, utcNow);
 
                 await _permissionLogDbSet.AddAsync(permissionLog);
             }

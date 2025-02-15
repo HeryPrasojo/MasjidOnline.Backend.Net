@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 
 namespace MasjidOnline.Data;
 
-public class DataTransaction : IDataTransaction
+public class DataTransaction(ISessionBusiness _sessionBusiness) : IDataTransaction
 {
-    private readonly List<IDataWithoutAudit> _datas = [];
+    private readonly List<IData> _datas = [];
 
-    public async Task BeginAsync(params IDataWithoutAudit[] datas)
+    public async Task BeginAsync(params IData[] datas)
     {
         foreach (var data in datas)
         {
@@ -22,7 +23,8 @@ public class DataTransaction : IDataTransaction
     {
         foreach (var data in _datas)
         {
-            await data.SaveAsync();
+            if (data is IDataWithAudit dataWithAudit) await dataWithAudit.SaveAsync(_sessionBusiness.UserId);
+            else if (data is IDataWithoutAudit dataWithoutAudit) await dataWithoutAudit.SaveAsync();
         }
 
         foreach (var data in _datas)

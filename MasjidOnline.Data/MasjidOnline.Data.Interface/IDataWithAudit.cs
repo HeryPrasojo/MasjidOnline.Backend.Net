@@ -2,7 +2,7 @@
 
 namespace MasjidOnline.Data.Interface;
 
-public interface IDataWithoutAudit : IData
+public interface IDataWithAudit : IData
 {
-    Task SaveAsync();
+    Task SaveAsync(int userId);
 }
