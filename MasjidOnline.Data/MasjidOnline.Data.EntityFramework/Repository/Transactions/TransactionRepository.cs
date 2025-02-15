@@ -32,8 +32,8 @@ public class TransactionRepository(TransactionsDataContext _transactionDataConte
 
         if (tabularQueryOrderBy == TabularQueryOrderBy.Id)
         {
-            if (orderByDirection == OrderByDirection.Ascending) queryable = queryable.OrderBy(e => e.Id);
-            else queryable = queryable.OrderByDescending(e => e.Id);
+            if (orderByDirection == OrderByDirection.Descending) queryable = queryable.OrderByDescending(e => e.Id);
+            else queryable = queryable.OrderBy(e => e.Id);
         }
 
         return await queryable.Skip(skip)
