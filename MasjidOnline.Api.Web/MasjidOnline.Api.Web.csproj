@@ -7,19 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MasjidOnline.Business.Captcha\MasjidOnline.Business.Captcha.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Business.Infaq\MasjidOnline.Business.Infaq.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Business.Session\MasjidOnline.Business.Session.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Business.Transaction\MasjidOnline.Business.Transaction.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Business.User.Interface\MasjidOnline.Business.User.Interface.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Business.User\MasjidOnline.Business.User.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Data.EntityFramework.SqLite\MasjidOnline.Data.EntityFramework.SqLite.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Data\MasjidOnline.Data.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Service.Captcha\MasjidOnline.Service.Captcha.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Service.FieldValidator\MasjidOnline.Service.FieldValidator.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Service.Hash\MasjidOnline.Service.Hash.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Service.Mail.Interface\MasjidOnline.Service.Mail.Interface.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Service.Mail.MailKit\MasjidOnline.Service.Mail.MailKit.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Business\MasjidOnline.Business.Captcha\MasjidOnline.Business.Captcha.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Business\MasjidOnline.Business.Infaq\MasjidOnline.Business.Infaq.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Business\MasjidOnline.Business.Session\MasjidOnline.Business.Session.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Business\MasjidOnline.Business.Transaction\MasjidOnline.Business.Transaction.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Business\MasjidOnline.Business.User.Interface\MasjidOnline.Business.User.Interface.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Business\MasjidOnline.Business.User\MasjidOnline.Business.User.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Data\MasjidOnline.Data.EntityFramework.SqLite\MasjidOnline.Data.EntityFramework.SqLite.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Data\MasjidOnline.Data\MasjidOnline.Data.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Service\MasjidOnline.Service.Captcha\MasjidOnline.Service.Captcha.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Service\MasjidOnline.Service.FieldValidator\MasjidOnline.Service.FieldValidator.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Service\MasjidOnline.Service.Hash\MasjidOnline.Service.Hash.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Service\MasjidOnline.Service.Mail.Interface\MasjidOnline.Service.Mail.Interface.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Service\MasjidOnline.Service.Mail.MailKit\MasjidOnline.Service.Mail.MailKit.csproj" />
   </ItemGroup>
 
 </Project>

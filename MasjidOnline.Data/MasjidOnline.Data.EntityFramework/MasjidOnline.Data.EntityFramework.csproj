@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\MasjidOnline.Business\MasjidOnline.Business.Session.Interface\MasjidOnline.Business.Session.Interface.csproj" />
+		<ProjectReference Include="..\MasjidOnline.Data.Interface\MasjidOnline.Data.Interface.csproj" />
+		<ProjectReference Include="..\MasjidOnline.Data\MasjidOnline.Data.csproj" />
+		<ProjectReference Include="..\..\MasjidOnline.Library\MasjidOnline.Library.csproj" />
+	</ItemGroup>
+
+</Project>

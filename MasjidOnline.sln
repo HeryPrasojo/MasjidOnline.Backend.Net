@@ -3,74 +3,74 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{B352F4F8-3EBF-4AD4-BF53-7C6DA9CF6C47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Data", "MasjidOnline.Data\MasjidOnline.Data\MasjidOnline.Data.csproj", "{68E142D7-F104-4655-BE96-4C33891C19C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Data.Interface", "MasjidOnline.Data\MasjidOnline.Data.Interface\MasjidOnline.Data.Interface.csproj", "{CE9A563A-0ED1-47AD-95E7-488B5EB2FF0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Data.EntityFramework", "MasjidOnline.Data\MasjidOnline.Data.EntityFramework\MasjidOnline.Data.EntityFramework.csproj", "{28E366D3-361D-4A53-A664-6D6DE75AE2B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Data.EntityFramework.SqLite", "MasjidOnline.Data\MasjidOnline.Data.EntityFramework.SqLite\MasjidOnline.Data.EntityFramework.SqLite.csproj", "{D741C538-C17E-4E77-B85B-F610B5D3D819}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{9532ED15-56B2-415E-8DDF-F24515892619}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.AuthorizationBusiness", "MasjidOnline.Business\MasjidOnline.Business.AuthorizationBusiness\MasjidOnline.Business.AuthorizationBusiness.csproj", "{D0259D60-EC8C-4C02-8646-4E8C78E880FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.AuthorizationBusiness.Interface", "MasjidOnline.Business\MasjidOnline.Business.AuthorizationBusiness.Interface\MasjidOnline.Business.AuthorizationBusiness.Interface.csproj", "{45712A53-D685-427A-9BD7-B11C10505808}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Interface", "MasjidOnline.Business\MasjidOnline.Business.Interface\MasjidOnline.Business.Interface.csproj", "{D33F70CF-AB89-450A-BAC9-7E0E68B5A4B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Captcha", "MasjidOnline.Business\MasjidOnline.Business.Captcha\MasjidOnline.Business.Captcha.csproj", "{47BFCA5F-D597-427D-9597-32C4B46D54CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Captcha.Interface", "MasjidOnline.Business\MasjidOnline.Business.Captcha.Interface\MasjidOnline.Business.Captcha.Interface.csproj", "{9442A3BA-6171-4E01-A322-D5A83800C1B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Infaq", "MasjidOnline.Business\MasjidOnline.Business.Infaq\MasjidOnline.Business.Infaq.csproj", "{8E56A3AB-158B-453A-B747-631CE496DB6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Infaq.Interface", "MasjidOnline.Business\MasjidOnline.Business.Infaq.Interface\MasjidOnline.Business.Infaq.Interface.csproj", "{B979E9C7-35EB-4C3F-BDCE-7F89D50E41E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Payment.Interface", "MasjidOnline.Business\MasjidOnline.Business.Payment.Interface\MasjidOnline.Business.Payment.Interface.csproj", "{E75E3128-D049-4CCD-91BD-636B7D5CBBA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Session", "MasjidOnline.Business\MasjidOnline.Business.Session\MasjidOnline.Business.Session.csproj", "{92780EE7-EA9F-4CE5-939F-1C028B5EF84E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Session.Interface", "MasjidOnline.Business\MasjidOnline.Business.Session.Interface\MasjidOnline.Business.Session.Interface.csproj", "{EAB563B8-B6A6-47C9-9AFC-D4FDB439F70B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Transaction", "MasjidOnline.Business\MasjidOnline.Business.Transaction\MasjidOnline.Business.Transaction.csproj", "{CBB2ED1B-2EFD-4EC7-A362-06D33C72BB95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Transaction.Interface", "MasjidOnline.Business\MasjidOnline.Business.Transaction.Interface\MasjidOnline.Business.Transaction.Interface.csproj", "{A45A41FB-F167-40ED-89F4-2917CA89E851}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.User", "MasjidOnline.Business\MasjidOnline.Business.User\MasjidOnline.Business.User.csproj", "{EF410C23-78CD-4924-A083-DC1F0606E32E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.User.Interface", "MasjidOnline.Business\MasjidOnline.Business.User.Interface\MasjidOnline.Business.User.Interface.csproj", "{EFFE5EE5-A934-44D0-BEB8-096C59BD007C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{2E44B54A-491D-4C1C-88CA-9D332653F92E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Captcha", "MasjidOnline.Service\MasjidOnline.Service.Captcha\MasjidOnline.Service.Captcha.csproj", "{DBAFD5F2-BCD1-40BF-A883-935F9E03CC70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Captcha.Interface", "MasjidOnline.Service\MasjidOnline.Service.Captcha.Interface\MasjidOnline.Service.Captcha.Interface.csproj", "{7D5816CE-24A0-4D7C-A063-94BEC186A006}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.FieldValidator", "MasjidOnline.Service\MasjidOnline.Service.FieldValidator\MasjidOnline.Service.FieldValidator.csproj", "{913E339C-94E8-48A9-B2DE-CD9D9DAE07CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.FieldValidator.Interface", "MasjidOnline.Service\MasjidOnline.Service.FieldValidator.Interface\MasjidOnline.Service.FieldValidator.Interface.csproj", "{47D8223F-0038-4848-BFEF-8E53B10C24F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Hash", "MasjidOnline.Service\MasjidOnline.Service.Hash\MasjidOnline.Service.Hash.csproj", "{5AD118F6-BB54-47BA-8DD5-236BF4A5B8B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Hash.Interface", "MasjidOnline.Service\MasjidOnline.Service.Hash.Interface\MasjidOnline.Service.Hash.Interface.csproj", "{8D90AE91-D2FE-40FD-8803-64936DD4BA19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Mail.MailKit", "MasjidOnline.Service\MasjidOnline.Service.Mail.MailKit\MasjidOnline.Service.Mail.MailKit.csproj", "{099907F0-39ED-4BC2-9C65-C1DD68CEF7EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Mail.Interface", "MasjidOnline.Service\MasjidOnline.Service.Mail.Interface\MasjidOnline.Service.Mail.Interface.csproj", "{47EA932D-324B-43AE-A42A-1B855C414F13}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Api.Web", "MasjidOnline.Api.Web\MasjidOnline.Api.Web.csproj", "{86C5F90E-1610-45D1-A323-366CEEFF5C7A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Data", "MasjidOnline.Data\MasjidOnline.Data.csproj", "{68E142D7-F104-4655-BE96-4C33891C19C1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Data.EntityFramework", "MasjidOnline.Data.EntityFramework\MasjidOnline.Data.EntityFramework.csproj", "{28E366D3-361D-4A53-A664-6D6DE75AE2B9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Data.EntityFramework.SqLite", "MasjidOnline.Data.EntityFramework.SqLite\MasjidOnline.Data.EntityFramework.SqLite.csproj", "{D741C538-C17E-4E77-B85B-F610B5D3D819}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Data.Interface", "MasjidOnline.Data.Interface\MasjidOnline.Data.Interface.csproj", "{CE9A563A-0ED1-47AD-95E7-488B5EB2FF0F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Entity", "MasjidOnline.Entity\MasjidOnline.Entity.csproj", "{B2A147D3-EF60-4E54-A8F6-95D39E7E2C28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Captcha", "MasjidOnline.Service.Captcha\MasjidOnline.Service.Captcha.csproj", "{DBAFD5F2-BCD1-40BF-A883-935F9E03CC70}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Captcha.Interface", "MasjidOnline.Service.Captcha.Interface\MasjidOnline.Service.Captcha.Interface.csproj", "{7D5816CE-24A0-4D7C-A063-94BEC186A006}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Infaq", "MasjidOnline.Business.Infaq\MasjidOnline.Business.Infaq.csproj", "{8E56A3AB-158B-453A-B747-631CE496DB6E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Infaq.Interface", "MasjidOnline.Business.Infaq.Interface\MasjidOnline.Business.Infaq.Interface.csproj", "{B979E9C7-35EB-4C3F-BDCE-7F89D50E41E1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.User", "MasjidOnline.Business.User\MasjidOnline.Business.User.csproj", "{EF410C23-78CD-4924-A083-DC1F0606E32E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.User.Interface", "MasjidOnline.Business.User.Interface\MasjidOnline.Business.User.Interface.csproj", "{EFFE5EE5-A934-44D0-BEB8-096C59BD007C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Hash", "MasjidOnline.Service.Hash\MasjidOnline.Service.Hash.csproj", "{5AD118F6-BB54-47BA-8DD5-236BF4A5B8B2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Hash.Interface", "MasjidOnline.Service.Hash.Interface\MasjidOnline.Service.Hash.Interface.csproj", "{8D90AE91-D2FE-40FD-8803-64936DD4BA19}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Captcha", "MasjidOnline.Business.Captcha\MasjidOnline.Business.Captcha.csproj", "{47BFCA5F-D597-427D-9597-32C4B46D54CA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Captcha.Interface", "MasjidOnline.Business.Captcha.Interface\MasjidOnline.Business.Captcha.Interface.csproj", "{9442A3BA-6171-4E01-A322-D5A83800C1B7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Library", "MasjidOnline.Library\MasjidOnline.Library.csproj", "{E768578B-4EED-4C9E-B830-2F306EBEC850}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B104652D-4506-47BC-997A-D3CAA50B2402}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Library", "MasjidOnline.Library\MasjidOnline.Library.csproj", "{E768578B-4EED-4C9E-B830-2F306EBEC850}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.FieldValidator", "MasjidOnline.Service.FieldValidator\MasjidOnline.Service.FieldValidator.csproj", "{913E339C-94E8-48A9-B2DE-CD9D9DAE07CE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.FieldValidator.Interface", "MasjidOnline.Service.FieldValidator.Interface\MasjidOnline.Service.FieldValidator.Interface.csproj", "{47D8223F-0038-4848-BFEF-8E53B10C24F9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Payment.Interface", "MasjidOnline.Business.Payment.Interface\MasjidOnline.Business.Payment.Interface.csproj", "{E75E3128-D049-4CCD-91BD-636B7D5CBBA2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Interface", "MasjidOnline.Business.Interface\MasjidOnline.Business.Interface.csproj", "{D33F70CF-AB89-450A-BAC9-7E0E68B5A4B4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Mail.MailKit", "MasjidOnline.Service.Mail.MailKit\MasjidOnline.Service.Mail.MailKit.csproj", "{099907F0-39ED-4BC2-9C65-C1DD68CEF7EE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Mail.Interface", "MasjidOnline.Service.Mail.Interface\MasjidOnline.Service.Mail.Interface.csproj", "{47EA932D-324B-43AE-A42A-1B855C414F13}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Session", "MasjidOnline.Business.Session\MasjidOnline.Business.Session.csproj", "{92780EE7-EA9F-4CE5-939F-1C028B5EF84E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Session.Interface", "MasjidOnline.Business.Session.Interface\MasjidOnline.Business.Session.Interface.csproj", "{EAB563B8-B6A6-47C9-9AFC-D4FDB439F70B}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{9532ED15-56B2-415E-8DDF-F24515892619}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{B352F4F8-3EBF-4AD4-BF53-7C6DA9CF6C47}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{2E44B54A-491D-4C1C-88CA-9D332653F92E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Transaction", "MasjidOnline.Business.Transaction\MasjidOnline.Business.Transaction.csproj", "{CBB2ED1B-2EFD-4EC7-A362-06D33C72BB95}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Transaction.Interface", "MasjidOnline.Business.Transaction.Interface\MasjidOnline.Business.Transaction.Interface.csproj", "{A45A41FB-F167-40ED-89F4-2917CA89E851}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.AuthorizationBusiness", "MasjidOnline.Business.AuthorizationBusiness\MasjidOnline.Business.AuthorizationBusiness.csproj", "{D0259D60-EC8C-4C02-8646-4E8C78E880FB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.AuthorizationBusiness.Interface", "MasjidOnline.Business.AuthorizationBusiness.Interface\MasjidOnline.Business.AuthorizationBusiness.Interface.csproj", "{45712A53-D685-427A-9BD7-B11C10505808}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
