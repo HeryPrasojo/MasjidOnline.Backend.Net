@@ -27,9 +27,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.User"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.User.Interface", "MasjidOnline.Business.User.Interface\MasjidOnline.Business.User.Interface.csproj", "{EFFE5EE5-A934-44D0-BEB8-096C59BD007C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Hash512", "MasjidOnline.Service.Hash512\MasjidOnline.Service.Hash512.csproj", "{5AD118F6-BB54-47BA-8DD5-236BF4A5B8B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Hash", "MasjidOnline.Service.Hash\MasjidOnline.Service.Hash.csproj", "{5AD118F6-BB54-47BA-8DD5-236BF4A5B8B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Hash512.Interface", "MasjidOnline.Service.Hash512.Interface\MasjidOnline.Service.Hash512.Interface.csproj", "{8D90AE91-D2FE-40FD-8803-64936DD4BA19}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Hash.Interface", "MasjidOnline.Service.Hash.Interface\MasjidOnline.Service.Hash.Interface.csproj", "{8D90AE91-D2FE-40FD-8803-64936DD4BA19}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Captcha", "MasjidOnline.Business.Captcha\MasjidOnline.Business.Captcha.csproj", "{47BFCA5F-D597-427D-9597-32C4B46D54CA}"
 EndProject

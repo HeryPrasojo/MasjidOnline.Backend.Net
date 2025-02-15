@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
-using MasjidOnline.Service.Hash512.Interface;
+using MasjidOnline.Service.Hash.Interface;
 
 namespace MasjidOnline.Data.IdGenerator;
 

@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Service.Hash512.Interface;
+﻿namespace MasjidOnline.Service.Hash.Interface;
 
 public interface IHash512Service
 {

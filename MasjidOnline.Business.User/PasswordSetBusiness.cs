@@ -7,7 +7,7 @@ using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
-using MasjidOnline.Service.Hash512.Interface;
+using MasjidOnline.Service.Hash.Interface;
 
 namespace MasjidOnline.Business.User;
 

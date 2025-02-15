@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MasjidOnline.Data.Interface\MasjidOnline.Data.Interface.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Service.Hash512.Interface\MasjidOnline.Service.Hash512.Interface.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Service.Hash.Interface\MasjidOnline.Service.Hash.Interface.csproj" />
   </ItemGroup>
 
 </Project>

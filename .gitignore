@@ -51,10 +51,10 @@
 /MasjidOnline.Service.FieldValidator/obj
 /MasjidOnline.Service.FieldValidator.Interface/bin
 /MasjidOnline.Service.FieldValidator.Interface/obj
-/MasjidOnline.Service.Hash512/bin
-/MasjidOnline.Service.Hash512/obj
-/MasjidOnline.Service.Hash512.Interface/bin
-/MasjidOnline.Service.Hash512.Interface/obj
+/MasjidOnline.Service.Hash/bin
+/MasjidOnline.Service.Hash/obj
+/MasjidOnline.Service.Hash.Interface/bin
+/MasjidOnline.Service.Hash.Interface/obj
 /MasjidOnline.Service.Mail.Interface/bin
 /MasjidOnline.Service.Mail.Interface/obj
 /MasjidOnline.Service.Mail.MailKit/bin

@@ -17,7 +17,7 @@
     <ProjectReference Include="..\MasjidOnline.Data.Interface\MasjidOnline.Data.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Library\MasjidOnline.Library.csproj" />
     <ProjectReference Include="..\MasjidOnline.Service.FieldValidator.Interface\MasjidOnline.Service.FieldValidator.Interface.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Service.Hash512.Interface\MasjidOnline.Service.Hash512.Interface.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Service.Hash.Interface\MasjidOnline.Service.Hash.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Service.Mail.Interface\MasjidOnline.Service.Mail.Interface.csproj" />
   </ItemGroup>
 

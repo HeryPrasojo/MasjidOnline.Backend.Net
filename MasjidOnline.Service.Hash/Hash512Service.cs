@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
-using MasjidOnline.Service.Hash512.Interface;
+using MasjidOnline.Service.Hash.Interface;
 
-namespace MasjidOnline.Service.Hash512;
+namespace MasjidOnline.Service.Hash;
 
 public class Hash512Service : IHash512Service
 {

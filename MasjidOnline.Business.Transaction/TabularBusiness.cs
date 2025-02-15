@@ -12,7 +12,7 @@ public class TabularBusiness(IAuthorizationBusiness _authorizationBusiness) : IT
     {
         _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _usersData);
 
-        _transactionsData.Transaction.GetMaxIdAsync;
+        //_transactionsData.Transaction.GetMaxIdAsync;
 
         // undone 1
     }

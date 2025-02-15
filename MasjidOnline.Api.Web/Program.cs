@@ -18,7 +18,7 @@ using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Data.Interface.Initializer;
 using MasjidOnline.Service.Captcha;
 using MasjidOnline.Service.FieldValidator;
-using MasjidOnline.Service.Hash512;
+using MasjidOnline.Service.Hash;
 using MasjidOnline.Service.Mail.Interface.Model;
 using MasjidOnline.Service.Mail.MailKit;
 using Microsoft.AspNetCore.Builder;
