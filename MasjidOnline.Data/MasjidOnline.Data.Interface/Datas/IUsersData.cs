@@ -2,7 +2,7 @@
 
 namespace MasjidOnline.Data.Interface.Datas;
 
-public interface IUsersData : IData
+public interface IUsersData : IDataWithoutAudit
 {
     IPasswordCodeRepository PasswordCode { get; }
     IPermissionRepository Permission { get; }

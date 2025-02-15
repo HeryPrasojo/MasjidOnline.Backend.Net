@@ -5,7 +5,7 @@ using MasjidOnline.Data.Interface.Repository.Core;
 
 namespace MasjidOnline.Data.EntityFramework.Datas;
 
-public class CoreData(CoreDataContext _coreDataContext) : Data(_coreDataContext), ICoreData
+public class CoreData(CoreDataContext _coreDataContext) : DataWithoutAudit(_coreDataContext), ICoreData
 {
     private ICoreSettingRepository? _coreSettingRepository;
 

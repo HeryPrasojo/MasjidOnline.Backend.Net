@@ -2,7 +2,7 @@
 
 namespace MasjidOnline.Data.Interface;
 
-public interface IData
+public interface IDataWithoutAudit
 {
     Task BeginTransactionAsync();
     Task CommitTransactionAsync();

@@ -2,7 +2,7 @@
 
 namespace MasjidOnline.Data.Interface.Datas;
 
-public interface ICaptchaData : IData
+public interface ICaptchaData : IDataWithoutAudit
 {
     ICaptchaSettingRepository CaptchaSetting { get; }
     ICaptchaAnswerRepository CaptchaAnswer { get; }

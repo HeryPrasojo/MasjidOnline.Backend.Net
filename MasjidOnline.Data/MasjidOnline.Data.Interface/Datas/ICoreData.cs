@@ -2,7 +2,7 @@
 
 namespace MasjidOnline.Data.Interface.Datas;
 
-public interface ICoreData : IData
+public interface ICoreData : IDataWithoutAudit
 {
     ICoreSettingRepository CoreSetting { get; }
 }

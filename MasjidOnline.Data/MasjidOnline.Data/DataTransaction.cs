@@ -6,9 +6,9 @@ namespace MasjidOnline.Data;
 
 public class DataTransaction : IDataTransaction
 {
-    private readonly List<IData> _datas = [];
+    private readonly List<IDataWithoutAudit> _datas = [];
 
-    public async Task BeginAsync(params IData[] datas)
+    public async Task BeginAsync(params IDataWithoutAudit[] datas)
     {
         foreach (var data in datas)
         {

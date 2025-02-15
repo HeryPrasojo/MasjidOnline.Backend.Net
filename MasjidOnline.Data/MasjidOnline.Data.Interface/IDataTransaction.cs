@@ -4,6 +4,6 @@ namespace MasjidOnline.Data.Interface;
 
 public interface IDataTransaction
 {
-    Task BeginAsync(params IData[] datas);
+    Task BeginAsync(params IDataWithoutAudit[] datas);
     Task CommitAsync();
 }

@@ -5,7 +5,7 @@ using MasjidOnline.Data.Interface.Datas;
 using Microsoft.EntityFrameworkCore;
 namespace MasjidOnline.Data.EntityFramework;
 
-public abstract class DataWithAudit(DbContext _dbContext, IAuditData _auditData, IDataTransaction _dataTransaction) : Data(_dbContext), IData
+public abstract class DataWithAudit(DbContext _dbContext, IAuditData _auditData, IDataTransaction _dataTransaction) : DataWithoutAudit(_dbContext), IDataWithoutAudit
 {
     public override async Task SaveAsync()
     {

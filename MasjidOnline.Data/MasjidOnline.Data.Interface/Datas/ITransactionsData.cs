@@ -2,7 +2,7 @@
 
 namespace MasjidOnline.Data.Interface.Datas;
 
-public interface ITransactionsData : IData
+public interface ITransactionsData : IDataWithoutAudit
 {
     ITransactionRepository Transaction { get; }
     ITransactionSettingRepository TransactionSetting { get; }

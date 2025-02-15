@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace MasjidOnline.Data.EntityFramework;
 
-public abstract class Data(DbContext _dbContext) : IData, IDisposable, IAsyncDisposable
+public abstract class DataWithoutAudit(DbContext _dbContext) : IDataWithoutAudit, IDisposable, IAsyncDisposable
 {
     private IDbContextTransaction? _dbContextTransaction;
 

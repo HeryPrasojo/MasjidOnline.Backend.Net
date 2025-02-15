@@ -2,7 +2,7 @@
 
 namespace MasjidOnline.Data.Interface.Datas;
 
-public interface ISessionsData : IData
+public interface ISessionsData : IDataWithoutAudit
 {
     ISessionRepository Session { get; }
     ISessionSettingRepository SessionSetting { get; }

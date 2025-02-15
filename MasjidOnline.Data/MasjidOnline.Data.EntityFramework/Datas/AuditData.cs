@@ -17,7 +17,7 @@ namespace MasjidOnline.Data.EntityFramework.Datas;
 public class AuditData(
     AuditDataContext _auditDataContext,
     IAuditIdGenerator _auditIdGenerator,
-    ISessionBusiness _sessionBusiness) : Data(_auditDataContext), IAuditData
+    ISessionBusiness _sessionBusiness) : DataWithoutAudit(_auditDataContext), IAuditData
 {
     private DbSet<PermissionLog>? _permissionLogDbSet;
     private DbSet<UserLog>? _userLogDbSet;

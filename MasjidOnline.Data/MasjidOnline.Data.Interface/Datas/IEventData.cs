@@ -2,7 +2,7 @@
 
 namespace MasjidOnline.Data.Interface.Datas;
 
-public interface IEventData : IData
+public interface IEventData : IDataWithoutAudit
 {
     IExceptionRepository Exception { get; }
     IEventSettingRepository EventSetting { get; }
