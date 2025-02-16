@@ -5,6 +5,7 @@ using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Model.Repository;
 using MasjidOnline.Data.Interface.Model.Transaction;
 using MasjidOnline.Data.Interface.Repository.Transactions;
+using MasjidOnline.Entity.Payments;
 using MasjidOnline.Entity.Transactions;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,9 +27,17 @@ public class TransactionRepository(TransactionsDataContext _transactionDataConte
         await SaveAsync();
     }
 
-    public async Task<IEnumerable<Transaction>> QueryAsync(/*IEnumerable<TransactionStatus>,*/ TabularQueryOrderBy tabularQueryOrderBy = default, OrderByDirection orderByDirection = default, int skip = 0, int take = 1)
+    public async Task<IEnumerable<Transaction>> QueryAsync(
+        IEnumerable<PaymentStatus>? paymentStatuses = default,
+        TabularQueryOrderBy tabularQueryOrderBy = default,
+        OrderByDirection orderByDirection = default,
+        int skip = 0,
+        int take = 1)
     {
         var queryable = _dbSet.AsQueryable();
+
+        if (paymentStatuses != default)
+            queryable = queryable.Where(e => paymentStatuses.Any(s => s == e.PaymentStatus));
 
         if (tabularQueryOrderBy == TabularQueryOrderBy.Id)
         {

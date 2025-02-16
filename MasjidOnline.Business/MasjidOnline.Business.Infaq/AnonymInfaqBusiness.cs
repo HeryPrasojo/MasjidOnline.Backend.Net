@@ -49,7 +49,8 @@ public class AnonymInfaqBusiness(
             {
                 ResultCode = ResponseResult.CaptchaNotPassed,
             };
-        };
+        }
+        ;
 
 
         var transaction = new Transaction

@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Entity.Payments;
+﻿namespace MasjidOnline.Business.Transaction.Interface.Model;
 
 public enum PaymentStatus
 {

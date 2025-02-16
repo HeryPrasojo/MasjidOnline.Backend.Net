@@ -22,6 +22,7 @@ public class Transaction
 
     public required PaymentStatus PaymentStatus { get; set; }
 
+    // todo consider move to Payment db
 
     // PaymentType.Manual*
 

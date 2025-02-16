@@ -107,6 +107,13 @@ public class FieldValidatorService : IFieldValidatorService
         if (value < 1m) throw new InputInvalidException(valueExpression);
     }
 
+    public void ValidateRequiredPlus(int? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    {
+        if (!value.HasValue) throw new InputInvalidException(valueExpression);
+
+        if (value < 1) throw new InputInvalidException(valueExpression);
+    }
+
     public string ValidateRequiredEmailAddress(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
         if (value == default) throw new InputInvalidException(valueExpression);
