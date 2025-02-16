@@ -26,7 +26,7 @@ public class TransactionRepository(TransactionsDataContext _transactionDataConte
         await SaveAsync();
     }
 
-    public async Task<IEnumerable<Transaction>> QueryAsync(TabularQueryOrderBy tabularQueryOrderBy = default, OrderByDirection orderByDirection = default, int skip = 0, int take = 1)
+    public async Task<IEnumerable<Transaction>> QueryAsync(/*IEnumerable<TransactionStatus>,*/ TabularQueryOrderBy tabularQueryOrderBy = default, OrderByDirection orderByDirection = default, int skip = 0, int take = 1)
     {
         var queryable = _dbSet.AsQueryable();
 

@@ -1,11 +1,14 @@
-﻿namespace MasjidOnline.Service.Hash.Interface;
+﻿using System;
+
+namespace MasjidOnline.Service.Hash.Interface;
 
 public interface IHash512Service
 {
-    byte[] RandomDigestBytes { get; }
+    ReadOnlySpan<byte> RandomDigestByteSpan { get; }
     string RandomDigestBase64String { get; }
     string RandomDigestHexString { get; }
+    byte[] RandomDigestByteArray { get; }
 
-    byte[] Hash(byte[] bytes);
+    //ReadOnlySpan<byte> Hash(ReadOnlySpan<byte> bytes);
     byte[] Hash(string text);
 }

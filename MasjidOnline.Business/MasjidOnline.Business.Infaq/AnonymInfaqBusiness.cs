@@ -32,8 +32,8 @@ public class AnonymInfaqBusiness(
         _fieldValidatorService.ValidateRequired(anonymInfaqRequest.PaymentType);
         _fieldValidatorService.ValidateRequiredPast(anonymInfaqRequest.ManualDateTime);
 
-        anonymInfaqRequest.ManualNotes = _fieldValidatorService.ValidateRequiredTextShort(anonymInfaqRequest.ManualNotes);
-        anonymInfaqRequest.MunfiqName = _fieldValidatorService.ValidateRequiredTextShort(anonymInfaqRequest.MunfiqName);
+        anonymInfaqRequest.ManualNotes = _fieldValidatorService.ValidateRequiredText255(anonymInfaqRequest.ManualNotes);
+        anonymInfaqRequest.MunfiqName = _fieldValidatorService.ValidateRequiredText255(anonymInfaqRequest.MunfiqName);
 
 
         if (_sessionBusiness.UserId == Constant.AnonymousUserId)

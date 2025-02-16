@@ -6,40 +6,50 @@ using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Library.Exceptions;
+using MasjidOnline.Service.Cryptography.Interface;
 using MasjidOnline.Service.FieldValidator.Interface;
 
 namespace MasjidOnline.Business.Session;
 
 public class SessionBusiness(
+    IEncryption128128 _encryption128128,
     IFieldValidatorService _fieldValidatorService,
     ISessionsData _sessionsData,
     ISessionsIdGenerator _sessionsIdGenerator) : ISessionBusiness
 {
-    // todo encrypt
-    private byte[]? digest;
+    private Memory<byte> _digest = Memory<byte>.Empty;
 
     public int Id { get; private set; }
-    public string DigestBase64 => digest == default ? throw new ErrorException(nameof(digest)) : Convert.ToBase64String(digest);
+    public string DigestBase64
+    {
+        get
+        {
+            if (_digest.IsEmpty) throw new ErrorException(nameof(_digest));
+
+            var encryptedDigest = _encryption128128.Encrypt(_digest.Span);
+
+            return Convert.ToBase64String(encryptedDigest);
+        }
+    }
+
     public bool IsDigestNew { get; private set; }
     public int UserId { get; private set; }
 
     public async Task ChangeAsync(int userId)
     {
-        var previousId = digest;
-
         var session = new Entity.Sessions.Session
         {
             DateTime = DateTime.UtcNow,
             Digest = _sessionsIdGenerator.SessionDigest,
             Id = _sessionsIdGenerator.SessionId,
-            PreviousId = previousId,
+            PreviousId = _digest.ToArray(),
             UserId = UserId,
         };
 
         await _sessionsData.Session.AddAndSaveAsync(session);
 
 
-        digest = session.Digest;
+        _digest = session.Digest;
         Id = session.Id;
         IsDigestNew = true;
         UserId = session.UserId;
@@ -55,10 +65,12 @@ public class SessionBusiness(
         {
             var requestSessionIdBytes = _fieldValidatorService.ValidateRequiredBase64(idBase64, 80, idBase64Expression);
 
+            var decryptedRquestSessionIdBytes = _encryption128128.Decrypt(requestSessionIdBytes);
 
-            var sessionEntity = await _sessionsData.Session.GetForAuthenticationAsync(requestSessionIdBytes);
+            var sessionEntity = await _sessionsData.Session.GetForAuthenticationAsync(decryptedRquestSessionIdBytes);
 
             if (sessionEntity == default) throw new InputMismatchException(idBase64Expression);
+
 
             if (sessionEntity.DateTime < DateTime.UtcNow.AddDays(-16))
             {
@@ -66,7 +78,7 @@ public class SessionBusiness(
             }
             else
             {
-                digest = requestSessionIdBytes;
+                _digest = requestSessionIdBytes;
                 Id = sessionEntity.Id;
                 UserId = sessionEntity.UserId;
             }

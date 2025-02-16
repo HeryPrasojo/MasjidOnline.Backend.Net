@@ -15,6 +15,7 @@
     <ProjectReference Include="..\MasjidOnline.Business\MasjidOnline.Business.User\MasjidOnline.Business.User.csproj" />
     <ProjectReference Include="..\MasjidOnline.Data\MasjidOnline.Data.EntityFramework.SqLite\MasjidOnline.Data.EntityFramework.SqLite.csproj" />
     <ProjectReference Include="..\MasjidOnline.Data\MasjidOnline.Data\MasjidOnline.Data.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Service\MasjidOnline.Service.Cryptography\MasjidOnline.Service.Cryptography.csproj" />
     <ProjectReference Include="..\MasjidOnline.Service\MasjidOnline.Service.Captcha\MasjidOnline.Service.Captcha.csproj" />
     <ProjectReference Include="..\MasjidOnline.Service\MasjidOnline.Service.FieldValidator\MasjidOnline.Service.FieldValidator.csproj" />
     <ProjectReference Include="..\MasjidOnline.Service\MasjidOnline.Service.Hash\MasjidOnline.Service.Hash.csproj" />

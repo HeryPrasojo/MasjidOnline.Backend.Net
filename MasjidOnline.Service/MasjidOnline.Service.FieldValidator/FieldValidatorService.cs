@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using MasjidOnline.Library.Exceptions;
@@ -8,7 +9,7 @@ namespace MasjidOnline.Service.FieldValidator;
 
 public class FieldValidatorService : IFieldValidatorService
 {
-    public string? ValidateOptionalTextShort(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    public string? ValidateOptionalText255(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
         if (value == default) return default;
 
@@ -158,7 +159,7 @@ public class FieldValidatorService : IFieldValidatorService
         return value;
     }
 
-    public string ValidateRequiredTextShort(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    public string ValidateRequiredText255(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
         if (value == default) throw new InputInvalidException(valueExpression);
 

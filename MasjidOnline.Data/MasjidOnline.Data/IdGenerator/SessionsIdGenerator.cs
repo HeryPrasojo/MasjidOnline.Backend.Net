@@ -17,5 +17,5 @@ public class SessionsIdGenerator(IHash512Service _hash512Service) : ISessionsIdG
 
     public int SessionId => Interlocked.Increment(ref _sessionId);
 
-    public byte[] SessionDigest => _hash512Service.RandomDigestBytes;
+    public byte[] SessionDigest => _hash512Service.RandomDigestByteArray;
 }

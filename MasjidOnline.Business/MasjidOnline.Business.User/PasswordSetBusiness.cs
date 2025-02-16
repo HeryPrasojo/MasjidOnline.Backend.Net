@@ -15,11 +15,15 @@ public class PasswordSetBusiness(
     IFieldValidatorService _fieldValidatorService,
     IHash512Service _hash512Service) : IPasswordSetBusiness
 {
-    public async Task<Response> SetAsync(IDataTransaction _dataTransaction, ISessionBusiness _sessionBusiness, IUsersData _usersData, SetPasswordRequest setPasswordRequest)
+    public async Task<Response> SetAsync(
+        IDataTransaction _dataTransaction,
+        ISessionBusiness _sessionBusiness,
+        IUsersData _usersData,
+        SetPasswordRequest setPasswordRequest)
     {
         var passwordCodeBytes = _fieldValidatorService.ValidateRequiredHex(setPasswordRequest.PasswordCode, 128);
-        setPasswordRequest.Password = _fieldValidatorService.ValidateRequiredTextShort(setPasswordRequest.Password);
-        setPasswordRequest.PasswordRepeat = _fieldValidatorService.ValidateRequiredTextShort(setPasswordRequest.PasswordRepeat);
+        setPasswordRequest.Password = _fieldValidatorService.ValidateRequiredText255(setPasswordRequest.Password);
+        setPasswordRequest.PasswordRepeat = _fieldValidatorService.ValidateRequiredText255(setPasswordRequest.PasswordRepeat);
 
         if (setPasswordRequest.Password != setPasswordRequest.PasswordRepeat) throw new InputInvalidException(nameof(setPasswordRequest.PasswordRepeat));
 

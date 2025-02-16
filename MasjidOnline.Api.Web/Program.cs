@@ -17,6 +17,8 @@ using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Data.Interface.Initializer;
 using MasjidOnline.Service.Captcha;
+using MasjidOnline.Service.Cryptography;
+using MasjidOnline.Service.Cryptography.Interface.Model;
 using MasjidOnline.Service.FieldValidator;
 using MasjidOnline.Service.Hash;
 using MasjidOnline.Service.Mail.Interface.Model;
@@ -60,6 +62,8 @@ static WebApplication BuildApplication(string[] args)
 
     var option = webApplicationBuilder.Configuration.Get<Option>() ?? throw new ApplicationException($"Get {nameof(Option)} fail");
 
+    webApplicationBuilder.Services.AddOptions<CryptographyOption>("Cryptography");
+
     webApplicationBuilder.Services.AddOptions<MailOption>("Mail");
 
     webApplicationBuilder.Services.AddOptions<Option>();
@@ -80,8 +84,9 @@ static WebApplication BuildApplication(string[] args)
     #region add dependency
 
     webApplicationBuilder.Services.AddCaptchaService();
+    webApplicationBuilder.Services.AddEncryptionService();
     webApplicationBuilder.Services.AddFieldValidatorService();
-    webApplicationBuilder.Services.AddHash512Service();
+    webApplicationBuilder.Services.AddHashService();
     webApplicationBuilder.Services.AddMailKitMailService();
 
     webApplicationBuilder.Services.AddData();

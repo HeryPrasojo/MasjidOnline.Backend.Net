@@ -9,7 +9,7 @@ public class Hash512Service : IHash512Service
 {
     private readonly Random _random = new();
 
-    public byte[] RandomDigestBytes
+    public byte[] RandomDigestByteArray
     {
         get
         {
@@ -17,23 +17,37 @@ public class Hash512Service : IHash512Service
 
             var bytes = BitConverter.GetBytes(number);
 
-            return SHA512.HashData(bytes);
+            return SHA512.HashData(bytes.AsSpan());
         }
     }
 
-    public string RandomDigestBase64String => Convert.ToBase64String(RandomDigestBytes);
-
-    public string RandomDigestHexString => Convert.ToHexString(RandomDigestBytes);
-
-    public byte[] Hash(byte[] bytes)
+    public ReadOnlySpan<byte> RandomDigestByteSpan
     {
-        return SHA512.HashData(bytes);
+        get
+        {
+            var number = _random.NextInt64();
+
+            var bytes = BitConverter.GetBytes(number);
+
+            return SHA512.HashData(bytes.AsSpan())
+                .AsSpan();
+        }
     }
+
+    public string RandomDigestBase64String => Convert.ToBase64String(RandomDigestByteSpan);
+
+    public string RandomDigestHexString => Convert.ToHexString(RandomDigestByteSpan);
+
+    //public ReadOnlySpan<byte> Hash(ReadOnlySpan<byte> bytes)
+    //{
+    //    return SHA512.HashData(bytes)
+    //        .AsSpan();
+    //}
 
     public byte[] Hash(string text)
     {
-        var bytes = UTF8Encoding.UTF8.GetBytes(text);
+        var bytes = Encoding.UTF8.GetBytes(text);
 
-        return SHA512.HashData(bytes);
+        return SHA512.HashData(bytes.AsSpan());
     }
 }

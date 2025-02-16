@@ -72,7 +72,7 @@ public class InitializerBusiness(
         await _usersData.SaveAsync(_sessionBusiness.UserId);
 
 
-        var uri = option.Uri.UserPassword + Convert.ToHexString(passwordCode.Code);
+        var uri = option.Uri.UserPassword + Convert.ToHexString(passwordCode.Code.AsSpan());
 
         var mailMessage = new MailMessage
         {

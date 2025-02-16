@@ -19,6 +19,6 @@ public class UsersIdGenerator(IHash512Service _hash512Service) : IUsersIdGenerat
 
     public int UserId => Interlocked.Increment(ref _userId);
 
-    public byte[] PasswordCodeCode => _hash512Service.RandomDigestBytes;
+    public byte[] PasswordCodeCode => _hash512Service.RandomDigestByteArray;
 
 }

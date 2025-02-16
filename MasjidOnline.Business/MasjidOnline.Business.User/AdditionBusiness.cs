@@ -34,7 +34,7 @@ public class AdditionBusiness(
         _fieldValidatorService.ValidateRequired(addRequest);
 
         addRequest.EmailAddress = _fieldValidatorService.ValidateRequiredEmailAddress(addRequest.EmailAddress);
-        addRequest.Name = _fieldValidatorService.ValidateRequiredTextShort(addRequest.Name);
+        addRequest.Name = _fieldValidatorService.ValidateRequiredText255(addRequest.Name);
 
 
         var user = new Entity.Users.User
@@ -69,7 +69,7 @@ public class AdditionBusiness(
         await _usersData.SaveAsync(_sessionBusiness.UserId);
 
 
-        var uri = _optionsMonitor.CurrentValue.Uri.UserPassword + Convert.ToHexString(passwordCode.Code);
+        var uri = _optionsMonitor.CurrentValue.Uri.UserPassword + Convert.ToHexString(passwordCode.Code.AsSpan());
 
         var mailMessage = new MailMessage
         {
