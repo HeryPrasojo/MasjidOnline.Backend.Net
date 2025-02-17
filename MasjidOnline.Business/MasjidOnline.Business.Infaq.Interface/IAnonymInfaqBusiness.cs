@@ -7,5 +7,5 @@ namespace MasjidOnline.Business.Infaq.Interface;
 
 public interface IAnonymInfaqBusiness
 {
-    Task<Response> InfaqAsync(ICaptchaData _captchaData, ISessionBusiness _sessionBusiness, IInfaqsData _transactionData, AnonymInfaqRequest anonymInfaqRequest);
+    Task<Response> InfaqAsync(ICaptchaData _captchaData, ISessionBusiness _sessionBusiness, IInfaqsData _infaqsData, AnonymInfaqRequest anonymInfaqRequest);
 }
