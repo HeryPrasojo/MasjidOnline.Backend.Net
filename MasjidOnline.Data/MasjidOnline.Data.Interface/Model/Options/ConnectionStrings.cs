@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Data.Interface.Model.Options;
+namespace MasjidOnline.Data.Interface.Model.Options;
 
 public class ConnectionStrings
 {
@@ -12,7 +12,7 @@ public class ConnectionStrings
 
     public string Sessions { get; set; } = "Data Source=..\\..\\MasjidOnline.Local.sqlite3;";
 
-    public string Transactions { get; set; } = "Data Source=..\\..\\MasjidOnline.Local.sqlite3;";
+    public string Infaqs { get; set; } = "Data Source=..\\..\\MasjidOnline.Local.sqlite3;";
 
     public string Users { get; set; } = "Data Source=..\\..\\MasjidOnline.Local.sqlite3;";
 }

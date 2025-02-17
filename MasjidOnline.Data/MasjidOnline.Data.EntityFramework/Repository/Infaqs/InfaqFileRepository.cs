@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Infaqs;
 
-public class InfaqFileRepository(TransactionsDataContext _transactionDataContext) : IInfaqFileRepository
+public class InfaqFileRepository(InfaqsDataContext _infaqsDataContext) : IInfaqFileRepository
 {
-    private readonly DbSet<InfaqFile> _dbSet = _transactionDataContext.Set<InfaqFile>();
+    private readonly DbSet<InfaqFile> _dbSet = _infaqsDataContext.Set<InfaqFile>();
 
     public async Task AddAsync(InfaqFile infaqFile)
     {

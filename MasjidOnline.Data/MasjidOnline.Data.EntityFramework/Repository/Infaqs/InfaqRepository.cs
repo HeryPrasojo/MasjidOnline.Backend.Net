@@ -11,9 +11,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Infaqs;
 
-public class InfaqRepository(TransactionsDataContext _transactionDataContext) : IInfaqRepository
+public class InfaqRepository(InfaqsDataContext _infaqsDataContext) : IInfaqRepository
 {
-    private readonly DbSet<Infaq> _dbSet = _transactionDataContext.Set<Infaq>();
+    private readonly DbSet<Infaq> _dbSet = _infaqsDataContext.Set<Infaq>();
 
     public async Task AddAsync(Infaq infaq)
     {
@@ -58,6 +58,6 @@ public class InfaqRepository(TransactionsDataContext _transactionDataContext) : 
 
     private async Task<int> SaveAsync()
     {
-        return await _transactionDataContext.SaveChangesAsync();
+        return await _infaqsDataContext.SaveChangesAsync();
     }
 }

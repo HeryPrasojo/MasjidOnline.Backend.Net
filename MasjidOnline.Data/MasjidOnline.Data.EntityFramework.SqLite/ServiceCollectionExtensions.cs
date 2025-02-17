@@ -17,12 +17,12 @@ public static class ServiceCollectionExtensions
         var option = configurationManager.Get<ConnectionStrings>() ?? throw new ApplicationException($"Get {nameof(ConnectionStrings)} fail");
 
         services.AddDbContextPool<AuditDataContext>(b => b.UseSqlite(option.Audit), poolSize: 2);
-        services.AddDbContextPool<CaptchaDataContext, CaptchaDataContext>(b => b.UseSqlite(option.Captcha), poolSize: 2);
-        services.AddDbContextPool<CoreDataContext, CoreDataContext>(b => b.UseSqlite(option.Core), poolSize: 2);
-        services.AddDbContextPool<EventDataContext, EventDataContext>(b => b.UseSqlite(option.Event), poolSize: 2);
-        services.AddDbContextPool<SessionsDataContext, SessionsDataContext>(b => b.UseSqlite(option.Sessions), poolSize: 2);
-        services.AddDbContextPool<TransactionsDataContext, TransactionsDataContext>(b => b.UseSqlite(option.Transactions), poolSize: 2);
-        services.AddDbContextPool<UsersDataContext, UsersDataContext>(b => b.UseSqlite(option.Users), poolSize: 2);
+        services.AddDbContextPool<CaptchaDataContext>(b => b.UseSqlite(option.Captcha), poolSize: 2);
+        services.AddDbContextPool<CoreDataContext>(b => b.UseSqlite(option.Core), poolSize: 2);
+        services.AddDbContextPool<EventDataContext>(b => b.UseSqlite(option.Event), poolSize: 2);
+        services.AddDbContextPool<InfaqsDataContext>(b => b.UseSqlite(option.Infaqs), poolSize: 2);
+        services.AddDbContextPool<SessionsDataContext>(b => b.UseSqlite(option.Sessions), poolSize: 2);
+        services.AddDbContextPool<UsersDataContext>(b => b.UseSqlite(option.Users), poolSize: 2);
 
         services.AddTransient<IAuditInitializer, SqLiteAuditInitializer>();
         services.AddTransient<ICaptchaInitializer, SqLiteCaptchaInitializer>();
@@ -36,8 +36,8 @@ public static class ServiceCollectionExtensions
         services.AddTransient<ICaptchaDefinition, SqLiteDefinition<CaptchaDataContext>>();
         services.AddTransient<ICoreDefinition, SqLiteDefinition<CoreDataContext>>();
         services.AddTransient<IEventDefinition, SqLiteDefinition<EventDataContext>>();
+        services.AddTransient<IInfaqsDefinition, SqLiteDefinition<InfaqsDataContext>>();
         services.AddTransient<ISessionsDefinition, SqLiteDefinition<SessionsDataContext>>();
-        services.AddTransient<IInfaqsDefinition, SqLiteDefinition<TransactionsDataContext>>();
         services.AddTransient<IUsersDefinition, SqLiteDefinition<UsersDataContext>>();
 
         return services;

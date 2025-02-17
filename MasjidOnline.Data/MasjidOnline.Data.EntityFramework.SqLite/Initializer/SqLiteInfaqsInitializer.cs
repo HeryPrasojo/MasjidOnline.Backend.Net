@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 
 public class SqLiteInfaqsInitializer(
-    TransactionsDataContext _transactionDataContext,
+    InfaqsDataContext _infaqsDataContext,
     IInfaqsDefinition _infaqsDefinition) : TransactionInitializer(_infaqsDefinition)
 {
     protected override async Task<int> CreateTableInfaqSettingAsync()
@@ -21,7 +21,7 @@ public class SqLiteInfaqsInitializer(
                 Value TEXT NOT NULL
             )";
 
-        return await _transactionDataContext.Database.ExecuteSqlAsync(sql);
+        return await _infaqsDataContext.Database.ExecuteSqlAsync(sql);
     }
 
     protected override async Task<int> CreateTableInfaqAsync()
@@ -41,7 +41,7 @@ public class SqLiteInfaqsInitializer(
                 ManualBankTransferNotes TEXT NOT NULL
             )";
 
-        return await _transactionDataContext.Database.ExecuteSqlAsync(sql);
+        return await _infaqsDataContext.Database.ExecuteSqlAsync(sql);
     }
 
     protected override async Task<int> CreateTableInfaqFileAsync()
@@ -53,6 +53,6 @@ public class SqLiteInfaqsInitializer(
                 InfaqId INTEGER NOT NULL
             )";
 
-        return await _transactionDataContext.Database.ExecuteSqlAsync(sql);
+        return await _infaqsDataContext.Database.ExecuteSqlAsync(sql);
     }
 }
