@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Initializer;
@@ -9,7 +9,7 @@ namespace MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 
 public class SqLiteTransactionsInitializer(
     TransactionsDataContext _transactionDataContext,
-    ITransactionsDefinition _transactionDefinition) : TransactionInitializer(_transactionDefinition)
+    IInfaqsDefinition _infaqsDefinition) : TransactionInitializer(_infaqsDefinition)
 {
     protected override async Task<int> CreateTableTransactionSettingAsync()
     {

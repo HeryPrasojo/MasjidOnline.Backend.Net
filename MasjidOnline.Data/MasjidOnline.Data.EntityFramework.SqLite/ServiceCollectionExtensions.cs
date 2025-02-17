@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 using MasjidOnline.Data.Interface.Definition;
@@ -37,7 +37,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<ICoreDefinition, SqLiteDefinition<CoreDataContext>>();
         services.AddTransient<IEventDefinition, SqLiteDefinition<EventDataContext>>();
         services.AddTransient<ISessionsDefinition, SqLiteDefinition<SessionsDataContext>>();
-        services.AddTransient<ITransactionsDefinition, SqLiteDefinition<TransactionsDataContext>>();
+        services.AddTransient<IInfaqsDefinition, SqLiteDefinition<TransactionsDataContext>>();
         services.AddTransient<IUsersDefinition, SqLiteDefinition<UsersDataContext>>();
 
         return services;

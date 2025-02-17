@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using MasjidOnline.Business.Infaq.Interface;
 using MasjidOnline.Business.Infaq.Interface.Model;
 using MasjidOnline.Business.Interface.Model.Responses;
@@ -13,9 +13,9 @@ internal static class InfaqEndPoint
         IAnonymInfaqBusiness anonymInfaqBusiness,
         ICaptchaData _captchaData,
         ISessionBusiness _sessionBusiness,
-        ITransactionsData _transactionData,
+        IInfaqsData _infaqsData,
         AnonymInfaqRequest anonymInfaqRequest)
     {
-        return await anonymInfaqBusiness.InfaqAsync(_captchaData, _sessionBusiness, _transactionData, anonymInfaqRequest);
+        return await anonymInfaqBusiness.InfaqAsync(_captchaData, _sessionBusiness, _infaqsData, anonymInfaqRequest);
     }
 }

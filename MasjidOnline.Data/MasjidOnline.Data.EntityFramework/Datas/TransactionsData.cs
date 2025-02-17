@@ -1,11 +1,11 @@
-﻿using MasjidOnline.Data.EntityFramework.DataContext;
+using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.EntityFramework.Repository.Transactions;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.Repository.Transactions;
 
 namespace MasjidOnline.Data.EntityFramework.Datas;
 
-public class TransactionsData(TransactionsDataContext _transactionDataContext) : DataWithoutAudit(_transactionDataContext), ITransactionsData
+public class TransactionsData(TransactionsDataContext _transactionDataContext) : DataWithoutAudit(_transactionDataContext), IInfaqsData
 {
     private ITransactionSettingRepository? _transactionSettingRepository;
 

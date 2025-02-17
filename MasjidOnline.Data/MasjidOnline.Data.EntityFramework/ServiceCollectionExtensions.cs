@@ -1,4 +1,4 @@
-﻿using MasjidOnline.Data.EntityFramework.Datas;
+using MasjidOnline.Data.EntityFramework.Datas;
 using MasjidOnline.Data.Interface.Datas;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,8 +12,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ICaptchaData, CaptchaData>();
         services.AddScoped<ICoreData, CoreData>();
         services.AddScoped<IEventData, EventData>();
+        services.AddScoped<IInfaqsData, TransactionsData>();
         services.AddScoped<ISessionsData, SessionsData>();
-        services.AddScoped<ITransactionsData, TransactionsData>();
         services.AddScoped<IUsersData, UsersData>();
 
         return services;

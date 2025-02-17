@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 
 namespace MasjidOnline.Entity.Payments;
 
+// todo move to MasjidOnline.Entity.Infaqs
 public class Payment
 {
     public required int Id { get; set; }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Definition;
@@ -13,7 +13,7 @@ public class SqLiteDefinition<TDataContext>(TDataContext tDataContext) :
     ICoreDefinition,
     IEventDefinition,
     ISessionsDefinition,
-    ITransactionsDefinition,
+    IInfaqsDefinition,
     IUsersDefinition
     where TDataContext : DbContext
 {

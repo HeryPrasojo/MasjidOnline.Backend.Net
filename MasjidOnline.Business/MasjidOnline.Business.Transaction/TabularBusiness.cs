@@ -17,7 +17,7 @@ public class TabularBusiness(
     public async Task QueryAsync(
         ISessionBusiness _sessionBusiness,
         IUsersData _usersData,
-        ITransactionsData _transactionsData,
+        IInfaqsData _transactionsData,
         QueryRequest queryRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _usersData, transactionInfaqRead: true);

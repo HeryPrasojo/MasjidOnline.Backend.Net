@@ -6,11 +6,11 @@ using MasjidOnline.Entity.Infaqs;
 
 namespace MasjidOnline.Data.Initializer;
 
-public abstract class TransactionInitializer(ITransactionsDefinition _transactionDefinition) : ITransactionsInitializer
+public abstract class TransactionInitializer(IInfaqsDefinition _infaqsDefinition) : ITransactionsInitializer
 {
-    public async Task InitializeDatabaseAsync(ITransactionsData transactionData)
+    public async Task InitializeDatabaseAsync(IInfaqsData infaqsData)
     {
-        var settingTableExists = await _transactionDefinition.CheckTableExistsAsync(nameof(InfaqSetting));
+        var settingTableExists = await _infaqsDefinition.CheckTableExistsAsync(nameof(InfaqSetting));
 
         if (!settingTableExists)
         {
@@ -26,9 +26,9 @@ public abstract class TransactionInitializer(ITransactionsDefinition _transactio
                 Value = "1",
             };
 
-            await transactionData.TransactionSetting.AddAsync(transactionSetting);
+            await infaqsData.TransactionSetting.AddAsync(transactionSetting);
 
-            await transactionData.SaveAsync();
+            await infaqsData.SaveAsync();
         }
     }
 

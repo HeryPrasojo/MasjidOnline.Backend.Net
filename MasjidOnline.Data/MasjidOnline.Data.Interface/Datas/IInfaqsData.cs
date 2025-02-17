@@ -1,8 +1,8 @@
-﻿using MasjidOnline.Data.Interface.Repository.Transactions;
+using MasjidOnline.Data.Interface.Repository.Transactions;
 
 namespace MasjidOnline.Data.Interface.Datas;
 
-public interface ITransactionsData : IDataWithoutAudit
+public interface IInfaqsData : IDataWithoutAudit
 {
     ITransactionRepository Transaction { get; }
     ITransactionSettingRepository TransactionSetting { get; }

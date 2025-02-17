@@ -24,7 +24,7 @@ public class AnonymInfaqBusiness(
     public async Task<Response> InfaqAsync(
         ICaptchaData _captchaData,
         ISessionBusiness _sessionBusiness,
-        ITransactionsData _transactionData,
+        IInfaqsData _infaqsData,
         AnonymInfaqRequest anonymInfaqRequest)
     {
         _fieldValidatorService.ValidateRequired(anonymInfaqRequest);
@@ -71,7 +71,7 @@ public class AnonymInfaqBusiness(
             transaction.ManualNotes = anonymInfaqRequest.ManualNotes;
         }
 
-        await _transactionData.Transaction.AddAsync(transaction);
+        await _infaqsData.Transaction.AddAsync(transaction);
 
 
         if (anonymInfaqRequest.Files != default)
@@ -83,7 +83,7 @@ public class AnonymInfaqBusiness(
                 var transactionFile = new InfaqFile
                 {
                     Id = _transactionIdGenerator.TransactionFileId,
-                    TransactionId = transaction.Id,
+                    InfaqId = transaction.Id,
                 };
 
                 var fileStreamOptions = new FileStreamOptions
@@ -103,12 +103,12 @@ public class AnonymInfaqBusiness(
 
                 fileStream.Close();
 
-                await _transactionData.TransactionFile.AddAsync(transactionFile);
+                await _infaqsData.TransactionFile.AddAsync(transactionFile);
             }
         }
 
 
-        await _transactionData.SaveAsync();
+        await _infaqsData.SaveAsync();
 
         return new()
         {
