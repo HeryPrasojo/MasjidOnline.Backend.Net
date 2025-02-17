@@ -19,7 +19,7 @@ namespace MasjidOnline.Business.Infaq;
 
 public class AnonymInfaqBusiness(
     IFieldValidatorService _fieldValidatorService,
-    ITransactionsIdGenerator _transactionIdGenerator) : IAnonymInfaqBusiness
+    IInfaqsIdGenerator _infaqsIdGenerator) : IAnonymInfaqBusiness
 {
     public async Task<Response> InfaqAsync(
         ICaptchaData _captchaData,
@@ -55,7 +55,7 @@ public class AnonymInfaqBusiness(
 
         var transaction = new Entity.Infaqs.Infaq
         {
-            Id = _transactionIdGenerator.TransactionId,
+            Id = _infaqsIdGenerator.TransactionId,
             Amount = anonymInfaqRequest.Amount,
             DateTime = DateTime.UtcNow,
             PaymentStatus = PaymentStatus.Pending,
@@ -82,7 +82,7 @@ public class AnonymInfaqBusiness(
 
                 var transactionFile = new InfaqFile
                 {
-                    Id = _transactionIdGenerator.TransactionFileId,
+                    Id = _infaqsIdGenerator.TransactionFileId,
                     InfaqId = transaction.Id,
                 };
 

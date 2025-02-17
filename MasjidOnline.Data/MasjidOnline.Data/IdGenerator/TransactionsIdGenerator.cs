@@ -5,7 +5,7 @@ using MasjidOnline.Data.Interface.IdGenerator;
 
 namespace MasjidOnline.Data.IdGenerator;
 
-public class TransactionsIdGenerator : ITransactionsIdGenerator
+public class TransactionsIdGenerator : IInfaqsIdGenerator
 {
     private int _transactionId;
     private int _transactionFileId;

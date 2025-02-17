@@ -1,4 +1,4 @@
-﻿using MasjidOnline.Data.IdGenerator;
+using MasjidOnline.Data.IdGenerator;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.IdGenerator;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +14,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ICaptchaIdGenerator, CaptchaIdGenerator>();
         services.AddSingleton<IEventIdGenerator, EventIdGenerator>();
         services.AddSingleton<ISessionsIdGenerator, SessionsIdGenerator>();
-        services.AddSingleton<ITransactionsIdGenerator, TransactionsIdGenerator>();
+        services.AddSingleton<IInfaqsIdGenerator, TransactionsIdGenerator>();
         services.AddSingleton<IUsersIdGenerator, UsersIdGenerator>();
 
         services.AddScoped<IDataTransaction, DataTransaction>();

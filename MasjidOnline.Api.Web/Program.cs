@@ -132,8 +132,8 @@ static async Task InitializeAsync(WebApplication webApplication)
     var coreIdGenerator = GetService<ICoreIdGenerator>(serviceScope.ServiceProvider);
     var captchaIdGenerator = GetService<ICaptchaIdGenerator>(serviceScope.ServiceProvider);
     var eventIdGenerator = GetService<IEventIdGenerator>(serviceScope.ServiceProvider);
+    var infaqsIdGenerator = GetService<IInfaqsIdGenerator>(serviceScope.ServiceProvider);
     var sessionsIdGenerator = GetService<ISessionsIdGenerator>(serviceScope.ServiceProvider);
-    var transactionsIdGenerator = GetService<ITransactionsIdGenerator>(serviceScope.ServiceProvider);
     var usersIdGenerator = GetService<IUsersIdGenerator>(serviceScope.ServiceProvider);
 
     var sessionBusiness = GetService<ISessionBusiness>(serviceScope.ServiceProvider);
@@ -157,7 +157,7 @@ static async Task InitializeAsync(WebApplication webApplication)
     await captchaIdGenerator.InitializeAsync(captchaData);
     await eventIdGenerator.InitializeAsync(eventData);
     await sessionsIdGenerator.InitializeAsync(sessionsData);
-    await transactionsIdGenerator.InitializeAsync(infaqsData);
+    await infaqsIdGenerator.InitializeAsync(infaqsData);
     await usersIdGenerator.InitializeAsync(usersData);
 
 
