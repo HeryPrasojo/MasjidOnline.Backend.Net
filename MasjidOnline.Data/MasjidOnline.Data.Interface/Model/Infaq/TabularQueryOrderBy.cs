@@ -1,4 +1,4 @@
-namespace MasjidOnline.Data.Interface.Model.Transaction;
+namespace MasjidOnline.Data.Interface.Model.Infaq;
 
 public enum TabularQueryOrderBy
 {

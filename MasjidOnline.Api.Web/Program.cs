@@ -124,8 +124,8 @@ static async Task InitializeAsync(WebApplication webApplication)
     var coreInitializer = GetService<ICoreInitializer>(serviceScope.ServiceProvider);
     var captchaInitializer = GetService<ICaptchaInitializer>(serviceScope.ServiceProvider);
     var eventInitializer = GetService<IEventInitializer>(serviceScope.ServiceProvider);
+    var infaqssInitializer = GetService<IInfaqsInitializer>(serviceScope.ServiceProvider);
     var sessionsInitializer = GetService<ISessionsInitializer>(serviceScope.ServiceProvider);
-    var transactionsInitializer = GetService<ITransactionsInitializer>(serviceScope.ServiceProvider);
     var usersInitializer = GetService<IUsersInitializer>(serviceScope.ServiceProvider);
 
     var auditIdGenerator = GetService<IAuditIdGenerator>(serviceScope.ServiceProvider);
@@ -148,7 +148,7 @@ static async Task InitializeAsync(WebApplication webApplication)
     await captchaInitializer.InitializeDatabaseAsync(captchaData);
     await eventInitializer.InitializeDatabaseAsync(eventData);
     await sessionsInitializer.InitializeDatabaseAsync(sessionsData);
-    await transactionsInitializer.InitializeDatabaseAsync(infaqsData);
+    await infaqssInitializer.InitializeDatabaseAsync(infaqsData);
     await usersInitializer.InitializeDatabaseAsync(usersData, sessionBusiness.UserId);
 
 

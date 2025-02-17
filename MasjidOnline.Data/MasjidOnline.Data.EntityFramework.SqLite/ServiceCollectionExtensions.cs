@@ -28,8 +28,8 @@ public static class ServiceCollectionExtensions
         services.AddTransient<ICaptchaInitializer, SqLiteCaptchaInitializer>();
         services.AddTransient<ICoreInitializer, SqLiteCoreInitializer>();
         services.AddTransient<IEventInitializer, SqLiteEventInitializer>();
+        services.AddTransient<IInfaqsInitializer, SqLiteTransactionsInitializer>();
         services.AddTransient<ISessionsInitializer, SqLiteSessionsInitializer>();
-        services.AddTransient<ITransactionsInitializer, SqLiteTransactionsInitializer>();
         services.AddTransient<IUsersInitializer, SqLiteUserInitializer>();
 
         services.AddTransient<IAuditDefinition, SqLiteDefinition<AuditDataContext>>();

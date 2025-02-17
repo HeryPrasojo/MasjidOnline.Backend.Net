@@ -6,7 +6,7 @@ using MasjidOnline.Entity.Infaqs;
 
 namespace MasjidOnline.Data.Initializer;
 
-public abstract class TransactionInitializer(IInfaqsDefinition _infaqsDefinition) : ITransactionsInitializer
+public abstract class TransactionInitializer(IInfaqsDefinition _infaqsDefinition) : IInfaqsInitializer
 {
     public async Task InitializeDatabaseAsync(IInfaqsData infaqsData)
     {
