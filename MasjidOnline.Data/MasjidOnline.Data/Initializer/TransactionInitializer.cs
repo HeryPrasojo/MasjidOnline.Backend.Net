@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.Definition;
 using MasjidOnline.Data.Interface.Initializer;
-using MasjidOnline.Entity.Transactions;
+using MasjidOnline.Entity.Infaqs;
 
 namespace MasjidOnline.Data.Initializer;
 
@@ -10,7 +10,7 @@ public abstract class TransactionInitializer(ITransactionsDefinition _transactio
 {
     public async Task InitializeDatabaseAsync(ITransactionsData transactionData)
     {
-        var settingTableExists = await _transactionDefinition.CheckTableExistsAsync(nameof(TransactionSetting));
+        var settingTableExists = await _transactionDefinition.CheckTableExistsAsync(nameof(InfaqSetting));
 
         if (!settingTableExists)
         {
@@ -19,10 +19,10 @@ public abstract class TransactionInitializer(ITransactionsDefinition _transactio
             await CreateTableTransactionFileAsync();
 
 
-            var transactionSetting = new TransactionSetting
+            var transactionSetting = new InfaqSetting
             {
-                Id = (int)TransactionSettingId.DatabaseVersion,
-                Description = nameof(TransactionSettingId.DatabaseVersion),
+                Id = (int)InfaqSettingId.DatabaseVersion,
+                Description = nameof(InfaqSettingId.DatabaseVersion),
                 Value = "1",
             };
 

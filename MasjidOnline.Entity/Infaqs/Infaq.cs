@@ -1,15 +1,13 @@
 using System;
 using MasjidOnline.Entity.Payments;
 
-namespace MasjidOnline.Entity.Transactions;
+namespace MasjidOnline.Entity.Infaqs;
 
-public class Transaction
+public class Infaq
 {
     public required int Id { get; set; }
 
     public required DateTime DateTime { get; set; }
-
-    public required TransactionType Type { get; set; }
 
     public int UserId { get; set; }
 

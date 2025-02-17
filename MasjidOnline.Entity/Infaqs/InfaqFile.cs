@@ -1,6 +1,6 @@
-﻿namespace MasjidOnline.Entity.Transactions;
+namespace MasjidOnline.Entity.Infaqs;
 
-public class TransactionFile
+public class InfaqFile
 {
     public required int Id { get; set; }
 

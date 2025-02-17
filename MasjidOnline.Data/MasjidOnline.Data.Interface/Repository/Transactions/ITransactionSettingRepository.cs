@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
-using MasjidOnline.Entity.Transactions;
+using System.Threading.Tasks;
+using MasjidOnline.Entity.Infaqs;
 
 namespace MasjidOnline.Data.Interface.Repository.Transactions;
 
 public interface ITransactionSettingRepository
 {
-    Task AddAsync(TransactionSetting setting);
+    Task AddAsync(InfaqSetting setting);
 }

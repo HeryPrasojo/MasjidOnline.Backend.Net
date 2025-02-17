@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,8 +9,8 @@ using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
+using MasjidOnline.Entity.Infaqs;
 using MasjidOnline.Entity.Payments;
-using MasjidOnline.Entity.Transactions;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Library.Extentions;
 using MasjidOnline.Service.FieldValidator.Interface;
@@ -53,14 +53,13 @@ public class AnonymInfaqBusiness(
         ;
 
 
-        var transaction = new Transaction
+        var transaction = new Entity.Infaqs.Infaq
         {
             Id = _transactionIdGenerator.TransactionId,
             Amount = anonymInfaqRequest.Amount,
             DateTime = DateTime.UtcNow,
             PaymentStatus = PaymentStatus.Pending,
             PaymentType = (PaymentType)anonymInfaqRequest.PaymentType,
-            Type = TransactionType.Infaq,
             UserId = _sessionBusiness.UserId,
             MunfiqName = anonymInfaqRequest.MunfiqName,
 
@@ -81,7 +80,7 @@ public class AnonymInfaqBusiness(
             {
                 if (file.Length > 1048576) throw new InputInvalidException(nameof(anonymInfaqRequest.Files));
 
-                var transactionFile = new TransactionFile
+                var transactionFile = new InfaqFile
                 {
                     Id = _transactionIdGenerator.TransactionFileId,
                     TransactionId = transaction.Id,

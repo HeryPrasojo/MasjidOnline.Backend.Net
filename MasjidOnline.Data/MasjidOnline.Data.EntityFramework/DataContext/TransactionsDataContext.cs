@@ -1,4 +1,4 @@
-﻿using MasjidOnline.Entity.Transactions;
+using MasjidOnline.Entity.Infaqs;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.DataContext;
@@ -9,9 +9,9 @@ public class TransactionsDataContext(DbContextOptions _dbContextOptions) : DbCon
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<Transaction>();
-        modelBuilder.Entity<TransactionFile>();
+        modelBuilder.Entity<Infaq>();
+        modelBuilder.Entity<InfaqFile>();
 
-        modelBuilder.Entity<TransactionSetting>();
+        modelBuilder.Entity<InfaqSetting>();
     }
 }

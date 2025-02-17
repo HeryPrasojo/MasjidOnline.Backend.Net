@@ -1,16 +1,16 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.Transactions;
-using MasjidOnline.Entity.Transactions;
+using MasjidOnline.Entity.Infaqs;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Transactions;
 
 public class TransactionFileRepository(TransactionsDataContext _transactionDataContext) : ITransactionFileRepository
 {
-    private readonly DbSet<TransactionFile> _dbSet = _transactionDataContext.Set<TransactionFile>();
+    private readonly DbSet<InfaqFile> _dbSet = _transactionDataContext.Set<InfaqFile>();
 
-    public async Task AddAsync(TransactionFile transactionFile)
+    public async Task AddAsync(InfaqFile transactionFile)
     {
         await _dbSet.AddAsync(transactionFile);
     }

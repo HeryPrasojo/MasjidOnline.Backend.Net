@@ -6,8 +6,6 @@ using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.Transaction.Interface;
 using MasjidOnline.Business.Transaction.Interface.Model;
 using MasjidOnline.Data.Interface.Datas;
-using MasjidOnline.Data.Interface.Model.Repository;
-using MasjidOnline.Data.Interface.Model.Transaction;
 using MasjidOnline.Service.FieldValidator.Interface;
 
 namespace MasjidOnline.Business.Transaction;
@@ -46,12 +44,12 @@ public class TabularBusiness(
 
         var take = 10;
 
-        return await _transactionsData.Transaction.QueryAsync(
-            paymentStatuses: paymentStatuses,
-            tabularQueryOrderBy: TabularQueryOrderBy.Id,
-            orderByDirection: OrderByDirection.Descending,
-            skip: (queryRequest.Page - 1) * take,
-            take: take);
+        //return await _transactionsData.Transaction.QueryAsync(
+        //    paymentStatuses: paymentStatuses,
+        //    tabularQueryOrderBy: TabularQueryOrderBy.Id,
+        //    orderByDirection: OrderByDirection.Descending,
+        //    skip: (queryRequest.Page - 1) * take,
+        //    take: take);
 
         // undone 1
     }

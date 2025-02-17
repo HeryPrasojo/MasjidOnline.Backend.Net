@@ -5,29 +5,29 @@ using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Model.Repository;
 using MasjidOnline.Data.Interface.Model.Transaction;
 using MasjidOnline.Data.Interface.Repository.Transactions;
+using MasjidOnline.Entity.Infaqs;
 using MasjidOnline.Entity.Payments;
-using MasjidOnline.Entity.Transactions;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Transactions;
 
 public class TransactionRepository(TransactionsDataContext _transactionDataContext) : ITransactionRepository
 {
-    private readonly DbSet<Transaction> _dbSet = _transactionDataContext.Set<Transaction>();
+    private readonly DbSet<Infaq> _dbSet = _transactionDataContext.Set<Infaq>();
 
-    public async Task AddAsync(Transaction transaction)
+    public async Task AddAsync(Infaq transaction)
     {
         await _dbSet.AddAsync(transaction);
     }
 
-    public async Task AddAndSaveAsync(Transaction transaction)
+    public async Task AddAndSaveAsync(Infaq transaction)
     {
         await AddAsync(transaction);
 
         await SaveAsync();
     }
 
-    public async Task<IEnumerable<Transaction>> QueryAsync(
+    public async Task<IEnumerable<Infaq>> QueryAsync(
         IEnumerable<PaymentStatus>? paymentStatuses = default,
         TabularQueryOrderBy tabularQueryOrderBy = default,
         OrderByDirection orderByDirection = default,
