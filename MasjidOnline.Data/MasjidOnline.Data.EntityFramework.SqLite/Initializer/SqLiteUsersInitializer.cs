@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 
-public class SqLiteUserInitializer(
+public class SqLiteUsersInitializer(
     UsersDataContext _userDataContext,
-    IUsersDefinition _userDefinition) : UserInitializer(_userDefinition)
+    IUsersDefinition _userDefinition) : UsersInitializer(_userDefinition)
 {
     protected override async Task<int> CreateTableUserSettingAsync()
     {

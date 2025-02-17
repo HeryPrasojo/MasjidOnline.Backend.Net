@@ -9,7 +9,7 @@ namespace MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 
 public class SqLiteInfaqsInitializer(
     InfaqsDataContext _infaqsDataContext,
-    IInfaqsDefinition _infaqsDefinition) : TransactionInitializer(_infaqsDefinition)
+    IInfaqsDefinition _infaqsDefinition) : InfaqsInitializer(_infaqsDefinition)
 {
     protected override async Task<int> CreateTableInfaqSettingAsync()
     {

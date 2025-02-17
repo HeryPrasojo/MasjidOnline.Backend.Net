@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.Definition;
 using MasjidOnline.Data.Interface.Initializer;
@@ -6,7 +6,7 @@ using MasjidOnline.Entity.Sessions;
 
 namespace MasjidOnline.Data.Initializer;
 
-public abstract class SessionInitializer(ISessionsDefinition _sessionDefinition) : ISessionsInitializer
+public abstract class SessionsInitializer(ISessionsDefinition _sessionDefinition) : ISessionsInitializer
 {
     public async Task InitializeDatabaseAsync(ISessionsData sessionData)
     {
