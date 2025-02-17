@@ -13,8 +13,8 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ICoreIdGenerator, CoreIdGenerator>();
         services.AddSingleton<ICaptchaIdGenerator, CaptchaIdGenerator>();
         services.AddSingleton<IEventIdGenerator, EventIdGenerator>();
+        services.AddSingleton<IInfaqsIdGenerator, InfaqsIdGenerator>();
         services.AddSingleton<ISessionsIdGenerator, SessionsIdGenerator>();
-        services.AddSingleton<IInfaqsIdGenerator, TransactionsIdGenerator>();
         services.AddSingleton<IUsersIdGenerator, UsersIdGenerator>();
 
         services.AddScoped<IDataTransaction, DataTransaction>();
