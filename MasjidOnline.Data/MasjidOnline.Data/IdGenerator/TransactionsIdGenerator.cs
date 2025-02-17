@@ -12,8 +12,8 @@ public class TransactionsIdGenerator : IInfaqsIdGenerator
 
     public async Task InitializeAsync(IInfaqsData infaqsData)
     {
-        _transactionId = await infaqsData.Transaction.GetMaxIdAsync();
-        _transactionFileId = await infaqsData.TransactionFile.GetMaxIdAsync();
+        _transactionId = await infaqsData.Infaq.GetMaxIdAsync();
+        _transactionFileId = await infaqsData.InfaqFile.GetMaxIdAsync();
     }
 
     public int TransactionId => Interlocked.Increment(ref _transactionId);

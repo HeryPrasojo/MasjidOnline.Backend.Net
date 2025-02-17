@@ -1,22 +1,22 @@
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.EntityFramework.Repository.Transactions;
 using MasjidOnline.Data.Interface.Datas;
-using MasjidOnline.Data.Interface.Repository.Transactions;
+using MasjidOnline.Data.Interface.Repository.Infaqs;
 
 namespace MasjidOnline.Data.EntityFramework.Datas;
 
 public class TransactionsData(TransactionsDataContext _transactionDataContext) : DataWithoutAudit(_transactionDataContext), IInfaqsData
 {
-    private ITransactionSettingRepository? _transactionSettingRepository;
+    private IInfaqSettingRepository? _infaqSettingRepository;
 
-    private ITransactionRepository? _transactionRepository;
-    private ITransactionFileRepository? _transactionFileRepository;
-
-
-    public ITransactionSettingRepository TransactionSetting => _transactionSettingRepository ??= new TransactionSettingRepository(_transactionDataContext);
+    private IInfaqRepository? _infaqRepository;
+    private IInfaqFileRepository? _infaqFileRepository;
 
 
-    public ITransactionRepository Transaction => _transactionRepository ??= new TransactionRepository(_transactionDataContext);
+    public IInfaqSettingRepository InfaqSetting => _infaqSettingRepository ??= new TransactionSettingRepository(_transactionDataContext);
 
-    public ITransactionFileRepository TransactionFile => _transactionFileRepository ??= new TransactionFileRepository(_transactionDataContext);
+
+    public IInfaqRepository Infaq => _infaqRepository ??= new TransactionRepository(_transactionDataContext);
+
+    public IInfaqFileRepository InfaqFile => _infaqFileRepository ??= new TransactionFileRepository(_transactionDataContext);
 }

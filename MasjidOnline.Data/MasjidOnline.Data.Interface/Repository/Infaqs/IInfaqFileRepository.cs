@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using MasjidOnline.Entity.Infaqs;
 
-namespace MasjidOnline.Data.Interface.Repository.Transactions;
+namespace MasjidOnline.Data.Interface.Repository.Infaqs;
 
-public interface ITransactionFileRepository
+public interface IInfaqFileRepository
 {
     Task AddAsync(InfaqFile transactionFile);
     Task<int> GetMaxIdAsync();

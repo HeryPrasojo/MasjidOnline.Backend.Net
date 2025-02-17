@@ -7,14 +7,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 
-public class SqLiteTransactionsInitializer(
+public class SqLiteInfaqsInitializer(
     TransactionsDataContext _transactionDataContext,
     IInfaqsDefinition _infaqsDefinition) : TransactionInitializer(_infaqsDefinition)
 {
-    protected override async Task<int> CreateTableTransactionSettingAsync()
+    protected override async Task<int> CreateTableInfaqSettingAsync()
     {
         FormattableString sql = @$"
-            CREATE TABLE TransactionSetting
+            CREATE TABLE InfaqSetting
             (
                 Id INTEGER PRIMARY KEY,
                 Description TEXT NOT NULL,
@@ -24,10 +24,10 @@ public class SqLiteTransactionsInitializer(
         return await _transactionDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTableTransactionAsync()
+    protected override async Task<int> CreateTableInfaqAsync()
     {
         FormattableString sql = @$"
-            CREATE TABLE [Transaction]
+            CREATE TABLE Infaq
             (
                 Id INTEGER PRIMARY KEY,
                 DateTime TEXT NOT NULL,
@@ -44,13 +44,13 @@ public class SqLiteTransactionsInitializer(
         return await _transactionDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTableTransactionFileAsync()
+    protected override async Task<int> CreateTableInfaqFileAsync()
     {
         FormattableString sql = @$"
-            CREATE TABLE TransactionFile
+            CREATE TABLE InfaqFile
             (
                 Id INTEGER PRIMARY KEY,
-                TransactionId INTEGER NOT NULL
+                InfaqId INTEGER NOT NULL
             )";
 
         return await _transactionDataContext.Database.ExecuteSqlAsync(sql);

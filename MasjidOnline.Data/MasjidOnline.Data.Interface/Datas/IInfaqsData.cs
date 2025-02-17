@@ -1,10 +1,10 @@
-using MasjidOnline.Data.Interface.Repository.Transactions;
+using MasjidOnline.Data.Interface.Repository.Infaqs;
 
 namespace MasjidOnline.Data.Interface.Datas;
 
 public interface IInfaqsData : IDataWithoutAudit
 {
-    ITransactionRepository Transaction { get; }
-    ITransactionSettingRepository TransactionSetting { get; }
-    ITransactionFileRepository TransactionFile { get; }
+    IInfaqRepository Infaq { get; }
+    IInfaqSettingRepository InfaqSetting { get; }
+    IInfaqFileRepository InfaqFile { get; }
 }

@@ -14,9 +14,9 @@ public abstract class TransactionInitializer(IInfaqsDefinition _infaqsDefinition
 
         if (!settingTableExists)
         {
-            await CreateTableTransactionSettingAsync();
-            await CreateTableTransactionAsync();
-            await CreateTableTransactionFileAsync();
+            await CreateTableInfaqSettingAsync();
+            await CreateTableInfaqAsync();
+            await CreateTableInfaqFileAsync();
 
 
             var transactionSetting = new InfaqSetting
@@ -26,16 +26,16 @@ public abstract class TransactionInitializer(IInfaqsDefinition _infaqsDefinition
                 Value = "1",
             };
 
-            await infaqsData.TransactionSetting.AddAsync(transactionSetting);
+            await infaqsData.InfaqSetting.AddAsync(transactionSetting);
 
             await infaqsData.SaveAsync();
         }
     }
 
 
-    protected abstract Task<int> CreateTableTransactionSettingAsync();
+    protected abstract Task<int> CreateTableInfaqSettingAsync();
 
-    protected abstract Task<int> CreateTableTransactionAsync();
+    protected abstract Task<int> CreateTableInfaqAsync();
 
-    protected abstract Task<int> CreateTableTransactionFileAsync();
+    protected abstract Task<int> CreateTableInfaqFileAsync();
 }

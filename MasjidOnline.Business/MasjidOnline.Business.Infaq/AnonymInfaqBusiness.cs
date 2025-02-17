@@ -71,7 +71,7 @@ public class AnonymInfaqBusiness(
             transaction.ManualNotes = anonymInfaqRequest.ManualNotes;
         }
 
-        await _infaqsData.Transaction.AddAsync(transaction);
+        await _infaqsData.Infaq.AddAsync(transaction);
 
 
         if (anonymInfaqRequest.Files != default)
@@ -103,7 +103,7 @@ public class AnonymInfaqBusiness(
 
                 fileStream.Close();
 
-                await _infaqsData.TransactionFile.AddAsync(transactionFile);
+                await _infaqsData.InfaqFile.AddAsync(transactionFile);
             }
         }
 

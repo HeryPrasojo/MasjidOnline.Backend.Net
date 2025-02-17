@@ -28,7 +28,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<ICaptchaInitializer, SqLiteCaptchaInitializer>();
         services.AddTransient<ICoreInitializer, SqLiteCoreInitializer>();
         services.AddTransient<IEventInitializer, SqLiteEventInitializer>();
-        services.AddTransient<IInfaqsInitializer, SqLiteTransactionsInitializer>();
+        services.AddTransient<IInfaqsInitializer, SqLiteInfaqsInitializer>();
         services.AddTransient<ISessionsInitializer, SqLiteSessionsInitializer>();
         services.AddTransient<IUsersInitializer, SqLiteUserInitializer>();
 

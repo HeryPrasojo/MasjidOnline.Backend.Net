@@ -5,9 +5,9 @@ using MasjidOnline.Data.Interface.Model.Repository;
 using MasjidOnline.Entity.Infaqs;
 using MasjidOnline.Entity.Payments;
 
-namespace MasjidOnline.Data.Interface.Repository.Transactions;
+namespace MasjidOnline.Data.Interface.Repository.Infaqs;
 
-public interface ITransactionRepository
+public interface IInfaqRepository
 {
     Task AddAsync(Infaq transaction);
     Task AddAndSaveAsync(Infaq transaction);

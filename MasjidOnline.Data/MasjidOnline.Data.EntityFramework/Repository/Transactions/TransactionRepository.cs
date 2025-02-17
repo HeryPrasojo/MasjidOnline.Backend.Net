@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Model.Infaq;
 using MasjidOnline.Data.Interface.Model.Repository;
-using MasjidOnline.Data.Interface.Repository.Transactions;
+using MasjidOnline.Data.Interface.Repository.Infaqs;
 using MasjidOnline.Entity.Infaqs;
 using MasjidOnline.Entity.Payments;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Transactions;
 
-public class TransactionRepository(TransactionsDataContext _transactionDataContext) : ITransactionRepository
+public class TransactionRepository(TransactionsDataContext _transactionDataContext) : IInfaqRepository
 {
     private readonly DbSet<Infaq> _dbSet = _transactionDataContext.Set<Infaq>();
 
