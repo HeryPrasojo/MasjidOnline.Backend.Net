@@ -1,5 +1,5 @@
 using MasjidOnline.Data.EntityFramework.DataContext;
-using MasjidOnline.Data.EntityFramework.Repository.Transactions;
+using MasjidOnline.Data.EntityFramework.Repository.Infaqs;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.Repository.Infaqs;
 
@@ -13,10 +13,10 @@ public class TransactionsData(TransactionsDataContext _transactionDataContext) :
     private IInfaqFileRepository? _infaqFileRepository;
 
 
-    public IInfaqSettingRepository InfaqSetting => _infaqSettingRepository ??= new TransactionSettingRepository(_transactionDataContext);
+    public IInfaqSettingRepository InfaqSetting => _infaqSettingRepository ??= new InfaqSettingRepository(_transactionDataContext);
 
 
-    public IInfaqRepository Infaq => _infaqRepository ??= new TransactionRepository(_transactionDataContext);
+    public IInfaqRepository Infaq => _infaqRepository ??= new InfaqRepository(_transactionDataContext);
 
-    public IInfaqFileRepository InfaqFile => _infaqFileRepository ??= new TransactionFileRepository(_transactionDataContext);
+    public IInfaqFileRepository InfaqFile => _infaqFileRepository ??= new InfaqFileRepository(_transactionDataContext);
 }

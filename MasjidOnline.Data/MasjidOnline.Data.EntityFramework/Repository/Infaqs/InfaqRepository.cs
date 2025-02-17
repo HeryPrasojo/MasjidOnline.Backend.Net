@@ -9,20 +9,20 @@ using MasjidOnline.Entity.Infaqs;
 using MasjidOnline.Entity.Payments;
 using Microsoft.EntityFrameworkCore;
 
-namespace MasjidOnline.Data.EntityFramework.Repository.Transactions;
+namespace MasjidOnline.Data.EntityFramework.Repository.Infaqs;
 
-public class TransactionRepository(TransactionsDataContext _transactionDataContext) : IInfaqRepository
+public class InfaqRepository(TransactionsDataContext _transactionDataContext) : IInfaqRepository
 {
     private readonly DbSet<Infaq> _dbSet = _transactionDataContext.Set<Infaq>();
 
-    public async Task AddAsync(Infaq transaction)
+    public async Task AddAsync(Infaq infaq)
     {
-        await _dbSet.AddAsync(transaction);
+        await _dbSet.AddAsync(infaq);
     }
 
-    public async Task AddAndSaveAsync(Infaq transaction)
+    public async Task AddAndSaveAsync(Infaq infaq)
     {
-        await AddAsync(transaction);
+        await AddAsync(infaq);
 
         await SaveAsync();
     }
