@@ -18,11 +18,4 @@ public class Infaq
     public required PaymentType PaymentType { get; set; }
 
     public required PaymentStatus PaymentStatus { get; set; }
-
-
-    // PaymentType.Manual*
-
-    public DateTime? ManualDateTime { get; set; }
-
-    public string? ManualNotes { get; set; }
 }
