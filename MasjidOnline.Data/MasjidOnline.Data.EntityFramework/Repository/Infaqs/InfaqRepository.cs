@@ -6,7 +6,6 @@ using MasjidOnline.Data.Interface.Model.Infaq;
 using MasjidOnline.Data.Interface.Model.Repository;
 using MasjidOnline.Data.Interface.Repository.Infaqs;
 using MasjidOnline.Entity.Infaqs;
-using MasjidOnline.Entity.Payments;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Infaqs;

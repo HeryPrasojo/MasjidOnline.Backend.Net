@@ -10,7 +10,6 @@ using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.Infaqs;
-using MasjidOnline.Entity.Payments;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Library.Extentions;
 using MasjidOnline.Service.FieldValidator.Interface;

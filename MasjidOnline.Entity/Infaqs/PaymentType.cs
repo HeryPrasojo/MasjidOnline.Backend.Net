@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Entity.Payments;
+namespace MasjidOnline.Entity.Infaqs;
 
 public enum PaymentType
 {

@@ -1,5 +1,4 @@
 using System;
-using MasjidOnline.Entity.Payments;
 
 namespace MasjidOnline.Entity.Infaqs;
 
@@ -20,7 +19,6 @@ public class Infaq
 
     public required PaymentStatus PaymentStatus { get; set; }
 
-    // todo consider move to Payment db
 
     // PaymentType.Manual*
 

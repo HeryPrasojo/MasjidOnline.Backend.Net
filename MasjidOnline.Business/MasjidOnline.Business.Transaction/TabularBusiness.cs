@@ -26,17 +26,17 @@ public class TabularBusiness(
         _fieldValidatorService.ValidateRequiredPlus(queryRequest.Page);
 
 
-        IEnumerable<Entity.Payments.PaymentStatus>? paymentStatuses = default;
+        IEnumerable<Entity.Infaqs.PaymentStatus>? paymentStatuses = default;
 
         if (queryRequest.PaymentStatuses != default)
         {
             paymentStatuses = queryRequest.PaymentStatuses.Select(m => m switch
             {
-                PaymentStatus.Canceled => Entity.Payments.PaymentStatus.Canceled,
-                PaymentStatus.Expired => Entity.Payments.PaymentStatus.Expired,
-                PaymentStatus.Failed => Entity.Payments.PaymentStatus.Failed,
-                PaymentStatus.Pending => Entity.Payments.PaymentStatus.Pending,
-                PaymentStatus.Success => Entity.Payments.PaymentStatus.Success,
+                PaymentStatus.Canceled => Entity.Infaqs.PaymentStatus.Canceled,
+                PaymentStatus.Expired => Entity.Infaqs.PaymentStatus.Expired,
+                PaymentStatus.Failed => Entity.Infaqs.PaymentStatus.Failed,
+                PaymentStatus.Pending => Entity.Infaqs.PaymentStatus.Pending,
+                PaymentStatus.Success => Entity.Infaqs.PaymentStatus.Success,
                 _ => default,
             });
         }

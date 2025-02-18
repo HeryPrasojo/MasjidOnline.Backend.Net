@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Model.Infaq;
 using MasjidOnline.Data.Interface.Model.Repository;
 using MasjidOnline.Entity.Infaqs;
-using MasjidOnline.Entity.Payments;
 
 namespace MasjidOnline.Data.Interface.Repository.Infaqs;
 
