@@ -7,16 +7,16 @@ namespace MasjidOnline.Data.EntityFramework.Datas;
 
 public class InfaqsData(InfaqsDataContext _infaqsDataContext) : DataWithoutAudit(_infaqsDataContext), IInfaqsData
 {
-    private IInfaqSettingRepository? _infaqSettingRepository;
-
     private IInfaqRepository? _infaqRepository;
     private IInfaqFileRepository? _infaqFileRepository;
-
-
-    public IInfaqSettingRepository InfaqSetting => _infaqSettingRepository ??= new InfaqSettingRepository(_infaqsDataContext);
-
+    private IInfaqManualRepository? _infaqManualRepository;
+    private IInfaqSettingRepository? _infaqSettingRepository;
 
     public IInfaqRepository Infaq => _infaqRepository ??= new InfaqRepository(_infaqsDataContext);
 
     public IInfaqFileRepository InfaqFile => _infaqFileRepository ??= new InfaqFileRepository(_infaqsDataContext);
+
+    public IInfaqManualRepository InfaqManual => _infaqManualRepository ??= new InfaqManualRepository(_infaqsDataContext);
+
+    public IInfaqSettingRepository InfaqSetting => _infaqSettingRepository ??= new InfaqSettingRepository(_infaqsDataContext);
 }

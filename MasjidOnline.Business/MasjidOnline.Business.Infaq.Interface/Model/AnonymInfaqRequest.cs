@@ -1,5 +1,3 @@
-﻿using MasjidOnline.Business.Payment.Interface.Model;
-
 namespace MasjidOnline.Business.Infaq.Interface.Model;
 
 public class AnonymInfaqRequest
@@ -10,7 +8,7 @@ public class AnonymInfaqRequest
 
     public required PaymentType PaymentType { get; set; }
 
-    public DateTime? ManualDateTime { get; set; }
+    public required DateTime ManualDateTime { get; set; }
 
     public string? ManualNotes { get; set; }
 

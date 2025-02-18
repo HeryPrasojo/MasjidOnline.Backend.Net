@@ -1,5 +1,4 @@
-// todo remove
-namespace MasjidOnline.Business.Payment.Interface.Model;
+namespace MasjidOnline.Business.Infaq.Interface.Model;
 
 public enum PaymentType
 {
