@@ -10,9 +10,9 @@ public class ConnectionStrings
 
     public string Event { get; set; } = "Data Source=..\\..\\MasjidOnline.Local.sqlite3;";
 
-    public string Sessions { get; set; } = "Data Source=..\\..\\MasjidOnline.Local.sqlite3;";
-
     public string Infaqs { get; set; } = "Data Source=..\\..\\MasjidOnline.Local.sqlite3;";
+
+    public string Sessions { get; set; } = "Data Source=..\\..\\MasjidOnline.Local.sqlite3;";
 
     public string Users { get; set; } = "Data Source=..\\..\\MasjidOnline.Local.sqlite3;";
 }

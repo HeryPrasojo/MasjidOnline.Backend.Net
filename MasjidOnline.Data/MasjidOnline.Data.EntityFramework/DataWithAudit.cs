@@ -12,7 +12,8 @@ public abstract class DataWithAudit(
 {
     public async Task SaveAsync(int userId)
     {
-        await _dataTransaction.BeginAsync(_auditData);
+        // todo fix
+        //await _dataTransaction.BeginAsync(_auditData);
 
         var entityEntries = _dbContext.ChangeTracker.Entries();
 
@@ -30,6 +31,6 @@ public abstract class DataWithAudit(
 
         await _dbContext.SaveChangesAsync();
 
-        await _dataTransaction.CommitAsync();
+        //await _dataTransaction.CommitAsync();
     }
 }

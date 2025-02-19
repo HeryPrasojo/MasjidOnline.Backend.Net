@@ -1,4 +1,4 @@
-﻿using MasjidOnline.Entity.Audit;
+using MasjidOnline.Entity.Audit;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.DataContext;
@@ -10,6 +10,7 @@ public class AuditDataContext(DbContextOptions _dbContextOptions) : DbContext(_d
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<AuditSetting>();
+        modelBuilder.Entity<PermissionLog>();
         modelBuilder.Entity<UserLog>();
         modelBuilder.Entity<UserEmailAddressLog>();
     }

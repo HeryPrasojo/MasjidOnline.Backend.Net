@@ -1,4 +1,4 @@
-﻿
+
 using MasjidOnline.Business.User.Interface;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,6 +9,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddUserBusiness(this IServiceCollection services)
     {
         services.AddSingleton<IAdditionBusiness, AdditionBusiness>();
+        services.AddSingleton<IInitializerBusiness, InitializerBusiness>();
         services.AddSingleton<IPasswordSetBusiness, PasswordSetBusiness>();
 
         return services;

@@ -31,7 +31,6 @@ public class SqLiteUsersInitializer(
             (
                 Code BLOB PRIMARY KEY,
                 DateTime TEXT NOT NULL,
-                Name TEXT NOT NULL,
                 UserId INTEGER NOT NULL,
                 UseDateTime TEXT
             )";
@@ -45,7 +44,8 @@ public class SqLiteUsersInitializer(
             CREATE TABLE Permission
             (
                 UserId INTEGER PRIMARY KEY,
-                UserInternalAdd INTEGER NOT NULL
+                UserInternalAdd INTEGER NOT NULL,
+                TransactionInfaqRead INTEGER NOT NULL
             )";
 
         return await _userDataContext.Database.ExecuteSqlAsync(sql);

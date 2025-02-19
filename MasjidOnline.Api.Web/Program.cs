@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using MasjidOnline.Api.Web;
 using MasjidOnline.Api.Web.Middleware;
+using MasjidOnline.Business.AuthorizationBusiness;
 using MasjidOnline.Business.Captcha;
 using MasjidOnline.Business.Infaq;
 using MasjidOnline.Business.Interface.Model.Options;
@@ -92,6 +93,7 @@ static WebApplication BuildApplication(string[] args)
     webApplicationBuilder.Services.AddSqLiteEntityFrameworkData(webApplicationBuilder.Configuration);
     webApplicationBuilder.Services.AddEntityIdGenerator();
 
+    webApplicationBuilder.Services.AddAuthorizationBusiness();
     webApplicationBuilder.Services.AddCaptchaBusiness();
     webApplicationBuilder.Services.AddInfaqBusiness();
     webApplicationBuilder.Services.AddSessionBusiness();
@@ -139,13 +141,14 @@ static async Task InitializeAsync(WebApplication webApplication)
     var userInitializerBusiness = GetService<MasjidOnline.Business.User.Interface.IInitializerBusiness>(serviceScope.ServiceProvider);
 
 
+    await sessionsInitializer.InitializeDatabaseAsync(sessionsData);
+
     await sessionBusiness.ChangeAsync(MasjidOnline.Business.Interface.Model.Constant.SystemUserId);
 
     await auditInitializer.InitializeDatabaseAsync(auditData);
     await coreInitializer.InitializeDatabaseAsync(coreData);
     await captchaInitializer.InitializeDatabaseAsync(captchaData);
     await eventInitializer.InitializeDatabaseAsync(eventData);
-    await sessionsInitializer.InitializeDatabaseAsync(sessionsData);
     await infaqssInitializer.InitializeDatabaseAsync(infaqsData);
     await usersInitializer.InitializeDatabaseAsync(usersData, sessionBusiness.UserId);
 
