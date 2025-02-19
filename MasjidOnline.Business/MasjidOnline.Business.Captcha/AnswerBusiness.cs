@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Business.Captcha.Interface.Model;
@@ -45,14 +45,14 @@ public class AnswerBusiness(
         {
             return new()
             {
-                ResultCode = ResponseResult.CaptchaWrong,
+                ResultCode = ResponseResultCode.CaptchaWrong,
                 ResultMessage = $"{nameof(answerQuestionRequest.Degree)}: {answerQuestionRequest.Degree}",
             };
         }
 
         return new()
         {
-            ResultCode = ResponseResult.Success,
+            ResultCode = ResponseResultCode.Success,
         };
     }
 }

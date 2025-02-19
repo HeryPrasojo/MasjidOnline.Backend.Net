@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface.Model.Responses;
@@ -36,7 +36,7 @@ public class LoginBusiness(IHash512Service _hash512Service) : ILoginBusiness
 
         return new()
         {
-            ResultCode = ResponseResult.Success
+            ResultCode = ResponseResultCode.Success
         };
     }
 }

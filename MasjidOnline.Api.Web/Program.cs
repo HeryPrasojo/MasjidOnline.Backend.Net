@@ -8,7 +8,6 @@ using MasjidOnline.Business.Infaq;
 using MasjidOnline.Business.Interface.Model.Options;
 using MasjidOnline.Business.Session;
 using MasjidOnline.Business.Session.Interface;
-using MasjidOnline.Business.Transaction;
 using MasjidOnline.Business.User;
 using MasjidOnline.Data;
 using MasjidOnline.Data.EntityFramework;
@@ -93,10 +92,9 @@ static WebApplication BuildApplication(string[] args)
     webApplicationBuilder.Services.AddSqLiteEntityFrameworkData(webApplicationBuilder.Configuration);
     webApplicationBuilder.Services.AddEntityIdGenerator();
 
-    webApplicationBuilder.Services.AddDonationBusiness();
     webApplicationBuilder.Services.AddCaptchaBusiness();
+    webApplicationBuilder.Services.AddInfaqBusiness();
     webApplicationBuilder.Services.AddSessionBusiness();
-    webApplicationBuilder.Services.AddTransactionBusiness();
     webApplicationBuilder.Services.AddUserBusiness();
 
     #endregion

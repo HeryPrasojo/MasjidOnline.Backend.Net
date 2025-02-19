@@ -1,6 +1,6 @@
-﻿namespace MasjidOnline.Business.Interface.Model.Responses;
+namespace MasjidOnline.Business.Interface.Model.Responses;
 
-public enum ResponseResult
+public enum ResponseResultCode
 {
     Success = 0,
     SessionMismatch = 3,

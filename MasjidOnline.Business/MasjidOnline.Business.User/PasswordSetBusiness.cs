@@ -48,7 +48,7 @@ public class PasswordSetBusiness(
 
         return new()
         {
-            ResultCode = ResponseResult.Success,
+            ResultCode = ResponseResultCode.Success,
         };
     }
 }

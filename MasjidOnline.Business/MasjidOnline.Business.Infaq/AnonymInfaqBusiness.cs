@@ -32,12 +32,12 @@ public class AnonymInfaqBusiness(
 
             if (!captchaQuestions.Any()) return new()
             {
-                ResultCode = ResponseResult.CaptchaNeeded,
+                ResultCode = ResponseResultCode.CaptchaNeeded,
             };
 
             if (!captchaQuestions.Any(e => e.IsMatched)) return new()
             {
-                ResultCode = ResponseResult.CaptchaNotPassed,
+                ResultCode = ResponseResultCode.CaptchaNotPassed,
             };
         }
 
@@ -64,7 +64,7 @@ public class AnonymInfaqBusiness(
             Id = _infaqsIdGenerator.TransactionId,
             Amount = anonymInfaqRequest.Amount,
             DateTime = DateTime.UtcNow,
-            PaymentStatus = PaymentStatus.Pending,
+            PaymentStatus = Entity.Infaqs.PaymentStatus.Pending,
             PaymentType = (Entity.Infaqs.PaymentType)anonymInfaqRequest.PaymentType,
             UserId = _sessionBusiness.UserId,
             MunfiqName = anonymInfaqRequest.MunfiqName,
@@ -128,7 +128,7 @@ public class AnonymInfaqBusiness(
 
         return new()
         {
-            ResultCode = ResponseResult.Success,
+            ResultCode = ResponseResultCode.Success,
         };
     }
 }

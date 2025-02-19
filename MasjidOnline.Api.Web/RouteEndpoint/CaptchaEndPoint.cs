@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Business.Captcha.Interface.Model;
 using MasjidOnline.Business.Interface.Model.Responses;
@@ -21,7 +21,7 @@ internal static class CaptchaEndPoint
         httpContext.Response.Headers[Constant.HttpHeaderName.ResultCode] = createResponse.ResultCode.ToString();
         httpContext.Response.Headers[Constant.HttpHeaderName.ResultMessage] = createResponse.ResultMessage;
 
-        if (createResponse.ResultCode != ResponseResult.Success) return Results.Empty;
+        if (createResponse.ResultCode != ResponseResultCode.Success) return Results.Empty;
 
         return Results.Stream(createResponse.Stream!, "image/png");
     }

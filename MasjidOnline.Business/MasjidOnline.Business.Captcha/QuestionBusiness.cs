@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Business.Captcha.Interface.Model;
@@ -20,7 +20,7 @@ public class QuestionBusiness(
     {
         if (_sessionBusiness.UserId != Constant.AnonymousUserId) return new()
         {
-            ResultCode = ResponseResult.CaptchaPassed,
+            ResultCode = ResponseResultCode.CaptchaPassed,
         };
 
 
@@ -30,27 +30,27 @@ public class QuestionBusiness(
         {
             if (existingCaptchaQuestion.IsMatched) return new()
             {
-                ResultCode = ResponseResult.CaptchaPassed,
+                ResultCode = ResponseResultCode.CaptchaPassed,
             };
 
 
-            var existingImage = _captchaService.GenerateImage(existingCaptchaQuestion.Degree);
+            var existingGenerateImageResult = _captchaService.GenerateImage(existingCaptchaQuestion.Degree);
 
             return new()
             {
-                ResultCode = ResponseResult.Success,
-                Stream = existingImage.Stream,
+                ResultCode = ResponseResultCode.Success,
+                Stream = existingGenerateImageResult.Stream,
             };
         }
 
 
-        var generateImageResponse = _captchaService.GenerateRandomImage();
+        var generateImageResult = _captchaService.GenerateRandomImage();
 
         var newCaptchaQuestion = new CaptchaQuestion
         {
             Id = _captchaIdGenerator.CaptchaQuestionId,
             DateTime = DateTime.UtcNow,
-            Degree = generateImageResponse.Degree,
+            Degree = generateImageResult.Degree,
             SessionId = _sessionBusiness.Id,
         };
 
@@ -59,8 +59,8 @@ public class QuestionBusiness(
 
         return new()
         {
-            ResultCode = ResponseResult.Success,
-            Stream = generateImageResponse.Stream,
+            ResultCode = ResponseResultCode.Success,
+            Stream = generateImageResult.Stream,
         };
     }
 }

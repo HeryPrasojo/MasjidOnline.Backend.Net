@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Library.Exceptions;
@@ -17,7 +17,7 @@ public class DevelopmentExceptionMiddleware(
 
         if (exception is PermissionException)
         {
-            exceptionResponse.ResultCode = ResponseResult.PermissionMismatch;
+            exceptionResponse.ResultCode = ResponseResultCode.PermissionMismatch;
         }
 
         exceptionResponse.ResultMessage = $"{exception.GetType().Name}: {exception.Message}";

@@ -83,7 +83,7 @@ public class AdditionBusiness(
 
         return new()
         {
-            ResultCode = ResponseResult.Success
+            ResultCode = ResponseResultCode.Success
         };
     }
 }

@@ -10,7 +10,6 @@
     <ProjectReference Include="..\MasjidOnline.Business\MasjidOnline.Business.Captcha\MasjidOnline.Business.Captcha.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business\MasjidOnline.Business.Infaq\MasjidOnline.Business.Infaq.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business\MasjidOnline.Business.Session\MasjidOnline.Business.Session.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Business\MasjidOnline.Business.Transaction\MasjidOnline.Business.Transaction.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business\MasjidOnline.Business.User.Interface\MasjidOnline.Business.User.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business\MasjidOnline.Business.User\MasjidOnline.Business.User.csproj" />
     <ProjectReference Include="..\MasjidOnline.Data\MasjidOnline.Data.EntityFramework.SqLite\MasjidOnline.Data.EntityFramework.SqLite.csproj" />

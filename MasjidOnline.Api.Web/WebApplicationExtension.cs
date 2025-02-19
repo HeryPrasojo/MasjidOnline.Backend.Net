@@ -1,4 +1,4 @@
-﻿using MasjidOnline.Api.Web.RouteEndpoint;
+using MasjidOnline.Api.Web.RouteEndpoint;
 using Microsoft.AspNetCore.Builder;
 
 namespace MasjidOnline.Api.Web;
@@ -16,6 +16,8 @@ internal static class WebApplicationExtension
         var infaqGroup = webApplication.MapGroup("/infaq");
 
         infaqGroup.MapPost("/anonym/infaq", InfaqEndPoint.AnonymInfaqAsync);
+
+        infaqGroup.MapPost("/query", InfaqEndPoint.QueryAsync);
 
 
         var userGroup = webApplication.MapGroup("/user");

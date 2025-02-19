@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MasjidOnline.Business.AuthorizationBusiness.Interface\MasjidOnline.Business.AuthorizationBusiness.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Infaq.Interface\MasjidOnline.Business.Infaq.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Session.Interface\MasjidOnline.Business.Session.Interface.csproj" />
     <ProjectReference Include="..\..\MasjidOnline.Data\MasjidOnline.Data.Interface\MasjidOnline.Data.Interface.csproj" />

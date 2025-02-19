@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using MasjidOnline.Service.Captcha.Interface;
 using MasjidOnline.Service.Captcha.Interface.Model;
@@ -22,22 +22,22 @@ public class CaptchaService : ICaptchaService
 
     private readonly Random _random = new();
 
-    public GenerateImageResponse GenerateImage(float degree)
+    public GenerateImageResult GenerateImage(float degree)
     {
         var index = Array.IndexOf(_degree, degree);
 
-        return new GenerateImageResponse
+        return new GenerateImageResult
         {
             Degree = _degree[index],
             Stream = new MemoryStream(_captcha[index]),
         };
     }
 
-    public GenerateImageResponse GenerateRandomImage()
+    public GenerateImageResult GenerateRandomImage()
     {
         var number = _random.Next(1, 8);
 
-        return new GenerateImageResponse
+        return new GenerateImageResult
         {
             Degree = _degree[number],
             Stream = new MemoryStream(_captcha[number]),

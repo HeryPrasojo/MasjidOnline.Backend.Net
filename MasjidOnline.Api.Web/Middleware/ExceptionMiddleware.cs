@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text.Json;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface.Model.Responses;
@@ -29,24 +29,24 @@ public class ExceptionMiddleware(
     {
         var exceptionResponse = new ExceptionResponse
         {
-            ResultCode = ResponseResult.Error,
+            ResultCode = ResponseResultCode.Error,
         };
 
         if (exception is InputInvalidException)
         {
-            exceptionResponse.ResultCode = ResponseResult.InputInvalid;
+            exceptionResponse.ResultCode = ResponseResultCode.InputInvalid;
         }
         else if (exception is InputMismatchException)
         {
-            exceptionResponse.ResultCode = ResponseResult.InputMismatch;
+            exceptionResponse.ResultCode = ResponseResultCode.InputMismatch;
         }
         else if (exception is DataMismatchException)
         {
-            exceptionResponse.ResultCode = ResponseResult.DataMismatch;
+            exceptionResponse.ResultCode = ResponseResultCode.DataMismatch;
         }
         else if (exception is PermissionException)
         {
-            exceptionResponse.ResultCode = ResponseResult.Success;
+            exceptionResponse.ResultCode = ResponseResultCode.Success;
         }
 
         return exceptionResponse;
@@ -56,7 +56,7 @@ public class ExceptionMiddleware(
     {
         var exceptionResponse = BuildExceptionResponse(exception);
 
-        if (exceptionResponse.ResultCode == ResponseResult.Error)
+        if (exceptionResponse.ResultCode == ResponseResultCode.Error)
         {
             var errorExceptionEntity = new Entity.Event.Exception
             {
