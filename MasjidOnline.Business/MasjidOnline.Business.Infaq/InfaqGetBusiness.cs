@@ -14,62 +14,62 @@ using MasjidOnline.Service.FieldValidator.Interface;
 
 namespace MasjidOnline.Business.Infaq;
 
-public class TabularBusiness(
+public class InfaqGetBusiness(
     IAuthorizationBusiness _authorizationBusiness,
-    IFieldValidatorService _fieldValidatorService) : ITabularBusiness
+    IFieldValidatorService _fieldValidatorService) : IInfaqGetBusiness
 {
-    public async Task<IEnumerable<TabularQueryResponse>> QueryAsync(
+    public async Task<IEnumerable<GetManyResponse>> GetManyAsync(
         ISessionBusiness _sessionBusiness,
         IUsersData _usersData,
         IInfaqsData _infaqsData,
-        TabularQueryRequest queryRequest)
+        GetManyRequest getManyRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _usersData, transactionInfaqRead: true);
 
-        _fieldValidatorService.ValidateRequired(queryRequest);
-        _fieldValidatorService.ValidateRequiredPlus(queryRequest.Page);
+        _fieldValidatorService.ValidateRequired(getManyRequest);
+        _fieldValidatorService.ValidateRequiredPlus(getManyRequest.Page);
 
 
         IEnumerable<Entity.Infaqs.PaymentType>? paymentTypes = default;
 
-        if (queryRequest.PaymentTypes != default)
+        if (getManyRequest.PaymentTypes != default)
         {
-            paymentTypes = queryRequest.PaymentTypes.Select(m => m switch
+            paymentTypes = getManyRequest.PaymentTypes.Select(m => m switch
             {
                 PaymentType.Cash => Entity.Infaqs.PaymentType.Cash,
                 PaymentType.ManualBankTransfer => Entity.Infaqs.PaymentType.ManualBankTransfer,
-                _ => throw new ErrorException(nameof(queryRequest.PaymentTypes)),
+                _ => throw new ErrorException(nameof(getManyRequest.PaymentTypes)),
             });
         }
 
 
         IEnumerable<Entity.Infaqs.PaymentStatus>? paymentStatuses = default;
 
-        if (queryRequest.PaymentStatuses != default)
+        if (getManyRequest.PaymentStatuses != default)
         {
-            paymentStatuses = queryRequest.PaymentStatuses.Select(m => m switch
+            paymentStatuses = getManyRequest.PaymentStatuses.Select(m => m switch
             {
                 PaymentStatus.Canceled => Entity.Infaqs.PaymentStatus.Canceled,
                 PaymentStatus.Expired => Entity.Infaqs.PaymentStatus.Expired,
                 PaymentStatus.Failed => Entity.Infaqs.PaymentStatus.Failed,
                 PaymentStatus.Pending => Entity.Infaqs.PaymentStatus.Pending,
                 PaymentStatus.Success => Entity.Infaqs.PaymentStatus.Success,
-                _ => throw new ErrorException(nameof(queryRequest.PaymentStatuses)),
+                _ => throw new ErrorException(nameof(getManyRequest.PaymentStatuses)),
             });
         }
 
 
         var take = 10;
 
-        var infaqForQueries = await _infaqsData.Infaq.QueryAsync(
+        var infaqForQueries = await _infaqsData.Infaq.GetManyAsync(
             paymentTypes: paymentTypes,
             paymentStatuses: paymentStatuses,
-            tabularQueryOrderBy: TabularQueryOrderBy.Id,
+            getManyOrderBy: GetManyOrderBy.Id,
             orderByDirection: OrderByDirection.Descending,
-            skip: (queryRequest.Page - 1) * take,
+            skip: (getManyRequest.Page - 1) * take,
             take: take);
 
-        return infaqForQueries.Select(m => new TabularQueryResponse
+        return infaqForQueries.Select(m => new GetManyResponse
         {
             ResultCode = ResponseResultCode.Success,
             Amount = m.Amount,

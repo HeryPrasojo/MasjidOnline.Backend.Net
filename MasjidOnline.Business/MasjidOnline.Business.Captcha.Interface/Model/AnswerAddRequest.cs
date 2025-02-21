@@ -1,7 +1,6 @@
 namespace MasjidOnline.Business.Captcha.Interface.Model;
 
-// todo rename
-public class AnswerQuestionRequest
+public class AnswerAddRequest
 {
     public float Degree { get; set; }
 }

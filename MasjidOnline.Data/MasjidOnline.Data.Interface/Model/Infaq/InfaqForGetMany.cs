@@ -1,8 +1,9 @@
-using MasjidOnline.Business.Interface.Model.Responses;
+using System;
+using MasjidOnline.Entity.Infaqs;
 
-namespace MasjidOnline.Business.Infaq.Interface.Model;
+namespace MasjidOnline.Data.Interface.Model.Infaq;
 
-public class TabularQueryResponse : Response
+public class InfaqForGetMany
 {
     public required int Id { get; set; }
 

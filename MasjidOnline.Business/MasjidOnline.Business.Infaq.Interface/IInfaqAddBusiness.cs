@@ -5,7 +5,7 @@ using MasjidOnline.Data.Interface.Datas;
 
 namespace MasjidOnline.Business.Infaq.Interface;
 
-public interface IAnonymInfaqBusiness
+public interface IInfaqAddBusiness
 {
-    Task<Response> InfaqAsync(ICaptchaData _captchaData, ISessionBusiness _sessionBusiness, IInfaqsData _infaqsData, AnonymInfaqRequest anonymInfaqRequest);
+    Task<Response> AddByAnonymAsync(ICaptchaData _captchaData, ISessionBusiness _sessionBusiness, IInfaqsData _infaqsData, AddByAnonymRequest addByAnonymRequest);
 }

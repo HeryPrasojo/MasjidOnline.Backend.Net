@@ -1,6 +1,6 @@
 namespace MasjidOnline.Business.Infaq.Interface.Model;
 
-public class AnonymInfaqRequest
+public class AddByAnonymRequest
 {
     public required string MunfiqName { get; set; }
 

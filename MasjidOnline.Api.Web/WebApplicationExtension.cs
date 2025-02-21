@@ -9,15 +9,15 @@ internal static class WebApplicationExtension
     {
         var captchaGroup = webApplication.MapGroup("/captcha");
 
-        captchaGroup.MapPost("/createQuestion", CaptchaEndPoint.CreateQuestionAsync);
-        captchaGroup.MapPost("/answerQuestion", CaptchaEndPoint.AnswerQuestionAsync);
+        captchaGroup.MapPost("/question", CaptchaEndPoint.AddQuestionAsync);
+        captchaGroup.MapPost("/answer", CaptchaEndPoint.AddAnswerAsync);
 
 
         var infaqGroup = webApplication.MapGroup("/infaq");
 
-        infaqGroup.MapPost("/anonym/infaq", InfaqEndPoint.AnonymInfaqAsync);
+        infaqGroup.MapPost("/anonym", InfaqEndPoint.AddByAnonymAsync);
 
-        infaqGroup.MapPost("/query", InfaqEndPoint.QueryAsync);
+        infaqGroup.MapPost("/infaqs", InfaqEndPoint.GetManyAsync);
 
 
         var userGroup = webApplication.MapGroup("/user");

@@ -6,7 +6,7 @@ using MasjidOnline.Data.Interface.Datas;
 
 namespace MasjidOnline.Business.Captcha.Interface;
 
-public interface IAnswerBusiness
+public interface ICaptchaAnswerBusiness
 {
-    Task<Response> AnswerAsync(ICaptchaData _captchaData, ISessionBusiness _sessionBusiness, AnswerQuestionRequest answerQuestionRequest);
+    Task<Response> AddAsync(ICaptchaData _captchaData, ISessionBusiness _sessionBusiness, AnswerAddRequest answerAddRequest);
 }

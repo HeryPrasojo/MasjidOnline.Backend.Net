@@ -39,11 +39,11 @@ public class CaptchaQuestionRepository(CaptchaDataContext _captchaDataContext) :
     }
 
 
-    public async Task<CaptchaQuestionForAnswer?> GetForAnswerAsync(int sessionId)
+    public async Task<CaptchaQuestionForAnswerAdd?> GetForAnswerAddAsync(int sessionId)
     {
         return await _dbSet.Where(e => e.SessionId == sessionId)
             .OrderByDescending(e => e.Id)
-            .Select(e => new CaptchaQuestionForAnswer
+            .Select(e => new CaptchaQuestionForAnswerAdd
             {
                 Id = e.Id,
                 Degree = e.Degree,
@@ -51,11 +51,11 @@ public class CaptchaQuestionRepository(CaptchaDataContext _captchaDataContext) :
             .FirstOrDefaultAsync();
     }
 
-    public async Task<CaptchaQuestionForCreate?> GetForCreateAsync(int sessionId)
+    public async Task<CaptchaQuestionForAdd?> GetForAddAsync(int sessionId)
     {
         return await _dbSet.Where(e => e.SessionId == sessionId)
             .OrderByDescending(e => e.Id)
-            .Select(e => new CaptchaQuestionForCreate
+            .Select(e => new CaptchaQuestionForAdd
             {
                 Degree = e.Degree,
                 Id = e.Id,
@@ -64,11 +64,11 @@ public class CaptchaQuestionRepository(CaptchaDataContext _captchaDataContext) :
             .FirstOrDefaultAsync();
     }
 
-    public async Task<IEnumerable<CaptchaQuestionForAnonymInfaq>> GetForAnonymInfaqAsync(int sessionId)
+    public async Task<IEnumerable<CaptchaQuestionForInfaqAddByAnonym>> GetForInfaqAddByAnonymAsync(int sessionId)
     {
         return await _dbSet.Where(e => e.SessionId == sessionId)
             .OrderByDescending(e => e.Id)
-            .Select(e => new CaptchaQuestionForAnonymInfaq
+            .Select(e => new CaptchaQuestionForInfaqAddByAnonym
             {
                 Id = e.Id,
                 IsMatched = e.IsMatched,

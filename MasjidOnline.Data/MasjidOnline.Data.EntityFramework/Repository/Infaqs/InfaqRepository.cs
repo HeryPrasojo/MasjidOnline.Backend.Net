@@ -26,10 +26,10 @@ public class InfaqRepository(InfaqsDataContext _infaqsDataContext) : IInfaqRepos
         await SaveAsync();
     }
 
-    public async Task<IEnumerable<InfaqForQuery>> QueryAsync(
+    public async Task<IEnumerable<InfaqForGetMany>> GetManyAsync(
         IEnumerable<PaymentType>? paymentTypes = default,
         IEnumerable<PaymentStatus>? paymentStatuses = default,
-        TabularQueryOrderBy tabularQueryOrderBy = default,
+        GetManyOrderBy getManyOrderBy = default,
         OrderByDirection orderByDirection = default,
         int skip = 0,
         int take = 1)
@@ -42,7 +42,7 @@ public class InfaqRepository(InfaqsDataContext _infaqsDataContext) : IInfaqRepos
         if (paymentTypes != default)
             queryable = queryable.Where(e => paymentTypes.Any(s => s == e.PaymentType));
 
-        if (tabularQueryOrderBy == TabularQueryOrderBy.Id)
+        if (getManyOrderBy == GetManyOrderBy.Id)
         {
             if (orderByDirection == OrderByDirection.Descending) queryable = queryable.OrderByDescending(e => e.Id);
             else queryable = queryable.OrderBy(e => e.Id);
@@ -50,7 +50,7 @@ public class InfaqRepository(InfaqsDataContext _infaqsDataContext) : IInfaqRepos
 
         return await queryable.Skip(skip)
             .Take(take)
-            .Select(e => new InfaqForQuery
+            .Select(e => new InfaqForGetMany
             {
                 Amount = e.Amount,
                 DateTime = e.DateTime,

@@ -16,19 +16,19 @@ using MasjidOnline.Service.FieldValidator.Interface;
 
 namespace MasjidOnline.Business.Infaq;
 
-public class AnonymInfaqBusiness(
+public class InfaqAddBusiness(
     IFieldValidatorService _fieldValidatorService,
-    IInfaqsIdGenerator _infaqsIdGenerator) : IAnonymInfaqBusiness
+    IInfaqsIdGenerator _infaqsIdGenerator) : IInfaqAddBusiness
 {
-    public async Task<Response> InfaqAsync(
+    public async Task<Response> AddByAnonymAsync(
         ICaptchaData _captchaData,
         ISessionBusiness _sessionBusiness,
         IInfaqsData _infaqsData,
-        AnonymInfaqRequest anonymInfaqRequest)
+        AddByAnonymRequest addByAnonymRequest)
     {
         if (_sessionBusiness.UserId == Constant.AnonymousUserId)
         {
-            var captchaQuestions = await _captchaData.CaptchaQuestion.GetForAnonymInfaqAsync(_sessionBusiness.Id);
+            var captchaQuestions = await _captchaData.CaptchaQuestion.GetForInfaqAddByAnonymAsync(_sessionBusiness.Id);
 
             if (!captchaQuestions.Any()) return new()
             {
@@ -42,13 +42,13 @@ public class AnonymInfaqBusiness(
         }
 
 
-        _fieldValidatorService.ValidateRequired(anonymInfaqRequest);
-        _fieldValidatorService.ValidateRequiredPlus(anonymInfaqRequest.Amount);
-        _fieldValidatorService.ValidateRequired(anonymInfaqRequest.PaymentType);
-        _fieldValidatorService.ValidateRequiredPast(anonymInfaqRequest.ManualDateTime);
+        _fieldValidatorService.ValidateRequired(addByAnonymRequest);
+        _fieldValidatorService.ValidateRequiredPlus(addByAnonymRequest.Amount);
+        _fieldValidatorService.ValidateRequired(addByAnonymRequest.PaymentType);
+        _fieldValidatorService.ValidateRequiredPast(addByAnonymRequest.ManualDateTime);
 
-        anonymInfaqRequest.ManualNotes = _fieldValidatorService.ValidateRequiredText255(anonymInfaqRequest.ManualNotes);
-        anonymInfaqRequest.MunfiqName = _fieldValidatorService.ValidateRequiredText255(anonymInfaqRequest.MunfiqName);
+        addByAnonymRequest.ManualNotes = _fieldValidatorService.ValidateRequiredText255(addByAnonymRequest.ManualNotes);
+        addByAnonymRequest.MunfiqName = _fieldValidatorService.ValidateRequiredText255(addByAnonymRequest.MunfiqName);
 
 
         var paymentTypes = new Interface.Model.PaymentType[]
@@ -56,18 +56,18 @@ public class AnonymInfaqBusiness(
             Interface.Model.PaymentType.ManualBankTransfer
         };
 
-        if (!paymentTypes.Any(t => t == anonymInfaqRequest.PaymentType)) throw new InputInvalidException(nameof(anonymInfaqRequest.PaymentType));
+        if (!paymentTypes.Any(t => t == addByAnonymRequest.PaymentType)) throw new InputInvalidException(nameof(addByAnonymRequest.PaymentType));
 
 
         var infaq = new Entity.Infaqs.Infaq
         {
             Id = _infaqsIdGenerator.TransactionId,
-            Amount = anonymInfaqRequest.Amount,
+            Amount = addByAnonymRequest.Amount,
             DateTime = DateTime.UtcNow,
             PaymentStatus = Entity.Infaqs.PaymentStatus.Pending,
-            PaymentType = (Entity.Infaqs.PaymentType)anonymInfaqRequest.PaymentType,
+            PaymentType = (Entity.Infaqs.PaymentType)addByAnonymRequest.PaymentType,
             UserId = _sessionBusiness.UserId,
-            MunfiqName = anonymInfaqRequest.MunfiqName,
+            MunfiqName = addByAnonymRequest.MunfiqName,
         };
 
         await _infaqsData.Infaq.AddAsync(infaq);
@@ -78,23 +78,23 @@ public class AnonymInfaqBusiness(
             var infaqManual = new InfaqManual
             {
                 InfaqId = infaq.Id,
-                ManualDateTime = anonymInfaqRequest.ManualDateTime,
+                ManualDateTime = addByAnonymRequest.ManualDateTime,
             };
 
-            if (!anonymInfaqRequest.ManualNotes.IsNullOrEmptyOrWhiteSpace())
+            if (!addByAnonymRequest.ManualNotes.IsNullOrEmptyOrWhiteSpace())
             {
-                infaqManual.ManualNotes = anonymInfaqRequest.ManualNotes;
+                infaqManual.ManualNotes = addByAnonymRequest.ManualNotes;
             }
 
             await _infaqsData.InfaqManual.AddAsync(infaqManual);
         }
 
 
-        if (anonymInfaqRequest.Files != default)
+        if (addByAnonymRequest.Files != default)
         {
-            foreach (var file in anonymInfaqRequest.Files)
+            foreach (var file in addByAnonymRequest.Files)
             {
-                if (file.Length > 1048576) throw new InputInvalidException(nameof(anonymInfaqRequest.Files));
+                if (file.Length > 1048576) throw new InputInvalidException(nameof(addByAnonymRequest.Files));
 
                 var transactionFile = new InfaqFile
                 {

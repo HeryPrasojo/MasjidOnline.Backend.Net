@@ -10,23 +10,23 @@ namespace MasjidOnline.Api.Web.RouteEndpoint;
 
 internal static class InfaqEndPoint
 {
-    internal static async Task<Response> AnonymInfaqAsync(
-        IAnonymInfaqBusiness _anonymInfaqBusiness,
+    internal static async Task<Response> AddByAnonymAsync(
+        IInfaqAddBusiness _infaqAddBusiness,
         ICaptchaData _captchaData,
         ISessionBusiness _sessionBusiness,
         IInfaqsData _infaqsData,
-        AnonymInfaqRequest anonymInfaqRequest)
+        AddByAnonymRequest addByAnonymRequest)
     {
-        return await _anonymInfaqBusiness.InfaqAsync(_captchaData, _sessionBusiness, _infaqsData, anonymInfaqRequest);
+        return await _infaqAddBusiness.AddByAnonymAsync(_captchaData, _sessionBusiness, _infaqsData, addByAnonymRequest);
     }
 
-    internal static async Task<IEnumerable<TabularQueryResponse>> QueryAsync(
-        ITabularBusiness _tabularBusiness,
+    internal static async Task<IEnumerable<GetManyResponse>> GetManyAsync(
+        IInfaqGetBusiness _infaqGetBusiness,
         ISessionBusiness _sessionBusiness,
         IUsersData _usersData,
         IInfaqsData _infaqsData,
-        TabularQueryRequest queryRequest)
+        GetManyRequest getManyRequest)
     {
-        return await _tabularBusiness.QueryAsync(_sessionBusiness, _usersData, _infaqsData, queryRequest);
+        return await _infaqGetBusiness.GetManyAsync(_sessionBusiness, _usersData, _infaqsData, getManyRequest);
     }
 }

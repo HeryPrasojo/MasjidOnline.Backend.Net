@@ -10,13 +10,13 @@ namespace MasjidOnline.Api.Web.RouteEndpoint;
 
 internal static class CaptchaEndPoint
 {
-    internal static async Task<IResult> CreateQuestionAsync(
+    internal static async Task<IResult> AddQuestionAsync(
         HttpContext httpContext,
-        IQuestionBusiness captchaQuestionBusiness,
+        ICaptchaQuestionBusiness captchaQuestionBusiness,
         ISessionBusiness _sessionBusiness,
         ICaptchaData _captchaData)
     {
-        var createResponse = await captchaQuestionBusiness.CreateAsync(_captchaData, _sessionBusiness);
+        var createResponse = await captchaQuestionBusiness.AddAsync(_captchaData, _sessionBusiness);
 
         httpContext.Response.Headers[Constant.HttpHeaderName.ResultCode] = createResponse.ResultCode.ToString();
         httpContext.Response.Headers[Constant.HttpHeaderName.ResultMessage] = createResponse.ResultMessage;
@@ -26,12 +26,12 @@ internal static class CaptchaEndPoint
         return Results.Stream(createResponse.Stream!, "image/png");
     }
 
-    internal static async Task<Response> AnswerQuestionAsync(
-        IAnswerBusiness captchaAnswerBusiness,
+    internal static async Task<Response> AddAnswerAsync(
+        ICaptchaAnswerBusiness captchaAnswerBusiness,
         ICaptchaData _captchaData,
         ISessionBusiness _sessionBusiness,
-        AnswerQuestionRequest answerQuestionRequest)
+        AnswerAddRequest answerAddRequest)
     {
-        return await captchaAnswerBusiness.AnswerAsync(_captchaData, _sessionBusiness, answerQuestionRequest);
+        return await captchaAnswerBusiness.AddAsync(_captchaData, _sessionBusiness, answerAddRequest);
     }
 }

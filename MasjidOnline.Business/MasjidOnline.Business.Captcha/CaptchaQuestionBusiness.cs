@@ -12,11 +12,11 @@ using MasjidOnline.Service.Captcha.Interface;
 
 namespace MasjidOnline.Business.Captcha;
 
-public class QuestionBusiness(
+public class CaptchaQuestionBusiness(
     ICaptchaService _captchaService,
-    ICaptchaIdGenerator _captchaIdGenerator) : IQuestionBusiness
+    ICaptchaIdGenerator _captchaIdGenerator) : ICaptchaQuestionBusiness
 {
-    public async Task<CreateQuestionResponse> CreateAsync(ICaptchaData _captchaData, ISessionBusiness _sessionBusiness)
+    public async Task<QuestionAddResponse> AddAsync(ICaptchaData _captchaData, ISessionBusiness _sessionBusiness)
     {
         if (_sessionBusiness.UserId != Constant.AnonymousUserId) return new()
         {
@@ -24,7 +24,7 @@ public class QuestionBusiness(
         };
 
 
-        var existingCaptchaQuestion = await _captchaData.CaptchaQuestion.GetForCreateAsync(_sessionBusiness.Id);
+        var existingCaptchaQuestion = await _captchaData.CaptchaQuestion.GetForAddAsync(_sessionBusiness.Id);
 
         if (existingCaptchaQuestion != default)
         {

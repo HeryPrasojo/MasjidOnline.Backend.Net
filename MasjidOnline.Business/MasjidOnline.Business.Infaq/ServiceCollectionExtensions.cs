@@ -7,8 +7,8 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddInfaqBusiness(this IServiceCollection services)
     {
-        services.AddSingleton<IAnonymInfaqBusiness, AnonymInfaqBusiness>();
-        services.AddSingleton<ITabularBusiness, TabularBusiness>();
+        services.AddSingleton<IInfaqAddBusiness, InfaqAddBusiness>();
+        services.AddSingleton<IInfaqGetBusiness, InfaqGetBusiness>();
 
         return services;
     }
