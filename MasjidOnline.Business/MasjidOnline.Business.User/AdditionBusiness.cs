@@ -17,7 +17,7 @@ using Microsoft.Extensions.Options;
 namespace MasjidOnline.Business.User;
 
 public class AdditionBusiness(
-    IOptionsMonitor<Option> _optionsMonitor,
+    IOptionsMonitor<BusinessOptions> _optionsMonitor,
     IAuthorizationBusiness _authorizationBusiness,
     IMailSenderService _mailSenderService,
     IUsersIdGenerator _usersIdGenerator,

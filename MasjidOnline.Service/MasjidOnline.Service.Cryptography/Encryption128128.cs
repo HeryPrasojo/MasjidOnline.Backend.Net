@@ -2,13 +2,12 @@
 using System.IO;
 using System.Security.Cryptography;
 using MasjidOnline.Service.Cryptography.Interface;
-using MasjidOnline.Service.Cryptography.Interface.Model;
 using MasjidOnline.Service.Hash.Interface;
 using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Service.Cryptography;
 
-public class Encryption128128(IOptions<CryptographyOption> _options, IHash128Service _hash128Service) : IEncryption128128
+public class Encryption128128(IOptions<Interface.Model.CryptographyOptions> _options, IHash128Service _hash128Service) : IEncryption128128
 {
     private byte[] _key = _hash128Service.Hash(_options.Value.Key128);
 

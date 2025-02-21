@@ -14,7 +14,8 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddSqLiteEntityFrameworkData(this IServiceCollection services, IConfiguration configurationManager)
     {
-        var option = configurationManager.Get<ConnectionStrings>() ?? throw new ApplicationException($"Get {nameof(ConnectionStrings)} fail");
+        var option = configurationManager.GetSection("ConnectionStrings")
+            .Get<ConnectionStrings>() ?? throw new ApplicationException($"Get {nameof(ConnectionStrings)} fail");
 
         services.AddDbContextPool<AuditDataContext>(b => b.UseSqlite(option.Audit), poolSize: 2);
         services.AddDbContextPool<CaptchaDataContext>(b => b.UseSqlite(option.Captcha), poolSize: 2);

@@ -14,7 +14,7 @@ using Microsoft.Extensions.Options;
 namespace MasjidOnline.Business.User;
 
 public class InitializerBusiness(
-    IOptionsMonitor<Option> _optionsMonitor,
+    IOptionsMonitor<BusinessOptions> _optionsMonitor,
     IMailSenderService _mailSenderService,
     IUsersIdGenerator _usersIdGenerator) : IInitializerBusiness
 {

@@ -33,8 +33,6 @@ var webApplication = BuildApplication(args);
 
 await InitializeAsync(webApplication);
 
-var option = webApplication.Configuration.Get<Option>() ?? throw new ApplicationException($"Get {nameof(Option)} fail");
-
 if (webApplication.Environment.IsDevelopment() || Debugger.IsAttached)
 {
     webApplication.UseMiddleware<DevelopmentExceptionMiddleware>();
@@ -60,13 +58,13 @@ static WebApplication BuildApplication(string[] args)
 
     webApplicationBuilder.Configuration.AddJsonFile("appsettings.Local.json", true, true);
 
-    var option = webApplicationBuilder.Configuration.Get<Option>() ?? throw new ApplicationException($"Get {nameof(Option)} fail");
+    var option = webApplicationBuilder.Configuration.Get<BusinessOptions>() ?? throw new ApplicationException($"Get {nameof(BusinessOptions)} fail");
 
-    webApplicationBuilder.Services.AddOptions<CryptographyOption>("Cryptography");
+    webApplicationBuilder.Services.Configure<CryptographyOptions>(webApplicationBuilder.Configuration.GetSection("Cryptography"));
 
-    webApplicationBuilder.Services.AddOptions<MailOption>("Mail");
+    webApplicationBuilder.Services.Configure<MailOptions>(webApplicationBuilder.Configuration.GetSection("Mail"));
 
-    webApplicationBuilder.Services.AddOptions<Option>();
+    webApplicationBuilder.Services.Configure<BusinessOptions>(webApplicationBuilder.Configuration);
 
 
     webApplicationBuilder.Services.AddCors(corsOptions =>

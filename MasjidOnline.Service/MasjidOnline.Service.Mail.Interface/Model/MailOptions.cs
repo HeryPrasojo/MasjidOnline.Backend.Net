@@ -1,6 +1,6 @@
 ﻿namespace MasjidOnline.Service.Mail.Interface.Model;
 
-public class MailOption
+public class MailOptions
 {
     public string DefaultFromAddress { get; set; } = "system.dev@dev.masjidonline.org";
     public string DefaultFromName { get; set; } = "MasjidOnline System";

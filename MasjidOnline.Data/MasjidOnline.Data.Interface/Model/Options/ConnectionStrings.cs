@@ -2,17 +2,17 @@ namespace MasjidOnline.Data.Interface.Model.Options;
 
 public class ConnectionStrings
 {
-    public string Audit { get; set; } = "Data Source=..\\..\\MasjidOnline.Local.sqlite3;";
+    public required string Audit { get; set; }
 
-    public string Captcha { get; set; } = "Data Source=..\\..\\MasjidOnline.Local.sqlite3;";
+    public required string Captcha { get; set; }
 
-    public string Core { get; set; } = "Data Source=..\\..\\MasjidOnline.Local.sqlite3;";
+    public required string Core { get; set; }
 
-    public string Event { get; set; } = "Data Source=..\\..\\MasjidOnline.Local.sqlite3;";
+    public required string Event { get; set; }
 
-    public string Infaqs { get; set; } = "Data Source=..\\..\\MasjidOnline.Local.sqlite3;";
+    public required string Infaqs { get; set; }
 
-    public string Sessions { get; set; } = "Data Source=..\\..\\MasjidOnline.Local.sqlite3;";
+    public required string Sessions { get; set; }
 
-    public string Users { get; set; } = "Data Source=..\\..\\MasjidOnline.Local.sqlite3;";
+    public required string Users { get; set; }
 }

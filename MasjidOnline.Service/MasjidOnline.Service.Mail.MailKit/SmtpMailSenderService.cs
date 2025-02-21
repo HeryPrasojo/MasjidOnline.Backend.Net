@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using MailKit.Net.Smtp;
 using MasjidOnline.Service.Mail.Interface;
 using MasjidOnline.Service.Mail.Interface.Model;
 using Microsoft.Extensions.Options;
@@ -7,7 +6,7 @@ using MimeKit;
 
 namespace MasjidOnline.Service.Mail.MailKit;
 
-public class SmtpMailSenderService(IOptionsMonitor<MailOption> _optionsMonitor) : IMailSenderService
+public class SmtpMailSenderService(IOptionsMonitor<MailOptions> _optionsMonitor) : IMailSenderService
 {
     // hack create queue when fail
     public async Task SendMailAsync(MailMessage mailMessage)
@@ -77,14 +76,16 @@ public class SmtpMailSenderService(IOptionsMonitor<MailOption> _optionsMonitor) 
         }
 
 
-        using var smtpClient = new SmtpClient();
+        // todo mail
 
-        await smtpClient.ConnectAsync(mailOption.SmtpHost, mailOption.SmtpPort, false);
+        //using var smtpClient = new SmtpClient();
 
-        await smtpClient.AuthenticateAsync(mailOption.SmtpUserName, mailOption.SmtpUserPassword);
+        //await smtpClient.ConnectAsync(mailOption.SmtpHost, mailOption.SmtpPort, SecureSocketOptions.StartTlsWhenAvailable);
 
-        await smtpClient.SendAsync(mimeMessage);
+        //await smtpClient.AuthenticateAsync(mailOption.SmtpUserName, mailOption.SmtpUserPassword);
 
-        await smtpClient.DisconnectAsync(true);
+        //await smtpClient.SendAsync(mimeMessage);
+
+        //await smtpClient.DisconnectAsync(true);
     }
 }
