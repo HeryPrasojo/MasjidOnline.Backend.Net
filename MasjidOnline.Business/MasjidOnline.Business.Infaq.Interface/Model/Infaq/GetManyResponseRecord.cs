@@ -1,8 +1,8 @@
-using MasjidOnline.Business.Interface.Model.Responses;
+﻿using MasjidOnline.Business.Infaq.Interface.Model.Payment;
 
-namespace MasjidOnline.Business.Infaq.Interface.Model;
+namespace MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 
-public class GetManyResponse : Response
+public class GetManyResponseRecord
 {
     public required int Id { get; set; }
 

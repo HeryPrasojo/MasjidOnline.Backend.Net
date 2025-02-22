@@ -5,7 +5,7 @@ using MasjidOnline.Business.Interface.Model.Options;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface;
-using MasjidOnline.Business.User.Interface.Model;
+using MasjidOnline.Business.User.Interface.Model.User;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.Users;
@@ -26,22 +26,22 @@ public class AdditionBusiness(
     public async Task<Response> AddAsync(
         ISessionBusiness _sessionBusiness,
         IUsersData _usersData,
-        AddRequest addRequest)
+        AddByInternalRequest addByInternalRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _usersData, userInternalAdd: true);
 
 
-        _fieldValidatorService.ValidateRequired(addRequest);
+        _fieldValidatorService.ValidateRequired(addByInternalRequest);
 
-        addRequest.EmailAddress = _fieldValidatorService.ValidateRequiredEmailAddress(addRequest.EmailAddress);
-        addRequest.Name = _fieldValidatorService.ValidateRequiredText255(addRequest.Name);
+        addByInternalRequest.EmailAddress = _fieldValidatorService.ValidateRequiredEmailAddress(addByInternalRequest.EmailAddress);
+        addByInternalRequest.Name = _fieldValidatorService.ValidateRequiredText255(addByInternalRequest.Name);
 
 
         var user = new Entity.Users.User
         {
             Id = _usersIdGenerator.UserId,
-            EmailAddress = addRequest.EmailAddress,
-            Name = addRequest.Name,
+            EmailAddress = addByInternalRequest.EmailAddress,
+            Name = addByInternalRequest.Name,
             Type = UserType.Internal,
         };
 
@@ -50,7 +50,7 @@ public class AdditionBusiness(
 
         var userEmailAddress = new UserEmailAddress
         {
-            EmailAddress = addRequest.EmailAddress,
+            EmailAddress = addByInternalRequest.EmailAddress,
             UserId = user.Id,
         };
 

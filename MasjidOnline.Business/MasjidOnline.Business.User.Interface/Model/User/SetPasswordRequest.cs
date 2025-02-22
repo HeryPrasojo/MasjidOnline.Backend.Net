@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Business.User.Interface.Model;
+﻿namespace MasjidOnline.Business.User.Interface.Model.User;
 
 public class SetPasswordRequest
 {

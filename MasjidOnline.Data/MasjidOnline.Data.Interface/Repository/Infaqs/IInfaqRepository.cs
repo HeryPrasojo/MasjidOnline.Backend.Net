@@ -11,5 +11,6 @@ public interface IInfaqRepository
     Task AddAsync(Infaq transaction);
     Task AddAndSaveAsync(Infaq transaction);
     Task<int> GetMaxIdAsync();
-    Task<IEnumerable<InfaqForGetMany>> GetManyAsync(IEnumerable<PaymentType>? paymentTypes = default, IEnumerable<PaymentStatus>? paymentStatuses = null, GetManyOrderBy getManyOrderBy = GetManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);
+    Task<InfaqForGetOne?> GetOneByIdAsync(int id);
+    Task<GetManyResult<InfaqForGetManyRecord>> GetManyAsync(IEnumerable<PaymentType>? paymentTypes = null, IEnumerable<PaymentStatus>? paymentStatuses = null, GetManyOrderBy getManyOrderBy = GetManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);
 }

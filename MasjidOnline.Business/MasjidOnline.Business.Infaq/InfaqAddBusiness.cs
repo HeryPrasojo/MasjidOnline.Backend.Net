@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Infaq.Interface;
-using MasjidOnline.Business.Infaq.Interface.Model;
+using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Interface.Model;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
@@ -51,9 +51,9 @@ public class InfaqAddBusiness(
         addByAnonymRequest.MunfiqName = _fieldValidatorService.ValidateRequiredText255(addByAnonymRequest.MunfiqName);
 
 
-        var paymentTypes = new Interface.Model.PaymentType[]
+        var paymentTypes = new Interface.Model.Payment.PaymentType[]
         {
-            Interface.Model.PaymentType.ManualBankTransfer
+            Interface.Model.Payment.PaymentType.ManualBankTransfer
         };
 
         if (!paymentTypes.Any(t => t == addByAnonymRequest.PaymentType)) throw new InputInvalidException(nameof(addByAnonymRequest.PaymentType));

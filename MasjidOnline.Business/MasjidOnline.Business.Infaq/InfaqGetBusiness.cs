@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MasjidOnline.Business.AuthorizationBusiness.Interface;
 using MasjidOnline.Business.Infaq.Interface;
-using MasjidOnline.Business.Infaq.Interface.Model;
+using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
+using MasjidOnline.Business.Infaq.Interface.Model.Payment;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface.Datas;
@@ -15,17 +15,14 @@ using MasjidOnline.Service.FieldValidator.Interface;
 namespace MasjidOnline.Business.Infaq;
 
 public class InfaqGetBusiness(
-    IAuthorizationBusiness _authorizationBusiness,
     IFieldValidatorService _fieldValidatorService) : IInfaqGetBusiness
 {
-    public async Task<IEnumerable<GetManyResponse>> GetManyAsync(
+    public async Task<GetManyResponse<GetManyResponseRecord>> GetManyAsync(
         ISessionBusiness _sessionBusiness,
         IUsersData _usersData,
         IInfaqsData _infaqsData,
         GetManyRequest getManyRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _usersData, transactionInfaqRead: true);
-
         _fieldValidatorService.ValidateRequired(getManyRequest);
         _fieldValidatorService.ValidateRequiredPlus(getManyRequest.Page);
 
@@ -61,7 +58,7 @@ public class InfaqGetBusiness(
 
         var take = 10;
 
-        var infaqForQueries = await _infaqsData.Infaq.GetManyAsync(
+        var getManyResult = await _infaqsData.Infaq.GetManyAsync(
             paymentTypes: paymentTypes,
             paymentStatuses: paymentStatuses,
             getManyOrderBy: GetManyOrderBy.Id,
@@ -69,15 +66,37 @@ public class InfaqGetBusiness(
             skip: (getManyRequest.Page - 1) * take,
             take: take);
 
-        return infaqForQueries.Select(m => new GetManyResponse
+        return new()
         {
             ResultCode = ResponseResultCode.Success,
-            Amount = m.Amount,
-            DateTime = m.DateTime,
-            Id = m.Id,
-            MunfiqName = m.MunfiqName,
-            PaymentStatus = (PaymentStatus)m.PaymentStatus,
-            PaymentType = (PaymentType)m.PaymentType,
-        });
+            Records = getManyResult.Records.Select(m => new GetManyResponseRecord
+            {
+                Amount = m.Amount,
+                DateTime = m.DateTime,
+                Id = m.Id,
+                MunfiqName = m.MunfiqName,
+                PaymentStatus = (PaymentStatus)m.PaymentStatus,
+                PaymentType = (PaymentType)m.PaymentType,
+            }),
+            Total = getManyResult.Total,
+        };
+    }
+
+    public async Task<GetOneResponse> GetOneAsync(
+        IInfaqsData _infaqsData,
+        GetOneRequest getOneRequest)
+    {
+        _fieldValidatorService.ValidateRequired(getOneRequest);
+        _fieldValidatorService.ValidateRequiredPlus(getOneRequest.Id);
+
+
+        var infaq = await _infaqsData.Infaq.GetOneByIdAsync(getOneRequest.Id);
+
+        // undone 1
+
+        return new()
+        {
+            ResultCode = ResponseResultCode.Success,
+        };
     }
 }

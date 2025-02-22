@@ -26,7 +26,7 @@ public class InfaqRepository(InfaqsDataContext _infaqsDataContext) : IInfaqRepos
         await SaveAsync();
     }
 
-    public async Task<IEnumerable<InfaqForGetMany>> GetManyAsync(
+    public async Task<GetManyResult<InfaqForGetManyRecord>> GetManyAsync(
         IEnumerable<PaymentType>? paymentTypes = default,
         IEnumerable<PaymentStatus>? paymentStatuses = default,
         GetManyOrderBy getManyOrderBy = default,
@@ -42,29 +42,54 @@ public class InfaqRepository(InfaqsDataContext _infaqsDataContext) : IInfaqRepos
         if (paymentTypes != default)
             queryable = queryable.Where(e => paymentTypes.Any(s => s == e.PaymentType));
 
+
+        var countTask = queryable.LongCountAsync();
+
+
         if (getManyOrderBy == GetManyOrderBy.Id)
         {
             if (orderByDirection == OrderByDirection.Descending) queryable = queryable.OrderByDescending(e => e.Id);
             else queryable = queryable.OrderBy(e => e.Id);
         }
 
-        return await queryable.Skip(skip)
-            .Take(take)
-            .Select(e => new InfaqForGetMany
-            {
-                Amount = e.Amount,
-                DateTime = e.DateTime,
-                Id = e.Id,
-                MunfiqName = e.MunfiqName,
-                PaymentStatus = e.PaymentStatus,
-                PaymentType = e.PaymentType,
-            })
-            .ToArrayAsync();
+
+        var count = await countTask;
+
+        return new()
+        {
+            Records = await queryable.Skip(skip)
+                .Take(take)
+                .Select(e => new InfaqForGetManyRecord
+                {
+                    Amount = e.Amount,
+                    DateTime = e.DateTime,
+                    Id = e.Id,
+                    MunfiqName = e.MunfiqName,
+                    PaymentStatus = e.PaymentStatus,
+                    PaymentType = e.PaymentType,
+                })
+                .ToArrayAsync(),
+            Total = count,
+        };
     }
 
     public async Task<int> GetMaxIdAsync()
     {
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
+    }
+
+    public async Task<InfaqForGetOne?> GetOneByIdAsync(int id)
+    {
+        return await _dbSet.Where(e => e.Id == id)
+            .Select(e => new InfaqForGetOne
+            {
+                Amount = e.Amount,
+                DateTime = e.DateTime,
+                MunfiqName = e.MunfiqName,
+                PaymentStatus = e.PaymentStatus,
+                PaymentType = e.PaymentType,
+            })
+            .FirstOrDefaultAsync();
     }
 
 

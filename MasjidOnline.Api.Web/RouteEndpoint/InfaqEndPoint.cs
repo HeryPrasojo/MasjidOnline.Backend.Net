@@ -1,7 +1,6 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Infaq.Interface;
-using MasjidOnline.Business.Infaq.Interface.Model;
+using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface.Datas;
@@ -20,7 +19,7 @@ internal static class InfaqEndPoint
         return await _infaqAddBusiness.AddByAnonymAsync(_captchaData, _sessionBusiness, _infaqsData, addByAnonymRequest);
     }
 
-    internal static async Task<IEnumerable<GetManyResponse>> GetManyAsync(
+    internal static async Task<GetManyResponse<GetManyResponseRecord>> GetManyAsync(
         IInfaqGetBusiness _infaqGetBusiness,
         ISessionBusiness _sessionBusiness,
         IUsersData _usersData,

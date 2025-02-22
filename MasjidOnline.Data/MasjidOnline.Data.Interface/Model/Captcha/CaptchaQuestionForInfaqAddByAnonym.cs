@@ -4,6 +4,5 @@ public class CaptchaQuestionForInfaqAddByAnonym
 {
     public required int Id { get; set; }
 
-
     public required bool IsMatched { get; set; }
 }

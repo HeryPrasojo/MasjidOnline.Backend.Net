@@ -1,4 +1,6 @@
-namespace MasjidOnline.Business.Infaq.Interface.Model;
+using MasjidOnline.Business.Infaq.Interface.Model.Payment;
+
+namespace MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 
 public class GetManyRequest
 {
