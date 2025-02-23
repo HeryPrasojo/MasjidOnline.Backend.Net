@@ -4,5 +4,6 @@ namespace MasjidOnline.Data.Interface;
 
 public interface IDataWithAudit : IData
 {
-    Task SaveAsync(int userId);
+    Task SaveWithTransactionAsync(int userId);
+    Task SaveWithoutTransactionAsync(int userId);
 }

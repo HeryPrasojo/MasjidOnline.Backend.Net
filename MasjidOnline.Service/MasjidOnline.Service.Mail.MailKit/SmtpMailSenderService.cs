@@ -1,4 +1,6 @@
 ﻿using System.Threading.Tasks;
+using MailKit.Net.Smtp;
+using MailKit.Security;
 using MasjidOnline.Service.Mail.Interface;
 using MasjidOnline.Service.Mail.Interface.Model;
 using Microsoft.Extensions.Options;
@@ -76,16 +78,14 @@ public class SmtpMailSenderService(IOptionsMonitor<MailOptions> _optionsMonitor)
         }
 
 
-        // todo mail
+        using var smtpClient = new SmtpClient();
 
-        //using var smtpClient = new SmtpClient();
+        await smtpClient.ConnectAsync(mailOption.SmtpHost, mailOption.SmtpPort, SecureSocketOptions.StartTlsWhenAvailable);
 
-        //await smtpClient.ConnectAsync(mailOption.SmtpHost, mailOption.SmtpPort, SecureSocketOptions.StartTlsWhenAvailable);
+        await smtpClient.AuthenticateAsync(mailOption.SmtpUserName, mailOption.SmtpUserPassword);
 
-        //await smtpClient.AuthenticateAsync(mailOption.SmtpUserName, mailOption.SmtpUserPassword);
+        await smtpClient.SendAsync(mimeMessage);
 
-        //await smtpClient.SendAsync(mimeMessage);
-
-        //await smtpClient.DisconnectAsync(true);
+        await smtpClient.DisconnectAsync(true);
     }
 }

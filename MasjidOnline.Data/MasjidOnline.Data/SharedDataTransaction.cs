@@ -6,14 +6,30 @@ using MasjidOnline.Data.Interface.Datas;
 
 namespace MasjidOnline.Data;
 
-public class DataTransaction(IAuditData _auditData) : IDataTransaction
+public class SharedDataTransaction(IAuditData _auditData) : IDataTransaction
 {
     private readonly List<IData> _datas = [];
 
+    private object? _transactionObject;
+
     public async Task BeginAsync(params IData[] datas)
     {
-        foreach (var data in datas)
-            await data.BeginTransactionAsync();
+        if (_datas.Count == default)
+        {
+            var firstData = datas.First();
+
+            await firstData.BeginTransactionAsync();
+
+            _transactionObject = firstData.TransactionObject;
+
+            foreach (var data in datas.Skip(1))
+                await data.UseTransactionAsync(_transactionObject);
+        }
+        else
+        {
+            foreach (var data in datas)
+                await data.UseTransactionAsync(_transactionObject);
+        }
 
         _datas.AddRange(datas);
 
@@ -26,7 +42,7 @@ public class DataTransaction(IAuditData _auditData) : IDataTransaction
 
             if (!anyDataWithAudit)
             {
-                await _auditData.BeginTransactionAsync();
+                await _auditData.UseTransactionAsync(_transactionObject);
 
                 _datas.Add(_auditData);
             }
@@ -43,15 +59,7 @@ public class DataTransaction(IAuditData _auditData) : IDataTransaction
             else if (data is IDataWithoutAudit dataWithoutAudit) await dataWithoutAudit.SaveAsync();
         }
 
-
-        var anyDataWithAudit = _datas.Any(d => d is IDataWithAudit);
-
-        if (anyDataWithAudit) await _auditData.CommitTransactionAsync();
-
-
-        foreach (var data in _datas)
-            await data.CommitTransactionAsync();
-
+        await _datas[0].CommitTransactionAsync();
 
         _datas.Clear();
     }

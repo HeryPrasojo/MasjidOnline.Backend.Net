@@ -1,6 +1,5 @@
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.EntityFramework.Repository.Users;
-using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.Repository.Users;
 
@@ -8,8 +7,7 @@ namespace MasjidOnline.Data.EntityFramework.Datas;
 
 public class UsersData(
     UsersDataContext _userDataContext,
-    IAuditData _auditData,
-    IDataTransaction _dataTransaction) : DataWithAudit(_userDataContext, _auditData, _dataTransaction), IUsersData
+    IAuditData _auditData) : DataWithAudit(_userDataContext, _auditData), IUsersData
 {
     private IUserSettingRepository? _userSettingRepository;
 

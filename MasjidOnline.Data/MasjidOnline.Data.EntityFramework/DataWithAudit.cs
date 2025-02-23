@@ -7,14 +7,10 @@ namespace MasjidOnline.Data.EntityFramework;
 
 public abstract class DataWithAudit(
     DbContext _dbContext,
-    IAuditData _auditData,
-    IDataTransaction _dataTransaction) : Data(_dbContext), IData, IDataWithAudit
+    IAuditData _auditData) : Data(_dbContext), IData, IDataWithAudit
 {
-    public async Task SaveAsync(int userId)
+    public async Task SaveWithTransactionAsync(int userId)
     {
-        // todo fix
-        //await _dataTransaction.BeginAsync(_auditData);
-
         var entityEntries = _dbContext.ChangeTracker.Entries();
 
         var entityStates = new[]
@@ -29,8 +25,40 @@ public abstract class DataWithAudit(
 
         await _auditData.AddAsync(entities, userId);
 
+        await _auditData.BeginTransactionAsync();
+
+        await _auditData.SaveAsync();
+
+
+        await BeginTransactionAsync();
+
         await _dbContext.SaveChangesAsync();
 
-        //await _dataTransaction.CommitAsync();
+        await CommitTransactionAsync();
+
+
+        await _auditData.CommitTransactionAsync();
+    }
+
+    public async Task SaveWithoutTransactionAsync(int userId)
+    {
+        var entityEntries = _dbContext.ChangeTracker.Entries();
+
+        var entityStates = new[]
+        {
+            EntityState.Added,
+            EntityState.Deleted,
+            EntityState.Modified,
+        };
+
+        var entities = entityEntries.Where(e => entityStates.Any(s => s == e.State))
+            .Select(e => e.Entity);
+
+        await _auditData.AddAsync(entities, userId);
+
+        await _auditData.SaveAsync();
+
+
+        await _dbContext.SaveChangesAsync();
     }
 }

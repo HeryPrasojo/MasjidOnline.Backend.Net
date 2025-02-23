@@ -69,7 +69,7 @@ public class InitializerBusiness(
         await _usersData.Permission.AddAsync(permission);
 
 
-        await _usersData.SaveAsync(_sessionBusiness.UserId);
+        await _usersData.SaveWithoutTransactionAsync(_sessionBusiness.UserId);
 
 
         var uri = option.Uri.UserPassword + Convert.ToHexString(passwordCode.Code.AsSpan());

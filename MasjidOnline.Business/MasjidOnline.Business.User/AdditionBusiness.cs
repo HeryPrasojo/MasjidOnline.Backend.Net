@@ -66,7 +66,7 @@ public class AdditionBusiness(
 
         await _usersData.PasswordCode.AddAsync(passwordCode);
 
-        await _usersData.SaveAsync(_sessionBusiness.UserId);
+        await _usersData.SaveWithoutTransactionAsync(_sessionBusiness.UserId);
 
 
         var uri = _optionsMonitor.CurrentValue.Uri.UserPassword + Convert.ToHexString(passwordCode.Code.AsSpan());

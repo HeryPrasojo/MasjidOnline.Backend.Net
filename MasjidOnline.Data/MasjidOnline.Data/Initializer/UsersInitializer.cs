@@ -31,7 +31,7 @@ public abstract class UsersInitializer(IUsersDefinition _userDefinition) : IUser
 
             await userData.UserSetting.AddAsync(userSetting);
 
-            await userData.SaveAsync(userId);
+            await userData.SaveWithoutTransactionAsync(userId);
         }
     }
 
