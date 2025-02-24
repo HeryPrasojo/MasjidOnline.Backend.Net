@@ -8,7 +8,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddUserBusiness(this IServiceCollection services)
     {
-        services.AddSingleton<IAdditionBusiness, AdditionBusiness>();
+        services.AddSingleton<IUserAddBusiness, UserAddBusiness>();
         services.AddSingleton<IInitializerBusiness, InitializerBusiness>();
         services.AddSingleton<IPasswordSetBusiness, PasswordSetBusiness>();
 

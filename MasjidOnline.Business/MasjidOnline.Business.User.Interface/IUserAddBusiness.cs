@@ -6,7 +6,7 @@ using MasjidOnline.Data.Interface.Datas;
 
 namespace MasjidOnline.Business.User.Interface;
 
-public interface IAdditionBusiness
+public interface IUserAddBusiness
 {
-    Task<Response> AddAsync(ISessionBusiness _sessionBusiness, IUsersData _usersData, AddByInternalRequest addByInternalRequest);
+    Task<Response> AddByInternalAsync(ISessionBusiness _sessionBusiness, IUsersData _usersData, AddByInternalRequest addByInternalRequest);
 }
