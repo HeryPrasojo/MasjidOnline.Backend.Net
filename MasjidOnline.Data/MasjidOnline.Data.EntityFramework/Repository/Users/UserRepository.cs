@@ -52,7 +52,7 @@ public class UserRepository(UsersDataContext _userDataContext) : IUserRepository
         var user = new User
         {
             Id = id,
-            Password = password
+            Password = password,
         };
 
         _dbSet.Attach(user)

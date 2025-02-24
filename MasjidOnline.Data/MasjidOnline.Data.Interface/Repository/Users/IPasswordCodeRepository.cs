@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+using System;
+using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Model.User;
 using MasjidOnline.Entity.Users;
 
@@ -8,4 +9,5 @@ public interface IPasswordCodeRepository
 {
     Task AddAsync(PasswordCode passwordCode);
     Task<PasswordCodeForPasswordSet?> GetForPasswordSetAsync(byte[] code);
+    void UpdateUseDateTime(byte[] code, DateTime useDateTime);
 }

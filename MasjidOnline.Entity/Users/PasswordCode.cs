@@ -8,9 +8,9 @@ public class PasswordCode
     [Key]
     public required byte[] Code { get; set; }
 
-    public required DateTime DateTime { get; set; }
+    public DateTime DateTime { get; set; }
 
-    public required int UserId { get; set; }
+    public int UserId { get; set; }
 
 
     // optimization
