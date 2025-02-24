@@ -88,8 +88,8 @@ static WebApplication BuildApplication(string[] args)
     webApplicationBuilder.Services.AddMailKitMailService();
 
     webApplicationBuilder.Services.AddData();
+    webApplicationBuilder.Services.AddEntityFrameworkData();
     webApplicationBuilder.Services.AddSqLiteEntityFrameworkData(webApplicationBuilder.Configuration);
-    webApplicationBuilder.Services.AddEntityIdGenerator();
 
     webApplicationBuilder.Services.AddAuthorizationBusiness();
     webApplicationBuilder.Services.AddCaptchaBusiness();
@@ -141,7 +141,7 @@ static async Task InitializeAsync(WebApplication webApplication)
 
     await sessionsInitializer.InitializeDatabaseAsync(sessionsData);
 
-    await sessionBusiness.ChangeAsync(MasjidOnline.Business.Interface.Model.Constant.SystemUserId);
+    await sessionBusiness.ChangeAndSaveAsync(MasjidOnline.Business.Interface.Model.Constant.SystemUserId);
 
     await auditInitializer.InitializeDatabaseAsync(auditData);
     await coreInitializer.InitializeDatabaseAsync(coreData);

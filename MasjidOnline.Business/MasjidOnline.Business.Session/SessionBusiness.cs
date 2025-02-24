@@ -43,10 +43,10 @@ public class SessionBusiness(
             Digest = _sessionsIdGenerator.SessionDigest,
             Id = _sessionsIdGenerator.SessionId,
             PreviousId = _digest.ToArray(),
-            UserId = UserId,
+            UserId = userId,
         };
 
-        await _sessionsData.Session.AddAndSaveAsync(session);
+        await _sessionsData.Session.AddAsync(session);
 
 
         _digest = session.Digest;
@@ -55,11 +55,18 @@ public class SessionBusiness(
         UserId = session.UserId;
     }
 
+    public async Task ChangeAndSaveAsync(int userId)
+    {
+        await ChangeAsync(userId);
+
+        await _sessionsData.SaveAsync();
+    }
+
     public async Task StartAsync(string? idBase64, [CallerArgumentExpression(nameof(idBase64))] string? idBase64Expression = default)
     {
         if (idBase64 == default)
         {
-            await ChangeAsync(Constant.AnonymousUserId);
+            await ChangeAndSaveAsync(Constant.AnonymousUserId);
         }
         else
         {
@@ -74,7 +81,7 @@ public class SessionBusiness(
 
             if (sessionEntity.DateTime < DateTime.UtcNow.AddDays(-16))
             {
-                await ChangeAsync(Constant.AnonymousUserId);
+                await ChangeAndSaveAsync(Constant.AnonymousUserId);
             }
             else
             {

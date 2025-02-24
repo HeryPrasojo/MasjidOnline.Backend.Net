@@ -31,10 +31,11 @@ internal static class UserEndPoint
     internal static async Task<Response> SetPasswordAsync(
         IDataTransaction _dataTransaction,
         ISessionBusiness _sessionBusiness,
+        ISessionsData _sessionsData,
         IUsersData _usersData,
         IPasswordSetBusiness _passwordSetBusiness,
         SetPasswordRequest setPasswordRequest)
     {
-        return await _passwordSetBusiness.SetAsync(_dataTransaction, _sessionBusiness, _usersData, setPasswordRequest);
+        return await _passwordSetBusiness.SetAsync(_dataTransaction, _sessionBusiness, _sessionsData, _usersData, setPasswordRequest);
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Model.Session;
@@ -12,11 +12,9 @@ public class SessionRepository(SessionsDataContext _sessionDataContext) : ISessi
 {
     private readonly DbSet<Session> _dbSet = _sessionDataContext.Set<Session>();
 
-    public async Task AddAndSaveAsync(Session session)
+    public async Task AddAsync(Session session)
     {
         await _dbSet.AddAsync(session);
-
-        await _sessionDataContext.SaveChangesAsync();
     }
 
     public async Task<int> GetMaxIdAsync()

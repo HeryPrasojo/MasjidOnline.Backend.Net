@@ -18,6 +18,7 @@ public class PasswordSetBusiness(
     public async Task<Response> SetAsync(
         IDataTransaction _dataTransaction,
         ISessionBusiness _sessionBusiness,
+        ISessionsData _sessionsData,
         IUsersData _usersData,
         SetPasswordRequest setPasswordRequest)
     {
@@ -28,14 +29,14 @@ public class PasswordSetBusiness(
         if (setPasswordRequest.Password != setPasswordRequest.PasswordRepeat) throw new InputInvalidException(nameof(setPasswordRequest.PasswordRepeat));
 
 
-        await _dataTransaction.BeginAsync(_usersData);
-
         var passwordCode = await _usersData.PasswordCode.GetForPasswordSetAsync(passwordCodeBytes);
 
         if (passwordCode == default) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
 
         if (passwordCode.UseDateTime != default) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
 
+
+        await _dataTransaction.BeginAsync(_usersData, _sessionsData);
 
         var passwordBytes = _hash512Service.Hash(setPasswordRequest.Password);
 
@@ -44,7 +45,7 @@ public class PasswordSetBusiness(
 
         await _sessionBusiness.ChangeAsync(passwordCode.UserId);
 
-        await _dataTransaction.CommitAsync();
+        await _dataTransaction.CommitAsync(passwordCode.UserId);
 
         return new()
         {

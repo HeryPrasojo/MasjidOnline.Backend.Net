@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Initializer;
@@ -34,7 +34,8 @@ public class SqLiteAuditInitializer(
                 DateTime TEXT NOT NULL,
 
                 UserId INTEGER NOT NULL,
-                UserAddInternal INTEGER NOT NULL
+                UserInternalAdd INTEGER NOT NULL,
+                TransactionInfaqRead INTEGER NOT NULL
             )";
 
         return await _auditDataContext.Database.ExecuteSqlAsync(sql);
@@ -51,8 +52,9 @@ public class SqLiteAuditInitializer(
 
                 Id INTEGER NOT NULL,
                 Name TEXT NOT NULL,
-                UserType INTEGER NOT NULL,
-                EmailAddressId INTEGER NOT NULL
+                Type INTEGER NOT NULL,
+                EmailAddress TEXT NOT NULL,
+                Password BLOB
             )";
 
         return await _auditDataContext.Database.ExecuteSqlAsync(sql);
@@ -67,10 +69,8 @@ public class SqLiteAuditInitializer(
                 SessionUserId INTEGER NOT NULL,
                 DateTime TEXT NOT NULL,
 
-                Id INTEGER NOT NULL,
                 UserId INTEGER NOT NULL,
-                EmailAddress TEXT NOT NULL,
-                Disabled INTEGER NOT NULL
+                EmailAddress TEXT NOT NULL
             )";
 
         return await _auditDataContext.Database.ExecuteSqlAsync(sql);

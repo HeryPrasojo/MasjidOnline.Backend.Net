@@ -12,18 +12,18 @@ namespace MasjidOnline.Data.EntityFramework.SqLite;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddSqLiteEntityFrameworkData(this IServiceCollection services, IConfiguration configurationManager)
+    public static IServiceCollection AddSqLiteEntityFrameworkData(this IServiceCollection services, IConfiguration configuration)
     {
-        var option = configurationManager.GetSection("ConnectionStrings")
+        var connectionStrings = configuration.GetSection("ConnectionStrings")
             .Get<ConnectionStrings>() ?? throw new ApplicationException($"Get {nameof(ConnectionStrings)} fail");
 
-        services.AddDbContextPool<AuditDataContext>(b => b.UseSqlite(option.Audit), poolSize: 2);
-        services.AddDbContextPool<CaptchaDataContext>(b => b.UseSqlite(option.Captcha), poolSize: 2);
-        services.AddDbContextPool<CoreDataContext>(b => b.UseSqlite(option.Core), poolSize: 2);
-        services.AddDbContextPool<EventDataContext>(b => b.UseSqlite(option.Event), poolSize: 2);
-        services.AddDbContextPool<InfaqsDataContext>(b => b.UseSqlite(option.Infaqs), poolSize: 2);
-        services.AddDbContextPool<SessionsDataContext>(b => b.UseSqlite(option.Sessions), poolSize: 2);
-        services.AddDbContextPool<UsersDataContext>(b => b.UseSqlite(option.Users), poolSize: 2);
+        services.AddDbContextPool<AuditDataContext>(b => b.UseSqlite(connectionStrings.Audit), poolSize: 2);
+        services.AddDbContextPool<CaptchaDataContext>(b => b.UseSqlite(connectionStrings.Captcha), poolSize: 2);
+        services.AddDbContextPool<CoreDataContext>(b => b.UseSqlite(connectionStrings.Core), poolSize: 2);
+        services.AddDbContextPool<EventDataContext>(b => b.UseSqlite(connectionStrings.Event), poolSize: 2);
+        services.AddDbContextPool<InfaqsDataContext>(b => b.UseSqlite(connectionStrings.Infaqs), poolSize: 2);
+        services.AddDbContextPool<SessionsDataContext>(b => b.UseSqlite(connectionStrings.Sessions), poolSize: 2);
+        services.AddDbContextPool<UsersDataContext>(b => b.UseSqlite(connectionStrings.Users), poolSize: 2);
 
         services.AddTransient<IAuditInitializer, SqLiteAuditInitializer>();
         services.AddTransient<ICaptchaInitializer, SqLiteCaptchaInitializer>();

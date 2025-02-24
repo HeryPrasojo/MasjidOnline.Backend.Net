@@ -6,7 +6,7 @@ namespace MasjidOnline.Data.EntityFramework;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddData(this IServiceCollection services)
+    public static IServiceCollection AddEntityFrameworkData(this IServiceCollection services)
     {
         services.AddScoped<IAuditData, AuditData>();
         services.AddScoped<ICaptchaData, CaptchaData>();
