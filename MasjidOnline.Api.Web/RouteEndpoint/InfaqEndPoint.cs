@@ -9,7 +9,7 @@ namespace MasjidOnline.Api.Web.RouteEndpoint;
 
 internal static class InfaqEndPoint
 {
-    internal static async Task<Response> AddByAnonymAsync(
+    internal static async Task<Response> AddAnonymAsync(
         IInfaqAddAnonymBusiness _infaqAddAnonymBusiness,
         ICaptchaData _captchaData,
         ISessionBusiness _sessionBusiness,

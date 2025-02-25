@@ -10,7 +10,7 @@ namespace MasjidOnline.Api.Web.RouteEndpoint;
 
 internal static class UserEndPoint
 {
-    internal static async Task<Response> Addsync(
+    internal static async Task<Response> AddInternalAsync(
         IUserAddInternalBusiness userAddInternalBusiness,
         ISessionBusiness _sessionBusiness,
         IUsersData _usersData,
