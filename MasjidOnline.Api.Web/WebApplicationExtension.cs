@@ -18,6 +18,7 @@ internal static class WebApplicationExtension
         infaqGroup.MapPost("/anonym", InfaqEndPoint.AddByAnonymAsync);
 
         infaqGroup.MapPost("/infaqs", InfaqEndPoint.GetManyAsync);
+        infaqGroup.MapPost("/infaq", InfaqEndPoint.GetOneAsync);
 
 
         var userGroup = webApplication.MapGroup("/user");

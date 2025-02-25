@@ -1,5 +1,6 @@
 namespace MasjidOnline.Business.Infaq.Interface.Model.Payment;
 
+// hack move to MasjidOnline.Business.Interface.Model
 public enum PaymentStatus
 {
     None = 0,

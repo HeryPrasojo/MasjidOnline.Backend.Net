@@ -21,11 +21,17 @@ internal static class InfaqEndPoint
 
     internal static async Task<GetManyResponse<GetManyResponseRecord>> GetManyAsync(
         IInfaqGetBusiness _infaqGetBusiness,
-        ISessionBusiness _sessionBusiness,
-        IUsersData _usersData,
         IInfaqsData _infaqsData,
         GetManyRequest getManyRequest)
     {
-        return await _infaqGetBusiness.GetManyAsync(_sessionBusiness, _usersData, _infaqsData, getManyRequest);
+        return await _infaqGetBusiness.GetManyAsync(_infaqsData, getManyRequest);
+    }
+
+    internal static async Task<GetOneResponse> GetOneAsync(
+        IInfaqGetBusiness _infaqGetBusiness,
+        IInfaqsData _infaqsData,
+        GetOneRequest getOneRequest)
+    {
+        return await _infaqGetBusiness.GetOneAsync(_infaqsData, getOneRequest);
     }
 }

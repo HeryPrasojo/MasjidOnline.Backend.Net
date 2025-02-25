@@ -5,7 +5,6 @@ using MasjidOnline.Business.Infaq.Interface;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Payment;
 using MasjidOnline.Business.Interface.Model.Responses;
-using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.Model.Infaq;
 using MasjidOnline.Data.Interface.Model.Repository;
@@ -18,8 +17,6 @@ public class InfaqGetBusiness(
     IFieldValidatorService _fieldValidatorService) : IInfaqGetBusiness
 {
     public async Task<GetManyResponse<GetManyResponseRecord>> GetManyAsync(
-        ISessionBusiness _sessionBusiness,
-        IUsersData _usersData,
         IInfaqsData _infaqsData,
         GetManyRequest getManyRequest)
     {
@@ -92,11 +89,16 @@ public class InfaqGetBusiness(
 
         var infaq = await _infaqsData.Infaq.GetOneByIdAsync(getOneRequest.Id);
 
-        // undone 1
+        if (infaq == default) throw new InputMismatchException($"{nameof(getOneRequest.Id)}: {getOneRequest.Id}");
 
         return new()
         {
             ResultCode = ResponseResultCode.Success,
+            Amount = infaq.Amount,
+            DateTime = infaq.DateTime,
+            MunfiqName = infaq.MunfiqName,
+            PaymentStatus = (PaymentStatus)infaq.PaymentStatus,
+            PaymentType = (PaymentType)infaq.PaymentType,
         };
     }
 }
