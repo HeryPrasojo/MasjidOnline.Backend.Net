@@ -16,11 +16,11 @@ using MasjidOnline.Service.FieldValidator.Interface;
 
 namespace MasjidOnline.Business.Infaq;
 
-public class InfaqAddBusiness(
+public class InfaqAddByAnonymBusiness(
     IFieldValidatorService _fieldValidatorService,
-    IInfaqsIdGenerator _infaqsIdGenerator) : IInfaqAddBusiness
+    IInfaqsIdGenerator _infaqsIdGenerator) : IInfaqAddByAnonymBusiness
 {
-    public async Task<Response> AddByAnonymAsync(
+    public async Task<Response> AddAsync(
         ICaptchaData _captchaData,
         ISessionBusiness _sessionBusiness,
         IInfaqsData _infaqsData,

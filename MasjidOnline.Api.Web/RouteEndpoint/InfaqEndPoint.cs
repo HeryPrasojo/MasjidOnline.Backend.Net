@@ -10,32 +10,32 @@ namespace MasjidOnline.Api.Web.RouteEndpoint;
 internal static class InfaqEndPoint
 {
     internal static async Task<Response> AddByAnonymAsync(
-        IInfaqAddBusiness _infaqAddBusiness,
+        IInfaqAddByAnonymBusiness _infaqAddByAnonymBusiness,
         ICaptchaData _captchaData,
         ISessionBusiness _sessionBusiness,
         IInfaqsData _infaqsData,
         AddByAnonymRequest addByAnonymRequest)
     {
-        return await _infaqAddBusiness.AddByAnonymAsync(_captchaData, _sessionBusiness, _infaqsData, addByAnonymRequest);
+        return await _infaqAddByAnonymBusiness.AddAsync(_captchaData, _sessionBusiness, _infaqsData, addByAnonymRequest);
     }
 
     internal static async Task<GetManyResponse<GetManyResponseRecord>> GetManyAsync(
-        IInfaqGetBusiness _infaqGetBusiness,
+        IInfaqGetManyBusiness _infaqGetManyBusiness,
         IInfaqsData _infaqsData,
         GetManyRequest getManyRequest)
     {
-        return await _infaqGetBusiness.GetManyAsync(_infaqsData, getManyRequest);
+        return await _infaqGetManyBusiness.GetAsync(_infaqsData, getManyRequest);
     }
 
     internal static async Task<GetOneResponse> GetOneAsync(
-        IInfaqGetBusiness _infaqGetBusiness,
+        IInfaqGetOneBusiness _infaqGetOneBusiness,
         IInfaqsData _infaqsData,
         GetOneRequest getOneRequest)
     {
-        return await _infaqGetBusiness.GetOneAsync(_infaqsData, getOneRequest);
+        return await _infaqGetOneBusiness.GetAsync(_infaqsData, getOneRequest);
     }
 
-    internal static async Task<GetOneResponse> GetOneAsync(
+    internal static async Task<GetOneResponse> Async(
         IInfaq _infaqGetBusiness,
         IInfaqsData _infaqsData,
         GetOneRequest getOneRequest)
