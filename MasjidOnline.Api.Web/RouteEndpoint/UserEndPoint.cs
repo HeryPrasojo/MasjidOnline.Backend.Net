@@ -11,21 +11,21 @@ namespace MasjidOnline.Api.Web.RouteEndpoint;
 internal static class UserEndPoint
 {
     internal static async Task<Response> Addsync(
-        IUserAddBusiness _userAddBusiness,
+        IUserAddInternalBusiness userAddInternalBusiness,
         ISessionBusiness _sessionBusiness,
         IUsersData _usersData,
         AddByInternalRequest addByInternalRequest)
     {
-        return await _userAddBusiness.AddByInternalAsync(_sessionBusiness, _usersData, addByInternalRequest);
+        return await userAddInternalBusiness.AddByInternalAsync(_sessionBusiness, _usersData, addByInternalRequest);
     }
 
     internal static async Task<Response> LoginAsync(
-        ILoginBusiness _loginBusiness,
+        IUserLoginBusiness _userLoginBusiness,
         IUsersData _usersData,
         ISessionBusiness _sessionBusiness,
         LoginRequest loginRequest)
     {
-        return await _loginBusiness.LoginAsync(_usersData, _sessionBusiness, loginRequest);
+        return await _userLoginBusiness.LoginAsync(_usersData, _sessionBusiness, loginRequest);
     }
 
     internal static async Task<Response> SetPasswordAsync(
@@ -33,9 +33,9 @@ internal static class UserEndPoint
         ISessionBusiness _sessionBusiness,
         ISessionsData _sessionsData,
         IUsersData _usersData,
-        IPasswordSetBusiness _passwordSetBusiness,
+        IUserSetPasswordBusiness _userSetPasswordBusiness,
         SetPasswordRequest setPasswordRequest)
     {
-        return await _passwordSetBusiness.SetAsync(_dataTransaction, _sessionBusiness, _sessionsData, _usersData, setPasswordRequest);
+        return await _userSetPasswordBusiness.SetAsync(_dataTransaction, _sessionBusiness, _sessionsData, _usersData, setPasswordRequest);
     }
 }

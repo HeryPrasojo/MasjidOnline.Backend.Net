@@ -16,12 +16,12 @@ using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Business.User;
 
-public class UserAddBusiness(
+public class UserAddInternalBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
     IAuthorizationBusiness _authorizationBusiness,
     IMailSenderService _mailSenderService,
     IUsersIdGenerator _usersIdGenerator,
-    IFieldValidatorService _fieldValidatorService) : IUserAddBusiness
+    IFieldValidatorService _fieldValidatorService) : IUserAddInternalBusiness
 {
     public async Task<Response> AddByInternalAsync(
         ISessionBusiness _sessionBusiness,

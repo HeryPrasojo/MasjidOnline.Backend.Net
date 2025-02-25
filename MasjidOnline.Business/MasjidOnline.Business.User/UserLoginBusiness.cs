@@ -11,7 +11,7 @@ using MasjidOnline.Service.Hash.Interface;
 
 namespace MasjidOnline.Business.User;
 
-public class LoginBusiness(IHash512Service _hash512Service) : ILoginBusiness
+public class UserLoginBusiness(IHash512Service _hash512Service) : IUserLoginBusiness
 {
     public async Task<Response> LoginAsync(IUsersData _usersData, ISessionBusiness _sessionBusiness, LoginRequest loginRequest)
     {

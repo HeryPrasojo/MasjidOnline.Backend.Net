@@ -34,4 +34,12 @@ internal static class InfaqEndPoint
     {
         return await _infaqGetBusiness.GetOneAsync(_infaqsData, getOneRequest);
     }
+
+    internal static async Task<GetOneResponse> GetOneAsync(
+        IInfaq _infaqGetBusiness,
+        IInfaqsData _infaqsData,
+        GetOneRequest getOneRequest)
+    {
+        return await _infaqGetBusiness.(_infaqsData, getOneRequest);
+    }
 }

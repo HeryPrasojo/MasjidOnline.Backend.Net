@@ -8,9 +8,9 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddUserBusiness(this IServiceCollection services)
     {
-        services.AddSingleton<IUserAddBusiness, UserAddBusiness>();
+        services.AddSingleton<IUserAddInternalBusiness, UserAddInternalBusiness>();
         services.AddSingleton<IInitializerBusiness, InitializerBusiness>();
-        services.AddSingleton<IPasswordSetBusiness, PasswordSetBusiness>();
+        services.AddSingleton<IUserSetPasswordBusiness, UserSetPasswordBusiness>();
 
         return services;
     }

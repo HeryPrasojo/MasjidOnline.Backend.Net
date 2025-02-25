@@ -15,10 +15,11 @@ internal static class WebApplicationExtension
 
         var infaqGroup = webApplication.MapGroup("/infaq");
 
-        infaqGroup.MapPost("/anonym", InfaqEndPoint.AddByAnonymAsync);
+        infaqGroup.MapPost("/infaqByAnonym", InfaqEndPoint.AddByAnonymAsync);
 
-        infaqGroup.MapPost("/infaqs", InfaqEndPoint.GetManyAsync);
-        infaqGroup.MapPost("/infaq", InfaqEndPoint.GetOneAsync);
+        infaqGroup.MapPost("/getMany", InfaqEndPoint.GetManyAsync);
+        infaqGroup.MapPost("/getOne", InfaqEndPoint.GetOneAsync);
+        infaqGroup.MapPost("/setPaymentStatusExpire", InfaqEndPoint.);
 
 
         var userGroup = webApplication.MapGroup("/user");
