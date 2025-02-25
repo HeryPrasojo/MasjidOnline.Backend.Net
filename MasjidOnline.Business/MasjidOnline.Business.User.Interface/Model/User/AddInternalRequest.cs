@@ -1,6 +1,6 @@
 ﻿namespace MasjidOnline.Business.User.Interface.Model.User;
 
-public class AddByInternalRequest
+public class AddInternalRequest
 {
     public required string Name { get; set; }
 

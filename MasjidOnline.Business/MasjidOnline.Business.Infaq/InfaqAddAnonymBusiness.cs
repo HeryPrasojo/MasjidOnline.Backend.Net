@@ -16,9 +16,9 @@ using MasjidOnline.Service.FieldValidator.Interface;
 
 namespace MasjidOnline.Business.Infaq;
 
-public class InfaqAddByAnonymBusiness(
+public class InfaqAddAnonymBusiness(
     IFieldValidatorService _fieldValidatorService,
-    IInfaqsIdGenerator _infaqsIdGenerator) : IInfaqAddByAnonymBusiness
+    IInfaqsIdGenerator _infaqsIdGenerator) : IInfaqAddAnonymBusiness
 {
     public async Task<Response> AddAsync(
         ICaptchaData _captchaData,

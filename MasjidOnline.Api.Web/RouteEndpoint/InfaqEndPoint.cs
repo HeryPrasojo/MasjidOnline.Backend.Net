@@ -10,13 +10,13 @@ namespace MasjidOnline.Api.Web.RouteEndpoint;
 internal static class InfaqEndPoint
 {
     internal static async Task<Response> AddByAnonymAsync(
-        IInfaqAddByAnonymBusiness _infaqAddByAnonymBusiness,
+        IInfaqAddAnonymBusiness _infaqAddAnonymBusiness,
         ICaptchaData _captchaData,
         ISessionBusiness _sessionBusiness,
         IInfaqsData _infaqsData,
         AddByAnonymRequest addByAnonymRequest)
     {
-        return await _infaqAddByAnonymBusiness.AddAsync(_captchaData, _sessionBusiness, _infaqsData, addByAnonymRequest);
+        return await _infaqAddAnonymBusiness.AddAsync(_captchaData, _sessionBusiness, _infaqsData, addByAnonymRequest);
     }
 
     internal static async Task<GetManyResponse<GetManyResponseRecord>> GetManyAsync(
