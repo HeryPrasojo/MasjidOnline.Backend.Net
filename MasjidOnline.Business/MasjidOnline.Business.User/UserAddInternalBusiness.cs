@@ -26,22 +26,22 @@ public class UserAddInternalBusiness(
     public async Task<Response> AddByInternalAsync(
         ISessionBusiness _sessionBusiness,
         IUsersData _usersData,
-        AddByInternalRequest addByInternalRequest)
+        AddInternalRequest addInternalRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _usersData, userInternalAdd: true);
 
 
-        _fieldValidatorService.ValidateRequired(addByInternalRequest);
+        _fieldValidatorService.ValidateRequired(addInternalRequest);
 
-        addByInternalRequest.EmailAddress = _fieldValidatorService.ValidateRequiredEmailAddress(addByInternalRequest.EmailAddress);
-        addByInternalRequest.Name = _fieldValidatorService.ValidateRequiredText255(addByInternalRequest.Name);
+        addInternalRequest.EmailAddress = _fieldValidatorService.ValidateRequiredEmailAddress(addInternalRequest.EmailAddress);
+        addInternalRequest.Name = _fieldValidatorService.ValidateRequiredText255(addInternalRequest.Name);
 
 
         var user = new Entity.Users.User
         {
             Id = _usersIdGenerator.UserId,
-            EmailAddress = addByInternalRequest.EmailAddress,
-            Name = addByInternalRequest.Name,
+            EmailAddress = addInternalRequest.EmailAddress,
+            Name = addInternalRequest.Name,
             Type = UserType.Internal,
         };
 
@@ -50,7 +50,7 @@ public class UserAddInternalBusiness(
 
         var userEmailAddress = new UserEmailAddress
         {
-            EmailAddress = addByInternalRequest.EmailAddress,
+            EmailAddress = addInternalRequest.EmailAddress,
             UserId = user.Id,
         };
 

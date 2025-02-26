@@ -1,4 +1,4 @@
-namespace MasjidOnline.Business.Infaq;
+﻿namespace MasjidOnline.Business.Infaq;
 
 public class InfaqSetPaymentStatusExpired
 {

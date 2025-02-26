@@ -8,5 +8,5 @@ namespace MasjidOnline.Business.User.Interface;
 
 public interface IUserAddInternalBusiness
 {
-    Task<Response> AddByInternalAsync(ISessionBusiness _sessionBusiness, IUsersData _usersData, AddByInternalRequest addByInternalRequest);
+    Task<Response> AddByInternalAsync(ISessionBusiness _sessionBusiness, IUsersData _usersData, AddInternalRequest addInternalRequest);
 }
