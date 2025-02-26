@@ -26,6 +26,18 @@ public class InfaqRepository(InfaqsDataContext _infaqsDataContext) : IInfaqRepos
         await SaveAsync();
     }
 
+    public async Task<InfaqForExpiredAdd?> GetForExpiredAddAsync(int id)
+    {
+        return await _dbSet.Where(e => e.Id == id)
+            .Select(e => new InfaqForExpiredAdd
+            {
+                DateTime = e.DateTime,
+                PaymentStatus = e.PaymentStatus,
+                PaymentType = e.PaymentType,
+            })
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<GetManyResult<InfaqForGetManyRecord>> GetManyAsync(
         IEnumerable<PaymentType>? paymentTypes = default,
         IEnumerable<PaymentStatus>? paymentStatuses = default,
@@ -78,7 +90,7 @@ public class InfaqRepository(InfaqsDataContext _infaqsDataContext) : IInfaqRepos
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
     }
 
-    public async Task<InfaqForGetOne?> GetOneByIdAsync(int id)
+    public async Task<InfaqForGetOne?> GetOneAsync(int id)
     {
         return await _dbSet.Where(e => e.Id == id)
             .Select(e => new InfaqForGetOne

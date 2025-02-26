@@ -1,5 +1,5 @@
 namespace MasjidOnline.Business.Infaq.Interface;
 
-public interface IInfaqSetPaymentStatusExpiredBusiness
+public interface ExpiredAddBusiness
 {
 }

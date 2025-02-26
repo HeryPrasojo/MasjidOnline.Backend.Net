@@ -1,6 +1,6 @@
 namespace MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 
-public class SetPaymentStatusExpiredRequest
+public class ExpiredAddRequest
 {
     public required int Id { get; set; }
 }

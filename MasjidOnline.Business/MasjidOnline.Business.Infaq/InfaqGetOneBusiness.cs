@@ -20,7 +20,7 @@ public class InfaqGetOneBusiness(
         _fieldValidatorService.ValidateRequiredPlus(getOneRequest.Id);
 
 
-        var infaq = await _infaqsData.Infaq.GetOneByIdAsync(getOneRequest.Id);
+        var infaq = await _infaqsData.Infaq.GetOneAsync(getOneRequest.Id);
 
         if (infaq == default) throw new InputMismatchException($"{nameof(getOneRequest.Id)}: {getOneRequest.Id}");
 
