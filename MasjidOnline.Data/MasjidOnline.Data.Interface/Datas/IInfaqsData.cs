@@ -8,4 +8,5 @@ public interface IInfaqsData : IDataWithoutAudit
     IInfaqFileRepository InfaqFile { get; }
     IInfaqManualRepository InfaqManual { get; }
     IInfaqSettingRepository InfaqSetting { get; }
+    IExpiredRepository Expired { get; }
 }

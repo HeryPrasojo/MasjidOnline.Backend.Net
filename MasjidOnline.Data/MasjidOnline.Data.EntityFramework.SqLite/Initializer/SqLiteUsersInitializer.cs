@@ -44,8 +44,8 @@ public class SqLiteUsersInitializer(
             CREATE TABLE Permission
             (
                 UserId INTEGER PRIMARY KEY,
-                UserInternalAdd INTEGER NOT NULL,
-                TransactionInfaqRead INTEGER NOT NULL
+                UserAddInternal INTEGER NOT NULL,
+                InfaqSetPaymentStatusExpired INTEGER NOT NULL
             )";
 
         return await _userDataContext.Database.ExecuteSqlAsync(sql);

@@ -28,7 +28,7 @@ public class UserAddInternalBusiness(
         IUsersData _usersData,
         AddInternalRequest addInternalRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _usersData, userInternalAdd: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _usersData, userAddInternal: true);
 
 
         _fieldValidatorService.ValidateRequired(addInternalRequest);

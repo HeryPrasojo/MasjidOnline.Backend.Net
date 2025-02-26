@@ -7,10 +7,13 @@ namespace MasjidOnline.Data.EntityFramework.Datas;
 
 public class InfaqsData(InfaqsDataContext _infaqsDataContext) : DataWithoutAudit(_infaqsDataContext), IInfaqsData
 {
+    private IExpiredRepository? _expiredRepository;
     private IInfaqRepository? _infaqRepository;
     private IInfaqFileRepository? _infaqFileRepository;
     private IInfaqManualRepository? _infaqManualRepository;
     private IInfaqSettingRepository? _infaqSettingRepository;
+
+    public IExpiredRepository Expired => _expiredRepository ??= new ExpiredRepository(_infaqsDataContext);
 
     public IInfaqRepository Infaq => _infaqRepository ??= new InfaqRepository(_infaqsDataContext);
 

@@ -14,9 +14,10 @@ public abstract class InfaqsInitializer(IInfaqsDefinition _infaqsDefinition) : I
 
         if (!settingTableExists)
         {
-            await CreateTableInfaqSettingAsync();
+            await CreateTableExpiredAsync();
             await CreateTableInfaqAsync();
             await CreateTableInfaqFileAsync();
+            await CreateTableInfaqSettingAsync();
 
 
             var transactionSetting = new InfaqSetting
@@ -33,9 +34,11 @@ public abstract class InfaqsInitializer(IInfaqsDefinition _infaqsDefinition) : I
     }
 
 
-    protected abstract Task<int> CreateTableInfaqSettingAsync();
+    protected abstract Task<int> CreateTableExpiredAsync();
 
     protected abstract Task<int> CreateTableInfaqAsync();
 
     protected abstract Task<int> CreateTableInfaqFileAsync();
+
+    protected abstract Task<int> CreateTableInfaqSettingAsync();
 }

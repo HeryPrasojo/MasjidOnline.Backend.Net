@@ -62,8 +62,8 @@ public class InitializerBusiness(
         {
             UserId = user.Id,
 
-            UserInternalAdd = true,
-            TransactionInfaqRead = true,
+            UserAddInternal = true,
+            InfaqSetPaymentStatusExpired = true,
         };
 
         await _usersData.Permission.AddAsync(permission);

@@ -11,14 +11,17 @@ public class SqLiteInfaqsInitializer(
     InfaqsDataContext _infaqsDataContext,
     IInfaqsDefinition _infaqsDefinition) : InfaqsInitializer(_infaqsDefinition)
 {
-    protected override async Task<int> CreateTableInfaqSettingAsync()
+    protected override async Task<int> CreateTableExpiredAsync()
     {
         FormattableString sql = @$"
-            CREATE TABLE InfaqSetting
+            CREATE TABLE Expired
             (
-                Id INTEGER PRIMARY KEY,
-                Description TEXT NOT NULL,
-                Value TEXT NOT NULL
+                InfaqId INTEGER PRIMARY KEY,
+                DateTime TEXT NOT NULL,
+                UserId INTEGER NUT NULL,
+                UpdateDateTime TEXT,
+                UpdateUserId INTEGER,
+                IsApproved INTEGER
             )";
 
         return await _infaqsDataContext.Database.ExecuteSqlAsync(sql);
@@ -34,7 +37,7 @@ public class SqLiteInfaqsInitializer(
                 Type INTEGER NOT NULL,
                 PaymentStatus INTEGER NOT NULL,
                 PaymentType INTEGER NOT NULL,
-                UserId INTEGER NULL,
+                UserId INTEGER NOT NULL,
                 MunfiqName INTEGER NOT NULL,
                 Amount REAL NOT NULL,
                 ManualBankTransferDateTime TEXT NOT NULL,
@@ -51,6 +54,19 @@ public class SqLiteInfaqsInitializer(
             (
                 Id INTEGER PRIMARY KEY,
                 InfaqId INTEGER NOT NULL
+            )";
+
+        return await _infaqsDataContext.Database.ExecuteSqlAsync(sql);
+    }
+
+    protected override async Task<int> CreateTableInfaqSettingAsync()
+    {
+        FormattableString sql = @$"
+            CREATE TABLE InfaqSetting
+            (
+                Id INTEGER PRIMARY KEY,
+                Description TEXT NOT NULL,
+                Value TEXT NOT NULL
             )";
 
         return await _infaqsDataContext.Database.ExecuteSqlAsync(sql);
