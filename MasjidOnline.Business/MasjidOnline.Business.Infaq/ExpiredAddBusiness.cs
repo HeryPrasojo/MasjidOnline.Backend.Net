@@ -4,8 +4,8 @@ using MasjidOnline.Business.AuthorizationBusiness.Interface;
 using MasjidOnline.Business.Infaq.Interface;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Interface.Model.Options;
+using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
-using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Entity.Infaqs;
 using MasjidOnline.Library.Exceptions;
@@ -14,13 +14,14 @@ using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Business.Infaq;
 
-public class ExpiredAddBusiness(IOptionsMonitor<BusinessOptions> _optionsMonitor, IFieldValidatorService _fieldValidatorService) : IExpiredAddBusiness
+public class ExpiredAddBusiness(
+    IOptionsMonitor<BusinessOptions> _optionsMonitor,
+    IFieldValidatorService _fieldValidatorService) : IExpiredAddBusiness
 {
-    public async Task AddAsync(
+    public async Task<Response> AddAsync(
         IAuthorizationBusiness _authorizationBusiness,
         IInfaqsData _infaqsData,
         ISessionBusiness _sessionBusiness,
-        IDataTransaction _dataTransaction,
         IUsersData _usersData,
         ExpiredAddRequest expiredAddRequest)
     {
@@ -42,8 +43,25 @@ public class ExpiredAddBusiness(IOptionsMonitor<BusinessOptions> _optionsMonitor
         if (expiredDateTime > DateTime.UtcNow) throw new InputMismatchException(nameof(infaq.PaymentStatus));
 
 
-        _dataTransaction.BeginAsync();
-        _infaqsData.Expired.AddAsync();
-        _infaqsData.Infaq.;
+        var expired = new Expired
+        {
+            DateTime = DateTime.UtcNow,
+            InfaqId = expiredAddRequest.Id,
+            UserId = _sessionBusiness.UserId,
+        };
+
+        await _infaqsData.Expired.AddAsync(expired);
+
+        _infaqsData.Infaq.UpdatePaymentStatus(expiredAddRequest.Id, PaymentStatus.Expired);
+
+        await _infaqsData.SaveAsync();
+
+        // todo approver notification
+
+
+        return new()
+        {
+            ResultCode = ResponseResultCode.Success,
+        };
     }
 }

@@ -109,4 +109,18 @@ public class InfaqRepository(InfaqsDataContext _infaqsDataContext) : IInfaqRepos
     {
         return await _infaqsDataContext.SaveChangesAsync();
     }
+
+
+    public void UpdatePaymentStatus(int id, PaymentStatus paymentStatus)
+    {
+        var infaq = new Infaq
+        {
+            Id = id,
+            PaymentStatus = paymentStatus,
+        };
+
+        _dbSet.Attach(infaq)
+            .Property(e => e.PaymentStatus)
+            .IsModified = true;
+    }
 }
