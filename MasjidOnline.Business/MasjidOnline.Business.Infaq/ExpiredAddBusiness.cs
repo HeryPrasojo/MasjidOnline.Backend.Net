@@ -37,9 +37,9 @@ public class ExpiredAddBusiness(IOptionsMonitor<BusinessOptions> _optionsMonitor
         if (infaq.PaymentStatus != PaymentStatus.Pending) throw new InputMismatchException(nameof(infaq.PaymentStatus));
 
 
-        var expiredDateTime = DateTime.UtcNow.AddDays();
+        var expiredDateTime = infaq.DateTime.AddDays(_optionsMonitor.CurrentValue.PaymentManualExpired);
 
-        if (infaq.DateTime != ) throw new InputMismatchException(nameof(infaq.PaymentStatus));
+        if (expiredDateTime > DateTime.UtcNow) throw new InputMismatchException(nameof(infaq.PaymentStatus));
 
 
         _dataTransaction.BeginAsync();
