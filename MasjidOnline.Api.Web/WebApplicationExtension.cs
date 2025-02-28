@@ -17,6 +17,7 @@ internal static class WebApplicationExtension
 
         infaqGroup.MapPost("/add/anonym", InfaqEndPoint.AddAnonymAsync);
         infaqGroup.MapPost("/getMany", InfaqEndPoint.GetManyAsync);
+        infaqGroup.MapPost("/getMany/due", InfaqEndPoint.GetManyDueAsync);
         infaqGroup.MapPost("/getOne", InfaqEndPoint.GetOneAsync);
 
         infaqGroup.MapPost("/expired/add", InfaqEndPoint.AddExpiredAsync);

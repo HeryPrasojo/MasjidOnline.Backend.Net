@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -72,6 +73,50 @@ public class InfaqRepository(InfaqsDataContext _infaqsDataContext) : IInfaqRepos
             Records = await queryable.Skip(skip)
                 .Take(take)
                 .Select(e => new InfaqForGetManyRecord
+                {
+                    Amount = e.Amount,
+                    DateTime = e.DateTime,
+                    Id = e.Id,
+                    MunfiqName = e.MunfiqName,
+                    PaymentStatus = e.PaymentStatus,
+                    PaymentType = e.PaymentType,
+                })
+                .ToArrayAsync(),
+            Total = count,
+        };
+    }
+
+    public async Task<GetManyResult<InfaqForGetManyDueRecord>> GetManyDueAsync(
+        DateTime dueDateTime,
+        IEnumerable<PaymentType>? paymentTypes = default,
+        GetManyOrderBy getManyOrderBy = default,
+        OrderByDirection orderByDirection = default,
+        int skip = 0,
+        int take = 1)
+    {
+        var queryable = _dbSet.Where(e => (e.PaymentStatus == PaymentStatus.Pending) && (e.DateTime < dueDateTime));
+
+        if (paymentTypes != default)
+            queryable = queryable.Where(e => paymentTypes.Any(s => s == e.PaymentType));
+
+
+        var countTask = queryable.LongCountAsync();
+
+
+        if (getManyOrderBy == GetManyOrderBy.Id)
+        {
+            if (orderByDirection == OrderByDirection.Descending) queryable = queryable.OrderByDescending(e => e.Id);
+            else queryable = queryable.OrderBy(e => e.Id);
+        }
+
+
+        var count = await countTask;
+
+        return new()
+        {
+            Records = await queryable.Skip(skip)
+                .Take(take)
+                .Select(e => new InfaqForGetManyDueRecord
                 {
                     Amount = e.Amount,
                     DateTime = e.DateTime,

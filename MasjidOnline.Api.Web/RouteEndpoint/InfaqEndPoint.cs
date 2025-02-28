@@ -28,6 +28,14 @@ internal static class InfaqEndPoint
         return await _infaqGetManyBusiness.GetAsync(_infaqsData, getManyRequest);
     }
 
+    internal static async Task<GetManyResponse<GetManyDueResponseRecord>> GetManyDueAsync(
+        IInfaqGetManyDueBusiness _infaqGetManyDueBusiness,
+        IInfaqsData _infaqsData,
+        GetManyDueRequest getManyDueRequest)
+    {
+        return await _infaqGetManyDueBusiness.GetAsync(_infaqsData, getManyDueRequest);
+    }
+
     internal static async Task<GetOneResponse> GetOneAsync(
         IInfaqGetOneBusiness _infaqGetOneBusiness,
         IInfaqsData _infaqsData,
