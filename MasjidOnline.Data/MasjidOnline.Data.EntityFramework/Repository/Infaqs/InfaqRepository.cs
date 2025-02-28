@@ -157,6 +157,7 @@ public class InfaqRepository(InfaqsDataContext _infaqsDataContext) : IInfaqRepos
                 Amount = e.Amount,
                 DateTime = e.DateTime,
                 MunfiqName = e.MunfiqName,
+                PaymentStatus = e.PaymentStatus,
                 PaymentType = e.PaymentType,
             })
             .FirstOrDefaultAsync();
