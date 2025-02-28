@@ -149,6 +149,19 @@ public class InfaqRepository(InfaqsDataContext _infaqsDataContext) : IInfaqRepos
             .FirstOrDefaultAsync();
     }
 
+    public async Task<InfaqForGetOneDue?> GetOneDueAsync(int id)
+    {
+        return await _dbSet.Where(e => e.Id == id)
+            .Select(e => new InfaqForGetOneDue
+            {
+                Amount = e.Amount,
+                DateTime = e.DateTime,
+                MunfiqName = e.MunfiqName,
+                PaymentType = e.PaymentType,
+            })
+            .FirstOrDefaultAsync();
+    }
+
 
     private async Task<int> SaveAsync()
     {

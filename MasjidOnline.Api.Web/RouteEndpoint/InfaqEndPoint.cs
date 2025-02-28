@@ -44,6 +44,14 @@ internal static class InfaqEndPoint
         return await _infaqGetOneBusiness.GetAsync(_infaqsData, getOneRequest);
     }
 
+    internal static async Task<GetOneDueResponse> GetOneDueAsync(
+        IInfaqGetOneDueBusiness _infaqGetOneDueBusiness,
+        IInfaqsData _infaqsData,
+        GetOneDueRequest getOneDueRequest)
+    {
+        return await _infaqGetOneDueBusiness.GetAsync(_infaqsData, getOneDueRequest);
+    }
+
 
     internal static async Task<Response> AddExpiredAsync(
         IAuthorizationBusiness _authorizationBusiness,

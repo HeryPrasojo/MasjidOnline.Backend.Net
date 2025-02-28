@@ -17,4 +17,5 @@ public interface IInfaqRepository
     Task<InfaqForExpiredAdd?> GetForExpiredAddAsync(int id);
     void UpdatePaymentStatus(int id, PaymentStatus paymentStatus);
     Task<GetManyResult<InfaqForGetManyDueRecord>> GetManyDueAsync(DateTime dueDateTime, IEnumerable<PaymentType>? paymentTypes = null, GetManyOrderBy getManyOrderBy = GetManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);
+    Task<InfaqForGetOneDue?> GetOneDueAsync(int id);
 }

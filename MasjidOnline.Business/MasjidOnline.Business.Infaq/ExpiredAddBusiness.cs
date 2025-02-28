@@ -40,7 +40,7 @@ public class ExpiredAddBusiness(
 
         var expiredDateTime = infaq.DateTime.AddDays(_optionsMonitor.CurrentValue.PaymentManualExpired);
 
-        if (expiredDateTime > DateTime.UtcNow) throw new InputMismatchException(nameof(infaq.PaymentStatus));
+        if (expiredDateTime > DateTime.UtcNow) throw new InputMismatchException(nameof(infaq.DateTime));
 
 
         var expired = new Expired
