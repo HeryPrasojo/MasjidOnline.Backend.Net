@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Infaq.Interface;
+using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Interface.Model;
 using MasjidOnline.Business.Interface.Model.Responses;
@@ -18,7 +18,7 @@ namespace MasjidOnline.Business.Infaq;
 
 public class InfaqAddAnonymBusiness(
     IFieldValidatorService _fieldValidatorService,
-    IInfaqsIdGenerator _infaqsIdGenerator) : IInfaqAddAnonymBusiness
+    IInfaqsIdGenerator _infaqsIdGenerator) : IAddAnonymBusiness
 {
     public async Task<Response> AddAsync(
         ICaptchaData _captchaData,

@@ -1,9 +1,9 @@
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Data.Interface.Datas;
 
-namespace MasjidOnline.Business.Infaq.Interface;
+namespace MasjidOnline.Business.Infaq.Interface.Infaq;
 
-public interface IInfaqGetOneBusiness
+public interface IGetOneBusiness
 {
     Task<GetOneResponse> GetAsync(IInfaqsData _infaqsData, GetOneRequest getOneRequest);
 }

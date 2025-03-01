@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Infaq.Interface;
+using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Payment;
 using MasjidOnline.Business.Interface.Model.Options;
@@ -18,7 +18,7 @@ namespace MasjidOnline.Business.Infaq;
 
 public class InfaqGetManyDueBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
-    IFieldValidatorService _fieldValidatorService) : IInfaqGetManyDueBusiness
+    IFieldValidatorService _fieldValidatorService) : IGetManyDueBusiness
 {
     public async Task<GetManyResponse<GetManyDueResponseRecord>> GetAsync(
         IInfaqsData _infaqsData,

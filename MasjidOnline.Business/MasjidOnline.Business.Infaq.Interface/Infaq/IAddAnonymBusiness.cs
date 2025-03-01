@@ -3,9 +3,9 @@ using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface.Datas;
 
-namespace MasjidOnline.Business.Infaq.Interface;
+namespace MasjidOnline.Business.Infaq.Interface.Infaq;
 
-public interface IInfaqAddAnonymBusiness
+public interface IAddAnonymBusiness
 {
     Task<Response> AddAsync(ICaptchaData _captchaData, ISessionBusiness _sessionBusiness, IInfaqsData _infaqsData, AddByAnonymRequest addByAnonymRequest);
 }

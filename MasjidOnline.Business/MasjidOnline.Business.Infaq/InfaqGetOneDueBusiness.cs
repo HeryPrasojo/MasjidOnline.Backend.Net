@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Infaq.Interface;
+using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Payment;
 using MasjidOnline.Business.Interface.Model.Options;
@@ -14,7 +14,7 @@ namespace MasjidOnline.Business.Infaq;
 
 public class InfaqGetOneDueBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
-    IFieldValidatorService _fieldValidatorService) : IInfaqGetOneDueBusiness
+    IFieldValidatorService _fieldValidatorService) : IGetOneDueBusiness
 {
     public async Task<GetOneDueResponse> GetAsync(
         IInfaqsData _infaqsData,

@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using MasjidOnline.Business.Infaq.Interface;
+using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Payment;
 using MasjidOnline.Business.Interface.Model.Responses;
@@ -10,7 +10,7 @@ using MasjidOnline.Service.FieldValidator.Interface;
 namespace MasjidOnline.Business.Infaq;
 
 public class InfaqGetOneBusiness(
-    IFieldValidatorService _fieldValidatorService) : IInfaqGetOneBusiness
+    IFieldValidatorService _fieldValidatorService) : IGetOneBusiness
 {
     public async Task<GetOneResponse> GetAsync(
         IInfaqsData _infaqsData,

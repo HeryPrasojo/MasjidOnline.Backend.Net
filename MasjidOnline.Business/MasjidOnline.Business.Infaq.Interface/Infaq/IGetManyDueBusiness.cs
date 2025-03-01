@@ -2,9 +2,9 @@
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Data.Interface.Datas;
 
-namespace MasjidOnline.Business.Infaq.Interface;
+namespace MasjidOnline.Business.Infaq.Interface.Infaq;
 
-public interface IInfaqGetManyDueBusiness
+public interface IGetManyDueBusiness
 {
     Task<GetManyResponse<GetManyDueResponseRecord>> GetAsync(IInfaqsData _infaqsData, GetManyDueRequest getManyDueRequest);
 }

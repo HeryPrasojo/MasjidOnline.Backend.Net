@@ -13,8 +13,4 @@
     <ProjectReference Include="..\..\MasjidOnline.Data\MasjidOnline.Data.Interface\MasjidOnline.Data.Interface.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Infaq\" />
-  </ItemGroup>
-
 </Project>

@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using MasjidOnline.Business.AuthorizationBusiness.Interface;
-using MasjidOnline.Business.Infaq.Interface;
 using MasjidOnline.Business.Infaq.Interface.Expired;
+using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
@@ -12,45 +12,45 @@ namespace MasjidOnline.Api.Web.RouteEndpoint;
 internal static class InfaqEndPoint
 {
     internal static async Task<Response> AddAnonymAsync(
-        IInfaqAddAnonymBusiness _infaqAddAnonymBusiness,
+        IAddAnonymBusiness _addAnonymBusiness,
         ICaptchaData _captchaData,
         ISessionBusiness _sessionBusiness,
         IInfaqsData _infaqsData,
         AddByAnonymRequest addByAnonymRequest)
     {
-        return await _infaqAddAnonymBusiness.AddAsync(_captchaData, _sessionBusiness, _infaqsData, addByAnonymRequest);
+        return await _addAnonymBusiness.AddAsync(_captchaData, _sessionBusiness, _infaqsData, addByAnonymRequest);
     }
 
     internal static async Task<GetManyResponse<GetManyResponseRecord>> GetManyAsync(
-        IInfaqGetManyBusiness _infaqGetManyBusiness,
+        Business.Infaq.Interface.Infaq.IGetManyBusiness _getManyBusiness,
         IInfaqsData _infaqsData,
         GetManyRequest getManyRequest)
     {
-        return await _infaqGetManyBusiness.GetAsync(_infaqsData, getManyRequest);
+        return await _getManyBusiness.GetAsync(_infaqsData, getManyRequest);
     }
 
     internal static async Task<GetManyResponse<GetManyDueResponseRecord>> GetManyDueAsync(
-        IInfaqGetManyDueBusiness _infaqGetManyDueBusiness,
+        IGetManyDueBusiness _getManyDueBusiness,
         IInfaqsData _infaqsData,
         GetManyDueRequest getManyDueRequest)
     {
-        return await _infaqGetManyDueBusiness.GetAsync(_infaqsData, getManyDueRequest);
+        return await _getManyDueBusiness.GetAsync(_infaqsData, getManyDueRequest);
     }
 
     internal static async Task<GetOneResponse> GetOneAsync(
-        IInfaqGetOneBusiness _infaqGetOneBusiness,
+        IGetOneBusiness _getOneBusiness,
         IInfaqsData _infaqsData,
         GetOneRequest getOneRequest)
     {
-        return await _infaqGetOneBusiness.GetAsync(_infaqsData, getOneRequest);
+        return await _getOneBusiness.GetAsync(_infaqsData, getOneRequest);
     }
 
     internal static async Task<GetOneDueResponse> GetOneDueAsync(
-        IInfaqGetOneDueBusiness _infaqGetOneDueBusiness,
+        IGetOneDueBusiness _getOneDueBusiness,
         IInfaqsData _infaqsData,
         GetOneDueRequest getOneDueRequest)
     {
-        return await _infaqGetOneDueBusiness.GetAsync(_infaqsData, getOneDueRequest);
+        return await _getOneDueBusiness.GetAsync(_infaqsData, getOneDueRequest);
     }
 
 
