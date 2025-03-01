@@ -1,3 +1,4 @@
+using MasjidOnline.Business.Infaq.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Infaq;
 using Microsoft.Extensions.DependencyInjection;
 

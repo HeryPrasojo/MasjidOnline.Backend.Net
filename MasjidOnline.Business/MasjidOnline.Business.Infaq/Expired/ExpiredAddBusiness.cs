@@ -12,7 +12,7 @@ using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
 using Microsoft.Extensions.Options;
 
-namespace MasjidOnline.Business.Infaq;
+namespace MasjidOnline.Business.Infaq.Expired;
 
 public class ExpiredAddBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
@@ -43,7 +43,7 @@ public class ExpiredAddBusiness(
         if (expiredDateTime > DateTime.UtcNow) throw new InputMismatchException(nameof(infaq.DateTime));
 
 
-        var expired = new Expired
+        var expired = new Entity.Infaqs.Expired
         {
             DateTime = DateTime.UtcNow,
             InfaqId = expiredAddRequest.Id,

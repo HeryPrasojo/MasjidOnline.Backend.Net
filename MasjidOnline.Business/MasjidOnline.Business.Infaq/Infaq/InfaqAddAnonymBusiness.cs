@@ -14,7 +14,7 @@ using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Library.Extentions;
 using MasjidOnline.Service.FieldValidator.Interface;
 
-namespace MasjidOnline.Business.Infaq;
+namespace MasjidOnline.Business.Infaq.Infaq;
 
 public class InfaqAddAnonymBusiness(
     IFieldValidatorService _fieldValidatorService,
@@ -64,8 +64,8 @@ public class InfaqAddAnonymBusiness(
             Id = _infaqsIdGenerator.TransactionId,
             Amount = addByAnonymRequest.Amount,
             DateTime = DateTime.UtcNow,
-            PaymentStatus = Entity.Infaqs.PaymentStatus.Pending,
-            PaymentType = (Entity.Infaqs.PaymentType)addByAnonymRequest.PaymentType,
+            PaymentStatus = PaymentStatus.Pending,
+            PaymentType = (PaymentType)addByAnonymRequest.PaymentType,
             UserId = _sessionBusiness.UserId,
             MunfiqName = addByAnonymRequest.MunfiqName,
         };
@@ -73,7 +73,7 @@ public class InfaqAddAnonymBusiness(
         await _infaqsData.Infaq.AddAsync(infaq);
 
 
-        if (infaq.PaymentType == Entity.Infaqs.PaymentType.ManualBankTransfer)
+        if (infaq.PaymentType == PaymentType.ManualBankTransfer)
         {
             var infaqManual = new InfaqManual
             {
@@ -82,9 +82,7 @@ public class InfaqAddAnonymBusiness(
             };
 
             if (!addByAnonymRequest.ManualNotes.IsNullOrEmptyOrWhiteSpace())
-            {
                 infaqManual.ManualNotes = addByAnonymRequest.ManualNotes;
-            }
 
             await _infaqsData.InfaqManual.AddAsync(infaqManual);
         }

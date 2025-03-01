@@ -8,7 +8,7 @@ using MasjidOnline.Data.Interface.Model.Infaqs.Expired;
 using MasjidOnline.Data.Interface.Model.Repository;
 using MasjidOnline.Service.FieldValidator.Interface;
 
-namespace MasjidOnline.Business.Infaq;
+namespace MasjidOnline.Business.Infaq.Expired;
 
 public class ExpiredGetManyBusiness(
     IFieldValidatorService _fieldValidatorService) : IGetManyBusiness

@@ -10,7 +10,7 @@ using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
 using Microsoft.Extensions.Options;
 
-namespace MasjidOnline.Business.Infaq;
+namespace MasjidOnline.Business.Infaq.Infaq;
 
 public class InfaqGetOneDueBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,

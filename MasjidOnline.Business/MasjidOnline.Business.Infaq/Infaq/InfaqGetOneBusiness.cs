@@ -7,7 +7,7 @@ using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
 
-namespace MasjidOnline.Business.Infaq;
+namespace MasjidOnline.Business.Infaq.Infaq;
 
 public class InfaqGetOneBusiness(
     IFieldValidatorService _fieldValidatorService) : IGetOneBusiness

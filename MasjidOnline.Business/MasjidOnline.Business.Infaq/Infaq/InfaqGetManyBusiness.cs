@@ -11,7 +11,7 @@ using MasjidOnline.Data.Interface.Model.Repository;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
 
-namespace MasjidOnline.Business.Infaq;
+namespace MasjidOnline.Business.Infaq.Infaq;
 
 public class InfaqGetManyBusiness(
     IFieldValidatorService _fieldValidatorService) : IGetManyBusiness
