@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using MasjidOnline.Business.AuthorizationBusiness.Interface;
 using MasjidOnline.Business.Infaq.Interface;
+using MasjidOnline.Business.Infaq.Interface.Expired;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
@@ -55,12 +56,12 @@ internal static class InfaqEndPoint
 
     internal static async Task<Response> AddExpiredAsync(
         IAuthorizationBusiness _authorizationBusiness,
-        IExpiredAddBusiness _expiredAddBusiness,
+        IAddBusiness _addBusiness,
         IInfaqsData _infaqsData,
         ISessionBusiness _sessionBusiness,
         IUsersData _usersData,
         ExpiredAddRequest expiredAddRequest)
     {
-        return await _expiredAddBusiness.AddAsync(_authorizationBusiness, _infaqsData, _sessionBusiness, _usersData, expiredAddRequest);
+        return await _addBusiness.AddAsync(_authorizationBusiness, _infaqsData, _sessionBusiness, _usersData, expiredAddRequest);
     }
 }

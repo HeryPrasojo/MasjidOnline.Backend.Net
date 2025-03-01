@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.AuthorizationBusiness.Interface;
-using MasjidOnline.Business.Infaq.Interface;
+using MasjidOnline.Business.Infaq.Interface.Expired;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Interface.Model.Options;
 using MasjidOnline.Business.Interface.Model.Responses;
@@ -16,7 +16,7 @@ namespace MasjidOnline.Business.Infaq;
 
 public class ExpiredAddBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
-    IFieldValidatorService _fieldValidatorService) : IExpiredAddBusiness
+    IFieldValidatorService _fieldValidatorService) : IAddBusiness
 {
     public async Task<Response> AddAsync(
         IAuthorizationBusiness _authorizationBusiness,

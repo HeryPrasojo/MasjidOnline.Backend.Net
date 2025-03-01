@@ -1,6 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Infaq.Interface;
+using MasjidOnline.Business.Infaq.Interface.Expired;
 using MasjidOnline.Business.Infaq.Interface.Model.Expired;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Data.Interface.Datas;
@@ -11,7 +11,7 @@ using MasjidOnline.Service.FieldValidator.Interface;
 namespace MasjidOnline.Business.Infaq;
 
 public class ExpiredGetManyBusiness(
-    IFieldValidatorService _fieldValidatorService) : IExpiredGetManyBusiness
+    IFieldValidatorService _fieldValidatorService) : IGetManyBusiness
 {
     public async Task<GetManyResponse<GetManyResponseRecord>> GetAsync(
         IInfaqsData _infaqsData,
