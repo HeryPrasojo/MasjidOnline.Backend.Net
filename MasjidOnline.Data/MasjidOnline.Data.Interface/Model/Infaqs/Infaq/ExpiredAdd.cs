@@ -1,9 +1,9 @@
 using System;
 using MasjidOnline.Entity.Infaqs;
 
-namespace MasjidOnline.Data.Interface.Model.Infaq;
+namespace MasjidOnline.Data.Interface.Model.Infaqs.Infaq;
 
-public class InfaqForExpiredAdd
+public class ExpiredAdd
 {
     public required DateTime DateTime { get; set; }
 

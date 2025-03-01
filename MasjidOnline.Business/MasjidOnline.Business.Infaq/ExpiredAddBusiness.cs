@@ -52,7 +52,17 @@ public class ExpiredAddBusiness(
 
         await _infaqsData.Expired.AddAsync(expired);
 
-        _infaqsData.Infaq.UpdatePaymentStatus(expiredAddRequest.Id, PaymentStatus.Expired);
+        _infaqsData.Infaq.UpdatePaymentStatus(expiredAddRequest.Id, PaymentStatus.Expire);
+
+
+        //var expired = new Payment
+        //{
+        //    DateTime = DateTime.UtcNow,
+        //    InfaqId = expiredAddRequest.Id,
+        //    UserId = _sessionBusiness.UserId,
+        //};
+
+        //_infaqsData.Payment.AddAsync();
 
         await _infaqsData.SaveAsync();
 

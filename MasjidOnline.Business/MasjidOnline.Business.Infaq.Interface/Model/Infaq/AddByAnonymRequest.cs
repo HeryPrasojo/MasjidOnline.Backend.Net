@@ -12,7 +12,7 @@ public class AddByAnonymRequest
 
     public required DateTime ManualDateTime { get; set; }
 
-    public string? ManualNotes { get; set; }
+    public required string? ManualNotes { get; set; }
 
-    public IEnumerable<Stream>? Files { get; set; }
+    public required IEnumerable<Stream>? Files { get; set; }
 }

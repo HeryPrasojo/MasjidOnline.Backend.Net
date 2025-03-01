@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 
-namespace MasjidOnline.Entity.Infaqs;
+namespace MasjidOnline.Data.Interface.Model.Infaqs.Expired;
 
-public class Expired
+public class GetManyRecord
 {
     public required int InfaqId { get; set; }
 

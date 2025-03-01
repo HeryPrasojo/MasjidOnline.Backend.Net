@@ -1,9 +1,9 @@
 ﻿using System;
 using MasjidOnline.Entity.Infaqs;
 
-namespace MasjidOnline.Data.Interface.Model.Infaq;
+namespace MasjidOnline.Data.Interface.Model.Infaqs.Infaq;
 
-public class InfaqForGetManyDueRecord
+public class GetManyDueRecord
 {
     public required int Id { get; set; }
 

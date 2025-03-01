@@ -8,7 +8,7 @@ public class GetManyResponseRecord
 
     public required DateTime DateTime { get; set; }
 
-    public string? MunfiqName { get; set; }
+    public required string? MunfiqName { get; set; }
 
     public required decimal Amount { get; set; }
 

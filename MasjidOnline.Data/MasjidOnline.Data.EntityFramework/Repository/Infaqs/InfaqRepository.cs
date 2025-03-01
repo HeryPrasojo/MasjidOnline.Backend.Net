@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
-using MasjidOnline.Data.Interface.Model.Infaq;
+using MasjidOnline.Data.Interface.Model.Infaqs.Infaq;
 using MasjidOnline.Data.Interface.Model.Repository;
 using MasjidOnline.Data.Interface.Repository.Infaqs;
 using MasjidOnline.Entity.Infaqs;
@@ -27,10 +27,10 @@ public class InfaqRepository(InfaqsDataContext _infaqsDataContext) : IInfaqRepos
         await SaveAsync();
     }
 
-    public async Task<InfaqForExpiredAdd?> GetForExpiredAddAsync(int id)
+    public async Task<ExpiredAdd?> GetForExpiredAddAsync(int id)
     {
         return await _dbSet.Where(e => e.Id == id)
-            .Select(e => new InfaqForExpiredAdd
+            .Select(e => new ExpiredAdd
             {
                 DateTime = e.DateTime,
                 PaymentStatus = e.PaymentStatus,
@@ -39,7 +39,7 @@ public class InfaqRepository(InfaqsDataContext _infaqsDataContext) : IInfaqRepos
             .FirstOrDefaultAsync();
     }
 
-    public async Task<GetManyResult<InfaqForGetManyRecord>> GetManyAsync(
+    public async Task<GetManyResult<GetManyRecord>> GetManyAsync(
         IEnumerable<PaymentType>? paymentTypes = default,
         IEnumerable<PaymentStatus>? paymentStatuses = default,
         GetManyOrderBy getManyOrderBy = default,
@@ -72,7 +72,7 @@ public class InfaqRepository(InfaqsDataContext _infaqsDataContext) : IInfaqRepos
         {
             Records = await queryable.Skip(skip)
                 .Take(take)
-                .Select(e => new InfaqForGetManyRecord
+                .Select(e => new GetManyRecord
                 {
                     Amount = e.Amount,
                     DateTime = e.DateTime,
@@ -86,7 +86,7 @@ public class InfaqRepository(InfaqsDataContext _infaqsDataContext) : IInfaqRepos
         };
     }
 
-    public async Task<GetManyResult<InfaqForGetManyDueRecord>> GetManyDueAsync(
+    public async Task<GetManyResult<GetManyDueRecord>> GetManyDueAsync(
         DateTime dueDateTime,
         IEnumerable<PaymentType>? paymentTypes = default,
         GetManyOrderBy getManyOrderBy = default,
@@ -116,7 +116,7 @@ public class InfaqRepository(InfaqsDataContext _infaqsDataContext) : IInfaqRepos
         {
             Records = await queryable.Skip(skip)
                 .Take(take)
-                .Select(e => new InfaqForGetManyDueRecord
+                .Select(e => new GetManyDueRecord
                 {
                     Amount = e.Amount,
                     DateTime = e.DateTime,
@@ -135,10 +135,10 @@ public class InfaqRepository(InfaqsDataContext _infaqsDataContext) : IInfaqRepos
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
     }
 
-    public async Task<InfaqForGetOne?> GetOneAsync(int id)
+    public async Task<GetOne?> GetOneAsync(int id)
     {
         return await _dbSet.Where(e => e.Id == id)
-            .Select(e => new InfaqForGetOne
+            .Select(e => new GetOne
             {
                 Amount = e.Amount,
                 DateTime = e.DateTime,
@@ -149,10 +149,10 @@ public class InfaqRepository(InfaqsDataContext _infaqsDataContext) : IInfaqRepos
             .FirstOrDefaultAsync();
     }
 
-    public async Task<InfaqForGetOneDue?> GetOneDueAsync(int id)
+    public async Task<GetOneDue?> GetOneDueAsync(int id)
     {
         return await _dbSet.Where(e => e.Id == id)
-            .Select(e => new InfaqForGetOneDue
+            .Select(e => new GetOneDue
             {
                 Amount = e.Amount,
                 DateTime = e.DateTime,

@@ -4,7 +4,7 @@ namespace MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 
 public class GetManyRequest
 {
-    public IEnumerable<PaymentType>? PaymentTypes { get; set; }
-    public IEnumerable<PaymentStatus>? PaymentStatuses { get; set; }
-    public int Page { get; set; }
+    public required IEnumerable<PaymentType>? PaymentTypes { get; set; }
+    public required IEnumerable<PaymentStatus>? PaymentStatuses { get; set; }
+    public required int Page { get; set; }
 }

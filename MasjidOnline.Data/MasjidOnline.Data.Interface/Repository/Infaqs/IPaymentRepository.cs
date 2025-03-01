@@ -3,7 +3,7 @@ using MasjidOnline.Entity.Infaqs;
 
 namespace MasjidOnline.Data.Interface.Repository.Infaqs;
 
-public interface IInfaqSettingRepository
+public interface IPaymentRepository
 {
-    Task AddAsync(InfaqSetting infaqSetting);
+    Task AddAsync(Payment payment);
 }

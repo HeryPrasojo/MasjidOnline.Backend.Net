@@ -1,10 +1,12 @@
 ﻿using System;
 using MasjidOnline.Entity.Infaqs;
 
-namespace MasjidOnline.Data.Interface.Model.Infaq;
+namespace MasjidOnline.Data.Interface.Model.Infaqs.Infaq;
 
-public class InfaqForGetOneDue
+public class GetManyRecord
 {
+    public required int Id { get; set; }
+
     public required DateTime DateTime { get; set; }
 
     public required string? MunfiqName { get; set; }

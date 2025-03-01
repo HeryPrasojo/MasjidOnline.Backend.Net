@@ -1,9 +1,9 @@
 ﻿using System;
 using MasjidOnline.Entity.Infaqs;
 
-namespace MasjidOnline.Data.Interface.Model.Infaq;
+namespace MasjidOnline.Data.Interface.Model.Infaqs.Infaq;
 
-public class InfaqForGetOne
+public class GetOne
 {
     public required DateTime DateTime { get; set; }
 

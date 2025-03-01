@@ -6,7 +6,7 @@ using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Payment;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Data.Interface.Datas;
-using MasjidOnline.Data.Interface.Model.Infaq;
+using MasjidOnline.Data.Interface.Model.Infaqs.Infaq;
 using MasjidOnline.Data.Interface.Model.Repository;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
@@ -43,9 +43,9 @@ public class InfaqGetManyBusiness(
         {
             paymentStatuses = getManyRequest.PaymentStatuses.Select(m => m switch
             {
-                PaymentStatus.Canceled => Entity.Infaqs.PaymentStatus.Canceled,
-                PaymentStatus.Expired => Entity.Infaqs.PaymentStatus.Expired,
-                PaymentStatus.Failed => Entity.Infaqs.PaymentStatus.Failed,
+                PaymentStatus.Cancel => Entity.Infaqs.PaymentStatus.Cancel,
+                PaymentStatus.Expire => Entity.Infaqs.PaymentStatus.Expire,
+                PaymentStatus.Fail => Entity.Infaqs.PaymentStatus.Fail,
                 PaymentStatus.Pending => Entity.Infaqs.PaymentStatus.Pending,
                 PaymentStatus.Success => Entity.Infaqs.PaymentStatus.Success,
                 _ => throw new ErrorException(nameof(getManyRequest.PaymentStatuses)),
