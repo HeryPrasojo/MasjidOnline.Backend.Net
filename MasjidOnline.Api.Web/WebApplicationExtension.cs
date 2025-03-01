@@ -7,28 +7,33 @@ internal static class WebApplicationExtension
 {
     internal static WebApplication MapEndpoints(this WebApplication webApplication)
     {
-        var captchaGroup = webApplication.MapGroup("/captcha");
+        var captchaGroup = webApplication.MapGroup("/captcha/");
 
-        captchaGroup.MapPost("/question", CaptchaEndPoint.AddQuestionAsync);
-        captchaGroup.MapPost("/answer", CaptchaEndPoint.AddAnswerAsync);
-
-
-        var infaqGroup = webApplication.MapGroup("/infaq");
-
-        infaqGroup.MapPost("/add/anonym", InfaqEndPoint.Infaq.AddAnonymAsync);
-        infaqGroup.MapPost("/getMany", InfaqEndPoint.Infaq.GetManyAsync);
-        infaqGroup.MapPost("/getMany/due", InfaqEndPoint.Infaq.GetManyDueAsync);
-        infaqGroup.MapPost("/getOne", InfaqEndPoint.Infaq.GetOneAsync);
-        infaqGroup.MapPost("/getOne/due", InfaqEndPoint.Infaq.GetOneDueAsync);
-
-        infaqGroup.MapPost("/expired/add", InfaqEndPoint.Expired.AddExpiredAsync);
+        captchaGroup.MapPost("question", CaptchaEndPoint.AddQuestionAsync);
+        captchaGroup.MapPost("answer", CaptchaEndPoint.AddAnswerAsync);
 
 
-        var userGroup = webApplication.MapGroup("/user");
+        var infaqGroup = webApplication.MapGroup("/infaq/");
 
-        userGroup.MapPost("/add/internal", UserEndPoint.AddInternalAsync);
-        userGroup.MapPost("/login", UserEndPoint.LoginAsync);
-        userGroup.MapPost("/setPassword", UserEndPoint.SetPasswordAsync);
+        var infaqInfaqGroup = infaqGroup.MapGroup("infaq/");
+
+        infaqInfaqGroup.MapPost("add/anonym", InfaqEndPoint.Infaq.AddAnonymAsync);
+        infaqInfaqGroup.MapPost("getMany", InfaqEndPoint.Infaq.GetManyAsync);
+        infaqInfaqGroup.MapPost("getOne", InfaqEndPoint.Infaq.GetOneAsync);
+        infaqInfaqGroup.MapPost("due/getMany", InfaqEndPoint.Infaq.GetManyDueAsync);
+        infaqInfaqGroup.MapPost("due/getOne", InfaqEndPoint.Infaq.GetOneDueAsync);
+
+
+        var infaqExpiredGroup = infaqGroup.MapGroup("expired/");
+
+        infaqExpiredGroup.MapPost("add", InfaqEndPoint.Expired.AddExpiredAsync);
+
+
+        var userGroup = webApplication.MapGroup("/user/");
+
+        userGroup.MapPost("add/internal", UserEndPoint.AddInternalAsync);
+        userGroup.MapPost("login", UserEndPoint.LoginAsync);
+        userGroup.MapPost("setPassword", UserEndPoint.SetPasswordAsync);
 
 
         return webApplication;
