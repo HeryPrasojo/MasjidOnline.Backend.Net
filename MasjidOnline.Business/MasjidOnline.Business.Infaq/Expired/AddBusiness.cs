@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.AuthorizationBusiness.Interface;
 using MasjidOnline.Business.Infaq.Interface.Expired;
-using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
+using MasjidOnline.Business.Infaq.Interface.Model.Expired;
 using MasjidOnline.Business.Interface.Model.Options;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
@@ -14,7 +14,7 @@ using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Business.Infaq.Expired;
 
-public class ExpiredAddBusiness(
+public class AddBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
     IFieldValidatorService _fieldValidatorService) : IAddBusiness
 {
@@ -23,17 +23,17 @@ public class ExpiredAddBusiness(
         IInfaqsData _infaqsData,
         ISessionBusiness _sessionBusiness,
         IUsersData _usersData,
-        ExpiredAddRequest expiredAddRequest)
+        AddRequest addRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _usersData, infaqSetPaymentStatusExpired: true);
 
-        _fieldValidatorService.ValidateRequired(expiredAddRequest);
-        _fieldValidatorService.ValidateRequiredPlus(expiredAddRequest.Id);
+        _fieldValidatorService.ValidateRequired(addRequest);
+        _fieldValidatorService.ValidateRequiredPlus(addRequest.Id);
 
 
-        var infaq = await _infaqsData.Infaq.GetForExpiredAddAsync(expiredAddRequest.Id);
+        var infaq = await _infaqsData.Infaq.GetForExpiredAddAsync(addRequest.Id);
 
-        if (infaq == default) throw new InputMismatchException(nameof(expiredAddRequest.Id));
+        if (infaq == default) throw new InputMismatchException(nameof(addRequest.Id));
 
         if (infaq.PaymentStatus != PaymentStatus.Pending) throw new InputMismatchException(nameof(infaq.PaymentStatus));
 
@@ -46,13 +46,13 @@ public class ExpiredAddBusiness(
         var expired = new Entity.Infaqs.Expired
         {
             DateTime = DateTime.UtcNow,
-            InfaqId = expiredAddRequest.Id,
+            InfaqId = addRequest.Id,
             UserId = _sessionBusiness.UserId,
         };
 
         await _infaqsData.Expired.AddAsync(expired);
 
-        _infaqsData.Infaq.UpdatePaymentStatus(expiredAddRequest.Id, PaymentStatus.Expire);
+        _infaqsData.Infaq.UpdatePaymentStatus(addRequest.Id, PaymentStatus.Expire);
 
 
         //var expired = new Payment
