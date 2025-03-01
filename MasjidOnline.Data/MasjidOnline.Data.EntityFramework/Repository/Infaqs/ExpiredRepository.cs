@@ -61,6 +61,42 @@ public class ExpiredRepository(InfaqsDataContext _infaqsDataContext) : IExpiredR
         };
     }
 
+    public async Task<GetManyResult<GetManyUnprovedRecord>> GetManyUnprovedAsync(
+        GetManyOrderBy getManyOrderBy = default,
+        OrderByDirection orderByDirection = default,
+        int skip = 0,
+        int take = 1)
+    {
+        var queryable = _dbSet.Where(e => e.IsApproved == true);
+
+
+        var countTask = queryable.LongCountAsync();
+
+
+        if (getManyOrderBy == GetManyOrderBy.DateTime)
+        {
+            if (orderByDirection == OrderByDirection.Descending) queryable = queryable.OrderByDescending(e => e.DateTime);
+            else queryable = queryable.OrderBy(e => e.DateTime);
+        }
+
+
+        var count = await countTask;
+
+        return new()
+        {
+            Records = await queryable.Skip(skip)
+                .Take(take)
+                .Select(e => new GetManyUnprovedRecord
+                {
+                    DateTime = e.DateTime,
+                    InfaqId = e.InfaqId,
+                    UserId = e.UserId,
+                })
+                .ToArrayAsync(),
+            Total = count,
+        };
+    }
+
     public async Task<GetOne?> GetOneAsync(int infaqId)
     {
         return await _dbSet.Where(e => e.InfaqId == infaqId)
