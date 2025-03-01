@@ -60,4 +60,19 @@ public class ExpiredRepository(InfaqsDataContext _infaqsDataContext) : IExpiredR
             Total = count,
         };
     }
+
+    public async Task<GetOne?> GetOneAsync(int infaqId)
+    {
+        return await _dbSet.Where(e => e.InfaqId == infaqId)
+            .Select(e => new GetOne
+            {
+                DateTime = e.DateTime,
+                InfaqId = e.InfaqId,
+                IsApproved = e.IsApproved,
+                UpdateDateTime = e.UpdateDateTime,
+                UpdateUserId = e.UpdateUserId,
+                UserId = e.UserId,
+            })
+            .FirstOrDefaultAsync();
+    }
 }

@@ -10,7 +10,7 @@ using MasjidOnline.Service.FieldValidator.Interface;
 
 namespace MasjidOnline.Business.Infaq.Expired;
 
-public class ExpiredGetManyBusiness(
+public class GetManyBusiness(
     IFieldValidatorService _fieldValidatorService) : IGetManyBusiness
 {
     public async Task<GetManyResponse<GetManyResponseRecord>> GetAsync(

@@ -9,7 +9,7 @@ using MasjidOnline.Service.FieldValidator.Interface;
 
 namespace MasjidOnline.Business.Infaq.Infaq;
 
-public class InfaqGetOneBusiness(
+public class GetOneBusiness(
     IFieldValidatorService _fieldValidatorService) : IGetOneBusiness
 {
     public async Task<GetOneResponse> GetAsync(

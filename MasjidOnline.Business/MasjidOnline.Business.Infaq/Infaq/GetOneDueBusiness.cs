@@ -12,7 +12,7 @@ using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Business.Infaq.Infaq;
 
-public class InfaqGetOneDueBusiness(
+public class GetOneDueBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
     IFieldValidatorService _fieldValidatorService) : IGetOneDueBusiness
 {

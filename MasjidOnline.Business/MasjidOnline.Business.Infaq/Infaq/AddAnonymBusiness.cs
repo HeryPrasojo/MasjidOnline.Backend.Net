@@ -16,7 +16,7 @@ using MasjidOnline.Service.FieldValidator.Interface;
 
 namespace MasjidOnline.Business.Infaq.Infaq;
 
-public class InfaqAddAnonymBusiness(
+public class AddAnonymBusiness(
     IFieldValidatorService _fieldValidatorService,
     IInfaqsIdGenerator _infaqsIdGenerator) : IAddAnonymBusiness
 {
