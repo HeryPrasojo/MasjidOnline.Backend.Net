@@ -2,12 +2,11 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface.Model.User;
-using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Datas;
 
 namespace MasjidOnline.Business.User.Interface.User;
 
-public interface IUserSetPasswordBusiness
+public interface ILoginBusiness
 {
-    Task<Response> SetAsync(IDataTransaction _dataTransaction, ISessionBusiness _sessionBusiness, ISessionData _sessionData, IUserData _userData, SetPasswordRequest setPasswordRequest);
+    Task<Response> LoginAsync(IUserData _userData, ISessionBusiness _sessionBusiness, LoginRequest loginRequest);
 }

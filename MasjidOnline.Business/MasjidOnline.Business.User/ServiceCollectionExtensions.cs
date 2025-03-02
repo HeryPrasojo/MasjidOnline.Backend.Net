@@ -14,7 +14,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddSingleton<IAddBusiness, AddBusiness>();
         services.AddSingleton<IInitializerBusiness, InitializerBusiness>();
-        services.AddSingleton<IUserSetPasswordBusiness, UserSetPasswordBusiness>();
+        services.AddSingleton<ISetPasswordBusiness, SetPasswordBusiness>();
 
         return services;
     }

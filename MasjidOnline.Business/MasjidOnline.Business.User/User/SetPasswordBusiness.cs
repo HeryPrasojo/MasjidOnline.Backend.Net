@@ -12,9 +12,9 @@ using MasjidOnline.Service.Hash.Interface;
 
 namespace MasjidOnline.Business.User.User;
 
-public class UserSetPasswordBusiness(
+public class SetPasswordBusiness(
     IFieldValidatorService _fieldValidatorService,
-    IHash512Service _hash512Service) : IUserSetPasswordBusiness
+    IHash512Service _hash512Service) : ISetPasswordBusiness
 {
     public async Task<Response> SetAsync(
         IDataTransaction _dataTransaction,

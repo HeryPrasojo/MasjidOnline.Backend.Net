@@ -58,6 +58,8 @@ public class ExceptionMiddleware(
 
         if (exceptionResponse.ResultCode == ResponseResultCode.Error)
         {
+            // hack loop InnerException
+
             var errorExceptionEntity = new Entity.Event.Exception
             {
                 DateTime = DateTime.UtcNow,

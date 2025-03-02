@@ -1,8 +1,6 @@
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
-using MasjidOnline.Business.User.Interface.Model.User;
-using MasjidOnline.Business.User.Interface.User;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Datas;
 
@@ -25,12 +23,12 @@ internal static class UserEndPoint
     internal static class User
     {
         internal static async Task<Response> LoginAsync(
-            IUserLoginBusiness _userLoginBusiness,
+            Business.User.Interface.User.ILoginBusiness _loginBusiness,
             IUserData _userData,
             ISessionBusiness _sessionBusiness,
-            LoginRequest loginRequest)
+            Business.User.Interface.Model.User.LoginRequest loginRequest)
         {
-            return await _userLoginBusiness.LoginAsync(_userData, _sessionBusiness, loginRequest);
+            return await _loginBusiness.LoginAsync(_userData, _sessionBusiness, loginRequest);
         }
 
         internal static async Task<Response> SetPasswordAsync(
@@ -38,10 +36,10 @@ internal static class UserEndPoint
             ISessionBusiness _sessionBusiness,
             ISessionData _sessionData,
             IUserData _userData,
-            IUserSetPasswordBusiness _userSetPasswordBusiness,
-            SetPasswordRequest setPasswordRequest)
+            Business.User.Interface.User.ISetPasswordBusiness _setPasswordBusiness,
+            Business.User.Interface.Model.User.SetPasswordRequest setPasswordRequest)
         {
-            return await _userSetPasswordBusiness.SetAsync(_dataTransaction, _sessionBusiness, _sessionData, _userData, setPasswordRequest);
+            return await _setPasswordBusiness.SetAsync(_dataTransaction, _sessionBusiness, _sessionData, _userData, setPasswordRequest);
         }
     }
 }
