@@ -7,6 +7,7 @@ public interface IUsersIdGenerator
 {
     int UserId { get; }
     byte[] PasswordCodeCode { get; }
+    int InternalId { get; }
 
     Task InitializeAsync(IUsersData userData);
 }

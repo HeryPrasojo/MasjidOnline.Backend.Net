@@ -27,6 +27,7 @@ public class InitializerBusiness(
 
         var option = _optionsMonitor.CurrentValue;
 
+        var utcNow = DateTime.UtcNow;
 
         var user = new Entity.Users.User
         {
@@ -34,6 +35,32 @@ public class InitializerBusiness(
             EmailAddress = option.RootUserEmailAddress,
             Name = "Root",
             Status = UserStatus.New,
+            Type = UserType.Internal,
+        };
+
+        await _usersData.User.AddAsync(user);
+
+
+        var @internal = new Internal
+        {
+            DateTime = utcNow,
+            EmailAddress = option.RootUserEmailAddress,
+            Id = _usersIdGenerator.InternalId,
+            IsApproved = true,
+            UpdateDateTime = utcNow,
+            UpdateUserId = Constant.SystemUserId,
+            UserId = Constant.SystemUserId,
+        };
+
+        await _usersData.Internal.AddAsync(@internal);
+
+
+        user = new Entity.Users.User
+        {
+            Id = Constant.RootUserId,
+            EmailAddress = option.RootUserEmailAddress,
+            Name = "Root",
+            Status = UserStatus.Active,
             Type = UserType.Internal,
         };
 
@@ -52,7 +79,7 @@ public class InitializerBusiness(
         var passwordCode = new PasswordCode
         {
             Code = _usersIdGenerator.PasswordCodeCode,
-            DateTime = DateTime.UtcNow,
+            DateTime = utcNow,
             UserId = user.Id,
         };
 

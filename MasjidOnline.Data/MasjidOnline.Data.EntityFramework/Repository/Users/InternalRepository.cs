@@ -14,4 +14,9 @@ public class InternalRepository(UsersDataContext _usersDataContext) : IInternalR
     {
         await _dbSet.AddAsync(@internal);
     }
+
+    public async Task<int> GetMaxIdAsync()
+    {
+        return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
+    }
 }

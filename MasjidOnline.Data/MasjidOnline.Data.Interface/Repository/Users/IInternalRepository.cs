@@ -6,4 +6,5 @@ namespace MasjidOnline.Data.Interface.Repository.Users;
 public interface IInternalRepository
 {
     Task AddAsync(Internal @internal);
+    Task<int> GetMaxIdAsync();
 }
