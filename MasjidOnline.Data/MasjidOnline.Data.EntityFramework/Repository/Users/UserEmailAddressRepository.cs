@@ -17,6 +17,11 @@ public class UserEmailAddressRepository(UsersDataContext _userDataContext) : IUs
         await _dbSet.AddAsync(userEmailAddress);
     }
 
+    public async Task<bool> AnyByEmailAddressAsync(string emailAddress)
+    {
+        return await _dbSet.AnyAsync(e => e.EmailAddress == emailAddress);
+    }
+
     public async Task<UserEmailAddressForLogin?> GetForLoginAsync(string emailAddress)
     {
         return await _dbSet.Where(e => e.EmailAddress == emailAddress)

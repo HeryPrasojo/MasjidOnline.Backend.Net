@@ -9,16 +9,15 @@ public class UsersData(
     UsersDataContext _userDataContext,
     IAuditData _auditData) : DataWithAudit(_userDataContext, _auditData), IUsersData
 {
-    private IUserSettingRepository? _userSettingRepository;
-
+    private IInternalRepository? _internalRepository;
     private IPasswordCodeRepository? _passwordCodeRepository;
     private IPermissionRepository? _permissionRepository;
     private IUserRepository? _userRepository;
     private IUserEmailAddressRepository? _userEmailAddressRepository;
+    private IUserSettingRepository? _userSettingRepository;
 
 
-    public IUserSettingRepository UserSetting => _userSettingRepository ??= new UserSettingRepository(_userDataContext);
-
+    public IInternalRepository Internal => _internalRepository ??= new InternalRepository(_userDataContext);
 
     public IPasswordCodeRepository PasswordCode => _passwordCodeRepository ??= new PasswordCodeRepository(_userDataContext);
 
@@ -27,4 +26,6 @@ public class UsersData(
     public IUserRepository User => _userRepository ??= new UserRepository(_userDataContext);
 
     public IUserEmailAddressRepository UserEmailAddress => _userEmailAddressRepository ??= new UserEmailAddressRepository(_userDataContext);
+
+    public IUserSettingRepository UserSetting => _userSettingRepository ??= new UserSettingRepository(_userDataContext);
 }

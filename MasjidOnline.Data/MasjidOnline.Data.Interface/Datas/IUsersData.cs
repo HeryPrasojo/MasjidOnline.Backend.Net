@@ -9,4 +9,5 @@ public interface IUsersData : IDataWithAudit
     IUserRepository User { get; }
     IUserEmailAddressRepository UserEmailAddress { get; }
     IUserSettingRepository UserSetting { get; }
+    IInternalRepository Internal { get; }
 }

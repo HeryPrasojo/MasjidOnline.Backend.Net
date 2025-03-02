@@ -18,10 +18,10 @@ public class SqLiteEventInitializer(
             (
                 Id INTEGER PRIMARY KEY,
                 DateTime TEXT NOT NULL,
-                Message TEXT NOT NULL,
-                StackTrace TEXT,
-                InnerMessage TEXT NULL,
-                InnerStackTrace TEXT
+                Message TEXT NOT NULL COLLATE NOCASE,
+                StackTrace TEXT COLLATE NOCASE,
+                InnerMessage TEXT NULL COLLATE NOCASE,
+                InnerStackTrace TEXT COLLATE NOCASE
             )";
 
         return await _eventDataContext.Database.ExecuteSqlAsync(sql);
@@ -33,8 +33,8 @@ public class SqLiteEventInitializer(
             CREATE TABLE EventSetting
             (
                 Id INTEGER PRIMARY KEY,
-                Description TEXT NOT NULL,
-                Value TEXT NOT NULL
+                Description TEXT NOT NULL COLLATE NOCASE,
+                Value TEXT NOT NULL COLLATE NOCASE
             )";
 
         return await _eventDataContext.Database.ExecuteSqlAsync(sql);

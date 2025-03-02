@@ -33,6 +33,7 @@ public class InitializerBusiness(
             Id = Constant.RootUserId,
             EmailAddress = option.RootUserEmailAddress,
             Name = "Root",
+            Status = UserStatus.New,
             Type = UserType.Internal,
         };
 

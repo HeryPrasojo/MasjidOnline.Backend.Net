@@ -17,8 +17,8 @@ public class SqLiteCoreInitializer(
             CREATE TABLE CoreSetting
             (
                 Id INTEGER PRIMARY KEY,
-                Description TEXT NOT NULL,
-                Value TEXT NOT NULL
+                Description TEXT NOT NULL COLLATE NOCASE,
+                Value TEXT NOT NULL COLLATE NOCASE
             )";
 
         return await _coreDataContext.Database.ExecuteSqlAsync(sql);

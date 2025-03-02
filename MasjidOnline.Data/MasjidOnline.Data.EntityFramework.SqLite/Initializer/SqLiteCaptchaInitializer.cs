@@ -17,8 +17,8 @@ public class SqLiteCaptchaInitializer(
             CREATE TABLE CaptchaSetting
             (
                 Id INTEGER PRIMARY KEY,
-                Description TEXT NOT NULL,
-                Value TEXT NOT NULL
+                Description TEXT NOT NULL COLLATE NOCASE,
+                Value TEXT NOT NULL COLLATE NOCASE
             )";
 
         return await _captchaDataContext.Database.ExecuteSqlAsync(sql);

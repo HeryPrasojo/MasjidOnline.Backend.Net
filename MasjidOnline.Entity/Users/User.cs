@@ -6,6 +6,8 @@ public class User
 
     public string Name { get; set; } = default!;
 
+    public UserStatus Status { get; set; }
+
     public UserType Type { get; set; }
 
     /// <summary>

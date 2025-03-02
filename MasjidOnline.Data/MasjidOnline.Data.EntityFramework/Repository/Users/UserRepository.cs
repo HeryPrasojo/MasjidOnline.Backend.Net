@@ -47,12 +47,13 @@ public class UserRepository(UsersDataContext _userDataContext) : IUserRepository
     }
 
 
-    public void UpdatePassword(int id, byte[] password)
+    public void UpdateSetPassword(int id, byte[] password)
     {
         var user = new User
         {
             Id = id,
             Password = password,
+            Status = UserStatus.Active,
         };
 
         _dbSet.Attach(user)

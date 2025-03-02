@@ -9,13 +9,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Users;
 
-public class PasswordCodeRepository(UsersDataContext _passwordCodeDataContext) : IPasswordCodeRepository
+public class PasswordCodeRepository(UsersDataContext _usersDataContext) : IPasswordCodeRepository
 {
-    private readonly DbSet<PasswordCode> _dbSet = _passwordCodeDataContext.Set<PasswordCode>();
+    private readonly DbSet<PasswordCode> _dbSet = _usersDataContext.Set<PasswordCode>();
 
-    public async Task AddAsync(PasswordCode PasswordCode)
+    public async Task AddAsync(PasswordCode passwordCode)
     {
-        await _dbSet.AddAsync(PasswordCode);
+        await _dbSet.AddAsync(passwordCode);
     }
 
     public async Task<PasswordCodeForPasswordSet?> GetForPasswordSetAsync(byte[] code)

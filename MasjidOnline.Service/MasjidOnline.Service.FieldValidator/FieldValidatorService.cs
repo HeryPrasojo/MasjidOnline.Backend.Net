@@ -123,6 +123,7 @@ public class FieldValidatorService : IFieldValidatorService
 
         if (value.Length > 254) throw new InputInvalidException(valueExpression);
 
+        value = value.Trim();
 
         try
         {
@@ -153,7 +154,7 @@ public class FieldValidatorService : IFieldValidatorService
             isMatch = Regex.IsMatch(
                 value,
                 @"^[^@\s]+@[^@\s]+\.[^@\s]+$",
-                RegexOptions.IgnoreCase,
+                RegexOptions.None,
                 TimeSpan.FromMilliseconds(250));
         }
         catch (Exception exception)

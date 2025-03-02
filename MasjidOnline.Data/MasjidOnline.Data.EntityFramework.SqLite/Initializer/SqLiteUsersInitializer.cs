@@ -17,8 +17,8 @@ public class SqLiteUsersInitializer(
             CREATE TABLE UserSetting
             (
                 Id INTEGER PRIMARY KEY,
-                Description TEXT NOT NULL,
-                Value TEXT NOT NULL
+                Description TEXT NOT NULL COLLATE NOCASE,
+                Value TEXT NOT NULL COLLATE NOCASE
             )";
 
         return await _userDataContext.Database.ExecuteSqlAsync(sql);
@@ -57,7 +57,7 @@ public class SqLiteUsersInitializer(
             CREATE TABLE User
             (
                 Id INTEGER PRIMARY KEY,
-                Name TEXT NOT NULL,
+                Name TEXT NOT NULL COLLATE NOCASE,
                 Type INTEGER NOT NULL,
                 EmailAddress TEXT NOT NULL,
                 Password BLOB

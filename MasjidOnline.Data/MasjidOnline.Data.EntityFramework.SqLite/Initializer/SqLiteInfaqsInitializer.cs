@@ -41,7 +41,7 @@ public class SqLiteInfaqsInitializer(
                 MunfiqName INTEGER NOT NULL,
                 Amount REAL NOT NULL,
                 ManualBankTransferDateTime TEXT NOT NULL,
-                ManualBankTransferNotes TEXT NOT NULL
+                ManualBankTransferNotes TEXT NOT NULL COLLATE NOCASE
             )";
 
         return await _infaqsDataContext.Database.ExecuteSqlAsync(sql);
@@ -65,8 +65,8 @@ public class SqLiteInfaqsInitializer(
             CREATE TABLE InfaqSetting
             (
                 Id INTEGER PRIMARY KEY,
-                Description TEXT NOT NULL,
-                Value TEXT NOT NULL
+                Description TEXT NOT NULL COLLATE NOCASE,
+                Value TEXT NOT NULL COLLATE NOCASE
             )";
 
         return await _infaqsDataContext.Database.ExecuteSqlAsync(sql);

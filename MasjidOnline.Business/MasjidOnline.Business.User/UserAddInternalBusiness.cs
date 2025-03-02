@@ -9,6 +9,7 @@ using MasjidOnline.Business.User.Interface.Model.User;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.Users;
+using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
 using MasjidOnline.Service.Mail.Interface;
 using MasjidOnline.Service.Mail.Interface.Model;
@@ -37,11 +38,17 @@ public class UserAddInternalBusiness(
         addInternalRequest.Name = _fieldValidatorService.ValidateRequiredText255(addInternalRequest.Name);
 
 
+        var any = await _usersData.UserEmailAddress.AnyByEmailAddressAsync(addInternalRequest.EmailAddress);
+
+        if (any) throw new InputMismatchException($"{addInternalRequest.EmailAddress} exists");
+
+
         var user = new Entity.Users.User
         {
             Id = _usersIdGenerator.UserId,
             EmailAddress = addInternalRequest.EmailAddress,
             Name = addInternalRequest.Name,
+            Status = UserStatus.New,
             Type = UserType.Internal,
         };
 
@@ -56,6 +63,18 @@ public class UserAddInternalBusiness(
 
         await _usersData.UserEmailAddress.AddAsync(userEmailAddress);
 
+
+        // undone internal
+
+        var @internal = new Internal
+        {
+
+        };
+
+        await _usersData.Internal.AddAsync(@internal);
+
+
+        // undone move to approve
 
         var passwordCode = new PasswordCode
         {
