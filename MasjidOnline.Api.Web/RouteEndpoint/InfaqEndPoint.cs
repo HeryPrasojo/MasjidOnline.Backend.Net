@@ -14,42 +14,42 @@ internal static class InfaqEndPoint
             Business.Infaq.Interface.Infaq.IAddAnonymBusiness _addAnonymBusiness,
             ICaptchaData _captchaData,
             ISessionBusiness _sessionBusiness,
-            IInfaqsData _infaqsData,
+            IInfaqData _infaqData,
             Business.Infaq.Interface.Model.Infaq.AddByAnonymRequest addByAnonymRequest)
         {
-            return await _addAnonymBusiness.AddAsync(_captchaData, _sessionBusiness, _infaqsData, addByAnonymRequest);
+            return await _addAnonymBusiness.AddAsync(_captchaData, _sessionBusiness, _infaqData, addByAnonymRequest);
         }
 
         internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Infaq.GetManyResponseRecord>> GetManyAsync(
             Business.Infaq.Interface.Infaq.IGetManyBusiness _getManyBusiness,
-            IInfaqsData _infaqsData,
+            IInfaqData _infaqData,
             Business.Infaq.Interface.Model.Infaq.GetManyRequest getManyRequest)
         {
-            return await _getManyBusiness.GetAsync(_infaqsData, getManyRequest);
+            return await _getManyBusiness.GetAsync(_infaqData, getManyRequest);
         }
 
         internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Infaq.GetManyDueResponseRecord>> GetManyDueAsync(
             Business.Infaq.Interface.Infaq.IGetManyDueBusiness _getManyDueBusiness,
-            IInfaqsData _infaqsData,
+            IInfaqData _infaqData,
             Business.Infaq.Interface.Model.Infaq.GetManyDueRequest getManyDueRequest)
         {
-            return await _getManyDueBusiness.GetAsync(_infaqsData, getManyDueRequest);
+            return await _getManyDueBusiness.GetAsync(_infaqData, getManyDueRequest);
         }
 
         internal static async Task<Business.Infaq.Interface.Model.Infaq.GetOneResponse> GetOneAsync(
             Business.Infaq.Interface.Infaq.IGetOneBusiness _getOneBusiness,
-            IInfaqsData _infaqsData,
+            IInfaqData _infaqData,
             Business.Infaq.Interface.Model.Infaq.GetOneRequest getOneRequest)
         {
-            return await _getOneBusiness.GetAsync(_infaqsData, getOneRequest);
+            return await _getOneBusiness.GetAsync(_infaqData, getOneRequest);
         }
 
         internal static async Task<Business.Infaq.Interface.Model.Infaq.GetOneDueResponse> GetOneDueAsync(
             Business.Infaq.Interface.Infaq.IGetOneDueBusiness _getOneDueBusiness,
-            IInfaqsData _infaqsData,
+            IInfaqData _infaqData,
             Business.Infaq.Interface.Model.Infaq.GetOneDueRequest getOneDueRequest)
         {
-            return await _getOneDueBusiness.GetAsync(_infaqsData, getOneDueRequest);
+            return await _getOneDueBusiness.GetAsync(_infaqData, getOneDueRequest);
         }
     }
 
@@ -58,12 +58,12 @@ internal static class InfaqEndPoint
         internal static async Task<Response> AddExpiredAsync(
             IAuthorizationBusiness _authorizationBusiness,
             Business.Infaq.Interface.Expired.IAddBusiness _addBusiness,
-            IInfaqsData _infaqsData,
+            IInfaqData _infaqData,
             ISessionBusiness _sessionBusiness,
-            IUsersData _usersData,
+            IUserData _userData,
             Business.Infaq.Interface.Model.Expired.AddRequest addRequest)
         {
-            return await _addBusiness.AddAsync(_authorizationBusiness, _infaqsData, _sessionBusiness, _usersData, addRequest);
+            return await _addBusiness.AddAsync(_authorizationBusiness, _infaqData, _sessionBusiness, _userData, addRequest);
         }
     }
 }

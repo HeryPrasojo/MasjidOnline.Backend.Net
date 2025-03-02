@@ -4,7 +4,7 @@ using MasjidOnline.Business.Infaq.Interface.Expired;
 using MasjidOnline.Business.Infaq.Interface.Model.Expired;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Data.Interface.Datas;
-using MasjidOnline.Data.Interface.Model.Infaqs.Expired;
+using MasjidOnline.Data.Interface.Model.Infaq.Expired;
 using MasjidOnline.Data.Interface.Model.Repository;
 using MasjidOnline.Service.FieldValidator.Interface;
 
@@ -14,7 +14,7 @@ public class GetManyBusiness(
     IFieldValidatorService _fieldValidatorService) : IGetManyBusiness
 {
     public async Task<GetManyResponse<GetManyResponseRecord>> GetAsync(
-        IInfaqsData _infaqsData,
+        IInfaqData _infaqData,
         GetManyRequest getManyRequest)
     {
         _fieldValidatorService.ValidateRequired(getManyRequest);
@@ -23,7 +23,7 @@ public class GetManyBusiness(
 
         var take = 10;
 
-        var getManyResult = await _infaqsData.Expired.GetManyAsync(
+        var getManyResult = await _infaqData.Expired.GetManyAsync(
             isApproved: getManyRequest.IsApproved,
             getManyOrderBy: GetManyOrderBy.DateTime,
             orderByDirection: OrderByDirection.Descending,

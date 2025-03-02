@@ -7,5 +7,5 @@ namespace MasjidOnline.Business.AuthorizationBusiness.Interface;
 public interface IAuthorizationBusiness
 {
     void AuthorizeNonAnonymous(ISessionBusiness _sessionBusiness);
-    Task AuthorizePermissionAsync(ISessionBusiness _sessionBusiness, IUsersData _usersData, bool infaqSetPaymentStatusExpired = false, bool userAddInternal = false);
+    Task AuthorizePermissionAsync(ISessionBusiness _sessionBusiness, IUserData _userData, bool infaqSetPaymentStatusExpired = false, bool userAddInternal = false);
 }

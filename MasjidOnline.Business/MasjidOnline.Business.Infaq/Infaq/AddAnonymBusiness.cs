@@ -9,7 +9,7 @@ using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
-using MasjidOnline.Entity.Infaqs;
+using MasjidOnline.Entity.Infaq;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Library.Extentions;
 using MasjidOnline.Service.FieldValidator.Interface;
@@ -18,12 +18,12 @@ namespace MasjidOnline.Business.Infaq.Infaq;
 
 public class AddAnonymBusiness(
     IFieldValidatorService _fieldValidatorService,
-    IInfaqsIdGenerator _infaqsIdGenerator) : IAddAnonymBusiness
+    IInfaqIdGenerator _infaqIdGenerator) : IAddAnonymBusiness
 {
     public async Task<Response> AddAsync(
         ICaptchaData _captchaData,
         ISessionBusiness _sessionBusiness,
-        IInfaqsData _infaqsData,
+        IInfaqData _infaqData,
         AddByAnonymRequest addByAnonymRequest)
     {
         if (_sessionBusiness.UserId == Constant.AnonymousUserId)
@@ -59,9 +59,9 @@ public class AddAnonymBusiness(
         if (!paymentTypes.Any(t => t == addByAnonymRequest.PaymentType)) throw new InputInvalidException(nameof(addByAnonymRequest.PaymentType));
 
 
-        var infaq = new Entity.Infaqs.Infaq
+        var infaq = new Entity.Infaq.Infaq
         {
-            Id = _infaqsIdGenerator.TransactionId,
+            Id = _infaqIdGenerator.TransactionId,
             Amount = addByAnonymRequest.Amount,
             DateTime = DateTime.UtcNow,
             PaymentStatus = PaymentStatus.Pending,
@@ -70,7 +70,7 @@ public class AddAnonymBusiness(
             MunfiqName = addByAnonymRequest.MunfiqName,
         };
 
-        await _infaqsData.Infaq.AddAsync(infaq);
+        await _infaqData.Infaq.AddAsync(infaq);
 
 
         if (infaq.PaymentType == PaymentType.ManualBankTransfer)
@@ -84,7 +84,7 @@ public class AddAnonymBusiness(
             if (!addByAnonymRequest.ManualNotes.IsNullOrEmptyOrWhiteSpace())
                 infaqManual.ManualNotes = addByAnonymRequest.ManualNotes;
 
-            await _infaqsData.InfaqManual.AddAsync(infaqManual);
+            await _infaqData.InfaqManual.AddAsync(infaqManual);
         }
 
 
@@ -96,7 +96,7 @@ public class AddAnonymBusiness(
 
                 var transactionFile = new InfaqFile
                 {
-                    Id = _infaqsIdGenerator.TransactionFileId,
+                    Id = _infaqIdGenerator.TransactionFileId,
                     InfaqId = infaq.Id,
                 };
 
@@ -117,12 +117,12 @@ public class AddAnonymBusiness(
 
                 fileStream.Close();
 
-                await _infaqsData.InfaqFile.AddAsync(transactionFile);
+                await _infaqData.InfaqFile.AddAsync(transactionFile);
             }
         }
 
 
-        await _infaqsData.SaveAsync();
+        await _infaqData.SaveAsync();
 
         return new()
         {

@@ -6,5 +6,5 @@ namespace MasjidOnline.Business.Infaq.Interface.Infaq;
 
 public interface IGetManyDueBusiness
 {
-    Task<GetManyResponse<GetManyDueResponseRecord>> GetAsync(IInfaqsData _infaqsData, GetManyDueRequest getManyDueRequest);
+    Task<GetManyResponse<GetManyDueResponseRecord>> GetAsync(IInfaqData _infaqData, GetManyDueRequest getManyDueRequest);
 }

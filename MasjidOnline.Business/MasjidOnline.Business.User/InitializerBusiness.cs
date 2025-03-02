@@ -6,7 +6,7 @@ using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
-using MasjidOnline.Entity.Users;
+using MasjidOnline.Entity.User;
 using MasjidOnline.Service.Mail.Interface;
 using MasjidOnline.Service.Mail.Interface.Model;
 using Microsoft.Extensions.Options;
@@ -16,11 +16,11 @@ namespace MasjidOnline.Business.User;
 public class InitializerBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
     IMailSenderService _mailSenderService,
-    IUsersIdGenerator _usersIdGenerator) : IInitializerBusiness
+    IUserIdGenerator _userIdGenerator) : IInitializerBusiness
 {
-    public async Task InitializeAsync(ISessionBusiness _sessionBusiness, IUsersData _usersData)
+    public async Task InitializeAsync(ISessionBusiness _sessionBusiness, IUserData _userData)
     {
-        var any = await _usersData.User.GetAnyByIdAsync(_sessionBusiness.UserId);
+        var any = await _userData.User.GetAnyByIdAsync(_sessionBusiness.UserId);
 
         if (any) return;
 
@@ -29,7 +29,7 @@ public class InitializerBusiness(
 
         var utcNow = DateTime.UtcNow;
 
-        var user = new Entity.Users.User
+        var user = new Entity.User.User
         {
             Id = Constant.SystemUserId,
             EmailAddress = Constant.SystemUserEmailAddress,
@@ -38,24 +38,24 @@ public class InitializerBusiness(
             Type = UserType.System,
         };
 
-        await _usersData.User.AddAsync(user);
+        await _userData.User.AddAsync(user);
 
 
-        var @internal = new Entity.Users.Internal
+        var @internal = new Entity.User.Internal
         {
             DateTime = utcNow,
             EmailAddress = option.RootUserEmailAddress,
-            Id = _usersIdGenerator.InternalId,
+            Id = _userIdGenerator.InternalId,
             IsApproved = true,
             UpdateDateTime = utcNow,
             UpdateUserId = _sessionBusiness.UserId,
             UserId = _sessionBusiness.UserId,
         };
 
-        await _usersData.Internal.AddAsync(@internal);
+        await _userData.Internal.AddAsync(@internal);
 
 
-        user = new Entity.Users.User
+        user = new Entity.User.User
         {
             Id = Constant.RootUserId,
             EmailAddress = option.RootUserEmailAddress,
@@ -64,7 +64,7 @@ public class InitializerBusiness(
             Type = UserType.Internal,
         };
 
-        await _usersData.User.AddAsync(user);
+        await _userData.User.AddAsync(user);
 
 
         var userEmailAddress = new UserEmailAddress
@@ -73,17 +73,17 @@ public class InitializerBusiness(
             UserId = user.Id,
         };
 
-        await _usersData.UserEmailAddress.AddAsync(userEmailAddress);
+        await _userData.UserEmailAddress.AddAsync(userEmailAddress);
 
 
         var passwordCode = new PasswordCode
         {
-            Code = _usersIdGenerator.PasswordCodeCode,
+            Code = _userIdGenerator.PasswordCodeCode,
             DateTime = utcNow,
             UserId = user.Id,
         };
 
-        await _usersData.PasswordCode.AddAsync(passwordCode);
+        await _userData.PasswordCode.AddAsync(passwordCode);
 
 
         var permission = new Permission
@@ -94,10 +94,10 @@ public class InitializerBusiness(
             InfaqSetPaymentStatusExpired = true,
         };
 
-        await _usersData.Permission.AddAsync(permission);
+        await _userData.Permission.AddAsync(permission);
 
 
-        await _usersData.SaveWithoutTransactionAsync(_sessionBusiness.UserId);
+        await _userData.SaveWithoutTransactionAsync(_sessionBusiness.UserId);
 
 
         var uri = option.Uri.UserPassword + Convert.ToHexString(passwordCode.Code.AsSpan());

@@ -8,7 +8,7 @@ using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Data.Interface.Repository.Audit;
 using MasjidOnline.Data.Mapper;
 using MasjidOnline.Entity.Audit;
-using MasjidOnline.Entity.Users;
+using MasjidOnline.Entity.User;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Datas;

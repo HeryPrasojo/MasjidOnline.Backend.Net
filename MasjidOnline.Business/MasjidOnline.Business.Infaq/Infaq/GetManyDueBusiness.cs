@@ -4,11 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
-using MasjidOnline.Business.Infaq.Interface.Model.Payment;
 using MasjidOnline.Business.Interface.Model.Options;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Data.Interface.Datas;
-using MasjidOnline.Data.Interface.Model.Infaqs.Infaq;
+using MasjidOnline.Data.Interface.Model.Infaq.Infaq;
 using MasjidOnline.Data.Interface.Model.Repository;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
@@ -21,21 +20,21 @@ public class GetManyDueBusiness(
     IFieldValidatorService _fieldValidatorService) : IGetManyDueBusiness
 {
     public async Task<GetManyResponse<GetManyDueResponseRecord>> GetAsync(
-        IInfaqsData _infaqsData,
+        IInfaqData _infaqData,
         GetManyDueRequest getManyDueRequest)
     {
         _fieldValidatorService.ValidateRequired(getManyDueRequest);
         _fieldValidatorService.ValidateRequiredPlus(getManyDueRequest.Page);
 
 
-        IEnumerable<Entity.Infaqs.PaymentType>? paymentTypes = default;
+        IEnumerable<Entity.Infaq.PaymentType>? paymentTypes = default;
 
         if (getManyDueRequest.PaymentTypes != default)
         {
             paymentTypes = getManyDueRequest.PaymentTypes.Select(m => m switch
             {
-                PaymentType.Cash => Entity.Infaqs.PaymentType.Cash,
-                PaymentType.ManualBankTransfer => Entity.Infaqs.PaymentType.ManualBankTransfer,
+                Interface.Model.Payment.PaymentType.Cash => Entity.Infaq.PaymentType.Cash,
+                Interface.Model.Payment.PaymentType.ManualBankTransfer => Entity.Infaq.PaymentType.ManualBankTransfer,
                 _ => throw new ErrorException(nameof(getManyDueRequest.PaymentTypes)),
             });
         }
@@ -43,7 +42,7 @@ public class GetManyDueBusiness(
 
         var take = 10;
 
-        var getManyResult = await _infaqsData.Infaq.GetManyDueAsync(
+        var getManyResult = await _infaqData.Infaq.GetManyDueAsync(
             DateTime.UtcNow.AddDays(_optionsMonitor.CurrentValue.PaymentManualExpired),
             paymentTypes: paymentTypes,
             getManyOrderBy: GetManyOrderBy.Id,
@@ -54,14 +53,16 @@ public class GetManyDueBusiness(
         return new()
         {
             ResultCode = ResponseResultCode.Success,
-            Records = getManyResult.Records.Select(m => new GetManyDueResponseRecord
+            Records = getManyResult.Records.Select(e => new GetManyDueResponseRecord
             {
-                Amount = m.Amount,
-                DateTime = m.DateTime,
-                Id = m.Id,
-                MunfiqName = m.MunfiqName,
-                PaymentStatus = (PaymentStatus)m.PaymentStatus,
-                PaymentType = (PaymentType)m.PaymentType,
+                Amount = e.Amount,
+                DateTime = e.DateTime,
+                Id = e.Id,
+                MunfiqName = e.MunfiqName,
+
+                // todo use switch
+                PaymentStatus = (Business.Infaq.Interface.Model.Payment.PaymentStatus)e.PaymentStatus,
+                PaymentType = (Business.Infaq.Interface.Model.Payment.PaymentType)e.PaymentType,
             }),
             Total = getManyResult.Total,
         };

@@ -1,9 +1,8 @@
 ﻿using System;
-using MasjidOnline.Entity.Users;
 
 namespace MasjidOnline.Entity.Audit;
 
-public class UserLog : User
+public class UserLog : Entity.User.User
 {
     public required int UserLogId { get; set; }
 

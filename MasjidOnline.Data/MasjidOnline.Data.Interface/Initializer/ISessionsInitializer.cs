@@ -5,5 +5,5 @@ namespace MasjidOnline.Data.Interface.Initializer;
 
 public interface ISessionsInitializer
 {
-    Task InitializeDatabaseAsync(ISessionsData sessionData);
+    Task InitializeDatabaseAsync(ISessionData sessionData);
 }

@@ -16,11 +16,11 @@ public class AuthorizationBusiness : IAuthorizationBusiness
 
     public async Task AuthorizePermissionAsync(
         ISessionBusiness _sessionBusiness,
-        IUsersData _usersData,
+        IUserData _userData,
         bool infaqSetPaymentStatusExpired = default,
         bool userAddInternal = default)
     {
-        var sessionPermission = await _usersData.Permission.GetByUserIdAsync(_sessionBusiness.UserId);
+        var sessionPermission = await _userData.Permission.GetByUserIdAsync(_sessionBusiness.UserId);
 
         if (sessionPermission == default) throw new PermissionException(nameof(Constant.AnonymousUserId));
 

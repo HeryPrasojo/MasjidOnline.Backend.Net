@@ -1,5 +1,5 @@
 ﻿using System;
-using MasjidOnline.Entity.Users;
+using MasjidOnline.Entity.User;
 
 namespace MasjidOnline.Entity.Audit;
 

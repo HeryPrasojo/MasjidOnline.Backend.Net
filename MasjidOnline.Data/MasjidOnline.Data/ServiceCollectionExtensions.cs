@@ -14,9 +14,9 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ICoreIdGenerator, CoreIdGenerator>();
         services.AddSingleton<ICaptchaIdGenerator, CaptchaIdGenerator>();
         services.AddSingleton<IEventIdGenerator, EventIdGenerator>();
-        services.AddSingleton<IInfaqsIdGenerator, InfaqsIdGenerator>();
-        services.AddSingleton<ISessionsIdGenerator, SessionsIdGenerator>();
-        services.AddSingleton<IUsersIdGenerator, UsersIdGenerator>();
+        services.AddSingleton<IInfaqIdGenerator, InfaqIdGenerator>();
+        services.AddSingleton<ISessionIdGenerator, SessionIdGenerator>();
+        services.AddSingleton<IUserIdGenerator, UserIdGenerator>();
 
         if (Debugger.IsAttached)
             services.AddScoped<IDataTransaction, SharedDataTransaction>();

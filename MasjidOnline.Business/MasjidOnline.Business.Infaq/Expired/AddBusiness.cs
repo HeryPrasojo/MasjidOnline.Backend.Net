@@ -7,7 +7,7 @@ using MasjidOnline.Business.Interface.Model.Options;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface.Datas;
-using MasjidOnline.Entity.Infaqs;
+using MasjidOnline.Entity.Infaq;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
 using Microsoft.Extensions.Options;
@@ -20,18 +20,18 @@ public class AddBusiness(
 {
     public async Task<Response> AddAsync(
         IAuthorizationBusiness _authorizationBusiness,
-        IInfaqsData _infaqsData,
+        IInfaqData _infaqData,
         ISessionBusiness _sessionBusiness,
-        IUsersData _usersData,
+        IUserData _userData,
         AddRequest addRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _usersData, infaqSetPaymentStatusExpired: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, infaqSetPaymentStatusExpired: true);
 
         _fieldValidatorService.ValidateRequired(addRequest);
         _fieldValidatorService.ValidateRequiredPlus(addRequest.Id);
 
 
-        var infaq = await _infaqsData.Infaq.GetForExpiredAddAsync(addRequest.Id);
+        var infaq = await _infaqData.Infaq.GetForExpiredAddAsync(addRequest.Id);
 
         if (infaq == default) throw new InputMismatchException(nameof(addRequest.Id));
 
@@ -43,16 +43,16 @@ public class AddBusiness(
         if (expiredDateTime > DateTime.UtcNow) throw new InputMismatchException(nameof(infaq.DateTime));
 
 
-        var expired = new Entity.Infaqs.Expired
+        var expired = new Entity.Infaq.Expired
         {
             DateTime = DateTime.UtcNow,
             InfaqId = addRequest.Id,
             UserId = _sessionBusiness.UserId,
         };
 
-        await _infaqsData.Expired.AddAsync(expired);
+        await _infaqData.Expired.AddAsync(expired);
 
-        _infaqsData.Infaq.UpdatePaymentStatus(addRequest.Id, PaymentStatus.Expire);
+        _infaqData.Infaq.UpdatePaymentStatus(addRequest.Id, PaymentStatus.Expire);
 
 
         //var expired = new Payment
@@ -62,9 +62,9 @@ public class AddBusiness(
         //    UserId = _sessionBusiness.UserId,
         //};
 
-        //_infaqsData.Payment.AddAsync();
+        //_infaqData.Payment.AddAsync();
 
-        await _infaqsData.SaveAsync();
+        await _infaqData.SaveAsync();
 
         // todo approver notification
 

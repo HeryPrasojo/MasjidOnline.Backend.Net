@@ -8,5 +8,5 @@ namespace MasjidOnline.Business.Infaq.Interface.Expired;
 
 public interface IAddBusiness
 {
-    Task<Response> AddAsync(IAuthorizationBusiness _authorizationBusiness, IInfaqsData _infaqsData, ISessionBusiness _sessionBusiness, IUsersData _usersData, AddRequest addRequest);
+    Task<Response> AddAsync(IAuthorizationBusiness _authorizationBusiness, IInfaqData _infaqData, ISessionBusiness _sessionBusiness, IUserData _userData, AddRequest addRequest);
 }

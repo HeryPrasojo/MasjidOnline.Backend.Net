@@ -1,6 +1,6 @@
 ﻿using System;
 using MasjidOnline.Entity.Audit;
-using MasjidOnline.Entity.Users;
+using MasjidOnline.Entity.User;
 
 namespace MasjidOnline.Data.Mapper;
 

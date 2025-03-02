@@ -5,10 +5,10 @@ using MasjidOnline.Business.Interface.Model.Options;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface.Internal;
-using MasjidOnline.Business.User.Interface.Model.Users.Internal;
+using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
-using MasjidOnline.Entity.Users;
+using MasjidOnline.Entity.User;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
 using MasjidOnline.Service.Mail.Interface;
@@ -21,15 +21,15 @@ public class AddBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
     IAuthorizationBusiness _authorizationBusiness,
     IMailSenderService _mailSenderService,
-    IUsersIdGenerator _usersIdGenerator,
+    IUserIdGenerator _userIdGenerator,
     IFieldValidatorService _fieldValidatorService) : IAddBusiness
 {
     public async Task<Response> AddAsync(
         ISessionBusiness _sessionBusiness,
-        IUsersData _usersData,
+        IUserData _userData,
         AddRequest addRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _usersData, userAddInternal: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, userAddInternal: true);
 
 
         _fieldValidatorService.ValidateRequired(addRequest);
@@ -38,7 +38,7 @@ public class AddBusiness(
         addRequest.Name = _fieldValidatorService.ValidateRequiredText255(addRequest.Name);
 
 
-        var any = await _usersData.UserEmailAddress.AnyByEmailAddressAsync(addRequest.EmailAddress);
+        var any = await _userData.UserEmailAddress.AnyByEmailAddressAsync(addRequest.EmailAddress);
 
         if (any) throw new InputMismatchException($"{addRequest.EmailAddress} exists");
 
@@ -47,29 +47,29 @@ public class AddBusiness(
 
         // undone internal
 
-        var @internal = new Entity.Users.Internal
+        var @internal = new Entity.User.Internal
         {
             DateTime = utcNow,
             EmailAddress = addRequest.EmailAddress,
-            Id = _usersIdGenerator.InternalId,
+            Id = _userIdGenerator.InternalId,
             UserId = _sessionBusiness.UserId,
         };
 
-        await _usersData.Internal.AddAsync(@internal);
+        await _userData.Internal.AddAsync(@internal);
 
 
         // undone move to approve
 
-        var user = new Entity.Users.User
+        var user = new Entity.User.User
         {
-            Id = _usersIdGenerator.UserId,
+            Id = _userIdGenerator.UserId,
             EmailAddress = addRequest.EmailAddress,
             Name = addRequest.Name,
             Status = UserStatus.New,
             Type = UserType.Internal,
         };
 
-        await _usersData.User.AddAsync(user);
+        await _userData.User.AddAsync(user);
 
 
         var userEmailAddress = new UserEmailAddress
@@ -78,19 +78,19 @@ public class AddBusiness(
             UserId = user.Id,
         };
 
-        await _usersData.UserEmailAddress.AddAsync(userEmailAddress);
+        await _userData.UserEmailAddress.AddAsync(userEmailAddress);
 
 
         var passwordCode = new PasswordCode
         {
-            Code = _usersIdGenerator.PasswordCodeCode,
+            Code = _userIdGenerator.PasswordCodeCode,
             DateTime = utcNow,
             UserId = user.Id,
         };
 
-        await _usersData.PasswordCode.AddAsync(passwordCode);
+        await _userData.PasswordCode.AddAsync(passwordCode);
 
-        await _usersData.SaveWithoutTransactionAsync(_sessionBusiness.UserId);
+        await _userData.SaveWithoutTransactionAsync(_sessionBusiness.UserId);
 
 
         var uri = _optionsMonitor.CurrentValue.Uri.UserPassword + Convert.ToHexString(passwordCode.Code.AsSpan());

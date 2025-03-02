@@ -14,8 +14,8 @@ namespace MasjidOnline.Business.Session;
 public class SessionBusiness(
     IEncryption128128 _encryption128128,
     IFieldValidatorService _fieldValidatorService,
-    ISessionsData _sessionsData,
-    ISessionsIdGenerator _sessionsIdGenerator) : ISessionBusiness
+    ISessionData _sessionData,
+    ISessionIdGenerator _sessionIdGenerator) : ISessionBusiness
 {
     private Memory<byte> _digest = Memory<byte>.Empty;
 
@@ -37,16 +37,16 @@ public class SessionBusiness(
 
     public async Task ChangeAsync(int userId)
     {
-        var session = new Entity.Sessions.Session
+        var session = new Entity.Session.Session
         {
             DateTime = DateTime.UtcNow,
-            Digest = _sessionsIdGenerator.SessionDigest,
-            Id = _sessionsIdGenerator.SessionId,
+            Digest = _sessionIdGenerator.SessionDigest,
+            Id = _sessionIdGenerator.SessionId,
             PreviousId = _digest.ToArray(),
             UserId = userId,
         };
 
-        await _sessionsData.Session.AddAsync(session);
+        await _sessionData.Session.AddAsync(session);
 
 
         _digest = session.Digest;
@@ -59,7 +59,7 @@ public class SessionBusiness(
     {
         await ChangeAsync(userId);
 
-        await _sessionsData.SaveAsync();
+        await _sessionData.SaveAsync();
     }
 
     public async Task StartAsync(string? idBase64, [CallerArgumentExpression(nameof(idBase64))] string? idBase64Expression = default)
@@ -74,7 +74,7 @@ public class SessionBusiness(
 
             var decryptedRquestSessionIdBytes = _encryption128128.Decrypt(requestSessionIdBytes);
 
-            var sessionEntity = await _sessionsData.Session.GetForAuthenticationAsync(decryptedRquestSessionIdBytes);
+            var sessionEntity = await _sessionData.Session.GetForAuthenticationAsync(decryptedRquestSessionIdBytes);
 
             if (sessionEntity == default) throw new InputMismatchException(idBase64Expression);
 

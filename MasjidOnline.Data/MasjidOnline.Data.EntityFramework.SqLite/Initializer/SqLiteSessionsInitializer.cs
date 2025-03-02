@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 namespace MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 
 public class SqLiteSessionsInitializer(
-    SessionsDataContext _sessionDataContext,
-    ISessionsDefinition _sessionDefinition) : SessionsInitializer(_sessionDefinition)
+    SessionDataContext _sessionDataContext,
+    ISessionsDefinition _sessionDefinition) : SessionInitializer(_sessionDefinition)
 {
     protected override async Task<int> CreateTableSessionSettingAsync()
     {

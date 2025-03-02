@@ -13,14 +13,14 @@ public class GetOneBusiness(
     IFieldValidatorService _fieldValidatorService) : IGetOneBusiness
 {
     public async Task<GetOneResponse> GetAsync(
-        IInfaqsData _infaqsData,
+        IInfaqData _infaqData,
         GetOneRequest getOneRequest)
     {
         _fieldValidatorService.ValidateRequired(getOneRequest);
         _fieldValidatorService.ValidateRequiredPlus(getOneRequest.Id);
 
 
-        var infaq = await _infaqsData.Infaq.GetOneAsync(getOneRequest.Id);
+        var infaq = await _infaqData.Infaq.GetOneAsync(getOneRequest.Id);
 
         if (infaq == default) throw new InputMismatchException($"{nameof(getOneRequest.Id)}: {getOneRequest.Id}");
 
@@ -30,6 +30,8 @@ public class GetOneBusiness(
             Amount = infaq.Amount,
             DateTime = infaq.DateTime,
             MunfiqName = infaq.MunfiqName,
+
+            // todo use switch
             PaymentStatus = (PaymentStatus)infaq.PaymentStatus,
             PaymentType = (PaymentType)infaq.PaymentType,
         };
