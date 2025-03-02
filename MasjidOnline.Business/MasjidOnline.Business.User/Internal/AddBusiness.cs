@@ -4,8 +4,8 @@ using MasjidOnline.Business.AuthorizationBusiness.Interface;
 using MasjidOnline.Business.Interface.Model.Options;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
-using MasjidOnline.Business.User.Interface;
-using MasjidOnline.Business.User.Interface.Model.User;
+using MasjidOnline.Business.User.Interface.Internal;
+using MasjidOnline.Business.User.Interface.Model.Users.Internal;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.Users;
@@ -15,42 +15,42 @@ using MasjidOnline.Service.Mail.Interface;
 using MasjidOnline.Service.Mail.Interface.Model;
 using Microsoft.Extensions.Options;
 
-namespace MasjidOnline.Business.User;
+namespace MasjidOnline.Business.User.Internal;
 
-public class UserAddInternalBusiness(
+public class AddBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
     IAuthorizationBusiness _authorizationBusiness,
     IMailSenderService _mailSenderService,
     IUsersIdGenerator _usersIdGenerator,
-    IFieldValidatorService _fieldValidatorService) : IUserAddInternalBusiness
+    IFieldValidatorService _fieldValidatorService) : IAddBusiness
 {
-    public async Task<Response> AddByInternalAsync(
+    public async Task<Response> AddAsync(
         ISessionBusiness _sessionBusiness,
         IUsersData _usersData,
-        AddInternalRequest addInternalRequest)
+        AddRequest addRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _usersData, userAddInternal: true);
 
 
-        _fieldValidatorService.ValidateRequired(addInternalRequest);
+        _fieldValidatorService.ValidateRequired(addRequest);
 
-        addInternalRequest.EmailAddress = _fieldValidatorService.ValidateRequiredEmailAddress(addInternalRequest.EmailAddress);
-        addInternalRequest.Name = _fieldValidatorService.ValidateRequiredText255(addInternalRequest.Name);
+        addRequest.EmailAddress = _fieldValidatorService.ValidateRequiredEmailAddress(addRequest.EmailAddress);
+        addRequest.Name = _fieldValidatorService.ValidateRequiredText255(addRequest.Name);
 
 
-        var any = await _usersData.UserEmailAddress.AnyByEmailAddressAsync(addInternalRequest.EmailAddress);
+        var any = await _usersData.UserEmailAddress.AnyByEmailAddressAsync(addRequest.EmailAddress);
 
-        if (any) throw new InputMismatchException($"{addInternalRequest.EmailAddress} exists");
+        if (any) throw new InputMismatchException($"{addRequest.EmailAddress} exists");
 
 
         var utcNow = DateTime.UtcNow;
 
         // undone internal
 
-        var @internal = new Internal
+        var @internal = new Entity.Users.Internal
         {
             DateTime = utcNow,
-            EmailAddress = addInternalRequest.EmailAddress,
+            EmailAddress = addRequest.EmailAddress,
             Id = _usersIdGenerator.InternalId,
             UserId = _sessionBusiness.UserId,
         };
@@ -63,8 +63,8 @@ public class UserAddInternalBusiness(
         var user = new Entity.Users.User
         {
             Id = _usersIdGenerator.UserId,
-            EmailAddress = addInternalRequest.EmailAddress,
-            Name = addInternalRequest.Name,
+            EmailAddress = addRequest.EmailAddress,
+            Name = addRequest.Name,
             Status = UserStatus.New,
             Type = UserType.Internal,
         };
@@ -74,7 +74,7 @@ public class UserAddInternalBusiness(
 
         var userEmailAddress = new UserEmailAddress
         {
-            EmailAddress = addInternalRequest.EmailAddress,
+            EmailAddress = addRequest.EmailAddress,
             UserId = user.Id,
         };
 

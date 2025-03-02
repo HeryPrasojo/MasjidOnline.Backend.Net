@@ -31,7 +31,7 @@ internal static class WebApplicationExtension
 
         var userGroup = webApplication.MapGroup("/user/");
 
-        userGroup.MapPost("add/internal", UserEndPoint.AddInternalAsync);
+        userGroup.MapPost("add/internal", UserEndPoint.AddAsync);
         userGroup.MapPost("login", UserEndPoint.LoginAsync);
         userGroup.MapPost("setPassword", UserEndPoint.SetPasswordAsync);
 

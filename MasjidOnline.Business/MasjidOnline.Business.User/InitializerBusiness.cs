@@ -41,7 +41,7 @@ public class InitializerBusiness(
         await _usersData.User.AddAsync(user);
 
 
-        var @internal = new Internal
+        var @internal = new Entity.Users.Internal
         {
             DateTime = utcNow,
             EmailAddress = option.RootUserEmailAddress,

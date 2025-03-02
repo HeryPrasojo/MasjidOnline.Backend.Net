@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Business.User.Interface.Model.User;
+﻿namespace MasjidOnline.Business.User.Interface.Model.Users;
 
 public class AddByAnonymRequest
 {
