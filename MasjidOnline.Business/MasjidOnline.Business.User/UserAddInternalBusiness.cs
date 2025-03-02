@@ -43,6 +43,23 @@ public class UserAddInternalBusiness(
         if (any) throw new InputMismatchException($"{addInternalRequest.EmailAddress} exists");
 
 
+        var utcNow = DateTime.UtcNow;
+
+        // undone internal
+
+        var @internal = new Internal
+        {
+            DateTime = utcNow,
+            EmailAddress = addInternalRequest.EmailAddress,
+            Id = _usersIdGenerator.InternalId,
+            UserId = _sessionBusiness.UserId,
+        };
+
+        await _usersData.Internal.AddAsync(@internal);
+
+
+        // undone move to approve
+
         var user = new Entity.Users.User
         {
             Id = _usersIdGenerator.UserId,
@@ -64,22 +81,10 @@ public class UserAddInternalBusiness(
         await _usersData.UserEmailAddress.AddAsync(userEmailAddress);
 
 
-        // undone internal
-
-        var @internal = new Internal
-        {
-
-        };
-
-        await _usersData.Internal.AddAsync(@internal);
-
-
-        // undone move to approve
-
         var passwordCode = new PasswordCode
         {
             Code = _usersIdGenerator.PasswordCodeCode,
-            DateTime = DateTime.UtcNow,
+            DateTime = utcNow,
             UserId = user.Id,
         };
 

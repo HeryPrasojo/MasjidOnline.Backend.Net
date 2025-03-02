@@ -7,4 +7,5 @@ public enum UserStatus
     Active = 4,
     Suspend = 6,
     Inactive = 8,
+    System = 9,
 }

@@ -4,5 +4,6 @@ public enum UserType
 {
     Anonymous = 0,
     External = 2,
-    Internal = 8,
+    Internal = 6,
+    System = 8,
 }

@@ -31,11 +31,11 @@ public class InitializerBusiness(
 
         var user = new Entity.Users.User
         {
-            Id = Constant.RootUserId,
-            EmailAddress = option.RootUserEmailAddress,
-            Name = "Root",
-            Status = UserStatus.New,
-            Type = UserType.Internal,
+            Id = Constant.SystemUserId,
+            EmailAddress = Constant.SystemUserEmailAddress,
+            Name = "System",
+            Status = UserStatus.System,
+            Type = UserType.System,
         };
 
         await _usersData.User.AddAsync(user);
@@ -48,8 +48,8 @@ public class InitializerBusiness(
             Id = _usersIdGenerator.InternalId,
             IsApproved = true,
             UpdateDateTime = utcNow,
-            UpdateUserId = Constant.SystemUserId,
-            UserId = Constant.SystemUserId,
+            UpdateUserId = _sessionBusiness.UserId,
+            UserId = _sessionBusiness.UserId,
         };
 
         await _usersData.Internal.AddAsync(@internal);
