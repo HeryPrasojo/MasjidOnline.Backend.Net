@@ -3,7 +3,7 @@ using MasjidOnline.Entity.Infaq;
 
 namespace MasjidOnline.Data.Interface.Model.Infaq.Infaq;
 
-public class GetOneDue
+public class One
 {
     public required DateTime DateTime { get; set; }
 

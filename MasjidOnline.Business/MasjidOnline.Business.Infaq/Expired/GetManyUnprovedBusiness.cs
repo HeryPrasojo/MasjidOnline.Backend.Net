@@ -24,7 +24,7 @@ public class GetManyUnprovedBusiness(
         var take = 10;
 
         var getManyResult = await _infaqData.Expired.GetManyUnprovedAsync(
-            getManyOrderBy: GetManyOrderBy.DateTime,
+            getManyOrderBy: ManyOrderBy.DateTime,
             orderByDirection: OrderByDirection.Descending,
             skip: (getManyUnprovedRequest.Page - 1) * take,
             take: take);

@@ -12,10 +12,10 @@ public interface IInfaqRepository
     Task AddAsync(Entity.Infaq.Infaq infaq);
     Task AddAndSaveAsync(Entity.Infaq.Infaq infaq);
     Task<int> GetMaxIdAsync();
-    Task<GetOne?> GetOneAsync(int id);
-    Task<GetManyResult<GetManyRecord>> GetManyAsync(IEnumerable<PaymentType>? paymentTypes = null, IEnumerable<PaymentStatus>? paymentStatuses = null, GetManyOrderBy getManyOrderBy = GetManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);
+    Task<One?> GetOneAsync(int id);
+    Task<ManyResult<ManyRecord>> GetManyAsync(IEnumerable<PaymentType>? paymentTypes = null, IEnumerable<PaymentStatus>? paymentStatuses = null, ManyOrderBy getManyOrderBy = ManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);
     Task<ExpiredAdd?> GetForExpiredAddAsync(int id);
     void UpdatePaymentStatus(int id, PaymentStatus paymentStatus);
-    Task<GetManyResult<GetManyDueRecord>> GetManyDueAsync(DateTime dueDateTime, IEnumerable<PaymentType>? paymentTypes = null, GetManyOrderBy getManyOrderBy = GetManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);
-    Task<GetOneDue?> GetOneDueAsync(int id);
+    Task<ManyResult<ManyDueRecord>> GetManyDueAsync(DateTime dueDateTime, IEnumerable<PaymentType>? paymentTypes = null, ManyOrderBy getManyOrderBy = ManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);
+    Task<OneDue?> GetOneDueAsync(int id);
 }

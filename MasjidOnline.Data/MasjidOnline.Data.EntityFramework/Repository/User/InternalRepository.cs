@@ -23,9 +23,9 @@ public class InternalRepository(UserDataContext _userDataContext) : IInternalRep
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
     }
 
-    public async Task<GetManyResult<GetManyRecord>> GetManyAsync(
+    public async Task<ManyResult<ManyRecord>> GetManyAsync(
         bool? isApproved = default,
-        GetManyOrderBy getManyOrderBy = default,
+        ManyOrderBy getManyOrderBy = default,
         OrderByDirection orderByDirection = default,
         int skip = 0,
         int take = 1)
@@ -39,7 +39,7 @@ public class InternalRepository(UserDataContext _userDataContext) : IInternalRep
         var countTask = queryable.LongCountAsync();
 
 
-        if (getManyOrderBy == GetManyOrderBy.DateTime)
+        if (getManyOrderBy == ManyOrderBy.DateTime)
         {
             if (orderByDirection == OrderByDirection.Descending) queryable = queryable.OrderByDescending(e => e.DateTime);
             else queryable = queryable.OrderBy(e => e.DateTime);
@@ -52,7 +52,7 @@ public class InternalRepository(UserDataContext _userDataContext) : IInternalRep
         {
             Records = await queryable.Skip(skip)
                 .Take(take)
-                .Select(e => new GetManyRecord
+                .Select(e => new ManyRecord
                 {
                     DateTime = e.DateTime,
                     EmailAddress = e.EmailAddress,

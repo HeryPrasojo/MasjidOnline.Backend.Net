@@ -40,7 +40,7 @@ public class GetManyBusiness(
         var getManyResult = await _infaqData.Infaq.GetManyAsync(
             paymentTypes: paymentTypes,
             paymentStatuses: paymentStatuses,
-            getManyOrderBy: GetManyOrderBy.Id,
+            getManyOrderBy: ManyOrderBy.Id,
             orderByDirection: OrderByDirection.Descending,
             skip: (getManyRequest.Page - 1) * take,
             take: take);

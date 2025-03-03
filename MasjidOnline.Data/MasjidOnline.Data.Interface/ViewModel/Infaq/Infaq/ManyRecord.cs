@@ -3,8 +3,10 @@ using MasjidOnline.Entity.Infaq;
 
 namespace MasjidOnline.Data.Interface.Model.Infaq.Infaq;
 
-public class GetOne
+public class ManyRecord
 {
+    public required int Id { get; set; }
+
     public required DateTime DateTime { get; set; }
 
     public required string? MunfiqName { get; set; }

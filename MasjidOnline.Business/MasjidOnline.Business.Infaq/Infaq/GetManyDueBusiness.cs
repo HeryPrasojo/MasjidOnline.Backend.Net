@@ -38,7 +38,7 @@ public class GetManyDueBusiness(
         var getManyResult = await _infaqData.Infaq.GetManyDueAsync(
             DateTime.UtcNow.AddDays(_optionsMonitor.CurrentValue.PaymentManualExpired),
             paymentTypes: paymentTypes,
-            getManyOrderBy: GetManyOrderBy.Id,
+            getManyOrderBy: ManyOrderBy.Id,
             orderByDirection: OrderByDirection.Descending,
             skip: (getManyDueRequest.Page - 1) * take,
             take: take);

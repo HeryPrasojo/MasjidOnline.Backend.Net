@@ -39,10 +39,10 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
             .FirstOrDefaultAsync();
     }
 
-    public async Task<GetManyResult<GetManyRecord>> GetManyAsync(
+    public async Task<ManyResult<ManyRecord>> GetManyAsync(
         IEnumerable<PaymentType>? paymentTypes = default,
         IEnumerable<PaymentStatus>? paymentStatuses = default,
-        GetManyOrderBy getManyOrderBy = default,
+        ManyOrderBy getManyOrderBy = default,
         OrderByDirection orderByDirection = default,
         int skip = 0,
         int take = 1)
@@ -59,7 +59,7 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
         var countTask = queryable.LongCountAsync();
 
 
-        if (getManyOrderBy == GetManyOrderBy.Id)
+        if (getManyOrderBy == ManyOrderBy.Id)
         {
             if (orderByDirection == OrderByDirection.Descending) queryable = queryable.OrderByDescending(e => e.Id);
             else queryable = queryable.OrderBy(e => e.Id);
@@ -72,7 +72,7 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
         {
             Records = await queryable.Skip(skip)
                 .Take(take)
-                .Select(e => new GetManyRecord
+                .Select(e => new ManyRecord
                 {
                     Amount = e.Amount,
                     DateTime = e.DateTime,
@@ -86,10 +86,10 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
         };
     }
 
-    public async Task<GetManyResult<GetManyDueRecord>> GetManyDueAsync(
+    public async Task<ManyResult<ManyDueRecord>> GetManyDueAsync(
         DateTime dueDateTime,
         IEnumerable<PaymentType>? paymentTypes = default,
-        GetManyOrderBy getManyOrderBy = default,
+        ManyOrderBy getManyOrderBy = default,
         OrderByDirection orderByDirection = default,
         int skip = 0,
         int take = 1)
@@ -103,7 +103,7 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
         var countTask = queryable.LongCountAsync();
 
 
-        if (getManyOrderBy == GetManyOrderBy.Id)
+        if (getManyOrderBy == ManyOrderBy.Id)
         {
             if (orderByDirection == OrderByDirection.Descending) queryable = queryable.OrderByDescending(e => e.Id);
             else queryable = queryable.OrderBy(e => e.Id);
@@ -116,7 +116,7 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
         {
             Records = await queryable.Skip(skip)
                 .Take(take)
-                .Select(e => new GetManyDueRecord
+                .Select(e => new ManyDueRecord
                 {
                     Amount = e.Amount,
                     DateTime = e.DateTime,
@@ -134,10 +134,10 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
     }
 
-    public async Task<GetOne?> GetOneAsync(int id)
+    public async Task<One?> GetOneAsync(int id)
     {
         return await _dbSet.Where(e => e.Id == id)
-            .Select(e => new GetOne
+            .Select(e => new One
             {
                 Amount = e.Amount,
                 DateTime = e.DateTime,
@@ -148,10 +148,10 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
             .FirstOrDefaultAsync();
     }
 
-    public async Task<GetOneDue?> GetOneDueAsync(int id)
+    public async Task<OneDue?> GetOneDueAsync(int id)
     {
         return await _dbSet.Where(e => e.Id == id)
-            .Select(e => new GetOneDue
+            .Select(e => new OneDue
             {
                 Amount = e.Amount,
                 DateTime = e.DateTime,

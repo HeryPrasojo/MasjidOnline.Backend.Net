@@ -25,7 +25,7 @@ public class GetManyBusiness(
 
         var getManyResult = await _infaqData.Expired.GetManyAsync(
             isApproved: getManyRequest.IsApproved,
-            getManyOrderBy: GetManyOrderBy.DateTime,
+            getManyOrderBy: ManyOrderBy.DateTime,
             orderByDirection: OrderByDirection.Descending,
             skip: (getManyRequest.Page - 1) * take,
             take: take);

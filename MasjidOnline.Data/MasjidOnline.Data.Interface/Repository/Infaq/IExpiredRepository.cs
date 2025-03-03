@@ -8,7 +8,7 @@ namespace MasjidOnline.Data.Interface.Repository.Infaq;
 public interface IExpiredRepository
 {
     Task AddAsync(Expired expired);
-    Task<GetManyResult<GetManyRecord>> GetManyAsync(bool? isApproved = null, GetManyOrderBy getManyOrderBy = GetManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);
-    Task<GetManyResult<GetManyUnprovedRecord>> GetManyUnprovedAsync(GetManyOrderBy getManyOrderBy = GetManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);
-    Task<GetOne?> GetOneAsync(int infaqId);
+    Task<ManyResult<ManyRecord>> GetManyAsync(bool? isApproved = null, ManyOrderBy getManyOrderBy = ManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);
+    Task<ManyResult<ManyUnprovedRecord>> GetManyUnprovedAsync(ManyOrderBy getManyOrderBy = ManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);
+    Task<One?> GetOneAsync(int infaqId);
 }

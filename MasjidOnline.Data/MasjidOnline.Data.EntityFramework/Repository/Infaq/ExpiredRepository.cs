@@ -18,9 +18,9 @@ public class ExpiredRepository(InfaqDataContext _infaqDataContext) : IExpiredRep
         await _dbSet.AddAsync(expired);
     }
 
-    public async Task<GetManyResult<GetManyRecord>> GetManyAsync(
+    public async Task<ManyResult<ManyRecord>> GetManyAsync(
         bool? isApproved = default,
-        GetManyOrderBy getManyOrderBy = default,
+        ManyOrderBy getManyOrderBy = default,
         OrderByDirection orderByDirection = default,
         int skip = 0,
         int take = 1)
@@ -34,7 +34,7 @@ public class ExpiredRepository(InfaqDataContext _infaqDataContext) : IExpiredRep
         var countTask = queryable.LongCountAsync();
 
 
-        if (getManyOrderBy == GetManyOrderBy.DateTime)
+        if (getManyOrderBy == ManyOrderBy.DateTime)
         {
             if (orderByDirection == OrderByDirection.Descending) queryable = queryable.OrderByDescending(e => e.DateTime);
             else queryable = queryable.OrderBy(e => e.DateTime);
@@ -47,7 +47,7 @@ public class ExpiredRepository(InfaqDataContext _infaqDataContext) : IExpiredRep
         {
             Records = await queryable.Skip(skip)
                 .Take(take)
-                .Select(e => new GetManyRecord
+                .Select(e => new ManyRecord
                 {
                     DateTime = e.DateTime,
                     InfaqId = e.InfaqId,
@@ -61,8 +61,8 @@ public class ExpiredRepository(InfaqDataContext _infaqDataContext) : IExpiredRep
         };
     }
 
-    public async Task<GetManyResult<GetManyUnprovedRecord>> GetManyUnprovedAsync(
-        GetManyOrderBy getManyOrderBy = default,
+    public async Task<ManyResult<ManyUnprovedRecord>> GetManyUnprovedAsync(
+        ManyOrderBy getManyOrderBy = default,
         OrderByDirection orderByDirection = default,
         int skip = 0,
         int take = 1)
@@ -73,7 +73,7 @@ public class ExpiredRepository(InfaqDataContext _infaqDataContext) : IExpiredRep
         var countTask = queryable.LongCountAsync();
 
 
-        if (getManyOrderBy == GetManyOrderBy.DateTime)
+        if (getManyOrderBy == ManyOrderBy.DateTime)
         {
             if (orderByDirection == OrderByDirection.Descending) queryable = queryable.OrderByDescending(e => e.DateTime);
             else queryable = queryable.OrderBy(e => e.DateTime);
@@ -86,7 +86,7 @@ public class ExpiredRepository(InfaqDataContext _infaqDataContext) : IExpiredRep
         {
             Records = await queryable.Skip(skip)
                 .Take(take)
-                .Select(e => new GetManyUnprovedRecord
+                .Select(e => new ManyUnprovedRecord
                 {
                     DateTime = e.DateTime,
                     InfaqId = e.InfaqId,
@@ -97,10 +97,10 @@ public class ExpiredRepository(InfaqDataContext _infaqDataContext) : IExpiredRep
         };
     }
 
-    public async Task<GetOne?> GetOneAsync(int infaqId)
+    public async Task<One?> GetOneAsync(int infaqId)
     {
         return await _dbSet.Where(e => e.InfaqId == infaqId)
-            .Select(e => new GetOne
+            .Select(e => new One
             {
                 DateTime = e.DateTime,
                 InfaqId = e.InfaqId,

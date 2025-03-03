@@ -2,7 +2,7 @@
 
 namespace MasjidOnline.Data.Interface.Model.Repository;
 
-public class GetManyResult<TRecords>
+public class ManyResult<TRecords>
 {
     public required long Total { get; set; }
 

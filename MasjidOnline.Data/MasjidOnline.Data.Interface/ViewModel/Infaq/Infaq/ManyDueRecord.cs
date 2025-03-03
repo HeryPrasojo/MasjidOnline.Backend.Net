@@ -3,7 +3,7 @@ using MasjidOnline.Entity.Infaq;
 
 namespace MasjidOnline.Data.Interface.Model.Infaq.Infaq;
 
-public class GetManyRecord
+public class ManyDueRecord
 {
     public required int Id { get; set; }
 
@@ -15,6 +15,4 @@ public class GetManyRecord
 
 
     public required PaymentType PaymentType { get; set; }
-
-    public required PaymentStatus PaymentStatus { get; set; }
 }

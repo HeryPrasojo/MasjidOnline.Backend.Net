@@ -1,6 +1,6 @@
 namespace MasjidOnline.Data.Interface.Model.Infaq.Infaq;
 
-public enum GetManyOrderBy
+public enum ManyOrderBy
 {
     None = 0,
     Id = 1,

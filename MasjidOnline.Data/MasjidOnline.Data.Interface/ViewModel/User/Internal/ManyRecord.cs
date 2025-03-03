@@ -2,7 +2,7 @@
 
 namespace MasjidOnline.Data.Interface.Model.User.Internal;
 
-public class GetManyRecord
+public class ManyRecord
 {
     public required int Id { get; set; }
 

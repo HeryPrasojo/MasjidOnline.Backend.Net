@@ -2,7 +2,7 @@
 
 namespace MasjidOnline.Data.Interface.Model.Infaq.Expired;
 
-public class GetManyRecord
+public class One
 {
     public required int InfaqId { get; set; }
 
