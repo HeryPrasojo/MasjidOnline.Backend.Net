@@ -15,7 +15,7 @@ public class LoginBusiness(IHash512Service _hash512Service) : ILoginBusiness
 {
     public async Task<Response> LoginAsync(IUserData _userData, ISessionBusiness _sessionBusiness, LoginRequest loginRequest)
     {
-        var userEmailAddress = await _userData.UserEmailAddress.GetForLoginAsync(loginRequest.EmailAddress);
+        var userEmailAddress = await _userData.UserEmailAddress.GetForUserLoginAsync(loginRequest.EmailAddress);
 
         if (userEmailAddress == default) throw new InputMismatchException(nameof(loginRequest.EmailAddress));
 

@@ -2,10 +2,9 @@
 
 namespace MasjidOnline.Data.Interface.Model.User;
 
-public class PasswordCodeForPasswordSet
+public class PasswordCodeForUserSetPassword
 {
     public required int UserId { get; set; }
 
     public DateTime? UseDateTime { get; set; }
-
 }

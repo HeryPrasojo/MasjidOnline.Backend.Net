@@ -18,10 +18,10 @@ public class PasswordCodeRepository(UserDataContext _userDataContext) : IPasswor
         await _dbSet.AddAsync(passwordCode);
     }
 
-    public async Task<PasswordCodeForPasswordSet?> GetForPasswordSetAsync(byte[] code)
+    public async Task<PasswordCodeForUserSetPassword?> GetForUserSetPasswordAsync(byte[] code)
     {
         return await _dbSet.Where(e => e.Code.SequenceEqual(code) && e.UseDateTime == default)
-            .Select(e => new PasswordCodeForPasswordSet
+            .Select(e => new PasswordCodeForUserSetPassword
             {
                 UserId = e.UserId,
                 UseDateTime = e.UseDateTime,

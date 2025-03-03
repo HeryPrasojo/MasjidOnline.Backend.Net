@@ -22,10 +22,10 @@ public class UserEmailAddressRepository(UserDataContext _userDataContext) : IUse
         return await _dbSet.AnyAsync(e => e.EmailAddress == emailAddress);
     }
 
-    public async Task<UserEmailAddressForLogin?> GetForLoginAsync(string emailAddress)
+    public async Task<UserEmailAddressForUserLogin?> GetForUserLoginAsync(string emailAddress)
     {
         return await _dbSet.Where(e => e.EmailAddress == emailAddress)
-            .Select(e => new UserEmailAddressForLogin
+            .Select(e => new UserEmailAddressForUserLogin
             {
                 UserId = e.UserId,
             })

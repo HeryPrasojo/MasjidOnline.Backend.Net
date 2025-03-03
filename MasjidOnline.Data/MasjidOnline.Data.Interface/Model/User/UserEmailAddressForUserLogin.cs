@@ -1,6 +1,6 @@
 ﻿namespace MasjidOnline.Data.Interface.Model.User;
 
-public class UserEmailAddressForLogin
+public class UserEmailAddressForUserLogin
 {
     public required int UserId { get; set; }
 }

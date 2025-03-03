@@ -1,20 +1,20 @@
 using System.Linq;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Infaq.Interface.Expired;
-using MasjidOnline.Business.Infaq.Interface.Model.Expired;
 using MasjidOnline.Business.Interface.Model.Responses;
+using MasjidOnline.Business.User.Interface.Internal;
+using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Data.Interface.Datas;
-using MasjidOnline.Data.Interface.Model.Infaq.Expired;
 using MasjidOnline.Data.Interface.Model.Repository;
+using MasjidOnline.Data.Interface.Model.User.Internal;
 using MasjidOnline.Service.FieldValidator.Interface;
 
-namespace MasjidOnline.Business.Infaq.Expired;
+namespace MasjidOnline.Business.User.Internal;
 
 public class GetManyBusiness(
     IFieldValidatorService _fieldValidatorService) : IGetManyBusiness
 {
     public async Task<GetManyResponse<GetManyResponseRecord>> GetAsync(
-        IInfaqData _infaqData,
+        IUserData _userData,
         GetManyRequest getManyRequest)
     {
         _fieldValidatorService.ValidateRequired(getManyRequest);
@@ -23,7 +23,7 @@ public class GetManyBusiness(
 
         var take = 10;
 
-        var getManyResult = await _infaqData.Expired.GetManyAsync(
+        var getManyResult = await _userData.Internal.GetManyAsync(
             isApproved: getManyRequest.IsApproved,
             getManyOrderBy: GetManyOrderBy.DateTime,
             orderByDirection: OrderByDirection.Descending,
@@ -36,7 +36,8 @@ public class GetManyBusiness(
             Records = getManyResult.Records.Select(e => new GetManyResponseRecord
             {
                 DateTime = e.DateTime,
-                InfaqId = e.InfaqId,
+                EmailAddress = e.EmailAddress,
+                Id = e.Id,
                 IsApproved = e.IsApproved,
                 UpdateDateTime = e.UpdateDateTime,
                 UpdateUserId = e.UpdateUserId,

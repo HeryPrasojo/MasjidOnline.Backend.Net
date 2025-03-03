@@ -8,5 +8,5 @@ public interface IUserEmailAddressRepository
 {
     Task AddAsync(UserEmailAddress userEmailAddress);
     Task<bool> AnyByEmailAddressAsync(string emailAddress);
-    Task<UserEmailAddressForLogin?> GetForLoginAsync(string emailAddress);
+    Task<UserEmailAddressForUserLogin?> GetForUserLoginAsync(string emailAddress);
 }

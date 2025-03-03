@@ -18,6 +18,15 @@ internal static class UserEndPoint
         {
             return await addBusiness.AddAsync(_sessionBusiness, _userData, addRequest);
         }
+
+        internal static async Task<Response> GetManyAsync(
+            Business.User.Interface.Internal.IGetManyBusiness getManyBusiness,
+            ISessionBusiness _sessionBusiness,
+            IUserData _userData,
+            Business.User.Interface.Model.Internal.GetManyRequest getManyRequest)
+        {
+            return await getManyBusiness.GetAsync(_userData, getManyRequest);
+        }
     }
 
     internal static class User
