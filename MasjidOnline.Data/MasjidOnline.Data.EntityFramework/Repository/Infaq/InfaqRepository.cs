@@ -122,7 +122,6 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
                     DateTime = e.DateTime,
                     Id = e.Id,
                     MunfiqName = e.MunfiqName,
-                    PaymentStatus = e.PaymentStatus,
                     PaymentType = e.PaymentType,
                 })
                 .ToArrayAsync(),

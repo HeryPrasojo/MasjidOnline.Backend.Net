@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MasjidOnline.Business.Infaq.Infaq.Mapper;
 using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.Model.Infaq.Infaq;
 using MasjidOnline.Data.Interface.Model.Repository;
-using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
 
 namespace MasjidOnline.Business.Infaq.Infaq;
@@ -26,30 +26,13 @@ public class GetManyBusiness(
         IEnumerable<Entity.Infaq.PaymentType>? paymentTypes = default;
 
         if (getManyRequest.PaymentTypes != default)
-        {
-            paymentTypes = getManyRequest.PaymentTypes.Select(m => m switch
-            {
-                Business.Infaq.Interface.Model.Payment.PaymentType.Cash => Entity.Infaq.PaymentType.Cash,
-                Business.Infaq.Interface.Model.Payment.PaymentType.ManualBankTransfer => Entity.Infaq.PaymentType.ManualBankTransfer,
-                _ => throw new ErrorException(nameof(getManyRequest.PaymentTypes)),
-            });
-        }
+            paymentTypes = getManyRequest.PaymentTypes.Select(m => m.MapEntity());
 
 
         IEnumerable<Entity.Infaq.PaymentStatus>? paymentStatuses = default;
 
         if (getManyRequest.PaymentStatuses != default)
-        {
-            paymentStatuses = getManyRequest.PaymentStatuses.Select(m => m switch
-            {
-                Business.Infaq.Interface.Model.Payment.PaymentStatus.Cancel => Entity.Infaq.PaymentStatus.Cancel,
-                Business.Infaq.Interface.Model.Payment.PaymentStatus.Expire => Entity.Infaq.PaymentStatus.Expire,
-                Business.Infaq.Interface.Model.Payment.PaymentStatus.Fail => Entity.Infaq.PaymentStatus.Fail,
-                Business.Infaq.Interface.Model.Payment.PaymentStatus.Pending => Entity.Infaq.PaymentStatus.Pending,
-                Business.Infaq.Interface.Model.Payment.PaymentStatus.Success => Entity.Infaq.PaymentStatus.Success,
-                _ => throw new ErrorException(nameof(getManyRequest.PaymentStatuses)),
-            });
-        }
+            paymentStatuses = getManyRequest.PaymentStatuses.Select(m => m.MapEntity());
 
 
         var take = 10;
@@ -71,10 +54,8 @@ public class GetManyBusiness(
                 DateTime = e.DateTime,
                 Id = e.Id,
                 MunfiqName = e.MunfiqName,
-
-                // todo use switch
-                PaymentStatus = (Interface.Model.Payment.PaymentStatus)e.PaymentStatus,
-                PaymentType = (Interface.Model.Payment.PaymentType)e.PaymentType,
+                PaymentStatus = e.PaymentStatus.MapModel(),
+                PaymentType = e.PaymentType.MapModel(),
             }),
             Total = getManyResult.Total,
         };

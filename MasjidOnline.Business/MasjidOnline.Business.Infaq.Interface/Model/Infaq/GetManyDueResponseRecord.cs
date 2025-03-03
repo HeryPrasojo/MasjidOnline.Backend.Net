@@ -14,6 +14,4 @@ public class GetManyDueResponseRecord
 
 
     public required PaymentType PaymentType { get; set; }
-
-    public required PaymentStatus PaymentStatus { get; set; }
 }

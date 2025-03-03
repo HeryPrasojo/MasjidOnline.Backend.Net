@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using MasjidOnline.Business.Infaq.Infaq.Mapper;
 using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Interface.Model.Options;
@@ -40,9 +41,7 @@ public class GetOneDueBusiness(
             Amount = infaq.Amount,
             DateTime = infaq.DateTime,
             MunfiqName = infaq.MunfiqName,
-
-            // todo use switch
-            PaymentType = (Interface.Model.Payment.PaymentType)infaq.PaymentType,
+            PaymentType = infaq.PaymentType.MapModel(),
         };
     }
 }

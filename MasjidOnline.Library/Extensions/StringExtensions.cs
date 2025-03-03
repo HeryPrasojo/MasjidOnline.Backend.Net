@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Library.Extentions;
+﻿namespace MasjidOnline.Library.Extensions;
 
 public static class StringExtensions
 {

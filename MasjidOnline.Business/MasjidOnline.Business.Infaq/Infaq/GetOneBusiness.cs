@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
+using MasjidOnline.Business.Infaq.Infaq.Mapper;
 using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
-using MasjidOnline.Business.Infaq.Interface.Model.Payment;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Library.Exceptions;
@@ -30,10 +30,8 @@ public class GetOneBusiness(
             Amount = infaq.Amount,
             DateTime = infaq.DateTime,
             MunfiqName = infaq.MunfiqName,
-
-            // todo use switch
-            PaymentStatus = (PaymentStatus)infaq.PaymentStatus,
-            PaymentType = (PaymentType)infaq.PaymentType,
+            PaymentStatus = infaq.PaymentStatus.MapModel(),
+            PaymentType = infaq.PaymentType.MapModel(),
         };
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MasjidOnline.Business.Infaq.Infaq.Mapper;
 using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Interface.Model.Options;
@@ -9,7 +10,6 @@ using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.Model.Infaq.Infaq;
 using MasjidOnline.Data.Interface.Model.Repository;
-using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
 using Microsoft.Extensions.Options;
 
@@ -30,14 +30,7 @@ public class GetManyDueBusiness(
         IEnumerable<Entity.Infaq.PaymentType>? paymentTypes = default;
 
         if (getManyDueRequest.PaymentTypes != default)
-        {
-            paymentTypes = getManyDueRequest.PaymentTypes.Select(m => m switch
-            {
-                Interface.Model.Payment.PaymentType.Cash => Entity.Infaq.PaymentType.Cash,
-                Interface.Model.Payment.PaymentType.ManualBankTransfer => Entity.Infaq.PaymentType.ManualBankTransfer,
-                _ => throw new ErrorException(nameof(getManyDueRequest.PaymentTypes)),
-            });
-        }
+            paymentTypes = getManyDueRequest.PaymentTypes.Select(m => m.MapEntity());
 
 
         var take = 10;
@@ -59,10 +52,7 @@ public class GetManyDueBusiness(
                 DateTime = e.DateTime,
                 Id = e.Id,
                 MunfiqName = e.MunfiqName,
-
-                // todo use switch
-                PaymentStatus = (Business.Infaq.Interface.Model.Payment.PaymentStatus)e.PaymentStatus,
-                PaymentType = (Business.Infaq.Interface.Model.Payment.PaymentType)e.PaymentType,
+                PaymentType = e.PaymentType.MapModel(),
             }),
             Total = getManyResult.Total,
         };
