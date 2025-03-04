@@ -10,4 +10,5 @@ public interface IInternalRepository
     Task AddAsync(Internal @internal);
     Task<ManyResult<ManyRecord>> GetManyAsync(bool? isApproved = null, ManyOrderBy getManyOrderBy = ManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);
     Task<int> GetMaxIdAsync();
+    Task<One?> GetOneAsync(int id);
 }

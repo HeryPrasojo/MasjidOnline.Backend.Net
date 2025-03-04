@@ -66,4 +66,19 @@ public class InternalRepository(UserDataContext _userDataContext) : IInternalRep
             Total = count,
         };
     }
+
+    public async Task<One?> GetOneAsync(int id)
+    {
+        return await _dbSet.Where(e => e.Id == id)
+            .Select(e => new One
+            {
+                DateTime = e.DateTime,
+                EmailAddress = e.EmailAddress,
+                IsApproved = e.IsApproved,
+                UpdateDateTime = e.UpdateDateTime,
+                UpdateUserId = e.UpdateUserId,
+                UserId = e.UserId,
+            })
+            .FirstOrDefaultAsync();
+    }
 }
