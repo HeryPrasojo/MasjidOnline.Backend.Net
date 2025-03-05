@@ -9,5 +9,5 @@ public interface IPasswordCodeRepository
 {
     Task AddAsync(PasswordCode passwordCode);
     Task<PasswordCodeForUserSetPassword?> GetForUserSetPasswordAsync(byte[] code);
-    void UpdateUseDateTime(byte[] code, DateTime useDateTime);
+    void SetUseDateTime(byte[] code, DateTime useDateTime);
 }

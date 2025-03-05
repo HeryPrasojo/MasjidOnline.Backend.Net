@@ -41,9 +41,9 @@ public class SetPasswordBusiness(
 
         var passwordBytes = _hash512Service.Hash(setPasswordRequest.Password);
 
-        _userData.User.UpdateSetPassword(passwordCode.UserId, passwordBytes);
+        _userData.User.SetPassword(passwordCode.UserId, passwordBytes);
 
-        _userData.PasswordCode.UpdateUseDateTime(passwordCodeBytes, DateTime.UtcNow);
+        _userData.PasswordCode.SetUseDateTime(passwordCodeBytes, DateTime.UtcNow);
 
 
         await _sessionBusiness.ChangeAsync(passwordCode.UserId);

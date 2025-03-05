@@ -47,7 +47,7 @@ public class UserRepository(UserDataContext _userDataContext) : IUserRepository
     }
 
 
-    public void UpdateSetPassword(int id, byte[] password)
+    public void SetPassword(int id, byte[] password)
     {
         var user = new Entity.User.User
         {

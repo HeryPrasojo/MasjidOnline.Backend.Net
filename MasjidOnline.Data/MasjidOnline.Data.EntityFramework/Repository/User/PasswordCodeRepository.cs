@@ -29,7 +29,7 @@ public class PasswordCodeRepository(UserDataContext _userDataContext) : IPasswor
             .FirstOrDefaultAsync();
     }
 
-    public void UpdateUseDateTime(byte[] code, DateTime useDateTime)
+    public void SetUseDateTime(byte[] code, DateTime useDateTime)
     {
         var passwordCode = new PasswordCode
         {
