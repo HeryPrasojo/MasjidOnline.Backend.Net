@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface.Model.Responses;
+using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Library.Exceptions;
@@ -15,18 +16,17 @@ public class GetOneBusiness(
         GetOneRequest getOneRequest)
     {
         _fieldValidatorService.ValidateRequired(getOneRequest);
-        _fieldValidatorService.ValidateRequiredPlus(getOneRequest.InfaqId);
+        _fieldValidatorService.ValidateRequiredPlus(getOneRequest.Id);
 
 
-        var infaq = await _userData.Internal.GetOneAsync(getOneRequest.InfaqId);
+        var infaq = await _userData.Internal.GetOneAsync(getOneRequest.Id);
 
-        if (infaq == default) throw new InputMismatchException($"{nameof(getOneRequest.InfaqId)}: {getOneRequest.InfaqId}");
+        if (infaq == default) throw new InputMismatchException($"{nameof(getOneRequest.Id)}: {getOneRequest.Id}");
 
         return new()
         {
             ResultCode = ResponseResultCode.Success,
             DateTime = infaq.DateTime,
-            InfaqId = infaq.InfaqId,
             IsApproved = infaq.IsApproved,
             UpdateDateTime = infaq.UpdateDateTime,
             UpdateUserId = infaq.UpdateUserId,

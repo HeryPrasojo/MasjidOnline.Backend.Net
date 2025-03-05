@@ -27,7 +27,6 @@ public class GetOneBusiness(
         {
             ResultCode = ResponseResultCode.Success,
             DateTime = infaq.DateTime,
-            InfaqId = infaq.InfaqId,
             IsApproved = infaq.IsApproved,
             UpdateDateTime = infaq.UpdateDateTime,
             UpdateUserId = infaq.UpdateUserId,

@@ -35,6 +35,7 @@ internal static class WebApplicationExtension
 
         userInternalGroup.MapPost("add", UserEndPoint.Internal.AddAsync);
         userInternalGroup.MapPost("getMany", UserEndPoint.Internal.GetManyAsync);
+        userInternalGroup.MapPost("getOne", UserEndPoint.Internal.GetOneAsync);
 
 
         var userUserGroup = userGroup.MapGroup("user/");

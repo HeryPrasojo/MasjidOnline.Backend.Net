@@ -103,7 +103,6 @@ public class ExpiredRepository(InfaqDataContext _infaqDataContext) : IExpiredRep
             .Select(e => new One
             {
                 DateTime = e.DateTime,
-                InfaqId = e.InfaqId,
                 IsApproved = e.IsApproved,
                 UpdateDateTime = e.UpdateDateTime,
                 UpdateUserId = e.UpdateUserId,
