@@ -1,4 +1,5 @@
 using System;
+using MasjidOnline.Entity.User;
 
 namespace MasjidOnline.Data.Interface.Model.User.Internal;
 
@@ -10,7 +11,7 @@ public class One
 
     public required int UserId { get; set; }
 
-    public required bool? IsApproved { get; set; }
+    public InternalStatus Status { get; set; }
 
     public required DateTime? UpdateDateTime { get; set; }
 

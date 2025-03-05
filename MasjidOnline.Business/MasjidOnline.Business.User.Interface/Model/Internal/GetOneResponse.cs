@@ -9,7 +9,7 @@ public class GetOneResponse : Response
 
     public required int UserId { get; set; }
 
-    public required bool? IsApproved { get; set; }
+    public InternalStatus Status { get; set; }
 
     public required DateTime? UpdateDateTime { get; set; }
 

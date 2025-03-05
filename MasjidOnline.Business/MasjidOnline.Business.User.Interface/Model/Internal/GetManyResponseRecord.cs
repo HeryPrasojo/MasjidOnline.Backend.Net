@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace MasjidOnline.Business.User.Interface.Model.Internal;
 
@@ -12,7 +12,7 @@ public class GetManyResponseRecord
 
     public required int UserId { get; set; }
 
-    public required bool? IsApproved { get; set; }
+    public required InternalStatus Status { get; set; }
 
     public required DateTime? UpdateDateTime { get; set; }
 

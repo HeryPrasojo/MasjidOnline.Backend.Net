@@ -25,7 +25,7 @@ public class AddBusiness(
         IUserData _userData,
         AddRequest addRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, infaqSetPaymentStatusExpired: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, infaqExpiredAdd: true);
 
         _fieldValidatorService.ValidateRequired(addRequest);
         _fieldValidatorService.ValidateRequiredPlus(addRequest.Id);

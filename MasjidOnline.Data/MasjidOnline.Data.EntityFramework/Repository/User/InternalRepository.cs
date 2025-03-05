@@ -24,7 +24,7 @@ public class InternalRepository(UserDataContext _userDataContext) : IInternalRep
     }
 
     public async Task<ManyResult<ManyRecord>> GetManyAsync(
-        bool? isApproved = default,
+        InternalStatus status = default,
         ManyOrderBy getManyOrderBy = default,
         OrderByDirection orderByDirection = default,
         int skip = 0,
@@ -32,8 +32,8 @@ public class InternalRepository(UserDataContext _userDataContext) : IInternalRep
     {
         var queryable = _dbSet.AsQueryable();
 
-        if (isApproved != default)
-            queryable = queryable.Where(e => e.IsApproved == isApproved);
+        if (status != default)
+            queryable = queryable.Where(e => e.Status == status);
 
 
         var countTask = queryable.LongCountAsync();
@@ -57,7 +57,7 @@ public class InternalRepository(UserDataContext _userDataContext) : IInternalRep
                     DateTime = e.DateTime,
                     EmailAddress = e.EmailAddress,
                     Id = e.Id,
-                    IsApproved = e.IsApproved,
+                    Status = e.Status,
                     UpdateDateTime = e.UpdateDateTime,
                     UpdateUserId = e.UpdateUserId,
                     UserId = e.UserId,
@@ -74,11 +74,18 @@ public class InternalRepository(UserDataContext _userDataContext) : IInternalRep
             {
                 DateTime = e.DateTime,
                 EmailAddress = e.EmailAddress,
-                IsApproved = e.IsApproved,
+                Status = e.Status,
                 UpdateDateTime = e.UpdateDateTime,
                 UpdateUserId = e.UpdateUserId,
                 UserId = e.UserId,
             })
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<InternalStatus> GetStatusAsync(int id)
+    {
+        return await _dbSet.Where(e => e.Id == id)
+            .Select(e => e.Status)
             .FirstOrDefaultAsync();
     }
 }

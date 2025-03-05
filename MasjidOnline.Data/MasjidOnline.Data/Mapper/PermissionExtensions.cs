@@ -15,8 +15,10 @@ public static class PermissionExtensions
             DateTime = dateTime,
 
             UserId = permission.UserId,
-            UserAddInternal = permission.UserAddInternal,
-            InfaqSetPaymentStatusExpired = permission.InfaqSetPaymentStatusExpired,
+            UserInternalAdd = permission.UserInternalAdd,
+            UserInternalCancel = permission.UserInternalCancel,
+            InfaqExpiredAdd = permission.InfaqExpiredAdd,
+            InfaqExpiredCancel = permission.InfaqExpiredCancel,
         };
     }
 }

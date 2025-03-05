@@ -30,8 +30,8 @@ public class GetOneBusiness(
             Amount = infaq.Amount,
             DateTime = infaq.DateTime,
             MunfiqName = infaq.MunfiqName,
-            PaymentStatus = infaq.PaymentStatus.MapModel(),
-            PaymentType = infaq.PaymentType.MapModel(),
+            PaymentStatus = infaq.PaymentStatus.ToModel(),
+            PaymentType = infaq.PaymentType.ToModel(),
         };
     }
 }

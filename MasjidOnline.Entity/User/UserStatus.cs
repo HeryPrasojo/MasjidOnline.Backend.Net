@@ -1,8 +1,9 @@
-﻿namespace MasjidOnline.Entity.User;
+namespace MasjidOnline.Entity.User;
 
 public enum UserStatus
 {
-    New = 0,
+    Invalid = 0,
+    New = 1,
     Reject = 2,
     Active = 4,
     Suspend = 6,

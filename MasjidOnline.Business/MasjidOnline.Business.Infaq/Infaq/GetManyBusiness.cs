@@ -26,13 +26,13 @@ public class GetManyBusiness(
         IEnumerable<Entity.Infaq.PaymentType>? paymentTypes = default;
 
         if (getManyRequest.PaymentTypes != default)
-            paymentTypes = getManyRequest.PaymentTypes.Select(m => m.MapEntity());
+            paymentTypes = getManyRequest.PaymentTypes.Select(m => m.ToEntity());
 
 
         IEnumerable<Entity.Infaq.PaymentStatus>? paymentStatuses = default;
 
         if (getManyRequest.PaymentStatuses != default)
-            paymentStatuses = getManyRequest.PaymentStatuses.Select(m => m.MapEntity());
+            paymentStatuses = getManyRequest.PaymentStatuses.Select(m => m.ToEntity());
 
 
         var take = 10;
@@ -54,8 +54,8 @@ public class GetManyBusiness(
                 DateTime = e.DateTime,
                 Id = e.Id,
                 MunfiqName = e.MunfiqName,
-                PaymentStatus = e.PaymentStatus.MapModel(),
-                PaymentType = e.PaymentType.MapModel(),
+                PaymentStatus = e.PaymentStatus.ToModel(),
+                PaymentType = e.PaymentType.ToModel(),
             }),
             Total = getManyResult.Total,
         };

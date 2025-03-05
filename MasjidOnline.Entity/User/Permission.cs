@@ -7,7 +7,11 @@ public class Permission
     [Key]
     public required int UserId { get; set; }
 
-    public required bool UserAddInternal { get; set; }
+    public required bool UserInternalAdd { get; set; }
 
-    public required bool InfaqSetPaymentStatusExpired { get; set; }
+    public required bool UserInternalCancel { get; set; }
+
+    public required bool InfaqExpiredAdd { get; set; }
+
+    public required bool InfaqExpiredCancel { get; set; }
 }

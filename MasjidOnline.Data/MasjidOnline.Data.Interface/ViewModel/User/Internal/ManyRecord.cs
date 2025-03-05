@@ -1,5 +1,7 @@
-﻿using System;
+using System;
+using MasjidOnline.Entity.User;
 
+// todo rename sync match
 namespace MasjidOnline.Data.Interface.Model.User.Internal;
 
 public class ManyRecord
@@ -12,7 +14,7 @@ public class ManyRecord
 
     public required int UserId { get; set; }
 
-    public required bool? IsApproved { get; set; }
+    public InternalStatus Status { get; set; }
 
     public required DateTime? UpdateDateTime { get; set; }
 

@@ -30,7 +30,7 @@ public class GetManyDueBusiness(
         IEnumerable<Entity.Infaq.PaymentType>? paymentTypes = default;
 
         if (getManyDueRequest.PaymentTypes != default)
-            paymentTypes = getManyDueRequest.PaymentTypes.Select(m => m.MapEntity());
+            paymentTypes = getManyDueRequest.PaymentTypes.Select(m => m.ToEntity());
 
 
         var take = 10;
@@ -52,7 +52,7 @@ public class GetManyDueBusiness(
                 DateTime = e.DateTime,
                 Id = e.Id,
                 MunfiqName = e.MunfiqName,
-                PaymentType = e.PaymentType.MapModel(),
+                PaymentType = e.PaymentType.ToModel(),
             }),
             Total = getManyResult.Total,
         };

@@ -1,10 +1,10 @@
-﻿using MasjidOnline.Library.Exceptions;
+using MasjidOnline.Library.Exceptions;
 
 namespace MasjidOnline.Business.Infaq.Infaq.Mapper;
 
 public static class ModelPaymentTypeExtensions
 {
-    public static Entity.Infaq.PaymentType MapEntity(this Interface.Model.Payment.PaymentType paymentType)
+    public static Entity.Infaq.PaymentType ToEntity(this Interface.Model.Payment.PaymentType paymentType)
     {
         return paymentType switch
         {

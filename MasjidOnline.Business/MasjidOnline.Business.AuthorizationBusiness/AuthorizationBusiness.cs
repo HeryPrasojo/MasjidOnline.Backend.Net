@@ -17,15 +17,18 @@ public class AuthorizationBusiness : IAuthorizationBusiness
     public async Task AuthorizePermissionAsync(
         ISessionBusiness _sessionBusiness,
         IUserData _userData,
-        bool infaqSetPaymentStatusExpired = default,
-        bool userAddInternal = default)
+        bool infaqExpiredAdd = default,
+        bool userInternalAdd = default,
+        bool userInternalCancel = default)
     {
         var sessionPermission = await _userData.Permission.GetByUserIdAsync(_sessionBusiness.UserId);
 
         if (sessionPermission == default) throw new PermissionException(nameof(Constant.AnonymousUserId));
 
-        if (infaqSetPaymentStatusExpired && !sessionPermission.InfaqSetPaymentStatusExpired) throw new PermissionException(nameof(sessionPermission.InfaqSetPaymentStatusExpired));
+        if (infaqExpiredAdd && !sessionPermission.InfaqExpiredAdd) throw new PermissionException(nameof(sessionPermission.InfaqExpiredAdd));
 
-        if (userAddInternal && !sessionPermission.UserAddInternal) throw new PermissionException(nameof(sessionPermission.UserAddInternal));
+        if (userInternalAdd && !sessionPermission.UserInternalAdd) throw new PermissionException(nameof(sessionPermission.UserInternalAdd));
+
+        if (userInternalCancel && !sessionPermission.UserInternalCancel) throw new PermissionException(nameof(sessionPermission.UserInternalCancel));
     }
 }

@@ -29,7 +29,7 @@ public class AddBusiness(
         IUserData _userData,
         AddRequest addRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, userAddInternal: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, userInternalAdd: true);
 
 
         _fieldValidatorService.ValidateRequired(addRequest);

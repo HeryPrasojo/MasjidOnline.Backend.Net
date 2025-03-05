@@ -41,7 +41,7 @@ public class GetOneDueBusiness(
             Amount = infaq.Amount,
             DateTime = infaq.DateTime,
             MunfiqName = infaq.MunfiqName,
-            PaymentType = infaq.PaymentType.MapModel(),
+            PaymentType = infaq.PaymentType.ToModel(),
         };
     }
 }

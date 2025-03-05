@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Business.User.Interface.Model.Internal;
+using MasjidOnline.Business.User.Internal.Mapper;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.Model.Repository;
 using MasjidOnline.Data.Interface.Model.User.Internal;
@@ -24,7 +25,7 @@ public class GetManyBusiness(
         var take = 10;
 
         var getManyResult = await _userData.Internal.GetManyAsync(
-            isApproved: getManyRequest.IsApproved,
+            status: getManyRequest.Status.ToEntity(),
             getManyOrderBy: ManyOrderBy.DateTime,
             orderByDirection: OrderByDirection.Descending,
             skip: (getManyRequest.Page - 1) * take,
@@ -38,7 +39,7 @@ public class GetManyBusiness(
                 DateTime = e.DateTime,
                 EmailAddress = e.EmailAddress,
                 Id = e.Id,
-                IsApproved = e.IsApproved,
+                Status = e.Status.ToModel(),
                 UpdateDateTime = e.UpdateDateTime,
                 UpdateUserId = e.UpdateUserId,
                 UserId = e.UserId,

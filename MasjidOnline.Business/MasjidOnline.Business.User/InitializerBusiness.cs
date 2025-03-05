@@ -46,7 +46,7 @@ public class InitializerBusiness(
             DateTime = utcNow,
             EmailAddress = option.RootUserEmailAddress,
             Id = _userIdGenerator.InternalId,
-            IsApproved = true,
+            Status = InternalStatus.Approve,
             UpdateDateTime = utcNow,
             UpdateUserId = _sessionBusiness.UserId,
             UserId = _sessionBusiness.UserId,
@@ -90,8 +90,10 @@ public class InitializerBusiness(
         {
             UserId = user.Id,
 
-            UserAddInternal = true,
-            InfaqSetPaymentStatusExpired = true,
+            UserInternalAdd = true,
+            UserInternalCancel = true,
+            InfaqExpiredAdd = true,
+            InfaqExpiredCancel = true,
         };
 
         await _userData.Permission.AddAsync(permission);
