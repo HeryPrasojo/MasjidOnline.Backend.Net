@@ -34,6 +34,7 @@ internal static class WebApplicationExtension
         var userInternalGroup = userGroup.MapGroup("internal/");
 
         userInternalGroup.MapPost("add", UserEndPoint.Internal.AddAsync);
+        userInternalGroup.MapPost("approve", UserEndPoint.Internal.ApproveAsync);
         userInternalGroup.MapPost("cancel", UserEndPoint.Internal.CancelAsync);
         userInternalGroup.MapPost("getMany", UserEndPoint.Internal.GetManyAsync);
         userInternalGroup.MapPost("getOne", UserEndPoint.Internal.GetOneAsync);

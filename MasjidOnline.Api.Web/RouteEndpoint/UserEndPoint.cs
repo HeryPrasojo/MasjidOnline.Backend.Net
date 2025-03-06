@@ -19,6 +19,15 @@ internal static class UserEndPoint
             return await _addBusiness.AddAsync(_sessionBusiness, _userData, addRequest);
         }
 
+        internal static async Task<Response> ApproveAsync(
+            Business.User.Interface.Internal.IApproveBusiness _approveBusiness,
+            ISessionBusiness _sessionBusiness,
+            IUserData _userData,
+            Business.User.Interface.Model.Internal.ApproveRequest approveRequest)
+        {
+            return await _approveBusiness.ApproveAsync(_sessionBusiness, _userData, approveRequest);
+        }
+
         internal static async Task<Response> CancelAsync(
             Business.User.Interface.Internal.ICancelBusiness _cancelBusiness,
             ISessionBusiness _sessionBusiness,

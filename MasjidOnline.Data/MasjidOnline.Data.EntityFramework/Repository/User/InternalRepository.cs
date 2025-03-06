@@ -97,7 +97,7 @@ public class InternalRepository(UserDataContext _userDataContext) : IInternalRep
             .FirstOrDefaultAsync();
     }
 
-    public async Task SetStatusAndSaveAsync(int id, InternalStatus status, string description, DateTime updateDateTime, int updateUserId)
+    public async Task SetStatusAndSaveAsync(int id, InternalStatus status, string? description, DateTime updateDateTime, int updateUserId)
     {
         var @internal = new Internal
         {
