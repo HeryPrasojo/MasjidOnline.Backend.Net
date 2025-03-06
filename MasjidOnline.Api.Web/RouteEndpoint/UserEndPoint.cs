@@ -43,6 +43,15 @@ internal static class UserEndPoint
         {
             return await _getOneBusiness.GetAsync(_userData, getOneRequest);
         }
+
+        internal static async Task<Response> RejectAsync(
+            Business.User.Interface.Internal.IRejectBusiness _rejectBusiness,
+            ISessionBusiness _sessionBusiness,
+            IUserData _userData,
+            Business.User.Interface.Model.Internal.RejectRequest rejectRequest)
+        {
+            return await _rejectBusiness.RejectAsync(_sessionBusiness, _userData, rejectRequest);
+        }
     }
 
     internal static class User

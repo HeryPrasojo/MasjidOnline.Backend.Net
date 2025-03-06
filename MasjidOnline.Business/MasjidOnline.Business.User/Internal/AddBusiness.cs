@@ -43,13 +43,9 @@ public class AddBusiness(
         if (any) throw new InputMismatchException($"{addRequest.EmailAddress} exists");
 
 
-        var utcNow = DateTime.UtcNow;
-
-        // undone internal
-
         var @internal = new Entity.User.Internal
         {
-            DateTime = utcNow,
+            DateTime = DateTime.UtcNow,
             EmailAddress = addRequest.EmailAddress,
             Id = _userIdGenerator.InternalId,
             Status = Entity.User.InternalStatus.New,
@@ -85,7 +81,7 @@ public class AddBusiness(
         var passwordCode = new PasswordCode
         {
             Code = _userIdGenerator.PasswordCodeCode,
-            DateTime = utcNow,
+            DateTime = DateTime.UtcNow,
             UserId = user.Id,
         };
 
