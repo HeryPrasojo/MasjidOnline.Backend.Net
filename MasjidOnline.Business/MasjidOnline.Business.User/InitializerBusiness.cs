@@ -20,7 +20,7 @@ public class InitializerBusiness(
 {
     public async Task InitializeAsync(ISessionBusiness _sessionBusiness, IUserData _userData)
     {
-        var any = await _userData.User.GetAnyByIdAsync(_sessionBusiness.UserId);
+        var any = await _userData.User.GetAnyAsync(_sessionBusiness.UserId);
 
         if (any) return;
 

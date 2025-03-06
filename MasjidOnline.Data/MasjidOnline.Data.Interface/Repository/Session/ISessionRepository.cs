@@ -6,6 +6,6 @@ namespace MasjidOnline.Data.Interface.Repository.Session;
 public interface ISessionRepository
 {
     Task AddAsync(Entity.Session.Session setting);
-    Task<SessionForAuthentication?> GetForAuthenticationAsync(byte[] id);
+    Task<SessionForStart?> GetForStartAsync(byte[] digest);
     Task<int> GetMaxIdAsync();
 }

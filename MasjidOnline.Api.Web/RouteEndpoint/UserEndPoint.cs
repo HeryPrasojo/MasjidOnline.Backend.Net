@@ -11,28 +11,37 @@ internal static class UserEndPoint
     internal static class Internal
     {
         internal static async Task<Response> AddAsync(
-            Business.User.Interface.Internal.IAddBusiness addBusiness,
+            Business.User.Interface.Internal.IAddBusiness _addBusiness,
             ISessionBusiness _sessionBusiness,
             IUserData _userData,
             Business.User.Interface.Model.Internal.AddRequest addRequest)
         {
-            return await addBusiness.AddAsync(_sessionBusiness, _userData, addRequest);
+            return await _addBusiness.AddAsync(_sessionBusiness, _userData, addRequest);
+        }
+
+        internal static async Task<Response> CancelAsync(
+            Business.User.Interface.Internal.ICancelBusiness _cancelBusiness,
+            ISessionBusiness _sessionBusiness,
+            IUserData _userData,
+            Business.User.Interface.Model.Internal.CancelRequest cancelRequest)
+        {
+            return await _cancelBusiness.CancelAsync(_sessionBusiness, _userData, cancelRequest);
         }
 
         internal static async Task<GetManyResponse<Business.User.Interface.Model.Internal.GetManyResponseRecord>> GetManyAsync(
-            Business.User.Interface.Internal.IGetManyBusiness getManyBusiness,
+            Business.User.Interface.Internal.IGetManyBusiness _getManyBusiness,
             IUserData _userData,
             Business.User.Interface.Model.Internal.GetManyRequest getManyRequest)
         {
-            return await getManyBusiness.GetAsync(_userData, getManyRequest);
+            return await _getManyBusiness.GetAsync(_userData, getManyRequest);
         }
 
         internal static async Task<Business.User.Interface.Model.Internal.GetOneResponse> GetOneAsync(
-            Business.User.Interface.Internal.IGetOneBusiness getOneBusiness,
+            Business.User.Interface.Internal.IGetOneBusiness _getOneBusiness,
             IUserData _userData,
             Business.User.Interface.Model.Internal.GetOneRequest getOneRequest)
         {
-            return await getOneBusiness.GetAsync(_userData, getOneRequest);
+            return await _getOneBusiness.GetAsync(_userData, getOneRequest);
         }
     }
 

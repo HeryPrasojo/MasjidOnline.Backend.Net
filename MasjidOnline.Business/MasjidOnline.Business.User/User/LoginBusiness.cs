@@ -15,12 +15,12 @@ public class LoginBusiness(IHash512Service _hash512Service) : ILoginBusiness
 {
     public async Task<Response> LoginAsync(IUserData _userData, ISessionBusiness _sessionBusiness, LoginRequest loginRequest)
     {
-        var userEmailAddress = await _userData.UserEmailAddress.GetForUserLoginAsync(loginRequest.EmailAddress);
+        var userId = await _userData.UserEmailAddress.GetUserIdAsync(loginRequest.EmailAddress);
 
-        if (userEmailAddress == default) throw new InputMismatchException(nameof(loginRequest.EmailAddress));
+        if (userId == default) throw new InputMismatchException(nameof(loginRequest.EmailAddress));
 
 
-        var user = await _userData.User.GetForLoginAsync(userEmailAddress.UserId);
+        var user = await _userData.User.GetForLoginAsync(userId.Value);
 
         if (user == default) throw new InputMismatchException(nameof(loginRequest.EmailAddress));
 
@@ -32,7 +32,7 @@ public class LoginBusiness(IHash512Service _hash512Service) : ILoginBusiness
         if (!requestPasswordHashBytes.SequenceEqual(user.Password)) throw new InputMismatchException(nameof(loginRequest.Password));
 
 
-        await _sessionBusiness.ChangeAndSaveAsync(userEmailAddress.UserId);
+        await _sessionBusiness.ChangeAndSaveAsync(userId.Value);
 
         return new()
         {

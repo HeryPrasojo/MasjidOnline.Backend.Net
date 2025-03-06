@@ -10,7 +10,6 @@ namespace MasjidOnline.Data.Interface.Repository.Infaq;
 public interface IInfaqRepository
 {
     Task AddAsync(Entity.Infaq.Infaq infaq);
-    Task AddAndSaveAsync(Entity.Infaq.Infaq infaq);
     Task<int> GetMaxIdAsync();
     Task<One?> GetOneAsync(int id);
     Task<ManyResult<ManyRecord>> GetManyAsync(IEnumerable<PaymentType>? paymentTypes = null, IEnumerable<PaymentStatus>? paymentStatuses = null, ManyOrderBy getManyOrderBy = ManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);

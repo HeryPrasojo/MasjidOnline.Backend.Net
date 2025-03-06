@@ -12,11 +12,11 @@ internal static class CaptchaEndPoint
 {
     internal static async Task<IResult> AddQuestionAsync(
         HttpContext httpContext,
-        ICaptchaQuestionBusiness captchaQuestionBusiness,
+        ICaptchaQuestionBusiness _captchaQuestionBusiness,
         ISessionBusiness _sessionBusiness,
         ICaptchaData _captchaData)
     {
-        var createResponse = await captchaQuestionBusiness.AddAsync(_captchaData, _sessionBusiness);
+        var createResponse = await _captchaQuestionBusiness.AddAsync(_captchaData, _sessionBusiness);
 
         httpContext.Response.Headers[Constant.HttpHeaderName.ResultCode] = createResponse.ResultCode.ToString();
         httpContext.Response.Headers[Constant.HttpHeaderName.ResultMessage] = createResponse.ResultMessage;
@@ -27,11 +27,11 @@ internal static class CaptchaEndPoint
     }
 
     internal static async Task<Response> AddAnswerAsync(
-        ICaptchaAnswerBusiness captchaAnswerBusiness,
+        ICaptchaAnswerBusiness _captchaAnswerBusiness,
         ICaptchaData _captchaData,
         ISessionBusiness _sessionBusiness,
         AnswerAddRequest answerAddRequest)
     {
-        return await captchaAnswerBusiness.AddAsync(_captchaData, _sessionBusiness, answerAddRequest);
+        return await _captchaAnswerBusiness.AddAsync(_captchaData, _sessionBusiness, answerAddRequest);
     }
 }

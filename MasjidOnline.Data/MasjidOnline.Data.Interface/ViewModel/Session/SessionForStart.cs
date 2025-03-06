@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 
 namespace MasjidOnline.Data.Interface.Model.Session;
 
-public class SessionForAuthentication
+public class SessionForStart
 {
     public required int Id { get; set; }
 

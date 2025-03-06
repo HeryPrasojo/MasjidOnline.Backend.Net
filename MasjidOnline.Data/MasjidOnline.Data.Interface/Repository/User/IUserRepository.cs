@@ -7,9 +7,9 @@ namespace MasjidOnline.Data.Interface.Repository.User;
 public interface IUserRepository
 {
     Task AddAsync(Entity.User.User user);
-    Task<bool> GetAnyByIdAsync(int id);
+    Task<bool> GetAnyAsync(int id);
     Task<UserForLogin?> GetForLoginAsync(int id);
     Task<int> GetMaxIdAsync();
-    Task<UserType> GetTypeByIdAsync(int userId);
+    Task<UserType> GetTypeAsync(int id);
     void SetPassword(int id, byte[] password);
 }

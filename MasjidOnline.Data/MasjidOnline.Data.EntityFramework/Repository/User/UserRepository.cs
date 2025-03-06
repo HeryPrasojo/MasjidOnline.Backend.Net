@@ -18,7 +18,7 @@ public class UserRepository(UserDataContext _userDataContext) : IUserRepository
     }
 
 
-    public async Task<bool> GetAnyByIdAsync(int id)
+    public async Task<bool> GetAnyAsync(int id)
     {
         return await _dbSet.AnyAsync(e => e.Id == id);
     }
@@ -28,9 +28,9 @@ public class UserRepository(UserDataContext _userDataContext) : IUserRepository
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
     }
 
-    public async Task<UserType> GetTypeByIdAsync(int userId)
+    public async Task<UserType> GetTypeAsync(int id)
     {
-        return await _dbSet.Where(e => e.Id == userId)
+        return await _dbSet.Where(e => e.Id == id)
             .Select(e => e.Type)
             .FirstOrDefaultAsync();
     }

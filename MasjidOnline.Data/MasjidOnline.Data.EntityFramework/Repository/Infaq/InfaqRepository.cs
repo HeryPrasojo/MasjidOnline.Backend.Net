@@ -20,13 +20,6 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
         await _dbSet.AddAsync(infaq);
     }
 
-    public async Task AddAndSaveAsync(Entity.Infaq.Infaq infaq)
-    {
-        await AddAsync(infaq);
-
-        await SaveAsync();
-    }
-
     public async Task<ExpiredAdd?> GetForExpiredAddAsync(int id)
     {
         return await _dbSet.Where(e => e.Id == id)
@@ -160,12 +153,6 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
                 PaymentType = e.PaymentType,
             })
             .FirstOrDefaultAsync();
-    }
-
-
-    private async Task<int> SaveAsync()
-    {
-        return await _infaqDataContext.SaveChangesAsync();
     }
 
 

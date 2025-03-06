@@ -6,13 +6,13 @@ public class Internal
 {
     public required int Id { get; set; }
 
-    public required DateTime DateTime { get; set; }
+    public DateTime DateTime { get; set; }
 
-    public required string EmailAddress { get; set; }
+    public string EmailAddress { get; set; } = default!;
 
-    public required int UserId { get; set; }
+    public int UserId { get; set; }
 
-    public InternalStatus Status { get; set; }
+    public required InternalStatus Status { get; set; }
 
     public string? Description { get; set; }
 

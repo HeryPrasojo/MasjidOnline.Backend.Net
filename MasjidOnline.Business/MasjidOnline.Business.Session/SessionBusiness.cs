@@ -74,7 +74,7 @@ public class SessionBusiness(
 
             var decryptedRquestSessionIdBytes = _encryption128128.Decrypt(requestSessionIdBytes);
 
-            var sessionEntity = await _sessionData.Session.GetForAuthenticationAsync(decryptedRquestSessionIdBytes);
+            var sessionEntity = await _sessionData.Session.GetForStartAsync(decryptedRquestSessionIdBytes);
 
             if (sessionEntity == default) throw new InputMismatchException(idBase64Expression);
 

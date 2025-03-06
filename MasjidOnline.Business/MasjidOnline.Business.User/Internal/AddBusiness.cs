@@ -38,7 +38,7 @@ public class AddBusiness(
         addRequest.Name = _fieldValidatorService.ValidateRequiredText255(addRequest.Name);
 
 
-        var any = await _userData.UserEmailAddress.AnyByEmailAddressAsync(addRequest.EmailAddress);
+        var any = await _userData.UserEmailAddress.AnyAsync(addRequest.EmailAddress);
 
         if (any) throw new InputMismatchException($"{addRequest.EmailAddress} exists");
 
@@ -52,10 +52,11 @@ public class AddBusiness(
             DateTime = utcNow,
             EmailAddress = addRequest.EmailAddress,
             Id = _userIdGenerator.InternalId,
+            Status = Entity.User.InternalStatus.New,
             UserId = _sessionBusiness.UserId,
         };
 
-        await _userData.Internal.AddAsync(@internal);
+        await _userData.Internal.AddAndSaveAsync(@internal);
 
 
         // undone move to approve

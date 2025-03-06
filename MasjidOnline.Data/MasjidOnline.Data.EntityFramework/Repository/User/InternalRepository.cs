@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
@@ -16,6 +17,13 @@ public class InternalRepository(UserDataContext _userDataContext) : IInternalRep
     public async Task AddAsync(Internal @internal)
     {
         await _dbSet.AddAsync(@internal);
+    }
+
+    public async Task AddAndSaveAsync(Internal @internal)
+    {
+        await _dbSet.AddAsync(@internal);
+
+        await _userDataContext.SaveChangesAsync();
     }
 
     public async Task<int> GetMaxIdAsync()
@@ -87,5 +95,27 @@ public class InternalRepository(UserDataContext _userDataContext) : IInternalRep
         return await _dbSet.Where(e => e.Id == id)
             .Select(e => e.Status)
             .FirstOrDefaultAsync();
+    }
+
+    public async Task SetStatusAndSaveAsync(int id, InternalStatus status, string description, DateTime updateDateTime, int updateUserId)
+    {
+        var @internal = new Internal
+        {
+            Description = description,
+            Id = id,
+            Status = status,
+            UpdateDateTime = updateDateTime,
+            UpdateUserId = updateUserId,
+        };
+
+        var entityEntry = _dbSet.Attach(@internal);
+
+        entityEntry.Property(e => e.Description).IsModified = true;
+        entityEntry.Property(e => e.Status).IsModified = true;
+        entityEntry.Property(e => e.UpdateDateTime).IsModified = true;
+        entityEntry.Property(e => e.UpdateUserId).IsModified = true;
+
+
+        await _userDataContext.SaveChangesAsync();
     }
 }
