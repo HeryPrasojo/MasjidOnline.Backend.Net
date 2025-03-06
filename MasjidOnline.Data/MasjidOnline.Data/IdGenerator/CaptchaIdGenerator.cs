@@ -1,4 +1,4 @@
-﻿using System.Threading;
+using System.Threading;
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
@@ -7,18 +7,14 @@ namespace MasjidOnline.Data.IdGenerator;
 
 public class CaptchaIdGenerator : ICaptchaIdGenerator
 {
-    private int _captchaAnswerId;
-    private int _captchaQuestionId;
+    private int _captchaId;
 
     public async Task InitializeAsync(ICaptchaData captchaData)
     {
-        _captchaAnswerId = await captchaData.CaptchaAnswer.GetMaxIdAsync();
-        _captchaQuestionId = await captchaData.CaptchaQuestion.GetMaxIdAsync();
+        _captchaId = await captchaData.Captcha.GetMaxIdAsync();
     }
 
-    public int CaptchaAnswerId => Interlocked.Increment(ref _captchaAnswerId);
-
-    public int CaptchaQuestionId => Interlocked.Increment(ref _captchaQuestionId);
+    public int CaptchaId => Interlocked.Increment(ref _captchaId);
 
 
 }

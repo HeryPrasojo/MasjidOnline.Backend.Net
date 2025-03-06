@@ -12,11 +12,11 @@ internal static class CaptchaEndPoint
 {
     internal static async Task<IResult> AddQuestionAsync(
         HttpContext httpContext,
-        ICaptchaQuestionBusiness _captchaQuestionBusiness,
+        ICaptchaAddBusiness _captchaAddBusiness,
         ISessionBusiness _sessionBusiness,
         ICaptchaData _captchaData)
     {
-        var createResponse = await _captchaQuestionBusiness.AddAsync(_captchaData, _sessionBusiness);
+        var createResponse = await _captchaAddBusiness.AddAsync(_captchaData, _sessionBusiness);
 
         httpContext.Response.Headers[Constant.HttpHeaderName.ResultCode] = createResponse.ResultCode.ToString();
         httpContext.Response.Headers[Constant.HttpHeaderName.ResultMessage] = createResponse.ResultMessage;
@@ -26,12 +26,12 @@ internal static class CaptchaEndPoint
         return Results.Stream(createResponse.Stream!, "image/png");
     }
 
-    internal static async Task<Response> AddAnswerAsync(
-        ICaptchaAnswerBusiness _captchaAnswerBusiness,
+    internal static async Task<Response> UpdateAsync(
+        ICaptchaUpdateBusiness _captchaUpdateBusiness,
         ICaptchaData _captchaData,
         ISessionBusiness _sessionBusiness,
-        AnswerAddRequest answerAddRequest)
+        CaptchaUpdateRequest captchaUpdateRequest)
     {
-        return await _captchaAnswerBusiness.AddAsync(_captchaData, _sessionBusiness, answerAddRequest);
+        return await _captchaUpdateBusiness.UpdateAsync(_captchaData, _sessionBusiness, captchaUpdateRequest);
     }
 }

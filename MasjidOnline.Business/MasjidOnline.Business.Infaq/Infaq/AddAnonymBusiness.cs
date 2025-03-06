@@ -28,14 +28,14 @@ public class AddAnonymBusiness(
     {
         if (_sessionBusiness.UserId == Constant.AnonymousUserId)
         {
-            var captchaQuestions = await _captchaData.CaptchaQuestion.GetForInfaqAddByAnonymAsync(_sessionBusiness.Id);
+            var captchas = await _captchaData.Captcha.GetForInfaqAddByAnonymAsync(_sessionBusiness.Id);
 
-            if (!captchaQuestions.Any()) return new()
+            if (!captchas.Any()) return new()
             {
                 ResultCode = ResponseResultCode.CaptchaNeeded,
             };
 
-            if (!captchaQuestions.Any(e => e.IsMatched)) return new()
+            if (!captchas.Any(e => e.IsMatched == true)) return new()
             {
                 ResultCode = ResponseResultCode.CaptchaNotPassed,
             };

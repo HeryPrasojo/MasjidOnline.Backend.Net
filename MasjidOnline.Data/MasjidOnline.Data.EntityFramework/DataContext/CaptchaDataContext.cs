@@ -1,4 +1,4 @@
-﻿using MasjidOnline.Entity.Captcha;
+using MasjidOnline.Entity.Captcha;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.DataContext;
@@ -9,9 +9,7 @@ public class CaptchaDataContext(DbContextOptions _dbContextOptions) : DbContext(
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<CaptchaAnswer>();
-        modelBuilder.Entity<CaptchaQuestion>();
-
+        modelBuilder.Entity<Captcha>();
         modelBuilder.Entity<CaptchaSetting>();
     }
 }

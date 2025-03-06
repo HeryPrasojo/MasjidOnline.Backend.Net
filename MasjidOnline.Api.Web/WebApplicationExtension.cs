@@ -10,7 +10,7 @@ internal static class WebApplicationExtension
         var captchaGroup = webApplication.MapGroup("/captcha/");
 
         captchaGroup.MapPost("question", CaptchaEndPoint.AddQuestionAsync);
-        captchaGroup.MapPost("answer", CaptchaEndPoint.AddAnswerAsync);
+        captchaGroup.MapPost("answer", CaptchaEndPoint.UpdateAsync);
 
 
         var infaqGroup = webApplication.MapGroup("/infaq/");

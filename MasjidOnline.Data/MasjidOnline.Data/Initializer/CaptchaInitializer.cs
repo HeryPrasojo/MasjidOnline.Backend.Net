@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.Definition;
 using MasjidOnline.Data.Interface.Initializer;
@@ -15,8 +15,7 @@ public abstract class CaptchaInitializer(ICaptchaDefinition _captchaDefinition) 
         if (!settingTableExists)
         {
             await CreateTableCaptchaSettingAsync();
-            await CreateTableCaptchaQuestionAsync();
-            await CreateTableCaptchaAnswerAsync();
+            await CreateTableCaptchaAsync();
 
 
             var captchaSetting = new CaptchaSetting
@@ -33,9 +32,7 @@ public abstract class CaptchaInitializer(ICaptchaDefinition _captchaDefinition) 
     }
 
 
+    protected abstract Task<int> CreateTableCaptchaAsync();
+
     protected abstract Task<int> CreateTableCaptchaSettingAsync();
-
-    protected abstract Task<int> CreateTableCaptchaQuestionAsync();
-
-    protected abstract Task<int> CreateTableCaptchaAnswerAsync();
 }

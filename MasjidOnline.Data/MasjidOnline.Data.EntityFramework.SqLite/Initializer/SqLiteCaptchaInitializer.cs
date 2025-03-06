@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Initializer;
@@ -24,30 +24,18 @@ public class SqLiteCaptchaInitializer(
         return await _captchaDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTableCaptchaQuestionAsync()
+    protected override async Task<int> CreateTableCaptchaAsync()
     {
         FormattableString sql = @$"
-            CREATE TABLE CaptchaQuestion
+            CREATE TABLE Captcha
             (
                 Id INTEGER PRIMARY KEY,
                 DateTime TEXT NOT NULL,
                 SessionId INTEGER NOT NULL,
-                Degree REAL NOT NULL
-            )";
-
-        return await _captchaDataContext.Database.ExecuteSqlAsync(sql);
-    }
-
-    protected override async Task<int> CreateTableCaptchaAnswerAsync()
-    {
-        FormattableString sql = @$"
-            CREATE TABLE CaptchaAnswer
-            (
-                Id INTEGER PRIMARY KEY,
-                DateTime TEXT NOT NULL,
-                CaptchaQuestionId INTEGER NOT NULL,
-                Degree REAL NOT NULL,
-                IsMatch INTEGER NOT NULL
+                UpdateDateTime TEXT,
+                IsMatched INTEGER,
+                QuestionFloat REAL NOT NULL,
+                AnswerFloat REAL
             )";
 
         return await _captchaDataContext.Database.ExecuteSqlAsync(sql);
