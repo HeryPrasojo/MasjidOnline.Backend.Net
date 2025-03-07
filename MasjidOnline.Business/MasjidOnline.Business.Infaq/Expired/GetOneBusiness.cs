@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using MasjidOnline.Business.Infaq.Expired.Mapper;
 using MasjidOnline.Business.Infaq.Interface.Expired;
 using MasjidOnline.Business.Infaq.Interface.Model.Expired;
 using MasjidOnline.Business.Interface.Model.Responses;
@@ -27,7 +28,7 @@ public class GetOneBusiness(
         {
             ResultCode = ResponseResultCode.Success,
             DateTime = infaq.DateTime,
-            IsApproved = infaq.IsApproved,
+            Status = infaq.Status.ToModel(),
             UpdateDateTime = infaq.UpdateDateTime,
             UpdateUserId = infaq.UpdateUserId,
             UserId = infaq.UserId,

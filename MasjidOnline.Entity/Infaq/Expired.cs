@@ -6,13 +6,15 @@ public class Expired
 {
     public required int Id { get; set; }
 
-    public required int InfaqId { get; set; }
+    public int InfaqId { get; set; }
 
-    public required DateTime DateTime { get; set; }
+    public DateTime DateTime { get; set; }
 
-    public required int UserId { get; set; }
+    public int UserId { get; set; }
 
-    public bool? IsApproved { get; set; }
+    public required ExpiredStatus Status { get; set; }
+
+    public string? Description { get; set; }
 
     public DateTime? UpdateDateTime { get; set; }
 

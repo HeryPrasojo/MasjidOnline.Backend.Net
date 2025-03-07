@@ -17,12 +17,13 @@ public class SqLiteInfaqsInitializer(
         FormattableString sql = @$"
             CREATE TABLE Expired
             (
-                InfaqId INTEGER PRIMARY KEY,
+                Id INTEGER PRIMARY KEY,
+                InfaqId INTEGER NOT NULL,
                 DateTime TEXT NOT NULL,
                 UserId INTEGER NUT NULL,
+                Status INTEGER NUT NULL
                 UpdateDateTime TEXT,
                 UpdateUserId INTEGER,
-                IsApproved INTEGER
             )";
 
         return await _infaqDataContext.Database.ExecuteSqlAsync(sql);

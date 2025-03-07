@@ -50,6 +50,7 @@ public class AddBusiness(
             DateTime = DateTime.UtcNow,
             Id = _infaqIdGenerator.ExpiredId,
             InfaqId = addRequest.InfaqId,
+            Status = Entity.Infaq.ExpiredStatus.New,
             UserId = _sessionBusiness.UserId,
         };
 

@@ -32,7 +32,7 @@ public class InternalRepository(UserDataContext _userDataContext) : IInternalRep
     }
 
     public async Task<ManyResult<ManyRecord>> GetManyAsync(
-        InternalStatus status = default,
+        InternalStatus? status = default,
         ManyOrderBy getManyOrderBy = default,
         OrderByDirection orderByDirection = default,
         int skip = 0,

@@ -65,5 +65,51 @@ internal static class InfaqEndPoint
         {
             return await _addBusiness.AddAsync(_authorizationBusiness, _infaqData, _sessionBusiness, _userData, addRequest);
         }
+
+        internal static async Task<Response> ApproveAsync(
+            Business.Infaq.Interface.Expired.IApproveBusiness _approveBusiness,
+            ISessionBusiness _sessionBusiness,
+            IUserData _userData,
+            IInfaqData _infaqData,
+            Business.Infaq.Interface.Model.Expired.ApproveRequest approveRequest)
+        {
+            return await _approveBusiness.ApproveAsync(_sessionBusiness, _userData, _infaqData, approveRequest);
+        }
+
+        internal static async Task<Response> CancelAsync(
+            Business.Infaq.Interface.Expired.ICancelBusiness _cancelBusiness,
+            ISessionBusiness _sessionBusiness,
+            IUserData _userData,
+            IInfaqData _infaqData,
+            Business.Infaq.Interface.Model.Expired.CancelRequest cancelRequest)
+        {
+            return await _cancelBusiness.CancelAsync(_sessionBusiness, _userData, _infaqData, cancelRequest);
+        }
+
+        internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Expired.GetManyResponseRecord>> GetManyAsync(
+            Business.Infaq.Interface.Expired.IGetManyBusiness _getManyBusiness,
+            IInfaqData _infaqData,
+            Business.Infaq.Interface.Model.Expired.GetManyRequest getManyRequest)
+        {
+            return await _getManyBusiness.GetAsync(_infaqData, getManyRequest);
+        }
+
+        internal static async Task<Business.Infaq.Interface.Model.Expired.GetOneResponse> GetOneAsync(
+            Business.Infaq.Interface.Expired.IGetOneBusiness _getOneBusiness,
+            IInfaqData _infaqData,
+            Business.Infaq.Interface.Model.Expired.GetOneRequest getOneRequest)
+        {
+            return await _getOneBusiness.GetAsync(_infaqData, getOneRequest);
+        }
+
+        internal static async Task<Response> RejectAsync(
+            Business.Infaq.Interface.Expired.IRejectBusiness _rejectBusiness,
+            ISessionBusiness _sessionBusiness,
+            IUserData _userData,
+            IInfaqData _infaqData,
+            Business.Infaq.Interface.Model.Expired.RejectRequest rejectRequest)
+        {
+            return await _rejectBusiness.RejectAsync(_sessionBusiness, _userData, _infaqData, rejectRequest);
+        }
     }
 }

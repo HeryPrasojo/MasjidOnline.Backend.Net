@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
+using MasjidOnline.Business.Infaq.Expired.Mapper;
 using MasjidOnline.Business.Infaq.Interface.Expired;
 using MasjidOnline.Business.Infaq.Interface.Model.Expired;
 using MasjidOnline.Business.Interface.Model.Responses;
@@ -24,7 +25,7 @@ public class GetManyBusiness(
         var take = 10;
 
         var getManyResult = await _infaqData.Expired.GetManyAsync(
-            isApproved: getManyRequest.IsApproved,
+            status: getManyRequest.Status.ToEntity(),
             getManyOrderBy: ManyOrderBy.DateTime,
             orderByDirection: OrderByDirection.Descending,
             skip: (getManyRequest.Page - 1) * take,
@@ -37,7 +38,7 @@ public class GetManyBusiness(
             {
                 DateTime = e.DateTime,
                 InfaqId = e.InfaqId,
-                IsApproved = e.IsApproved,
+                Status = e.Status.ToModel(),
                 UpdateDateTime = e.UpdateDateTime,
                 UpdateUserId = e.UpdateUserId,
                 UserId = e.UserId,

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
@@ -19,7 +20,7 @@ public class ExpiredRepository(InfaqDataContext _infaqDataContext) : IExpiredRep
     }
 
     public async Task<ManyResult<ManyRecord>> GetManyAsync(
-        bool? isApproved = default,
+        ExpiredStatus? status = default,
         ManyOrderBy getManyOrderBy = default,
         OrderByDirection orderByDirection = default,
         int skip = 0,
@@ -27,8 +28,8 @@ public class ExpiredRepository(InfaqDataContext _infaqDataContext) : IExpiredRep
     {
         var queryable = _dbSet.AsQueryable();
 
-        if (isApproved != default)
-            queryable = queryable.Where(e => e.IsApproved == isApproved);
+        if (status != default)
+            queryable = queryable.Where(e => e.Status == status);
 
 
         var countTask = queryable.LongCountAsync();
@@ -51,7 +52,7 @@ public class ExpiredRepository(InfaqDataContext _infaqDataContext) : IExpiredRep
                 {
                     DateTime = e.DateTime,
                     InfaqId = e.InfaqId,
-                    IsApproved = e.IsApproved,
+                    Status = e.Status,
                     UpdateDateTime = e.UpdateDateTime,
                     UpdateUserId = e.UpdateUserId,
                     UserId = e.UserId,
@@ -61,13 +62,13 @@ public class ExpiredRepository(InfaqDataContext _infaqDataContext) : IExpiredRep
         };
     }
 
-    public async Task<ManyResult<ManyUnprovedRecord>> GetManyUnprovedAsync(
+    public async Task<ManyResult<ManyNewRecord>> GetManyNewAsync(
         ManyOrderBy getManyOrderBy = default,
         OrderByDirection orderByDirection = default,
         int skip = 0,
         int take = 1)
     {
-        var queryable = _dbSet.Where(e => e.IsApproved == true);
+        var queryable = _dbSet.Where(e => e.Status == ExpiredStatus.New);
 
 
         var countTask = queryable.LongCountAsync();
@@ -86,7 +87,7 @@ public class ExpiredRepository(InfaqDataContext _infaqDataContext) : IExpiredRep
         {
             Records = await queryable.Skip(skip)
                 .Take(take)
-                .Select(e => new ManyUnprovedRecord
+                .Select(e => new ManyNewRecord
                 {
                     DateTime = e.DateTime,
                     InfaqId = e.InfaqId,
@@ -108,11 +109,40 @@ public class ExpiredRepository(InfaqDataContext _infaqDataContext) : IExpiredRep
             .Select(e => new One
             {
                 DateTime = e.DateTime,
-                IsApproved = e.IsApproved,
+                Status = e.Status,
                 UpdateDateTime = e.UpdateDateTime,
                 UpdateUserId = e.UpdateUserId,
                 UserId = e.UserId,
             })
             .FirstOrDefaultAsync();
+    }
+
+    public async Task<ExpiredStatus> GetStatusAsync(int id)
+    {
+        return await _dbSet.Where(e => e.Id == id)
+            .Select(e => e.Status)
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task SetStatusAndSaveAsync(int id, ExpiredStatus status, string? description, DateTime updateDateTime, int updateUserId)
+    {
+        var @internal = new Expired
+        {
+            Description = description,
+            Id = id,
+            Status = status,
+            UpdateDateTime = updateDateTime,
+            UpdateUserId = updateUserId,
+        };
+
+        var entityEntry = _dbSet.Attach(@internal);
+
+        entityEntry.Property(e => e.Description).IsModified = true;
+        entityEntry.Property(e => e.Status).IsModified = true;
+        entityEntry.Property(e => e.UpdateDateTime).IsModified = true;
+        entityEntry.Property(e => e.UpdateUserId).IsModified = true;
+
+
+        await _infaqDataContext.SaveChangesAsync();
     }
 }

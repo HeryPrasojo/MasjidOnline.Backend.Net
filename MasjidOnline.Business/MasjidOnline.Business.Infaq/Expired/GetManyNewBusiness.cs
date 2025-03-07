@@ -10,12 +10,12 @@ using MasjidOnline.Service.FieldValidator.Interface;
 
 namespace MasjidOnline.Business.Infaq.Expired;
 
-public class GetManyUnprovedBusiness(
-    IFieldValidatorService _fieldValidatorService) : IGetManyUnprovedBusiness
+public class GetManyNewBusiness(
+    IFieldValidatorService _fieldValidatorService) : IGetManyNewBusiness
 {
-    public async Task<GetManyResponse<GetManyUnprovedResponseRecord>> GetAsync(
+    public async Task<GetManyResponse<GetManyNewResponseRecord>> GetAsync(
         IInfaqData _infaqData,
-        GetManyUnprovedRequest getManyUnprovedRequest)
+        GetManyNewRequest getManyUnprovedRequest)
     {
         _fieldValidatorService.ValidateRequired(getManyUnprovedRequest);
         _fieldValidatorService.ValidateRequiredPlus(getManyUnprovedRequest.Page);
@@ -23,7 +23,7 @@ public class GetManyUnprovedBusiness(
 
         var take = 10;
 
-        var getManyResult = await _infaqData.Expired.GetManyUnprovedAsync(
+        var getManyResult = await _infaqData.Expired.GetManyNewAsync(
             getManyOrderBy: ManyOrderBy.DateTime,
             orderByDirection: OrderByDirection.Descending,
             skip: (getManyUnprovedRequest.Page - 1) * take,
@@ -32,7 +32,7 @@ public class GetManyUnprovedBusiness(
         return new()
         {
             ResultCode = ResponseResultCode.Success,
-            Records = getManyResult.Records.Select(m => new GetManyUnprovedResponseRecord
+            Records = getManyResult.Records.Select(m => new GetManyNewResponseRecord
             {
                 DateTime = m.DateTime,
                 InfaqId = m.InfaqId,

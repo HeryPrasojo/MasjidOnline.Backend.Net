@@ -1,4 +1,4 @@
-namespace MasjidOnline.Business.User.Interface.Model.Internal;
+namespace MasjidOnline.Business.Infaq.Interface.Model.Expired;
 
 public class RejectRequest
 {

@@ -1,6 +1,6 @@
 ﻿namespace MasjidOnline.Business.Infaq.Interface.Model.Expired;
 
-public class GetManyUnprovedResponseRecord
+public class GetManyNewResponseRecord
 {
     public required int InfaqId { get; set; }
 
