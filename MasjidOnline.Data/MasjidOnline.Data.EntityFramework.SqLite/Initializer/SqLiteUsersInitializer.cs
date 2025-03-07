@@ -11,14 +11,19 @@ public class SqLiteUsersInitializer(
     UserDataContext _userDataContext,
     IUsersDefinition _userDefinition) : UserInitializer(_userDefinition)
 {
-    protected override async Task<int> CreateTableUserSettingAsync()
+    protected override async Task<int> CreateTableInternalAsync()
     {
         FormattableString sql = @$"
-            CREATE TABLE UserSetting
+            CREATE TABLE Internal
             (
                 Id INTEGER PRIMARY KEY,
-                Description TEXT NOT NULL COLLATE NOCASE,
-                Value TEXT NOT NULL COLLATE NOCASE
+                DateTime TEXT NOT NULL,
+                EmailAddress TEXT NOT NULL COLLATE NOCASE,
+                UserId INTEGER NOT NULL,
+                Status INTEGER NOT NULL,
+                Description TEXT COLLATE NOCASE,
+                UpdateDateTime TEXT,
+                UpdateUserId INTEGER,
             )";
 
         return await _userDataContext.Database.ExecuteSqlAsync(sql);
@@ -74,6 +79,19 @@ public class SqLiteUsersInitializer(
             (
                 EmailAddress TEXT PRIMARY KEY,
                 UserId INTEGER NOT NULL
+            )";
+
+        return await _userDataContext.Database.ExecuteSqlAsync(sql);
+    }
+
+    protected override async Task<int> CreateTableUserSettingAsync()
+    {
+        FormattableString sql = @$"
+            CREATE TABLE UserSetting
+            (
+                Id INTEGER PRIMARY KEY,
+                Description TEXT NOT NULL COLLATE NOCASE,
+                Value TEXT NOT NULL COLLATE NOCASE
             )";
 
         return await _userDataContext.Database.ExecuteSqlAsync(sql);

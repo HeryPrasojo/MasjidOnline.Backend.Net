@@ -97,6 +97,11 @@ public class ExpiredRepository(InfaqDataContext _infaqDataContext) : IExpiredRep
         };
     }
 
+    public async Task<int> GetMaxIdAsync()
+    {
+        return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
+    }
+
     public async Task<One?> GetOneAsync(int infaqId)
     {
         return await _dbSet.Where(e => e.InfaqId == infaqId)

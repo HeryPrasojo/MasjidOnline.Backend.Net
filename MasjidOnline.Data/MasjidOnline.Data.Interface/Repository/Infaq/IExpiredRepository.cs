@@ -10,5 +10,6 @@ public interface IExpiredRepository
     Task AddAsync(Expired expired);
     Task<ManyResult<ManyRecord>> GetManyAsync(bool? isApproved = null, ManyOrderBy getManyOrderBy = ManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);
     Task<ManyResult<ManyUnprovedRecord>> GetManyUnprovedAsync(ManyOrderBy getManyOrderBy = ManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);
+    Task<int> GetMaxIdAsync();
     Task<One?> GetOneAsync(int infaqId);
 }

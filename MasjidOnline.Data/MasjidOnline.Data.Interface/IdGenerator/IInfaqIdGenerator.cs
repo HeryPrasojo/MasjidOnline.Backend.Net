@@ -5,8 +5,9 @@ namespace MasjidOnline.Data.Interface.IdGenerator;
 
 public interface IInfaqIdGenerator
 {
-    int TransactionId { get; }
-    int TransactionFileId { get; }
+    int InfaqId { get; }
+    int InfaqFileId { get; }
+    int ExpiredId { get; }
 
     Task InitializeAsync(IInfaqData infaqData);
 }

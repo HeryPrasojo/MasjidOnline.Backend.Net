@@ -61,7 +61,7 @@ public class AddAnonymBusiness(
 
         var infaq = new Entity.Infaq.Infaq
         {
-            Id = _infaqIdGenerator.TransactionId,
+            Id = _infaqIdGenerator.InfaqId,
             Amount = addByAnonymRequest.Amount,
             DateTime = DateTime.UtcNow,
             PaymentStatus = PaymentStatus.Pending,
@@ -94,9 +94,9 @@ public class AddAnonymBusiness(
             {
                 if (file.Length > 1048576) throw new InputInvalidException(nameof(addByAnonymRequest.Files));
 
-                var transactionFile = new InfaqFile
+                var infaqFile = new InfaqFile
                 {
-                    Id = _infaqIdGenerator.TransactionFileId,
+                    Id = _infaqIdGenerator.InfaqFileId,
                     InfaqId = infaq.Id,
                 };
 
@@ -117,7 +117,7 @@ public class AddAnonymBusiness(
 
                 fileStream.Close();
 
-                await _infaqData.InfaqFile.AddAsync(transactionFile);
+                await _infaqData.InfaqFile.AddAsync(infaqFile);
             }
         }
 
