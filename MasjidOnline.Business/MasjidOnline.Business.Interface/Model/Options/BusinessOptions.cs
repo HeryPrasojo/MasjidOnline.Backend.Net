@@ -2,7 +2,7 @@ namespace MasjidOnline.Business.Interface.Model.Options;
 
 public class BusinessOptions
 {
-    public required int PaymentManualExpired { get; set; }
+    public required int PaymentManualExpire { get; set; }
 
     public required string RootUserEmailAddress { get; set; }
 

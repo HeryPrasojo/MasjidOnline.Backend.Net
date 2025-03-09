@@ -10,7 +10,7 @@ public interface IAuthorizationBusiness
     Task AuthorizePermissionAsync(
         ISessionBusiness _sessionBusiness,
         IUserData _userData,
-        bool infaqExpiredAdd = false,
+        bool infaqExpireAdd = false,
         bool userInternalAdd = false,
         bool userInternalCancel = default);
 }

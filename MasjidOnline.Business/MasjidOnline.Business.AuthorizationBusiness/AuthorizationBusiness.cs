@@ -17,7 +17,7 @@ public class AuthorizationBusiness : IAuthorizationBusiness
     public async Task AuthorizePermissionAsync(
         ISessionBusiness _sessionBusiness,
         IUserData _userData,
-        bool infaqExpiredAdd = default,
+        bool infaqExpireAdd = default,
         bool userInternalAdd = default,
         bool userInternalCancel = default)
     {
@@ -25,7 +25,7 @@ public class AuthorizationBusiness : IAuthorizationBusiness
 
         if (sessionPermission == default) throw new PermissionException(nameof(Constant.AnonymousUserId));
 
-        if (infaqExpiredAdd && !sessionPermission.InfaqExpiredAdd) throw new PermissionException(nameof(sessionPermission.InfaqExpiredAdd));
+        if (infaqExpireAdd && !sessionPermission.InfaqExpireAdd) throw new PermissionException(nameof(sessionPermission.InfaqExpireAdd));
 
         if (userInternalAdd && !sessionPermission.UserInternalAdd) throw new PermissionException(nameof(sessionPermission.UserInternalAdd));
 

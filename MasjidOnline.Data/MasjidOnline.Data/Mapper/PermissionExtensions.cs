@@ -17,8 +17,8 @@ public static class PermissionExtensions
             UserId = permission.UserId,
             UserInternalAdd = permission.UserInternalAdd,
             UserInternalCancel = permission.UserInternalCancel,
-            InfaqExpiredAdd = permission.InfaqExpiredAdd,
-            InfaqExpiredCancel = permission.InfaqExpiredCancel,
+            InfaqExpireAdd = permission.InfaqExpireAdd,
+            InfaqExpireCancel = permission.InfaqExpireCancel,
         };
     }
 }

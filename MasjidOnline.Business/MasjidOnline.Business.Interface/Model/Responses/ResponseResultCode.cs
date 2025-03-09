@@ -4,15 +4,15 @@ public enum ResponseResultCode
 {
     Success = 0,
     SessionMismatch = 3,
-    SessionExpired = 5,
+    SessionExpire = 5,
     PermissionMismatch = 7,
     Error = 9,
     InputInvalid = 11,
     InputMismatch = 21,
     DataMismatch = 22,
 
-    CaptchaPassed = 111,
+    CaptchaPass = 111,
     CaptchaWrong = 112,
-    CaptchaNeeded = 113,
-    CaptchaNotPassed = 114,
+    CaptchaNeed = 113,
+    CaptchaUnpass = 114,
 }

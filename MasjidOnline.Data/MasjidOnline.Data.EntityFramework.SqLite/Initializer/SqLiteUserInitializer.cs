@@ -51,7 +51,7 @@ public class SqLiteUserInitializer(
                 UserId INTEGER PRIMARY KEY,
                 UserInternalAdd INTEGER NOT NULL,
                 UserInternalCancel INTEGER NOT NULL,
-                InfaqExpiredAdd INTEGER NOT NULL
+                InfaqExpireAdd INTEGER NOT NULL
             )";
 
         return await _userDataContext.Database.ExecuteSqlAsync(sql);

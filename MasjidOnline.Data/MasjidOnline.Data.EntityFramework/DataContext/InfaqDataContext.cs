@@ -9,7 +9,7 @@ public class InfaqDataContext(DbContextOptions _dbContextOptions) : DbContext(_d
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<Expired>();
+        modelBuilder.Entity<Expire>();
         modelBuilder.Entity<Infaq>();
         modelBuilder.Entity<InfaqFile>();
         modelBuilder.Entity<InfaqSetting>();

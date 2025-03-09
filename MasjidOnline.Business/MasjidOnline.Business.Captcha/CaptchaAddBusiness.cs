@@ -19,7 +19,7 @@ public class CaptchaAddBusiness(
     {
         if (_sessionBusiness.UserId != Constant.AnonymousUserId) return new()
         {
-            ResultCode = ResponseResultCode.CaptchaPassed,
+            ResultCode = ResponseResultCode.CaptchaPass,
         };
 
 
@@ -29,7 +29,7 @@ public class CaptchaAddBusiness(
         {
             if (existingCaptcha.IsMatched == true) return new()
             {
-                ResultCode = ResponseResultCode.CaptchaPassed,
+                ResultCode = ResponseResultCode.CaptchaPass,
             };
 
             if (existingCaptcha.IsMatched == default)

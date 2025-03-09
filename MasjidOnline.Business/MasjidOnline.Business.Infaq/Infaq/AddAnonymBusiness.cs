@@ -32,12 +32,12 @@ public class AddAnonymBusiness(
 
             if (!captchas.Any()) return new()
             {
-                ResultCode = ResponseResultCode.CaptchaNeeded,
+                ResultCode = ResponseResultCode.CaptchaNeed,
             };
 
             if (!captchas.Any(e => e.IsMatched == true)) return new()
             {
-                ResultCode = ResponseResultCode.CaptchaNotPassed,
+                ResultCode = ResponseResultCode.CaptchaUnpass,
             };
         }
 

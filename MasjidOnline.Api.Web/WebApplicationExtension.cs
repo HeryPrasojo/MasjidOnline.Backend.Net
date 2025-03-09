@@ -24,14 +24,14 @@ internal static class WebApplicationExtension
         infaqInfaqGroup.MapPost("due/getOne", InfaqEndPoint.Infaq.GetOneDueAsync);
 
 
-        var infaqExpiredGroup = infaqGroup.MapGroup("expired/");
+        var infaqExpireGroup = infaqGroup.MapGroup("expire/");
 
-        infaqExpiredGroup.MapPost("add", InfaqEndPoint.Expired.AddExpiredAsync);
-        infaqExpiredGroup.MapPost("approve", InfaqEndPoint.Expired.ApproveAsync);
-        infaqExpiredGroup.MapPost("cancel", InfaqEndPoint.Expired.CancelAsync);
-        infaqExpiredGroup.MapPost("getMany", InfaqEndPoint.Expired.GetManyAsync);
-        infaqExpiredGroup.MapPost("getOne", InfaqEndPoint.Expired.GetOneAsync);
-        infaqExpiredGroup.MapPost("reject", InfaqEndPoint.Expired.RejectAsync);
+        infaqExpireGroup.MapPost("add", InfaqEndPoint.Expire.AddAsync);
+        infaqExpireGroup.MapPost("approve", InfaqEndPoint.Expire.ApproveAsync);
+        infaqExpireGroup.MapPost("cancel", InfaqEndPoint.Expire.CancelAsync);
+        infaqExpireGroup.MapPost("getMany", InfaqEndPoint.Expire.GetManyAsync);
+        infaqExpireGroup.MapPost("getOne", InfaqEndPoint.Expire.GetOneAsync);
+        infaqExpireGroup.MapPost("reject", InfaqEndPoint.Expire.RejectAsync);
 
 
         var userGroup = webApplication.MapGroup("/user/");

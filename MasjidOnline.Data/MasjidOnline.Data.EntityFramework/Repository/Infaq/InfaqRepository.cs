@@ -20,10 +20,10 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
         await _dbSet.AddAsync(infaq);
     }
 
-    public async Task<ExpiredAdd?> GetForExpiredAddAsync(int id)
+    public async Task<ExpireAdd?> GetForExpireAddAsync(int id)
     {
         return await _dbSet.Where(e => e.Id == id)
-            .Select(e => new ExpiredAdd
+            .Select(e => new ExpireAdd
             {
                 DateTime = e.DateTime,
                 PaymentStatus = e.PaymentStatus,

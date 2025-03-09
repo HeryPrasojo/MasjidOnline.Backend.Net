@@ -7,7 +7,7 @@ public interface IInfaqIdGenerator
 {
     int InfaqId { get; }
     int InfaqFileId { get; }
-    int ExpiredId { get; }
+    int ExpireId { get; }
 
     Task InitializeAsync(IInfaqData infaqData);
 }

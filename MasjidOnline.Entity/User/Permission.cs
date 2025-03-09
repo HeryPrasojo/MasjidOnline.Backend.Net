@@ -11,7 +11,7 @@ public class Permission
 
     public required bool UserInternalCancel { get; set; }
 
-    public required bool InfaqExpiredAdd { get; set; }
+    public required bool InfaqExpireAdd { get; set; }
 
-    public required bool InfaqExpiredCancel { get; set; }
+    public required bool InfaqExpireCancel { get; set; }
 }

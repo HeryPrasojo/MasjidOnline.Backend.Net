@@ -28,7 +28,7 @@ public class CaptchaUpdateBusiness(
 
         if (captcha.IsMatched == true) return new()
         {
-            ResultCode = ResponseResultCode.CaptchaPassed,
+            ResultCode = ResponseResultCode.CaptchaPass,
         };
 
         var utcNow = DateTime.UtcNow;
@@ -49,7 +49,7 @@ public class CaptchaUpdateBusiness(
 
             return new()
             {
-                ResultCode = ResponseResultCode.CaptchaNotPassed,
+                ResultCode = ResponseResultCode.CaptchaUnpass,
                 Stream = generateImageResult.Stream,
             };
         }

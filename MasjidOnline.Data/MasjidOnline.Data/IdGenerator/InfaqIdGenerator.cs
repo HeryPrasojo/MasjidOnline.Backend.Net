@@ -7,18 +7,18 @@ namespace MasjidOnline.Data.IdGenerator;
 
 public class InfaqIdGenerator : IInfaqIdGenerator
 {
-    private int _expiredId;
+    private int _expireId;
     private int _infaqId;
     private int _infaqFileId;
 
     public async Task InitializeAsync(IInfaqData infaqData)
     {
-        _expiredId = await infaqData.Expired.GetMaxIdAsync();
+        _expireId = await infaqData.Expire.GetMaxIdAsync();
         _infaqId = await infaqData.Infaq.GetMaxIdAsync();
         _infaqFileId = await infaqData.InfaqFile.GetMaxIdAsync();
     }
 
-    public int ExpiredId => Interlocked.Increment(ref _expiredId);
+    public int ExpireId => Interlocked.Increment(ref _expireId);
 
     public int InfaqId => Interlocked.Increment(ref _infaqId);
 

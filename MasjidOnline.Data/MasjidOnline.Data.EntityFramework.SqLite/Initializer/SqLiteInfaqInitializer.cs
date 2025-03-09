@@ -11,10 +11,10 @@ public class SqLiteInfaqInitializer(
     InfaqDataContext _infaqDataContext,
     IInfaqsDefinition _infaqsDefinition) : InfaqInitializer(_infaqsDefinition)
 {
-    protected override async Task<int> CreateTableExpiredAsync()
+    protected override async Task<int> CreateTableExpireAsync()
     {
         FormattableString sql = @$"
-            CREATE TABLE Expired
+            CREATE TABLE Expire
             (
                 Id INTEGER PRIMARY KEY,
                 InfaqId INTEGER NOT NULL,

@@ -88,8 +88,8 @@ public class InitializerBusiness(
 
             UserInternalAdd = true,
             UserInternalCancel = true,
-            InfaqExpiredAdd = true,
-            InfaqExpiredCancel = true,
+            InfaqExpireAdd = true,
+            InfaqExpireCancel = true,
         };
 
         await _userData.Permission.AddAsync(permission);
