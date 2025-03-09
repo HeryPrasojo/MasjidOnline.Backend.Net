@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using MasjidOnline.Data.Interface.Model.Session;
+using MasjidOnline.Data.Interface.ViewModel.Session;
 
 namespace MasjidOnline.Data.Interface.Repository.Session;
 

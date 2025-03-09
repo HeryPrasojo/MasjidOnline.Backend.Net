@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MasjidOnline.Data.Interface.Model.Infaq.Infaq;
-using MasjidOnline.Data.Interface.Model.Repository;
+using MasjidOnline.Data.Interface.ViewModel.Infaq.Infaq;
+using MasjidOnline.Data.Interface.ViewModel.Repository;
 using MasjidOnline.Entity.Infaq;
 
 namespace MasjidOnline.Data.Interface.Repository.Infaq;

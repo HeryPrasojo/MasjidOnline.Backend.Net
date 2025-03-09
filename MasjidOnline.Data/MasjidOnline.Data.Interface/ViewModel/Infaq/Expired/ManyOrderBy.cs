@@ -1,4 +1,4 @@
-namespace MasjidOnline.Data.Interface.Model.Infaq.Expired;
+namespace MasjidOnline.Data.Interface.ViewModel.Infaq.Expired;
 
 public enum ManyOrderBy
 {

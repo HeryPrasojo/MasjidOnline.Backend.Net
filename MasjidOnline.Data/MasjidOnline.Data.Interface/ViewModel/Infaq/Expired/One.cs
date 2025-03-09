@@ -1,7 +1,7 @@
 using System;
 using MasjidOnline.Entity.Infaq;
 
-namespace MasjidOnline.Data.Interface.Model.Infaq.Expired;
+namespace MasjidOnline.Data.Interface.ViewModel.Infaq.Expired;
 
 public class One
 {

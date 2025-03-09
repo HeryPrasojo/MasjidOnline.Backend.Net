@@ -3,7 +3,7 @@ using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 using MasjidOnline.Data.Interface.Definition;
 using MasjidOnline.Data.Interface.Initializer;
-using MasjidOnline.Data.Interface.Model.Option;
+using MasjidOnline.Data.Interface.ViewModel.Option;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

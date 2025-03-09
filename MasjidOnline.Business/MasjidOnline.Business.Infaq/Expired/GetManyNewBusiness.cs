@@ -4,8 +4,8 @@ using MasjidOnline.Business.Infaq.Interface.Expired;
 using MasjidOnline.Business.Infaq.Interface.Model.Expired;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Data.Interface.Datas;
-using MasjidOnline.Data.Interface.Model.Infaq.Expired;
-using MasjidOnline.Data.Interface.Model.Repository;
+using MasjidOnline.Data.Interface.ViewModel.Infaq.Expired;
+using MasjidOnline.Data.Interface.ViewModel.Repository;
 using MasjidOnline.Service.FieldValidator.Interface;
 
 namespace MasjidOnline.Business.Infaq.Expired;

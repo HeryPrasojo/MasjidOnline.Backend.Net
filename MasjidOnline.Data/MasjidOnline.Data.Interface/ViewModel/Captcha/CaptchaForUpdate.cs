@@ -1,4 +1,4 @@
-namespace MasjidOnline.Data.Interface.Model.Captcha;
+namespace MasjidOnline.Data.Interface.ViewModel.Captcha;
 
 public class CaptchaForUpdate
 {

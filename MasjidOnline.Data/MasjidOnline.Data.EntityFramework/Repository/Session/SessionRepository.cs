@@ -1,8 +1,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
-using MasjidOnline.Data.Interface.Model.Session;
 using MasjidOnline.Data.Interface.Repository.Session;
+using MasjidOnline.Data.Interface.ViewModel.Session;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Session;

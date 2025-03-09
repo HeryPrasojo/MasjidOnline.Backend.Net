@@ -2,10 +2,9 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
-using MasjidOnline.Data.Interface.Model.Infaq.Expired;
-using MasjidOnline.Data.Interface.Model.Repository;
 using MasjidOnline.Data.Interface.Repository.Infaq;
 using MasjidOnline.Data.Interface.ViewModel.Infaq.Expired;
+using MasjidOnline.Data.Interface.ViewModel.Repository;
 using MasjidOnline.Entity.Infaq;
 using Microsoft.EntityFrameworkCore;
 

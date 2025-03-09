@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MasjidOnline.Data.Interface.Model.Repository;
+namespace MasjidOnline.Data.Interface.ViewModel.Repository;
 
 public class ManyResult<TRecords>
 {

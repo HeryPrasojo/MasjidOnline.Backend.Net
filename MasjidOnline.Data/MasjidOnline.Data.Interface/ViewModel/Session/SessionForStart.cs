@@ -1,6 +1,6 @@
 using System;
 
-namespace MasjidOnline.Data.Interface.Model.Session;
+namespace MasjidOnline.Data.Interface.ViewModel.Session;
 
 public class SessionForStart
 {

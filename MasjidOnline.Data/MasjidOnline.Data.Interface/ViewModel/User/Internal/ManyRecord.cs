@@ -2,7 +2,7 @@ using System;
 using MasjidOnline.Entity.User;
 
 // todo rename sync match
-namespace MasjidOnline.Data.Interface.Model.User.Internal;
+namespace MasjidOnline.Data.Interface.ViewModel.User.Internal;
 
 public class ManyRecord
 {

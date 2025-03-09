@@ -1,7 +1,7 @@
 using System;
 using MasjidOnline.Entity.User;
 
-namespace MasjidOnline.Data.Interface.Model.User.Internal;
+namespace MasjidOnline.Data.Interface.ViewModel.User.Internal;
 
 public class One
 {

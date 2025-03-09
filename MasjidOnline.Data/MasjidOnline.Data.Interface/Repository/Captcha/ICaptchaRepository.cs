@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MasjidOnline.Data.Interface.Model.Captcha;
+using MasjidOnline.Data.Interface.ViewModel.Captcha;
 
 namespace MasjidOnline.Data.Interface.Repository.Captcha;
 

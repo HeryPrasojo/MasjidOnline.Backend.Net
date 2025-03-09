@@ -1,4 +1,4 @@
-namespace MasjidOnline.Data.Interface.Model.Repository;
+namespace MasjidOnline.Data.Interface.ViewModel.Repository;
 
 public enum OrderByDirection
 {

@@ -1,8 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using MasjidOnline.Data.Interface.Model.Infaq.Expired;
-using MasjidOnline.Data.Interface.Model.Repository;
 using MasjidOnline.Data.Interface.ViewModel.Infaq.Expired;
+using MasjidOnline.Data.Interface.ViewModel.Repository;
 using MasjidOnline.Entity.Infaq;
 
 namespace MasjidOnline.Data.Interface.Repository.Infaq;

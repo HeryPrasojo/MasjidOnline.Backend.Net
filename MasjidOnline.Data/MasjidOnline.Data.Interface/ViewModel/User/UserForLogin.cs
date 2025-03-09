@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Data.Interface.Model.User;
+﻿namespace MasjidOnline.Data.Interface.ViewModel.User;
 
 public class UserForLogin
 {

@@ -2,8 +2,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
-using MasjidOnline.Data.Interface.Model.User;
 using MasjidOnline.Data.Interface.Repository.User;
+using MasjidOnline.Data.Interface.ViewModel.User;
 using MasjidOnline.Entity.User;
 using Microsoft.EntityFrameworkCore;
 

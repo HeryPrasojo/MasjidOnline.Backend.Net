@@ -1,4 +1,4 @@
-namespace MasjidOnline.Data.Interface.Model.Infaq.Infaq;
+namespace MasjidOnline.Data.Interface.ViewModel.Infaq.Infaq;
 
 public enum ManyOrderBy
 {

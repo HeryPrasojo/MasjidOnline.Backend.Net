@@ -5,8 +5,8 @@ using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Business.User.Internal.Mapper;
 using MasjidOnline.Data.Interface.Datas;
-using MasjidOnline.Data.Interface.Model.Repository;
-using MasjidOnline.Data.Interface.Model.User.Internal;
+using MasjidOnline.Data.Interface.ViewModel.Repository;
+using MasjidOnline.Data.Interface.ViewModel.User.Internal;
 using MasjidOnline.Service.FieldValidator.Interface;
 
 namespace MasjidOnline.Business.User.Internal;

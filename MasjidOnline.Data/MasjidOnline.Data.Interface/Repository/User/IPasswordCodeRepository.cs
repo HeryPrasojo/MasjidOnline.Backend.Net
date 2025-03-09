@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using MasjidOnline.Data.Interface.Model.User;
+using MasjidOnline.Data.Interface.ViewModel.User;
 using MasjidOnline.Entity.User;
 
 namespace MasjidOnline.Data.Interface.Repository.User;

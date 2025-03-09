@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
-using MasjidOnline.Data.Interface.Model.Infaq.Infaq;
-using MasjidOnline.Data.Interface.Model.Repository;
 using MasjidOnline.Data.Interface.Repository.Infaq;
+using MasjidOnline.Data.Interface.ViewModel.Infaq.Infaq;
+using MasjidOnline.Data.Interface.ViewModel.Repository;
 using MasjidOnline.Entity.Infaq;
 using Microsoft.EntityFrameworkCore;
 
