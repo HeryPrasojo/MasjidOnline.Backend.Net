@@ -20,6 +20,11 @@ public class ExpiredRepository(InfaqDataContext _infaqDataContext) : IExpiredRep
         await _dbSet.AddAsync(expired);
     }
 
+    public async Task<bool> AnyAsync(int infaqId, ExpiredStatus status)
+    {
+        return await _dbSet.AnyAsync(e => (e.InfaqId == infaqId) && (e.Status == status));
+    }
+
     public async Task<ForSetStatus?> GetForSetStatusAsync(int id)
     {
         return await _dbSet.Where(e => e.Id == id)

@@ -27,6 +27,11 @@ public class InternalRepository(UserDataContext _userDataContext) : IInternalRep
         await _userDataContext.SaveChangesAsync();
     }
 
+    public async Task<bool> AnyAsync(string emailAddress, InternalStatus status)
+    {
+        return await _dbSet.AnyAsync(e => (e.EmailAddress == emailAddress) && (e.Status == status));
+    }
+
     public async Task<ForApprove?> GetForApproveAsync(int id)
     {
         return await _dbSet.Where(e => e.Id == id)

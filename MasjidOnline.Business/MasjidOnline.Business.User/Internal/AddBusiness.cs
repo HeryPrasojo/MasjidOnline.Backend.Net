@@ -31,9 +31,12 @@ public class AddBusiness(
         addRequest.Name = _fieldValidatorService.ValidateRequiredText255(addRequest.Name);
 
 
-        // undone check exixts
+        var any = await _userData.Internal.AnyAsync(addRequest.EmailAddress, Entity.User.InternalStatus.New);
 
-        var any = await _userData.UserEmailAddress.AnyAsync(addRequest.EmailAddress);
+        if (any) throw new InputMismatchException(nameof(addRequest.EmailAddress));
+
+
+        any = await _userData.UserEmailAddress.AnyAsync(addRequest.EmailAddress);
 
         if (any) throw new InputMismatchException($"{addRequest.EmailAddress} exists");
 

@@ -11,6 +11,7 @@ public interface IInternalRepository
 {
     Task AddAndSaveAsync(Internal @internal);
     Task AddAsync(Internal @internal);
+    Task<bool> AnyAsync(string emailAddress, InternalStatus status);
     Task<ForApprove?> GetForApproveAsync(int id);
     Task<ManyResult<ManyRecord>> GetManyAsync(InternalStatus? status = default, ManyOrderBy getManyOrderBy = ManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);
     Task<int> GetMaxIdAsync();

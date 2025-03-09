@@ -123,7 +123,7 @@ public class FieldValidatorService : IFieldValidatorService
 
         if (value.Length > 254) throw new InputInvalidException(valueExpression);
 
-        value = value.Trim();
+        value = value.ToLowerInvariant();
 
         try
         {
