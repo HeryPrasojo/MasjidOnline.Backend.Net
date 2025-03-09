@@ -5,6 +5,7 @@ using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Model.Infaq.Expired;
 using MasjidOnline.Data.Interface.Model.Repository;
 using MasjidOnline.Data.Interface.Repository.Infaq;
+using MasjidOnline.Data.Interface.ViewModel.Infaq.Expired;
 using MasjidOnline.Entity.Infaq;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,17 @@ public class ExpiredRepository(InfaqDataContext _infaqDataContext) : IExpiredRep
     public async Task AddAsync(Expired expired)
     {
         await _dbSet.AddAsync(expired);
+    }
+
+    public async Task<ForSetStatus?> GetForSetStatusAsync(int id)
+    {
+        return await _dbSet.Where(e => e.Id == id)
+            .Select(e => new ForSetStatus
+            {
+                InfaqId = e.InfaqId,
+                Status = e.Status,
+            })
+            .FirstOrDefaultAsync();
     }
 
     public async Task<ManyResult<ManyRecord>> GetManyAsync(
@@ -117,14 +129,14 @@ public class ExpiredRepository(InfaqDataContext _infaqDataContext) : IExpiredRep
             .FirstOrDefaultAsync();
     }
 
-    public async Task<ExpiredStatus> GetStatusAsync(int id)
-    {
-        return await _dbSet.Where(e => e.Id == id)
-            .Select(e => e.Status)
-            .FirstOrDefaultAsync();
-    }
+    //public async Task<ExpiredStatus> GetStatusAsync(int id)
+    //{
+    //    return await _dbSet.Where(e => e.Id == id)
+    //        .Select(e => e.Status)
+    //        .FirstOrDefaultAsync();
+    //}
 
-    public async Task SetStatusAndSaveAsync(int id, ExpiredStatus status, string? description, DateTime updateDateTime, int updateUserId)
+    public void SetStatus(int id, ExpiredStatus status, string? description, DateTime updateDateTime, int updateUserId)
     {
         var @internal = new Expired
         {
@@ -141,8 +153,5 @@ public class ExpiredRepository(InfaqDataContext _infaqDataContext) : IExpiredRep
         entityEntry.Property(e => e.Status).IsModified = true;
         entityEntry.Property(e => e.UpdateDateTime).IsModified = true;
         entityEntry.Property(e => e.UpdateUserId).IsModified = true;
-
-
-        await _infaqDataContext.SaveChangesAsync();
     }
 }

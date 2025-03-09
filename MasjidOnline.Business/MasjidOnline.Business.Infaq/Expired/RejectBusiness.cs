@@ -22,17 +22,25 @@ public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IFiel
         rejectRequest.Description = _fieldValidatorService.ValidateRequiredText255(rejectRequest.Description);
 
 
-        var status = await _infaqData.Expired.GetStatusAsync(rejectRequest.Id);
+        var expired = await _infaqData.Expired.GetForSetStatusAsync(rejectRequest.Id);
 
-        if (status != Entity.Infaq.ExpiredStatus.New) throw new InputMismatchException($"{nameof(status)}: {status}");
+        if (expired == default) throw new InputMismatchException($"{nameof(rejectRequest.Id)}: {rejectRequest.Id}");
+
+        if (expired.Status != Entity.Infaq.ExpiredStatus.New) throw new InputMismatchException($"{nameof(expired.Status)}: {expired.Status}");
 
 
-        await _infaqData.Expired.SetStatusAndSaveAsync(
+        _infaqData.Expired.SetStatus(
             rejectRequest.Id,
             Entity.Infaq.ExpiredStatus.Reject,
             rejectRequest.Description,
             DateTime.UtcNow,
             _sessionBusiness.UserId);
+
+        _infaqData.Infaq.SetPaymentStatus(expired.InfaqId, Entity.Infaq.PaymentStatus.New);
+
+        await _infaqData.SaveAsync();
+
+        // todo approver notification
 
         return new()
         {

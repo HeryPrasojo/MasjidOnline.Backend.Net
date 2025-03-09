@@ -3,7 +3,7 @@ namespace MasjidOnline.Entity.Infaq;
 public enum PaymentStatus
 {
     Invalid = 0,
-    Pending = 11,
+    New = 11,
     CancelRequest = 22,
     Cancel = 33,
     FailRequest = 44,

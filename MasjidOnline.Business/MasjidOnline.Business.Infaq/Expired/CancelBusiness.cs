@@ -22,17 +22,23 @@ public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IFiel
         cancelRequest.Description = _fieldValidatorService.ValidateRequiredText255(cancelRequest.Description);
 
 
-        var status = await _infaqData.Expired.GetStatusAsync(cancelRequest.Id);
+        var expired = await _infaqData.Expired.GetForSetStatusAsync(cancelRequest.Id);
 
-        if (status != Entity.Infaq.ExpiredStatus.New) throw new InputMismatchException($"{nameof(status)}: {status}");
+        if (expired == default) throw new InputMismatchException($"{nameof(cancelRequest.Id)}: {cancelRequest.Id}");
+
+        if (expired.Status != Entity.Infaq.ExpiredStatus.New) throw new InputMismatchException($"{nameof(expired.Status)}: {expired.Status}");
 
 
-        await _infaqData.Expired.SetStatusAndSaveAsync(
+        _infaqData.Expired.SetStatus(
             cancelRequest.Id,
             Entity.Infaq.ExpiredStatus.Cancel,
             cancelRequest.Description,
             DateTime.UtcNow,
             _sessionBusiness.UserId);
+
+        _infaqData.Infaq.SetPaymentStatus(expired.InfaqId, Entity.Infaq.PaymentStatus.New);
+
+        await _infaqData.SaveAsync();
 
         return new()
         {

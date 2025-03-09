@@ -87,7 +87,7 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
         int skip = 0,
         int take = 1)
     {
-        var queryable = _dbSet.Where(e => e.PaymentStatus == PaymentStatus.Pending && e.DateTime < dueDateTime);
+        var queryable = _dbSet.Where(e => e.PaymentStatus == PaymentStatus.New && e.DateTime < dueDateTime);
 
         if (paymentTypes != default)
             queryable = queryable.Where(e => paymentTypes.Any(s => s == e.PaymentType));
@@ -156,7 +156,7 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
     }
 
 
-    public void UpdatePaymentStatus(int id, PaymentStatus paymentStatus)
+    public void SetPaymentStatus(int id, PaymentStatus paymentStatus)
     {
         var infaq = new Entity.Infaq.Infaq
         {

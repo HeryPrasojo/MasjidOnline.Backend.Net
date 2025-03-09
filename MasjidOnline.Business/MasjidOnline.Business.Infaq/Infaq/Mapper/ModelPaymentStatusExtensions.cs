@@ -27,7 +27,7 @@ public static class ModelPaymentStatusExtensions
                 => Entity.Infaq.PaymentStatus.FailRequest,
 
             Interface.Model.Payment.PaymentStatus.Pending
-                => Entity.Infaq.PaymentStatus.Pending,
+                => Entity.Infaq.PaymentStatus.New,
 
             Interface.Model.Payment.PaymentStatus.Success
                 => Entity.Infaq.PaymentStatus.Success,

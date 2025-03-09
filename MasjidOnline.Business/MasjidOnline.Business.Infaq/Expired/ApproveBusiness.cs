@@ -21,17 +21,23 @@ public class ApproveBusiness(IAuthorizationBusiness _authorizationBusiness, IFie
         _fieldValidatorService.ValidateRequiredPlus(approveRequest.Id);
 
 
-        var status = await _infaqData.Expired.GetStatusAsync(approveRequest.Id);
+        var expired = await _infaqData.Expired.GetForSetStatusAsync(approveRequest.Id);
 
-        if (status != Entity.Infaq.ExpiredStatus.New) throw new InputMismatchException($"{nameof(status)}: {status}");
+        if (expired == default) throw new InputMismatchException($"{nameof(approveRequest.Id)}: {approveRequest.Id}");
+
+        if (expired.Status != Entity.Infaq.ExpiredStatus.New) throw new InputMismatchException($"{nameof(expired.Status)}: {expired.Status}");
 
 
-        await _infaqData.Expired.SetStatusAndSaveAsync(
+        _infaqData.Expired.SetStatus(
             approveRequest.Id,
             Entity.Infaq.ExpiredStatus.Approve,
             default,
             DateTime.UtcNow,
             _sessionBusiness.UserId);
+
+        _infaqData.Infaq.SetPaymentStatus(expired.InfaqId, Entity.Infaq.PaymentStatus.Expire);
+
+        await _infaqData.SaveAsync();
 
         return new()
         {

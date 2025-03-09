@@ -37,7 +37,7 @@ public class AddBusiness(
 
         if (infaq == default) throw new InputMismatchException(nameof(addRequest.InfaqId));
 
-        if (infaq.PaymentStatus != PaymentStatus.Pending) throw new InputMismatchException(nameof(infaq.PaymentStatus));
+        if (infaq.PaymentStatus != PaymentStatus.New) throw new InputMismatchException(nameof(infaq.PaymentStatus));
 
 
         var expiredDateTime = infaq.DateTime.AddDays(_optionsMonitor.CurrentValue.PaymentManualExpired);
@@ -56,22 +56,9 @@ public class AddBusiness(
 
         await _infaqData.Expired.AddAsync(expired);
 
-        _infaqData.Infaq.UpdatePaymentStatus(addRequest.InfaqId, PaymentStatus.Expire);
-
-
-        //var expired = new Payment
-        //{
-        //    DateTime = DateTime.UtcNow,
-        //    InfaqId = expiredAddRequest.Id,
-        //    UserId = _sessionBusiness.UserId,
-        //};
-
-        //_infaqData.Payment.AddAsync();
+        _infaqData.Infaq.SetPaymentStatus(addRequest.InfaqId, PaymentStatus.ExpireRequest);
 
         await _infaqData.SaveAsync();
-
-        // todo approver notification
-
 
         return new()
         {

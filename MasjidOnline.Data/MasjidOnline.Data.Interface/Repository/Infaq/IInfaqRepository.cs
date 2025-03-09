@@ -14,7 +14,7 @@ public interface IInfaqRepository
     Task<One?> GetOneAsync(int id);
     Task<ManyResult<ManyRecord>> GetManyAsync(IEnumerable<PaymentType>? paymentTypes = null, IEnumerable<PaymentStatus>? paymentStatuses = null, ManyOrderBy getManyOrderBy = ManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);
     Task<ExpiredAdd?> GetForExpiredAddAsync(int id);
-    void UpdatePaymentStatus(int id, PaymentStatus paymentStatus);
+    void SetPaymentStatus(int id, PaymentStatus paymentStatus);
     Task<ManyResult<ManyDueRecord>> GetManyDueAsync(DateTime dueDateTime, IEnumerable<PaymentType>? paymentTypes = null, ManyOrderBy getManyOrderBy = ManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);
     Task<OneDue?> GetOneDueAsync(int id);
 }

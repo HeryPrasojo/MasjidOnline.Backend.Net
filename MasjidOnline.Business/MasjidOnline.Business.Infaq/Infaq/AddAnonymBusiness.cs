@@ -64,7 +64,7 @@ public class AddAnonymBusiness(
             Id = _infaqIdGenerator.InfaqId,
             Amount = addByAnonymRequest.Amount,
             DateTime = DateTime.UtcNow,
-            PaymentStatus = PaymentStatus.Pending,
+            PaymentStatus = PaymentStatus.New,
             PaymentType = (PaymentType)addByAnonymRequest.PaymentType,
             UserId = _sessionBusiness.UserId,
             MunfiqName = addByAnonymRequest.MunfiqName,

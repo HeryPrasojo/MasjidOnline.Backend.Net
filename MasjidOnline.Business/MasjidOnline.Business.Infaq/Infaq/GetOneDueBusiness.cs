@@ -28,7 +28,7 @@ public class GetOneDueBusiness(
 
         if (infaq == default) throw new InputMismatchException($"{nameof(getOneDueRequest.Id)}: {getOneDueRequest.Id}");
 
-        if (infaq.PaymentStatus != Entity.Infaq.PaymentStatus.Pending) throw new InputMismatchException($"{nameof(infaq.PaymentStatus)}");
+        if (infaq.PaymentStatus != Entity.Infaq.PaymentStatus.New) throw new InputMismatchException($"{nameof(infaq.PaymentStatus)}");
 
 
         var expiredDateTime = infaq.DateTime.AddDays(_optionsMonitor.CurrentValue.PaymentManualExpired);
