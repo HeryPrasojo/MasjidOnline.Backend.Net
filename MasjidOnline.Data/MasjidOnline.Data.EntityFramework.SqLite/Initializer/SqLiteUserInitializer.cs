@@ -63,9 +63,8 @@ public class SqLiteUserInitializer(
             CREATE TABLE User
             (
                 Id INTEGER PRIMARY KEY,
-                Name TEXT NOT NULL COLLATE NOCASE,
+                Status INTEGER NOT NULL,
                 Type INTEGER NOT NULL,
-                EmailAddress TEXT NOT NULL,
                 Password BLOB
             )";
 

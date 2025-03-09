@@ -24,7 +24,7 @@ public class LoginBusiness(IHash512Service _hash512Service) : ILoginBusiness
 
         if (user == default) throw new InputMismatchException(nameof(loginRequest.EmailAddress));
 
-        if (user.Password == default) throw new InputMismatchException(nameof(loginRequest.EmailAddress));
+        if (user.Password == default) throw new InputMismatchException(nameof(user.Password));
 
 
         var requestPasswordHashBytes = _hash512Service.Hash(loginRequest.Password);

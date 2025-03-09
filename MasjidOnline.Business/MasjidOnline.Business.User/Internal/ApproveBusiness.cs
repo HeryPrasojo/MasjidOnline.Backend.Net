@@ -50,7 +50,6 @@ public class ApproveBusiness(
         var user = new Entity.User.User
         {
             Id = _userIdGenerator.UserId,
-            EmailAddress = @internal.EmailAddress,
             Status = UserStatus.New,
             Type = UserType.Internal,
         };
@@ -86,7 +85,7 @@ public class ApproveBusiness(
             BodyHtml = $"<p>Please use the following link to set your password: <a href='{uri}'>{uri}</a> first.</p>",
             BodyText = $"Please use the following link to set your password: {uri} first",
             Subject = "MasjidOnline Password",
-            To = [new MailAddress(user.Name, userEmailAddress.EmailAddress)],
+            To = [new MailAddress(default!, userEmailAddress.EmailAddress)],
         };
 
         await _mailSenderService.SendMailAsync(mailMessage);

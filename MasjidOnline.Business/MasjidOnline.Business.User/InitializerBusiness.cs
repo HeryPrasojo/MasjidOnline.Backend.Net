@@ -32,8 +32,6 @@ public class InitializerBusiness(
         var user = new Entity.User.User
         {
             Id = Constant.SystemUserId,
-            EmailAddress = Constant.SystemUserEmailAddress,
-            Name = "System",
             Status = UserStatus.System,
             Type = UserType.System,
         };
@@ -58,8 +56,6 @@ public class InitializerBusiness(
         user = new Entity.User.User
         {
             Id = Constant.RootUserId,
-            EmailAddress = option.RootUserEmailAddress,
-            Name = "Root",
             Status = UserStatus.Active,
             Type = UserType.Internal,
         };
@@ -109,7 +105,7 @@ public class InitializerBusiness(
             BodyHtml = $"<p>Please use the following link to set your password: <a href='{uri}'>{uri}</a></p>",
             BodyText = "Please use the following link to set your password: " + uri,
             Subject = "MasjidOnline User Account",
-            To = [new MailAddress(user.Name, userEmailAddress.EmailAddress)],
+            To = [new MailAddress(default!, userEmailAddress.EmailAddress)],
         };
 
         await _mailSenderService.SendMailAsync(mailMessage);
