@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface.Model.Responses;
+using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Business.User.Internal.Mapper;
@@ -15,6 +16,7 @@ public class GetManyBusiness(
     IFieldValidatorService _fieldValidatorService) : IGetManyBusiness
 {
     public async Task<GetManyResponse<GetManyResponseRecord>> GetAsync(
+        ISessionBusiness _sessionBusiness,
         IUserData _userData,
         GetManyRequest getManyRequest)
     {
@@ -31,13 +33,15 @@ public class GetManyBusiness(
             skip: (getManyRequest.Page - 1) * take,
             take: take);
 
+        var type = await _userData.User.GetTypeAsync(_sessionBusiness.UserId);
+
         return new()
         {
             ResultCode = ResponseResultCode.Success,
             Records = getManyResult.Records.Select(e => new GetManyResponseRecord
             {
                 DateTime = e.DateTime,
-                EmailAddress = e.EmailAddress,
+                EmailAddress = (type == Entity.User.UserType.Internal) ? e.EmailAddress : default,
                 Id = e.Id,
                 Status = e.Status.ToModel(),
                 UpdateDateTime = e.UpdateDateTime,
