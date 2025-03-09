@@ -4,6 +4,7 @@ public class User
 {
     public required int Id { get; set; }
 
+    // todo move to person
     public string Name { get; set; } = default!;
 
     public UserStatus Status { get; set; }

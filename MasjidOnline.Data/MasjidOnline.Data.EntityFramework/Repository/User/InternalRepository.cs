@@ -5,6 +5,7 @@ using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Model.Repository;
 using MasjidOnline.Data.Interface.Model.User.Internal;
 using MasjidOnline.Data.Interface.Repository.User;
+using MasjidOnline.Data.Interface.ViewModel.User.Internal;
 using MasjidOnline.Entity.User;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +25,17 @@ public class InternalRepository(UserDataContext _userDataContext) : IInternalRep
         await _dbSet.AddAsync(@internal);
 
         await _userDataContext.SaveChangesAsync();
+    }
+
+    public async Task<ForApprove?> GetForApproveAsync(int id)
+    {
+        return await _dbSet.Where(e => e.Id == id)
+            .Select(e => new ForApprove
+            {
+                EmailAddress = e.EmailAddress,
+                Status = e.Status,
+            })
+            .FirstOrDefaultAsync();
     }
 
     public async Task<int> GetMaxIdAsync()
@@ -97,7 +109,7 @@ public class InternalRepository(UserDataContext _userDataContext) : IInternalRep
             .FirstOrDefaultAsync();
     }
 
-    public async Task SetStatusAndSaveAsync(int id, InternalStatus status, string? description, DateTime updateDateTime, int updateUserId)
+    public void SetStatus(int id, InternalStatus status, string? description, DateTime updateDateTime, int updateUserId)
     {
         var @internal = new Internal
         {
@@ -114,8 +126,5 @@ public class InternalRepository(UserDataContext _userDataContext) : IInternalRep
         entityEntry.Property(e => e.Status).IsModified = true;
         entityEntry.Property(e => e.UpdateDateTime).IsModified = true;
         entityEntry.Property(e => e.UpdateUserId).IsModified = true;
-
-
-        await _userDataContext.SaveChangesAsync();
     }
 }

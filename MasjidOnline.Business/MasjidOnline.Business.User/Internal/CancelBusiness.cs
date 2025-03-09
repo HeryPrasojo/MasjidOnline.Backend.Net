@@ -27,12 +27,14 @@ public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IFiel
         if (status != Entity.User.InternalStatus.New) throw new InputMismatchException($"{nameof(status)}: {status}");
 
 
-        await _userData.Internal.SetStatusAndSaveAsync(
+        _userData.Internal.SetStatus(
             cancelRequest.Id,
             Entity.User.InternalStatus.Cancel,
             cancelRequest.Description,
             DateTime.UtcNow,
             _sessionBusiness.UserId);
+
+        await _userData.SaveWithTransactionAsync(_sessionBusiness.UserId);
 
         return new()
         {

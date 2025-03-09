@@ -33,6 +33,8 @@ public class AddBusiness(
         _fieldValidatorService.ValidateRequiredPlus(addRequest.InfaqId);
 
 
+        // undone check exixts
+
         var infaq = await _infaqData.Infaq.GetForExpiredAddAsync(addRequest.InfaqId);
 
         if (infaq == default) throw new InputMismatchException(nameof(addRequest.InfaqId));

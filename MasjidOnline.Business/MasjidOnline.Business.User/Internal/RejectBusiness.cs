@@ -27,12 +27,14 @@ public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IFiel
         if (status != Entity.User.InternalStatus.New) throw new InputMismatchException($"{nameof(status)}: {status}");
 
 
-        await _userData.Internal.SetStatusAndSaveAsync(
-            rejectRequest.Id,
-            Entity.User.InternalStatus.Reject,
-            rejectRequest.Description,
-            DateTime.UtcNow,
-            _sessionBusiness.UserId);
+        _userData.Internal.SetStatus(
+             rejectRequest.Id,
+             Entity.User.InternalStatus.Reject,
+             rejectRequest.Description,
+             DateTime.UtcNow,
+             _sessionBusiness.UserId);
+
+        await _userData.SaveWithTransactionAsync(_sessionBusiness.UserId);
 
         return new()
         {
