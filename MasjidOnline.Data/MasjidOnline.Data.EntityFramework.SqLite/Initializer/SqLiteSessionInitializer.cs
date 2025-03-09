@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 
-public class SqLiteSessionsInitializer(
+public class SqLiteSessionInitializer(
     SessionDataContext _sessionDataContext,
     ISessionsDefinition _sessionDefinition) : SessionInitializer(_sessionDefinition)
 {

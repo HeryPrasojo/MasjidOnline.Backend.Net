@@ -65,6 +65,8 @@ public class AddBusiness(
 
         await _infaqData.SaveAsync();
 
+        // todo approver notification
+
         return new()
         {
             ResultCode = ResponseResultCode.Success,

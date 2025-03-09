@@ -3,7 +3,7 @@ using MasjidOnline.Data.Interface.Datas;
 
 namespace MasjidOnline.Data.Interface.Initializer;
 
-public interface IUsersInitializer
+public interface ISessionInitializer
 {
-    Task InitializeDatabaseAsync(IUserData userData, int userId);
+    Task InitializeDatabaseAsync(ISessionData sessionData);
 }

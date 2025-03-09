@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 
-public class SqLiteUsersInitializer(
+public class SqLiteUserInitializer(
     UserDataContext _userDataContext,
     IUsersDefinition _userDefinition) : UserInitializer(_userDefinition)
 {

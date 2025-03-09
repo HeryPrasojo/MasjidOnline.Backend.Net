@@ -122,9 +122,9 @@ static async Task InitializeAsync(WebApplication webApplication)
     var coreInitializer = GetService<ICoreInitializer>(serviceScope.ServiceProvider);
     var captchaInitializer = GetService<ICaptchaInitializer>(serviceScope.ServiceProvider);
     var eventInitializer = GetService<IEventInitializer>(serviceScope.ServiceProvider);
-    var infaqssInitializer = GetService<IInfaqsInitializer>(serviceScope.ServiceProvider);
-    var sessionsInitializer = GetService<ISessionsInitializer>(serviceScope.ServiceProvider);
-    var usersInitializer = GetService<IUsersInitializer>(serviceScope.ServiceProvider);
+    var infaqInitializer = GetService<IInfaqInitializer>(serviceScope.ServiceProvider);
+    var sessionInitializer = GetService<ISessionInitializer>(serviceScope.ServiceProvider);
+    var userInitializer = GetService<IUserInitializer>(serviceScope.ServiceProvider);
 
     var auditIdGenerator = GetService<IAuditIdGenerator>(serviceScope.ServiceProvider);
     var coreIdGenerator = GetService<ICoreIdGenerator>(serviceScope.ServiceProvider);
@@ -139,7 +139,7 @@ static async Task InitializeAsync(WebApplication webApplication)
     var userInitializerBusiness = GetService<MasjidOnline.Business.User.Interface.IInitializerBusiness>(serviceScope.ServiceProvider);
 
 
-    await sessionsInitializer.InitializeDatabaseAsync(sessionData);
+    await sessionInitializer.InitializeDatabaseAsync(sessionData);
 
     await sessionBusiness.ChangeAndSaveAsync(MasjidOnline.Business.Interface.Model.Constant.SystemUserId);
 
@@ -147,8 +147,8 @@ static async Task InitializeAsync(WebApplication webApplication)
     await coreInitializer.InitializeDatabaseAsync(coreData);
     await captchaInitializer.InitializeDatabaseAsync(captchaData);
     await eventInitializer.InitializeDatabaseAsync(eventData);
-    await infaqssInitializer.InitializeDatabaseAsync(infaqData);
-    await usersInitializer.InitializeDatabaseAsync(userData, sessionBusiness.UserId);
+    await infaqInitializer.InitializeDatabaseAsync(infaqData);
+    await userInitializer.InitializeDatabaseAsync(userData, sessionBusiness.UserId);
 
 
     await auditIdGenerator.InitializeAsync(auditData);

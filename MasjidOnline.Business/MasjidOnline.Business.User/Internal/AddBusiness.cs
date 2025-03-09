@@ -52,6 +52,8 @@ public class AddBusiness(
 
         await _userData.Internal.AddAndSaveAsync(@internal);
 
+        // todo approver notification
+
         return new()
         {
             ResultCode = ResponseResultCode.Success

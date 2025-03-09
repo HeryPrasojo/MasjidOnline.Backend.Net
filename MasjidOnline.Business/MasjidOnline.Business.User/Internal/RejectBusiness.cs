@@ -36,6 +36,8 @@ public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IFiel
 
         await _userData.SaveWithTransactionAsync(_sessionBusiness.UserId);
 
+        // todo requester notification
+
         return new()
         {
             ResultCode = ResponseResultCode.Success,

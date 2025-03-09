@@ -7,8 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 
-// todo rename to singular (remove trailing s)
-public class SqLiteInfaqsInitializer(
+public class SqLiteInfaqInitializer(
     InfaqDataContext _infaqDataContext,
     IInfaqsDefinition _infaqsDefinition) : InfaqInitializer(_infaqsDefinition)
 {

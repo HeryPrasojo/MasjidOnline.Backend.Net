@@ -6,7 +6,7 @@ using MasjidOnline.Entity.User;
 
 namespace MasjidOnline.Data.Initializer;
 
-public abstract class UserInitializer(IUsersDefinition _userDefinition) : IUsersInitializer
+public abstract class UserInitializer(IUsersDefinition _userDefinition) : IUserInitializer
 {
     public async Task InitializeDatabaseAsync(IUserData userData, int userId)
     {

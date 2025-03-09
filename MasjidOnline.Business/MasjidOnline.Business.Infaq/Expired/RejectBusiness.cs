@@ -40,7 +40,7 @@ public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IFiel
 
         await _infaqData.SaveAsync();
 
-        // todo approver notification
+        // todo requester notification
 
         return new()
         {

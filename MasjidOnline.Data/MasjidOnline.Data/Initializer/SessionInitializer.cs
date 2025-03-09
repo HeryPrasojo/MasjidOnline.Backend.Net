@@ -6,7 +6,7 @@ using MasjidOnline.Entity.Session;
 
 namespace MasjidOnline.Data.Initializer;
 
-public abstract class SessionInitializer(ISessionsDefinition _sessionDefinition) : ISessionsInitializer
+public abstract class SessionInitializer(ISessionsDefinition _sessionDefinition) : ISessionInitializer
 {
     public async Task InitializeDatabaseAsync(ISessionData sessionData)
     {
