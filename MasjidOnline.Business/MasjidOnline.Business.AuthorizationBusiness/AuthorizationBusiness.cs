@@ -23,6 +23,9 @@ public class AuthorizationBusiness : IAuthorizationBusiness
         bool infaqSuccessAdd = default,
         bool infaqSuccessApprove = default,
         bool infaqSuccessCancel = default,
+        bool infaqVoidAdd = default,
+        bool infaqVoidApprove = default,
+        bool infaqVoidCancel = default,
         bool userInternalAdd = default,
         bool userInternalApprove = default,
         bool userInternalCancel = default)
@@ -38,6 +41,10 @@ public class AuthorizationBusiness : IAuthorizationBusiness
         if (infaqSuccessAdd && !sessionPermission.InfaqSuccessAdd) throw new PermissionException(nameof(sessionPermission.InfaqSuccessAdd));
         if (infaqSuccessApprove && !sessionPermission.InfaqSuccessApprove) throw new PermissionException(nameof(sessionPermission.InfaqSuccessApprove));
         if (infaqSuccessCancel && !sessionPermission.InfaqSuccessCancel) throw new PermissionException(nameof(sessionPermission.InfaqSuccessCancel));
+
+        if (infaqVoidAdd && !sessionPermission.InfaqVoidAdd) throw new PermissionException(nameof(sessionPermission.InfaqVoidAdd));
+        if (infaqVoidApprove && !sessionPermission.InfaqVoidApprove) throw new PermissionException(nameof(sessionPermission.InfaqVoidApprove));
+        if (infaqVoidCancel && !sessionPermission.InfaqVoidCancel) throw new PermissionException(nameof(sessionPermission.InfaqVoidCancel));
 
         if (userInternalAdd && !sessionPermission.UserInternalAdd) throw new PermissionException(nameof(sessionPermission.UserInternalAdd));
         if (userInternalApprove && !sessionPermission.UserInternalApprove) throw new PermissionException(nameof(sessionPermission.UserInternalApprove));

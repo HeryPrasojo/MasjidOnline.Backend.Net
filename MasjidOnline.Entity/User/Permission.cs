@@ -15,6 +15,10 @@ public class Permission
     public required bool InfaqSuccessApprove { get; set; }
     public required bool InfaqSuccessCancel { get; set; }
 
+    public required bool InfaqVoidAdd { get; set; }
+    public required bool InfaqVoidApprove { get; set; }
+    public required bool InfaqVoidCancel { get; set; }
+
     public required bool UserInternalAdd { get; set; }
     public required bool UserInternalApprove { get; set; }
     public required bool UserInternalCancel { get; set; }

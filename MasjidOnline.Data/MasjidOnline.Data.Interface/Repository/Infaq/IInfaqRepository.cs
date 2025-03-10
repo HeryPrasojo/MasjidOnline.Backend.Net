@@ -18,4 +18,5 @@ public interface IInfaqRepository
     Task<ManyResult<ManyDueRecord>> GetManyDueAsync(DateTime dueDateTime, IEnumerable<PaymentType>? paymentTypes = null, ManyOrderBy getManyOrderBy = ManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);
     Task<OneDue?> GetOneDueAsync(int id);
     Task<SuccessAdd?> GetForSuccessAddAsync(int id);
+    Task<VoidAdd?> GetForVoidAddAsync(int id);
 }

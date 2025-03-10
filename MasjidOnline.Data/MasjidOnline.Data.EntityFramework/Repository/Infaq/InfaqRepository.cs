@@ -44,6 +44,18 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
             .FirstOrDefaultAsync();
     }
 
+    public async Task<VoidAdd?> GetForVoidAddAsync(int id)
+    {
+        return await _dbSet.Where(e => e.Id == id)
+            .Select(e => new VoidAdd
+            {
+                DateTime = e.DateTime,
+                PaymentStatus = e.PaymentStatus,
+                PaymentType = e.PaymentType,
+            })
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<ManyResult<ManyRecord>> GetManyAsync(
         IEnumerable<PaymentType>? paymentTypes = default,
         IEnumerable<PaymentStatus>? paymentStatuses = default,
