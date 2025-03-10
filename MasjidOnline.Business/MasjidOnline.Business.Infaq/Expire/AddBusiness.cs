@@ -45,7 +45,7 @@ public class AddBusiness(
         if (infaq.PaymentStatus != PaymentStatus.New) throw new InputMismatchException(nameof(infaq.PaymentStatus));
 
 
-        var expireDateTime = infaq.DateTime.AddDays(_optionsMonitor.CurrentValue.PaymentManualExpire);
+        var expireDateTime = infaq.DateTime.AddDays(_optionsMonitor.CurrentValue.PaymentExpire);
 
         if (expireDateTime > DateTime.UtcNow) throw new InputMismatchException(nameof(infaq.DateTime));
 

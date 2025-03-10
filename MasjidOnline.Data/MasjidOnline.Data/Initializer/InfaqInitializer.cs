@@ -18,6 +18,7 @@ public abstract class InfaqInitializer(IInfaqsDefinition _infaqsDefinition) : II
             await CreateTableInfaqAsync();
             await CreateTableInfaqFileAsync();
             await CreateTableInfaqSettingAsync();
+            await CreateTableSuccessAsync();
 
 
             var transactionSetting = new InfaqSetting
@@ -41,4 +42,6 @@ public abstract class InfaqInitializer(IInfaqsDefinition _infaqsDefinition) : II
     protected abstract Task<int> CreateTableInfaqFileAsync();
 
     protected abstract Task<int> CreateTableInfaqSettingAsync();
+
+    protected abstract Task<int> CreateTableSuccessAsync();
 }

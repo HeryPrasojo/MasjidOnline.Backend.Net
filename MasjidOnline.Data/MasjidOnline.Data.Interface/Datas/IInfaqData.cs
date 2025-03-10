@@ -10,4 +10,5 @@ public interface IInfaqData : IDataWithoutAudit
     IInfaqSettingRepository InfaqSetting { get; }
     IExpireRepository Expire { get; }
     IPaymentRepository Payment { get; }
+    ISuccessRepository Success { get; }
 }

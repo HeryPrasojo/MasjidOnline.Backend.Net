@@ -86,10 +86,15 @@ public class InitializerBusiness(
         {
             UserId = user.Id,
 
-            UserInternalAdd = true,
-            UserInternalCancel = true,
             InfaqExpireAdd = true,
+            InfaqExpireApprove = true,
             InfaqExpireCancel = true,
+            InfaqSuccessAdd = true,
+            InfaqSuccessApprove = true,
+            InfaqSuccessCancel = true,
+            UserInternalAdd = true,
+            UserInternalApprove = true,
+            UserInternalCancel = true,
         };
 
         await _userData.Permission.AddAsync(permission);

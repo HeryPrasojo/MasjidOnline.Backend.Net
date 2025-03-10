@@ -26,7 +26,7 @@ public class ApproveBusiness(
 {
     public async Task<Response> ApproveAsync(ISessionBusiness _sessionBusiness, IUserData _userData, ApproveRequest approveRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, userInternalCancel: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, userInternalApprove: true);
 
         _fieldValidatorService.ValidateRequired(approveRequest);
         _fieldValidatorService.ValidateRequiredPlus(approveRequest.Id);

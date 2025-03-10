@@ -72,4 +72,22 @@ public class SqLiteInfaqInitializer(
 
         return await _infaqDataContext.Database.ExecuteSqlAsync(sql);
     }
+
+    protected override async Task<int> CreateTableSuccessAsync()
+    {
+        FormattableString sql = @$"
+            CREATE TABLE Success
+            (
+                Id INTEGER PRIMARY KEY,
+                InfaqId INTEGER NOT NULL,
+                DateTime TEXT NOT NULL,
+                UserId INTEGER NUT NULL,
+                Status INTEGER NUT NULL
+                UpdateDateTime TEXT,
+                UpdateUserId INTEGER,
+            )";
+
+        return await _infaqDataContext.Database.ExecuteSqlAsync(sql);
+    }
+
 }

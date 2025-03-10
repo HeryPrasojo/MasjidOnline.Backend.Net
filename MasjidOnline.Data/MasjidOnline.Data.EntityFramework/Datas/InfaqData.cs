@@ -13,6 +13,7 @@ public class InfaqData(InfaqDataContext _infaqDataContext) : DataWithoutAudit(_i
     private IInfaqManualRepository? _infaqManualRepository;
     private IInfaqSettingRepository? _infaqSettingRepository;
     private IPaymentRepository? _paymentRepository;
+    private ISuccessRepository? _successRepository;
 
     public IExpireRepository Expire => _expireRepository ??= new ExpireRepository(_infaqDataContext);
 
@@ -25,4 +26,6 @@ public class InfaqData(InfaqDataContext _infaqDataContext) : DataWithoutAudit(_i
     public IInfaqSettingRepository InfaqSetting => _infaqSettingRepository ??= new InfaqSettingRepository(_infaqDataContext);
 
     public IPaymentRepository Payment => _paymentRepository ??= new PaymentRepository(_infaqDataContext);
+
+    public ISuccessRepository Success => _successRepository ??= new SuccessRepository(_infaqDataContext);
 }

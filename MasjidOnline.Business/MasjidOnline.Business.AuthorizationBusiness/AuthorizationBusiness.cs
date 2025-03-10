@@ -18,7 +18,13 @@ public class AuthorizationBusiness : IAuthorizationBusiness
         ISessionBusiness _sessionBusiness,
         IUserData _userData,
         bool infaqExpireAdd = default,
+        bool infaqExpireApprove = default,
+        bool infaqExpireCancel = default,
+        bool infaqSuccessAdd = default,
+        bool infaqSuccessApprove = default,
+        bool infaqSuccessCancel = default,
         bool userInternalAdd = default,
+        bool userInternalApprove = default,
         bool userInternalCancel = default)
     {
         var sessionPermission = await _userData.Permission.GetByUserIdAsync(_sessionBusiness.UserId);
@@ -26,9 +32,15 @@ public class AuthorizationBusiness : IAuthorizationBusiness
         if (sessionPermission == default) throw new PermissionException(nameof(Constant.AnonymousUserId));
 
         if (infaqExpireAdd && !sessionPermission.InfaqExpireAdd) throw new PermissionException(nameof(sessionPermission.InfaqExpireAdd));
+        if (infaqExpireApprove && !sessionPermission.InfaqExpireApprove) throw new PermissionException(nameof(sessionPermission.InfaqExpireApprove));
+        if (infaqExpireCancel && !sessionPermission.InfaqExpireCancel) throw new PermissionException(nameof(sessionPermission.InfaqExpireCancel));
+
+        if (infaqSuccessAdd && !sessionPermission.InfaqSuccessAdd) throw new PermissionException(nameof(sessionPermission.InfaqSuccessAdd));
+        if (infaqSuccessApprove && !sessionPermission.InfaqSuccessApprove) throw new PermissionException(nameof(sessionPermission.InfaqSuccessApprove));
+        if (infaqSuccessCancel && !sessionPermission.InfaqSuccessCancel) throw new PermissionException(nameof(sessionPermission.InfaqSuccessCancel));
 
         if (userInternalAdd && !sessionPermission.UserInternalAdd) throw new PermissionException(nameof(sessionPermission.UserInternalAdd));
-
+        if (userInternalApprove && !sessionPermission.UserInternalApprove) throw new PermissionException(nameof(sessionPermission.UserInternalApprove));
         if (userInternalCancel && !sessionPermission.UserInternalCancel) throw new PermissionException(nameof(sessionPermission.UserInternalCancel));
     }
 }

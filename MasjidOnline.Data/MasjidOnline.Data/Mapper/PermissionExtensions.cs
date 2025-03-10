@@ -15,10 +15,15 @@ public static class PermissionExtensions
             DateTime = dateTime,
 
             UserId = permission.UserId,
-            UserInternalAdd = permission.UserInternalAdd,
-            UserInternalCancel = permission.UserInternalCancel,
             InfaqExpireAdd = permission.InfaqExpireAdd,
+            InfaqExpireApprove = permission.InfaqExpireApprove,
             InfaqExpireCancel = permission.InfaqExpireCancel,
+            InfaqSuccessAdd = permission.InfaqSuccessAdd,
+            InfaqSuccessApprove = permission.InfaqSuccessApprove,
+            InfaqSuccessCancel = permission.InfaqSuccessCancel,
+            UserInternalAdd = permission.UserInternalAdd,
+            UserInternalApprove = permission.UserInternalApprove,
+            UserInternalCancel = permission.UserInternalCancel,
         };
     }
 }

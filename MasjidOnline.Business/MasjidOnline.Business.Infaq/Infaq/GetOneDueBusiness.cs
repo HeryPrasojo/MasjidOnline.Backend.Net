@@ -31,7 +31,7 @@ public class GetOneDueBusiness(
         if (infaq.PaymentStatus != Entity.Infaq.PaymentStatus.New) throw new InputMismatchException($"{nameof(infaq.PaymentStatus)}");
 
 
-        var expireDateTime = infaq.DateTime.AddDays(_optionsMonitor.CurrentValue.PaymentManualExpire);
+        var expireDateTime = infaq.DateTime.AddDays(_optionsMonitor.CurrentValue.PaymentExpire);
 
         if (expireDateTime > DateTime.UtcNow) throw new InputMismatchException(nameof(infaq.DateTime));
 
