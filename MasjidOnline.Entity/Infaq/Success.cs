@@ -1,4 +1,3 @@
-// undone
 using System;
 
 namespace MasjidOnline.Entity.Infaq;
