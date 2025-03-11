@@ -35,6 +35,7 @@ public class GetManyNewBusiness(
             Records = getManyResult.Records.Select(m => new GetManyNewResponseRecord
             {
                 DateTime = m.DateTime,
+                Id = m.InfaqId,
                 InfaqId = m.InfaqId,
                 UserId = m.UserId,
             }),

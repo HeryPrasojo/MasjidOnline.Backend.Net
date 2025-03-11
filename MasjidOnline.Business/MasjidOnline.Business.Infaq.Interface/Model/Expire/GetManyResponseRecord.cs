@@ -1,7 +1,9 @@
-﻿namespace MasjidOnline.Business.Infaq.Interface.Model.Expire;
+namespace MasjidOnline.Business.Infaq.Interface.Model.Expire;
 
 public class GetManyResponseRecord
 {
+    public required int Id { get; set; }
+
     public required int InfaqId { get; set; }
 
     public required DateTime DateTime { get; set; }

@@ -32,11 +32,12 @@ public class GetManyNewBusiness(
         return new()
         {
             ResultCode = ResponseResultCode.Success,
-            Records = getManyResult.Records.Select(m => new GetManyNewResponseRecord
+            Records = getManyResult.Records.Select(e => new GetManyNewResponseRecord
             {
-                DateTime = m.DateTime,
-                InfaqId = m.InfaqId,
-                UserId = m.UserId,
+                DateTime = e.DateTime,
+                Id = e.Id,
+                InfaqId = e.InfaqId,
+                UserId = e.UserId,
             }),
             Total = getManyResult.Total,
         };

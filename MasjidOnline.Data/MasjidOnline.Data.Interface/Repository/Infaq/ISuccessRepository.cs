@@ -14,6 +14,6 @@ public interface ISuccessRepository
     Task<ManyResult<ManyRecord>> GetManyAsync(SuccessStatus? status = null, ManyOrderBy getManyOrderBy = ManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);
     Task<ManyResult<ManyNewRecord>> GetManyNewAsync(ManyOrderBy getManyOrderBy = ManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);
     Task<int> GetMaxIdAsync();
-    Task<One?> GetOneAsync(int infaqId);
+    Task<One?> GetOneAsync(int id);
     void SetStatus(int id, SuccessStatus status, string? description, DateTime updateDateTime, int updateUserId);
 }

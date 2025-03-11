@@ -17,12 +17,12 @@ public class GetOneBusiness(
         GetOneRequest getOneRequest)
     {
         _fieldValidatorService.ValidateRequired(getOneRequest);
-        _fieldValidatorService.ValidateRequiredPlus(getOneRequest.InfaqId);
+        _fieldValidatorService.ValidateRequiredPlus(getOneRequest.Id);
 
 
-        var infaq = await _infaqData.Success.GetOneAsync(getOneRequest.InfaqId);
+        var infaq = await _infaqData.Success.GetOneAsync(getOneRequest.Id);
 
-        if (infaq == default) throw new InputMismatchException($"{nameof(getOneRequest.InfaqId)}: {getOneRequest.InfaqId}");
+        if (infaq == default) throw new InputMismatchException($"{nameof(getOneRequest.Id)}: {getOneRequest.Id}");
 
         return new()
         {

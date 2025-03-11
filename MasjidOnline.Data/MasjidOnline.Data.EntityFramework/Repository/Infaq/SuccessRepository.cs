@@ -106,6 +106,7 @@ public class SuccessRepository(InfaqDataContext _infaqDataContext) : ISuccessRep
                 .Select(e => new ManyNewRecord
                 {
                     DateTime = e.DateTime,
+                    Id = e.Id,
                     InfaqId = e.InfaqId,
                     UserId = e.UserId,
                 })
@@ -119,9 +120,9 @@ public class SuccessRepository(InfaqDataContext _infaqDataContext) : ISuccessRep
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
     }
 
-    public async Task<One?> GetOneAsync(int infaqId)
+    public async Task<One?> GetOneAsync(int id)
     {
-        return await _dbSet.Where(e => e.InfaqId == infaqId)
+        return await _dbSet.Where(e => e.Id == id)
             .Select(e => new One
             {
                 DateTime = e.DateTime,

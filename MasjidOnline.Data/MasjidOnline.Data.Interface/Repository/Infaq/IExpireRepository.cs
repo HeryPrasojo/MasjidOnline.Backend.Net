@@ -14,7 +14,7 @@ public interface IExpireRepository
     Task<ManyResult<ManyRecord>> GetManyAsync(ExpireStatus? status = ExpireStatus.Invalid, ManyOrderBy getManyOrderBy = ManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);
     Task<ManyResult<ManyNewRecord>> GetManyNewAsync(ManyOrderBy getManyOrderBy = ManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);
     Task<int> GetMaxIdAsync();
-    Task<One?> GetOneAsync(int infaqId);
+    Task<One?> GetOneAsync(int id);
     //Task<ExpireStatus> GetStatusAsync(int id);
     void SetStatus(int id, ExpireStatus status, string? description, DateTime updateDateTime, int updateUserId);
 }

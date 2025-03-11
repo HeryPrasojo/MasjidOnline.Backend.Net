@@ -119,12 +119,14 @@ public class ExpireRepository(InfaqDataContext _infaqDataContext) : IExpireRepos
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
     }
 
-    public async Task<One?> GetOneAsync(int infaqId)
+    public async Task<One?> GetOneAsync(int id)
     {
-        return await _dbSet.Where(e => e.InfaqId == infaqId)
+        return await _dbSet.Where(e => e.Id == id)
             .Select(e => new One
             {
                 DateTime = e.DateTime,
+                Description = e.Description,
+                InfaqId = e.InfaqId,
                 Status = e.Status,
                 UpdateDateTime = e.UpdateDateTime,
                 UpdateUserId = e.UpdateUserId,

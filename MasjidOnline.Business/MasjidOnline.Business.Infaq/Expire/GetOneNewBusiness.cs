@@ -1,15 +1,15 @@
 using System.Threading.Tasks;
-using MasjidOnline.Business.Infaq.Interface.Model.Void;
-using MasjidOnline.Business.Infaq.Interface.Void;
-using MasjidOnline.Business.Infaq.Void.Mapper;
+using MasjidOnline.Business.Infaq.Expire.Mapper;
+using MasjidOnline.Business.Infaq.Interface.Expire;
+using MasjidOnline.Business.Infaq.Interface.Model.Expire;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
 
-namespace MasjidOnline.Business.Infaq.Void;
+namespace MasjidOnline.Business.Infaq.Expire;
 
-public class GetOneBusiness(
+public class GetOneNewBusiness(
     IFieldValidatorService _fieldValidatorService) : IGetOneBusiness
 {
     public async Task<GetOneResponse> GetAsync(
@@ -20,7 +20,7 @@ public class GetOneBusiness(
         _fieldValidatorService.ValidateRequiredPlus(getOneRequest.Id);
 
 
-        var infaq = await _infaqData.Void.GetOneAsync(getOneRequest.Id);
+        var infaq = await _infaqData.Expire.GetOneAsync(getOneRequest.Id);
 
         if (infaq == default) throw new InputMismatchException($"{nameof(getOneRequest.Id)}: {getOneRequest.Id}");
 
@@ -28,6 +28,7 @@ public class GetOneBusiness(
         {
             ResultCode = ResponseResultCode.Success,
             DateTime = infaq.DateTime,
+            Description = infaq.Description,
             Status = infaq.Status.ToModel(),
             UpdateDateTime = infaq.UpdateDateTime,
             UpdateUserId = infaq.UpdateUserId,

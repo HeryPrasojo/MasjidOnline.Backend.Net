@@ -5,11 +5,15 @@ namespace MasjidOnline.Data.Interface.ViewModel.Infaq.Expire;
 
 public class One
 {
+    public required int InfaqId { get; set; }
+
     public required DateTime DateTime { get; set; }
 
     public required int UserId { get; set; }
 
     public required ExpireStatus Status { get; set; }
+
+    public required string? Description { get; set; }
 
     public required DateTime? UpdateDateTime { get; set; }
 
