@@ -1,20 +1,20 @@
 using System.Linq;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Infaq.Interface.Model.Success;
-using MasjidOnline.Business.Infaq.Interface.Success;
 using MasjidOnline.Business.Interface.Model.Responses;
+using MasjidOnline.Business.User.Interface.Internal;
+using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Data.Interface.Datas;
-using MasjidOnline.Data.Interface.ViewModel.Infaq.Success;
 using MasjidOnline.Data.Interface.ViewModel.Repository;
+using MasjidOnline.Data.Interface.ViewModel.User.Internal;
 using MasjidOnline.Service.FieldValidator.Interface;
 
-namespace MasjidOnline.Business.Infaq.Success;
+namespace MasjidOnline.Business.User.Internal;
 
 public class GetManyNewBusiness(
     IFieldValidatorService _fieldValidatorService) : IGetManyNewBusiness
 {
     public async Task<GetManyResponse<GetManyNewResponseRecord>> GetAsync(
-        IInfaqData _infaqData,
+        IUserData _userData,
         GetManyNewRequest getManyNewRequest)
     {
         _fieldValidatorService.ValidateRequired(getManyNewRequest);
@@ -23,7 +23,7 @@ public class GetManyNewBusiness(
 
         var take = 10;
 
-        var getManyResult = await _infaqData.Success.GetManyNewAsync(
+        var getManyResult = await _userData.Internal.GetManyNewAsync(
             getManyOrderBy: ManyOrderBy.DateTime,
             orderByDirection: OrderByDirection.Descending,
             skip: (getManyNewRequest.Page - 1) * take,
@@ -32,12 +32,12 @@ public class GetManyNewBusiness(
         return new()
         {
             ResultCode = ResponseResultCode.Success,
-            Records = getManyResult.Records.Select(m => new GetManyNewResponseRecord
+            Records = getManyResult.Records.Select(e => new GetManyNewResponseRecord
             {
-                DateTime = m.DateTime,
-                Id = m.Id,
-                InfaqId = m.InfaqId,
-                UserId = m.UserId,
+                DateTime = e.DateTime,
+                Description = e.Description,
+                EmailAddress = e.EmailAddress,
+                UserId = e.UserId,
             }),
             Total = getManyResult.Total,
         };

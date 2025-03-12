@@ -37,6 +37,7 @@ public class GetManyBusiness(
             Records = getManyResult.Records.Select(e => new GetManyResponseRecord
             {
                 DateTime = e.DateTime,
+                Id = e.Id,
                 InfaqId = e.InfaqId,
                 Status = e.Status.ToModel(),
                 UpdateDateTime = e.UpdateDateTime,

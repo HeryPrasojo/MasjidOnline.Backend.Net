@@ -1,10 +1,12 @@
-﻿using System;
+using System;
 using MasjidOnline.Entity.Infaq;
 
 namespace MasjidOnline.Data.Interface.ViewModel.Infaq.Expire;
 
 public class ManyRecord
 {
+    public required int Id { get; set; }
+
     public required int InfaqId { get; set; }
 
     public required DateTime DateTime { get; set; }

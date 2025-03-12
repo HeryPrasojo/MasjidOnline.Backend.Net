@@ -47,16 +47,13 @@ public class ExpireRepository(InfaqDataContext _infaqDataContext) : IExpireRepos
         if (status != default)
             queryable = queryable.Where(e => e.Status == status);
 
-
         var countTask = queryable.LongCountAsync();
-
 
         if (getManyOrderBy == ManyOrderBy.DateTime)
         {
             if (orderByDirection == OrderByDirection.Descending) queryable = queryable.OrderByDescending(e => e.DateTime);
             else queryable = queryable.OrderBy(e => e.DateTime);
         }
-
 
         var count = await countTask;
 
@@ -66,6 +63,7 @@ public class ExpireRepository(InfaqDataContext _infaqDataContext) : IExpireRepos
                 .Take(take)
                 .Select(e => new ManyRecord
                 {
+                    Id = e.Id,
                     DateTime = e.DateTime,
                     InfaqId = e.InfaqId,
                     Status = e.Status,
@@ -86,16 +84,13 @@ public class ExpireRepository(InfaqDataContext _infaqDataContext) : IExpireRepos
     {
         var queryable = _dbSet.Where(e => e.Status == ExpireStatus.New);
 
-
         var countTask = queryable.LongCountAsync();
-
 
         if (getManyOrderBy == ManyOrderBy.DateTime)
         {
             if (orderByDirection == OrderByDirection.Descending) queryable = queryable.OrderByDescending(e => e.DateTime);
             else queryable = queryable.OrderBy(e => e.DateTime);
         }
-
 
         var count = await countTask;
 
@@ -105,6 +100,7 @@ public class ExpireRepository(InfaqDataContext _infaqDataContext) : IExpireRepos
                 .Take(take)
                 .Select(e => new ManyNewRecord
                 {
+                    Id = e.Id,
                     DateTime = e.DateTime,
                     InfaqId = e.InfaqId,
                     UserId = e.UserId,

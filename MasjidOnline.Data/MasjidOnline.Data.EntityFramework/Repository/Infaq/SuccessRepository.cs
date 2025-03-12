@@ -67,6 +67,7 @@ public class SuccessRepository(InfaqDataContext _infaqDataContext) : ISuccessRep
                 .Select(e => new ManyRecord
                 {
                     DateTime = e.DateTime,
+                    Id = e.Id,
                     InfaqId = e.InfaqId,
                     Status = e.Status,
                     UpdateDateTime = e.UpdateDateTime,

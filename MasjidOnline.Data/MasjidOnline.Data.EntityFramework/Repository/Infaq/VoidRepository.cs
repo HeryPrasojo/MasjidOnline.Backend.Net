@@ -67,6 +67,7 @@ public class VoidRepository(InfaqDataContext _infaqDataContext) : IVoidRepositor
                 .Select(e => new ManyRecord
                 {
                     DateTime = e.DateTime,
+                    Id = e.Id,
                     InfaqId = e.InfaqId,
                     Status = e.Status,
                     UpdateDateTime = e.UpdateDateTime,
