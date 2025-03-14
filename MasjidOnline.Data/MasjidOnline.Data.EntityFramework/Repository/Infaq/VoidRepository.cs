@@ -135,6 +135,18 @@ public class VoidRepository(InfaqDataContext _infaqDataContext) : IVoidRepositor
             .FirstOrDefaultAsync();
     }
 
+    public async Task<OneNew?> GetOneNewAsync(int id)
+    {
+        return await _dbSet.Where(e => e.Id == id)
+            .Select(e => new OneNew
+            {
+                DateTime = e.DateTime,
+                InfaqId = e.InfaqId,
+                UserId = e.UserId,
+            })
+            .FirstOrDefaultAsync();
+    }
+
     //public async Task<VoidStatus> GetStatusAsync(int id)
     //{
     //    return await _dbSet.Where(e => e.Id == id)

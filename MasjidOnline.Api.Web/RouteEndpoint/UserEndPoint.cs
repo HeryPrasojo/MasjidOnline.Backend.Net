@@ -64,10 +64,10 @@ internal static class UserEndPoint
 
         internal static async Task<Business.User.Interface.Model.Internal.GetOneNewResponse> GetOneNewAsync(
             Business.User.Interface.Internal.IGetOneNewBusiness _getOneNewBusiness,
-            IInfaqData _infaqData,
+            IUserData _userData,
             Business.User.Interface.Model.Internal.GetOneNewRequest getOneNewRequest)
         {
-            return await _getOneNewBusiness.GetAsync(_infaqData, getOneNewRequest);
+            return await _getOneNewBusiness.GetAsync(_userData, getOneNewRequest);
         }
 
         internal static async Task<Response> RejectAsync(

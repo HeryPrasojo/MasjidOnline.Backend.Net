@@ -135,6 +135,18 @@ public class SuccessRepository(InfaqDataContext _infaqDataContext) : ISuccessRep
             .FirstOrDefaultAsync();
     }
 
+    public async Task<OneNew?> GetOneNewAsync(int id)
+    {
+        return await _dbSet.Where(e => e.Id == id)
+            .Select(e => new OneNew
+            {
+                DateTime = e.DateTime,
+                InfaqId = e.InfaqId,
+                UserId = e.UserId,
+            })
+            .FirstOrDefaultAsync();
+    }
+
     //public async Task<SuccessStatus> GetStatusAsync(int id)
     //{
     //    return await _dbSet.Where(e => e.Id == id)

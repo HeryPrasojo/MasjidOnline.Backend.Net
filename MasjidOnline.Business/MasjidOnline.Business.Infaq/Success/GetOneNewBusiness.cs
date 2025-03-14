@@ -1,12 +1,12 @@
 using System.Threading.Tasks;
-using MasjidOnline.Business.Infaq.Interface.Expire;
-using MasjidOnline.Business.Infaq.Interface.Model.Expire;
+using MasjidOnline.Business.Infaq.Interface.Model.Success;
+using MasjidOnline.Business.Infaq.Interface.Success;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
 
-namespace MasjidOnline.Business.Infaq.Expire;
+namespace MasjidOnline.Business.Infaq.Success;
 
 public class GetOneNewBusiness(
     IFieldValidatorService _fieldValidatorService) : IGetOneNewBusiness
@@ -19,16 +19,16 @@ public class GetOneNewBusiness(
         _fieldValidatorService.ValidateRequiredPlus(getOneNewRequest.Id);
 
 
-        var expire = await _infaqData.Expire.GetOneNewAsync(getOneNewRequest.Id);
+        var success = await _infaqData.Success.GetOneNewAsync(getOneNewRequest.Id);
 
-        if (expire == default) throw new InputMismatchException($"{nameof(getOneNewRequest.Id)}: {getOneNewRequest.Id}");
+        if (success == default) throw new InputMismatchException($"{nameof(getOneNewRequest.Id)}: {getOneNewRequest.Id}");
 
         return new()
         {
             ResultCode = ResponseResultCode.Success,
-            DateTime = expire.DateTime,
-            InfaqId = expire.InfaqId,
-            UserId = expire.UserId,
+            DateTime = success.DateTime,
+            InfaqId = success.InfaqId,
+            UserId = success.UserId,
         };
     }
 }

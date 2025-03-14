@@ -131,6 +131,18 @@ public class ExpireRepository(InfaqDataContext _infaqDataContext) : IExpireRepos
             .FirstOrDefaultAsync();
     }
 
+    public async Task<OneNew?> GetOneNewAsync(int id)
+    {
+        return await _dbSet.Where(e => e.Id == id)
+            .Select(e => new OneNew
+            {
+                DateTime = e.DateTime,
+                InfaqId = e.InfaqId,
+                UserId = e.UserId,
+            })
+            .FirstOrDefaultAsync();
+    }
+
     //public async Task<ExpireStatus> GetStatusAsync(int id)
     //{
     //    return await _dbSet.Where(e => e.Id == id)

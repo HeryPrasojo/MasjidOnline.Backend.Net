@@ -1,10 +1,11 @@
+using System;
 using MasjidOnline.Business.Interface.Model.Responses;
 
-namespace MasjidOnline.Business.Infaq.Interface.Model.Expire;
+namespace MasjidOnline.Business.User.Interface.Model.Internal;
 
 public class GetOneNewResponse : Response
 {
-    public required int InfaqId { get; set; }
+    public required string EmailAddress { get; set; }
 
     public required DateTime DateTime { get; set; }
 

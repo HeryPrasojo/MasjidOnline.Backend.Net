@@ -16,6 +16,7 @@ public interface IInternalRepository
     Task<ManyResult<ManyNewRecord>> GetManyNewAsync(ManyOrderBy getManyOrderBy = ManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);
     Task<int> GetMaxIdAsync();
     Task<One?> GetOneAsync(int id);
+    Task<OneNew?> GetOneNewAsync(int id);
     Task<InternalStatus> GetStatusAsync(int id);
     void SetStatus(int id, InternalStatus status, string? description, DateTime updateDateTime, int updateUserId);
 }

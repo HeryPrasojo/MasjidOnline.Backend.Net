@@ -1,6 +1,6 @@
 using MasjidOnline.Business.Interface.Model.Responses;
 
-namespace MasjidOnline.Business.Infaq.Interface.Model.Expire;
+namespace MasjidOnline.Business.Infaq.Interface.Model.Void;
 
 public class GetOneNewResponse : Response
 {
