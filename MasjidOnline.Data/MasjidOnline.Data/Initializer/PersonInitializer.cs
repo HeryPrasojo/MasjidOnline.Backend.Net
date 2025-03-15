@@ -14,7 +14,7 @@ public abstract class PersonInitializer(IPersonDefinition _personDefinition) : I
 
         if (!settingTableExists)
         {
-            await CreateTableCoreSettingAsync();
+            await CreateTablePersonSettingAsync();
 
 
             var personSetting = new PersonSetting
@@ -31,5 +31,5 @@ public abstract class PersonInitializer(IPersonDefinition _personDefinition) : I
     }
 
 
-    protected abstract Task<int> CreateTableCoreSettingAsync();
+    protected abstract Task<int> CreateTablePersonSettingAsync();
 }

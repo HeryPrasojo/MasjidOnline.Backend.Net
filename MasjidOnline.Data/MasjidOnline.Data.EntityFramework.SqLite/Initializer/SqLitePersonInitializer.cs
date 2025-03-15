@@ -11,10 +11,10 @@ public class SqLitePersonInitializer(
     PersonDataContext _personDataContext,
     IPersonDefinition _personDefinition) : PersonInitializer(_personDefinition)
 {
-    protected override async Task<int> CreateTableCoreSettingAsync()
+    protected override async Task<int> CreateTablePersonSettingAsync()
     {
         FormattableString sql = @$"
-            CREATE TABLE CoreSetting
+            CREATE TABLE PersonSetting
             (
                 Id INTEGER PRIMARY KEY,
                 Description TEXT NOT NULL COLLATE NOCASE,

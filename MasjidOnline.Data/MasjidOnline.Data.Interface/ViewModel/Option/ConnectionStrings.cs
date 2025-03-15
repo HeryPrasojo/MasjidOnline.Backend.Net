@@ -6,11 +6,11 @@ public class ConnectionStrings
 
     public required string Captcha { get; set; }
 
-    public required string Core { get; set; }
-
     public required string Event { get; set; }
 
     public required string Infaqs { get; set; }
+
+    public required string Person { get; set; }
 
     public required string Sessions { get; set; }
 
