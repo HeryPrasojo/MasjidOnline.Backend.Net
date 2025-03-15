@@ -10,7 +10,7 @@ public class SqLiteDefinition<TDataContext>(TDataContext tDataContext) :
     IDefinition,
     IAuditDefinition,
     ICaptchaDefinition,
-    ICoreDefinition,
+    IPersonDefinition,
     IEventDefinition,
     ISessionsDefinition,
     IInfaqsDefinition,

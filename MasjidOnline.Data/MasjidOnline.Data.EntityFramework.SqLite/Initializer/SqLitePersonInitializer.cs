@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 
-public class SqLiteCoreInitializer(
-    CoreDataContext _coreDataContext,
-    ICoreDefinition _coreDefinition) : CoreInitializer(_coreDefinition)
+public class SqLitePersonInitializer(
+    PersonDataContext _personDataContext,
+    IPersonDefinition _personDefinition) : PersonInitializer(_personDefinition)
 {
     protected override async Task<int> CreateTableCoreSettingAsync()
     {
@@ -21,6 +21,6 @@ public class SqLiteCoreInitializer(
                 Value TEXT NOT NULL COLLATE NOCASE
             )";
 
-        return await _coreDataContext.Database.ExecuteSqlAsync(sql);
+        return await _personDataContext.Database.ExecuteSqlAsync(sql);
     }
 }

@@ -1,14 +1,14 @@
-﻿using MasjidOnline.Entity.Core;
+﻿using MasjidOnline.Entity.Person;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.DataContext;
 
-public class CoreDataContext(DbContextOptions _dbContextOptions) : DbContext(_dbContextOptions)
+public class PersonDataContext(DbContextOptions _dbContextOptions) : DbContext(_dbContextOptions)
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<CoreSetting>();
+        modelBuilder.Entity<PersonSetting>();
     }
 }

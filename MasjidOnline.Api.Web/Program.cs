@@ -111,26 +111,26 @@ static async Task InitializeAsync(WebApplication webApplication)
     using var serviceScope = webApplication.Services.CreateScope();
 
     var auditData = GetService<IAuditData>(serviceScope.ServiceProvider);
-    var coreData = GetService<ICoreData>(serviceScope.ServiceProvider);
     var captchaData = GetService<ICaptchaData>(serviceScope.ServiceProvider);
     var eventData = GetService<IEventData>(serviceScope.ServiceProvider);
     var infaqData = GetService<IInfaqData>(serviceScope.ServiceProvider);
+    var personData = GetService<IPersonData>(serviceScope.ServiceProvider);
     var sessionData = GetService<ISessionData>(serviceScope.ServiceProvider);
     var userData = GetService<IUserData>(serviceScope.ServiceProvider);
 
     var auditInitializer = GetService<IAuditInitializer>(serviceScope.ServiceProvider);
-    var coreInitializer = GetService<ICoreInitializer>(serviceScope.ServiceProvider);
     var captchaInitializer = GetService<ICaptchaInitializer>(serviceScope.ServiceProvider);
     var eventInitializer = GetService<IEventInitializer>(serviceScope.ServiceProvider);
     var infaqInitializer = GetService<IInfaqInitializer>(serviceScope.ServiceProvider);
+    var personInitializer = GetService<IPersonInitializer>(serviceScope.ServiceProvider);
     var sessionInitializer = GetService<ISessionInitializer>(serviceScope.ServiceProvider);
     var userInitializer = GetService<IUserInitializer>(serviceScope.ServiceProvider);
 
     var auditIdGenerator = GetService<IAuditIdGenerator>(serviceScope.ServiceProvider);
-    var coreIdGenerator = GetService<ICoreIdGenerator>(serviceScope.ServiceProvider);
     var captchaIdGenerator = GetService<ICaptchaIdGenerator>(serviceScope.ServiceProvider);
     var eventIdGenerator = GetService<IEventIdGenerator>(serviceScope.ServiceProvider);
     var infaqIdGenerator = GetService<IInfaqIdGenerator>(serviceScope.ServiceProvider);
+    var personIdGenerator = GetService<IPersonIdGenerator>(serviceScope.ServiceProvider);
     var sessionIdGenerator = GetService<ISessionIdGenerator>(serviceScope.ServiceProvider);
     var userIdGenerator = GetService<IUserIdGenerator>(serviceScope.ServiceProvider);
 
@@ -144,7 +144,7 @@ static async Task InitializeAsync(WebApplication webApplication)
     await sessionBusiness.ChangeAndSaveAsync(MasjidOnline.Business.Interface.Model.Constant.SystemUserId);
 
     await auditInitializer.InitializeDatabaseAsync(auditData);
-    await coreInitializer.InitializeDatabaseAsync(coreData);
+    await personInitializer.InitializeDatabaseAsync(personData);
     await captchaInitializer.InitializeDatabaseAsync(captchaData);
     await eventInitializer.InitializeDatabaseAsync(eventData);
     await infaqInitializer.InitializeDatabaseAsync(infaqData);
@@ -152,7 +152,7 @@ static async Task InitializeAsync(WebApplication webApplication)
 
 
     await auditIdGenerator.InitializeAsync(auditData);
-    await coreIdGenerator.InitializeAsync(coreData);
+    await personIdGenerator.InitializeAsync(personData);
     await captchaIdGenerator.InitializeAsync(captchaData);
     await eventIdGenerator.InitializeAsync(eventData);
     await sessionIdGenerator.InitializeAsync(sessionData);

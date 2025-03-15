@@ -1,6 +1,6 @@
-﻿namespace MasjidOnline.Entity.Core;
+﻿namespace MasjidOnline.Entity.Person;
 
-public class CoreSetting
+public class PersonSetting
 {
     public required int Id { get; set; }
 

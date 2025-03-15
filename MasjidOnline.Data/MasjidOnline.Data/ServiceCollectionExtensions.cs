@@ -11,7 +11,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddData(this IServiceCollection services)
     {
         services.AddSingleton<IAuditIdGenerator, AuditIdGenerator>();
-        services.AddSingleton<ICoreIdGenerator, CoreIdGenerator>();
+        services.AddSingleton<IPersonIdGenerator, PersonIdGenerator>();
         services.AddSingleton<ICaptchaIdGenerator, CaptchaIdGenerator>();
         services.AddSingleton<IEventIdGenerator, EventIdGenerator>();
         services.AddSingleton<IInfaqIdGenerator, InfaqIdGenerator>();

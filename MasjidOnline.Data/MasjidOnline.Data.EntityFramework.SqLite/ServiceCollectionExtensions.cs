@@ -19,7 +19,7 @@ public static class ServiceCollectionExtensions
 
         services.AddDbContextPool<AuditDataContext>(b => b.UseSqlite(connectionStrings.Audit), poolSize: 2);
         services.AddDbContextPool<CaptchaDataContext>(b => b.UseSqlite(connectionStrings.Captcha), poolSize: 2);
-        services.AddDbContextPool<CoreDataContext>(b => b.UseSqlite(connectionStrings.Core), poolSize: 2);
+        services.AddDbContextPool<PersonDataContext>(b => b.UseSqlite(connectionStrings.Core), poolSize: 2);
         services.AddDbContextPool<EventDataContext>(b => b.UseSqlite(connectionStrings.Event), poolSize: 2);
         services.AddDbContextPool<InfaqDataContext>(b => b.UseSqlite(connectionStrings.Infaqs), poolSize: 2);
         services.AddDbContextPool<SessionDataContext>(b => b.UseSqlite(connectionStrings.Sessions), poolSize: 2);
@@ -27,7 +27,7 @@ public static class ServiceCollectionExtensions
 
         services.AddTransient<IAuditInitializer, SqLiteAuditInitializer>();
         services.AddTransient<ICaptchaInitializer, SqLiteCaptchaInitializer>();
-        services.AddTransient<ICoreInitializer, SqLiteCoreInitializer>();
+        services.AddTransient<IPersonInitializer, SqLitePersonInitializer>();
         services.AddTransient<IEventInitializer, SqLiteEventInitializer>();
         services.AddTransient<IInfaqInitializer, SqLiteInfaqInitializer>();
         services.AddTransient<ISessionInitializer, SqLiteSessionInitializer>();
@@ -35,7 +35,7 @@ public static class ServiceCollectionExtensions
 
         services.AddTransient<IAuditDefinition, SqLiteDefinition<AuditDataContext>>();
         services.AddTransient<ICaptchaDefinition, SqLiteDefinition<CaptchaDataContext>>();
-        services.AddTransient<ICoreDefinition, SqLiteDefinition<CoreDataContext>>();
+        services.AddTransient<IPersonDefinition, SqLiteDefinition<PersonDataContext>>();
         services.AddTransient<IEventDefinition, SqLiteDefinition<EventDataContext>>();
         services.AddTransient<IInfaqsDefinition, SqLiteDefinition<InfaqDataContext>>();
         services.AddTransient<ISessionsDefinition, SqLiteDefinition<SessionDataContext>>();

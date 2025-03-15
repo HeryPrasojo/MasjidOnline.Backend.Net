@@ -10,7 +10,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<IAuditData, AuditData>();
         services.AddScoped<ICaptchaData, CaptchaData>();
-        services.AddScoped<ICoreData, CoreData>();
+        services.AddScoped<IPersonData, PersonData>();
         services.AddScoped<IEventData, EventData>();
         services.AddScoped<IInfaqData, InfaqData>();
         services.AddScoped<ISessionData, SessionData>();

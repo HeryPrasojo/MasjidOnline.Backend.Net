@@ -3,7 +3,7 @@ using MasjidOnline.Data.Interface.Datas;
 
 namespace MasjidOnline.Data.Interface.IdGenerator;
 
-public interface ICoreIdGenerator
+public interface IPersonIdGenerator
 {
-    Task InitializeAsync(ICoreData coreData);
+    Task InitializeAsync(IPersonData personData);
 }

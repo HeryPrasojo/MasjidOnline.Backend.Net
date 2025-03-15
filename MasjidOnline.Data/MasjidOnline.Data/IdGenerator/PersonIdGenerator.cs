@@ -4,9 +4,9 @@ using MasjidOnline.Data.Interface.IdGenerator;
 
 namespace MasjidOnline.Data.IdGenerator;
 
-public class CoreIdGenerator : ICoreIdGenerator
+public class PersonIdGenerator : IPersonIdGenerator
 {
-    public async Task InitializeAsync(ICoreData coreData)
+    public async Task InitializeAsync(IPersonData personData)
     {
     }
 }
