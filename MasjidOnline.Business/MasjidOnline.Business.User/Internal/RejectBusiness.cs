@@ -28,11 +28,11 @@ public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IFiel
 
 
         _userData.Internal.SetStatus(
-             rejectRequest.Id,
-             Entity.User.InternalStatus.Reject,
-             rejectRequest.Description,
-             DateTime.UtcNow,
-             _sessionBusiness.UserId);
+            rejectRequest.Id,
+            Entity.User.InternalStatus.Reject,
+            rejectRequest.Description,
+            DateTime.UtcNow,
+            _sessionBusiness.UserId);
 
         await _userData.SaveWithTransactionAsync(_sessionBusiness.UserId);
 

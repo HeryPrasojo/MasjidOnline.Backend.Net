@@ -47,7 +47,7 @@ public class UserRepository(UserDataContext _userDataContext) : IUserRepository
     }
 
 
-    public void SetPassword(int id, byte[] password)
+    public void SetFirstPassword(int id, byte[] password)
     {
         var user = new Entity.User.User
         {
@@ -56,8 +56,9 @@ public class UserRepository(UserDataContext _userDataContext) : IUserRepository
             Status = UserStatus.Active,
         };
 
-        _dbSet.Attach(user)
-            .Property(e => e.Password)
-            .IsModified = true;
+        var entityEntry = _dbSet.Attach(user);
+
+        entityEntry.Property(e => e.Password).IsModified = true;
+        entityEntry.Property(e => e.Status).IsModified = true;
     }
 }

@@ -85,7 +85,7 @@ public class ApproveBusiness(
             BodyHtml = $"<p>Please use the following link to set your password: <a href='{uri}'>{uri}</a> first.</p>",
             BodyText = $"Please use the following link to set your password: {uri} first",
             Subject = "MasjidOnline Password",
-            To = [new MailAddress(default!, userEmailAddress.EmailAddress)],
+            To = [new MailAddress("MasjidOnline Internal User", userEmailAddress.EmailAddress)],
         };
 
         await _mailSenderService.SendMailAsync(mailMessage);

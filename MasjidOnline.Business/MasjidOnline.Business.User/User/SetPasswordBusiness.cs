@@ -34,14 +34,14 @@ public class SetPasswordBusiness(
 
         if (passwordCode == default) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
 
-        if (passwordCode.UseDateTime != default) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+        if (passwordCode.UseDateTime != default) throw new InputMismatchException(nameof(passwordCode.UseDateTime));
 
 
         await _dataTransaction.BeginAsync(_userData, _sessionData);
 
         var passwordBytes = _hash512Service.Hash(setPasswordRequest.Password);
 
-        _userData.User.SetPassword(passwordCode.UserId, passwordBytes);
+        _userData.User.SetFirstPassword(passwordCode.UserId, passwordBytes);
 
         _userData.PasswordCode.SetUseDateTime(passwordCodeBytes, DateTime.UtcNow);
 

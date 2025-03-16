@@ -113,7 +113,7 @@ public class InitializerBusiness(
             BodyHtml = $"<p>Please use the following link to set your password: <a href='{uri}'>{uri}</a></p>",
             BodyText = "Please use the following link to set your password: " + uri,
             Subject = "MasjidOnline User Account",
-            To = [new MailAddress(default!, userEmailAddress.EmailAddress)],
+            To = [new MailAddress("MasjidOnline Root User", userEmailAddress.EmailAddress)],
         };
 
         await _mailSenderService.SendMailAsync(mailMessage);
