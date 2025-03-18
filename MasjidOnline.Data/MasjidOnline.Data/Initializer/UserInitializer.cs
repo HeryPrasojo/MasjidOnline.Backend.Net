@@ -8,7 +8,7 @@ namespace MasjidOnline.Data.Initializer;
 
 public abstract class UserInitializer(IUsersDefinition _userDefinition) : IUserInitializer
 {
-    public async Task InitializeDatabaseAsync(IUserData userData, int userId)
+    public async Task InitializeDatabaseAsync(IUserData userData)
     {
         var settingTableExists = await _userDefinition.CheckTableExistsAsync(nameof(UserSetting));
 
@@ -32,7 +32,7 @@ public abstract class UserInitializer(IUsersDefinition _userDefinition) : IUserI
 
             await userData.UserSetting.AddAsync(userSetting);
 
-            await userData.SaveWithoutTransactionAsync(userId);
+            await userData.SaveAsync();
         }
     }
 

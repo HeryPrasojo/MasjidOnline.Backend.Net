@@ -1,4 +1,4 @@
-﻿using System.Data.Common;
+using System.Data.Common;
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -21,11 +21,15 @@ public abstract class Data(DbContext _dbContext) : IData
         await _dbContext.Database.CommitTransactionAsync();
     }
 
+    public async Task SaveAsync()
+    {
+        await _dbContext.SaveChangesAsync();
+    }
+
     public async Task UseTransactionAsync(object? transactionObject)
     {
         await _dbContext.Database.UseTransactionAsync((DbTransaction?)transactionObject);
     }
-
 
     //public void Dispose()
     //{

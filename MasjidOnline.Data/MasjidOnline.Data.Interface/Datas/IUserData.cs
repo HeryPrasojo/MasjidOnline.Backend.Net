@@ -1,8 +1,8 @@
-﻿using MasjidOnline.Data.Interface.Repository.User;
+using MasjidOnline.Data.Interface.Repository.User;
 
 namespace MasjidOnline.Data.Interface.Datas;
 
-public interface IUserData : IDataWithAudit
+public interface IUserData : IData
 {
     IPasswordCodeRepository PasswordCode { get; }
     IPermissionRepository Permission { get; }

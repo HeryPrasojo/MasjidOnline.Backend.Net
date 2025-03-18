@@ -2,8 +2,8 @@ using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface.Model;
 using MasjidOnline.Business.Interface.Model.Options;
-using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.User;
@@ -18,11 +18,14 @@ public class InitializerBusiness(
     IMailSenderService _mailSenderService,
     IUserIdGenerator _userIdGenerator) : IInitializerBusiness
 {
-    public async Task InitializeAsync(ISessionBusiness _sessionBusiness, IUserData _userData)
+    public async Task InitializeAsync(IDataTransaction _dataTransaction, IUserData _userData, IAuditData _auditData)
     {
-        var any = await _userData.User.GetAnyAsync(_sessionBusiness.UserId);
+        var any = await _userData.User.GetAnyAsync(Constant.SystemUserId);
 
         if (any) return;
+
+
+        await _dataTransaction.BeginAsync(_userData, _auditData);
 
 
         var option = _optionsMonitor.CurrentValue;
@@ -46,8 +49,8 @@ public class InitializerBusiness(
             Id = _userIdGenerator.InternalId,
             Status = InternalStatus.Approve,
             UpdateDateTime = utcNow,
-            UpdateUserId = _sessionBusiness.UserId,
-            UserId = _sessionBusiness.UserId,
+            UpdateUserId = Constant.SystemUserId,
+            UserId = Constant.SystemUserId,
         };
 
         await _userData.Internal.AddAsync(@internal);
@@ -102,8 +105,10 @@ public class InitializerBusiness(
 
         await _userData.Permission.AddAsync(permission);
 
+        await _auditData.PermissionLog.AddAddAsync(permission, utcNow, Constant.SystemUserId);
 
-        await _userData.SaveWithoutTransactionAsync(_sessionBusiness.UserId);
+
+        await _dataTransaction.CommitAsync();
 
 
         var uri = option.Uri.UserPassword + Convert.ToHexString(passwordCode.Code.AsSpan());

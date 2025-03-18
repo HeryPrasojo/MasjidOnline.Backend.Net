@@ -75,7 +75,7 @@ public class ApproveBusiness(
 
         await _userData.PasswordCode.AddAsync(passwordCode);
 
-        await _userData.SaveWithTransactionAsync(_sessionBusiness.UserId);
+        await _userData.SaveAsync();
 
 
         var uri = _optionsMonitor.CurrentValue.Uri.UserPassword + Convert.ToHexString(passwordCode.Code.AsSpan());

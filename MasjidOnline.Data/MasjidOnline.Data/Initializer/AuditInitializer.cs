@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.Definition;
 using MasjidOnline.Data.Interface.Initializer;
@@ -16,8 +16,6 @@ public abstract class AuditInitializer(IAuditDefinition _auditDefinition) : IAud
         {
             await CreateTableAuditSettingAsync();
             await CreateTablePermissionLogAsync();
-            await CreateTableUserLogAsync();
-            await CreateTableUserEmailAddressLogAsync();
 
 
             var auditSetting = new AuditSetting
@@ -36,6 +34,4 @@ public abstract class AuditInitializer(IAuditDefinition _auditDefinition) : IAud
 
     protected abstract Task<int> CreateTableAuditSettingAsync();
     protected abstract Task<int> CreateTablePermissionLogAsync();
-    protected abstract Task<int> CreateTableUserLogAsync();
-    protected abstract Task<int> CreateTableUserEmailAddressLogAsync();
 }

@@ -34,7 +34,7 @@ public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IFiel
             DateTime.UtcNow,
             _sessionBusiness.UserId);
 
-        await _userData.SaveWithTransactionAsync(_sessionBusiness.UserId);
+        await _userData.SaveAsync();
 
         return new()
         {

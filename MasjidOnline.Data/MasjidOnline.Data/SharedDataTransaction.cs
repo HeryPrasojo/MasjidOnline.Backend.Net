@@ -32,32 +32,14 @@ public class SharedDataTransaction(IAuditData _auditData) : IDataTransaction
         }
 
         _datas.AddRange(datas);
-
-
-        var anyDataWithAudit = datas.Any(d => d is IDataWithAudit);
-
-        if (anyDataWithAudit)
-        {
-            anyDataWithAudit = _datas.Any(d => d is IDataWithAudit);
-
-            if (!anyDataWithAudit)
-            {
-                await _auditData.UseTransactionAsync(_transactionObject);
-
-                _datas.Add(_auditData);
-            }
-        }
     }
 
-    public async Task CommitAsync(int userId)
+    public async Task CommitAsync()
     {
         _datas.Reverse();
 
         foreach (var data in _datas)
-        {
-            if (data is IDataWithAudit dataWithAudit) await dataWithAudit.SaveWithoutTransactionAsync(userId);
-            else if (data is IDataWithoutAudit dataWithoutAudit) await dataWithoutAudit.SaveAsync();
-        }
+            await data.SaveAsync();
 
         await _datas[0].CommitTransactionAsync();
 

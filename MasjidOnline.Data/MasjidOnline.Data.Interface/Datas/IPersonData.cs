@@ -1,8 +1,8 @@
-﻿using MasjidOnline.Data.Interface.Repository.Person;
+using MasjidOnline.Data.Interface.Repository.Person;
 
 namespace MasjidOnline.Data.Interface.Datas;
 
-public interface IPersonData : IDataWithoutAudit
+public interface IPersonData : IData
 {
     IPersonSettingRepository PersonSetting { get; }
 }

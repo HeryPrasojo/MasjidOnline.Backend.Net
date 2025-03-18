@@ -48,7 +48,7 @@ public class SetPasswordBusiness(
 
         await _sessionBusiness.ChangeAsync(passwordCode.UserId);
 
-        await _dataTransaction.CommitAsync(passwordCode.UserId);
+        await _dataTransaction.CommitAsync();
 
         return new()
         {

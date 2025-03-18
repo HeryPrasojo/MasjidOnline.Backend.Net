@@ -1,11 +1,11 @@
-﻿using MasjidOnline.Data.EntityFramework.DataContext;
+using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.EntityFramework.Repository.Session;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.Repository.Session;
 
 namespace MasjidOnline.Data.EntityFramework.Datas;
 
-public class SessionData(SessionDataContext _sessionDataContext) : DataWithoutAudit(_sessionDataContext), ISessionData
+public class SessionData(SessionDataContext _sessionDataContext) : Data(_sessionDataContext), ISessionData
 {
     private ISessionSettingRepository? _sessionSettingRepository;
 

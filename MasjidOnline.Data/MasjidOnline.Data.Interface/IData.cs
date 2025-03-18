@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 
 namespace MasjidOnline.Data.Interface;
 
@@ -8,5 +8,6 @@ public interface IData
 
     Task BeginTransactionAsync();
     Task CommitTransactionAsync();
+    Task SaveAsync();
     Task UseTransactionAsync(object? transactionObject);
 }

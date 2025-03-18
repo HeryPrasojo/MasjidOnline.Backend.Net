@@ -1,8 +1,8 @@
-﻿using MasjidOnline.Data.Interface.Repository.Session;
+using MasjidOnline.Data.Interface.Repository.Session;
 
 namespace MasjidOnline.Data.Interface.Datas;
 
-public interface ISessionData : IDataWithoutAudit
+public interface ISessionData : IData
 {
     ISessionRepository Session { get; }
     ISessionSettingRepository SessionSetting { get; }

@@ -29,48 +29,24 @@ public class SqLiteAuditInitializer(
         FormattableString sql = @$"
             CREATE TABLE PermissionLog
             (
-                PermissionLogId INTEGER PRIMARY KEY,
-                SessionUserId INTEGER NOT NULL,
-                DateTime TEXT NOT NULL,
+                Id INTEGER PRIMARY KEY,
+                LogDateTime TEXT NOT NULL,
+                LogType TEXT NOT NULL,
+                LogUserId INTEGER NOT NULL,
 
                 UserId INTEGER NOT NULL,
+                InfaqExpireAdd INTEGER NOT NULL,
+                InfaqExpireApprove INTEGER NOT NULL,
+                InfaqExpireCancel INTEGER NOT NULL,
+                InfaqSuccessAdd INTEGER NOT NULL,
+                InfaqSuccessApprove INTEGER NOT NULL,
+                InfaqSuccessCancel INTEGER NOT NULL,
+                InfaqVoidAdd INTEGER NOT NULL,
+                InfaqVoidApprove INTEGER NOT NULL,
+                InfaqVoidCancel INTEGER NOT NULL,
                 UserInternalAdd INTEGER NOT NULL,
-                TransactionInfaqRead INTEGER NOT NULL
-            )";
-
-        return await _auditDataContext.Database.ExecuteSqlAsync(sql);
-    }
-
-    protected override async Task<int> CreateTableUserLogAsync()
-    {
-        FormattableString sql = @$"
-            CREATE TABLE UserLog
-            (
-                UserLogId INTEGER PRIMARY KEY,
-                SessionUserId INTEGER NOT NULL,
-                DateTime TEXT NOT NULL,
-
-                Id INTEGER NOT NULL,
-                Name TEXT NOT NULL COLLATE NOCASE,
-                Type INTEGER NOT NULL,
-                EmailAddress TEXT NOT NULL,
-                Password BLOB
-            )";
-
-        return await _auditDataContext.Database.ExecuteSqlAsync(sql);
-    }
-
-    protected override async Task<int> CreateTableUserEmailAddressLogAsync()
-    {
-        FormattableString sql = @$"
-            CREATE TABLE UserEmailAddressLog
-            (
-                UserEmailAddressLogId INTEGER PRIMARY KEY,
-                SessionUserId INTEGER NOT NULL,
-                DateTime TEXT NOT NULL,
-
-                UserId INTEGER NOT NULL,
-                EmailAddress TEXT NOT NULL
+                UserInternalApprove INTEGER NOT NULL,
+                UserInternalCancel INTEGER NOT NULL
             )";
 
         return await _auditDataContext.Database.ExecuteSqlAsync(sql);

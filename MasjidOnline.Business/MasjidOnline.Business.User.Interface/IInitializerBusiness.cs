@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
-using MasjidOnline.Business.Session.Interface;
+using System.Threading.Tasks;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Datas;
 
 namespace MasjidOnline.Business.User.Interface;
 
 public interface IInitializerBusiness
 {
-    Task InitializeAsync(ISessionBusiness _sessionBusiness, IUserData _userData);
+    Task InitializeAsync(IDataTransaction dataTransaction, IUserData _userData, IAuditData _auditData);
 }
