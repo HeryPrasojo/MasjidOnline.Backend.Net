@@ -22,7 +22,6 @@
     <ProjectReference Include="..\..\MasjidOnline.Library\MasjidOnline.Library.csproj" />
     <ProjectReference Include="..\..\MasjidOnline.Service\MasjidOnline.Service.Captcha.Interface\MasjidOnline.Service.Captcha.Interface.csproj" />
     <ProjectReference Include="..\..\MasjidOnline.Service\MasjidOnline.Service.FieldValidator.Interface\MasjidOnline.Service.FieldValidator.Interface.csproj" />
-    <ProjectReference Include="..\..\MasjidOnline.Service\MasjidOnline.Service.Hash.Interface\MasjidOnline.Service.Hash.Interface.csproj" />
   </ItemGroup>
 
 </Project>
