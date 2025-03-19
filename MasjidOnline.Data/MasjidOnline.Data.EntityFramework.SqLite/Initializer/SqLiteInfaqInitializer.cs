@@ -20,9 +20,10 @@ public class SqLiteInfaqInitializer(
                 InfaqId INTEGER NOT NULL,
                 DateTime TEXT NOT NULL,
                 UserId INTEGER NUT NULL,
-                Status INTEGER NUT NULL
+                Status INTEGER NUT NULL,
+                Description TEXT COLLATE NOCASE,
                 UpdateDateTime TEXT,
-                UpdateUserId INTEGER,
+                UpdateUserId INTEGER
             )";
 
         return await _infaqDataContext.Database.ExecuteSqlAsync(sql);
@@ -82,12 +83,30 @@ public class SqLiteInfaqInitializer(
                 InfaqId INTEGER NOT NULL,
                 DateTime TEXT NOT NULL,
                 UserId INTEGER NUT NULL,
-                Status INTEGER NUT NULL
+                Status INTEGER NUT NULL,
+                Description TEXT COLLATE NOCASE,
                 UpdateDateTime TEXT,
-                UpdateUserId INTEGER,
+                UpdateUserId INTEGER
             )";
 
         return await _infaqDataContext.Database.ExecuteSqlAsync(sql);
     }
 
+    protected override async Task<int> CreateTableVoidAsync()
+    {
+        FormattableString sql = @$"
+            CREATE TABLE Void
+            (
+                Id INTEGER PRIMARY KEY,
+                InfaqId INTEGER NOT NULL,
+                DateTime TEXT NOT NULL,
+                UserId INTEGER NUT NULL,
+                Status INTEGER NUT NULL,
+                Description TEXT COLLATE NOCASE,
+                UpdateDateTime TEXT,
+                UpdateUserId INTEGER
+            )";
+
+        return await _infaqDataContext.Database.ExecuteSqlAsync(sql);
+    }
 }

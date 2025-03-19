@@ -8,11 +8,11 @@ public class ConnectionStrings
 
     public required string Event { get; set; }
 
-    public required string Infaqs { get; set; }
+    public required string Infaq { get; set; }
 
     public required string Person { get; set; }
 
-    public required string Sessions { get; set; }
+    public required string Session { get; set; }
 
-    public required string Users { get; set; }
+    public required string User { get; set; }
 }

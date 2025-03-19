@@ -1,4 +1,4 @@
-﻿using MasjidOnline.Entity.User;
+using MasjidOnline.Entity.User;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.DataContext;
@@ -9,6 +9,7 @@ public class UserDataContext(DbContextOptions _dbContextOptions) : DbContext(_db
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<Internal>();
         modelBuilder.Entity<PasswordCode>();
         modelBuilder.Entity<Permission>();
         modelBuilder.Entity<User>();

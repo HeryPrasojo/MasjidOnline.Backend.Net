@@ -4,7 +4,7 @@ using MasjidOnline.Data.Interface;
 
 namespace MasjidOnline.Data;
 
-public class DataTransaction() : IDataTransaction
+public class DataTransaction : IDataTransaction
 {
     private readonly List<IData> _datas = [];
 

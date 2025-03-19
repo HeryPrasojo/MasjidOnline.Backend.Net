@@ -2,6 +2,7 @@ using System.Data.Common;
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace MasjidOnline.Data.EntityFramework;
 
@@ -9,7 +10,7 @@ public abstract class Data(DbContext _dbContext) : IData
 {
     protected readonly DbContext _dbContext = _dbContext;
 
-    public object? TransactionObject => _dbContext.Database.CurrentTransaction;
+    public object? TransactionObject => _dbContext.Database.CurrentTransaction?.GetDbTransaction();
 
     public async Task BeginTransactionAsync()
     {

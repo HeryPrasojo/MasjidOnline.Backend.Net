@@ -23,7 +23,7 @@ public class SqLiteUserInitializer(
                 Status INTEGER NOT NULL,
                 Description TEXT COLLATE NOCASE,
                 UpdateDateTime TEXT,
-                UpdateUserId INTEGER,
+                UpdateUserId INTEGER
             )";
 
         return await _userDataContext.Database.ExecuteSqlAsync(sql);
@@ -49,15 +49,18 @@ public class SqLiteUserInitializer(
             CREATE TABLE Permission
             (
                 UserId INTEGER PRIMARY KEY,
-                InfaqExpireAdd INTEGER NOT NULL
-                InfaqExpireApprove INTEGER NOT NULL
-                InfaqExpireCancel INTEGER NOT NULL
-                InfaqSuccessAdd INTEGER NOT NULL
-                InfaqSuccessApprove INTEGER NOT NULL
-                InfaqSuccessCancel INTEGER NOT NULL
+                InfaqExpireAdd INTEGER NOT NULL,
+                InfaqExpireApprove INTEGER NOT NULL,
+                InfaqExpireCancel INTEGER NOT NULL,
+                InfaqSuccessAdd INTEGER NOT NULL,
+                InfaqSuccessApprove INTEGER NOT NULL,
+                InfaqSuccessCancel INTEGER NOT NULL,
+                InfaqVoidAdd INTEGER NOT NULL,
+                InfaqVoidApprove INTEGER NOT NULL,
+                InfaqVoidCancel INTEGER NOT NULL,
                 UserInternalAdd INTEGER NOT NULL,
                 UserInternalApprove INTEGER NOT NULL,
-                UserInternalCancel INTEGER NOT NULL,
+                UserInternalCancel INTEGER NOT NULL
             )";
 
         return await _userDataContext.Database.ExecuteSqlAsync(sql);
