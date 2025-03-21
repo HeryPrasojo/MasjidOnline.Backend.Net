@@ -76,6 +76,7 @@ internal static class WebApplicationExtension
 
         var userUserGroup = userGroup.MapGroup("user/");
 
+        // todo change path
         userGroup.MapPost("login", UserEndPoint.User.LoginAsync);
         userGroup.MapPost("setPassword", UserEndPoint.User.SetPasswordAsync);
 

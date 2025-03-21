@@ -17,7 +17,7 @@ public class CaptchaAddBusiness(
 {
     public async Task<CaptchaAddResponse> AddAsync(ICaptchaData _captchaData, ISessionBusiness _sessionBusiness)
     {
-        if (_sessionBusiness.UserId != Constant.AnonymousUserId) return new()
+        if (_sessionBusiness.UserId != Constant.UserId.Anonymous) return new()
         {
             ResultCode = ResponseResultCode.CaptchaPass,
         };

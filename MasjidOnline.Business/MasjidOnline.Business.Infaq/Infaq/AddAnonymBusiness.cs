@@ -11,7 +11,6 @@ using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.Infaq;
 using MasjidOnline.Library.Exceptions;
-using MasjidOnline.Library.Extensions;
 using MasjidOnline.Service.FieldValidator.Interface;
 
 namespace MasjidOnline.Business.Infaq.Infaq;
@@ -26,7 +25,7 @@ public class AddAnonymBusiness(
         IInfaqData _infaqData,
         AddByAnonymRequest addByAnonymRequest)
     {
-        if (_sessionBusiness.UserId == Constant.AnonymousUserId)
+        if (_sessionBusiness.UserId == Constant.UserId.Anonymous)
         {
             var captchas = await _captchaData.Captcha.GetForInfaqAddByAnonymAsync(_sessionBusiness.Id);
 
@@ -47,8 +46,8 @@ public class AddAnonymBusiness(
         _fieldValidatorService.ValidateRequired(addByAnonymRequest.PaymentType);
         _fieldValidatorService.ValidateRequiredPast(addByAnonymRequest.ManualDateTime);
 
-        addByAnonymRequest.ManualNotes = _fieldValidatorService.ValidateRequiredText255(addByAnonymRequest.ManualNotes);
         addByAnonymRequest.MunfiqName = _fieldValidatorService.ValidateRequiredText255(addByAnonymRequest.MunfiqName);
+        addByAnonymRequest.ManualNotes = _fieldValidatorService.ValidateOptionalText255(addByAnonymRequest.ManualNotes);
 
 
         var paymentTypes = new Interface.Model.Payment.PaymentType[]
@@ -78,11 +77,9 @@ public class AddAnonymBusiness(
             var infaqManual = new InfaqManual
             {
                 InfaqId = infaq.Id,
-                ManualDateTime = addByAnonymRequest.ManualDateTime,
+                DateTime = addByAnonymRequest.ManualDateTime,
+                Notes = addByAnonymRequest.ManualNotes,
             };
-
-            if (!addByAnonymRequest.ManualNotes.IsNullOrEmptyOrWhiteSpace())
-                infaqManual.ManualNotes = addByAnonymRequest.ManualNotes;
 
             await _infaqData.InfaqManual.AddAsync(infaqManual);
         }

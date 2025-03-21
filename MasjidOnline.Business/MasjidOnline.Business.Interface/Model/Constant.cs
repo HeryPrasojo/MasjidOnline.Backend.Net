@@ -2,8 +2,12 @@
 
 public static class Constant
 {
-    public const int AnonymousUserId = 0;
     public const string SystemUserEmailAddress = "system@masjidonline.org";
-    public const int SystemUserId = 1;
-    public const int RootUserId = 2;
+
+    public static class UserId
+    {
+        public const int Anonymous = 1;
+        public const int System = 2;
+        public const int Root = 3;
+    }
 }
