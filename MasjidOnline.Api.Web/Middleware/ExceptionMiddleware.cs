@@ -32,7 +32,7 @@ public class ExceptionMiddleware(
             ResultCode = ResponseResultCode.Error,
         };
 
-        if (exception is InputInvalidException)
+        if (exception is InputInvalidException or BadHttpRequestException)
         {
             exceptionResponse.ResultCode = ResponseResultCode.InputInvalid;
         }

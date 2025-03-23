@@ -11,11 +11,13 @@ using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.Infaq;
 using MasjidOnline.Library.Exceptions;
+using MasjidOnline.Service.Captcha.Interface;
 using MasjidOnline.Service.FieldValidator.Interface;
 
 namespace MasjidOnline.Business.Infaq.Infaq;
 
 public class AddAnonymBusiness(
+    ICaptchaService _captchaService,
     IFieldValidatorService _fieldValidatorService,
     IInfaqIdGenerator _infaqIdGenerator) : IAddAnonymBusiness
 {
@@ -25,6 +27,7 @@ public class AddAnonymBusiness(
         IInfaqData _infaqData,
         AddByAnonymRequest addByAnonymRequest)
     {
+        await _captchaService.VerifyAsync(addByAnonymRequest.CaptchaToken, addByAnonymRequest.CaptchaAction);
         if (_sessionBusiness.UserId == Constant.UserId.Anonymous)
         {
             var captchas = await _captchaData.Captcha.GetForInfaqAddByAnonymAsync(_sessionBusiness.Id);
@@ -61,7 +64,7 @@ public class AddAnonymBusiness(
         var infaq = new Entity.Infaq.Infaq
         {
             Id = _infaqIdGenerator.InfaqId,
-            Amount = addByAnonymRequest.Amount,
+            Amount = (decimal)addByAnonymRequest.Amount,
             DateTime = DateTime.UtcNow,
             PaymentStatus = PaymentStatus.New,
             PaymentType = (PaymentType)addByAnonymRequest.PaymentType,
@@ -77,7 +80,7 @@ public class AddAnonymBusiness(
             var infaqManual = new InfaqManual
             {
                 InfaqId = infaq.Id,
-                DateTime = addByAnonymRequest.ManualDateTime,
+                DateTime = (DateTime)addByAnonymRequest.ManualDateTime,
                 Notes = addByAnonymRequest.ManualNotes,
             };
 

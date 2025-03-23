@@ -9,11 +9,11 @@ public class UserDataContext(DbContextOptions _dbContextOptions) : DbContext(_db
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<Internal>();
         modelBuilder.Entity<PasswordCode>();
         modelBuilder.Entity<Permission>();
         modelBuilder.Entity<User>();
         modelBuilder.Entity<UserEmailAddress>();
-
         modelBuilder.Entity<UserSetting>();
     }
 }

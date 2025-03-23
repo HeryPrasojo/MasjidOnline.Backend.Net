@@ -3,6 +3,7 @@ using MasjidOnline.Business.AuthorizationBusiness.Interface;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface.Datas;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MasjidOnline.Api.Web.RouteEndpoint;
 
@@ -86,12 +87,14 @@ internal static class InfaqEndPoint
 
     internal static class Infaq
     {
+        // todo apply [FromBody] to all
+        // add nullable to all
         internal static async Task<Response> AddAnonymAsync(
             Business.Infaq.Interface.Infaq.IAddAnonymBusiness _addAnonymBusiness,
             ICaptchaData _captchaData,
             ISessionBusiness _sessionBusiness,
             IInfaqData _infaqData,
-            Business.Infaq.Interface.Model.Infaq.AddByAnonymRequest addByAnonymRequest)
+            [FromBody] Business.Infaq.Interface.Model.Infaq.AddByAnonymRequest? addByAnonymRequest)
         {
             return await _addAnonymBusiness.AddAsync(_captchaData, _sessionBusiness, _infaqData, addByAnonymRequest);
         }

@@ -34,24 +34,24 @@ public class CaptchaAddBusiness(
 
             if (existingCaptcha.IsMatched == default)
             {
-                var existingGenerateImageResult = _captchaService.GenerateImage(existingCaptcha.QuestionFloat);
+                //var existingGenerateImageResult = _captchaService.GenerateImage(existingCaptcha.QuestionFloat);
 
                 return new()
                 {
                     ResultCode = ResponseResultCode.Success,
-                    Stream = existingGenerateImageResult.Stream,
+                    //Stream = existingGenerateImageResult.Stream,
                 };
             }
         }
 
 
-        var generateImageResult = _captchaService.GenerateRandomImage();
+        //var generateImageResult = _captchaService.GenerateRandomImage();
 
         var newCaptcha = new Entity.Captcha.Captcha
         {
             Id = _captchaIdGenerator.CaptchaId,
             DateTime = DateTime.UtcNow,
-            QuestionFloat = generateImageResult.Degree,
+            //QuestionFloat = generateImageResult.Degree,
             SessionId = _sessionBusiness.Id,
         };
 
@@ -61,7 +61,7 @@ public class CaptchaAddBusiness(
         return new()
         {
             ResultCode = ResponseResultCode.Success,
-            Stream = generateImageResult.Stream,
+            //Stream = generateImageResult.Stream,
         };
     }
 }
