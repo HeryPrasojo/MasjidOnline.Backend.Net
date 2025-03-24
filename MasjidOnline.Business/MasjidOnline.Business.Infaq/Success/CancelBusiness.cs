@@ -13,16 +13,20 @@ namespace MasjidOnline.Business.Infaq.Success;
 
 public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IFieldValidatorService _fieldValidatorService) : ICancelBusiness
 {
-    public async Task<Response> CancelAsync(ISessionBusiness _sessionBusiness, IUserData _userData, IInfaqData _infaqData, CancelRequest cancelRequest)
+    public async Task<Response> CancelAsync(
+        ISessionBusiness _sessionBusiness,
+        IUserData _userData,
+        IInfaqData _infaqData,
+        CancelRequest? cancelRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, userInternalCancel: true);
 
         _fieldValidatorService.ValidateRequired(cancelRequest);
-        _fieldValidatorService.ValidateRequiredPlus(cancelRequest.Id);
+        _fieldValidatorService.ValidateRequiredPlus(cancelRequest!.Id);
         cancelRequest.Description = _fieldValidatorService.ValidateRequiredText255(cancelRequest.Description);
 
 
-        var success = await _infaqData.Success.GetForSetStatusAsync(cancelRequest.Id);
+        var success = await _infaqData.Success.GetForSetStatusAsync(cancelRequest.Id!.Value);
 
         if (success == default) throw new InputMismatchException($"{nameof(cancelRequest.Id)}: {cancelRequest.Id}");
 
@@ -30,7 +34,7 @@ public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IFiel
 
 
         _infaqData.Success.SetStatus(
-            cancelRequest.Id,
+            cancelRequest.Id.Value,
             Entity.Infaq.SuccessStatus.Cancel,
             cancelRequest.Description,
             DateTime.UtcNow,

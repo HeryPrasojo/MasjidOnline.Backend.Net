@@ -7,5 +7,5 @@ namespace MasjidOnline.Business.Infaq.Interface.Void;
 
 public interface IApproveBusiness
 {
-    Task<Response> ApproveAsync(ISessionBusiness _sessionBusiness, IUserData _userData, IInfaqData _infaqData, ApproveRequest approveRequest);
+    Task<Response> ApproveAsync(ISessionBusiness _sessionBusiness, IUserData _userData, IInfaqData _infaqData, ApproveRequest? approveRequest);
 }

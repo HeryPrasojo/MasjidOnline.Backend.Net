@@ -25,20 +25,20 @@ public class AddBusiness(
         IInfaqData _infaqData,
         ISessionBusiness _sessionBusiness,
         IUserData _userData,
-        AddRequest addRequest)
+        AddRequest? addRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, infaqSuccessAdd: true);
 
         _fieldValidatorService.ValidateRequired(addRequest);
-        _fieldValidatorService.ValidateRequiredPlus(addRequest.InfaqId);
+        _fieldValidatorService.ValidateRequiredPlus(addRequest!.InfaqId);
 
 
-        var any = await _infaqData.Success.AnyAsync(addRequest.InfaqId, Entity.Infaq.SuccessStatus.New);
+        var any = await _infaqData.Success.AnyAsync(addRequest.InfaqId!.Value, Entity.Infaq.SuccessStatus.New);
 
         if (any) throw new InputMismatchException(nameof(addRequest.InfaqId));
 
 
-        var infaq = await _infaqData.Infaq.GetForSuccessAddAsync(addRequest.InfaqId);
+        var infaq = await _infaqData.Infaq.GetForSuccessAddAsync(addRequest.InfaqId.Value);
 
         if (infaq == default) throw new InputMismatchException(nameof(addRequest.InfaqId));
 
@@ -54,14 +54,14 @@ public class AddBusiness(
         {
             DateTime = DateTime.UtcNow,
             Id = _infaqIdGenerator.SuccessId,
-            InfaqId = addRequest.InfaqId,
+            InfaqId = addRequest.InfaqId.Value,
             Status = Entity.Infaq.SuccessStatus.New,
             UserId = _sessionBusiness.UserId,
         };
 
         await _infaqData.Success.AddAsync(success);
 
-        _infaqData.Infaq.SetPaymentStatus(addRequest.InfaqId, PaymentStatus.SuccessRequest);
+        _infaqData.Infaq.SetPaymentStatus(addRequest.InfaqId.Value, PaymentStatus.SuccessRequest);
 
         await _infaqData.SaveAsync();
 

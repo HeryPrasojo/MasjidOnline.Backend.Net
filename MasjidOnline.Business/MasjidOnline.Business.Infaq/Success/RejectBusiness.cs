@@ -13,16 +13,20 @@ namespace MasjidOnline.Business.Infaq.Success;
 
 public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IFieldValidatorService _fieldValidatorService) : IRejectBusiness
 {
-    public async Task<Response> RejectAsync(ISessionBusiness _sessionBusiness, IUserData _userData, IInfaqData _infaqData, RejectRequest rejectRequest)
+    public async Task<Response> RejectAsync(
+        ISessionBusiness _sessionBusiness,
+        IUserData _userData,
+        IInfaqData _infaqData,
+        RejectRequest? rejectRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, userInternalCancel: true);
 
         _fieldValidatorService.ValidateRequired(rejectRequest);
-        _fieldValidatorService.ValidateRequiredPlus(rejectRequest.Id);
+        _fieldValidatorService.ValidateRequiredPlus(rejectRequest!.Id);
         rejectRequest.Description = _fieldValidatorService.ValidateRequiredText255(rejectRequest.Description);
 
 
-        var success = await _infaqData.Success.GetForSetStatusAsync(rejectRequest.Id);
+        var success = await _infaqData.Success.GetForSetStatusAsync(rejectRequest.Id!.Value);
 
         if (success == default) throw new InputMismatchException($"{nameof(rejectRequest.Id)}: {rejectRequest.Id}");
 
@@ -30,7 +34,7 @@ public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IFiel
 
 
         _infaqData.Success.SetStatus(
-            rejectRequest.Id,
+            rejectRequest.Id.Value,
             Entity.Infaq.SuccessStatus.Reject,
             rejectRequest.Description,
             DateTime.UtcNow,

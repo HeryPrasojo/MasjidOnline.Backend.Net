@@ -15,10 +15,10 @@ public class GetManyNewBusiness(
 {
     public async Task<GetManyResponse<GetManyNewResponseRecord>> GetAsync(
         IInfaqData _infaqData,
-        GetManyNewRequest getManyNewRequest)
+        GetManyNewRequest? getManyNewRequest)
     {
         _fieldValidatorService.ValidateRequired(getManyNewRequest);
-        _fieldValidatorService.ValidateRequiredPlus(getManyNewRequest.Page);
+        _fieldValidatorService.ValidateRequiredPlus(getManyNewRequest!.Page);
 
 
         var take = 10;
@@ -26,7 +26,7 @@ public class GetManyNewBusiness(
         var getManyResult = await _infaqData.Success.GetManyNewAsync(
             getManyOrderBy: ManyOrderBy.DateTime,
             orderByDirection: OrderByDirection.Descending,
-            skip: (getManyNewRequest.Page - 1) * take,
+            skip: (getManyNewRequest.Page!.Value - 1) * take,
             take: take);
 
         return new()

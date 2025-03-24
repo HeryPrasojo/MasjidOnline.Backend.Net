@@ -13,15 +13,19 @@ namespace MasjidOnline.Business.Infaq.Success;
 
 public class ApproveBusiness(IAuthorizationBusiness _authorizationBusiness, IFieldValidatorService _fieldValidatorService) : IApproveBusiness
 {
-    public async Task<Response> ApproveAsync(ISessionBusiness _sessionBusiness, IUserData _userData, IInfaqData _infaqData, ApproveRequest approveRequest)
+    public async Task<Response> ApproveAsync(
+        ISessionBusiness _sessionBusiness,
+        IUserData _userData,
+        IInfaqData _infaqData,
+        ApproveRequest? approveRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, userInternalCancel: true);
 
         _fieldValidatorService.ValidateRequired(approveRequest);
-        _fieldValidatorService.ValidateRequiredPlus(approveRequest.Id);
+        _fieldValidatorService.ValidateRequiredPlus(approveRequest!.Id);
 
 
-        var success = await _infaqData.Success.GetForSetStatusAsync(approveRequest.Id);
+        var success = await _infaqData.Success.GetForSetStatusAsync(approveRequest.Id!.Value);
 
         if (success == default) throw new InputMismatchException($"{nameof(approveRequest.Id)}: {approveRequest.Id}");
 
@@ -29,7 +33,7 @@ public class ApproveBusiness(IAuthorizationBusiness _authorizationBusiness, IFie
 
 
         _infaqData.Success.SetStatus(
-            approveRequest.Id,
+            approveRequest.Id.Value,
             Entity.Infaq.SuccessStatus.Approve,
             default,
             DateTime.UtcNow,
