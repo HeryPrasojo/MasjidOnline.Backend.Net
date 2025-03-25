@@ -5,7 +5,7 @@ using MasjidOnline.Data.Interface.Repository.User;
 
 namespace MasjidOnline.Data.EntityFramework.Databases;
 
-public class UserDatabase(UserDataContext _userDataContext) : Data(_userDataContext), IUserDatabase
+public class UserDatabase(UserDataContext _userDataContext) : Database(_userDataContext), IUserDatabase
 {
     private IInternalRepository? _internalRepository;
     private IPasswordCodeRepository? _passwordCodeRepository;

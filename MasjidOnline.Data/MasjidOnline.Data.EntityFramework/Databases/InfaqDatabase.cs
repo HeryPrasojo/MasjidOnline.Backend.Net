@@ -5,7 +5,7 @@ using MasjidOnline.Data.Interface.Repository.Infaq;
 
 namespace MasjidOnline.Data.EntityFramework.Databases;
 
-public class InfaqDatabase(InfaqDataContext _infaqDataContext) : Data(_infaqDataContext), IInfaqDatabase
+public class InfaqDatabase(InfaqDataContext _infaqDataContext) : Database(_infaqDataContext), IInfaqDatabase
 {
     private IExpireRepository? _expireRepository;
     private IInfaqRepository? _infaqRepository;

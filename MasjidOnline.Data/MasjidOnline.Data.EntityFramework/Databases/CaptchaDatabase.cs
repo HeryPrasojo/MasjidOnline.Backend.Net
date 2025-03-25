@@ -5,7 +5,7 @@ using MasjidOnline.Data.Interface.Repository.Captcha;
 
 namespace MasjidOnline.Data.EntityFramework.Databases;
 
-public class CaptchaDatabase(CaptchaDataContext _captchaDataContext) : Data(_captchaDataContext), ICaptchaDatabase
+public class CaptchaDatabase(CaptchaDataContext _captchaDataContext) : Database(_captchaDataContext), ICaptchaDatabase
 {
     private ICaptchaRepository? _captchaRepository;
     private ICaptchaSettingRepository? _captchaSettingRepository;

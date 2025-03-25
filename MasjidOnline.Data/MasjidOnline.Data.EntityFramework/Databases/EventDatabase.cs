@@ -5,7 +5,7 @@ using MasjidOnline.Data.Interface.Repository.Event;
 
 namespace MasjidOnline.Data.EntityFramework.Databases;
 
-public class EventDatabase(EventDataContext _eventDataContext) : Data(_eventDataContext), IEventDatabase
+public class EventDatabase(EventDataContext _eventDataContext) : Database(_eventDataContext), IEventDatabase
 {
     private IEventSettingRepository? _eventSettingRepository;
 

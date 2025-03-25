@@ -1,12 +1,11 @@
 using System.Data.Common;
 using System.Threading.Tasks;
-using MasjidOnline.Data.Interface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace MasjidOnline.Data.EntityFramework;
 
-public abstract class Data(DbContext _dbContext) : Interface.IDatabase
+public abstract class Database(DbContext _dbContext) : Interface.IDatabase
 {
     protected readonly DbContext _dbContext = _dbContext;
 
