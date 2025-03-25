@@ -1,11 +1,10 @@
 using System;
 using System.IO;
-using MasjidOnline.Service.Captcha.Interface;
 using MasjidOnline.Service.Captcha.Interface.Model;
 
 namespace MasjidOnline.Service.Captcha;
 
-public class CaptchaService : ICaptchaService
+public class CaptchaService /*: ICaptchaService*/
 {
     private readonly GenerateImageResult[] _generateImageResults =
     [

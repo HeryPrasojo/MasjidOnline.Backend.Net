@@ -1,9 +1,8 @@
-using MasjidOnline.Service.Captcha.Interface.Model;
+using System.Threading.Tasks;
 
 namespace MasjidOnline.Service.Captcha.Interface;
 
 public interface ICaptchaService
 {
-    GenerateImageResult GenerateImage(float degree);
-    GenerateImageResult GenerateRandomImage();
+    Task VerifyAsync(string token, string action);
 }

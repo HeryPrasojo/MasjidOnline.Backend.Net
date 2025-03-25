@@ -30,9 +30,9 @@ public class SqLiteSessionInitializer(
             CREATE TABLE Session
             (
                 Id INTEGER PRIMARY KEY,
-                Digest INTEGER NOT NULL,
+                Digest BLOB NOT NULL,
                 DateTime TEXT NOT NULL,
-                PreviousId BLOB,
+                PreviousId INTEGER,
                 UserId INTEGER NOT NULL
             )";
 

@@ -19,6 +19,7 @@ public class Encryption128128(IOptions<Interface.Model.CryptographyOptions> _opt
         aes.IV = bytes.Slice(0, 16).ToArray();
         aes.Key = _key;
         aes.KeySize = 128;
+        aes.Padding = PaddingMode.None;
 
         using var cryptoTransform = aes.CreateDecryptor(aes.Key, aes.IV);
 
@@ -47,6 +48,7 @@ public class Encryption128128(IOptions<Interface.Model.CryptographyOptions> _opt
         aes.IV = ivAes.IV;
         aes.Key = _key;
         aes.KeySize = 128;
+        aes.Padding = PaddingMode.None;
 
         using var cryptoTransform = aes.CreateEncryptor(aes.Key, aes.IV);
 

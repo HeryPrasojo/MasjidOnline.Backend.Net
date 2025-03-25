@@ -66,11 +66,11 @@ public class SessionBusiness(
     {
         if (idBase64 == default)
         {
-            await ChangeAndSaveAsync(Constant.AnonymousUserId);
+            await ChangeAndSaveAsync(Constant.UserId.Anonymous);
         }
         else
         {
-            var requestSessionIdBytes = _fieldValidatorService.ValidateRequiredBase64(idBase64, 80, idBase64Expression);
+            var requestSessionIdBytes = _fieldValidatorService.ValidateRequiredBase64(idBase64, 108, idBase64Expression);
 
             var decryptedRquestSessionIdBytes = _encryption128128.Decrypt(requestSessionIdBytes);
 
@@ -81,7 +81,7 @@ public class SessionBusiness(
 
             if (sessionEntity.DateTime < DateTime.UtcNow.AddDays(-16))
             {
-                await ChangeAndSaveAsync(Constant.AnonymousUserId);
+                await ChangeAndSaveAsync(Constant.UserId.Anonymous);
             }
             else
             {

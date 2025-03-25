@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using MasjidOnline.Business.Infaq.Infaq.Mapper;
 using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Interface.Model;
@@ -11,7 +12,6 @@ using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.Infaq;
 using MasjidOnline.Library.Exceptions;
-using MasjidOnline.Library.Extensions;
 using MasjidOnline.Service.FieldValidator.Interface;
 
 namespace MasjidOnline.Business.Infaq.Infaq;
@@ -24,9 +24,9 @@ public class AddAnonymBusiness(
         ICaptchaData _captchaData,
         ISessionBusiness _sessionBusiness,
         IInfaqData _infaqData,
-        AddByAnonymRequest addByAnonymRequest)
+        AddByAnonymRequest? addByAnonymRequest)
     {
-        if (_sessionBusiness.UserId == Constant.AnonymousUserId)
+        if (_sessionBusiness.UserId == Constant.UserId.Anonymous)
         {
             var captchas = await _captchaData.Captcha.GetForInfaqAddByAnonymAsync(_sessionBusiness.Id);
 
@@ -43,12 +43,12 @@ public class AddAnonymBusiness(
 
 
         _fieldValidatorService.ValidateRequired(addByAnonymRequest);
-        _fieldValidatorService.ValidateRequiredPlus(addByAnonymRequest.Amount);
+        _fieldValidatorService.ValidateRequiredPlus(addByAnonymRequest!.Amount);
         _fieldValidatorService.ValidateRequired(addByAnonymRequest.PaymentType);
         _fieldValidatorService.ValidateRequiredPast(addByAnonymRequest.ManualDateTime);
 
-        addByAnonymRequest.ManualNotes = _fieldValidatorService.ValidateRequiredText255(addByAnonymRequest.ManualNotes);
         addByAnonymRequest.MunfiqName = _fieldValidatorService.ValidateRequiredText255(addByAnonymRequest.MunfiqName);
+        addByAnonymRequest.ManualNotes = _fieldValidatorService.ValidateOptionalText255(addByAnonymRequest.ManualNotes);
 
 
         var paymentTypes = new Interface.Model.Payment.PaymentType[]
@@ -62,10 +62,10 @@ public class AddAnonymBusiness(
         var infaq = new Entity.Infaq.Infaq
         {
             Id = _infaqIdGenerator.InfaqId,
-            Amount = addByAnonymRequest.Amount,
+            Amount = addByAnonymRequest.Amount!.Value,
             DateTime = DateTime.UtcNow,
             PaymentStatus = PaymentStatus.New,
-            PaymentType = (PaymentType)addByAnonymRequest.PaymentType,
+            PaymentType = addByAnonymRequest.PaymentType!.Value.ToEntity(),
             UserId = _sessionBusiness.UserId,
             MunfiqName = addByAnonymRequest.MunfiqName,
         };
@@ -78,11 +78,9 @@ public class AddAnonymBusiness(
             var infaqManual = new InfaqManual
             {
                 InfaqId = infaq.Id,
-                ManualDateTime = addByAnonymRequest.ManualDateTime,
+                DateTime = addByAnonymRequest.ManualDateTime!.Value,
+                Notes = addByAnonymRequest.ManualNotes,
             };
-
-            if (!addByAnonymRequest.ManualNotes.IsNullOrEmptyOrWhiteSpace())
-                infaqManual.ManualNotes = addByAnonymRequest.ManualNotes;
 
             await _infaqData.InfaqManual.AddAsync(infaqManual);
         }

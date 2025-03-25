@@ -20,7 +20,7 @@ public class InitializerBusiness(
 {
     public async Task InitializeAsync(IDataTransaction _dataTransaction, IUserData _userData, IAuditData _auditData)
     {
-        var any = await _userData.User.GetAnyAsync(Constant.SystemUserId);
+        var any = await _userData.User.GetAnyAsync(Constant.UserId.System);
 
         if (any) return;
 
@@ -34,7 +34,7 @@ public class InitializerBusiness(
 
         var user = new Entity.User.User
         {
-            Id = Constant.SystemUserId,
+            Id = Constant.UserId.System,
             Status = UserStatus.System,
             Type = UserType.System,
         };
@@ -49,8 +49,8 @@ public class InitializerBusiness(
             Id = _userIdGenerator.InternalId,
             Status = InternalStatus.Approve,
             UpdateDateTime = utcNow,
-            UpdateUserId = Constant.SystemUserId,
-            UserId = Constant.SystemUserId,
+            UpdateUserId = Constant.UserId.System,
+            UserId = Constant.UserId.System,
         };
 
         await _userData.Internal.AddAsync(@internal);
@@ -58,8 +58,8 @@ public class InitializerBusiness(
 
         user = new Entity.User.User
         {
-            Id = Constant.RootUserId,
-            Status = UserStatus.Active,
+            Id = Constant.UserId.Root,
+            Status = UserStatus.New,
             Type = UserType.Internal,
         };
 
@@ -105,7 +105,7 @@ public class InitializerBusiness(
 
         await _userData.Permission.AddAsync(permission);
 
-        await _auditData.PermissionLog.AddAddAsync(permission, utcNow, Constant.SystemUserId);
+        await _auditData.PermissionLog.AddAddAsync(permission, utcNow, Constant.UserId.System);
 
 
         await _dataTransaction.CommitAsync();

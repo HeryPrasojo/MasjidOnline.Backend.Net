@@ -11,7 +11,7 @@ public class AuthorizationBusiness : IAuthorizationBusiness
 {
     public void AuthorizeNonAnonymous(ISessionBusiness _sessionBusiness)
     {
-        if (_sessionBusiness.UserId == Constant.AnonymousUserId) throw new PermissionException(nameof(Constant.AnonymousUserId));
+        if (_sessionBusiness.UserId == Constant.UserId.Anonymous) throw new PermissionException(nameof(Constant.UserId.Anonymous));
     }
 
     public async Task AuthorizePermissionAsync(
@@ -32,7 +32,7 @@ public class AuthorizationBusiness : IAuthorizationBusiness
     {
         var sessionPermission = await _userData.Permission.GetByUserIdAsync(_sessionBusiness.UserId);
 
-        if (sessionPermission == default) throw new PermissionException(nameof(Constant.AnonymousUserId));
+        if (sessionPermission == default) throw new PermissionException(nameof(Constant.UserId.Anonymous));
 
         if (infaqExpireAdd && !sessionPermission.InfaqExpireAdd) throw new PermissionException(nameof(sessionPermission.InfaqExpireAdd));
         if (infaqExpireApprove && !sessionPermission.InfaqExpireApprove) throw new PermissionException(nameof(sessionPermission.InfaqExpireApprove));

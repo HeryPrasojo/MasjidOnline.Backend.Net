@@ -14,7 +14,6 @@ public class UserDataContext(DbContextOptions _dbContextOptions) : DbContext(_db
         modelBuilder.Entity<Permission>();
         modelBuilder.Entity<User>();
         modelBuilder.Entity<UserEmailAddress>();
-
         modelBuilder.Entity<UserSetting>();
     }
 }
