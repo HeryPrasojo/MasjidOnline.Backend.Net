@@ -3,7 +3,7 @@ using MasjidOnline.Business.Infaq.Infaq.Mapper;
 using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Interface.Model.Responses;
-using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.Databases;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
 

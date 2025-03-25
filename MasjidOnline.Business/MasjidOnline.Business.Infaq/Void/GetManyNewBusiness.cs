@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.Infaq.Interface.Model.Void;
 using MasjidOnline.Business.Infaq.Interface.Void;
 using MasjidOnline.Business.Interface.Model.Responses;
-using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.Databases;
 using MasjidOnline.Data.Interface.ViewModel.Infaq.Void;
 using MasjidOnline.Data.Interface.ViewModel.Repository;
 using MasjidOnline.Service.FieldValidator.Interface;

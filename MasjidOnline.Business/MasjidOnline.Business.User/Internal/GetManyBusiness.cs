@@ -5,7 +5,7 @@ using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Business.User.Internal.Mapper;
-using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.Databases;
 using MasjidOnline.Data.Interface.ViewModel.Repository;
 using MasjidOnline.Data.Interface.ViewModel.User.Internal;
 using MasjidOnline.Service.FieldValidator.Interface;

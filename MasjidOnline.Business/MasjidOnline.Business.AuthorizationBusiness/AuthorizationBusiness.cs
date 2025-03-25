@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.AuthorizationBusiness.Interface;
 using MasjidOnline.Business.Interface.Model;
 using MasjidOnline.Business.Session.Interface;
-using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.Databases;
 using MasjidOnline.Library.Exceptions;
 
 namespace MasjidOnline.Business.AuthorizationBusiness;

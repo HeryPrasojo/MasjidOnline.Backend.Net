@@ -13,7 +13,7 @@ using MasjidOnline.Data;
 using MasjidOnline.Data.EntityFramework;
 using MasjidOnline.Data.EntityFramework.SqLite;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.Databases;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Data.Interface.Initializer;
 using MasjidOnline.Service.Captcha;

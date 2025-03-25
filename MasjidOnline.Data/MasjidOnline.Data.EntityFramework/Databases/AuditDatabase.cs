@@ -1,12 +1,12 @@
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.EntityFramework.Repository.Audit;
-using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.Databases;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Data.Interface.Repository.Audit;
 
-namespace MasjidOnline.Data.EntityFramework.Datas;
+namespace MasjidOnline.Data.EntityFramework.Databases;
 
-public class AuditData(
+public class AuditDatabase(
     AuditDataContext _auditDataContext,
     IAuditIdGenerator _auditIdGenerator) : Data(_auditDataContext), IAuditDatabase
 {

@@ -7,7 +7,7 @@ using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Interface.Model.Options;
 using MasjidOnline.Business.Interface.Model.Responses;
-using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.Databases;
 using MasjidOnline.Data.Interface.ViewModel.Infaq.Infaq;
 using MasjidOnline.Data.Interface.ViewModel.Repository;
 using MasjidOnline.Service.FieldValidator.Interface;

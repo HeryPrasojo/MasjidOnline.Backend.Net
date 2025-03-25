@@ -1,11 +1,11 @@
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.EntityFramework.Repository.Infaq;
-using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.Databases;
 using MasjidOnline.Data.Interface.Repository.Infaq;
 
-namespace MasjidOnline.Data.EntityFramework.Datas;
+namespace MasjidOnline.Data.EntityFramework.Databases;
 
-public class InfaqData(InfaqDataContext _infaqDataContext) : Data(_infaqDataContext), IInfaqDatabase
+public class InfaqDatabase(InfaqDataContext _infaqDataContext) : Data(_infaqDataContext), IInfaqDatabase
 {
     private IExpireRepository? _expireRepository;
     private IInfaqRepository? _infaqRepository;

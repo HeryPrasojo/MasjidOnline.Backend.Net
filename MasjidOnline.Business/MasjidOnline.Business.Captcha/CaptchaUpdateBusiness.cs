@@ -4,7 +4,7 @@ using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Business.Captcha.Interface.Model;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
-using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.Databases;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Captcha.Interface;

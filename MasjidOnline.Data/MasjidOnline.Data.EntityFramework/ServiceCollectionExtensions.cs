@@ -1,5 +1,5 @@
-using MasjidOnline.Data.EntityFramework.Datas;
-using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.EntityFramework.Databases;
+using MasjidOnline.Data.Interface.Databases;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MasjidOnline.Data.EntityFramework;
@@ -8,13 +8,13 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddEntityFrameworkData(this IServiceCollection services)
     {
-        services.AddScoped<IAuditDatabase, AuditData>();
-        services.AddScoped<ICaptchaDatabase, CaptchaData>();
-        services.AddScoped<IPersonDatabase, PersonData>();
-        services.AddScoped<IEventDatabase, EventData>();
-        services.AddScoped<IInfaqDatabase, InfaqData>();
-        services.AddScoped<ISessionDatabase, SessionData>();
-        services.AddScoped<IUserDatabase, UserData>();
+        services.AddScoped<IAuditDatabase, AuditDatabase>();
+        services.AddScoped<ICaptchaDatabase, CaptchaDatabase>();
+        services.AddScoped<IPersonDatabase, PersonDatabase>();
+        services.AddScoped<IEventDatabase, EventDatabase>();
+        services.AddScoped<IInfaqDatabase, InfaqDatabase>();
+        services.AddScoped<ISessionDatabase, SessionDatabase>();
+        services.AddScoped<IUserDatabase, UserDatabase>();
 
         return services;
     }

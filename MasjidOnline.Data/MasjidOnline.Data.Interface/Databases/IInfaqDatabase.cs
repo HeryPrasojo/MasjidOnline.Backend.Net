@@ -1,6 +1,6 @@
 using MasjidOnline.Data.Interface.Repository.Infaq;
 
-namespace MasjidOnline.Data.Interface.Datas;
+namespace MasjidOnline.Data.Interface.Databases;
 
 public interface IInfaqDatabase : IData
 {

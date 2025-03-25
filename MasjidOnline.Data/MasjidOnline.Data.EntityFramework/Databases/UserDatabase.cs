@@ -1,11 +1,11 @@
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.EntityFramework.Repository.User;
-using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.Databases;
 using MasjidOnline.Data.Interface.Repository.User;
 
-namespace MasjidOnline.Data.EntityFramework.Datas;
+namespace MasjidOnline.Data.EntityFramework.Databases;
 
-public class UserData(UserDataContext _userDataContext) : Data(_userDataContext), IUserDatabase
+public class UserDatabase(UserDataContext _userDataContext) : Data(_userDataContext), IUserDatabase
 {
     private IInternalRepository? _internalRepository;
     private IPasswordCodeRepository? _passwordCodeRepository;

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.Databases;
 
 namespace MasjidOnline.Business.User.Interface;
 

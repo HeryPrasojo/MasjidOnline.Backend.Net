@@ -2,7 +2,7 @@ using System;
 using System.Text.Json;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface.Model.Responses;
-using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.Databases;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Library.Exceptions;
 using Microsoft.AspNetCore.Http;

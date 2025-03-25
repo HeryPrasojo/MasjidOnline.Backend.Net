@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.Databases;
 using MasjidOnline.Data.Interface.Definition;
 using MasjidOnline.Data.Interface.Initializer;
 using MasjidOnline.Entity.Infaq;

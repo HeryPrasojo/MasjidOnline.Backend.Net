@@ -4,7 +4,7 @@ using MasjidOnline.Business.Interface.Model;
 using MasjidOnline.Business.Interface.Model.Options;
 using MasjidOnline.Business.User.Interface;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.Databases;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.User;
 using MasjidOnline.Service.Mail.Interface;

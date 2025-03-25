@@ -1,5 +1,5 @@
 using MasjidOnline.Business.Infaq.Interface.Model.Success;
-using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.Databases;
 
 namespace MasjidOnline.Business.Infaq.Interface.Success;
 

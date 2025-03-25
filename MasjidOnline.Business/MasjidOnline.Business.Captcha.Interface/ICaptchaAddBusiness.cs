@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using MasjidOnline.Business.Captcha.Interface.Model;
 using MasjidOnline.Business.Session.Interface;
-using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.Databases;
 
 namespace MasjidOnline.Business.Captcha.Interface;
 

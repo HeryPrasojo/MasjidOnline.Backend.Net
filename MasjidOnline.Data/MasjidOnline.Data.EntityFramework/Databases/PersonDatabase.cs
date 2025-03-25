@@ -1,11 +1,11 @@
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.EntityFramework.Repository.Person;
-using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.Databases;
 using MasjidOnline.Data.Interface.Repository.Person;
 
-namespace MasjidOnline.Data.EntityFramework.Datas;
+namespace MasjidOnline.Data.EntityFramework.Databases;
 
-public class PersonData(PersonDataContext _personDataContext) : Data(_personDataContext), IPersonDatabase
+public class PersonDatabase(PersonDataContext _personDataContext) : Data(_personDataContext), IPersonDatabase
 {
     private IPersonSettingRepository? _personSettingRepository;
 

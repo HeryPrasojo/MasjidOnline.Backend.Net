@@ -1,11 +1,11 @@
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.EntityFramework.Repository.Captcha;
-using MasjidOnline.Data.Interface.Datas;
+using MasjidOnline.Data.Interface.Databases;
 using MasjidOnline.Data.Interface.Repository.Captcha;
 
-namespace MasjidOnline.Data.EntityFramework.Datas;
+namespace MasjidOnline.Data.EntityFramework.Databases;
 
-public class CaptchaData(CaptchaDataContext _captchaDataContext) : Data(_captchaDataContext), ICaptchaDatabase
+public class CaptchaDatabase(CaptchaDataContext _captchaDataContext) : Data(_captchaDataContext), ICaptchaDatabase
 {
     private ICaptchaRepository? _captchaRepository;
     private ICaptchaSettingRepository? _captchaSettingRepository;
