@@ -9,5 +9,5 @@ public interface IUserIdGenerator
     byte[] PasswordCodeCode { get; }
     int InternalId { get; }
 
-    Task InitializeAsync(IUserDatabase userDatabase);
+    Task InitializeAsync(IData userDatabase);
 }

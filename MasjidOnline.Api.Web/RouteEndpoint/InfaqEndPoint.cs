@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.AuthorizationBusiness.Interface;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MasjidOnline.Api.Web.RouteEndpoint;
@@ -14,74 +14,70 @@ internal static class InfaqEndPoint
         internal static async Task<Response> AddAsync(
             IAuthorizationBusiness _authorizationBusiness,
             Business.Infaq.Interface.Expire.IAddBusiness _addBusiness,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             ISessionBusiness _sessionBusiness,
-            IUserDatabase _userDatabase,
             [FromBody] Business.Infaq.Interface.Model.Expire.AddRequest? addRequest)
         {
-            return await _addBusiness.AddAsync(_authorizationBusiness, _infaqDatabase, _sessionBusiness, _userDatabase, addRequest);
+            return await _addBusiness.AddAsync(_authorizationBusiness, _data, _sessionBusiness, addRequest);
         }
 
         internal static async Task<Response> ApproveAsync(
             Business.Infaq.Interface.Expire.IApproveBusiness _approveBusiness,
             ISessionBusiness _sessionBusiness,
-            IUserDatabase _userDatabase,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Expire.ApproveRequest? approveRequest)
         {
-            return await _approveBusiness.ApproveAsync(_sessionBusiness, _userDatabase, _infaqDatabase, approveRequest);
+            return await _approveBusiness.ApproveAsync(_sessionBusiness, _data, approveRequest);
         }
 
         internal static async Task<Response> CancelAsync(
             Business.Infaq.Interface.Expire.ICancelBusiness _cancelBusiness,
             ISessionBusiness _sessionBusiness,
-            IUserDatabase _userDatabase,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Expire.CancelRequest? cancelRequest)
         {
-            return await _cancelBusiness.CancelAsync(_sessionBusiness, _userDatabase, _infaqDatabase, cancelRequest);
+            return await _cancelBusiness.CancelAsync(_sessionBusiness, _data, cancelRequest);
         }
 
         internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Expire.GetManyResponseRecord>> GetManyAsync(
             Business.Infaq.Interface.Expire.IGetManyBusiness _getManyBusiness,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Expire.GetManyRequest? getManyRequest)
         {
-            return await _getManyBusiness.GetAsync(_infaqDatabase, getManyRequest);
+            return await _getManyBusiness.GetAsync(_data, getManyRequest);
         }
 
         internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Expire.GetManyNewResponseRecord>> GetManyNewAsync(
             Business.Infaq.Interface.Expire.IGetManyNewBusiness _getManyNewBusiness,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Expire.GetManyNewRequest? getManyNewRequest)
         {
-            return await _getManyNewBusiness.GetAsync(_infaqDatabase, getManyNewRequest);
+            return await _getManyNewBusiness.GetAsync(_data, getManyNewRequest);
         }
 
         internal static async Task<Business.Infaq.Interface.Model.Expire.GetOneResponse> GetOneAsync(
             Business.Infaq.Interface.Expire.IGetOneBusiness _getOneBusiness,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Expire.GetOneRequest? getOneRequest)
         {
-            return await _getOneBusiness.GetAsync(_infaqDatabase, getOneRequest);
+            return await _getOneBusiness.GetAsync(_data, getOneRequest);
         }
 
         internal static async Task<Business.Infaq.Interface.Model.Expire.GetOneNewResponse> GetOneNewAsync(
             Business.Infaq.Interface.Expire.IGetOneNewBusiness _getOneNewBusiness,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Expire.GetOneNewRequest? getOneNewRequest)
         {
-            return await _getOneNewBusiness.GetAsync(_infaqDatabase, getOneNewRequest);
+            return await _getOneNewBusiness.GetAsync(_data, getOneNewRequest);
         }
 
         internal static async Task<Response> RejectAsync(
             Business.Infaq.Interface.Expire.IRejectBusiness _rejectBusiness,
             ISessionBusiness _sessionBusiness,
-            IUserDatabase _userDatabase,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Expire.RejectRequest? rejectRequest)
         {
-            return await _rejectBusiness.RejectAsync(_sessionBusiness, _userDatabase, _infaqDatabase, rejectRequest);
+            return await _rejectBusiness.RejectAsync(_sessionBusiness, _data, rejectRequest);
         }
     }
 
@@ -89,44 +85,43 @@ internal static class InfaqEndPoint
     {
         internal static async Task<Response> AddAnonymAsync(
             Business.Infaq.Interface.Infaq.IAddAnonymBusiness _addAnonymBusiness,
-            ICaptchaDatabase _captchaDatabase,
+            IData _data,
             ISessionBusiness _sessionBusiness,
-            IInfaqDatabase _infaqDatabase,
             [FromBody] Business.Infaq.Interface.Model.Infaq.AddByAnonymRequest? addByAnonymRequest)
         {
-            return await _addAnonymBusiness.AddAsync(_captchaDatabase, _sessionBusiness, _infaqDatabase, addByAnonymRequest);
+            return await _addAnonymBusiness.AddAsync(_data, _sessionBusiness, addByAnonymRequest);
         }
 
         internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Infaq.GetManyResponseRecord>> GetManyAsync(
             Business.Infaq.Interface.Infaq.IGetManyBusiness _getManyBusiness,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Infaq.GetManyRequest? getManyRequest)
         {
-            return await _getManyBusiness.GetAsync(_infaqDatabase, getManyRequest);
+            return await _getManyBusiness.GetAsync(_data, getManyRequest);
         }
 
         internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Infaq.GetManyDueResponseRecord>> GetManyDueAsync(
             Business.Infaq.Interface.Infaq.IGetManyDueBusiness _getManyDueBusiness,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Infaq.GetManyDueRequest? getManyDueRequest)
         {
-            return await _getManyDueBusiness.GetAsync(_infaqDatabase, getManyDueRequest);
+            return await _getManyDueBusiness.GetAsync(_data, getManyDueRequest);
         }
 
         internal static async Task<Business.Infaq.Interface.Model.Infaq.GetOneResponse> GetOneAsync(
             Business.Infaq.Interface.Infaq.IGetOneBusiness _getOneBusiness,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Infaq.GetOneRequest? getOneRequest)
         {
-            return await _getOneBusiness.GetAsync(_infaqDatabase, getOneRequest);
+            return await _getOneBusiness.GetAsync(_data, getOneRequest);
         }
 
         internal static async Task<Business.Infaq.Interface.Model.Infaq.GetOneDueResponse> GetOneDueAsync(
             Business.Infaq.Interface.Infaq.IGetOneDueBusiness _getOneDueBusiness,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Infaq.GetOneDueRequest? getOneDueRequest)
         {
-            return await _getOneDueBusiness.GetAsync(_infaqDatabase, getOneDueRequest);
+            return await _getOneDueBusiness.GetAsync(_data, getOneDueRequest);
         }
     }
 
@@ -135,74 +130,70 @@ internal static class InfaqEndPoint
         internal static async Task<Response> AddAsync(
             IAuthorizationBusiness _authorizationBusiness,
             Business.Infaq.Interface.Success.IAddBusiness _addBusiness,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             ISessionBusiness _sessionBusiness,
-            IUserDatabase _userDatabase,
             [FromBody] Business.Infaq.Interface.Model.Success.AddRequest? addRequest)
         {
-            return await _addBusiness.AddAsync(_authorizationBusiness, _infaqDatabase, _sessionBusiness, _userDatabase, addRequest);
+            return await _addBusiness.AddAsync(_authorizationBusiness, _data, _sessionBusiness, addRequest);
         }
 
         internal static async Task<Response> ApproveAsync(
             Business.Infaq.Interface.Success.IApproveBusiness _approveBusiness,
             ISessionBusiness _sessionBusiness,
-            IUserDatabase _userDatabase,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Success.ApproveRequest? approveRequest)
         {
-            return await _approveBusiness.ApproveAsync(_sessionBusiness, _userDatabase, _infaqDatabase, approveRequest);
+            return await _approveBusiness.ApproveAsync(_sessionBusiness, _data, approveRequest);
         }
 
         internal static async Task<Response> CancelAsync(
             Business.Infaq.Interface.Success.ICancelBusiness _cancelBusiness,
             ISessionBusiness _sessionBusiness,
-            IUserDatabase _userDatabase,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Success.CancelRequest? cancelRequest)
         {
-            return await _cancelBusiness.CancelAsync(_sessionBusiness, _userDatabase, _infaqDatabase, cancelRequest);
+            return await _cancelBusiness.CancelAsync(_sessionBusiness, _data, cancelRequest);
         }
 
         internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Success.GetManyResponseRecord>> GetManyAsync(
             Business.Infaq.Interface.Success.IGetManyBusiness _getManyBusiness,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Success.GetManyRequest? getManyRequest)
         {
-            return await _getManyBusiness.GetAsync(_infaqDatabase, getManyRequest);
+            return await _getManyBusiness.GetAsync(_data, getManyRequest);
         }
 
         internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Success.GetManyNewResponseRecord>> GetManyNewAsync(
             Business.Infaq.Interface.Success.IGetManyNewBusiness _getManyNewBusiness,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Success.GetManyNewRequest? getManyNewRequest)
         {
-            return await _getManyNewBusiness.GetAsync(_infaqDatabase, getManyNewRequest);
+            return await _getManyNewBusiness.GetAsync(_data, getManyNewRequest);
         }
 
         internal static async Task<Business.Infaq.Interface.Model.Success.GetOneResponse> GetOneAsync(
             Business.Infaq.Interface.Success.IGetOneBusiness _getOneBusiness,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Success.GetOneRequest? getOneRequest)
         {
-            return await _getOneBusiness.GetAsync(_infaqDatabase, getOneRequest);
+            return await _getOneBusiness.GetAsync(_data, getOneRequest);
         }
 
         internal static async Task<Business.Infaq.Interface.Model.Success.GetOneNewResponse> GetOneNewAsync(
             Business.Infaq.Interface.Success.IGetOneNewBusiness _getOneNewBusiness,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Success.GetOneNewRequest? getOneNewRequest)
         {
-            return await _getOneNewBusiness.GetAsync(_infaqDatabase, getOneNewRequest);
+            return await _getOneNewBusiness.GetAsync(_data, getOneNewRequest);
         }
 
         internal static async Task<Response> RejectAsync(
             Business.Infaq.Interface.Success.IRejectBusiness _rejectBusiness,
             ISessionBusiness _sessionBusiness,
-            IUserDatabase _userDatabase,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Success.RejectRequest? rejectRequest)
         {
-            return await _rejectBusiness.RejectAsync(_sessionBusiness, _userDatabase, _infaqDatabase, rejectRequest);
+            return await _rejectBusiness.RejectAsync(_sessionBusiness, _data, rejectRequest);
         }
     }
 
@@ -211,74 +202,70 @@ internal static class InfaqEndPoint
         internal static async Task<Response> AddAsync(
             IAuthorizationBusiness _authorizationBusiness,
             Business.Infaq.Interface.Void.IAddBusiness _addBusiness,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             ISessionBusiness _sessionBusiness,
-            IUserDatabase _userDatabase,
             [FromBody] Business.Infaq.Interface.Model.Void.AddRequest? addRequest)
         {
-            return await _addBusiness.AddAsync(_authorizationBusiness, _infaqDatabase, _sessionBusiness, _userDatabase, addRequest);
+            return await _addBusiness.AddAsync(_authorizationBusiness, _data, _sessionBusiness, addRequest);
         }
 
         internal static async Task<Response> ApproveAsync(
             Business.Infaq.Interface.Void.IApproveBusiness _approveBusiness,
             ISessionBusiness _sessionBusiness,
-            IUserDatabase _userDatabase,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Void.ApproveRequest? approveRequest)
         {
-            return await _approveBusiness.ApproveAsync(_sessionBusiness, _userDatabase, _infaqDatabase, approveRequest);
+            return await _approveBusiness.ApproveAsync(_sessionBusiness, _data, approveRequest);
         }
 
         internal static async Task<Response> CancelAsync(
             Business.Infaq.Interface.Void.ICancelBusiness _cancelBusiness,
             ISessionBusiness _sessionBusiness,
-            IUserDatabase _userDatabase,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Void.CancelRequest? cancelRequest)
         {
-            return await _cancelBusiness.CancelAsync(_sessionBusiness, _userDatabase, _infaqDatabase, cancelRequest);
+            return await _cancelBusiness.CancelAsync(_sessionBusiness, _data, cancelRequest);
         }
 
         internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Void.GetManyResponseRecord>> GetManyAsync(
             Business.Infaq.Interface.Void.IGetManyBusiness _getManyBusiness,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Void.GetManyRequest? getManyRequest)
         {
-            return await _getManyBusiness.GetAsync(_infaqDatabase, getManyRequest);
+            return await _getManyBusiness.GetAsync(_data, getManyRequest);
         }
 
         internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Void.GetManyNewResponseRecord>> GetManyNewAsync(
             Business.Infaq.Interface.Void.IGetManyNewBusiness _getManyNewBusiness,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Void.GetManyNewRequest? getManyNewRequest)
         {
-            return await _getManyNewBusiness.GetAsync(_infaqDatabase, getManyNewRequest);
+            return await _getManyNewBusiness.GetAsync(_data, getManyNewRequest);
         }
 
         internal static async Task<Business.Infaq.Interface.Model.Void.GetOneResponse> GetOneAsync(
             Business.Infaq.Interface.Void.IGetOneBusiness _getOneBusiness,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Void.GetOneRequest? getOneRequest)
         {
-            return await _getOneBusiness.GetAsync(_infaqDatabase, getOneRequest);
+            return await _getOneBusiness.GetAsync(_data, getOneRequest);
         }
 
         internal static async Task<Business.Infaq.Interface.Model.Void.GetOneNewResponse> GetOneNewAsync(
             Business.Infaq.Interface.Void.IGetOneNewBusiness _getOneNewBusiness,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Void.GetOneNewRequest? getOneNewRequest)
         {
-            return await _getOneNewBusiness.GetAsync(_infaqDatabase, getOneNewRequest);
+            return await _getOneNewBusiness.GetAsync(_data, getOneNewRequest);
         }
 
         internal static async Task<Response> RejectAsync(
             Business.Infaq.Interface.Void.IRejectBusiness _rejectBusiness,
             ISessionBusiness _sessionBusiness,
-            IUserDatabase _userDatabase,
-            IInfaqDatabase _infaqDatabase,
+            IData _data,
             [FromBody] Business.Infaq.Interface.Model.Void.RejectRequest? rejectRequest)
         {
-            return await _rejectBusiness.RejectAsync(_sessionBusiness, _userDatabase, _infaqDatabase, rejectRequest);
+            return await _rejectBusiness.RejectAsync(_sessionBusiness, _data, rejectRequest);
         }
     }
 }

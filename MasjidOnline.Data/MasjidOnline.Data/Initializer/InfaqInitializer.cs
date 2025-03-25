@@ -8,7 +8,7 @@ namespace MasjidOnline.Data.Initializer;
 
 public abstract class InfaqInitializer(IInfaqsDefinition _infaqsDefinition) : IInfaqInitializer
 {
-    public async Task InitializeDatabaseAsync(IInfaqDatabase infaqDatabase)
+    public async Task InitializeDatabaseAsync(IData infaqDatabase)
     {
         var settingTableExists = await _infaqsDefinition.CheckTableExistsAsync(nameof(InfaqSetting));
 

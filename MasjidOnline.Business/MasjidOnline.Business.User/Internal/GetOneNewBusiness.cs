@@ -12,14 +12,14 @@ public class GetOneNewBusiness(
     IFieldValidatorService _fieldValidatorService) : IGetOneNewBusiness
 {
     public async Task<GetOneNewResponse> GetAsync(
-        IUserDatabase _userDatabase,
+        IData _data,
         GetOneNewRequest? getOneNewRequest)
     {
         _fieldValidatorService.ValidateRequired(getOneNewRequest);
         _fieldValidatorService.ValidateRequiredPlus(getOneNewRequest!.Id);
 
 
-        var @internal = await _userDatabase.Internal.GetOneNewAsync(getOneNewRequest.Id!.Value);
+        var @internal = await _data.Internal.GetOneNewAsync(getOneNewRequest.Id!.Value);
 
         if (@internal == default) throw new InputMismatchException($"{nameof(getOneNewRequest.Id)}: {getOneNewRequest.Id}");
 

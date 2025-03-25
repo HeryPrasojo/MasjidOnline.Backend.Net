@@ -11,7 +11,7 @@ public class UserIdGenerator(IHash512Service _hash512Service) : IUserIdGenerator
     private int _internalId;
     private int _userId;
 
-    public async Task InitializeAsync(IUserDatabase userDatabase)
+    public async Task InitializeAsync(IData userDatabase)
     {
         _internalId = await userDatabase.Internal.GetMaxIdAsync();
         _userId = await userDatabase.User.GetMaxIdAsync();

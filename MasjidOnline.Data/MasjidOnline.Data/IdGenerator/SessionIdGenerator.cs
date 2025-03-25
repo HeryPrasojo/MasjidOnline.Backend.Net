@@ -10,9 +10,9 @@ public class SessionIdGenerator(IHash512Service _hash512Service) : ISessionIdGen
 {
     private int _sessionId;
 
-    public async Task InitializeAsync(ISessionDatabase _sessionDatabase)
+    public async Task InitializeAsync(IData _data)
     {
-        _sessionId = await _sessionDatabase.Session.GetMaxIdAsync();
+        _sessionId = await _data.Session.GetMaxIdAsync();
     }
 
     public int SessionId => Interlocked.Increment(ref _sessionId);

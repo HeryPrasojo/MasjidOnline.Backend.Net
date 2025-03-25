@@ -20,7 +20,7 @@ public class GetManyDueBusiness(
     IFieldValidatorService _fieldValidatorService) : IGetManyDueBusiness
 {
     public async Task<GetManyResponse<GetManyDueResponseRecord>> GetAsync(
-        IInfaqDatabase _infaqDatabase,
+        IData _data,
         GetManyDueRequest? getManyDueRequest)
     {
         _fieldValidatorService.ValidateRequired(getManyDueRequest);
@@ -35,7 +35,7 @@ public class GetManyDueBusiness(
 
         var take = 10;
 
-        var getManyResult = await _infaqDatabase.Infaq.GetManyDueAsync(
+        var getManyResult = await _data.Infaq.GetManyDueAsync(
             DateTime.UtcNow.AddDays(_optionsMonitor.CurrentValue.PaymentExpire),
             paymentTypes: paymentTypes,
             getManyOrderBy: ManyOrderBy.Id,

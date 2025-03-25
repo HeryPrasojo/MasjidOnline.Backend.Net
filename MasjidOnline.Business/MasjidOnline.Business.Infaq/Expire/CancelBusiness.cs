@@ -13,32 +13,32 @@ namespace MasjidOnline.Business.Infaq.Expire;
 
 public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IFieldValidatorService _fieldValidatorService) : ICancelBusiness
 {
-    public async Task<Response> CancelAsync(ISessionBusiness _sessionBusiness, IUserDatabase _userDatabase, IInfaqDatabase _infaqDatabase, CancelRequest? cancelRequest)
+    public async Task<Response> CancelAsync(ISessionBusiness _sessionBusiness, IData _data, CancelRequest? cancelRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userDatabase, infaqExpireCancel: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, infaqExpireCancel: true);
 
         _fieldValidatorService.ValidateRequired(cancelRequest);
         _fieldValidatorService.ValidateRequiredPlus(cancelRequest!.Id);
         cancelRequest.Description = _fieldValidatorService.ValidateRequiredText255(cancelRequest.Description);
 
 
-        var expire = await _infaqDatabase.Expire.GetForSetStatusAsync(cancelRequest.Id!.Value);
+        var expire = await _data.Expire.GetForSetStatusAsync(cancelRequest.Id!.Value);
 
         if (expire == default) throw new InputMismatchException($"{nameof(cancelRequest.Id)}: {cancelRequest.Id}");
 
         if (expire.Status != Entity.Infaq.ExpireStatus.New) throw new InputMismatchException($"{nameof(expire.Status)}: {expire.Status}");
 
 
-        _infaqDatabase.Expire.SetStatus(
+        _data.Expire.SetStatus(
             cancelRequest.Id.Value,
             Entity.Infaq.ExpireStatus.Cancel,
             cancelRequest.Description,
             DateTime.UtcNow,
             _sessionBusiness.UserId);
 
-        _infaqDatabase.Infaq.SetPaymentStatus(expire.InfaqId, Entity.Infaq.PaymentStatus.New);
+        _data.Infaq.SetPaymentStatus(expire.InfaqId, Entity.Infaq.PaymentStatus.New);
 
-        await _infaqDatabase.SaveAsync();
+        await _data.SaveAsync();
 
         return new()
         {

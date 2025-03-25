@@ -8,7 +8,7 @@ namespace MasjidOnline.Data.Initializer;
 
 public abstract class CaptchaInitializer(ICaptchaDefinition _captchaDefinition) : ICaptchaInitializer
 {
-    public async Task InitializeDatabaseAsync(ICaptchaDatabase captchaDatabase)
+    public async Task InitializeDatabaseAsync(IData captchaDatabase)
     {
         var settingTableExists = await _captchaDefinition.CheckTableExistsAsync(nameof(CaptchaSetting));
 

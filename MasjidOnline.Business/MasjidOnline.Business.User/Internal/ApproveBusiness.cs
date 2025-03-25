@@ -24,22 +24,22 @@ public class ApproveBusiness(
     IMailSenderService _mailSenderService,
     IUserIdGenerator _userIdGenerator) : IApproveBusiness
 {
-    public async Task<Response> ApproveAsync(ISessionBusiness _sessionBusiness, IUserDatabase _userDatabase, ApproveRequest? approveRequest)
+    public async Task<Response> ApproveAsync(ISessionBusiness _sessionBusiness, IData _data, ApproveRequest? approveRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userDatabase, userInternalApprove: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, userInternalApprove: true);
 
         _fieldValidatorService.ValidateRequired(approveRequest);
         _fieldValidatorService.ValidateRequiredPlus(approveRequest!.Id);
 
 
-        var @internal = await _userDatabase.Internal.GetForApproveAsync(approveRequest.Id!.Value);
+        var @internal = await _data.Internal.GetForApproveAsync(approveRequest.Id!.Value);
 
         if (@internal == default) throw new InputMismatchException($"{nameof(approveRequest.Id)}: {approveRequest.Id}");
 
         if (@internal.Status != Entity.User.InternalStatus.New) throw new InputMismatchException($"{nameof(@internal.Status)}: {@internal.Status}");
 
 
-        _userDatabase.Internal.SetStatus(
+        _data.Internal.SetStatus(
             approveRequest.Id.Value,
             Entity.User.InternalStatus.Approve,
             default,
@@ -54,7 +54,7 @@ public class ApproveBusiness(
             Type = UserType.Internal,
         };
 
-        await _userDatabase.User.AddAsync(user);
+        await _data.User.AddAsync(user);
 
 
         var userEmailAddress = new UserEmailAddress
@@ -63,7 +63,7 @@ public class ApproveBusiness(
             UserId = user.Id,
         };
 
-        await _userDatabase.UserEmailAddress.AddAsync(userEmailAddress);
+        await _data.UserEmailAddress.AddAsync(userEmailAddress);
 
 
         var passwordCode = new PasswordCode
@@ -73,9 +73,9 @@ public class ApproveBusiness(
             UserId = user.Id,
         };
 
-        await _userDatabase.PasswordCode.AddAsync(passwordCode);
+        await _data.PasswordCode.AddAsync(passwordCode);
 
-        await _userDatabase.SaveAsync();
+        await _data.SaveAsync();
 
 
         var uri = _optionsMonitor.CurrentValue.Uri.UserPassword + Convert.ToHexString(passwordCode.Code.AsSpan());

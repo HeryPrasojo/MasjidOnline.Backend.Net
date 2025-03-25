@@ -15,34 +15,34 @@ public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IFiel
 {
     public async Task<Response> CancelAsync(
         ISessionBusiness _sessionBusiness,
-        IUserDatabase _userDatabase,
-        IInfaqDatabase _infaqDatabase,
+        IData _data,
+        IData _data,
         CancelRequest? cancelRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userDatabase, userInternalCancel: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, userInternalCancel: true);
 
         _fieldValidatorService.ValidateRequired(cancelRequest);
         _fieldValidatorService.ValidateRequiredPlus(cancelRequest!.Id);
         cancelRequest.Description = _fieldValidatorService.ValidateRequiredText255(cancelRequest.Description);
 
 
-        var @void = await _infaqDatabase.Void.GetForSetStatusAsync(cancelRequest.Id!.Value);
+        var @void = await _data.Void.GetForSetStatusAsync(cancelRequest.Id!.Value);
 
         if (@void == default) throw new InputMismatchException($"{nameof(cancelRequest.Id)}: {cancelRequest.Id}");
 
         if (@void.Status != Entity.Infaq.VoidStatus.New) throw new InputMismatchException($"{nameof(@void.Status)}: {@void.Status}");
 
 
-        _infaqDatabase.Void.SetStatus(
+        _data.Void.SetStatus(
             cancelRequest.Id.Value,
             Entity.Infaq.VoidStatus.Cancel,
             cancelRequest.Description,
             DateTime.UtcNow,
             _sessionBusiness.UserId);
 
-        _infaqDatabase.Infaq.SetPaymentStatus(@void.InfaqId, Entity.Infaq.PaymentStatus.New);
+        _data.Infaq.SetPaymentStatus(@void.InfaqId, Entity.Infaq.PaymentStatus.New);
 
-        await _infaqDatabase.SaveAsync();
+        await _data.SaveAsync();
 
         return new()
         {

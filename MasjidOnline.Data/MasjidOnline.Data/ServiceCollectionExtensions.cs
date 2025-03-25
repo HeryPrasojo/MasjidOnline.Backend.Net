@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using MasjidOnline.Data.IdGenerator;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.IdGenerator;
@@ -18,10 +17,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ISessionIdGenerator, SessionIdGenerator>();
         services.AddSingleton<IUserIdGenerator, UserIdGenerator>();
 
-        if (Debugger.IsAttached)
-            services.AddScoped<IDataTransaction, SharedDataTransaction>();
-        else
-            services.AddScoped<IDataTransaction, DataTransaction>();
+        services.AddScoped<IDataTransaction, DataTransaction>();
 
         return services;
     }

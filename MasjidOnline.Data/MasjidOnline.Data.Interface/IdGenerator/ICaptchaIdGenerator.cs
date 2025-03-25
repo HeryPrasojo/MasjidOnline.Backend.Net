@@ -7,5 +7,5 @@ public interface ICaptchaIdGenerator
 {
     int CaptchaId { get; }
 
-    Task InitializeAsync(ICaptchaDatabase captchaDatabase);
+    Task InitializeAsync(IData captchaDatabase);
 }

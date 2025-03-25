@@ -16,7 +16,7 @@ public class AuthorizationBusiness : IAuthorizationBusiness
 
     public async Task AuthorizePermissionAsync(
         ISessionBusiness _sessionBusiness,
-        IUserDatabase _userDatabase,
+        IData _data,
         bool infaqExpireAdd = default,
         bool infaqExpireApprove = default,
         bool infaqExpireCancel = default,
@@ -30,7 +30,7 @@ public class AuthorizationBusiness : IAuthorizationBusiness
         bool userInternalApprove = default,
         bool userInternalCancel = default)
     {
-        var sessionPermission = await _userDatabase.Permission.GetByUserIdAsync(_sessionBusiness.UserId);
+        var sessionPermission = await _data.Permission.GetByUserIdAsync(_sessionBusiness.UserId);
 
         if (sessionPermission == default) throw new PermissionException(nameof(Constant.UserId.Anonymous));
 

@@ -13,31 +13,31 @@ namespace MasjidOnline.Business.Infaq.Expire;
 
 public class ApproveBusiness(IAuthorizationBusiness _authorizationBusiness, IFieldValidatorService _fieldValidatorService) : IApproveBusiness
 {
-    public async Task<Response> ApproveAsync(ISessionBusiness _sessionBusiness, IUserDatabase _userDatabase, IInfaqDatabase _infaqDatabase, ApproveRequest? approveRequest)
+    public async Task<Response> ApproveAsync(ISessionBusiness _sessionBusiness, IData _data, ApproveRequest? approveRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userDatabase, infaqExpireApprove: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, infaqExpireApprove: true);
 
         _fieldValidatorService.ValidateRequired(approveRequest);
         _fieldValidatorService.ValidateRequiredPlus(approveRequest!.Id);
 
 
-        var expire = await _infaqDatabase.Expire.GetForSetStatusAsync(approveRequest.Id!.Value);
+        var expire = await _data.Expire.GetForSetStatusAsync(approveRequest.Id!.Value);
 
         if (expire == default) throw new InputMismatchException($"{nameof(approveRequest.Id)}: {approveRequest.Id}");
 
         if (expire.Status != Entity.Infaq.ExpireStatus.New) throw new InputMismatchException($"{nameof(expire.Status)}: {expire.Status}");
 
 
-        _infaqDatabase.Expire.SetStatus(
+        _data.Expire.SetStatus(
             approveRequest.Id.Value,
             Entity.Infaq.ExpireStatus.Approve,
             default,
             DateTime.UtcNow,
             _sessionBusiness.UserId);
 
-        _infaqDatabase.Infaq.SetPaymentStatus(expire.InfaqId, Entity.Infaq.PaymentStatus.Expire);
+        _data.Infaq.SetPaymentStatus(expire.InfaqId, Entity.Infaq.PaymentStatus.Expire);
 
-        await _infaqDatabase.SaveAsync();
+        await _data.SaveAsync();
 
         return new()
         {

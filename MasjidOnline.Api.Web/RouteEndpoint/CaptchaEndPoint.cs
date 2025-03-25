@@ -3,7 +3,7 @@ using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Business.Captcha.Interface.Model;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using Microsoft.AspNetCore.Http;
 
 namespace MasjidOnline.Api.Web.RouteEndpoint;
@@ -14,9 +14,9 @@ internal static class CaptchaEndPoint
         HttpContext httpContext,
         ICaptchaAddBusiness _captchaAddBusiness,
         ISessionBusiness _sessionBusiness,
-        ICaptchaDatabase _captchaDatabase)
+        IData _data)
     {
-        var createResponse = await _captchaAddBusiness.AddAsync(_captchaDatabase, _sessionBusiness);
+        var createResponse = await _captchaAddBusiness.AddAsync(_data, _sessionBusiness);
 
         httpContext.Response.Headers[Constant.HttpHeaderName.ResultCode] = createResponse.ResultCode.ToString();
         httpContext.Response.Headers[Constant.HttpHeaderName.ResultMessage] = createResponse.ResultMessage;
@@ -28,10 +28,10 @@ internal static class CaptchaEndPoint
 
     internal static async Task<Response> UpdateAsync(
         ICaptchaUpdateBusiness _captchaUpdateBusiness,
-        ICaptchaDatabase _captchaDatabase,
+        IData _data,
         ISessionBusiness _sessionBusiness,
         CaptchaUpdateRequest captchaUpdateRequest)
     {
-        return await _captchaUpdateBusiness.UpdateAsync(_captchaDatabase, _sessionBusiness, captchaUpdateRequest);
+        return await _captchaUpdateBusiness.UpdateAsync(_data, _sessionBusiness, captchaUpdateRequest);
     }
 }

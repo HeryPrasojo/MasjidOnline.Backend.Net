@@ -9,7 +9,7 @@ public class CaptchaIdGenerator : ICaptchaIdGenerator
 {
     private int _captchaId;
 
-    public async Task InitializeAsync(ICaptchaDatabase captchaDatabase)
+    public async Task InitializeAsync(IData captchaDatabase)
     {
         _captchaId = await captchaDatabase.Captcha.GetMaxIdAsync();
     }

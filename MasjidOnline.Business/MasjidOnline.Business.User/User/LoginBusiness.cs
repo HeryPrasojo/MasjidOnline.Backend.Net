@@ -13,14 +13,14 @@ namespace MasjidOnline.Business.User.User;
 
 public class LoginBusiness(IHash512Service _hash512Service) : ILoginBusiness
 {
-    public async Task<Response> LoginAsync(IUserDatabase _userDatabase, ISessionBusiness _sessionBusiness, LoginRequest? loginRequest)
+    public async Task<Response> LoginAsync(IData _data, ISessionBusiness _sessionBusiness, LoginRequest? loginRequest)
     {
-        var userId = await _userDatabase.UserEmailAddress.GetUserIdAsync(loginRequest.EmailAddress);
+        var userId = await _data.UserEmailAddress.GetUserIdAsync(loginRequest.EmailAddress);
 
         if (userId == default) throw new InputMismatchException(nameof(loginRequest.EmailAddress));
 
 
-        var user = await _userDatabase.User.GetForLoginAsync(userId.Value);
+        var user = await _data.User.GetForLoginAsync(userId.Value);
 
         if (user == default) throw new InputMismatchException(nameof(loginRequest.EmailAddress));
 

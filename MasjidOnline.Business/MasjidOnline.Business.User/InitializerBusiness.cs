@@ -18,14 +18,14 @@ public class InitializerBusiness(
     IMailSenderService _mailSenderService,
     IUserIdGenerator _userIdGenerator) : IInitializerBusiness
 {
-    public async Task InitializeAsync(IDataTransaction _dataTransaction, IUserDatabase _userDatabase, IAuditDatabase _auditDatabase)
+    public async Task InitializeAsync(IDataTransaction _dataTransaction, IData _data, IAuditDatabase _auditDatabase)
     {
-        var any = await _userDatabase.User.GetAnyAsync(Constant.UserId.System);
+        var any = await _data.User.GetAnyAsync(Constant.UserId.System);
 
         if (any) return;
 
 
-        await _dataTransaction.BeginAsync(_userDatabase, _auditDatabase);
+        await _dataTransaction.BeginAsync(_data, _auditDatabase);
 
 
         var option = _optionsMonitor.CurrentValue;
@@ -39,7 +39,7 @@ public class InitializerBusiness(
             Type = UserType.System,
         };
 
-        await _userDatabase.User.AddAsync(user);
+        await _data.User.AddAsync(user);
 
 
         var @internal = new Entity.User.Internal
@@ -53,7 +53,7 @@ public class InitializerBusiness(
             UserId = Constant.UserId.System,
         };
 
-        await _userDatabase.Internal.AddAsync(@internal);
+        await _data.Internal.AddAsync(@internal);
 
 
         user = new Entity.User.User
@@ -63,7 +63,7 @@ public class InitializerBusiness(
             Type = UserType.Internal,
         };
 
-        await _userDatabase.User.AddAsync(user);
+        await _data.User.AddAsync(user);
 
 
         var userEmailAddress = new UserEmailAddress
@@ -72,7 +72,7 @@ public class InitializerBusiness(
             UserId = user.Id,
         };
 
-        await _userDatabase.UserEmailAddress.AddAsync(userEmailAddress);
+        await _data.UserEmailAddress.AddAsync(userEmailAddress);
 
 
         var passwordCode = new PasswordCode
@@ -82,7 +82,7 @@ public class InitializerBusiness(
             UserId = user.Id,
         };
 
-        await _userDatabase.PasswordCode.AddAsync(passwordCode);
+        await _data.PasswordCode.AddAsync(passwordCode);
 
 
         var permission = new Permission
@@ -103,7 +103,7 @@ public class InitializerBusiness(
             UserInternalCancel = true,
         };
 
-        await _userDatabase.Permission.AddAsync(permission);
+        await _data.Permission.AddAsync(permission);
 
         await _auditDatabase.PermissionLog.AddAddAsync(permission, utcNow, Constant.UserId.System);
 

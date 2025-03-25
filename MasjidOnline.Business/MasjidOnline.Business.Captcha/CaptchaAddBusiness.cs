@@ -5,7 +5,7 @@ using MasjidOnline.Business.Captcha.Interface.Model;
 using MasjidOnline.Business.Interface.Model;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Service.Captcha.Interface;
 
@@ -15,7 +15,7 @@ public class CaptchaAddBusiness(
     ICaptchaService _captchaService,
     ICaptchaIdGenerator _captchaIdGenerator) : ICaptchaAddBusiness
 {
-    public async Task<CaptchaAddResponse> AddAsync(ICaptchaDatabase _captchaDatabase, ISessionBusiness _sessionBusiness)
+    public async Task<CaptchaAddResponse> AddAsync(IData _data, ISessionBusiness _sessionBusiness)
     {
         if (_sessionBusiness.UserId != Constant.UserId.Anonymous) return new()
         {
@@ -23,7 +23,7 @@ public class CaptchaAddBusiness(
         };
 
 
-        var existingCaptcha = await _captchaDatabase.Captcha.GetForAddAsync(_sessionBusiness.Id);
+        var existingCaptcha = await _data.Captcha.Captcha.GetForAddAsync(_sessionBusiness.Id);
 
         if (existingCaptcha != default)
         {
@@ -55,7 +55,7 @@ public class CaptchaAddBusiness(
             SessionId = _sessionBusiness.Id,
         };
 
-        await _captchaDatabase.Captcha.AddAndSaveAsync(newCaptcha);
+        await _data.Captcha.Captcha.AddAndSaveAsync(newCaptcha);
 
 
         return new()

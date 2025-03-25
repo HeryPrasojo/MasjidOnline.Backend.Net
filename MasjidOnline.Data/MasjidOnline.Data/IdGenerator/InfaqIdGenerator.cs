@@ -13,7 +13,7 @@ public class InfaqIdGenerator : IInfaqIdGenerator
     private int _successId;
     private int _voidId;
 
-    public async Task InitializeAsync(IInfaqDatabase infaqDatabase)
+    public async Task InitializeAsync(IData infaqDatabase)
     {
         _expireId = await infaqDatabase.Expire.GetMaxIdAsync();
         _infaqId = await infaqDatabase.Infaq.GetMaxIdAsync();

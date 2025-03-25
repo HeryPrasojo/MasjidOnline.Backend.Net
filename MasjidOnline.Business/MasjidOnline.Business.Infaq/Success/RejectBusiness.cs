@@ -15,34 +15,34 @@ public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IFiel
 {
     public async Task<Response> RejectAsync(
         ISessionBusiness _sessionBusiness,
-        IUserDatabase _userDatabase,
-        IInfaqDatabase _infaqDatabase,
+        IData _data,
+        IData _data,
         RejectRequest? rejectRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userDatabase, userInternalCancel: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, userInternalCancel: true);
 
         _fieldValidatorService.ValidateRequired(rejectRequest);
         _fieldValidatorService.ValidateRequiredPlus(rejectRequest!.Id);
         rejectRequest.Description = _fieldValidatorService.ValidateRequiredText255(rejectRequest.Description);
 
 
-        var success = await _infaqDatabase.Success.GetForSetStatusAsync(rejectRequest.Id!.Value);
+        var success = await _data.Success.GetForSetStatusAsync(rejectRequest.Id!.Value);
 
         if (success == default) throw new InputMismatchException($"{nameof(rejectRequest.Id)}: {rejectRequest.Id}");
 
         if (success.Status != Entity.Infaq.SuccessStatus.New) throw new InputMismatchException($"{nameof(success.Status)}: {success.Status}");
 
 
-        _infaqDatabase.Success.SetStatus(
+        _data.Success.SetStatus(
             rejectRequest.Id.Value,
             Entity.Infaq.SuccessStatus.Reject,
             rejectRequest.Description,
             DateTime.UtcNow,
             _sessionBusiness.UserId);
 
-        _infaqDatabase.Infaq.SetPaymentStatus(success.InfaqId, Entity.Infaq.PaymentStatus.New);
+        _data.Infaq.SetPaymentStatus(success.InfaqId, Entity.Infaq.PaymentStatus.New);
 
-        await _infaqDatabase.SaveAsync();
+        await _data.SaveAsync();
 
         // todo requester notification
 

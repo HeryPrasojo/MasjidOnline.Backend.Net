@@ -8,5 +8,5 @@ public interface ISessionIdGenerator
     byte[] SessionDigest { get; }
     int SessionId { get; }
 
-    Task InitializeAsync(ISessionDatabase sessionDatabase);
+    Task InitializeAsync(IData sessionDatabase);
 }

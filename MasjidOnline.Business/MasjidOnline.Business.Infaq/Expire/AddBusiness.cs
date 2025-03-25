@@ -6,7 +6,7 @@ using MasjidOnline.Business.Infaq.Interface.Model.Expire;
 using MasjidOnline.Business.Interface.Model.Options;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.Infaq;
 using MasjidOnline.Library.Exceptions;
@@ -22,23 +22,22 @@ public class AddBusiness(
 {
     public async Task<Response> AddAsync(
         IAuthorizationBusiness _authorizationBusiness,
-        IInfaqDatabase _infaqDatabase,
+        IData _data,
         ISessionBusiness _sessionBusiness,
-        IUserDatabase _userDatabase,
         AddRequest? addRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userDatabase, infaqExpireAdd: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data.User, infaqExpireAdd: true);
 
         _fieldValidatorService.ValidateRequired(addRequest);
         _fieldValidatorService.ValidateRequiredPlus(addRequest!.InfaqId);
 
 
-        var any = await _infaqDatabase.Expire.AnyAsync(addRequest.InfaqId!.Value, Entity.Infaq.ExpireStatus.New);
+        var any = await _data.Infaq.Expire.AnyAsync(addRequest.InfaqId!.Value, Entity.Infaq.ExpireStatus.New);
 
         if (any) throw new InputMismatchException(nameof(addRequest.InfaqId));
 
 
-        var infaq = await _infaqDatabase.Infaq.GetForExpireAddAsync(addRequest.InfaqId.Value);
+        var infaq = await _data.Infaq.Infaq.GetForExpireAddAsync(addRequest.InfaqId.Value);
 
         if (infaq == default) throw new InputMismatchException(nameof(addRequest.InfaqId));
 
@@ -59,11 +58,11 @@ public class AddBusiness(
             UserId = _sessionBusiness.UserId,
         };
 
-        await _infaqDatabase.Expire.AddAsync(expire);
+        await _data.Infaq.Expire.AddAsync(expire);
 
-        _infaqDatabase.Infaq.SetPaymentStatus(addRequest.InfaqId.Value, PaymentStatus.ExpireRequest);
+        _data.Infaq.Infaq.SetPaymentStatus(addRequest.InfaqId.Value, PaymentStatus.ExpireRequest);
 
-        await _infaqDatabase.SaveAsync();
+        await _data.Infaq.SaveAsync();
 
         // todo approver notification
 

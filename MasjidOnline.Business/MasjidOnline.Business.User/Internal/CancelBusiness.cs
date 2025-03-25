@@ -13,28 +13,28 @@ namespace MasjidOnline.Business.User.Internal;
 
 public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IFieldValidatorService _fieldValidatorService) : ICancelBusiness
 {
-    public async Task<Response> CancelAsync(ISessionBusiness _sessionBusiness, IUserDatabase _userDatabase, CancelRequest? cancelRequest)
+    public async Task<Response> CancelAsync(ISessionBusiness _sessionBusiness, IData _data, CancelRequest? cancelRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userDatabase, userInternalCancel: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, userInternalCancel: true);
 
         _fieldValidatorService.ValidateRequired(cancelRequest);
         _fieldValidatorService.ValidateRequiredPlus(cancelRequest!.Id);
         cancelRequest.Description = _fieldValidatorService.ValidateRequiredText255(cancelRequest.Description);
 
 
-        var status = await _userDatabase.Internal.GetStatusAsync(cancelRequest.Id!.Value);
+        var status = await _data.Internal.GetStatusAsync(cancelRequest.Id!.Value);
 
         if (status != Entity.User.InternalStatus.New) throw new InputMismatchException($"{nameof(status)}: {status}");
 
 
-        _userDatabase.Internal.SetStatus(
+        _data.Internal.SetStatus(
             cancelRequest.Id.Value,
             Entity.User.InternalStatus.Cancel,
             cancelRequest.Description,
             DateTime.UtcNow,
             _sessionBusiness.UserId);
 
-        await _userDatabase.SaveAsync();
+        await _data.SaveAsync();
 
         return new()
         {

@@ -113,12 +113,12 @@ static async Task InitializeAsync(WebApplication webApplication)
     var dataTransaction = GetService<IDataTransaction>(serviceScope.ServiceProvider);
 
     var auditDatabase = GetService<IAuditDatabase>(serviceScope.ServiceProvider);
-    var captchaDatabase = GetService<ICaptchaDatabase>(serviceScope.ServiceProvider);
+    var captchaDatabase = GetService<IData>(serviceScope.ServiceProvider);
     var eventDatabase = GetService<IEventDatabase>(serviceScope.ServiceProvider);
-    var infaqDatabase = GetService<IInfaqDatabase>(serviceScope.ServiceProvider);
+    var infaqDatabase = GetService<IData>(serviceScope.ServiceProvider);
     var personDatabase = GetService<IPersonDatabase>(serviceScope.ServiceProvider);
-    var sessionDatabase = GetService<ISessionDatabase>(serviceScope.ServiceProvider);
-    var userDatabase = GetService<IUserDatabase>(serviceScope.ServiceProvider);
+    var sessionDatabase = GetService<IData>(serviceScope.ServiceProvider);
+    var userDatabase = GetService<IData>(serviceScope.ServiceProvider);
 
     var auditInitializer = GetService<IAuditInitializer>(serviceScope.ServiceProvider);
     var captchaInitializer = GetService<ICaptchaInitializer>(serviceScope.ServiceProvider);

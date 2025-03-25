@@ -5,5 +5,5 @@ namespace MasjidOnline.Data.Interface.Initializer;
 
 public interface ICaptchaInitializer
 {
-    Task InitializeDatabaseAsync(ICaptchaDatabase captchaDatabase);
+    Task InitializeDatabaseAsync(IData captchaDatabase);
 }
