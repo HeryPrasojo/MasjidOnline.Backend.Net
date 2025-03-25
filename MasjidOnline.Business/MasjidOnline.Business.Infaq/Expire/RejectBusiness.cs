@@ -13,16 +13,16 @@ namespace MasjidOnline.Business.Infaq.Expire;
 
 public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IFieldValidatorService _fieldValidatorService) : IRejectBusiness
 {
-    public async Task<Response> RejectAsync(ISessionBusiness _sessionBusiness, IUserData _userData, IInfaqData _infaqData, RejectRequest rejectRequest)
+    public async Task<Response> RejectAsync(ISessionBusiness _sessionBusiness, IUserData _userData, IInfaqData _infaqData, RejectRequest? rejectRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, infaqExpireApprove: true);
 
         _fieldValidatorService.ValidateRequired(rejectRequest);
-        _fieldValidatorService.ValidateRequiredPlus(rejectRequest.Id);
+        _fieldValidatorService.ValidateRequiredPlus(rejectRequest!.Id);
         rejectRequest.Description = _fieldValidatorService.ValidateRequiredText255(rejectRequest.Description);
 
 
-        var expire = await _infaqData.Expire.GetForSetStatusAsync(rejectRequest.Id);
+        var expire = await _infaqData.Expire.GetForSetStatusAsync(rejectRequest.Id!.Value);
 
         if (expire == default) throw new InputMismatchException($"{nameof(rejectRequest.Id)}: {rejectRequest.Id}");
 
@@ -30,7 +30,7 @@ public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IFiel
 
 
         _infaqData.Expire.SetStatus(
-            rejectRequest.Id,
+            rejectRequest.Id.Value,
             Entity.Infaq.ExpireStatus.Reject,
             rejectRequest.Description,
             DateTime.UtcNow,

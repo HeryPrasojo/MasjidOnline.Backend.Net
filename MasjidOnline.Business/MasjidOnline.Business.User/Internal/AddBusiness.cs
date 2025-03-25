@@ -20,14 +20,14 @@ public class AddBusiness(
     public async Task<Response> AddAsync(
         ISessionBusiness _sessionBusiness,
         IUserData _userData,
-        AddRequest addRequest)
+        AddRequest? addRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, userInternalAdd: true);
 
 
         _fieldValidatorService.ValidateRequired(addRequest);
 
-        addRequest.EmailAddress = _fieldValidatorService.ValidateRequiredEmailAddress(addRequest.EmailAddress);
+        addRequest!.EmailAddress = _fieldValidatorService.ValidateRequiredEmailAddress(addRequest.EmailAddress);
         addRequest.Name = _fieldValidatorService.ValidateRequiredText255(addRequest.Name);
 
 

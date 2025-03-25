@@ -7,5 +7,5 @@ namespace MasjidOnline.Business.Infaq.Interface.Expire;
 
 public interface ICancelBusiness
 {
-    Task<Response> CancelAsync(ISessionBusiness _sessionBusiness, IUserData _userData, IInfaqData _infaqData, CancelRequest cancelRequest);
+    Task<Response> CancelAsync(ISessionBusiness _sessionBusiness, IUserData _userData, IInfaqData _infaqData, CancelRequest? cancelRequest);
 }

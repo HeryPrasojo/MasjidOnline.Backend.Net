@@ -21,9 +21,10 @@ public class SetPasswordBusiness(
         ISessionBusiness _sessionBusiness,
         ISessionData _sessionData,
         IUserData _userData,
-        SetPasswordRequest setPasswordRequest)
+        SetPasswordRequest? setPasswordRequest)
     {
-        var passwordCodeBytes = _fieldValidatorService.ValidateRequiredHex(setPasswordRequest.PasswordCode, 128);
+        _fieldValidatorService.ValidateRequired(setPasswordRequest);
+        var passwordCodeBytes = _fieldValidatorService.ValidateRequiredHex(setPasswordRequest!.PasswordCode, 128);
         setPasswordRequest.Password = _fieldValidatorService.ValidateRequiredText255(setPasswordRequest.Password);
         setPasswordRequest.PasswordRepeat = _fieldValidatorService.ValidateRequiredText255(setPasswordRequest.PasswordRepeat);
 

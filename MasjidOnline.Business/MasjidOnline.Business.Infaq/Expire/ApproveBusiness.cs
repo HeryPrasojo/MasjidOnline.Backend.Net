@@ -13,15 +13,15 @@ namespace MasjidOnline.Business.Infaq.Expire;
 
 public class ApproveBusiness(IAuthorizationBusiness _authorizationBusiness, IFieldValidatorService _fieldValidatorService) : IApproveBusiness
 {
-    public async Task<Response> ApproveAsync(ISessionBusiness _sessionBusiness, IUserData _userData, IInfaqData _infaqData, ApproveRequest approveRequest)
+    public async Task<Response> ApproveAsync(ISessionBusiness _sessionBusiness, IUserData _userData, IInfaqData _infaqData, ApproveRequest? approveRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, infaqExpireApprove: true);
 
         _fieldValidatorService.ValidateRequired(approveRequest);
-        _fieldValidatorService.ValidateRequiredPlus(approveRequest.Id);
+        _fieldValidatorService.ValidateRequiredPlus(approveRequest!.Id);
 
 
-        var expire = await _infaqData.Expire.GetForSetStatusAsync(approveRequest.Id);
+        var expire = await _infaqData.Expire.GetForSetStatusAsync(approveRequest.Id!.Value);
 
         if (expire == default) throw new InputMismatchException($"{nameof(approveRequest.Id)}: {approveRequest.Id}");
 
@@ -29,7 +29,7 @@ public class ApproveBusiness(IAuthorizationBusiness _authorizationBusiness, IFie
 
 
         _infaqData.Expire.SetStatus(
-            approveRequest.Id,
+            approveRequest.Id.Value,
             Entity.Infaq.ExpireStatus.Approve,
             default,
             DateTime.UtcNow,

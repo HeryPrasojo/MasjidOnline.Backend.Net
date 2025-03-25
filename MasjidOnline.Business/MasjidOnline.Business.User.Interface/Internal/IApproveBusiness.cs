@@ -8,5 +8,5 @@ namespace MasjidOnline.Business.User.Interface.Internal;
 
 public interface IApproveBusiness
 {
-    Task<Response> ApproveAsync(ISessionBusiness _sessionBusiness, IUserData _userData, ApproveRequest approveRequest);
+    Task<Response> ApproveAsync(ISessionBusiness _sessionBusiness, IUserData _userData, ApproveRequest? approveRequest);
 }

@@ -13,13 +13,13 @@ public class GetOneBusiness(IFieldValidatorService _fieldValidatorService) : IGe
 {
     public async Task<GetOneResponse> GetAsync(
         IUserData _userData,
-        GetOneRequest getOneRequest)
+        GetOneRequest? getOneRequest)
     {
         _fieldValidatorService.ValidateRequired(getOneRequest);
-        _fieldValidatorService.ValidateRequiredPlus(getOneRequest.Id);
+        _fieldValidatorService.ValidateRequiredPlus(getOneRequest!.Id);
 
 
-        var @internal = await _userData.Internal.GetOneAsync(getOneRequest.Id);
+        var @internal = await _userData.Internal.GetOneAsync(getOneRequest.Id!.Value);
 
         if (@internal == default) throw new InputMismatchException($"{nameof(getOneRequest.Id)}: {getOneRequest.Id}");
 

@@ -25,20 +25,20 @@ public class AddBusiness(
         IInfaqData _infaqData,
         ISessionBusiness _sessionBusiness,
         IUserData _userData,
-        AddRequest addRequest)
+        AddRequest? addRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, infaqExpireAdd: true);
 
         _fieldValidatorService.ValidateRequired(addRequest);
-        _fieldValidatorService.ValidateRequiredPlus(addRequest.InfaqId);
+        _fieldValidatorService.ValidateRequiredPlus(addRequest!.InfaqId);
 
 
-        var any = await _infaqData.Expire.AnyAsync(addRequest.InfaqId, Entity.Infaq.ExpireStatus.New);
+        var any = await _infaqData.Expire.AnyAsync(addRequest.InfaqId!.Value, Entity.Infaq.ExpireStatus.New);
 
         if (any) throw new InputMismatchException(nameof(addRequest.InfaqId));
 
 
-        var infaq = await _infaqData.Infaq.GetForExpireAddAsync(addRequest.InfaqId);
+        var infaq = await _infaqData.Infaq.GetForExpireAddAsync(addRequest.InfaqId.Value);
 
         if (infaq == default) throw new InputMismatchException(nameof(addRequest.InfaqId));
 
@@ -54,14 +54,14 @@ public class AddBusiness(
         {
             DateTime = DateTime.UtcNow,
             Id = _infaqIdGenerator.ExpireId,
-            InfaqId = addRequest.InfaqId,
+            InfaqId = addRequest.InfaqId.Value,
             Status = Entity.Infaq.ExpireStatus.New,
             UserId = _sessionBusiness.UserId,
         };
 
         await _infaqData.Expire.AddAsync(expire);
 
-        _infaqData.Infaq.SetPaymentStatus(addRequest.InfaqId, PaymentStatus.ExpireRequest);
+        _infaqData.Infaq.SetPaymentStatus(addRequest.InfaqId.Value, PaymentStatus.ExpireRequest);
 
         await _infaqData.SaveAsync();
 

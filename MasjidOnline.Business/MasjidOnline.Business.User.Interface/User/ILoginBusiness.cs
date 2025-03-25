@@ -8,5 +8,5 @@ namespace MasjidOnline.Business.User.Interface.User;
 
 public interface ILoginBusiness
 {
-    Task<Response> LoginAsync(IUserData _userData, ISessionBusiness _sessionBusiness, LoginRequest loginRequest);
+    Task<Response> LoginAsync(IUserData _userData, ISessionBusiness _sessionBusiness, LoginRequest? loginRequest);
 }

@@ -2,7 +2,7 @@ namespace MasjidOnline.Business.Infaq.Interface.Model.Expire;
 
 public class GetManyRequest
 {
-    public required ExpireStatus? Status { get; set; }
+    public ExpireStatus? Status { get; set; }
 
-    public required int Page { get; set; }
+    public int? Page { get; set; }
 }

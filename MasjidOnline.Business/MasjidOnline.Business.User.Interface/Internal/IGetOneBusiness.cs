@@ -6,5 +6,5 @@ namespace MasjidOnline.Business.User.Interface.Internal;
 
 public interface IGetOneBusiness
 {
-    Task<GetOneResponse> GetAsync(IUserData _userData, GetOneRequest getOneRequest);
+    Task<GetOneResponse> GetAsync(IUserData _userData, GetOneRequest? getOneRequest);
 }

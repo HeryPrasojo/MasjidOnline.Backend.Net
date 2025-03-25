@@ -7,5 +7,5 @@ namespace MasjidOnline.Business.User.Interface.Internal;
 
 public interface IGetManyNewBusiness
 {
-    Task<GetManyResponse<GetManyNewResponseRecord>> GetAsync(IUserData _userData, GetManyNewRequest getManyNewRequest);
+    Task<GetManyResponse<GetManyNewResponseRecord>> GetAsync(IUserData _userData, GetManyNewRequest? getManyNewRequest);
 }

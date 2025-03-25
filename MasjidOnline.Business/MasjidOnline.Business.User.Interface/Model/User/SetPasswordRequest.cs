@@ -1,8 +1,8 @@
-﻿namespace MasjidOnline.Business.User.Interface.Model.User;
+namespace MasjidOnline.Business.User.Interface.Model.User;
 
 public class SetPasswordRequest
 {
-    public required string PasswordCode { get; set; }
-    public required string Password { get; set; }
-    public required string PasswordRepeat { get; set; }
+    public string? PasswordCode { get; set; }
+    public string? Password { get; set; }
+    public string? PasswordRepeat { get; set; }
 }

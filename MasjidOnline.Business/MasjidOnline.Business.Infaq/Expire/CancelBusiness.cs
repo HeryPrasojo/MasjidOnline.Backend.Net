@@ -13,16 +13,16 @@ namespace MasjidOnline.Business.Infaq.Expire;
 
 public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IFieldValidatorService _fieldValidatorService) : ICancelBusiness
 {
-    public async Task<Response> CancelAsync(ISessionBusiness _sessionBusiness, IUserData _userData, IInfaqData _infaqData, CancelRequest cancelRequest)
+    public async Task<Response> CancelAsync(ISessionBusiness _sessionBusiness, IUserData _userData, IInfaqData _infaqData, CancelRequest? cancelRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, infaqExpireCancel: true);
 
         _fieldValidatorService.ValidateRequired(cancelRequest);
-        _fieldValidatorService.ValidateRequiredPlus(cancelRequest.Id);
+        _fieldValidatorService.ValidateRequiredPlus(cancelRequest!.Id);
         cancelRequest.Description = _fieldValidatorService.ValidateRequiredText255(cancelRequest.Description);
 
 
-        var expire = await _infaqData.Expire.GetForSetStatusAsync(cancelRequest.Id);
+        var expire = await _infaqData.Expire.GetForSetStatusAsync(cancelRequest.Id!.Value);
 
         if (expire == default) throw new InputMismatchException($"{nameof(cancelRequest.Id)}: {cancelRequest.Id}");
 
@@ -30,7 +30,7 @@ public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IFiel
 
 
         _infaqData.Expire.SetStatus(
-            cancelRequest.Id,
+            cancelRequest.Id.Value,
             Entity.Infaq.ExpireStatus.Cancel,
             cancelRequest.Description,
             DateTime.UtcNow,

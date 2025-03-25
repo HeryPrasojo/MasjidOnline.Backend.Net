@@ -24,15 +24,15 @@ public class ApproveBusiness(
     IMailSenderService _mailSenderService,
     IUserIdGenerator _userIdGenerator) : IApproveBusiness
 {
-    public async Task<Response> ApproveAsync(ISessionBusiness _sessionBusiness, IUserData _userData, ApproveRequest approveRequest)
+    public async Task<Response> ApproveAsync(ISessionBusiness _sessionBusiness, IUserData _userData, ApproveRequest? approveRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, userInternalApprove: true);
 
         _fieldValidatorService.ValidateRequired(approveRequest);
-        _fieldValidatorService.ValidateRequiredPlus(approveRequest.Id);
+        _fieldValidatorService.ValidateRequiredPlus(approveRequest!.Id);
 
 
-        var @internal = await _userData.Internal.GetForApproveAsync(approveRequest.Id);
+        var @internal = await _userData.Internal.GetForApproveAsync(approveRequest.Id!.Value);
 
         if (@internal == default) throw new InputMismatchException($"{nameof(approveRequest.Id)}: {approveRequest.Id}");
 
@@ -40,7 +40,7 @@ public class ApproveBusiness(
 
 
         _userData.Internal.SetStatus(
-            approveRequest.Id,
+            approveRequest.Id.Value,
             Entity.User.InternalStatus.Approve,
             default,
             DateTime.UtcNow,
