@@ -202,7 +202,7 @@ internal static class InfaqEndPoint
             ISessionBusiness _sessionBusiness,
             IUserData _userData,
             IInfaqData _infaqData,
-            Business.Infaq.Interface.Model.Success.RejectRequest? rejectRequest)
+            [FromBody] Business.Infaq.Interface.Model.Success.RejectRequest? rejectRequest)
         {
             return await _rejectBusiness.RejectAsync(_sessionBusiness, _userData, _infaqData, rejectRequest);
         }
@@ -216,7 +216,7 @@ internal static class InfaqEndPoint
             IInfaqData _infaqData,
             ISessionBusiness _sessionBusiness,
             IUserData _userData,
-            Business.Infaq.Interface.Model.Void.AddRequest? addRequest)
+            [FromBody] Business.Infaq.Interface.Model.Void.AddRequest? addRequest)
         {
             return await _addBusiness.AddAsync(_authorizationBusiness, _infaqData, _sessionBusiness, _userData, addRequest);
         }
@@ -226,7 +226,7 @@ internal static class InfaqEndPoint
             ISessionBusiness _sessionBusiness,
             IUserData _userData,
             IInfaqData _infaqData,
-            Business.Infaq.Interface.Model.Void.ApproveRequest? approveRequest)
+            [FromBody] Business.Infaq.Interface.Model.Void.ApproveRequest? approveRequest)
         {
             return await _approveBusiness.ApproveAsync(_sessionBusiness, _userData, _infaqData, approveRequest);
         }
@@ -236,7 +236,7 @@ internal static class InfaqEndPoint
             ISessionBusiness _sessionBusiness,
             IUserData _userData,
             IInfaqData _infaqData,
-            Business.Infaq.Interface.Model.Void.CancelRequest? cancelRequest)
+            [FromBody] Business.Infaq.Interface.Model.Void.CancelRequest? cancelRequest)
         {
             return await _cancelBusiness.CancelAsync(_sessionBusiness, _userData, _infaqData, cancelRequest);
         }
@@ -244,7 +244,7 @@ internal static class InfaqEndPoint
         internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Void.GetManyResponseRecord>> GetManyAsync(
             Business.Infaq.Interface.Void.IGetManyBusiness _getManyBusiness,
             IInfaqData _infaqData,
-            Business.Infaq.Interface.Model.Void.GetManyRequest? getManyRequest)
+            [FromBody] Business.Infaq.Interface.Model.Void.GetManyRequest? getManyRequest)
         {
             return await _getManyBusiness.GetAsync(_infaqData, getManyRequest);
         }
@@ -252,7 +252,7 @@ internal static class InfaqEndPoint
         internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Void.GetManyNewResponseRecord>> GetManyNewAsync(
             Business.Infaq.Interface.Void.IGetManyNewBusiness _getManyNewBusiness,
             IInfaqData _infaqData,
-            Business.Infaq.Interface.Model.Void.GetManyNewRequest? getManyNewRequest)
+            [FromBody] Business.Infaq.Interface.Model.Void.GetManyNewRequest? getManyNewRequest)
         {
             return await _getManyNewBusiness.GetAsync(_infaqData, getManyNewRequest);
         }
@@ -260,7 +260,7 @@ internal static class InfaqEndPoint
         internal static async Task<Business.Infaq.Interface.Model.Void.GetOneResponse> GetOneAsync(
             Business.Infaq.Interface.Void.IGetOneBusiness _getOneBusiness,
             IInfaqData _infaqData,
-            Business.Infaq.Interface.Model.Void.GetOneRequest getOneRequest)
+            [FromBody] Business.Infaq.Interface.Model.Void.GetOneRequest? getOneRequest)
         {
             return await _getOneBusiness.GetAsync(_infaqData, getOneRequest);
         }
@@ -268,7 +268,7 @@ internal static class InfaqEndPoint
         internal static async Task<Business.Infaq.Interface.Model.Void.GetOneNewResponse> GetOneNewAsync(
             Business.Infaq.Interface.Void.IGetOneNewBusiness _getOneNewBusiness,
             IInfaqData _infaqData,
-            Business.Infaq.Interface.Model.Void.GetOneNewRequest getOneNewRequest)
+            [FromBody] Business.Infaq.Interface.Model.Void.GetOneNewRequest? getOneNewRequest)
         {
             return await _getOneNewBusiness.GetAsync(_infaqData, getOneNewRequest);
         }
@@ -278,7 +278,7 @@ internal static class InfaqEndPoint
             ISessionBusiness _sessionBusiness,
             IUserData _userData,
             IInfaqData _infaqData,
-            Business.Infaq.Interface.Model.Void.RejectRequest rejectRequest)
+            [FromBody] Business.Infaq.Interface.Model.Void.RejectRequest? rejectRequest)
         {
             return await _rejectBusiness.RejectAsync(_sessionBusiness, _userData, _infaqData, rejectRequest);
         }

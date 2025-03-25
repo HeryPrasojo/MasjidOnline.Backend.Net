@@ -2,7 +2,7 @@
 
 public class AddRequest
 {
-    public required string Name { get; set; }
+    public string? Name { get; set; }
 
-    public required string EmailAddress { get; set; }
+    public string? EmailAddress { get; set; }
 }

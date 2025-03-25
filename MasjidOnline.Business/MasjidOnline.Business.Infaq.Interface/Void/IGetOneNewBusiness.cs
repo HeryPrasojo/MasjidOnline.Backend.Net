@@ -5,5 +5,5 @@ namespace MasjidOnline.Business.Infaq.Interface.Void;
 
 public interface IGetOneNewBusiness
 {
-    Task<GetOneNewResponse> GetAsync(IInfaqData _infaqData, GetOneNewRequest getOneNewRequest);
+    Task<GetOneNewResponse> GetAsync(IInfaqData _infaqData, GetOneNewRequest? getOneNewRequest);
 }
