@@ -6,9 +6,9 @@ namespace MasjidOnline.Data;
 
 public class SharedDataTransaction : IDataTransaction
 {
-    private readonly List<IData> _datas = [];
+    private readonly List<IDatabase> _datas = [];
 
-    public async Task BeginAsync(params IData[] datas)
+    public async Task BeginAsync(params IDatabase[] datas)
     {
     }
 

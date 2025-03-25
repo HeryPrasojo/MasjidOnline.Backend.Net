@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace MasjidOnline.Data.EntityFramework;
 
-public abstract class Data(DbContext _dbContext) : IData
+public abstract class Data(DbContext _dbContext) : Interface.IDatabase
 {
     protected readonly DbContext _dbContext = _dbContext;
 

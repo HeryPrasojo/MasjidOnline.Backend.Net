@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 namespace MasjidOnline.Data.Interface;
 
-public interface IData
+public interface IDatabase
 {
     object? TransactionObject { get; }
 
