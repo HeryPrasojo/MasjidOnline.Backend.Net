@@ -24,22 +24,22 @@ public class ApproveBusiness(
     IMailSenderService _mailSenderService,
     IUserIdGenerator _userIdGenerator) : IApproveBusiness
 {
-    public async Task<Response> ApproveAsync(ISessionBusiness _sessionBusiness, IUserData _userData, ApproveRequest? approveRequest)
+    public async Task<Response> ApproveAsync(ISessionBusiness _sessionBusiness, IUserDatabase _userDatabase, ApproveRequest? approveRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, userInternalApprove: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userDatabase, userInternalApprove: true);
 
         _fieldValidatorService.ValidateRequired(approveRequest);
         _fieldValidatorService.ValidateRequiredPlus(approveRequest!.Id);
 
 
-        var @internal = await _userData.Internal.GetForApproveAsync(approveRequest.Id!.Value);
+        var @internal = await _userDatabase.Internal.GetForApproveAsync(approveRequest.Id!.Value);
 
         if (@internal == default) throw new InputMismatchException($"{nameof(approveRequest.Id)}: {approveRequest.Id}");
 
         if (@internal.Status != Entity.User.InternalStatus.New) throw new InputMismatchException($"{nameof(@internal.Status)}: {@internal.Status}");
 
 
-        _userData.Internal.SetStatus(
+        _userDatabase.Internal.SetStatus(
             approveRequest.Id.Value,
             Entity.User.InternalStatus.Approve,
             default,
@@ -54,7 +54,7 @@ public class ApproveBusiness(
             Type = UserType.Internal,
         };
 
-        await _userData.User.AddAsync(user);
+        await _userDatabase.User.AddAsync(user);
 
 
         var userEmailAddress = new UserEmailAddress
@@ -63,7 +63,7 @@ public class ApproveBusiness(
             UserId = user.Id,
         };
 
-        await _userData.UserEmailAddress.AddAsync(userEmailAddress);
+        await _userDatabase.UserEmailAddress.AddAsync(userEmailAddress);
 
 
         var passwordCode = new PasswordCode
@@ -73,9 +73,9 @@ public class ApproveBusiness(
             UserId = user.Id,
         };
 
-        await _userData.PasswordCode.AddAsync(passwordCode);
+        await _userDatabase.PasswordCode.AddAsync(passwordCode);
 
-        await _userData.SaveAsync();
+        await _userDatabase.SaveAsync();
 
 
         var uri = _optionsMonitor.CurrentValue.Uri.UserPassword + Convert.ToHexString(passwordCode.Code.AsSpan());

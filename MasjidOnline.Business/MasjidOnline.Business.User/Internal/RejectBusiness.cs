@@ -13,28 +13,28 @@ namespace MasjidOnline.Business.User.Internal;
 
 public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IFieldValidatorService _fieldValidatorService) : IRejectBusiness
 {
-    public async Task<Response> RejectAsync(ISessionBusiness _sessionBusiness, IUserData _userData, RejectRequest? rejectRequest)
+    public async Task<Response> RejectAsync(ISessionBusiness _sessionBusiness, IUserDatabase _userDatabase, RejectRequest? rejectRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, userInternalApprove: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userDatabase, userInternalApprove: true);
 
         _fieldValidatorService.ValidateRequired(rejectRequest);
         _fieldValidatorService.ValidateRequiredPlus(rejectRequest!.Id);
         rejectRequest.Description = _fieldValidatorService.ValidateRequiredText255(rejectRequest.Description);
 
 
-        var status = await _userData.Internal.GetStatusAsync(rejectRequest.Id!.Value);
+        var status = await _userDatabase.Internal.GetStatusAsync(rejectRequest.Id!.Value);
 
         if (status != Entity.User.InternalStatus.New) throw new InputMismatchException($"{nameof(status)}: {status}");
 
 
-        _userData.Internal.SetStatus(
+        _userDatabase.Internal.SetStatus(
             rejectRequest.Id.Value,
             Entity.User.InternalStatus.Reject,
             rejectRequest.Description,
             DateTime.UtcNow,
             _sessionBusiness.UserId);
 
-        await _userData.SaveAsync();
+        await _userDatabase.SaveAsync();
 
         // todo requester notification
 

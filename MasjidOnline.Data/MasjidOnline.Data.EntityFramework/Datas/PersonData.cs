@@ -5,7 +5,7 @@ using MasjidOnline.Data.Interface.Repository.Person;
 
 namespace MasjidOnline.Data.EntityFramework.Datas;
 
-public class PersonData(PersonDataContext _personDataContext) : Data(_personDataContext), IPersonData
+public class PersonData(PersonDataContext _personDataContext) : Data(_personDataContext), IPersonDatabase
 {
     private IPersonSettingRepository? _personSettingRepository;
 

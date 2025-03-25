@@ -9,9 +9,9 @@ public class CaptchaIdGenerator : ICaptchaIdGenerator
 {
     private int _captchaId;
 
-    public async Task InitializeAsync(ICaptchaData captchaData)
+    public async Task InitializeAsync(ICaptchaDatabase captchaDatabase)
     {
-        _captchaId = await captchaData.Captcha.GetMaxIdAsync();
+        _captchaId = await captchaDatabase.Captcha.GetMaxIdAsync();
     }
 
     public int CaptchaId => Interlocked.Increment(ref _captchaId);

@@ -7,5 +7,5 @@ namespace MasjidOnline.Business.Captcha.Interface;
 
 public interface ICaptchaUpdateBusiness
 {
-    Task<CaptchaUpdateResponse> UpdateAsync(ICaptchaData _captchaData, ISessionBusiness _sessionBusiness, CaptchaUpdateRequest captchaUpdateRequest);
+    Task<CaptchaUpdateResponse> UpdateAsync(ICaptchaDatabase _captchaDatabase, ISessionBusiness _sessionBusiness, CaptchaUpdateRequest captchaUpdateRequest);
 }

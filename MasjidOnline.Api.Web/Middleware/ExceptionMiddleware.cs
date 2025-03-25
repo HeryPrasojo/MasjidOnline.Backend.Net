@@ -13,7 +13,7 @@ public class ExceptionMiddleware(
     RequestDelegate _nextRequestDelegate,
     IEventIdGenerator _eventIdGenerator)
 {
-    public async Task Invoke(HttpContext httpContext, IEventData eventData)
+    public async Task Invoke(HttpContext httpContext, IEventDatabase eventDatabase)
     {
         try
         {
@@ -21,7 +21,7 @@ public class ExceptionMiddleware(
         }
         catch (Exception exception)
         {
-            await HandleExceptionAsync(httpContext, exception, eventData);
+            await HandleExceptionAsync(httpContext, exception, eventDatabase);
         }
     }
 
@@ -52,7 +52,7 @@ public class ExceptionMiddleware(
         return exceptionResponse;
     }
 
-    private async Task HandleExceptionAsync(HttpContext httpContext, Exception exception, IEventData eventData)
+    private async Task HandleExceptionAsync(HttpContext httpContext, Exception exception, IEventDatabase eventDatabase)
     {
         var exceptionResponse = BuildExceptionResponse(exception);
 
@@ -70,7 +70,7 @@ public class ExceptionMiddleware(
                 StackTrace = exception.StackTrace,
             };
 
-            await eventData.Exception.AddAndSaveAsync(errorExceptionEntity);
+            await eventDatabase.Exception.AddAndSaveAsync(errorExceptionEntity);
         }
 
 

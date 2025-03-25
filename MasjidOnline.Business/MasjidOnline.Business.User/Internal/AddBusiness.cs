@@ -19,10 +19,10 @@ public class AddBusiness(
 {
     public async Task<Response> AddAsync(
         ISessionBusiness _sessionBusiness,
-        IUserData _userData,
+        IUserDatabase _userDatabase,
         AddRequest? addRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, userInternalAdd: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userDatabase, userInternalAdd: true);
 
 
         _fieldValidatorService.ValidateRequired(addRequest);
@@ -31,12 +31,12 @@ public class AddBusiness(
         addRequest.Name = _fieldValidatorService.ValidateRequiredText255(addRequest.Name);
 
 
-        var any = await _userData.Internal.AnyAsync(addRequest.EmailAddress, Entity.User.InternalStatus.New);
+        var any = await _userDatabase.Internal.AnyAsync(addRequest.EmailAddress, Entity.User.InternalStatus.New);
 
         if (any) throw new InputMismatchException(nameof(addRequest.EmailAddress));
 
 
-        any = await _userData.UserEmailAddress.AnyAsync(addRequest.EmailAddress);
+        any = await _userDatabase.UserEmailAddress.AnyAsync(addRequest.EmailAddress);
 
         if (any) throw new InputMismatchException($"{addRequest.EmailAddress} exists");
 
@@ -50,7 +50,7 @@ public class AddBusiness(
             UserId = _sessionBusiness.UserId,
         };
 
-        await _userData.Internal.AddAndSaveAsync(@internal);
+        await _userDatabase.Internal.AddAndSaveAsync(@internal);
 
         // todo approver notification
 

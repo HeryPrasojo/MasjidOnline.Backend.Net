@@ -2,8 +2,6 @@ using MasjidOnline.Business.Infaq.Interface.Model.Payment;
 
 namespace MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 
-// todo remove required keyword to all
-// add nullable to all
 public class AddByAnonymRequest
 {
     public string? CaptchaToken { get; set; }

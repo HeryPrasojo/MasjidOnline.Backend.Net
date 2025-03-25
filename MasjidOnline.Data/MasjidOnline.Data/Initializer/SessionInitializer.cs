@@ -8,7 +8,7 @@ namespace MasjidOnline.Data.Initializer;
 
 public abstract class SessionInitializer(ISessionsDefinition _sessionDefinition) : ISessionInitializer
 {
-    public async Task InitializeDatabaseAsync(ISessionData sessionData)
+    public async Task InitializeDatabaseAsync(ISessionDatabase sessionDatabase)
     {
         var settingTableExists = await _sessionDefinition.CheckTableExistsAsync(nameof(SessionSetting));
 
@@ -26,9 +26,9 @@ public abstract class SessionInitializer(ISessionsDefinition _sessionDefinition)
                 Value = "1",
             };
 
-            await sessionData.SessionSetting.AddAsync(sessionSetting);
+            await sessionDatabase.SessionSetting.AddAsync(sessionSetting);
 
-            await sessionData.SaveAsync();
+            await sessionDatabase.SaveAsync();
         }
     }
 

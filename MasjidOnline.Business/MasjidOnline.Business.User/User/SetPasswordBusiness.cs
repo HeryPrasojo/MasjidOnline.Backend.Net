@@ -19,8 +19,8 @@ public class SetPasswordBusiness(
     public async Task<Response> SetAsync(
         IDataTransaction _dataTransaction,
         ISessionBusiness _sessionBusiness,
-        ISessionData _sessionData,
-        IUserData _userData,
+        ISessionDatabase _sessionDatabase,
+        IUserDatabase _userDatabase,
         SetPasswordRequest? setPasswordRequest)
     {
         _fieldValidatorService.ValidateRequired(setPasswordRequest);
@@ -31,20 +31,20 @@ public class SetPasswordBusiness(
         if (setPasswordRequest.Password != setPasswordRequest.PasswordRepeat) throw new InputInvalidException(nameof(setPasswordRequest.PasswordRepeat));
 
 
-        var passwordCode = await _userData.PasswordCode.GetForUserSetPasswordAsync(passwordCodeBytes);
+        var passwordCode = await _userDatabase.PasswordCode.GetForUserSetPasswordAsync(passwordCodeBytes);
 
         if (passwordCode == default) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
 
         if (passwordCode.UseDateTime != default) throw new InputMismatchException(nameof(passwordCode.UseDateTime));
 
 
-        await _dataTransaction.BeginAsync(_userData, _sessionData);
+        await _dataTransaction.BeginAsync(_userDatabase, _sessionDatabase);
 
         var passwordBytes = _hash512Service.Hash(setPasswordRequest.Password);
 
-        _userData.User.SetFirstPassword(passwordCode.UserId, passwordBytes);
+        _userDatabase.User.SetFirstPassword(passwordCode.UserId, passwordBytes);
 
-        _userData.PasswordCode.SetUseDateTime(passwordCodeBytes, DateTime.UtcNow);
+        _userDatabase.PasswordCode.SetUseDateTime(passwordCodeBytes, DateTime.UtcNow);
 
 
         await _sessionBusiness.ChangeAsync(passwordCode.UserId);

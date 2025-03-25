@@ -8,7 +8,7 @@ namespace MasjidOnline.Data.Initializer;
 
 public abstract class CaptchaInitializer(ICaptchaDefinition _captchaDefinition) : ICaptchaInitializer
 {
-    public async Task InitializeDatabaseAsync(ICaptchaData captchaData)
+    public async Task InitializeDatabaseAsync(ICaptchaDatabase captchaDatabase)
     {
         var settingTableExists = await _captchaDefinition.CheckTableExistsAsync(nameof(CaptchaSetting));
 
@@ -25,9 +25,9 @@ public abstract class CaptchaInitializer(ICaptchaDefinition _captchaDefinition) 
                 Value = "1",
             };
 
-            await captchaData.CaptchaSetting.AddAsync(captchaSetting);
+            await captchaDatabase.CaptchaSetting.AddAsync(captchaSetting);
 
-            await captchaData.SaveAsync();
+            await captchaDatabase.SaveAsync();
         }
     }
 

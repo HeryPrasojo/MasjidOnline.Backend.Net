@@ -13,13 +13,13 @@ public class InfaqIdGenerator : IInfaqIdGenerator
     private int _successId;
     private int _voidId;
 
-    public async Task InitializeAsync(IInfaqData infaqData)
+    public async Task InitializeAsync(IInfaqDatabase infaqDatabase)
     {
-        _expireId = await infaqData.Expire.GetMaxIdAsync();
-        _infaqId = await infaqData.Infaq.GetMaxIdAsync();
-        _infaqFileId = await infaqData.InfaqFile.GetMaxIdAsync();
-        _successId = await infaqData.Success.GetMaxIdAsync();
-        _voidId = await infaqData.Void.GetMaxIdAsync();
+        _expireId = await infaqDatabase.Expire.GetMaxIdAsync();
+        _infaqId = await infaqDatabase.Infaq.GetMaxIdAsync();
+        _infaqFileId = await infaqDatabase.InfaqFile.GetMaxIdAsync();
+        _successId = await infaqDatabase.Success.GetMaxIdAsync();
+        _voidId = await infaqDatabase.Void.GetMaxIdAsync();
     }
 
     public int ExpireId => Interlocked.Increment(ref _expireId);

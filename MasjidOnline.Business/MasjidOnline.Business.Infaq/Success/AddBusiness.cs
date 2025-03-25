@@ -22,23 +22,23 @@ public class AddBusiness(
 {
     public async Task<Response> AddAsync(
         IAuthorizationBusiness _authorizationBusiness,
-        IInfaqData _infaqData,
+        IInfaqDatabase _infaqDatabase,
         ISessionBusiness _sessionBusiness,
-        IUserData _userData,
+        IUserDatabase _userDatabase,
         AddRequest? addRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, infaqSuccessAdd: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userDatabase, infaqSuccessAdd: true);
 
         _fieldValidatorService.ValidateRequired(addRequest);
         _fieldValidatorService.ValidateRequiredPlus(addRequest!.InfaqId);
 
 
-        var any = await _infaqData.Success.AnyAsync(addRequest.InfaqId!.Value, Entity.Infaq.SuccessStatus.New);
+        var any = await _infaqDatabase.Success.AnyAsync(addRequest.InfaqId!.Value, Entity.Infaq.SuccessStatus.New);
 
         if (any) throw new InputMismatchException(nameof(addRequest.InfaqId));
 
 
-        var infaq = await _infaqData.Infaq.GetForSuccessAddAsync(addRequest.InfaqId.Value);
+        var infaq = await _infaqDatabase.Infaq.GetForSuccessAddAsync(addRequest.InfaqId.Value);
 
         if (infaq == default) throw new InputMismatchException(nameof(addRequest.InfaqId));
 
@@ -59,11 +59,11 @@ public class AddBusiness(
             UserId = _sessionBusiness.UserId,
         };
 
-        await _infaqData.Success.AddAsync(success);
+        await _infaqDatabase.Success.AddAsync(success);
 
-        _infaqData.Infaq.SetPaymentStatus(addRequest.InfaqId.Value, PaymentStatus.SuccessRequest);
+        _infaqDatabase.Infaq.SetPaymentStatus(addRequest.InfaqId.Value, PaymentStatus.SuccessRequest);
 
-        await _infaqData.SaveAsync();
+        await _infaqDatabase.SaveAsync();
 
         // todo approver notification
 

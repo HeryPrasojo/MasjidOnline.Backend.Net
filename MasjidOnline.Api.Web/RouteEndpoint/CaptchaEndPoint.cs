@@ -14,9 +14,9 @@ internal static class CaptchaEndPoint
         HttpContext httpContext,
         ICaptchaAddBusiness _captchaAddBusiness,
         ISessionBusiness _sessionBusiness,
-        ICaptchaData _captchaData)
+        ICaptchaDatabase _captchaDatabase)
     {
-        var createResponse = await _captchaAddBusiness.AddAsync(_captchaData, _sessionBusiness);
+        var createResponse = await _captchaAddBusiness.AddAsync(_captchaDatabase, _sessionBusiness);
 
         httpContext.Response.Headers[Constant.HttpHeaderName.ResultCode] = createResponse.ResultCode.ToString();
         httpContext.Response.Headers[Constant.HttpHeaderName.ResultMessage] = createResponse.ResultMessage;
@@ -28,10 +28,10 @@ internal static class CaptchaEndPoint
 
     internal static async Task<Response> UpdateAsync(
         ICaptchaUpdateBusiness _captchaUpdateBusiness,
-        ICaptchaData _captchaData,
+        ICaptchaDatabase _captchaDatabase,
         ISessionBusiness _sessionBusiness,
         CaptchaUpdateRequest captchaUpdateRequest)
     {
-        return await _captchaUpdateBusiness.UpdateAsync(_captchaData, _sessionBusiness, captchaUpdateRequest);
+        return await _captchaUpdateBusiness.UpdateAsync(_captchaDatabase, _sessionBusiness, captchaUpdateRequest);
     }
 }

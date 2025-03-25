@@ -7,5 +7,5 @@ namespace MasjidOnline.Business.Infaq.Interface.Infaq;
 
 public interface IAddAnonymBusiness
 {
-    Task<Response> AddAsync(ICaptchaData _captchaData, ISessionBusiness _sessionBusiness, IInfaqData _infaqData, AddByAnonymRequest? addByAnonymRequest);
+    Task<Response> AddAsync(ICaptchaDatabase _captchaDatabase, ISessionBusiness _sessionBusiness, IInfaqDatabase _infaqDatabase, AddByAnonymRequest? addByAnonymRequest);
 }

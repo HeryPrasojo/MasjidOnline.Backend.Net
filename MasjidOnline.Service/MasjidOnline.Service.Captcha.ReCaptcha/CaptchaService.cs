@@ -1,4 +1,4 @@
-﻿using System.Net.Http;
+using System.Net.Http;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
@@ -33,7 +33,7 @@ public class CaptchaService : ICaptchaService
 
         using var stringContent = new StringContent(serializedRequest, Encoding.UTF8, "application/json");
 
-        using var httpResponseMessage = await httpClient.PostAsync("https://recaptchaenterprise.googleapis.com/v1/projects/masjidonline-pro-1742437216294/assessments?key=AIzaSyBbI5UpINwUezpgkVUgXSLNqVwzf_LROak", stringContent);
+        using var httpResponseMessage = await httpClient.PostAsync("", stringContent);
 
         var serializedResponse = await httpResponseMessage.Content.ReadAsStringAsync();
     }

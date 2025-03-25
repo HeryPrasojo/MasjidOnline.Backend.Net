@@ -8,5 +8,5 @@ namespace MasjidOnline.Business.User.Interface.Internal;
 
 public interface ICancelBusiness
 {
-    Task<Response> CancelAsync(ISessionBusiness _sessionBusiness, IUserData _userData, CancelRequest? cancelRequest);
+    Task<Response> CancelAsync(ISessionBusiness _sessionBusiness, IUserDatabase _userDatabase, CancelRequest? cancelRequest);
 }

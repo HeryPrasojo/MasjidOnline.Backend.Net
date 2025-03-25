@@ -7,5 +7,5 @@ public interface IAuditIdGenerator
 {
     int PermissionLogId { get; }
 
-    Task InitializeAsync(IAuditData auditData);
+    Task InitializeAsync(IAuditDatabase auditDatabase);
 }

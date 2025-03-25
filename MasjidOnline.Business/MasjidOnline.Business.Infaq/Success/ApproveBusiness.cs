@@ -15,33 +15,33 @@ public class ApproveBusiness(IAuthorizationBusiness _authorizationBusiness, IFie
 {
     public async Task<Response> ApproveAsync(
         ISessionBusiness _sessionBusiness,
-        IUserData _userData,
-        IInfaqData _infaqData,
+        IUserDatabase _userDatabase,
+        IInfaqDatabase _infaqDatabase,
         ApproveRequest? approveRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, userInternalCancel: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userDatabase, userInternalCancel: true);
 
         _fieldValidatorService.ValidateRequired(approveRequest);
         _fieldValidatorService.ValidateRequiredPlus(approveRequest!.Id);
 
 
-        var success = await _infaqData.Success.GetForSetStatusAsync(approveRequest.Id!.Value);
+        var success = await _infaqDatabase.Success.GetForSetStatusAsync(approveRequest.Id!.Value);
 
         if (success == default) throw new InputMismatchException($"{nameof(approveRequest.Id)}: {approveRequest.Id}");
 
         if (success.Status != Entity.Infaq.SuccessStatus.New) throw new InputMismatchException($"{nameof(success.Status)}: {success.Status}");
 
 
-        _infaqData.Success.SetStatus(
+        _infaqDatabase.Success.SetStatus(
             approveRequest.Id.Value,
             Entity.Infaq.SuccessStatus.Approve,
             default,
             DateTime.UtcNow,
             _sessionBusiness.UserId);
 
-        _infaqData.Infaq.SetPaymentStatus(success.InfaqId, Entity.Infaq.PaymentStatus.Success);
+        _infaqDatabase.Infaq.SetPaymentStatus(success.InfaqId, Entity.Infaq.PaymentStatus.Success);
 
-        await _infaqData.SaveAsync();
+        await _infaqDatabase.SaveAsync();
 
         return new()
         {

@@ -8,7 +8,7 @@ namespace MasjidOnline.Data.Initializer;
 
 public abstract class InfaqInitializer(IInfaqsDefinition _infaqsDefinition) : IInfaqInitializer
 {
-    public async Task InitializeDatabaseAsync(IInfaqData infaqData)
+    public async Task InitializeDatabaseAsync(IInfaqDatabase infaqDatabase)
     {
         var settingTableExists = await _infaqsDefinition.CheckTableExistsAsync(nameof(InfaqSetting));
 
@@ -30,9 +30,9 @@ public abstract class InfaqInitializer(IInfaqsDefinition _infaqsDefinition) : II
                 Value = "1",
             };
 
-            await infaqData.InfaqSetting.AddAsync(transactionSetting);
+            await infaqDatabase.InfaqSetting.AddAsync(transactionSetting);
 
-            await infaqData.SaveAsync();
+            await infaqDatabase.SaveAsync();
         }
     }
 

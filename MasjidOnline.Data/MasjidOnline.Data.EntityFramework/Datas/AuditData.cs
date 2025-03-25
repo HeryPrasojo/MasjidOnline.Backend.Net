@@ -8,7 +8,7 @@ namespace MasjidOnline.Data.EntityFramework.Datas;
 
 public class AuditData(
     AuditDataContext _auditDataContext,
-    IAuditIdGenerator _auditIdGenerator) : Data(_auditDataContext), IAuditData
+    IAuditIdGenerator _auditIdGenerator) : Data(_auditDataContext), IAuditDatabase
 {
     private IAuditSettingRepository? _auditSettingRepository;
     private IPermissionLogRepository? _permissionLogRepository;

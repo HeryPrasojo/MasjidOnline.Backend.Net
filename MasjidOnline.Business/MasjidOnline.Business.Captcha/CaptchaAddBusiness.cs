@@ -15,7 +15,7 @@ public class CaptchaAddBusiness(
     ICaptchaService _captchaService,
     ICaptchaIdGenerator _captchaIdGenerator) : ICaptchaAddBusiness
 {
-    public async Task<CaptchaAddResponse> AddAsync(ICaptchaData _captchaData, ISessionBusiness _sessionBusiness)
+    public async Task<CaptchaAddResponse> AddAsync(ICaptchaDatabase _captchaDatabase, ISessionBusiness _sessionBusiness)
     {
         if (_sessionBusiness.UserId != Constant.UserId.Anonymous) return new()
         {
@@ -23,7 +23,7 @@ public class CaptchaAddBusiness(
         };
 
 
-        var existingCaptcha = await _captchaData.Captcha.GetForAddAsync(_sessionBusiness.Id);
+        var existingCaptcha = await _captchaDatabase.Captcha.GetForAddAsync(_sessionBusiness.Id);
 
         if (existingCaptcha != default)
         {
@@ -55,7 +55,7 @@ public class CaptchaAddBusiness(
             SessionId = _sessionBusiness.Id,
         };
 
-        await _captchaData.Captcha.AddAndSaveAsync(newCaptcha);
+        await _captchaDatabase.Captcha.AddAndSaveAsync(newCaptcha);
 
 
         return new()

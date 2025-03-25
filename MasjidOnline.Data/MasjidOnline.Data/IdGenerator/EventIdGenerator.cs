@@ -1,4 +1,4 @@
-﻿using System.Threading;
+using System.Threading;
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
@@ -9,9 +9,9 @@ public class EventIdGenerator : IEventIdGenerator
 {
     private int _exceptionId;
 
-    public async Task InitializeAsync(IEventData eventData)
+    public async Task InitializeAsync(IEventDatabase eventDatabase)
     {
-        _exceptionId = await eventData.Exception.GetMaxIdAsync();
+        _exceptionId = await eventDatabase.Exception.GetMaxIdAsync();
     }
 
     public int ExceptionId => Interlocked.Increment(ref _exceptionId);

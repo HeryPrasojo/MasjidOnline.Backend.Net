@@ -13,32 +13,32 @@ namespace MasjidOnline.Business.Infaq.Expire;
 
 public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IFieldValidatorService _fieldValidatorService) : ICancelBusiness
 {
-    public async Task<Response> CancelAsync(ISessionBusiness _sessionBusiness, IUserData _userData, IInfaqData _infaqData, CancelRequest? cancelRequest)
+    public async Task<Response> CancelAsync(ISessionBusiness _sessionBusiness, IUserDatabase _userDatabase, IInfaqDatabase _infaqDatabase, CancelRequest? cancelRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, infaqExpireCancel: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userDatabase, infaqExpireCancel: true);
 
         _fieldValidatorService.ValidateRequired(cancelRequest);
         _fieldValidatorService.ValidateRequiredPlus(cancelRequest!.Id);
         cancelRequest.Description = _fieldValidatorService.ValidateRequiredText255(cancelRequest.Description);
 
 
-        var expire = await _infaqData.Expire.GetForSetStatusAsync(cancelRequest.Id!.Value);
+        var expire = await _infaqDatabase.Expire.GetForSetStatusAsync(cancelRequest.Id!.Value);
 
         if (expire == default) throw new InputMismatchException($"{nameof(cancelRequest.Id)}: {cancelRequest.Id}");
 
         if (expire.Status != Entity.Infaq.ExpireStatus.New) throw new InputMismatchException($"{nameof(expire.Status)}: {expire.Status}");
 
 
-        _infaqData.Expire.SetStatus(
+        _infaqDatabase.Expire.SetStatus(
             cancelRequest.Id.Value,
             Entity.Infaq.ExpireStatus.Cancel,
             cancelRequest.Description,
             DateTime.UtcNow,
             _sessionBusiness.UserId);
 
-        _infaqData.Infaq.SetPaymentStatus(expire.InfaqId, Entity.Infaq.PaymentStatus.New);
+        _infaqDatabase.Infaq.SetPaymentStatus(expire.InfaqId, Entity.Infaq.PaymentStatus.New);
 
-        await _infaqData.SaveAsync();
+        await _infaqDatabase.SaveAsync();
 
         return new()
         {

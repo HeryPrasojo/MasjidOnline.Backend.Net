@@ -14,7 +14,7 @@ public class GetManyNewBusiness(
     IFieldValidatorService _fieldValidatorService) : IGetManyNewBusiness
 {
     public async Task<GetManyResponse<GetManyNewResponseRecord>> GetAsync(
-        IInfaqData _infaqData,
+        IInfaqDatabase _infaqDatabase,
         GetManyNewRequest? getManyNewRequest)
     {
         _fieldValidatorService.ValidateRequired(getManyNewRequest);
@@ -23,7 +23,7 @@ public class GetManyNewBusiness(
 
         var take = 10;
 
-        var getManyResult = await _infaqData.Expire.GetManyNewAsync(
+        var getManyResult = await _infaqDatabase.Expire.GetManyNewAsync(
             getManyOrderBy: ManyOrderBy.DateTime,
             orderByDirection: OrderByDirection.Descending,
             skip: (getManyNewRequest.Page!.Value - 1) * take,

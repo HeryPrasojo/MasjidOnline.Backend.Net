@@ -15,7 +15,7 @@ public class GetManyBusiness(
     IFieldValidatorService _fieldValidatorService) : IGetManyBusiness
 {
     public async Task<GetManyResponse<GetManyResponseRecord>> GetAsync(
-        IInfaqData _infaqData,
+        IInfaqDatabase _infaqDatabase,
         GetManyRequest? getManyRequest)
     {
         _fieldValidatorService.ValidateRequired(getManyRequest);
@@ -24,7 +24,7 @@ public class GetManyBusiness(
 
         var take = 10;
 
-        var getManyResult = await _infaqData.Void.GetManyAsync(
+        var getManyResult = await _infaqDatabase.Void.GetManyAsync(
             status: getManyRequest.Status.ToEntity(),
             getManyOrderBy: ManyOrderBy.DateTime,
             orderByDirection: OrderByDirection.Descending,

@@ -8,13 +8,13 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddEntityFrameworkData(this IServiceCollection services)
     {
-        services.AddScoped<IAuditData, AuditData>();
-        services.AddScoped<ICaptchaData, CaptchaData>();
-        services.AddScoped<IPersonData, PersonData>();
-        services.AddScoped<IEventData, EventData>();
-        services.AddScoped<IInfaqData, InfaqData>();
-        services.AddScoped<ISessionData, SessionData>();
-        services.AddScoped<IUserData, UserData>();
+        services.AddScoped<IAuditDatabase, AuditData>();
+        services.AddScoped<ICaptchaDatabase, CaptchaData>();
+        services.AddScoped<IPersonDatabase, PersonData>();
+        services.AddScoped<IEventDatabase, EventData>();
+        services.AddScoped<IInfaqDatabase, InfaqData>();
+        services.AddScoped<ISessionDatabase, SessionData>();
+        services.AddScoped<IUserDatabase, UserData>();
 
         return services;
     }

@@ -17,12 +17,12 @@ public class CaptchaUpdateBusiness(
     ICaptchaIdGenerator _captchaIdGenerator,
     IFieldValidatorService _fieldValidatorService) : ICaptchaUpdateBusiness
 {
-    public async Task<CaptchaUpdateResponse> UpdateAsync(ICaptchaData _captchaData, ISessionBusiness _sessionBusiness, CaptchaUpdateRequest captchaUpdateRequest)
+    public async Task<CaptchaUpdateResponse> UpdateAsync(ICaptchaDatabase _captchaDatabase, ISessionBusiness _sessionBusiness, CaptchaUpdateRequest captchaUpdateRequest)
     {
         _fieldValidatorService.ValidateRequired(captchaUpdateRequest);
 
 
-        var captcha = await _captchaData.Captcha.GetForUpdateAsync(_sessionBusiness.Id);
+        var captcha = await _captchaDatabase.Captcha.GetForUpdateAsync(_sessionBusiness.Id);
 
         if (captcha == default) throw new InputMismatchException($"{nameof(_sessionBusiness.Id)}: {_sessionBusiness.Id}");
 
@@ -45,7 +45,7 @@ public class CaptchaUpdateBusiness(
                 SessionId = _sessionBusiness.Id,
             };
 
-            await _captchaData.Captcha.AddAndSaveAsync(newCaptcha);
+            await _captchaDatabase.Captcha.AddAndSaveAsync(newCaptcha);
 
             return new()
             {
@@ -59,7 +59,7 @@ public class CaptchaUpdateBusiness(
         var tolerance = 45f;
         var isMatch = (degreeDiff < tolerance) && (degreeDiff > -tolerance);
 
-        _captchaData.Captcha.SetAnswer(captcha.Id, captchaUpdateRequest.AnswerFloat, isMatch, utcNow);
+        _captchaDatabase.Captcha.SetAnswer(captcha.Id, captchaUpdateRequest.AnswerFloat, isMatch, utcNow);
 
 
         if (!isMatch)
@@ -74,7 +74,7 @@ public class CaptchaUpdateBusiness(
                 SessionId = _sessionBusiness.Id,
             };
 
-            await _captchaData.Captcha.AddAndSaveAsync(newCaptcha);
+            await _captchaDatabase.Captcha.AddAndSaveAsync(newCaptcha);
 
             return new()
             {
@@ -84,7 +84,7 @@ public class CaptchaUpdateBusiness(
         }
 
 
-        await _captchaData.SaveAsync();
+        await _captchaDatabase.SaveAsync();
 
         return new()
         {

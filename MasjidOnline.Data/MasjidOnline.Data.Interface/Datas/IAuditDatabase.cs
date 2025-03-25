@@ -2,7 +2,7 @@ using MasjidOnline.Data.Interface.Repository.Audit;
 
 namespace MasjidOnline.Data.Interface.Datas;
 
-public interface IAuditData : IData
+public interface IAuditDatabase : IData
 {
     IAuditSettingRepository AuditSetting { get; }
 

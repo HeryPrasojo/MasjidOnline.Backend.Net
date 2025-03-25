@@ -21,14 +21,14 @@ public class AddAnonymBusiness(
     IInfaqIdGenerator _infaqIdGenerator) : IAddAnonymBusiness
 {
     public async Task<Response> AddAsync(
-        ICaptchaData _captchaData,
+        ICaptchaDatabase _captchaDatabase,
         ISessionBusiness _sessionBusiness,
-        IInfaqData _infaqData,
+        IInfaqDatabase _infaqDatabase,
         AddByAnonymRequest? addByAnonymRequest)
     {
         if (_sessionBusiness.UserId == Constant.UserId.Anonymous)
         {
-            var captchas = await _captchaData.Captcha.GetForInfaqAddByAnonymAsync(_sessionBusiness.Id);
+            var captchas = await _captchaDatabase.Captcha.GetForInfaqAddByAnonymAsync(_sessionBusiness.Id);
 
             if (!captchas.Any()) return new()
             {
@@ -70,7 +70,7 @@ public class AddAnonymBusiness(
             MunfiqName = addByAnonymRequest.MunfiqName,
         };
 
-        await _infaqData.Infaq.AddAsync(infaq);
+        await _infaqDatabase.Infaq.AddAsync(infaq);
 
 
         if (infaq.PaymentType == PaymentType.ManualBankTransfer)
@@ -82,7 +82,7 @@ public class AddAnonymBusiness(
                 Notes = addByAnonymRequest.ManualNotes,
             };
 
-            await _infaqData.InfaqManual.AddAsync(infaqManual);
+            await _infaqDatabase.InfaqManual.AddAsync(infaqManual);
         }
 
 
@@ -115,12 +115,12 @@ public class AddAnonymBusiness(
 
                 fileStream.Close();
 
-                await _infaqData.InfaqFile.AddAsync(infaqFile);
+                await _infaqDatabase.InfaqFile.AddAsync(infaqFile);
             }
         }
 
 
-        await _infaqData.SaveAsync();
+        await _infaqDatabase.SaveAsync();
 
         return new()
         {

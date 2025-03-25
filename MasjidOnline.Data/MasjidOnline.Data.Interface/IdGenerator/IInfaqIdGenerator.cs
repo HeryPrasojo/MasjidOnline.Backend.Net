@@ -11,5 +11,5 @@ public interface IInfaqIdGenerator
     int SuccessId { get; }
     int VoidId { get; }
 
-    Task InitializeAsync(IInfaqData infaqData);
+    Task InitializeAsync(IInfaqDatabase infaqDatabase);
 }

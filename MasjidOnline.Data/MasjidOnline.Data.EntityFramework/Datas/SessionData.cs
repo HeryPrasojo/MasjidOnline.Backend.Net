@@ -5,7 +5,7 @@ using MasjidOnline.Data.Interface.Repository.Session;
 
 namespace MasjidOnline.Data.EntityFramework.Datas;
 
-public class SessionData(SessionDataContext _sessionDataContext) : Data(_sessionDataContext), ISessionData
+public class SessionData(SessionDataContext _sessionDataContext) : Data(_sessionDataContext), ISessionDatabase
 {
     private ISessionSettingRepository? _sessionSettingRepository;
 

@@ -112,13 +112,13 @@ static async Task InitializeAsync(WebApplication webApplication)
 
     var dataTransaction = GetService<IDataTransaction>(serviceScope.ServiceProvider);
 
-    var auditData = GetService<IAuditData>(serviceScope.ServiceProvider);
-    var captchaData = GetService<ICaptchaData>(serviceScope.ServiceProvider);
-    var eventData = GetService<IEventData>(serviceScope.ServiceProvider);
-    var infaqData = GetService<IInfaqData>(serviceScope.ServiceProvider);
-    var personData = GetService<IPersonData>(serviceScope.ServiceProvider);
-    var sessionData = GetService<ISessionData>(serviceScope.ServiceProvider);
-    var userData = GetService<IUserData>(serviceScope.ServiceProvider);
+    var auditDatabase = GetService<IAuditDatabase>(serviceScope.ServiceProvider);
+    var captchaDatabase = GetService<ICaptchaDatabase>(serviceScope.ServiceProvider);
+    var eventDatabase = GetService<IEventDatabase>(serviceScope.ServiceProvider);
+    var infaqDatabase = GetService<IInfaqDatabase>(serviceScope.ServiceProvider);
+    var personDatabase = GetService<IPersonDatabase>(serviceScope.ServiceProvider);
+    var sessionDatabase = GetService<ISessionDatabase>(serviceScope.ServiceProvider);
+    var userDatabase = GetService<IUserDatabase>(serviceScope.ServiceProvider);
 
     var auditInitializer = GetService<IAuditInitializer>(serviceScope.ServiceProvider);
     var captchaInitializer = GetService<ICaptchaInitializer>(serviceScope.ServiceProvider);
@@ -139,25 +139,25 @@ static async Task InitializeAsync(WebApplication webApplication)
     var userInitializerBusiness = GetService<MasjidOnline.Business.User.Interface.IInitializerBusiness>(serviceScope.ServiceProvider);
 
 
-    await auditInitializer.InitializeDatabaseAsync(auditData);
-    await captchaInitializer.InitializeDatabaseAsync(captchaData);
-    await eventInitializer.InitializeDatabaseAsync(eventData);
-    await infaqInitializer.InitializeDatabaseAsync(infaqData);
-    await personInitializer.InitializeDatabaseAsync(personData);
-    await sessionInitializer.InitializeDatabaseAsync(sessionData);
-    await userInitializer.InitializeDatabaseAsync(userData);
+    await auditInitializer.InitializeDatabaseAsync(auditDatabase);
+    await captchaInitializer.InitializeDatabaseAsync(captchaDatabase);
+    await eventInitializer.InitializeDatabaseAsync(eventDatabase);
+    await infaqInitializer.InitializeDatabaseAsync(infaqDatabase);
+    await personInitializer.InitializeDatabaseAsync(personDatabase);
+    await sessionInitializer.InitializeDatabaseAsync(sessionDatabase);
+    await userInitializer.InitializeDatabaseAsync(userDatabase);
 
 
-    await auditIdGenerator.InitializeAsync(auditData);
-    await captchaIdGenerator.InitializeAsync(captchaData);
-    await eventIdGenerator.InitializeAsync(eventData);
-    await infaqIdGenerator.InitializeAsync(infaqData);
-    await personIdGenerator.InitializeAsync(personData);
-    await sessionIdGenerator.InitializeAsync(sessionData);
-    await userIdGenerator.InitializeAsync(userData);
+    await auditIdGenerator.InitializeAsync(auditDatabase);
+    await captchaIdGenerator.InitializeAsync(captchaDatabase);
+    await eventIdGenerator.InitializeAsync(eventDatabase);
+    await infaqIdGenerator.InitializeAsync(infaqDatabase);
+    await personIdGenerator.InitializeAsync(personDatabase);
+    await sessionIdGenerator.InitializeAsync(sessionDatabase);
+    await userIdGenerator.InitializeAsync(userDatabase);
 
 
-    await userInitializerBusiness.InitializeAsync(dataTransaction, userData, auditData);
+    await userInitializerBusiness.InitializeAsync(dataTransaction, userDatabase, auditDatabase);
 }
 
 static TService GetService<TService>(IServiceProvider serviceProvider)

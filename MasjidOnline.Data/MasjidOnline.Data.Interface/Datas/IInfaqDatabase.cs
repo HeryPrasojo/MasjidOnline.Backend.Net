@@ -2,7 +2,7 @@ using MasjidOnline.Data.Interface.Repository.Infaq;
 
 namespace MasjidOnline.Data.Interface.Datas;
 
-public interface IInfaqData : IData
+public interface IInfaqDatabase : IData
 {
     IInfaqRepository Infaq { get; }
     IInfaqFileRepository InfaqFile { get; }

@@ -1,4 +1,4 @@
-﻿using System.Threading;
+using System.Threading;
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.IdGenerator;
@@ -10,9 +10,9 @@ public class SessionIdGenerator(IHash512Service _hash512Service) : ISessionIdGen
 {
     private int _sessionId;
 
-    public async Task InitializeAsync(ISessionData _sessionData)
+    public async Task InitializeAsync(ISessionDatabase _sessionDatabase)
     {
-        _sessionId = await _sessionData.Session.GetMaxIdAsync();
+        _sessionId = await _sessionDatabase.Session.GetMaxIdAsync();
     }
 
     public int SessionId => Interlocked.Increment(ref _sessionId);

@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Datas;
 using MasjidOnline.Data.Interface.Definition;
 using MasjidOnline.Data.Interface.Initializer;
@@ -8,7 +8,7 @@ namespace MasjidOnline.Data.Initializer;
 
 public abstract class PersonInitializer(IPersonDefinition _personDefinition) : IPersonInitializer
 {
-    public async Task InitializeDatabaseAsync(IPersonData personData)
+    public async Task InitializeDatabaseAsync(IPersonDatabase personDatabase)
     {
         var settingTableExists = await _personDefinition.CheckTableExistsAsync(nameof(PersonSetting));
 
@@ -24,9 +24,9 @@ public abstract class PersonInitializer(IPersonDefinition _personDefinition) : I
                 Value = "1",
             };
 
-            await personData.PersonSetting.AddAsync(personSetting);
+            await personDatabase.PersonSetting.AddAsync(personSetting);
 
-            await personData.SaveAsync();
+            await personDatabase.SaveAsync();
         }
     }
 

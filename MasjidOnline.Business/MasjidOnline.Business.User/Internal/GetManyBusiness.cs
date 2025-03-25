@@ -17,7 +17,7 @@ public class GetManyBusiness(
 {
     public async Task<GetManyResponse<GetManyResponseRecord>> GetAsync(
         ISessionBusiness _sessionBusiness,
-        IUserData _userData,
+        IUserDatabase _userDatabase,
         GetManyRequest? getManyRequest)
     {
         _fieldValidatorService.ValidateRequired(getManyRequest);
@@ -26,14 +26,14 @@ public class GetManyBusiness(
 
         var take = 10;
 
-        var getManyResult = await _userData.Internal.GetManyAsync(
+        var getManyResult = await _userDatabase.Internal.GetManyAsync(
             status: getManyRequest.Status.ToEntity(),
             getManyOrderBy: ManyOrderBy.DateTime,
             orderByDirection: OrderByDirection.Descending,
             skip: (getManyRequest.Page!.Value - 1) * take,
             take: take);
 
-        var type = await _userData.User.GetTypeAsync(_sessionBusiness.UserId);
+        var type = await _userDatabase.User.GetTypeAsync(_sessionBusiness.UserId);
 
         return new()
         {

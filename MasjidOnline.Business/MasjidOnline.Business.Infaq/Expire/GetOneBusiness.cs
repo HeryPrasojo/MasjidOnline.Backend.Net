@@ -13,14 +13,14 @@ public class GetOneBusiness(
     IFieldValidatorService _fieldValidatorService) : IGetOneBusiness
 {
     public async Task<GetOneResponse> GetAsync(
-        IInfaqData _infaqData,
+        IInfaqDatabase _infaqDatabase,
         GetOneRequest? getOneRequest)
     {
         _fieldValidatorService.ValidateRequired(getOneRequest);
         _fieldValidatorService.ValidateRequiredPlus(getOneRequest!.Id);
 
 
-        var infaq = await _infaqData.Expire.GetOneAsync(getOneRequest.Id!.Value);
+        var infaq = await _infaqDatabase.Expire.GetOneAsync(getOneRequest.Id!.Value);
 
         if (infaq == default) throw new InputMismatchException($"{nameof(getOneRequest.Id)}: {getOneRequest.Id}");
 

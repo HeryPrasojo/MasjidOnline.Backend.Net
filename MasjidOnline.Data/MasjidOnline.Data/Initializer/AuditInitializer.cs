@@ -8,7 +8,7 @@ namespace MasjidOnline.Data.Initializer;
 
 public abstract class AuditInitializer(IAuditDefinition _auditDefinition) : IAuditInitializer
 {
-    public async Task InitializeDatabaseAsync(IAuditData auditData)
+    public async Task InitializeDatabaseAsync(IAuditDatabase auditDatabase)
     {
         var settingTableExists = await _auditDefinition.CheckTableExistsAsync(nameof(AuditSetting));
 
@@ -25,9 +25,9 @@ public abstract class AuditInitializer(IAuditDefinition _auditDefinition) : IAud
                 Value = "1",
             };
 
-            await auditData.AuditSetting.AddAsync(auditSetting);
+            await auditDatabase.AuditSetting.AddAsync(auditSetting);
 
-            await auditData.SaveAsync();
+            await auditDatabase.SaveAsync();
         }
     }
 

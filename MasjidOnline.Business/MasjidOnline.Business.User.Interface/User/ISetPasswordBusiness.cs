@@ -9,5 +9,5 @@ namespace MasjidOnline.Business.User.Interface.User;
 
 public interface ISetPasswordBusiness
 {
-    Task<Response> SetAsync(IDataTransaction _dataTransaction, ISessionBusiness _sessionBusiness, ISessionData _sessionData, IUserData _userData, SetPasswordRequest? setPasswordRequest);
+    Task<Response> SetAsync(IDataTransaction _dataTransaction, ISessionBusiness _sessionBusiness, ISessionDatabase _sessionDatabase, IUserDatabase _userDatabase, SetPasswordRequest? setPasswordRequest);
 }

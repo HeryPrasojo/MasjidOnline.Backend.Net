@@ -12,14 +12,14 @@ namespace MasjidOnline.Business.User.Internal;
 public class GetOneBusiness(IFieldValidatorService _fieldValidatorService) : IGetOneBusiness
 {
     public async Task<GetOneResponse> GetAsync(
-        IUserData _userData,
+        IUserDatabase _userDatabase,
         GetOneRequest? getOneRequest)
     {
         _fieldValidatorService.ValidateRequired(getOneRequest);
         _fieldValidatorService.ValidateRequiredPlus(getOneRequest!.Id);
 
 
-        var @internal = await _userData.Internal.GetOneAsync(getOneRequest.Id!.Value);
+        var @internal = await _userDatabase.Internal.GetOneAsync(getOneRequest.Id!.Value);
 
         if (@internal == default) throw new InputMismatchException($"{nameof(getOneRequest.Id)}: {getOneRequest.Id}");
 

@@ -5,5 +5,5 @@ namespace MasjidOnline.Data.Interface.Initializer;
 
 public interface IUserInitializer
 {
-    Task InitializeDatabaseAsync(IUserData userData);
+    Task InitializeDatabaseAsync(IUserDatabase userDatabase);
 }

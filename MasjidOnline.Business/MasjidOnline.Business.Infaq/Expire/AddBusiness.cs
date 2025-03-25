@@ -22,23 +22,23 @@ public class AddBusiness(
 {
     public async Task<Response> AddAsync(
         IAuthorizationBusiness _authorizationBusiness,
-        IInfaqData _infaqData,
+        IInfaqDatabase _infaqDatabase,
         ISessionBusiness _sessionBusiness,
-        IUserData _userData,
+        IUserDatabase _userDatabase,
         AddRequest? addRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userData, infaqExpireAdd: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _userDatabase, infaqExpireAdd: true);
 
         _fieldValidatorService.ValidateRequired(addRequest);
         _fieldValidatorService.ValidateRequiredPlus(addRequest!.InfaqId);
 
 
-        var any = await _infaqData.Expire.AnyAsync(addRequest.InfaqId!.Value, Entity.Infaq.ExpireStatus.New);
+        var any = await _infaqDatabase.Expire.AnyAsync(addRequest.InfaqId!.Value, Entity.Infaq.ExpireStatus.New);
 
         if (any) throw new InputMismatchException(nameof(addRequest.InfaqId));
 
 
-        var infaq = await _infaqData.Infaq.GetForExpireAddAsync(addRequest.InfaqId.Value);
+        var infaq = await _infaqDatabase.Infaq.GetForExpireAddAsync(addRequest.InfaqId.Value);
 
         if (infaq == default) throw new InputMismatchException(nameof(addRequest.InfaqId));
 
@@ -59,11 +59,11 @@ public class AddBusiness(
             UserId = _sessionBusiness.UserId,
         };
 
-        await _infaqData.Expire.AddAsync(expire);
+        await _infaqDatabase.Expire.AddAsync(expire);
 
-        _infaqData.Infaq.SetPaymentStatus(addRequest.InfaqId.Value, PaymentStatus.ExpireRequest);
+        _infaqDatabase.Infaq.SetPaymentStatus(addRequest.InfaqId.Value, PaymentStatus.ExpireRequest);
 
-        await _infaqData.SaveAsync();
+        await _infaqDatabase.SaveAsync();
 
         // todo approver notification
 

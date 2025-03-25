@@ -5,5 +5,5 @@ namespace MasjidOnline.Data.Interface.Initializer;
 
 public interface IInfaqInitializer
 {
-    Task InitializeDatabaseAsync(IInfaqData transactionData);
+    Task InitializeDatabaseAsync(IInfaqDatabase transactionData);
 }

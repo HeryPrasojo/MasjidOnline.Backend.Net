@@ -7,5 +7,5 @@ namespace MasjidOnline.Business.Infaq.Interface.Void;
 
 public interface IRejectBusiness
 {
-    Task<Response> RejectAsync(ISessionBusiness _sessionBusiness, IUserData _userData, IInfaqData _infaqData, RejectRequest? rejectRequest);
+    Task<Response> RejectAsync(ISessionBusiness _sessionBusiness, IUserDatabase _userDatabase, IInfaqDatabase _infaqDatabase, RejectRequest? rejectRequest);
 }
