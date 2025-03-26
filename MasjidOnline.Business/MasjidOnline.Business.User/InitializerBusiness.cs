@@ -17,14 +17,14 @@ public class InitializerBusiness(
     IMailSenderService _mailSenderService,
     IUserIdGenerator _userIdGenerator) : IInitializerBusiness
 {
-    public async Task InitializeAsync(IDataTransaction _dataTransaction, IData _data)
+    public async Task InitializeAsync(IData _data)
     {
         var any = await _data.User.User.GetAnyAsync(Constant.UserId.System);
 
         if (any) return;
 
 
-        await _dataTransaction.BeginAsync(_data.User, _data.Audit);
+        await _data.Transaction.BeginAsync(_data.User, _data.Audit);
 
 
         var option = _optionsMonitor.CurrentValue;
@@ -107,7 +107,7 @@ public class InitializerBusiness(
         await _data.Audit.PermissionLog.AddAddAsync(permission, utcNow, Constant.UserId.System);
 
 
-        await _dataTransaction.CommitAsync();
+        await _data.Transaction.CommitAsync();
 
 
         var uri = option.Uri.UserPassword + Convert.ToHexString(passwordCode.Code.AsSpan());

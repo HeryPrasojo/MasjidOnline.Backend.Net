@@ -5,5 +5,5 @@ namespace MasjidOnline.Business.User.Interface;
 
 public interface IInitializerBusiness
 {
-    Task InitializeAsync(IDataTransaction dataTransaction, IData _data);
+    Task InitializeAsync(IData _data);
 }

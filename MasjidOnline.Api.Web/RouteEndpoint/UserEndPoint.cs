@@ -92,13 +92,12 @@ internal static class UserEndPoint
         }
 
         internal static async Task<Response> SetPasswordAsync(
-            IDataTransaction _dataTransaction,
             ISessionBusiness _sessionBusiness,
             IData _data,
             Business.User.Interface.User.ISetPasswordBusiness _setPasswordBusiness,
             [FromBody] Business.User.Interface.Model.User.SetPasswordRequest? setPasswordRequest)
         {
-            return await _setPasswordBusiness.SetAsync(_dataTransaction, _sessionBusiness, _data, setPasswordRequest);
+            return await _setPasswordBusiness.SetAsync(_sessionBusiness, _data, setPasswordRequest);
         }
     }
 }

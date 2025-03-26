@@ -16,7 +16,6 @@ public class SetPasswordBusiness(
     IHash512Service _hash512Service) : ISetPasswordBusiness
 {
     public async Task<Response> SetAsync(
-        IDataTransaction _dataTransaction,
         ISessionBusiness _sessionBusiness,
         IData _data,
         SetPasswordRequest? setPasswordRequest)
@@ -36,7 +35,7 @@ public class SetPasswordBusiness(
         if (passwordCode.UseDateTime != default) throw new InputMismatchException(nameof(passwordCode.UseDateTime));
 
 
-        await _dataTransaction.BeginAsync(_data.User);
+        await _data.Transaction.BeginAsync(_data.User);
 
         var passwordBytes = _hash512Service.Hash(setPasswordRequest.Password);
 
@@ -47,7 +46,7 @@ public class SetPasswordBusiness(
 
         await _sessionBusiness.ChangeAsync(passwordCode.UserId);
 
-        await _dataTransaction.CommitAsync();
+        await _data.Transaction.CommitAsync();
 
         return new()
         {

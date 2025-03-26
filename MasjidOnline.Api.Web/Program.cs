@@ -109,8 +109,6 @@ static async Task InitializeAsync(WebApplication webApplication)
 {
     using var serviceScope = webApplication.Services.CreateScope();
 
-    var dataTransaction = GetService<IDataTransaction>(serviceScope.ServiceProvider);
-
     var data = GetService<IData>(serviceScope.ServiceProvider);
 
     var auditInitializer = GetService<IAuditInitializer>(serviceScope.ServiceProvider);
@@ -150,7 +148,7 @@ static async Task InitializeAsync(WebApplication webApplication)
     await userIdGenerator.InitializeAsync(data);
 
 
-    await userInitializerBusiness.InitializeAsync(dataTransaction, data);
+    await userInitializerBusiness.InitializeAsync(data);
 }
 
 static TService GetService<TService>(IServiceProvider serviceProvider)
