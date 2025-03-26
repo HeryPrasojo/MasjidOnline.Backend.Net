@@ -4,7 +4,6 @@ using MasjidOnline.Business.Interface.Model;
 using MasjidOnline.Business.Interface.Model.Options;
 using MasjidOnline.Business.User.Interface;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.Databases;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.User;
 using MasjidOnline.Service.Mail.Interface;
@@ -18,14 +17,14 @@ public class InitializerBusiness(
     IMailSenderService _mailSenderService,
     IUserIdGenerator _userIdGenerator) : IInitializerBusiness
 {
-    public async Task InitializeAsync(IDataTransaction _dataTransaction, IData _data, IAuditDatabase _auditDatabase)
+    public async Task InitializeAsync(IDataTransaction _dataTransaction, IData _data)
     {
-        var any = await _data.User.GetAnyAsync(Constant.UserId.System);
+        var any = await _data.User.User.GetAnyAsync(Constant.UserId.System);
 
         if (any) return;
 
 
-        await _dataTransaction.BeginAsync(_data, _auditDatabase);
+        await _dataTransaction.BeginAsync(_data.User, _data.Audit);
 
 
         var option = _optionsMonitor.CurrentValue;
@@ -39,7 +38,7 @@ public class InitializerBusiness(
             Type = UserType.System,
         };
 
-        await _data.User.AddAsync(user);
+        await _data.User.User.AddAsync(user);
 
 
         var @internal = new Entity.User.Internal
@@ -53,7 +52,7 @@ public class InitializerBusiness(
             UserId = Constant.UserId.System,
         };
 
-        await _data.Internal.AddAsync(@internal);
+        await _data.User.Internal.AddAsync(@internal);
 
 
         user = new Entity.User.User
@@ -63,7 +62,7 @@ public class InitializerBusiness(
             Type = UserType.Internal,
         };
 
-        await _data.User.AddAsync(user);
+        await _data.User.User.AddAsync(user);
 
 
         var userEmailAddress = new UserEmailAddress
@@ -72,7 +71,7 @@ public class InitializerBusiness(
             UserId = user.Id,
         };
 
-        await _data.UserEmailAddress.AddAsync(userEmailAddress);
+        await _data.User.UserEmailAddress.AddAsync(userEmailAddress);
 
 
         var passwordCode = new PasswordCode
@@ -82,7 +81,7 @@ public class InitializerBusiness(
             UserId = user.Id,
         };
 
-        await _data.PasswordCode.AddAsync(passwordCode);
+        await _data.User.PasswordCode.AddAsync(passwordCode);
 
 
         var permission = new Permission
@@ -103,9 +102,9 @@ public class InitializerBusiness(
             UserInternalCancel = true,
         };
 
-        await _data.Permission.AddAsync(permission);
+        await _data.User.Permission.AddAsync(permission);
 
-        await _auditDatabase.PermissionLog.AddAddAsync(permission, utcNow, Constant.UserId.System);
+        await _data.Audit.PermissionLog.AddAddAsync(permission, utcNow, Constant.UserId.System);
 
 
         await _dataTransaction.CommitAsync();

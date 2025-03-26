@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using MasjidOnline.Data.Interface.Databases;
 
 namespace MasjidOnline.Data.Interface.IdGenerator;
 
@@ -11,5 +10,5 @@ public interface IInfaqIdGenerator
     int SuccessId { get; }
     int VoidId { get; }
 
-    Task InitializeAsync(IData infaqDatabase);
+    Task InitializeAsync(IData data);
 }

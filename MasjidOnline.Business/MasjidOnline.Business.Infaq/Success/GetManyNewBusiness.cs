@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.Infaq.Interface.Model.Success;
 using MasjidOnline.Business.Infaq.Interface.Success;
 using MasjidOnline.Business.Interface.Model.Responses;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.ViewModel.Infaq.Success;
 using MasjidOnline.Data.Interface.ViewModel.Repository;
 using MasjidOnline.Service.FieldValidator.Interface;
@@ -23,7 +23,7 @@ public class GetManyNewBusiness(
 
         var take = 10;
 
-        var getManyResult = await _data.Success.GetManyNewAsync(
+        var getManyResult = await _data.Infaq.Success.GetManyNewAsync(
             getManyOrderBy: ManyOrderBy.DateTime,
             orderByDirection: OrderByDirection.Descending,
             skip: (getManyNewRequest.Page!.Value - 1) * take,

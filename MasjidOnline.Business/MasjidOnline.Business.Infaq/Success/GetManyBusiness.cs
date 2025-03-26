@@ -4,7 +4,7 @@ using MasjidOnline.Business.Infaq.Interface.Model.Success;
 using MasjidOnline.Business.Infaq.Interface.Success;
 using MasjidOnline.Business.Infaq.Success.Mapper;
 using MasjidOnline.Business.Interface.Model.Responses;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.ViewModel.Infaq.Success;
 using MasjidOnline.Data.Interface.ViewModel.Repository;
 using MasjidOnline.Service.FieldValidator.Interface;
@@ -24,7 +24,7 @@ public class GetManyBusiness(
 
         var take = 10;
 
-        var getManyResult = await _data.Success.GetManyAsync(
+        var getManyResult = await _data.Infaq.Success.GetManyAsync(
             status: getManyRequest.Status.ToEntity(),
             getManyOrderBy: ManyOrderBy.DateTime,
             orderByDirection: OrderByDirection.Descending,

@@ -8,7 +8,7 @@ using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Interface.Model;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.Infaq;
 using MasjidOnline.Library.Exceptions;
@@ -23,12 +23,11 @@ public class AddAnonymBusiness(
     public async Task<Response> AddAsync(
         IData _data,
         ISessionBusiness _sessionBusiness,
-        IData _data,
         AddByAnonymRequest? addByAnonymRequest)
     {
         if (_sessionBusiness.UserId == Constant.UserId.Anonymous)
         {
-            var captchas = await _data.Captcha.GetForInfaqAddByAnonymAsync(_sessionBusiness.Id);
+            var captchas = await _data.Captcha.Captcha.GetForInfaqAddByAnonymAsync(_sessionBusiness.Id);
 
             if (!captchas.Any()) return new()
             {
@@ -70,7 +69,7 @@ public class AddAnonymBusiness(
             MunfiqName = addByAnonymRequest.MunfiqName,
         };
 
-        await _data.Infaq.AddAsync(infaq);
+        await _data.Infaq.Infaq.AddAsync(infaq);
 
 
         if (infaq.PaymentType == PaymentType.ManualBankTransfer)
@@ -82,7 +81,7 @@ public class AddAnonymBusiness(
                 Notes = addByAnonymRequest.ManualNotes,
             };
 
-            await _data.InfaqManual.AddAsync(infaqManual);
+            await _data.Infaq.InfaqManual.AddAsync(infaqManual);
         }
 
 
@@ -115,12 +114,12 @@ public class AddAnonymBusiness(
 
                 fileStream.Close();
 
-                await _data.InfaqFile.AddAsync(infaqFile);
+                await _data.Infaq.InfaqFile.AddAsync(infaqFile);
             }
         }
 
 
-        await _data.SaveAsync();
+        await _data.Infaq.SaveAsync();
 
         return new()
         {

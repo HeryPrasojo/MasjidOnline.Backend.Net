@@ -5,7 +5,7 @@ using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Business.User.Interface.Model.Internal;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
@@ -31,12 +31,12 @@ public class AddBusiness(
         addRequest.Name = _fieldValidatorService.ValidateRequiredText255(addRequest.Name);
 
 
-        var any = await _data.Internal.AnyAsync(addRequest.EmailAddress, Entity.User.InternalStatus.New);
+        var any = await _data.User.Internal.AnyAsync(addRequest.EmailAddress, Entity.User.InternalStatus.New);
 
         if (any) throw new InputMismatchException(nameof(addRequest.EmailAddress));
 
 
-        any = await _data.UserEmailAddress.AnyAsync(addRequest.EmailAddress);
+        any = await _data.User.UserEmailAddress.AnyAsync(addRequest.EmailAddress);
 
         if (any) throw new InputMismatchException($"{addRequest.EmailAddress} exists");
 
@@ -50,7 +50,7 @@ public class AddBusiness(
             UserId = _sessionBusiness.UserId,
         };
 
-        await _data.Internal.AddAndSaveAsync(@internal);
+        await _data.User.Internal.AddAndSaveAsync(@internal);
 
         // todo approver notification
 

@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Definition;
 using MasjidOnline.Data.Interface.Initializer;
 using MasjidOnline.Entity.Audit;
@@ -8,7 +8,7 @@ namespace MasjidOnline.Data.Initializer;
 
 public abstract class AuditInitializer(IAuditDefinition _auditDefinition) : IAuditInitializer
 {
-    public async Task InitializeDatabaseAsync(IAuditDatabase auditDatabase)
+    public async Task InitializeDatabaseAsync(IData data)
     {
         var settingTableExists = await _auditDefinition.CheckTableExistsAsync(nameof(AuditSetting));
 
@@ -25,9 +25,9 @@ public abstract class AuditInitializer(IAuditDefinition _auditDefinition) : IAud
                 Value = "1",
             };
 
-            await auditDatabase.AuditSetting.AddAsync(auditSetting);
+            await data.Audit.AuditSetting.AddAsync(auditSetting);
 
-            await auditDatabase.SaveAsync();
+            await data.Audit.SaveAsync();
         }
     }
 

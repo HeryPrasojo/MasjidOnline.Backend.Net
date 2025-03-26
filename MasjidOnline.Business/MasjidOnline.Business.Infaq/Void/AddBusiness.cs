@@ -6,7 +6,7 @@ using MasjidOnline.Business.Infaq.Interface.Void;
 using MasjidOnline.Business.Interface.Model.Options;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.Infaq;
 using MasjidOnline.Library.Exceptions;
@@ -24,7 +24,6 @@ public class AddBusiness(
         IAuthorizationBusiness _authorizationBusiness,
         IData _data,
         ISessionBusiness _sessionBusiness,
-        IData _data,
         AddRequest? addRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, infaqVoidAdd: true);
@@ -33,12 +32,12 @@ public class AddBusiness(
         _fieldValidatorService.ValidateRequiredPlus(addRequest!.InfaqId);
 
 
-        var any = await _data.Void.AnyAsync(addRequest.InfaqId!.Value, Entity.Infaq.VoidStatus.New);
+        var any = await _data.Infaq.Void.AnyAsync(addRequest.InfaqId!.Value, Entity.Infaq.VoidStatus.New);
 
         if (any) throw new InputMismatchException(nameof(addRequest.InfaqId));
 
 
-        var infaq = await _data.Infaq.GetForVoidAddAsync(addRequest.InfaqId.Value);
+        var infaq = await _data.Infaq.Infaq.GetForVoidAddAsync(addRequest.InfaqId.Value);
 
         if (infaq == default) throw new InputMismatchException(nameof(addRequest.InfaqId));
 
@@ -59,11 +58,11 @@ public class AddBusiness(
             UserId = _sessionBusiness.UserId,
         };
 
-        await _data.Void.AddAsync(@void);
+        await _data.Infaq.Void.AddAsync(@void);
 
-        _data.Infaq.SetPaymentStatus(addRequest.InfaqId.Value, PaymentStatus.VoidRequest);
+        _data.Infaq.Infaq.SetPaymentStatus(addRequest.InfaqId.Value, PaymentStatus.VoidRequest);
 
-        await _data.SaveAsync();
+        await _data.Infaq.SaveAsync();
 
         // todo approver notification
 

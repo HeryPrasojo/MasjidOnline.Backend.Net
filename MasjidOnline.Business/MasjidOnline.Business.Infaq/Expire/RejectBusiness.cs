@@ -5,7 +5,7 @@ using MasjidOnline.Business.Infaq.Interface.Expire;
 using MasjidOnline.Business.Infaq.Interface.Model.Expire;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
 
@@ -22,23 +22,23 @@ public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IFiel
         rejectRequest.Description = _fieldValidatorService.ValidateRequiredText255(rejectRequest.Description);
 
 
-        var expire = await _data.Expire.GetForSetStatusAsync(rejectRequest.Id!.Value);
+        var expire = await _data.Infaq.Expire.GetForSetStatusAsync(rejectRequest.Id!.Value);
 
         if (expire == default) throw new InputMismatchException($"{nameof(rejectRequest.Id)}: {rejectRequest.Id}");
 
         if (expire.Status != Entity.Infaq.ExpireStatus.New) throw new InputMismatchException($"{nameof(expire.Status)}: {expire.Status}");
 
 
-        _data.Expire.SetStatus(
+        _data.Infaq.Expire.SetStatus(
             rejectRequest.Id.Value,
             Entity.Infaq.ExpireStatus.Reject,
             rejectRequest.Description,
             DateTime.UtcNow,
             _sessionBusiness.UserId);
 
-        _data.Infaq.SetPaymentStatus(expire.InfaqId, Entity.Infaq.PaymentStatus.New);
+        _data.Infaq.Infaq.SetPaymentStatus(expire.InfaqId, Entity.Infaq.PaymentStatus.New);
 
-        await _data.SaveAsync();
+        await _data.Infaq.SaveAsync();
 
         // todo requester notification
 

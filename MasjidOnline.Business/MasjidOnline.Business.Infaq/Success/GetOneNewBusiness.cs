@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.Infaq.Interface.Model.Success;
 using MasjidOnline.Business.Infaq.Interface.Success;
 using MasjidOnline.Business.Interface.Model.Responses;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
 
@@ -19,7 +19,7 @@ public class GetOneNewBusiness(
         _fieldValidatorService.ValidateRequiredPlus(getOneNewRequest!.Id);
 
 
-        var success = await _data.Success.GetOneNewAsync(getOneNewRequest.Id!.Value);
+        var success = await _data.Infaq.Success.GetOneNewAsync(getOneNewRequest.Id!.Value);
 
         if (success == default) throw new InputMismatchException($"{nameof(getOneNewRequest.Id)}: {getOneNewRequest.Id}");
 

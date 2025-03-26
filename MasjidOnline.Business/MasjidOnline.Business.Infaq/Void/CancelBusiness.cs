@@ -5,7 +5,7 @@ using MasjidOnline.Business.Infaq.Interface.Model.Void;
 using MasjidOnline.Business.Infaq.Interface.Void;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
 
@@ -16,7 +16,6 @@ public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IFiel
     public async Task<Response> CancelAsync(
         ISessionBusiness _sessionBusiness,
         IData _data,
-        IData _data,
         CancelRequest? cancelRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, userInternalCancel: true);
@@ -26,23 +25,23 @@ public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IFiel
         cancelRequest.Description = _fieldValidatorService.ValidateRequiredText255(cancelRequest.Description);
 
 
-        var @void = await _data.Void.GetForSetStatusAsync(cancelRequest.Id!.Value);
+        var @void = await _data.Infaq.Void.GetForSetStatusAsync(cancelRequest.Id!.Value);
 
         if (@void == default) throw new InputMismatchException($"{nameof(cancelRequest.Id)}: {cancelRequest.Id}");
 
         if (@void.Status != Entity.Infaq.VoidStatus.New) throw new InputMismatchException($"{nameof(@void.Status)}: {@void.Status}");
 
 
-        _data.Void.SetStatus(
+        _data.Infaq.Void.SetStatus(
             cancelRequest.Id.Value,
             Entity.Infaq.VoidStatus.Cancel,
             cancelRequest.Description,
             DateTime.UtcNow,
             _sessionBusiness.UserId);
 
-        _data.Infaq.SetPaymentStatus(@void.InfaqId, Entity.Infaq.PaymentStatus.New);
+        _data.Infaq.Infaq.SetPaymentStatus(@void.InfaqId, Entity.Infaq.PaymentStatus.New);
 
-        await _data.SaveAsync();
+        await _data.Infaq.SaveAsync();
 
         return new()
         {

@@ -5,7 +5,7 @@ using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Business.User.Interface.Model.Internal;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
 
@@ -22,19 +22,19 @@ public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IFiel
         rejectRequest.Description = _fieldValidatorService.ValidateRequiredText255(rejectRequest.Description);
 
 
-        var status = await _data.Internal.GetStatusAsync(rejectRequest.Id!.Value);
+        var status = await _data.User.Internal.GetStatusAsync(rejectRequest.Id!.Value);
 
         if (status != Entity.User.InternalStatus.New) throw new InputMismatchException($"{nameof(status)}: {status}");
 
 
-        _data.Internal.SetStatus(
+        _data.User.Internal.SetStatus(
             rejectRequest.Id.Value,
             Entity.User.InternalStatus.Reject,
             rejectRequest.Description,
             DateTime.UtcNow,
             _sessionBusiness.UserId);
 
-        await _data.SaveAsync();
+        await _data.User.SaveAsync();
 
         // todo requester notification
 
