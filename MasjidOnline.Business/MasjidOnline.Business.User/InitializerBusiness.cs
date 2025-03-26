@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Interface.Model;
-using MasjidOnline.Business.Interface.Model.Options;
+using MasjidOnline.Business.Model;
+using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.User.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.IdGenerator;

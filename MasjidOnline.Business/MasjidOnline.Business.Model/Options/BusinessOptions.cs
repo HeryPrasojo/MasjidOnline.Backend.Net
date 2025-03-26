@@ -1,4 +1,4 @@
-namespace MasjidOnline.Business.Interface.Model.Options;
+namespace MasjidOnline.Business.Model.Options;
 
 public class BusinessOptions
 {

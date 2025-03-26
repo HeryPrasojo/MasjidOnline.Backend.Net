@@ -6,7 +6,7 @@ using MasjidOnline.Api.Web.Middleware;
 using MasjidOnline.Business.AuthorizationBusiness;
 using MasjidOnline.Business.Captcha;
 using MasjidOnline.Business.Infaq;
-using MasjidOnline.Business.Interface.Model.Options;
+using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.Session;
 using MasjidOnline.Business.User;
 using MasjidOnline.Data;

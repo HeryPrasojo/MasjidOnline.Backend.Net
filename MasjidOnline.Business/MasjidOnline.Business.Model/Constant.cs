@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Business.Interface.Model;
+﻿namespace MasjidOnline.Business.Model;
 
 public static class Constant
 {

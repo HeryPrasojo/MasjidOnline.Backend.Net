@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using MasjidOnline.Business.AuthorizationBusiness.Interface;
-using MasjidOnline.Business.Interface.Model;
+using MasjidOnline.Business.Model;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;

@@ -17,7 +17,7 @@ internal static class CaptchaEndPoint
         ISessionBusiness _sessionBusiness,
         IData _data)
     {
-        var createResponse = await _business..AddAsync(_data, _sessionBusiness);
+        var createResponse = await _business.CaptchaAddBusiness.AddAsync(_data, _sessionBusiness);
 
         httpContext.Response.Headers[Constant.HttpHeaderName.ResultCode] = createResponse.ResultCode.ToString();
         httpContext.Response.Headers[Constant.HttpHeaderName.ResultMessage] = createResponse.ResultMessage;
