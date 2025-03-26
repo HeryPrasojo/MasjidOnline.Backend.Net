@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Business.Captcha.Interface.Model;
+using MasjidOnline.Business.Interface;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
@@ -12,11 +13,11 @@ internal static class CaptchaEndPoint
 {
     internal static async Task<IResult> AddQuestionAsync(
         HttpContext httpContext,
-        ICaptchaAddBusiness _captchaAddBusiness,
+        IBusiness _business,
         ISessionBusiness _sessionBusiness,
         IData _data)
     {
-        var createResponse = await _captchaAddBusiness.AddAsync(_data, _sessionBusiness);
+        var createResponse = await _business..AddAsync(_data, _sessionBusiness);
 
         httpContext.Response.Headers[Constant.HttpHeaderName.ResultCode] = createResponse.ResultCode.ToString();
         httpContext.Response.Headers[Constant.HttpHeaderName.ResultMessage] = createResponse.ResultMessage;
