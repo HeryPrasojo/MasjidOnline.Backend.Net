@@ -5,7 +5,7 @@ using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface.Model.User;
 using MasjidOnline.Business.User.Interface.User;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Hash.Interface;
 
@@ -15,12 +15,12 @@ public class LoginBusiness(IHash512Service _hash512Service) : ILoginBusiness
 {
     public async Task<Response> LoginAsync(IData _data, ISessionBusiness _sessionBusiness, LoginRequest? loginRequest)
     {
-        var userId = await _data.UserEmailAddress.GetUserIdAsync(loginRequest.EmailAddress);
+        var userId = await _data.User.UserEmailAddress.GetUserIdAsync(loginRequest.EmailAddress);
 
         if (userId == default) throw new InputMismatchException(nameof(loginRequest.EmailAddress));
 
 
-        var user = await _data.User.GetForLoginAsync(userId.Value);
+        var user = await _data.User.User.GetForLoginAsync(userId.Value);
 
         if (user == default) throw new InputMismatchException(nameof(loginRequest.EmailAddress));
 

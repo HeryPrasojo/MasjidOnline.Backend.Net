@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.IdGenerator;
 
 namespace MasjidOnline.Data.IdGenerator;
@@ -13,13 +13,13 @@ public class InfaqIdGenerator : IInfaqIdGenerator
     private int _successId;
     private int _voidId;
 
-    public async Task InitializeAsync(IData infaqDatabase)
+    public async Task InitializeAsync(IData data)
     {
-        _expireId = await infaqDatabase.Expire.GetMaxIdAsync();
-        _infaqId = await infaqDatabase.Infaq.GetMaxIdAsync();
-        _infaqFileId = await infaqDatabase.InfaqFile.GetMaxIdAsync();
-        _successId = await infaqDatabase.Success.GetMaxIdAsync();
-        _voidId = await infaqDatabase.Void.GetMaxIdAsync();
+        _expireId = await data.Infaq.Expire.GetMaxIdAsync();
+        _infaqId = await data.Infaq.Infaq.GetMaxIdAsync();
+        _infaqFileId = await data.Infaq.InfaqFile.GetMaxIdAsync();
+        _successId = await data.Infaq.Success.GetMaxIdAsync();
+        _voidId = await data.Infaq.Void.GetMaxIdAsync();
     }
 
     public int ExpireId => Interlocked.Increment(ref _expireId);

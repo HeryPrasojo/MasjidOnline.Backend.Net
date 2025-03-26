@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Definition;
 using MasjidOnline.Data.Interface.Initializer;
 using MasjidOnline.Entity.Captcha;
@@ -8,7 +8,7 @@ namespace MasjidOnline.Data.Initializer;
 
 public abstract class CaptchaInitializer(ICaptchaDefinition _captchaDefinition) : ICaptchaInitializer
 {
-    public async Task InitializeDatabaseAsync(IData captchaDatabase)
+    public async Task InitializeDatabaseAsync(IData data)
     {
         var settingTableExists = await _captchaDefinition.CheckTableExistsAsync(nameof(CaptchaSetting));
 
@@ -25,9 +25,9 @@ public abstract class CaptchaInitializer(ICaptchaDefinition _captchaDefinition) 
                 Value = "1",
             };
 
-            await captchaDatabase.CaptchaSetting.AddAsync(captchaSetting);
+            await data.Captcha.CaptchaSetting.AddAsync(captchaSetting);
 
-            await captchaDatabase.SaveAsync();
+            await data.Captcha.SaveAsync();
         }
     }
 

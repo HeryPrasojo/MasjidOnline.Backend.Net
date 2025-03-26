@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Service.Hash.Interface;
 
@@ -11,10 +11,10 @@ public class UserIdGenerator(IHash512Service _hash512Service) : IUserIdGenerator
     private int _internalId;
     private int _userId;
 
-    public async Task InitializeAsync(IData userDatabase)
+    public async Task InitializeAsync(IData data)
     {
-        _internalId = await userDatabase.Internal.GetMaxIdAsync();
-        _userId = await userDatabase.User.GetMaxIdAsync();
+        _internalId = await data.User.Internal.GetMaxIdAsync();
+        _userId = await data.User.User.GetMaxIdAsync();
 
         if (_userId < 11) _userId = 11;
     }

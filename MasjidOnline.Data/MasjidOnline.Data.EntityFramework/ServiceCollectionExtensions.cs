@@ -10,12 +10,12 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddEntityFrameworkData(this IServiceCollection services)
     {
         services.AddScoped<IAuditDatabase, AuditDatabase>();
-        services.AddScoped<IData, CaptchaDatabase>();
+        services.AddScoped<ICaptchaDatabase, CaptchaDatabase>();
         services.AddScoped<IPersonDatabase, PersonDatabase>();
         services.AddScoped<IEventDatabase, EventDatabase>();
-        services.AddScoped<IData, InfaqDatabase>();
-        services.AddScoped<IData, SessionDatabase>();
-        services.AddScoped<IData, UserDatabase>();
+        services.AddScoped<IInfaqDatabase, InfaqDatabase>();
+        services.AddScoped<ISessionDatabase, SessionDatabase>();
+        services.AddScoped<IUserDatabase, UserDatabase>();
 
         services.AddScoped<IData, EntityFrameworkData>();
 

@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.AuthorizationBusiness.Interface;
 using MasjidOnline.Business.Interface.Model;
 using MasjidOnline.Business.Session.Interface;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 
 namespace MasjidOnline.Business.AuthorizationBusiness;
@@ -30,7 +30,7 @@ public class AuthorizationBusiness : IAuthorizationBusiness
         bool userInternalApprove = default,
         bool userInternalCancel = default)
     {
-        var sessionPermission = await _data.Permission.GetByUserIdAsync(_sessionBusiness.UserId);
+        var sessionPermission = await _data.User.Permission.GetByUserIdAsync(_sessionBusiness.UserId);
 
         if (sessionPermission == default) throw new PermissionException(nameof(Constant.UserId.Anonymous));
 

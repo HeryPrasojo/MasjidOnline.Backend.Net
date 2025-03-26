@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface.Model;
 using MasjidOnline.Business.Session.Interface;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Cryptography.Interface;
@@ -46,7 +46,7 @@ public class SessionBusiness(
             UserId = userId,
         };
 
-        await _data.Session.AddAsync(session);
+        await _data.Session.Session.AddAsync(session);
 
 
         _digest = session.Digest;
@@ -59,7 +59,7 @@ public class SessionBusiness(
     {
         await ChangeAsync(userId);
 
-        await _data.SaveAsync();
+        await _data.Session.SaveAsync();
     }
 
     public async Task StartAsync(string? idBase64, [CallerArgumentExpression(nameof(idBase64))] string? idBase64Expression = default)
@@ -74,7 +74,7 @@ public class SessionBusiness(
 
             var decryptedRquestSessionIdBytes = _encryption128128.Decrypt(requestSessionIdBytes);
 
-            var sessionEntity = await _data.Session.GetForStartAsync(decryptedRquestSessionIdBytes);
+            var sessionEntity = await _data.Session.Session.GetForStartAsync(decryptedRquestSessionIdBytes);
 
             if (sessionEntity == default) throw new InputMismatchException(idBase64Expression);
 

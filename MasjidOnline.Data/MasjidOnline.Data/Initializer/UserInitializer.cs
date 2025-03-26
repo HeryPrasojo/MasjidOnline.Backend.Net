@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Definition;
 using MasjidOnline.Data.Interface.Initializer;
 using MasjidOnline.Entity.User;
@@ -8,7 +8,7 @@ namespace MasjidOnline.Data.Initializer;
 
 public abstract class UserInitializer(IUsersDefinition _userDefinition) : IUserInitializer
 {
-    public async Task InitializeDatabaseAsync(IData userDatabase)
+    public async Task InitializeDatabaseAsync(IData data)
     {
         var settingTableExists = await _userDefinition.CheckTableExistsAsync(nameof(UserSetting));
 
@@ -30,9 +30,9 @@ public abstract class UserInitializer(IUsersDefinition _userDefinition) : IUserI
                 Value = "1",
             };
 
-            await userDatabase.UserSetting.AddAsync(userSetting);
+            await data.User.UserSetting.AddAsync(userSetting);
 
-            await userDatabase.SaveAsync();
+            await data.User.SaveAsync();
         }
     }
 

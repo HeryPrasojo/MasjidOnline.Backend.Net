@@ -12,12 +12,12 @@ public abstract class Data(IServiceProvider _serviceProvider) : IData
     public IDataTransaction Transaction => _dataTransaction ??= GetService<IDataTransaction>();
 
     public abstract IAuditDatabase Audit { get; }
-    public abstract IData Captcha { get; }
+    public abstract ICaptchaDatabase Captcha { get; }
     public abstract IEventDatabase Event { get; }
-    public abstract IData Infaq { get; }
+    public abstract IInfaqDatabase Infaq { get; }
     public abstract IPersonDatabase Person { get; }
-    public abstract IData Session { get; }
-    public abstract IData User { get; }
+    public abstract ISessionDatabase Session { get; }
+    public abstract IUserDatabase User { get; }
 
     protected TService GetService<TService>()
     {

@@ -5,7 +5,7 @@ using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Interface.Model.Options;
 using MasjidOnline.Business.Interface.Model.Responses;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
 using Microsoft.Extensions.Options;
@@ -24,7 +24,7 @@ public class GetOneDueBusiness(
         _fieldValidatorService.ValidateRequiredPlus(getOneDueRequest!.Id);
 
 
-        var infaq = await _data.Infaq.GetOneDueAsync(getOneDueRequest.Id!.Value);
+        var infaq = await _data.Infaq.Infaq.GetOneDueAsync(getOneDueRequest.Id!.Value);
 
         if (infaq == default) throw new InputMismatchException($"{nameof(getOneDueRequest.Id)}: {getOneDueRequest.Id}");
 

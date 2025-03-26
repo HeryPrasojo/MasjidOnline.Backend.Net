@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Definition;
 using MasjidOnline.Data.Interface.Initializer;
 using MasjidOnline.Entity.Infaq;
@@ -8,7 +8,7 @@ namespace MasjidOnline.Data.Initializer;
 
 public abstract class InfaqInitializer(IInfaqsDefinition _infaqsDefinition) : IInfaqInitializer
 {
-    public async Task InitializeDatabaseAsync(IData infaqDatabase)
+    public async Task InitializeDatabaseAsync(IData data)
     {
         var settingTableExists = await _infaqsDefinition.CheckTableExistsAsync(nameof(InfaqSetting));
 
@@ -30,9 +30,9 @@ public abstract class InfaqInitializer(IInfaqsDefinition _infaqsDefinition) : II
                 Value = "1",
             };
 
-            await infaqDatabase.InfaqSetting.AddAsync(transactionSetting);
+            await data.Infaq.InfaqSetting.AddAsync(transactionSetting);
 
-            await infaqDatabase.SaveAsync();
+            await data.Infaq.SaveAsync();
         }
     }
 

@@ -3,7 +3,7 @@ using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Business.User.Internal.Mapper;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
 
@@ -19,7 +19,7 @@ public class GetOneBusiness(IFieldValidatorService _fieldValidatorService) : IGe
         _fieldValidatorService.ValidateRequiredPlus(getOneRequest!.Id);
 
 
-        var @internal = await _data.Internal.GetOneAsync(getOneRequest.Id!.Value);
+        var @internal = await _data.User.Internal.GetOneAsync(getOneRequest.Id!.Value);
 
         if (@internal == default) throw new InputMismatchException($"{nameof(getOneRequest.Id)}: {getOneRequest.Id}");
 

@@ -6,18 +6,18 @@ namespace MasjidOnline.Data.EntityFramework;
 public class EntityFrameworkData(IServiceProvider _serviceProvider) : Data(_serviceProvider)
 {
     private IAuditDatabase? _auditDatabase;
-    private IData? _data;
+    private ICaptchaDatabase? _captchaData;
     private IEventDatabase? _eventDatabase;
-    private IData? _data;
+    private IInfaqDatabase? _infaqData;
     private IPersonDatabase? _personDatabase;
-    private IData? _data;
-    private IData? _data;
+    private ISessionDatabase? _sessionData;
+    private IUserDatabase? _userData;
 
     public override IAuditDatabase Audit => _auditDatabase ??= GetService<IAuditDatabase>();
-    public override IData Captcha => _data ??= GetService<IData>();
+    public override ICaptchaDatabase Captcha => _captchaData ??= GetService<ICaptchaDatabase>();
     public override IEventDatabase Event => _eventDatabase ??= GetService<IEventDatabase>();
-    public override IData Infaq => _data ??= GetService<IData>();
+    public override IInfaqDatabase Infaq => _infaqData ??= GetService<IInfaqDatabase>();
     public override IPersonDatabase Person => _personDatabase ??= GetService<IPersonDatabase>();
-    public override IData Session => _data ??= GetService<IData>();
-    public override IData User => _data ??= GetService<IData>();
+    public override ISessionDatabase Session => _sessionData ??= GetService<ISessionDatabase>();
+    public override IUserDatabase User => _userData ??= GetService<IUserDatabase>();
 }

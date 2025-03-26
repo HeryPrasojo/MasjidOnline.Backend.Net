@@ -6,7 +6,7 @@ using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Business.User.Interface.Model.Internal;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.User;
 using MasjidOnline.Library.Exceptions;
@@ -32,14 +32,14 @@ public class ApproveBusiness(
         _fieldValidatorService.ValidateRequiredPlus(approveRequest!.Id);
 
 
-        var @internal = await _data.Internal.GetForApproveAsync(approveRequest.Id!.Value);
+        var @internal = await _data.User.Internal.GetForApproveAsync(approveRequest.Id!.Value);
 
         if (@internal == default) throw new InputMismatchException($"{nameof(approveRequest.Id)}: {approveRequest.Id}");
 
         if (@internal.Status != Entity.User.InternalStatus.New) throw new InputMismatchException($"{nameof(@internal.Status)}: {@internal.Status}");
 
 
-        _data.Internal.SetStatus(
+        _data.User.Internal.SetStatus(
             approveRequest.Id.Value,
             Entity.User.InternalStatus.Approve,
             default,
@@ -54,7 +54,7 @@ public class ApproveBusiness(
             Type = UserType.Internal,
         };
 
-        await _data.User.AddAsync(user);
+        await _data.User.User.AddAsync(user);
 
 
         var userEmailAddress = new UserEmailAddress
@@ -63,7 +63,7 @@ public class ApproveBusiness(
             UserId = user.Id,
         };
 
-        await _data.UserEmailAddress.AddAsync(userEmailAddress);
+        await _data.User.UserEmailAddress.AddAsync(userEmailAddress);
 
 
         var passwordCode = new PasswordCode
@@ -73,9 +73,9 @@ public class ApproveBusiness(
             UserId = user.Id,
         };
 
-        await _data.PasswordCode.AddAsync(passwordCode);
+        await _data.User.PasswordCode.AddAsync(passwordCode);
 
-        await _data.SaveAsync();
+        await _data.User.SaveAsync();
 
 
         var uri = _optionsMonitor.CurrentValue.Uri.UserPassword + Convert.ToHexString(passwordCode.Code.AsSpan());

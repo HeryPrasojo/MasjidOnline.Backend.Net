@@ -5,7 +5,7 @@ using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Business.User.Internal.Mapper;
-using MasjidOnline.Data.Interface.Databases;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.ViewModel.Repository;
 using MasjidOnline.Data.Interface.ViewModel.User.Internal;
 using MasjidOnline.Service.FieldValidator.Interface;
@@ -26,14 +26,14 @@ public class GetManyBusiness(
 
         var take = 10;
 
-        var getManyResult = await _data.Internal.GetManyAsync(
+        var getManyResult = await _data.User.Internal.GetManyAsync(
             status: getManyRequest.Status.ToEntity(),
             getManyOrderBy: ManyOrderBy.DateTime,
             orderByDirection: OrderByDirection.Descending,
             skip: (getManyRequest.Page!.Value - 1) * take,
             take: take);
 
-        var type = await _data.User.GetTypeAsync(_sessionBusiness.UserId);
+        var type = await _data.User.User.GetTypeAsync(_sessionBusiness.UserId);
 
         return new()
         {
