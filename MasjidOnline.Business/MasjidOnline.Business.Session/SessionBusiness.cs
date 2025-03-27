@@ -70,7 +70,7 @@ public class SessionBusiness(
         }
         else
         {
-            var requestSessionIdBytes = _fieldValidatorService.ValidateRequiredBase64(idBase64, 108, idBase64Expression);
+            var requestSessionIdBytes = _fieldValidatorService.ValidateRequiredBase64(idBase64, 128, idBase64Expression);
 
             var decryptedRquestSessionIdBytes = _encryption128128.Decrypt(requestSessionIdBytes);
 

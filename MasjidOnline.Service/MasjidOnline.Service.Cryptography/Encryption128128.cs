@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Security.Cryptography;
 using MasjidOnline.Service.Cryptography.Interface;
@@ -9,21 +9,22 @@ namespace MasjidOnline.Service.Cryptography;
 
 public class Encryption128128(IOptions<Interface.Model.CryptographyOptions> _options, IHash128Service _hash128Service) : IEncryption128128
 {
-    private byte[] _key = _hash128Service.Hash(_options.Value.Key128);
+    private readonly byte[] _key = _hash128Service.Hash(_options.Value.Key128);
 
     public byte[] Decrypt(ReadOnlySpan<byte> bytes)
     {
         using var aes = Aes.Create();
 
-        aes.BlockSize = 128;
-        aes.IV = bytes.Slice(0, 16).ToArray();
+        //aes.BlockSize = 128;
+        aes.IV = bytes[..16].ToArray();
         aes.Key = _key;
-        aes.KeySize = 128;
-        aes.Padding = PaddingMode.None;
+        //aes.KeySize = 128; // buggy
+        //aes.Mode = CipherMode.CBC;
+        aes.Padding = PaddingMode.PKCS7;
 
         using var cryptoTransform = aes.CreateDecryptor(aes.Key, aes.IV);
 
-        using var inputMemoryStream = new MemoryStream(bytes.Slice(16).ToArray());
+        using var inputMemoryStream = new MemoryStream(bytes[16..].ToArray());
 
         using var cryptoStream = new CryptoStream(inputMemoryStream, cryptoTransform, CryptoStreamMode.Read, true);
 
@@ -44,17 +45,20 @@ public class Encryption128128(IOptions<Interface.Model.CryptographyOptions> _opt
 
         using var aes = Aes.Create();
 
-        aes.BlockSize = 128;
+        //aes.BlockSize = 128;
         aes.IV = ivAes.IV;
         aes.Key = _key;
-        aes.KeySize = 128;
-        aes.Padding = PaddingMode.None;
+        //aes.KeySize = 128; // buggy
+        //aes.Mode = CipherMode.CBC;
+        aes.Padding = PaddingMode.PKCS7;
 
         using var cryptoTransform = aes.CreateEncryptor(aes.Key, aes.IV);
 
         using var cryptoStream = new CryptoStream(memoryStream, cryptoTransform, CryptoStreamMode.Write, true);
 
         cryptoStream.Write(bytes);
+
+        cryptoStream.FlushFinalBlock();
 
         return memoryStream.ToArray();
     }
