@@ -49,7 +49,7 @@ public interface IBusiness
     User.Interface.Internal.IGetOneNewBusiness UserInternalGetOneNewBusiness { get; }
     User.Interface.Internal.IRejectBusiness UserInternalRejectBusiness { get; }
 
-    User.Interface.User.IAddRegisterBusiness AddRegisterBusiness { get; }
-    User.Interface.User.ILoginBusiness LoginBusiness { get; }
-    User.Interface.User.ISetPasswordBusiness SetPasswordBusiness { get; }
+    User.Interface.User.IAddRegisterBusiness UserAddRegisterBusiness { get; }
+    User.Interface.User.ILoginBusiness UserUserLoginBusiness { get; }
+    User.Interface.User.ISetPasswordBusiness UserUserSetPasswordBusiness { get; }
 }

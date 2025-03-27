@@ -17,11 +17,11 @@ namespace MasjidOnline.Business.Infaq.Void;
 
 public class AddBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
+    IAuthorizationBusiness _authorizationBusiness,
     IFieldValidatorService _fieldValidatorService,
     IInfaqIdGenerator _infaqIdGenerator) : IAddBusiness
 {
     public async Task<Response> AddAsync(
-        IAuthorizationBusiness _authorizationBusiness,
         IData _data,
         ISessionBusiness _sessionBusiness,
         AddRequest? addRequest)

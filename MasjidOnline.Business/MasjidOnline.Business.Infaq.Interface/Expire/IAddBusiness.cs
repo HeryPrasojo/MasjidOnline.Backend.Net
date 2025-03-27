@@ -1,4 +1,3 @@
-using MasjidOnline.Business.AuthorizationBusiness.Interface;
 using MasjidOnline.Business.Infaq.Interface.Model.Expire;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
@@ -8,5 +7,5 @@ namespace MasjidOnline.Business.Infaq.Interface.Expire;
 
 public interface IAddBusiness
 {
-    Task<Response> AddAsync(IAuthorizationBusiness _authorizationBusiness, IData _data, ISessionBusiness _sessionBusiness, AddRequest? addRequest);
+    Task<Response> AddAsync(IData _data, ISessionBusiness _sessionBusiness, AddRequest? addRequest);
 }

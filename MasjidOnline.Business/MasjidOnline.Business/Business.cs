@@ -104,8 +104,8 @@ public class Business(
     public User.Interface.Internal.IGetOneNewBusiness UserInternalGetOneNewBusiness => _userInternalGetOneNewBusiness;
     public User.Interface.Internal.IRejectBusiness UserInternalRejectBusiness => _userInternalRejectBusiness;
 
-    public User.Interface.User.IAddRegisterBusiness AddRegisterBusiness => _addRegisterBusiness;
-    public User.Interface.User.ILoginBusiness LoginBusiness => _loginBusiness;
-    public User.Interface.User.ISetPasswordBusiness SetPasswordBusiness => _setPasswordBusiness;
+    public User.Interface.User.IAddRegisterBusiness UserAddRegisterBusiness => _addRegisterBusiness;
+    public User.Interface.User.ILoginBusiness UserUserLoginBusiness => _loginBusiness;
+    public User.Interface.User.ISetPasswordBusiness UserUserSetPasswordBusiness => _setPasswordBusiness;
 
 }

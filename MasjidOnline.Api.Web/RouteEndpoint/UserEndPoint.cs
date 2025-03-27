@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using MasjidOnline.Business.Interface;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
@@ -11,93 +12,93 @@ internal static class UserEndPoint
     internal static class Internal
     {
         internal static async Task<Response> AddAsync(
-            Business.User.Interface.Internal.IAddBusiness _addBusiness,
+            IBusiness _business,
             ISessionBusiness _sessionBusiness,
             IData _data,
             [FromBody] Business.User.Interface.Model.Internal.AddRequest? addRequest)
         {
-            return await _addBusiness.AddAsync(_sessionBusiness, _data, addRequest);
+            return await _business.UserInternalAddBusiness.AddAsync(_sessionBusiness, _data, addRequest);
         }
 
         internal static async Task<Response> ApproveAsync(
-            Business.User.Interface.Internal.IApproveBusiness _approveBusiness,
+            IBusiness _business,
             ISessionBusiness _sessionBusiness,
             IData _data,
             [FromBody] Business.User.Interface.Model.Internal.ApproveRequest? approveRequest)
         {
-            return await _approveBusiness.ApproveAsync(_sessionBusiness, _data, approveRequest);
+            return await _business.UserInternalApproveBusiness.ApproveAsync(_sessionBusiness, _data, approveRequest);
         }
 
         internal static async Task<Response> CancelAsync(
-            Business.User.Interface.Internal.ICancelBusiness _cancelBusiness,
+            IBusiness _business,
             ISessionBusiness _sessionBusiness,
             IData _data,
             [FromBody] Business.User.Interface.Model.Internal.CancelRequest? cancelRequest)
         {
-            return await _cancelBusiness.CancelAsync(_sessionBusiness, _data, cancelRequest);
+            return await _business.UserInternalCancelBusiness.CancelAsync(_sessionBusiness, _data, cancelRequest);
         }
 
         internal static async Task<GetManyResponse<Business.User.Interface.Model.Internal.GetManyResponseRecord>> GetManyAsync(
             ISessionBusiness _sessionBusiness,
-            Business.User.Interface.Internal.IGetManyBusiness _getManyBusiness,
+            IBusiness _business,
             IData _data,
             [FromBody] Business.User.Interface.Model.Internal.GetManyRequest? getManyRequest)
         {
-            return await _getManyBusiness.GetAsync(_sessionBusiness, _data, getManyRequest);
+            return await _business.UserInternalGetManyBusiness.GetAsync(_sessionBusiness, _data, getManyRequest);
         }
 
         internal static async Task<GetManyResponse<Business.User.Interface.Model.Internal.GetManyNewResponseRecord>> GetManyNewAsync(
-            Business.User.Interface.Internal.IGetManyNewBusiness _getManyNewBusiness,
+            IBusiness _business,
             IData _data,
             [FromBody] Business.User.Interface.Model.Internal.GetManyNewRequest? getManyNewRequest)
         {
-            return await _getManyNewBusiness.GetAsync(_data, getManyNewRequest);
+            return await _business.UserInternalGetManyNewBusiness.GetAsync(_data, getManyNewRequest);
         }
 
         internal static async Task<Business.User.Interface.Model.Internal.GetOneResponse> GetOneAsync(
-            Business.User.Interface.Internal.IGetOneBusiness _getOneBusiness,
+            IBusiness _business,
             IData _data,
             [FromBody] Business.User.Interface.Model.Internal.GetOneRequest? getOneRequest)
         {
-            return await _getOneBusiness.GetAsync(_data, getOneRequest);
+            return await _business.UserInternalGetOneBusiness.GetAsync(_data, getOneRequest);
         }
 
         internal static async Task<Business.User.Interface.Model.Internal.GetOneNewResponse> GetOneNewAsync(
-            Business.User.Interface.Internal.IGetOneNewBusiness _getOneNewBusiness,
+            IBusiness _business,
             IData _data,
             [FromBody] Business.User.Interface.Model.Internal.GetOneNewRequest? getOneNewRequest)
         {
-            return await _getOneNewBusiness.GetAsync(_data, getOneNewRequest);
+            return await _business.UserInternalGetOneNewBusiness.GetAsync(_data, getOneNewRequest);
         }
 
         internal static async Task<Response> RejectAsync(
-            Business.User.Interface.Internal.IRejectBusiness _rejectBusiness,
+            IBusiness _business,
             ISessionBusiness _sessionBusiness,
             IData _data,
             [FromBody] Business.User.Interface.Model.Internal.RejectRequest? rejectRequest)
         {
-            return await _rejectBusiness.RejectAsync(_sessionBusiness, _data, rejectRequest);
+            return await _business.UserInternalRejectBusiness.RejectAsync(_sessionBusiness, _data, rejectRequest);
         }
     }
 
     internal static class User
     {
         internal static async Task<Response> LoginAsync(
-            Business.User.Interface.User.ILoginBusiness _loginBusiness,
+            IBusiness _business,
             IData _data,
             ISessionBusiness _sessionBusiness,
             [FromBody] Business.User.Interface.Model.User.LoginRequest? loginRequest)
         {
-            return await _loginBusiness.LoginAsync(_data, _sessionBusiness, loginRequest);
+            return await _business.UserUserLoginBusiness.LoginAsync(_data, _sessionBusiness, loginRequest);
         }
 
         internal static async Task<Response> SetPasswordAsync(
-            ISessionBusiness _sessionBusiness,
+            IBusiness _business,
             IData _data,
-            Business.User.Interface.User.ISetPasswordBusiness _setPasswordBusiness,
+            ISessionBusiness _sessionBusiness,
             [FromBody] Business.User.Interface.Model.User.SetPasswordRequest? setPasswordRequest)
         {
-            return await _setPasswordBusiness.SetAsync(_sessionBusiness, _data, setPasswordRequest);
+            return await _business.UserUserSetPasswordBusiness.SetAsync(_sessionBusiness, _data, setPasswordRequest);
         }
     }
 }

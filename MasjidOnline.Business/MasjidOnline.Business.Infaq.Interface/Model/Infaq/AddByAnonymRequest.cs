@@ -10,7 +10,6 @@ public class AddByAnonymRequest
 
     public string? MunfiqName { get; set; }
 
-    // todo test string and invalid string
     public decimal? Amount { get; set; }
 
     public PaymentType? PaymentType { get; set; }

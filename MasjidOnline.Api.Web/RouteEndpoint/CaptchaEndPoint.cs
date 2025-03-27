@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Business.Captcha.Interface.Model;
 using MasjidOnline.Business.Interface;
 using MasjidOnline.Business.Interface.Model.Responses;
@@ -28,11 +27,11 @@ internal static class CaptchaEndPoint
     }
 
     internal static async Task<Response> UpdateAsync(
-        ICaptchaUpdateBusiness _captchaUpdateBusiness,
+        IBusiness _business,
         IData _data,
         ISessionBusiness _sessionBusiness,
         CaptchaUpdateRequest captchaUpdateRequest)
     {
-        return await _captchaUpdateBusiness.UpdateAsync(_data, _sessionBusiness, captchaUpdateRequest);
+        return await _business.CaptchaUpdateBusiness.UpdateAsync(_data, _sessionBusiness, captchaUpdateRequest);
     }
 }
