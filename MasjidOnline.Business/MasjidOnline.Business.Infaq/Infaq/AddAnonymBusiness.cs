@@ -9,7 +9,6 @@ using MasjidOnline.Business.Model;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.Infaq;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
@@ -18,7 +17,7 @@ namespace MasjidOnline.Business.Infaq.Infaq;
 
 public class AddAnonymBusiness(
     IFieldValidatorService _fieldValidatorService,
-    IInfaqIdGenerator _infaqIdGenerator) : IAddAnonymBusiness
+    IIdGenerator _idGenerator) : IAddAnonymBusiness
 {
     public async Task<Response> AddAsync(
         IData _data,
@@ -60,7 +59,7 @@ public class AddAnonymBusiness(
 
         var infaq = new Entity.Infaq.Infaq
         {
-            Id = _infaqIdGenerator.InfaqId,
+            Id = _idGenerator.Infaq.InfaqId,
             Amount = addByAnonymRequest.Amount!.Value,
             DateTime = DateTime.UtcNow,
             PaymentStatus = PaymentStatus.New,
@@ -93,7 +92,7 @@ public class AddAnonymBusiness(
 
                 var infaqFile = new InfaqFile
                 {
-                    Id = _infaqIdGenerator.InfaqFileId,
+                    Id = _idGenerator.Infaq.InfaqFileId,
                     InfaqId = infaq.Id,
                 };
 

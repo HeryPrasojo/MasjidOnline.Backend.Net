@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.Model;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Cryptography.Interface;
 using MasjidOnline.Service.FieldValidator.Interface;
@@ -15,7 +14,7 @@ public class SessionBusiness(
     IEncryption128128 _encryption128128,
     IFieldValidatorService _fieldValidatorService,
     IData _data,
-    ISessionIdGenerator _sessionIdGenerator) : ISessionBusiness
+    IIdGenerator _idGenerator) : ISessionBusiness
 {
     private Memory<byte> _digest = Memory<byte>.Empty;
 
@@ -40,8 +39,8 @@ public class SessionBusiness(
         var session = new Entity.Session.Session
         {
             DateTime = DateTime.UtcNow,
-            Digest = _sessionIdGenerator.SessionDigest,
-            Id = _sessionIdGenerator.SessionId,
+            Digest = _idGenerator.Session.SessionDigest,
+            Id = _idGenerator.Session.SessionId,
             PreviousId = _digest.ToArray(),
             UserId = userId,
         };

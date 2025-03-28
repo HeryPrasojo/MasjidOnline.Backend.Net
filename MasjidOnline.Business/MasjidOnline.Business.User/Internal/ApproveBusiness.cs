@@ -7,7 +7,6 @@ using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.User;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
@@ -22,7 +21,7 @@ public class ApproveBusiness(
     IAuthorizationBusiness _authorizationBusiness,
     IFieldValidatorService _fieldValidatorService,
     IMailSenderService _mailSenderService,
-    IUserIdGenerator _userIdGenerator) : IApproveBusiness
+    IIdGenerator _idGenerator) : IApproveBusiness
 {
     public async Task<Response> ApproveAsync(ISessionBusiness _sessionBusiness, IData _data, ApproveRequest? approveRequest)
     {
@@ -49,7 +48,7 @@ public class ApproveBusiness(
 
         var user = new Entity.User.User
         {
-            Id = _userIdGenerator.UserId,
+            Id = _idGenerator.User.UserId,
             Status = UserStatus.New,
             Type = UserType.Internal,
         };
@@ -68,7 +67,7 @@ public class ApproveBusiness(
 
         var passwordCode = new PasswordCode
         {
-            Code = _userIdGenerator.PasswordCodeCode,
+            Code = _idGenerator.User.PasswordCodeCode,
             DateTime = DateTime.UtcNow,
             UserId = user.Id,
         };

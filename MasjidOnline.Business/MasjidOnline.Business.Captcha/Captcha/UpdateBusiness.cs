@@ -5,7 +5,6 @@ using MasjidOnline.Business.Captcha.Interface.Model;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Captcha.Interface;
 using MasjidOnline.Service.FieldValidator.Interface;
@@ -14,7 +13,7 @@ namespace MasjidOnline.Business.Captcha.Captcha;
 
 public class UpdateBusiness(
     ICaptchaService _captchaService,
-    ICaptchaIdGenerator _captchaIdGenerator,
+    IIdGenerator _idGenerator,
     IFieldValidatorService _fieldValidatorService) : IUpdateBusiness
 {
     public async Task<CaptchaUpdateResponse> UpdateAsync(IData _data, ISessionBusiness _sessionBusiness, CaptchaUpdateRequest captchaUpdateRequest)
@@ -39,7 +38,7 @@ public class UpdateBusiness(
 
             var newCaptcha = new Entity.Captcha.Captcha
             {
-                Id = _captchaIdGenerator.CaptchaId,
+                Id = _idGenerator.Captcha.CaptchaId,
                 DateTime = utcNow,
                 //QuestionFloat = generateImageResult.Degree,
                 SessionId = _sessionBusiness.Id,
@@ -68,7 +67,7 @@ public class UpdateBusiness(
 
             var newCaptcha = new Entity.Captcha.Captcha
             {
-                Id = _captchaIdGenerator.CaptchaId,
+                Id = _idGenerator.Captcha.CaptchaId,
                 DateTime = utcNow,
                 //QuestionFloat = generateImageResult.Degree,
                 SessionId = _sessionBusiness.Id,

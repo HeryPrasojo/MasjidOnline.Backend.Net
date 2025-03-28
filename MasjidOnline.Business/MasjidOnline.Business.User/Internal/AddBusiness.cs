@@ -6,7 +6,6 @@ using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
 
@@ -14,7 +13,7 @@ namespace MasjidOnline.Business.User.Internal;
 
 public class AddBusiness(
     IAuthorizationBusiness _authorizationBusiness,
-    IUserIdGenerator _userIdGenerator,
+    IIdGenerator _idGenerator,
     IFieldValidatorService _fieldValidatorService) : IAddBusiness
 {
     public async Task<Response> AddAsync(
@@ -45,7 +44,7 @@ public class AddBusiness(
         {
             DateTime = DateTime.UtcNow,
             EmailAddress = addRequest.EmailAddress,
-            Id = _userIdGenerator.InternalId,
+            Id = _idGenerator.User.InternalId,
             Status = Entity.User.InternalStatus.New,
             UserId = _sessionBusiness.UserId,
         };

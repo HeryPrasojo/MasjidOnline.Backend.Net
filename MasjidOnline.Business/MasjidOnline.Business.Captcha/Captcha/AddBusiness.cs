@@ -6,14 +6,13 @@ using MasjidOnline.Business.Model;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Service.Captcha.Interface;
 
 namespace MasjidOnline.Business.Captcha.Captcha;
 
 public class AddBusiness(
     ICaptchaService _captchaService,
-    ICaptchaIdGenerator _captchaIdGenerator) : IAddBusiness
+    IIdGenerator _idGenerator) : IAddBusiness
 {
     public async Task<CaptchaAddResponse> AddAsync(IData _data, ISessionBusiness _sessionBusiness)
     {
@@ -49,7 +48,7 @@ public class AddBusiness(
 
         var newCaptcha = new Entity.Captcha.Captcha
         {
-            Id = _captchaIdGenerator.CaptchaId,
+            Id = _idGenerator.Captcha.CaptchaId,
             DateTime = DateTime.UtcNow,
             //QuestionFloat = generateImageResult.Degree,
             SessionId = _sessionBusiness.Id,

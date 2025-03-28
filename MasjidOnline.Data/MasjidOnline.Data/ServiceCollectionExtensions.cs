@@ -9,6 +9,8 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddData(this IServiceCollection services)
     {
+        services.AddSingleton<IIdGenerator, IdGenerator>();
+
         services.AddSingleton<IAuditIdGenerator, AuditIdGenerator>();
         services.AddSingleton<IPersonIdGenerator, PersonIdGenerator>();
         services.AddSingleton<ICaptchaIdGenerator, CaptchaIdGenerator>();
@@ -16,6 +18,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IInfaqIdGenerator, InfaqIdGenerator>();
         services.AddSingleton<ISessionIdGenerator, SessionIdGenerator>();
         services.AddSingleton<IUserIdGenerator, UserIdGenerator>();
+
 
         services.AddScoped<IDataTransaction, DataTransaction>();
 

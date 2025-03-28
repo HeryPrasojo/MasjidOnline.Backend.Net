@@ -13,7 +13,6 @@ using MasjidOnline.Data;
 using MasjidOnline.Data.EntityFramework;
 using MasjidOnline.Data.EntityFramework.SqLite;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Data.Interface.Initializer;
 using MasjidOnline.Service.Captcha;
 using MasjidOnline.Service.Cryptography;
@@ -119,13 +118,7 @@ static async Task InitializeAsync(WebApplication webApplication)
     var sessionInitializer = GetService<ISessionInitializer>(serviceScope.ServiceProvider);
     var userInitializer = GetService<IUserInitializer>(serviceScope.ServiceProvider);
 
-    var auditIdGenerator = GetService<IAuditIdGenerator>(serviceScope.ServiceProvider);
-    var captchaIdGenerator = GetService<ICaptchaIdGenerator>(serviceScope.ServiceProvider);
-    var eventIdGenerator = GetService<IEventIdGenerator>(serviceScope.ServiceProvider);
-    var infaqIdGenerator = GetService<IInfaqIdGenerator>(serviceScope.ServiceProvider);
-    var personIdGenerator = GetService<IPersonIdGenerator>(serviceScope.ServiceProvider);
-    var sessionIdGenerator = GetService<ISessionIdGenerator>(serviceScope.ServiceProvider);
-    var userIdGenerator = GetService<IUserIdGenerator>(serviceScope.ServiceProvider);
+    var idGenerator = GetService<IIdGenerator>(serviceScope.ServiceProvider);
 
     var userInitializerBusiness = GetService<MasjidOnline.Business.User.Interface.IInitializerBusiness>(serviceScope.ServiceProvider);
 
@@ -139,13 +132,13 @@ static async Task InitializeAsync(WebApplication webApplication)
     await userInitializer.InitializeDatabaseAsync(data);
 
 
-    await auditIdGenerator.InitializeAsync(data);
-    await captchaIdGenerator.InitializeAsync(data);
-    await eventIdGenerator.InitializeAsync(data);
-    await infaqIdGenerator.InitializeAsync(data);
-    await personIdGenerator.InitializeAsync(data);
-    await sessionIdGenerator.InitializeAsync(data);
-    await userIdGenerator.InitializeAsync(data);
+    await idGenerator.Audit.InitializeAsync(data);
+    await idGenerator.Captcha.InitializeAsync(data);
+    await idGenerator.Event.InitializeAsync(data);
+    await idGenerator.Infaq.InitializeAsync(data);
+    await idGenerator.Person.InitializeAsync(data);
+    await idGenerator.Session.InitializeAsync(data);
+    await idGenerator.Session.InitializeAsync(data);
 
 
     await userInitializerBusiness.InitializeAsync(data);

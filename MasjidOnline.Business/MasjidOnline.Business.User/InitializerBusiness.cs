@@ -4,7 +4,6 @@ using MasjidOnline.Business.Model;
 using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.User.Interface;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.User;
 using MasjidOnline.Service.Mail.Interface;
 using MasjidOnline.Service.Mail.Interface.Model;
@@ -15,7 +14,7 @@ namespace MasjidOnline.Business.User;
 public class InitializerBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
     IMailSenderService _mailSenderService,
-    IUserIdGenerator _userIdGenerator) : IInitializerBusiness
+    IIdGenerator _idGenerator) : IInitializerBusiness
 {
     public async Task InitializeAsync(IData _data)
     {
@@ -45,7 +44,7 @@ public class InitializerBusiness(
         {
             DateTime = utcNow,
             EmailAddress = option.RootUserEmailAddress,
-            Id = _userIdGenerator.InternalId,
+            Id = _idGenerator.User.InternalId,
             Status = InternalStatus.Approve,
             UpdateDateTime = utcNow,
             UpdateUserId = Constant.UserId.System,
@@ -76,7 +75,7 @@ public class InitializerBusiness(
 
         var passwordCode = new PasswordCode
         {
-            Code = _userIdGenerator.PasswordCodeCode,
+            Code = _idGenerator.User.PasswordCodeCode,
             DateTime = utcNow,
             UserId = user.Id,
         };
