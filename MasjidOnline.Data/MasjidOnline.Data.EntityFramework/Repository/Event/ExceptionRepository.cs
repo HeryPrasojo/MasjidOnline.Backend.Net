@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.Event;
@@ -10,11 +11,12 @@ public class ExceptionRepository(EventDataContext _eventDataContext) : IExceptio
 {
     private readonly DbSet<Exception> _dbSet = _eventDataContext.Set<Exception>();
 
-    public async Task AddAndSaveAsync(Exception errorException)
+    public async Task AddAsync(IEnumerable<Exception> exceptions)
     {
-        await _dbSet.AddAsync(errorException);
-
-        await _eventDataContext.SaveChangesAsync();
+        foreach (var exception in exceptions)
+        {
+            await _dbSet.AddAsync(exception);
+        }
     }
 
 

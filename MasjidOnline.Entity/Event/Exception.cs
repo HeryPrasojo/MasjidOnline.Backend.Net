@@ -8,11 +8,11 @@ public class Exception
 
     public required DateTime DateTime { get; set; }
 
+    public required string Type { get; set; }
+
     public required string Message { get; set; }
 
     public string? StackTrace { get; set; }
 
-    public string? InnerMessage { get; set; }
-
-    public string? InnerStackTrace { get; set; }
+    public int? InnerExceptionId { get; set; }
 }

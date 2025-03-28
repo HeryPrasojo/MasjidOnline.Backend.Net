@@ -14,17 +14,29 @@ public class DevelopmentExceptionMiddleware(
     {
         var exceptionResponse = base.BuildExceptionResponse(exception);
 
-
         if (exception is PermissionException)
         {
             exceptionResponse.ResultCode = ResponseResultCode.PermissionMismatch;
         }
 
-        exceptionResponse.ResultMessage = $"{exception.GetType().Name}: {exception.Message}";
-        exceptionResponse.StackTrace = exception.StackTrace;
-        exceptionResponse.InnerMessage = exception.InnerException?.Message;
-        exceptionResponse.InnerStackTrace = exception.InnerException?.StackTrace;
+        exceptionResponse.Exception = BuildExceptionResponseException(exception);
 
         return exceptionResponse;
+    }
+
+    public ExceptionResponseException BuildExceptionResponseException(Exception exception)
+    {
+        var exceptionResponseException = new ExceptionResponseException
+        {
+            Message = exception.Message,
+            StackTrace = exception.StackTrace,
+        };
+
+        if (exception.InnerException != default)
+        {
+            exceptionResponseException.InnerException = BuildExceptionResponseException(exception.InnerException);
+        }
+
+        return exceptionResponseException;
     }
 }

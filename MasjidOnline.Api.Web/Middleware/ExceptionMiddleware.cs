@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Model.Responses;
@@ -56,28 +57,45 @@ public class ExceptionMiddleware(
     {
         var exceptionResponse = BuildExceptionResponse(exception);
 
-        if (exceptionResponse.ResultCode == ResponseResultCode.Error)
-        {
-            // hack loop InnerException
-
-            var errorExceptionEntity = new Entity.Event.Exception
-            {
-                DateTime = DateTime.UtcNow,
-                Id = _eventIdGenerator.ExceptionId,
-                InnerMessage = exception.InnerException?.Message,
-                InnerStackTrace = exception.InnerException?.StackTrace,
-                Message = $"{exception.GetType().Name}: {exception.Message}",
-                StackTrace = exception.StackTrace,
-            };
-
-            await eventDatabase.Exception.AddAndSaveAsync(errorExceptionEntity);
-        }
-
-
         httpContext.Response.ContentType = "application/json";
 
         var responseString = JsonSerializer.Serialize(exceptionResponse, options: JsonSerializerOptions.Web);
 
         await httpContext.Response.WriteAsync(responseString);
+
+
+        if (exceptionResponse.ResultCode == ResponseResultCode.Error)
+        {
+            var exceptionEntities = new List<Entity.Event.Exception>();
+
+            BuildExceptionEntity(exception, exceptionEntities);
+
+            await eventDatabase.Exception.AddAsync(exceptionEntities);
+
+            await eventDatabase.SaveAsync();
+        }
+    }
+
+    private Entity.Event.Exception BuildExceptionEntity(Exception exception, List<Entity.Event.Exception> exceptionEntities)
+    {
+        var exceptionEntity = new Entity.Event.Exception
+        {
+            DateTime = DateTime.UtcNow,
+            Id = _eventIdGenerator.ExceptionId,
+            Message = exception.Message,
+            StackTrace = exception.StackTrace,
+            Type = exception.GetType().Name,
+        };
+
+        exceptionEntities.Add(exceptionEntity);
+
+        if (exception.InnerException != default)
+        {
+            var innerExceptionEntities = BuildExceptionEntity(exception.InnerException, exceptionEntities);
+
+            exceptionEntity.InnerExceptionId = innerExceptionEntities.Id;
+        }
+
+        return exceptionEntity;
     }
 }
