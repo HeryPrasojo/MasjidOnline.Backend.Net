@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.IdGenerator;
 
-namespace MasjidOnline.Data.IdGenerator;
+namespace MasjidOnline.Data.IdGenerators;
 
 public class CaptchaIdGenerator : ICaptchaIdGenerator
 {

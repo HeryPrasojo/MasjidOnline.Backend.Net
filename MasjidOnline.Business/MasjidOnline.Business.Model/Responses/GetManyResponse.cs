@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MasjidOnline.Business.Interface.Model.Responses;
+namespace MasjidOnline.Business.Model.Responses;
 
 public class GetManyResponse<TRecords> : Response
 {

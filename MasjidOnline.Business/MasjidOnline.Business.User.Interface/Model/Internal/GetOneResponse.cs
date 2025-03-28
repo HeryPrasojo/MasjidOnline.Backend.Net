@@ -1,5 +1,5 @@
 using System;
-using MasjidOnline.Business.Interface.Model.Responses;
+using MasjidOnline.Business.Model.Responses;
 
 namespace MasjidOnline.Business.User.Interface.Model.Internal;
 

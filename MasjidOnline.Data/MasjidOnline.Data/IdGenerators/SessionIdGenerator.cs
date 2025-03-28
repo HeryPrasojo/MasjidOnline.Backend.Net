@@ -4,7 +4,7 @@ using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Service.Hash.Interface;
 
-namespace MasjidOnline.Data.IdGenerator;
+namespace MasjidOnline.Data.IdGenerators;
 
 public class SessionIdGenerator(IHash512Service _hash512Service) : ISessionIdGenerator
 {

@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.Infaq.Expire.Mapper;
 using MasjidOnline.Business.Infaq.Interface.Expire;
 using MasjidOnline.Business.Infaq.Interface.Model.Expire;
-using MasjidOnline.Business.Interface.Model.Responses;
+using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;

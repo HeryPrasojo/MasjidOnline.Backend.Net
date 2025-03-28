@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Captcha.Interface.Captcha;
 using MasjidOnline.Business.Captcha.Interface.Model;
-using MasjidOnline.Business.Interface.Model.Responses;
+using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.IdGenerator;

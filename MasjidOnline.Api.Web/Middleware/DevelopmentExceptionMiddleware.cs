@@ -1,5 +1,5 @@
 using System;
-using MasjidOnline.Business.Interface.Model.Responses;
+using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Library.Exceptions;
 using Microsoft.AspNetCore.Http;

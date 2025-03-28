@@ -1,7 +1,7 @@
 using System;
 using System.Text.Json;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Interface.Model.Responses;
+using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface.Databases;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Library.Exceptions;

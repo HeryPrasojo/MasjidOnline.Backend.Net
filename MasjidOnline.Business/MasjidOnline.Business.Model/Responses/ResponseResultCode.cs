@@ -1,4 +1,4 @@
-namespace MasjidOnline.Business.Interface.Model.Responses;
+namespace MasjidOnline.Business.Model.Responses;
 
 public enum ResponseResultCode
 {
