@@ -5,7 +5,7 @@ using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MasjidOnline.Api.Web.RouteEndpoint;
+namespace MasjidOnline.Api.Web.WebApplicationExtension.Endpoint;
 
 internal static class InfaqEndPoint
 {

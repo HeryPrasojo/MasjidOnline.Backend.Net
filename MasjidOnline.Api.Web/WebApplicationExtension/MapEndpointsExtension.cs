@@ -1,9 +1,9 @@
-using MasjidOnline.Api.Web.RouteEndpoint;
+using MasjidOnline.Api.Web.WebApplicationExtension.Endpoint;
 using Microsoft.AspNetCore.Builder;
 
-namespace MasjidOnline.Api.Web;
+namespace MasjidOnline.Api.Web.WebApplicationExtension;
 
-internal static class WebApplicationExtension
+internal static class MapEndpointsExtension
 {
     internal static WebApplication MapEndpoints(this WebApplication webApplication)
     {
