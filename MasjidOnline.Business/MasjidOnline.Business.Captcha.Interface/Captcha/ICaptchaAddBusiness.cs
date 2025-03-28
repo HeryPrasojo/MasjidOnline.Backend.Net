@@ -3,7 +3,7 @@ using MasjidOnline.Business.Captcha.Interface.Model;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 
-namespace MasjidOnline.Business.Captcha.Interface;
+namespace MasjidOnline.Business.Captcha.Interface.Captcha;
 
 public interface ICaptchaAddBusiness
 {

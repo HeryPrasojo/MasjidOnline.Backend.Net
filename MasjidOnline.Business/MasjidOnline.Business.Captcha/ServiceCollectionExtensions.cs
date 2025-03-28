@@ -1,4 +1,5 @@
-using MasjidOnline.Business.Captcha.Interface;
+using MasjidOnline.Business.Captcha.Captcha;
+using MasjidOnline.Business.Captcha.Interface.Captcha;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MasjidOnline.Business.Captcha;

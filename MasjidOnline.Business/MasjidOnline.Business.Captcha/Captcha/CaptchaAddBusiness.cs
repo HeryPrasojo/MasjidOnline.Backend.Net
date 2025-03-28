@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Captcha.Interface;
+using MasjidOnline.Business.Captcha.Interface.Captcha;
 using MasjidOnline.Business.Captcha.Interface.Model;
 using MasjidOnline.Business.Interface.Model.Responses;
 using MasjidOnline.Business.Model;
@@ -9,7 +9,7 @@ using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Service.Captcha.Interface;
 
-namespace MasjidOnline.Business.Captcha;
+namespace MasjidOnline.Business.Captcha.Captcha;
 
 public class CaptchaAddBusiness(
     ICaptchaService _captchaService,

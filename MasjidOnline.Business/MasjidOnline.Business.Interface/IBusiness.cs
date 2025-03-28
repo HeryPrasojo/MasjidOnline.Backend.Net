@@ -4,8 +4,8 @@ public interface IBusiness
 {
     AuthorizationBusiness.Interface.IAuthorizationBusiness AuthorizationBusiness { get; }
 
-    Captcha.Interface.ICaptchaAddBusiness CaptchaAddBusiness { get; }
-    Captcha.Interface.ICaptchaUpdateBusiness CaptchaUpdateBusiness { get; }
+    Captcha.Interface.Captcha.ICaptchaAddBusiness CaptchaAddBusiness { get; }
+    Captcha.Interface.Captcha.ICaptchaUpdateBusiness CaptchaUpdateBusiness { get; }
 
     Infaq.Interface.Expire.IAddBusiness InfaqExpireAddBusiness { get; }
     Infaq.Interface.Expire.IApproveBusiness InfaqExpireApproveBusiness { get; }
