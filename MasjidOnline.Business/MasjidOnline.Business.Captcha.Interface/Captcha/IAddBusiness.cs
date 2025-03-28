@@ -5,7 +5,7 @@ using MasjidOnline.Data.Interface;
 
 namespace MasjidOnline.Business.Captcha.Interface.Captcha;
 
-public interface ICaptchaAddBusiness
+public interface IAddBusiness
 {
     Task<CaptchaAddResponse> AddAsync(IData _data, ISessionBusiness _sessionBusiness);
 }

@@ -12,10 +12,10 @@ using MasjidOnline.Service.FieldValidator.Interface;
 
 namespace MasjidOnline.Business.Captcha.Captcha;
 
-public class CaptchaUpdateBusiness(
+public class UpdateBusiness(
     ICaptchaService _captchaService,
     ICaptchaIdGenerator _captchaIdGenerator,
-    IFieldValidatorService _fieldValidatorService) : ICaptchaUpdateBusiness
+    IFieldValidatorService _fieldValidatorService) : IUpdateBusiness
 {
     public async Task<CaptchaUpdateResponse> UpdateAsync(IData _data, ISessionBusiness _sessionBusiness, CaptchaUpdateRequest captchaUpdateRequest)
     {

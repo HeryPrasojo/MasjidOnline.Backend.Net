@@ -6,8 +6,8 @@ public class Business(
 
     AuthorizationBusiness.Interface.IAuthorizationBusiness _authorizationBusiness,
 
-    Captcha.Interface.Captcha.ICaptchaAddBusiness _captchaAddBusiness,
-    Captcha.Interface.Captcha.ICaptchaUpdateBusiness _captchaUpdateBusiness,
+    Captcha.Interface.Captcha.IAddBusiness _captchaAddBusiness,
+    Captcha.Interface.Captcha.IUpdateBusiness _captchaUpdateBusiness,
 
     Infaq.Interface.Expire.IAddBusiness _infaqExpireAddBusiness,
     Infaq.Interface.Expire.IApproveBusiness _infaqExpireApproveBusiness,
@@ -59,8 +59,8 @@ public class Business(
 {
     public AuthorizationBusiness.Interface.IAuthorizationBusiness AuthorizationBusiness => _authorizationBusiness;
 
-    public Captcha.Interface.Captcha.ICaptchaAddBusiness CaptchaAddBusiness => _captchaAddBusiness;
-    public Captcha.Interface.Captcha.ICaptchaUpdateBusiness CaptchaUpdateBusiness => _captchaUpdateBusiness;
+    public Captcha.Interface.Captcha.IAddBusiness CaptchaAddBusiness => _captchaAddBusiness;
+    public Captcha.Interface.Captcha.IUpdateBusiness CaptchaUpdateBusiness => _captchaUpdateBusiness;
 
     public Infaq.Interface.Expire.IAddBusiness InfaqExpireAddBusiness => _infaqExpireAddBusiness;
     public Infaq.Interface.Expire.IApproveBusiness InfaqExpireApproveBusiness => _infaqExpireApproveBusiness;

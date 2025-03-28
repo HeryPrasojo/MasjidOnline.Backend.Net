@@ -11,9 +11,9 @@ using MasjidOnline.Service.Captcha.Interface;
 
 namespace MasjidOnline.Business.Captcha.Captcha;
 
-public class CaptchaAddBusiness(
+public class AddBusiness(
     ICaptchaService _captchaService,
-    ICaptchaIdGenerator _captchaIdGenerator) : ICaptchaAddBusiness
+    ICaptchaIdGenerator _captchaIdGenerator) : IAddBusiness
 {
     public async Task<CaptchaAddResponse> AddAsync(IData _data, ISessionBusiness _sessionBusiness)
     {
