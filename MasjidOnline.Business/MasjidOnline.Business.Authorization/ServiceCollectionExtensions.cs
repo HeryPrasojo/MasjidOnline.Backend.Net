@@ -1,7 +1,7 @@
-﻿using MasjidOnline.Business.AuthorizationBusiness.Interface;
+﻿using MasjidOnline.Business.Authorization.Interface;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MasjidOnline.Business.AuthorizationBusiness;
+namespace MasjidOnline.Business.Authorization;
 
 public static class ServiceCollectionExtensions
 {

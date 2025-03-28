@@ -1,10 +1,10 @@
 /.vs
 /MasjidOnline.Business/MasjidOnline.Business/bin
 /MasjidOnline.Business/MasjidOnline.Business/obj
-/MasjidOnline.Business/MasjidOnline.Business.AuthorizationBusiness/bin
-/MasjidOnline.Business/MasjidOnline.Business.AuthorizationBusiness/obj
-/MasjidOnline.Business/MasjidOnline.Business.AuthorizationBusiness.Interface/bin
-/MasjidOnline.Business/MasjidOnline.Business.AuthorizationBusiness.Interface/obj
+/MasjidOnline.Business/MasjidOnline.Business.Authorization/bin
+/MasjidOnline.Business/MasjidOnline.Business.Authorization/obj
+/MasjidOnline.Business/MasjidOnline.Business.Authorization.Interface/bin
+/MasjidOnline.Business/MasjidOnline.Business.Authorization.Interface/obj
 /MasjidOnline.Business/MasjidOnline.Business.Captcha/bin
 /MasjidOnline.Business/MasjidOnline.Business.Captcha/obj
 /MasjidOnline.Business/MasjidOnline.Business.Captcha.Interface/bin

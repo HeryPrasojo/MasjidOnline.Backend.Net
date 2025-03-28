@@ -1,8 +1,10 @@
+using MasjidOnline.Business.Authorization.Interface;
+
 namespace MasjidOnline.Business.Interface;
 
 public interface IBusiness
 {
-    AuthorizationBusiness.Interface.IAuthorizationBusiness AuthorizationBusiness { get; }
+    IAuthorizationBusiness AuthorizationBusiness { get; }
 
     Captcha.Interface.Captcha.IAddBusiness CaptchaAddBusiness { get; }
     Captcha.Interface.Captcha.IUpdateBusiness CaptchaUpdateBusiness { get; }

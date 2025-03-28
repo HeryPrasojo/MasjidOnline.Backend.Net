@@ -1,11 +1,11 @@
 using System.Threading.Tasks;
-using MasjidOnline.Business.AuthorizationBusiness.Interface;
+using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Model;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 
-namespace MasjidOnline.Business.AuthorizationBusiness;
+namespace MasjidOnline.Business.Authorization;
 
 public class AuthorizationBusiness : IAuthorizationBusiness
 {

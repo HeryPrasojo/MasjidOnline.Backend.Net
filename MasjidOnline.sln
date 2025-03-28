@@ -15,9 +15,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Data.EntityFra
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{9532ED15-56B2-415E-8DDF-F24515892619}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.AuthorizationBusiness", "MasjidOnline.Business\MasjidOnline.Business.AuthorizationBusiness\MasjidOnline.Business.AuthorizationBusiness.csproj", "{D0259D60-EC8C-4C02-8646-4E8C78E880FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Authorization", "MasjidOnline.Business\MasjidOnline.Business.Authorization\MasjidOnline.Business.Authorization.csproj", "{D0259D60-EC8C-4C02-8646-4E8C78E880FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.AuthorizationBusiness.Interface", "MasjidOnline.Business\MasjidOnline.Business.AuthorizationBusiness.Interface\MasjidOnline.Business.AuthorizationBusiness.Interface.csproj", "{45712A53-D685-427A-9BD7-B11C10505808}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Authorization.Interface", "MasjidOnline.Business\MasjidOnline.Business.Authorization.Interface\MasjidOnline.Business.Authorization.Interface.csproj", "{45712A53-D685-427A-9BD7-B11C10505808}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Interface", "MasjidOnline.Business\MasjidOnline.Business.Interface\MasjidOnline.Business.Interface.csproj", "{D33F70CF-AB89-450A-BAC9-7E0E68B5A4B4}"
 EndProject

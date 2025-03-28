@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 using MasjidOnline.Api.Web;
 using MasjidOnline.Api.Web.Middleware;
 using MasjidOnline.Api.Web.WebApplicationExtension;
-using MasjidOnline.Business.AuthorizationBusiness;
+using MasjidOnline.Business.Authorization;
 using MasjidOnline.Business.Captcha;
 using MasjidOnline.Business.Infaq;
 using MasjidOnline.Business.Model.Options;

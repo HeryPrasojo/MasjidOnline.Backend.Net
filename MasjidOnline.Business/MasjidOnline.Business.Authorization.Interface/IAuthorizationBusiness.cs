@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 
-namespace MasjidOnline.Business.AuthorizationBusiness.Interface;
+namespace MasjidOnline.Business.Authorization.Interface;
 
 public interface IAuthorizationBusiness
 {

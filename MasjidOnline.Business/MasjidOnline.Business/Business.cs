@@ -1,10 +1,11 @@
+using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Interface;
 
 namespace MasjidOnline.Business;
 
 public class Business(
 
-    AuthorizationBusiness.Interface.IAuthorizationBusiness _authorizationBusiness,
+    IAuthorizationBusiness _authorizationBusiness,
 
     Captcha.Interface.Captcha.IAddBusiness _captchaAddBusiness,
     Captcha.Interface.Captcha.IUpdateBusiness _captchaUpdateBusiness,
@@ -57,7 +58,7 @@ public class Business(
 
     ) : IBusiness
 {
-    public AuthorizationBusiness.Interface.IAuthorizationBusiness AuthorizationBusiness => _authorizationBusiness;
+    public IAuthorizationBusiness AuthorizationBusiness => _authorizationBusiness;
 
     public Captcha.Interface.Captcha.IAddBusiness CaptchaAddBusiness => _captchaAddBusiness;
     public Captcha.Interface.Captcha.IUpdateBusiness CaptchaUpdateBusiness => _captchaUpdateBusiness;

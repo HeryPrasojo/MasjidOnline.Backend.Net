@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MasjidOnline.Business\MasjidOnline.Business.AuthorizationBusiness\MasjidOnline.Business.AuthorizationBusiness.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Business\MasjidOnline.Business.Authorization\MasjidOnline.Business.Authorization.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business\MasjidOnline.Business.Captcha\MasjidOnline.Business.Captcha.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business\MasjidOnline.Business.Infaq\MasjidOnline.Business.Infaq.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business\MasjidOnline.Business.Session\MasjidOnline.Business.Session.csproj" />
