@@ -7,8 +7,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddUserBusiness(this IServiceCollection services)
     {
-        // todo change to transient and test
-        services.AddSingleton<IInitializerBusiness, InitializerBusiness>();
+        services.AddTransient<IInitializerBusiness, InitializerBusiness>();
 
         services.AddSingleton<Interface.Internal.IAddBusiness, Internal.AddBusiness>();
         services.AddSingleton<Interface.Internal.IApproveBusiness, Internal.ApproveBusiness>();
