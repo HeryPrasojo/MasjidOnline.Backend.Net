@@ -23,4 +23,8 @@
     <ProjectReference Include="..\MasjidOnline.Service\MasjidOnline.Service.Mail.MailKit\MasjidOnline.Service.Mail.MailKit.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="WebApplicationExtensions\" />
+  </ItemGroup>
+
 </Project>

@@ -18,10 +18,10 @@ public class SqLiteEventInitializer(
             (
                 Id INTEGER PRIMARY KEY,
                 DateTime TEXT NOT NULL,
+                Type TEXT NOT NULL,
                 Message TEXT NOT NULL COLLATE NOCASE,
                 StackTrace TEXT COLLATE NOCASE,
-                InnerMessage TEXT NULL COLLATE NOCASE,
-                InnerStackTrace TEXT COLLATE NOCASE
+                InnerExceptionId INTEGER
             )";
 
         return await _eventDataContext.Database.ExecuteSqlAsync(sql);

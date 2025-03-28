@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using MasjidOnline.Api.Web;
 using MasjidOnline.Api.Web.Middleware;
@@ -53,10 +54,14 @@ static WebApplication BuildApplication(string[] args)
 {
     var webApplicationBuilder = WebApplication.CreateBuilder(args);
 
-
     webApplicationBuilder.Configuration.AddJsonFile("appsettings.Local.json", true, true);
 
     var option = webApplicationBuilder.Configuration.Get<BusinessOptions>() ?? throw new ApplicationException($"Get {nameof(BusinessOptions)} fail");
+
+    webApplicationBuilder.Services.ConfigureHttpJsonOptions(options =>
+    {
+        options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+    });
 
     webApplicationBuilder.Services.Configure<CryptographyOptions>(webApplicationBuilder.Configuration.GetSection("Cryptography"));
 

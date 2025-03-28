@@ -68,7 +68,7 @@ public class ExceptionMiddleware(
         {
             var exceptionEntities = new List<Entity.Event.Exception>();
 
-            BuildExceptionEntity(exception, exceptionEntities);
+            BuildExceptionEntity(exception, exceptionEntities, DateTime.UtcNow);
 
             await eventDatabase.Exception.AddAsync(exceptionEntities);
 
@@ -76,11 +76,11 @@ public class ExceptionMiddleware(
         }
     }
 
-    private Entity.Event.Exception BuildExceptionEntity(Exception exception, List<Entity.Event.Exception> exceptionEntities)
+    private Entity.Event.Exception BuildExceptionEntity(Exception exception, List<Entity.Event.Exception> exceptionEntities, DateTime dateTime)
     {
         var exceptionEntity = new Entity.Event.Exception
         {
-            DateTime = DateTime.UtcNow,
+            DateTime = dateTime,
             Id = _eventIdGenerator.ExceptionId,
             Message = exception.Message,
             StackTrace = exception.StackTrace,
@@ -91,7 +91,7 @@ public class ExceptionMiddleware(
 
         if (exception.InnerException != default)
         {
-            var innerExceptionEntities = BuildExceptionEntity(exception.InnerException, exceptionEntities);
+            var innerExceptionEntities = BuildExceptionEntity(exception.InnerException, exceptionEntities, dateTime);
 
             exceptionEntity.InnerExceptionId = innerExceptionEntities.Id;
         }
