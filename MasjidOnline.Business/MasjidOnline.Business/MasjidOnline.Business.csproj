@@ -12,10 +12,15 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MasjidOnline.Business.Authorization.Interface\MasjidOnline.Business.Authorization.Interface.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Business.Authorization\MasjidOnline.Business.Authorization.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Captcha.Interface\MasjidOnline.Business.Captcha.Interface.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Business.Captcha\MasjidOnline.Business.Captcha.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Infaq.Interface\MasjidOnline.Business.Infaq.Interface.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Business.Infaq\MasjidOnline.Business.Infaq.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Interface\MasjidOnline.Business.Interface.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Business.Session\MasjidOnline.Business.Session.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.User.Interface\MasjidOnline.Business.User.Interface.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Business.User\MasjidOnline.Business.User.csproj" />
   </ItemGroup>
 
 </Project>

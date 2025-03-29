@@ -33,7 +33,7 @@ public class CaptchaService : ICaptchaService
 
         using var stringContent = new StringContent(serializedRequest, Encoding.UTF8, "application/json");
 
-        using var httpResponseMessage = await httpClient.PostAsync("", stringContent);
+        using var httpResponseMessage = await httpClient.PostAsync("https://recaptchaenterprise.googleapis.com/v1/projects/masjidonline-pro-1742437216294/assessments?key=AIzaSyAwaBPKPiiopHLMyOUwMSPwDbGqduoEV3k", stringContent);
 
         var serializedResponse = await httpResponseMessage.Content.ReadAsStringAsync();
     }

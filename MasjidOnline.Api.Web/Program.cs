@@ -4,12 +4,8 @@ using System.Text.Json.Serialization;
 using MasjidOnline.Api.Web;
 using MasjidOnline.Api.Web.Middleware;
 using MasjidOnline.Api.Web.WebApplicationExtension;
-using MasjidOnline.Business.Authorization;
-using MasjidOnline.Business.Captcha;
-using MasjidOnline.Business.Infaq;
+using MasjidOnline.Business;
 using MasjidOnline.Business.Model.Options;
-using MasjidOnline.Business.Session;
-using MasjidOnline.Business.User;
 using MasjidOnline.Data;
 using MasjidOnline.Data.EntityFramework;
 using MasjidOnline.Data.EntityFramework.SqLite;
@@ -82,21 +78,18 @@ static WebApplication BuildApplication(string[] args)
 
     #region add dependency
 
-    webApplicationBuilder.Services.AddCaptchaService();
+    //webApplicationBuilder.Services.AddCaptchaService();
     webApplicationBuilder.Services.AddEncryptionService();
     webApplicationBuilder.Services.AddFieldValidatorService();
     webApplicationBuilder.Services.AddHashService();
     webApplicationBuilder.Services.AddMailKitMailService();
+    webApplicationBuilder.Services.AddReCaptchaService();
 
     webApplicationBuilder.Services.AddData();
     webApplicationBuilder.Services.AddEntityFrameworkData();
     webApplicationBuilder.Services.AddSqLiteEntityFrameworkData(webApplicationBuilder.Configuration);
 
-    webApplicationBuilder.Services.AddAuthorizationBusiness();
-    webApplicationBuilder.Services.AddCaptchaBusiness();
-    webApplicationBuilder.Services.AddInfaqBusiness();
-    webApplicationBuilder.Services.AddSessionBusiness();
-    webApplicationBuilder.Services.AddUserBusiness();
+    webApplicationBuilder.Services.AddBusiness();
 
     #endregion
 

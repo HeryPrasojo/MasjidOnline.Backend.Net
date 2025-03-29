@@ -11,11 +11,13 @@ using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.Infaq;
 using MasjidOnline.Library.Exceptions;
+using MasjidOnline.Service.Captcha.Interface;
 using MasjidOnline.Service.FieldValidator.Interface;
 
 namespace MasjidOnline.Business.Infaq.Infaq;
 
 public class AddAnonymBusiness(
+        ICaptchaService _captchaService,
     IFieldValidatorService _fieldValidatorService,
     IIdGenerator _idGenerator) : IAddAnonymBusiness
 {
@@ -24,6 +26,8 @@ public class AddAnonymBusiness(
         ISessionBusiness _sessionBusiness,
         AddByAnonymRequest? addByAnonymRequest)
     {
+        await _captchaService.VerifyAsync(addByAnonymRequest!.CaptchaToken, addByAnonymRequest.CaptchaAction);
+
         if (_sessionBusiness.UserId == Constant.UserId.Anonymous)
         {
             var captchas = await _data.Captcha.Captcha.GetForInfaqAddByAnonymAsync(_sessionBusiness.Id);

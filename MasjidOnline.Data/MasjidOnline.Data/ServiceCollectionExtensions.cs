@@ -19,7 +19,6 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ISessionIdGenerator, SessionIdGenerator>();
         services.AddSingleton<IUserIdGenerator, UserIdGenerator>();
 
-
         services.AddScoped<IDataTransaction, DataTransaction>();
 
         return services;

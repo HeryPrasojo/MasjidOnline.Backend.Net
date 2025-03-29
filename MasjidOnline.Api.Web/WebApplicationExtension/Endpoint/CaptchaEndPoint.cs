@@ -5,6 +5,7 @@ using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MasjidOnline.Api.Web.WebApplicationExtension.Endpoint;
 
@@ -30,7 +31,7 @@ internal static class CaptchaEndPoint
         IBusiness _business,
         IData _data,
         ISessionBusiness _sessionBusiness,
-        CaptchaUpdateRequest captchaUpdateRequest)
+        [FromBody] CaptchaUpdateRequest captchaUpdateRequest)
     {
         return await _business.CaptchaUpdateBusiness.UpdateAsync(_data, _sessionBusiness, captchaUpdateRequest);
     }
