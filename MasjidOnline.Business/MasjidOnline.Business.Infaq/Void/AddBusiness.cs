@@ -7,7 +7,6 @@ using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Entity.Infaq;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.FieldValidator.Interface;
@@ -19,7 +18,7 @@ public class AddBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
     IAuthorizationBusiness _authorizationBusiness,
     IFieldValidatorService _fieldValidatorService,
-    IInfaqIdGenerator _infaqIdGenerator) : IAddBusiness
+    IIdGenerator _idGenerator) : IAddBusiness
 {
     public async Task<Response> AddAsync(
         IData _data,
@@ -52,7 +51,7 @@ public class AddBusiness(
         var @void = new Entity.Infaq.Void
         {
             DateTime = DateTime.UtcNow,
-            Id = _infaqIdGenerator.VoidId,
+            Id = _idGenerator.Infaq.VoidId,
             InfaqId = addRequest.InfaqId.Value,
             Status = Entity.Infaq.VoidStatus.New,
             UserId = _sessionBusiness.UserId,
