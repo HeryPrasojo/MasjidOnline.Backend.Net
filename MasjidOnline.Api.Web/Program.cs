@@ -9,7 +9,7 @@ using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Data;
 using MasjidOnline.Data.EntityFramework;
 using MasjidOnline.Data.EntityFramework.SqLite;
-using MasjidOnline.Service.Captcha;
+using MasjidOnline.Service.Captcha.ReCaptcha;
 using MasjidOnline.Service.Cryptography;
 using MasjidOnline.Service.Cryptography.Interface.Model;
 using MasjidOnline.Service.FieldValidator;
