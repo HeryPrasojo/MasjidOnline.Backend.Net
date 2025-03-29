@@ -11,10 +11,8 @@ using MasjidOnline.Data.EntityFramework;
 using MasjidOnline.Data.EntityFramework.SqLite;
 using MasjidOnline.Service.Captcha.ReCaptcha;
 using MasjidOnline.Service.Cryptography;
-using MasjidOnline.Service.Cryptography.Interface.Model;
 using MasjidOnline.Service.FieldValidator;
 using MasjidOnline.Service.Hash;
-using MasjidOnline.Service.Mail.Interface.Model;
 using MasjidOnline.Service.Mail.MailKit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -57,13 +55,6 @@ static WebApplication BuildApplication(string[] args)
         options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
     });
 
-    webApplicationBuilder.Services.Configure<CryptographyOptions>(webApplicationBuilder.Configuration.GetSection("Cryptography"));
-
-    webApplicationBuilder.Services.Configure<MailOptions>(webApplicationBuilder.Configuration.GetSection("Mail"));
-
-    webApplicationBuilder.Services.Configure<BusinessOptions>(webApplicationBuilder.Configuration);
-
-
     webApplicationBuilder.Services.AddCors(corsOptions =>
     {
         corsOptions.AddDefaultPolicy(corsPolicyBuilder =>
@@ -79,17 +70,17 @@ static WebApplication BuildApplication(string[] args)
     #region add dependency
 
     //webApplicationBuilder.Services.AddCaptchaService();
-    webApplicationBuilder.Services.AddEncryptionService();
+    webApplicationBuilder.Services.AddCryptographyService(webApplicationBuilder.Configuration);
     webApplicationBuilder.Services.AddFieldValidatorService();
     webApplicationBuilder.Services.AddHashService();
-    webApplicationBuilder.Services.AddMailKitMailService();
-    webApplicationBuilder.Services.AddReCaptchaService();
+    webApplicationBuilder.Services.AddMailKitMailService(webApplicationBuilder.Configuration);
+    webApplicationBuilder.Services.AddReCaptchaService(webApplicationBuilder.Configuration);
 
     webApplicationBuilder.Services.AddData();
     webApplicationBuilder.Services.AddEntityFrameworkData();
     webApplicationBuilder.Services.AddSqLiteEntityFrameworkData(webApplicationBuilder.Configuration);
 
-    webApplicationBuilder.Services.AddBusiness();
+    webApplicationBuilder.Services.AddBusiness(webApplicationBuilder.Configuration);
 
     #endregion
 

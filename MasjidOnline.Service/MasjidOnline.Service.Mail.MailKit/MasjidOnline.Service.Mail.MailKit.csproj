@@ -7,8 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MailKitLite" Version="4.10.0" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.0" />
+    <PackageReference Include="MailKitLite" Version="4.11.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.3" />
   </ItemGroup>
 
   <ItemGroup>

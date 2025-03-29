@@ -4,10 +4,11 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Threading.Tasks;
 using MasjidOnline.Service.Captcha.Interface;
+using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Service.Captcha.ReCaptcha;
 
-public class CaptchaService : ICaptchaService
+public class CaptchaService(IOptionsMonitor<GoogleOptions> _optionsMonitor) : ICaptchaService
 {
     public async Task VerifyAsync(string token, string action)
     {
@@ -33,7 +34,7 @@ public class CaptchaService : ICaptchaService
 
         using var stringContent = new StringContent(serializedRequest, Encoding.UTF8, "application/json");
 
-        using var httpResponseMessage = await httpClient.PostAsync("https://recaptchaenterprise.googleapis.com/v1/projects/masjidonline-pro-1742437216294/assessments?key=AIzaSyAwaBPKPiiopHLMyOUwMSPwDbGqduoEV3k", stringContent);
+        using var httpResponseMessage = await httpClient.PostAsync(_optionsMonitor.CurrentValue.ReCaptchaAssessmentsUri, stringContent);
 
         var serializedResponse = await httpResponseMessage.Content.ReadAsStringAsync();
     }

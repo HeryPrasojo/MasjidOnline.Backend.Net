@@ -2,16 +2,20 @@ using MasjidOnline.Business.Authorization;
 using MasjidOnline.Business.Captcha;
 using MasjidOnline.Business.Infaq;
 using MasjidOnline.Business.Interface;
+using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.Session;
 using MasjidOnline.Business.User;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MasjidOnline.Business;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddBusiness(this IServiceCollection services)
+    public static IServiceCollection AddBusiness(this IServiceCollection services, IConfiguration configuration)
     {
+        services.Configure<BusinessOptions>(configuration);
+
         services.AddSingleton<IBusiness, Business>();
 
         services.AddAuthorizationBusiness();
