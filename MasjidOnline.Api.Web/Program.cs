@@ -9,11 +9,7 @@ using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Data;
 using MasjidOnline.Data.EntityFramework;
 using MasjidOnline.Data.EntityFramework.SqLite;
-using MasjidOnline.Service.Captcha.ReCaptcha;
-using MasjidOnline.Service.Cryptography;
-using MasjidOnline.Service.FieldValidator;
-using MasjidOnline.Service.Hash;
-using MasjidOnline.Service.Mail.MailKit;
+using MasjidOnline.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -69,12 +65,7 @@ static WebApplication BuildApplication(string[] args)
 
     #region add dependency
 
-    //webApplicationBuilder.Services.AddCaptchaService();
-    webApplicationBuilder.Services.AddCryptographyService(webApplicationBuilder.Configuration);
-    webApplicationBuilder.Services.AddFieldValidatorService();
-    webApplicationBuilder.Services.AddHashService();
-    webApplicationBuilder.Services.AddMailKitMailService(webApplicationBuilder.Configuration);
-    webApplicationBuilder.Services.AddReCaptchaService(webApplicationBuilder.Configuration);
+    webApplicationBuilder.Services.AddService(webApplicationBuilder.Configuration);
 
     webApplicationBuilder.Services.AddData();
     webApplicationBuilder.Services.AddEntityFrameworkData();

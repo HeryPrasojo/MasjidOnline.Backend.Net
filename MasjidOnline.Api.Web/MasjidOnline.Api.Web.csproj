@@ -22,6 +22,7 @@
     <ProjectReference Include="..\MasjidOnline.Service\MasjidOnline.Service.Hash\MasjidOnline.Service.Hash.csproj" />
     <ProjectReference Include="..\MasjidOnline.Service\MasjidOnline.Service.Mail.Interface\MasjidOnline.Service.Mail.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Service\MasjidOnline.Service.Mail.MailKit\MasjidOnline.Service.Mail.MailKit.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Service\MasjidOnline.Service\MasjidOnline.Service.csproj" />
   </ItemGroup>
 
 </Project>
