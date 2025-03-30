@@ -6,7 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite;
 
-public class SqLiteDefinition<TDataContext>(TDataContext tDataContext) :
+// todo rename to DataDefinition
+public class SqLiteDefinition<TDataContext>(TDataContext _tDataContext) :
     IDefinition,
     IAuditDefinition,
     ICaptchaDefinition,
@@ -21,7 +22,7 @@ public class SqLiteDefinition<TDataContext>(TDataContext tDataContext) :
     {
         FormattableString sql = $"SELECT COUNT(*) Value FROM sqlite_master WHERE type='table' AND name={name}";
 
-        var queryable = tDataContext.Database.SqlQuery<long>(sql);
+        var queryable = _tDataContext.Database.SqlQuery<long>(sql);
 
         var count = await queryable.SingleAsync();
 

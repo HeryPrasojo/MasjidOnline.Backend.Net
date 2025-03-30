@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 
+// todo rename to AuditInitializer
 public class SqLiteAuditInitializer(
     AuditDataContext _auditDataContext,
     IAuditDefinition _auditDefinition) : AuditInitializer(_auditDefinition)

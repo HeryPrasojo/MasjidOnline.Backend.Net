@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.Initializer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,27 +14,19 @@ internal static class InitializeExtension
 
         var data = GetService<IData>(serviceScope.ServiceProvider);
 
-        var auditInitializer = GetService<IAuditInitializer>(serviceScope.ServiceProvider);
-        var captchaInitializer = GetService<ICaptchaInitializer>(serviceScope.ServiceProvider);
-        var eventInitializer = GetService<IEventInitializer>(serviceScope.ServiceProvider);
-        var infaqInitializer = GetService<IInfaqInitializer>(serviceScope.ServiceProvider);
-        var personInitializer = GetService<IPersonInitializer>(serviceScope.ServiceProvider);
-        var sessionInitializer = GetService<ISessionInitializer>(serviceScope.ServiceProvider);
-        var userInitializer = GetService<IUserInitializer>(serviceScope.ServiceProvider);
+        var dataInitializer = GetService<IDataInitializer>(serviceScope.ServiceProvider);
 
         var idGenerator = GetService<IIdGenerator>(serviceScope.ServiceProvider);
 
         var userInitializerBusiness = GetService<MasjidOnline.Business.User.Interface.IInitializerBusiness>(serviceScope.ServiceProvider);
 
-
-        await auditInitializer.InitializeDatabaseAsync(data);
-        await captchaInitializer.InitializeDatabaseAsync(data);
-        await eventInitializer.InitializeDatabaseAsync(data);
-        await infaqInitializer.InitializeDatabaseAsync(data);
-        await personInitializer.InitializeDatabaseAsync(data);
-        await sessionInitializer.InitializeDatabaseAsync(data);
-        await userInitializer.InitializeDatabaseAsync(data);
-
+        await dataInitializer.Audit.InitializeDatabaseAsync(data);
+        await dataInitializer.Captcha.InitializeDatabaseAsync(data);
+        await dataInitializer.Event.InitializeDatabaseAsync(data);
+        await dataInitializer.Infaq.InitializeDatabaseAsync(data);
+        await dataInitializer.Person.InitializeDatabaseAsync(data);
+        await dataInitializer.Session.InitializeDatabaseAsync(data);
+        await dataInitializer.User.InitializeDatabaseAsync(data);
 
         await idGenerator.Audit.InitializeAsync(data);
         await idGenerator.Captcha.InitializeAsync(data);
@@ -44,7 +35,6 @@ internal static class InitializeExtension
         await idGenerator.Person.InitializeAsync(data);
         await idGenerator.Session.InitializeAsync(data);
         await idGenerator.Session.InitializeAsync(data);
-
 
         await userInitializerBusiness.InitializeAsync(data);
 
