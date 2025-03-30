@@ -1,9 +1,19 @@
-using System;
+using MasjidOnline.Data.EntityFramework.Databases;
+using MasjidOnline.Data.EntityFramework.DataContext;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Databases;
 
 namespace MasjidOnline.Data.EntityFramework;
 
-public class EntityFrameworkData(IServiceProvider _serviceProvider) : Data(_serviceProvider)
+public class EntityFrameworkData(
+    AuditDataContext _auditDataContext,
+    CaptchaDataContext _captchaDataContext,
+    EventDataContext _eventDataContext,
+    InfaqDataContext _infaqDataContext,
+    PersonDataContext _personDataContext,
+    SessionDataContext _sessionDataContext,
+    UserDataContext _userDataContext,
+    IIdGenerator _idGenerator) : Data()
 {
     private IAuditDatabase? _auditDatabase;
     private ICaptchaDatabase? _captchaData;
@@ -13,11 +23,11 @@ public class EntityFrameworkData(IServiceProvider _serviceProvider) : Data(_serv
     private ISessionDatabase? _sessionData;
     private IUserDatabase? _userData;
 
-    public override IAuditDatabase Audit => _auditDatabase ??= GetService<IAuditDatabase>();
-    public override ICaptchaDatabase Captcha => _captchaData ??= GetService<ICaptchaDatabase>();
-    public override IEventDatabase Event => _eventDatabase ??= GetService<IEventDatabase>();
-    public override IInfaqDatabase Infaq => _infaqData ??= GetService<IInfaqDatabase>();
-    public override IPersonDatabase Person => _personDatabase ??= GetService<IPersonDatabase>();
-    public override ISessionDatabase Session => _sessionData ??= GetService<ISessionDatabase>();
-    public override IUserDatabase User => _userData ??= GetService<IUserDatabase>();
+    public override IAuditDatabase Audit => _auditDatabase ??= new AuditDatabase(_auditDataContext, _idGenerator.Audit);
+    public override ICaptchaDatabase Captcha => _captchaData ??= new CaptchaDatabase(_captchaDataContext);
+    public override IEventDatabase Event => _eventDatabase ??= new EventDatabase(_eventDataContext);
+    public override IInfaqDatabase Infaq => _infaqData ??= new InfaqDatabase(_infaqDataContext);
+    public override IPersonDatabase Person => _personDatabase ??= new PersonDatabase(_personDataContext);
+    public override ISessionDatabase Session => _sessionData ??= new SessionDatabase(_sessionDataContext);
+    public override IUserDatabase User => _userData ??= new UserDatabase(_userDataContext);
 }

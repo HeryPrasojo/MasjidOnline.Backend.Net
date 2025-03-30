@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Model.Responses;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Databases;
-using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Library.Exceptions;
 using Microsoft.AspNetCore.Http;
 
@@ -12,7 +12,7 @@ namespace MasjidOnline.Api.Web.Middleware;
 
 public class ExceptionMiddleware(
     RequestDelegate _nextRequestDelegate,
-    IEventIdGenerator _eventIdGenerator)
+    IIdGenerator _idGenerator)
 {
     public async Task Invoke(HttpContext httpContext, IEventDatabase eventDatabase)
     {
@@ -81,7 +81,7 @@ public class ExceptionMiddleware(
         var exceptionEntity = new Entity.Event.Exception
         {
             DateTime = dateTime,
-            Id = _eventIdGenerator.ExceptionId,
+            Id = _idGenerator.Event.ExceptionId,
             Message = exception.Message,
             StackTrace = exception.StackTrace,
             Type = exception.GetType().Name,

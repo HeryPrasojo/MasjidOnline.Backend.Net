@@ -2,6 +2,7 @@ using MasjidOnline.Business.Authorization;
 using MasjidOnline.Business.Interface;
 using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.Session;
+using MasjidOnline.Business.User;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,6 +18,7 @@ public static class ServiceCollectionExtensions
 
         services.AddAuthorizationBusiness();
         services.AddSessionBusiness();
+        services.AddUserBusiness();
 
         return services;
     }

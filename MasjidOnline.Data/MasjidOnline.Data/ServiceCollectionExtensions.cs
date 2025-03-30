@@ -9,8 +9,6 @@ public static class ServiceCollectionExtensions
     {
         services.AddSingleton<IIdGenerator, IdGenerator>();
 
-        services.AddScoped<IDataTransaction, DataTransaction>();
-
         return services;
     }
 }

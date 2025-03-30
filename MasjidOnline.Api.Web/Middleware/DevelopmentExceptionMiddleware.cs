@@ -1,6 +1,6 @@
 using System;
 using MasjidOnline.Business.Model.Responses;
-using MasjidOnline.Data.Interface.IdGenerator;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using Microsoft.AspNetCore.Http;
 
@@ -8,7 +8,7 @@ namespace MasjidOnline.Api.Web.Middleware;
 
 public class DevelopmentExceptionMiddleware(
     RequestDelegate _nextRequestDelegate,
-    IEventIdGenerator _eventIdGenerator) : ExceptionMiddleware(_nextRequestDelegate, _eventIdGenerator)
+    IIdGenerator _idGenerator) : ExceptionMiddleware(_nextRequestDelegate, _idGenerator)
 {
     protected override ExceptionResponse BuildExceptionResponse(Exception exception)
     {
