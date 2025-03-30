@@ -1,8 +1,7 @@
 ﻿using MasjidOnline.Service.Captcha.ReCaptcha;
-using MasjidOnline.Service.Cryptography;
-using MasjidOnline.Service.FieldValidator;
-using MasjidOnline.Service.Hash;
-using MasjidOnline.Service.Mail.MailKit;
+using MasjidOnline.Service.Cryptography.Interface.Model;
+using MasjidOnline.Service.Interface;
+using MasjidOnline.Service.Mail.Interface.Model;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,11 +11,11 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddService(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddCryptographyService(configuration);
-        services.AddFieldValidatorService();
-        services.AddHashService();
-        services.AddMailKitMailService(configuration);
-        services.AddReCaptchaService(configuration);
+        services.Configure<CryptographyOptions>(configuration.GetSection("Cryptography"));
+        services.Configure<MailOptions>(configuration.GetSection("Mail"));
+        services.Configure<GoogleOptions>(configuration.GetSection("Google"));
+
+        services.AddSingleton<IService, Service>();
 
         return services;
     }

@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MasjidOnline.Business.Authorization.Interface\MasjidOnline.Business.Authorization.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Captcha.Interface\MasjidOnline.Business.Captcha.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Infaq.Interface\MasjidOnline.Business.Infaq.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.User.Interface\MasjidOnline.Business.User.Interface.csproj" />

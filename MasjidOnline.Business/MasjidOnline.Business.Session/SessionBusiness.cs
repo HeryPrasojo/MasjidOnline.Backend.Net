@@ -11,7 +11,7 @@ using MasjidOnline.Service.FieldValidator.Interface;
 namespace MasjidOnline.Business.Session;
 
 public class SessionBusiness(
-    IEncryption128128 _encryption128128,
+    IEncryption128128Service _encryption128128,
     IFieldValidatorService _fieldValidatorService,
     IData _data,
     IIdGenerator _idGenerator) : ISessionBusiness

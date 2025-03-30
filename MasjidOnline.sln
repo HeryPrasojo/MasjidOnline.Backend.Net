@@ -78,6 +78,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Model
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service", "MasjidOnline.Service\MasjidOnline.Service\MasjidOnline.Service.csproj", "{6A0251CA-C283-4ACE-A778-B11EFDC1C1A2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Interface", "MasjidOnline.Service\MasjidOnline.Service.Interface\MasjidOnline.Service.Interface.csproj", "{B786DE58-C118-4D71-9795-4908F4F5D762}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -212,6 +214,10 @@ Global
 		{6A0251CA-C283-4ACE-A778-B11EFDC1C1A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A0251CA-C283-4ACE-A778-B11EFDC1C1A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A0251CA-C283-4ACE-A778-B11EFDC1C1A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B786DE58-C118-4D71-9795-4908F4F5D762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B786DE58-C118-4D71-9795-4908F4F5D762}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B786DE58-C118-4D71-9795-4908F4F5D762}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B786DE58-C118-4D71-9795-4908F4F5D762}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -246,6 +252,7 @@ Global
 		{F326B06E-777D-4F5E-859E-6A742E3D8003} = {9532ED15-56B2-415E-8DDF-F24515892619}
 		{8C4ACC01-0106-493C-8821-1A79AD21642F} = {9532ED15-56B2-415E-8DDF-F24515892619}
 		{6A0251CA-C283-4ACE-A778-B11EFDC1C1A2} = {2E44B54A-491D-4C1C-88CA-9D332653F92E}
+		{B786DE58-C118-4D71-9795-4908F4F5D762} = {2E44B54A-491D-4C1C-88CA-9D332653F92E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E21BDE61-C24C-41E1-87AC-909B6CE35E70}
