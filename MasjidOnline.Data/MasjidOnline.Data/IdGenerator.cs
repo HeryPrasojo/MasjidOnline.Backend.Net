@@ -1,24 +1,17 @@
-﻿using MasjidOnline.Data.Interface;
+﻿using MasjidOnline.Data.IdGenerators;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.IdGenerator;
+using MasjidOnline.Service.Hash.Interface;
 
 namespace MasjidOnline.Data;
 
-public class IdGenerator(
-    IAuditIdGenerator _auditIdGenerator,
-    IPersonIdGenerator _personIdGenerator,
-    ICaptchaIdGenerator _captchaIdGenerator,
-    IEventIdGenerator _eventIdGenerator,
-    IInfaqIdGenerator _infaqIdGenerator,
-    ISessionIdGenerator _sessionIdGenerator,
-    IUserIdGenerator _userIdGenerator
-
-    ) : IIdGenerator
+public class IdGenerator(IHash512Service _hash512Service) : IIdGenerator
 {
-    public IAuditIdGenerator Audit => _auditIdGenerator;
-    public IPersonIdGenerator Person => _personIdGenerator;
-    public ICaptchaIdGenerator Captcha => _captchaIdGenerator;
-    public IEventIdGenerator Event => _eventIdGenerator;
-    public IInfaqIdGenerator Infaq => _infaqIdGenerator;
-    public ISessionIdGenerator Session => _sessionIdGenerator;
-    public IUserIdGenerator User => _userIdGenerator;
+    public IAuditIdGenerator Audit { get; } = new AuditIdGenerator();
+    public IPersonIdGenerator Person { get; } = new PersonIdGenerator();
+    public ICaptchaIdGenerator Captcha { get; } = new CaptchaIdGenerator();
+    public IEventIdGenerator Event { get; } = new EventIdGenerator();
+    public IInfaqIdGenerator Infaq { get; } = new InfaqIdGenerator();
+    public ISessionIdGenerator Session { get; } = new SessionIdGenerator(_hash512Service);
+    public IUserIdGenerator User { get; } = new UserIdGenerator(_hash512Service);
 }

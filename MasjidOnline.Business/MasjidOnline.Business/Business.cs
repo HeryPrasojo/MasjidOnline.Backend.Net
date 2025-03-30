@@ -5,17 +5,15 @@ using Microsoft.Extensions.Options;
 namespace MasjidOnline.Business;
 
 public class Business(
-    Service.Captcha.Interface.ICaptchaService _captchaService,
-    Data.Interface.IIdGenerator _idGenerator,
-    Service.FieldValidator.Interface.IFieldValidatorService _fieldValidatorService,
-    Authorization.Interface.IAuthorizationBusiness _authorizationBusiness,
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
-    Service.Mail.Interface.IMailSenderService _mailSenderService,
-    Service.Hash.Interface.IHash512Service _hash512Service
+    Authorization.Interface.IAuthorizationBusiness _authorizationBusiness,
+    Data.Interface.IIdGenerator _idGenerator,
+    Service.Captcha.Interface.ICaptchaService _captchaService,
+    Service.FieldValidator.Interface.IFieldValidatorService _fieldValidatorService,
+    Service.Hash.Interface.IHash512Service _hash512Service,
+    Service.Mail.Interface.IMailSenderService _mailSenderService
     ) : IBusiness
 {
-    public Authorization.Interface.IAuthorizationBusiness AuthorizationBusiness { get; } = new Authorization.AuthorizationBusiness();
-
     public Captcha.Interface.Captcha.IAddBusiness CaptchaAddBusiness { get; } = new Captcha.Captcha.AddBusiness(_captchaService, _idGenerator);
     public Captcha.Interface.Captcha.IUpdateBusiness CaptchaUpdateBusiness { get; } = new Captcha.Captcha.UpdateBusiness(_captchaService, _idGenerator, _fieldValidatorService);
 
