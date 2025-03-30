@@ -7,8 +7,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddUserBusiness(this IServiceCollection services)
     {
-        // todo change all transient to scoped
-        services.AddTransient<IInitializerBusiness, InitializerBusiness>();
+        services.AddScoped<IInitializerBusiness, InitializerBusiness>();
 
         return services;
     }

@@ -1,15 +1,14 @@
 using System;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
-using MasjidOnline.Data.Initializer;
 using MasjidOnline.Data.Interface.Definition;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 
-public class SqLiteUserInitializer(
+public class UserInitializer(
     UserDataContext _userDataContext,
-    IUsersDefinition _userDefinition) : UserInitializer(_userDefinition)
+    IUsersDefinition _userDefinition) : MasjidOnline.Data.Initializer.UserInitializer(_userDefinition)
 {
     protected override async Task<int> CreateTableInternalAsync()
     {

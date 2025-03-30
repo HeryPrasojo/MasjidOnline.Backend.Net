@@ -1,5 +1,5 @@
 ﻿namespace MasjidOnline.Data.Interface.Definition;
 
-public interface IPersonDefinition : IDefinition
+public interface IPersonDefinition : IDataDefinition
 {
 }

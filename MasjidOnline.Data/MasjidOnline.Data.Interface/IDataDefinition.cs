@@ -2,7 +2,7 @@
 
 namespace MasjidOnline.Data.Interface;
 
-public interface IDefinition
+public interface IDataDefinition
 {
     Task<bool> CheckTableExistsAsync(string name);
 }

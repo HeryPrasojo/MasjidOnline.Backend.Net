@@ -1,5 +1,5 @@
 ﻿namespace MasjidOnline.Data.Interface.Definition;
 
-public interface IUsersDefinition : IDefinition
+public interface IUsersDefinition : IDataDefinition
 {
 }

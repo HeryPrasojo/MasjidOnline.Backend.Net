@@ -1,15 +1,14 @@
 using System;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
-using MasjidOnline.Data.Initializer;
 using MasjidOnline.Data.Interface.Definition;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 
-public class SqLiteInfaqInitializer(
+public class InfaqInitializer(
     InfaqDataContext _infaqDataContext,
-    IInfaqsDefinition _infaqsDefinition) : InfaqInitializer(_infaqsDefinition)
+    IInfaqsDefinition _infaqsDefinition) : MasjidOnline.Data.Initializer.InfaqInitializer(_infaqsDefinition)
 {
     protected override async Task<int> CreateTableExpireAsync()
     {

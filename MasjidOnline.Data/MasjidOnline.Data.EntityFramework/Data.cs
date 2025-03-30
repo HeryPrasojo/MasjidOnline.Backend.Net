@@ -5,8 +5,7 @@ using MasjidOnline.Data.Interface.Databases;
 
 namespace MasjidOnline.Data.EntityFramework;
 
-// todo rename to Data
-public class EntityFrameworkData(
+public class Data(
     AuditDataContext _auditDataContext,
     CaptchaDataContext _captchaDataContext,
     EventDataContext _eventDataContext,
@@ -14,7 +13,7 @@ public class EntityFrameworkData(
     PersonDataContext _personDataContext,
     SessionDataContext _sessionDataContext,
     UserDataContext _userDataContext,
-    IIdGenerator _idGenerator) : Data()
+    IIdGenerator _idGenerator) : MasjidOnline.Data.Data()
 {
     private IAuditDatabase? _auditDatabase;
     private ICaptchaDatabase? _captchaData;

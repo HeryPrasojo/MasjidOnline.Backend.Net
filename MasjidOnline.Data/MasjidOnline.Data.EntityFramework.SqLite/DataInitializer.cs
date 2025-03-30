@@ -23,11 +23,11 @@ public class DataInitializer(
     private ISessionInitializer? _sessionInitializer;
     private IUserInitializer? _userInitializer;
 
-    public IAuditInitializer Audit => _auditInitializer ??= new SqLiteAuditInitializer(_auditDataContext, new SqLiteDefinition<AuditDataContext>(_auditDataContext));
-    public ICaptchaInitializer Captcha => _captchaInitializer ??= new SqLiteCaptchaInitializer(_captchaDataContext, new SqLiteDefinition<CaptchaDataContext>(_captchaDataContext));
-    public IEventInitializer Event => _eventInitializer ??= new SqLiteEventInitializer(_eventDataContext, new SqLiteDefinition<EventDataContext>(_eventDataContext));
-    public IInfaqInitializer Infaq => _infaqInitializer ??= new SqLiteInfaqInitializer(_infaqDataContext, new SqLiteDefinition<InfaqDataContext>(_infaqDataContext));
-    public IPersonInitializer Person => _personInitializer ??= new SqLitePersonInitializer(_personDataContext, new SqLiteDefinition<PersonDataContext>(_personDataContext));
-    public ISessionInitializer Session => _sessionInitializer ??= new SqLiteSessionInitializer(_sessionDataContext, new SqLiteDefinition<SessionDataContext>(_sessionDataContext));
-    public IUserInitializer User => _userInitializer ??= new SqLiteUserInitializer(_userDataContext, new SqLiteDefinition<UserDataContext>(_userDataContext));
+    public IAuditInitializer Audit => _auditInitializer ??= new AuditInitializer(_auditDataContext, new DataDefinition<AuditDataContext>(_auditDataContext));
+    public ICaptchaInitializer Captcha => _captchaInitializer ??= new CaptchaInitializer(_captchaDataContext, new DataDefinition<CaptchaDataContext>(_captchaDataContext));
+    public IEventInitializer Event => _eventInitializer ??= new EventInitializer(_eventDataContext, new DataDefinition<EventDataContext>(_eventDataContext));
+    public IInfaqInitializer Infaq => _infaqInitializer ??= new InfaqInitializer(_infaqDataContext, new DataDefinition<InfaqDataContext>(_infaqDataContext));
+    public IPersonInitializer Person => _personInitializer ??= new PersonInitializer(_personDataContext, new DataDefinition<PersonDataContext>(_personDataContext));
+    public ISessionInitializer Session => _sessionInitializer ??= new SessionInitializer(_sessionDataContext, new DataDefinition<SessionDataContext>(_sessionDataContext));
+    public IUserInitializer User => _userInitializer ??= new UserInitializer(_userDataContext, new DataDefinition<UserDataContext>(_userDataContext));
 }

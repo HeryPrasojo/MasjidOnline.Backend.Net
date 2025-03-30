@@ -1,15 +1,14 @@
 using System;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
-using MasjidOnline.Data.Initializer;
 using MasjidOnline.Data.Interface.Definition;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 
-public class SqLiteSessionInitializer(
+public class SessionInitializer(
     SessionDataContext _sessionDataContext,
-    ISessionsDefinition _sessionDefinition) : SessionInitializer(_sessionDefinition)
+    ISessionsDefinition _sessionDefinition) : MasjidOnline.Data.Initializer.SessionInitializer(_sessionDefinition)
 {
     protected override async Task<int> CreateTableSessionSettingAsync()
     {

@@ -1,15 +1,14 @@
 using System;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
-using MasjidOnline.Data.Initializer;
 using MasjidOnline.Data.Interface.Definition;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 
-public class SqLiteCaptchaInitializer(
+public class CaptchaInitializer(
     CaptchaDataContext _captchaDataContext,
-    ICaptchaDefinition _captchaDefinition) : CaptchaInitializer(_captchaDefinition)
+    ICaptchaDefinition _captchaDefinition) : MasjidOnline.Data.Initializer.CaptchaInitializer(_captchaDefinition)
 {
     protected override async Task<int> CreateTableCaptchaSettingAsync()
     {

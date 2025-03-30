@@ -1,5 +1,5 @@
 ﻿namespace MasjidOnline.Data.Interface.Definition;
 
-public interface IAuditDefinition : IDefinition
+public interface IAuditDefinition : IDataDefinition
 {
 }

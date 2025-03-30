@@ -6,9 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite;
 
-// todo rename to DataDefinition
-public class SqLiteDefinition<TDataContext>(TDataContext _tDataContext) :
-    IDefinition,
+public class DataDefinition<TDataContext>(TDataContext _tDataContext) :
+    IDataDefinition,
     IAuditDefinition,
     ICaptchaDefinition,
     IPersonDefinition,

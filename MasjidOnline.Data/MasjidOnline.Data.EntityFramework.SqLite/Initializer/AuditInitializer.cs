@@ -1,16 +1,14 @@
 using System;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
-using MasjidOnline.Data.Initializer;
 using MasjidOnline.Data.Interface.Definition;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 
-// todo rename to AuditInitializer
-public class SqLiteAuditInitializer(
+public class AuditInitializer(
     AuditDataContext _auditDataContext,
-    IAuditDefinition _auditDefinition) : AuditInitializer(_auditDefinition)
+    IAuditDefinition _auditDefinition) : MasjidOnline.Data.Initializer.AuditInitializer(_auditDefinition)
 {
     protected override async Task<int> CreateTableAuditSettingAsync()
     {

@@ -7,7 +7,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddEntityFrameworkData(this IServiceCollection services)
     {
-        services.AddScoped<IData, EntityFrameworkData>();
+        services.AddScoped<IData, Data>();
 
         return services;
     }
