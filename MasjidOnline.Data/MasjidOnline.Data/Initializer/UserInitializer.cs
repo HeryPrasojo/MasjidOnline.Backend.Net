@@ -14,13 +14,11 @@ public abstract class UserInitializer(IUsersDefinition _userDefinition) : IUserI
 
         if (!settingTableExists)
         {
-            await CreateTableUserSettingAsync();
-
             await CreateTableInternalAsync();
             await CreateTablePasswordCodeAsync();
-            await CreateTablePermissionAsync();
             await CreateTableUserAsync();
             await CreateTableUserEmailAddressAsync();
+            await CreateTableUserSettingAsync();
 
 
             var userSetting = new UserSetting
@@ -39,7 +37,6 @@ public abstract class UserInitializer(IUsersDefinition _userDefinition) : IUserI
 
     protected abstract Task<int> CreateTableInternalAsync();
     protected abstract Task<int> CreateTablePasswordCodeAsync();
-    protected abstract Task<int> CreateTablePermissionAsync();
     protected abstract Task<int> CreateTableUserAsync();
     protected abstract Task<int> CreateTableUserEmailAddressAsync();
     protected abstract Task<int> CreateTableUserSettingAsync();

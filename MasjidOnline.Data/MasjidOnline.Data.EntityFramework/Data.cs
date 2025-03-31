@@ -7,6 +7,7 @@ namespace MasjidOnline.Data.EntityFramework;
 
 public class Data(
     AuditDataContext _auditDataContext,
+    AuthorizationDataContext _authorizationDataContext,
     CaptchaDataContext _captchaDataContext,
     EventDataContext _eventDataContext,
     InfaqDataContext _infaqDataContext,
@@ -16,6 +17,7 @@ public class Data(
     IIdGenerator _idGenerator) : MasjidOnline.Data.Data()
 {
     private IAuditDatabase? _auditDatabase;
+    private IAuthorizationDatabase? _authorizationDatabase;
     private ICaptchaDatabase? _captchaData;
     private IEventDatabase? _eventDatabase;
     private IInfaqDatabase? _infaqData;
@@ -24,6 +26,7 @@ public class Data(
     private IUserDatabase? _userData;
 
     public override IAuditDatabase Audit => _auditDatabase ??= new AuditDatabase(_auditDataContext, _idGenerator.Audit);
+    public override IAuthorizationDatabase Authorization => _authorizationDatabase ??= new AuthorizationDatabase(_authorizationDataContext);
     public override ICaptchaDatabase Captcha => _captchaData ??= new CaptchaDatabase(_captchaDataContext);
     public override IEventDatabase Event => _eventDatabase ??= new EventDatabase(_eventDataContext);
     public override IInfaqDatabase Infaq => _infaqData ??= new InfaqDatabase(_infaqDataContext);

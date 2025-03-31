@@ -5,6 +5,7 @@ namespace MasjidOnline.Data.Interface;
 public interface IDataInitializer
 {
     IAuditInitializer Audit { get; }
+    IAuthorizationInitializer Authorization { get; }
     ICaptchaInitializer Captcha { get; }
     IEventInitializer Event { get; }
     IInfaqInitializer Infaq { get; }

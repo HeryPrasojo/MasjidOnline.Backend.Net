@@ -4,6 +4,7 @@ using MasjidOnline.Business.Model;
 using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.User.Interface;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Entity.Authorization;
 using MasjidOnline.Entity.User;
 using MasjidOnline.Service.Mail.Interface;
 using MasjidOnline.Service.Mail.Interface.Model;
@@ -23,7 +24,7 @@ public class InitializerBusiness(
         if (any) return;
 
 
-        await _data.Transaction.BeginAsync(_data.User, _data.Audit);
+        await _data.Transaction.BeginAsync(_data.User, _data.Authorization, _data.Audit);
 
 
         var option = _optionsMonitor.CurrentValue;
@@ -83,7 +84,7 @@ public class InitializerBusiness(
         await _data.User.PasswordCode.AddAsync(passwordCode);
 
 
-        var permission = new Permission
+        var permission = new InternalPermission
         {
             UserId = user.Id,
 
@@ -101,7 +102,7 @@ public class InitializerBusiness(
             UserInternalCancel = true,
         };
 
-        await _data.User.Permission.AddAsync(permission);
+        await _data.Authorization.InternalPermission.AddAsync(permission);
 
         await _data.Audit.PermissionLog.AddAddAsync(permission, utcNow, Constant.UserId.System);
 

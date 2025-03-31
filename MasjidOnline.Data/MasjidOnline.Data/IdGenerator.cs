@@ -8,6 +8,7 @@ namespace MasjidOnline.Data;
 public class IdGenerator(IHash512Service _hash512Service) : IIdGenerator
 {
     public IAuditIdGenerator Audit { get; } = new AuditIdGenerator();
+    public IAuthorizationIdGenerator Authorization { get; } = new AuthorizationIdGenerator();
     public IPersonIdGenerator Person { get; } = new PersonIdGenerator();
     public ICaptchaIdGenerator Captcha { get; } = new CaptchaIdGenerator();
     public IEventIdGenerator Event { get; } = new EventIdGenerator();

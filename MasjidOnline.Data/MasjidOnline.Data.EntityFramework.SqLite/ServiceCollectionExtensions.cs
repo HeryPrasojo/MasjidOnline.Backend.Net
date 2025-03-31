@@ -16,6 +16,7 @@ public static class ServiceCollectionExtensions
             .Get<ConnectionStrings>() ?? throw new ApplicationException($"Get {nameof(ConnectionStrings)} fail");
 
         services.AddDbContextPool<AuditDataContext>(b => b.UseSqlite(connectionStrings.Audit), poolSize: 2);
+        services.AddDbContextPool<AuthorizationDataContext>(b => b.UseSqlite(connectionStrings.Authorization), poolSize: 2);
         services.AddDbContextPool<CaptchaDataContext>(b => b.UseSqlite(connectionStrings.Captcha), poolSize: 2);
         services.AddDbContextPool<EventDataContext>(b => b.UseSqlite(connectionStrings.Event), poolSize: 2);
         services.AddDbContextPool<InfaqDataContext>(b => b.UseSqlite(connectionStrings.Infaq), poolSize: 2);

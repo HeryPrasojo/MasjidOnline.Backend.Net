@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace MasjidOnline.Entity.User;
+namespace MasjidOnline.Entity.Authorization;
 
-public class Permission
+public class InternalPermission
 {
     [Key]
     public required int UserId { get; set; }

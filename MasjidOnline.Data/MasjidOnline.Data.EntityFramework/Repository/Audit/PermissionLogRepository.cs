@@ -4,7 +4,7 @@ using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Data.Interface.Repository.Audit;
 using MasjidOnline.Entity.Audit;
-using MasjidOnline.Entity.User;
+using MasjidOnline.Entity.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Audit;
@@ -13,7 +13,7 @@ public class PermissionLogRepository(AuditDataContext _auditDataContext, IAuditI
 {
     private readonly DbSet<PermissionLog> _dbSet = _auditDataContext.Set<PermissionLog>();
 
-    public async Task AddAddAsync(Permission permission, DateTime dateTime, int userId)
+    public async Task AddAddAsync(InternalPermission permission, DateTime dateTime, int userId)
     {
         var permissionLog = new PermissionLog
         {

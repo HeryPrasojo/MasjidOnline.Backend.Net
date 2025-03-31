@@ -5,7 +5,9 @@ namespace MasjidOnline.Data.Interface;
 public interface IData
 {
     IDataTransaction Transaction { get; }
+
     IAuditDatabase Audit { get; }
+    IAuthorizationDatabase Authorization { get; }
     ICaptchaDatabase Captcha { get; }
     IEventDatabase Event { get; }
     IInfaqDatabase Infaq { get; }

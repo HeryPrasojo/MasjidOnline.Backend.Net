@@ -15,6 +15,4 @@ public class CaptchaIdGenerator : ICaptchaIdGenerator
     }
 
     public int CaptchaId => Interlocked.Increment(ref _captchaId);
-
-
 }

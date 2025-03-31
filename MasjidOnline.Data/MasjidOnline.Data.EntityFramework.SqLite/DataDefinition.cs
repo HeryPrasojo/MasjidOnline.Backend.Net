@@ -8,6 +8,7 @@ namespace MasjidOnline.Data.EntityFramework.SqLite;
 
 public class DataDefinition<TDataContext>(TDataContext _tDataContext) :
     IDataDefinition,
+    IAuthorizationDefinition,
     IAuditDefinition,
     ICaptchaDefinition,
     IPersonDefinition,

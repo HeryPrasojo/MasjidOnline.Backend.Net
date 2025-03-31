@@ -5,6 +5,7 @@ namespace MasjidOnline.Data.Interface;
 public interface IIdGenerator
 {
     IAuditIdGenerator Audit { get; }
+    IAuthorizationIdGenerator Authorization { get; }
     IPersonIdGenerator Person { get; }
     ICaptchaIdGenerator Captcha { get; }
     IEventIdGenerator Event { get; }

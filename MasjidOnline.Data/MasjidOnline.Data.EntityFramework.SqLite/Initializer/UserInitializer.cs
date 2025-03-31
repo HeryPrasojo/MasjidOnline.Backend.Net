@@ -42,29 +42,6 @@ public class UserInitializer(
         return await _userDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTablePermissionAsync()
-    {
-        FormattableString sql = @$"
-            CREATE TABLE Permission
-            (
-                UserId INTEGER PRIMARY KEY,
-                InfaqExpireAdd INTEGER NOT NULL,
-                InfaqExpireApprove INTEGER NOT NULL,
-                InfaqExpireCancel INTEGER NOT NULL,
-                InfaqSuccessAdd INTEGER NOT NULL,
-                InfaqSuccessApprove INTEGER NOT NULL,
-                InfaqSuccessCancel INTEGER NOT NULL,
-                InfaqVoidAdd INTEGER NOT NULL,
-                InfaqVoidApprove INTEGER NOT NULL,
-                InfaqVoidCancel INTEGER NOT NULL,
-                UserInternalAdd INTEGER NOT NULL,
-                UserInternalApprove INTEGER NOT NULL,
-                UserInternalCancel INTEGER NOT NULL
-            )";
-
-        return await _userDataContext.Database.ExecuteSqlAsync(sql);
-    }
-
     protected override async Task<int> CreateTableUserAsync()
     {
         FormattableString sql = @$"
