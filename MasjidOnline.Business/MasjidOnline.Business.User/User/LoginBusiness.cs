@@ -7,11 +7,11 @@ using MasjidOnline.Business.User.Interface.Model.User;
 using MasjidOnline.Business.User.Interface.User;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
-using MasjidOnline.Service.Hash.Interface;
+using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.User.User;
 
-public class LoginBusiness(IHash512Service _hash512Service) : ILoginBusiness
+public class LoginBusiness(IService _service) : ILoginBusiness
 {
     public async Task<Response> LoginAsync(IData _data, ISessionBusiness _sessionBusiness, LoginRequest? loginRequest)
     {
@@ -27,7 +27,7 @@ public class LoginBusiness(IHash512Service _hash512Service) : ILoginBusiness
         if (user.Password == default) throw new InputMismatchException(nameof(user.Password));
 
 
-        var requestPasswordHashBytes = _hash512Service.Hash(loginRequest.Password);
+        var requestPasswordHashBytes = _service.Hash512.Hash(loginRequest.Password);
 
         if (!requestPasswordHashBytes.SequenceEqual(user.Password)) throw new InputMismatchException(nameof(loginRequest.Password));
 

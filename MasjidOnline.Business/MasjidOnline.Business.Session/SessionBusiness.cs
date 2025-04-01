@@ -5,16 +5,11 @@ using MasjidOnline.Business.Model;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
-using MasjidOnline.Service.Cryptography.Interface;
-using MasjidOnline.Service.FieldValidator.Interface;
+using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.Session;
 
-public class SessionBusiness(
-    IEncryption128128Service _encryption128128,
-    IFieldValidatorService _fieldValidatorService,
-    IData _data,
-    IIdGenerator _idGenerator) : ISessionBusiness
+public class SessionBusiness(IService _service, IData _data, IIdGenerator _idGenerator) : ISessionBusiness
 {
     private Memory<byte> _digest = Memory<byte>.Empty;
 
@@ -25,7 +20,7 @@ public class SessionBusiness(
         {
             if (_digest.IsEmpty) throw new ErrorException(nameof(_digest));
 
-            var encryptedDigest = _encryption128128.Encrypt(_digest.Span);
+            var encryptedDigest = _service.Encryption128128.Encrypt(_digest.Span);
 
             return Convert.ToBase64String(encryptedDigest);
         }
@@ -69,9 +64,9 @@ public class SessionBusiness(
         }
         else
         {
-            var requestSessionIdBytes = _fieldValidatorService.ValidateRequiredBase64(idBase64, 128, idBase64Expression);
+            var requestSessionIdBytes = _service.FieldValidator.ValidateRequiredBase64(idBase64, 128, idBase64Expression);
 
-            var decryptedRquestSessionIdBytes = _encryption128128.Decrypt(requestSessionIdBytes);
+            var decryptedRquestSessionIdBytes = _service.Encryption128128.Decrypt(requestSessionIdBytes);
 
             var sessionEntity = await _data.Session.Session.GetForStartAsync(decryptedRquestSessionIdBytes);
 

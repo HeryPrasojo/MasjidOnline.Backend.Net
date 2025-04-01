@@ -14,11 +14,11 @@ namespace MasjidOnline.Business.Captcha.Captcha;
 public class UpdateBusiness(
     ICaptchaService _captchaService,
     IIdGenerator _idGenerator,
-    IFieldValidatorService _fieldValidatorService) : IUpdateBusiness
+    IFieldValidatorService _service) : IUpdateBusiness
 {
     public async Task<CaptchaUpdateResponse> UpdateAsync(IData _data, ISessionBusiness _sessionBusiness, CaptchaUpdateRequest captchaUpdateRequest)
     {
-        _fieldValidatorService.ValidateRequired(captchaUpdateRequest);
+        _service.ValidateRequired(captchaUpdateRequest);
 
 
         var captcha = await _data.Captcha.Captcha.GetForUpdateAsync(_sessionBusiness.Id);

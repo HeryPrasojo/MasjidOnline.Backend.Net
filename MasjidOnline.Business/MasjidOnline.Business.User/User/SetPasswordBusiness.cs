@@ -6,24 +6,18 @@ using MasjidOnline.Business.User.Interface.Model.User;
 using MasjidOnline.Business.User.Interface.User;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
-using MasjidOnline.Service.FieldValidator.Interface;
-using MasjidOnline.Service.Hash.Interface;
+using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.User.User;
 
-public class SetPasswordBusiness(
-    IFieldValidatorService _fieldValidatorService,
-    IHash512Service _hash512Service) : ISetPasswordBusiness
+public class SetPasswordBusiness(IService _service) : ISetPasswordBusiness
 {
-    public async Task<Response> SetAsync(
-        ISessionBusiness _sessionBusiness,
-        IData _data,
-        SetPasswordRequest? setPasswordRequest)
+    public async Task<Response> SetAsync(ISessionBusiness _sessionBusiness, IData _data, SetPasswordRequest? setPasswordRequest)
     {
-        _fieldValidatorService.ValidateRequired(setPasswordRequest);
-        var passwordCodeBytes = _fieldValidatorService.ValidateRequiredHex(setPasswordRequest!.PasswordCode, 128);
-        setPasswordRequest.Password = _fieldValidatorService.ValidateRequiredText255(setPasswordRequest.Password);
-        setPasswordRequest.PasswordRepeat = _fieldValidatorService.ValidateRequiredText255(setPasswordRequest.PasswordRepeat);
+        _service.FieldValidator.ValidateRequired(setPasswordRequest);
+        var passwordCodeBytes = _service.FieldValidator.ValidateRequiredHex(setPasswordRequest!.PasswordCode, 128);
+        setPasswordRequest.Password = _service.FieldValidator.ValidateRequiredText255(setPasswordRequest.Password);
+        setPasswordRequest.PasswordRepeat = _service.FieldValidator.ValidateRequiredText255(setPasswordRequest.PasswordRepeat);
 
         if (setPasswordRequest.Password != setPasswordRequest.PasswordRepeat) throw new InputInvalidException(nameof(setPasswordRequest.PasswordRepeat));
 
@@ -37,7 +31,7 @@ public class SetPasswordBusiness(
 
         await _data.Transaction.BeginAsync(_data.User);
 
-        var passwordBytes = _hash512Service.Hash(setPasswordRequest.Password);
+        var passwordBytes = _service.Hash512.Hash(setPasswordRequest.Password);
 
         _data.User.User.SetFirstPassword(passwordCode.UserId, passwordBytes);
 

@@ -9,8 +9,7 @@ using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.User;
 using MasjidOnline.Library.Exceptions;
-using MasjidOnline.Service.FieldValidator.Interface;
-using MasjidOnline.Service.Mail.Interface;
+using MasjidOnline.Service.Interface;
 using MasjidOnline.Service.Mail.Interface.Model;
 using Microsoft.Extensions.Options;
 
@@ -19,16 +18,15 @@ namespace MasjidOnline.Business.User.Internal;
 public class ApproveBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
     IAuthorizationBusiness _authorizationBusiness,
-    IFieldValidatorService _fieldValidatorService,
-    IMailSenderService _mailSenderService,
+    IService _service,
     IIdGenerator _idGenerator) : IApproveBusiness
 {
     public async Task<Response> ApproveAsync(ISessionBusiness _sessionBusiness, IData _data, ApproveRequest? approveRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, userInternalApprove: true);
 
-        _fieldValidatorService.ValidateRequired(approveRequest);
-        _fieldValidatorService.ValidateRequiredPlus(approveRequest!.Id);
+        _service.FieldValidator.ValidateRequired(approveRequest);
+        _service.FieldValidator.ValidateRequiredPlus(approveRequest!.Id);
 
 
         var @internal = await _data.User.Internal.GetForApproveAsync(approveRequest.Id!.Value);
@@ -87,7 +85,7 @@ public class ApproveBusiness(
             To = [new MailAddress("MasjidOnline Internal User", userEmailAddress.EmailAddress)],
         };
 
-        await _mailSenderService.SendMailAsync(mailMessage);
+        await _service.MailSender.SendMailAsync(mailMessage);
 
         return new()
         {

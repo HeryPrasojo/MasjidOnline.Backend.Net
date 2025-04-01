@@ -10,21 +10,17 @@ using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.ViewModel.Infaq.Infaq;
 using MasjidOnline.Data.Interface.ViewModel.Repository;
-using MasjidOnline.Service.FieldValidator.Interface;
+using MasjidOnline.Service.Interface;
 using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Business.Infaq.Infaq;
 
-public class GetManyDueBusiness(
-    IOptionsMonitor<BusinessOptions> _optionsMonitor,
-    IFieldValidatorService _fieldValidatorService) : IGetManyDueBusiness
+public class GetManyDueBusiness(IOptionsMonitor<BusinessOptions> _optionsMonitor, IService _service) : IGetManyDueBusiness
 {
-    public async Task<GetManyResponse<GetManyDueResponseRecord>> GetAsync(
-        IData _data,
-        GetManyDueRequest? getManyDueRequest)
+    public async Task<GetManyResponse<GetManyDueResponseRecord>> GetAsync(IData _data, GetManyDueRequest? getManyDueRequest)
     {
-        _fieldValidatorService.ValidateRequired(getManyDueRequest);
-        _fieldValidatorService.ValidateRequiredPlus(getManyDueRequest!.Page);
+        _service.FieldValidator.ValidateRequired(getManyDueRequest);
+        _service.FieldValidator.ValidateRequiredPlus(getManyDueRequest!.Page);
 
 
         IEnumerable<Entity.Infaq.PaymentType>? paymentTypes = default;

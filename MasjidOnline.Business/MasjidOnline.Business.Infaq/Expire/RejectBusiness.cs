@@ -7,19 +7,19 @@ using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
-using MasjidOnline.Service.FieldValidator.Interface;
+using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.Infaq.Expire;
 
-public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IFieldValidatorService _fieldValidatorService) : IRejectBusiness
+public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : IRejectBusiness
 {
     public async Task<Response> RejectAsync(ISessionBusiness _sessionBusiness, IData _data, RejectRequest? rejectRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, infaqExpireApprove: true);
 
-        _fieldValidatorService.ValidateRequired(rejectRequest);
-        _fieldValidatorService.ValidateRequiredPlus(rejectRequest!.Id);
-        rejectRequest.Description = _fieldValidatorService.ValidateRequiredText255(rejectRequest.Description);
+        _service.FieldValidator.ValidateRequired(rejectRequest);
+        _service.FieldValidator.ValidateRequiredPlus(rejectRequest!.Id);
+        rejectRequest.Description = _service.FieldValidator.ValidateRequiredText255(rejectRequest.Description);
 
 
         var expire = await _data.Infaq.Expire.GetForSetStatusAsync(rejectRequest.Id!.Value);

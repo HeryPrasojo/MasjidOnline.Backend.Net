@@ -6,19 +6,16 @@ using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.ViewModel.Infaq.Void;
 using MasjidOnline.Data.Interface.ViewModel.Repository;
-using MasjidOnline.Service.FieldValidator.Interface;
+using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.Infaq.Void;
 
-public class GetManyNewBusiness(
-    IFieldValidatorService _fieldValidatorService) : IGetManyNewBusiness
+public class GetManyNewBusiness(IService _service) : IGetManyNewBusiness
 {
-    public async Task<GetManyResponse<GetManyNewResponseRecord>> GetAsync(
-        IData _data,
-        GetManyNewRequest? getManyUnprovedRequest)
+    public async Task<GetManyResponse<GetManyNewResponseRecord>> GetAsync(IData _data, GetManyNewRequest? getManyUnprovedRequest)
     {
-        _fieldValidatorService.ValidateRequired(getManyUnprovedRequest);
-        _fieldValidatorService.ValidateRequiredPlus(getManyUnprovedRequest!.Page);
+        _service.FieldValidator.ValidateRequired(getManyUnprovedRequest);
+        _service.FieldValidator.ValidateRequiredPlus(getManyUnprovedRequest!.Page);
 
 
         var take = 10;

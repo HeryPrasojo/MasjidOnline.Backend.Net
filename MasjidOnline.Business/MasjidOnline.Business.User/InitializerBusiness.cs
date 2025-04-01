@@ -6,7 +6,7 @@ using MasjidOnline.Business.User.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.Authorization;
 using MasjidOnline.Entity.User;
-using MasjidOnline.Service.Mail.Interface;
+using MasjidOnline.Service.Interface;
 using MasjidOnline.Service.Mail.Interface.Model;
 using Microsoft.Extensions.Options;
 
@@ -14,7 +14,7 @@ namespace MasjidOnline.Business.User;
 
 public class InitializerBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
-    IMailSenderService _mailSenderService,
+    IService _service,
     IIdGenerator _idGenerator) : IInitializerBusiness
 {
     public async Task InitializeAsync(IData _data)
@@ -120,6 +120,6 @@ public class InitializerBusiness(
             To = [new MailAddress("MasjidOnline Root User", userEmailAddress.EmailAddress)],
         };
 
-        await _mailSenderService.SendMailAsync(mailMessage);
+        await _service.MailSender.SendMailAsync(mailMessage);
     }
 }

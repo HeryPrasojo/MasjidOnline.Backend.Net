@@ -9,7 +9,7 @@ using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.Infaq;
 using MasjidOnline.Library.Exceptions;
-using MasjidOnline.Service.FieldValidator.Interface;
+using MasjidOnline.Service.Interface;
 using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Business.Infaq.Expire;
@@ -17,18 +17,15 @@ namespace MasjidOnline.Business.Infaq.Expire;
 public class AddBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
     IAuthorizationBusiness _authorizationBusiness,
-    IFieldValidatorService _fieldValidatorService,
+    IService _service,
     IIdGenerator _idGenerator) : IAddBusiness
 {
-    public async Task<Response> AddAsync(
-        IData _data,
-        ISessionBusiness _sessionBusiness,
-        AddRequest? addRequest)
+    public async Task<Response> AddAsync(IData _data, ISessionBusiness _sessionBusiness, AddRequest? addRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, infaqExpireAdd: true);
 
-        _fieldValidatorService.ValidateRequired(addRequest);
-        _fieldValidatorService.ValidateRequiredPlus(addRequest!.InfaqId);
+        _service.FieldValidator.ValidateRequired(addRequest);
+        _service.FieldValidator.ValidateRequiredPlus(addRequest!.InfaqId);
 
 
         var any = await _data.Infaq.Expire.AnyAsync(addRequest.InfaqId!.Value, Entity.Infaq.ExpireStatus.New);

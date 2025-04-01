@@ -11,22 +11,15 @@ using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.Infaq;
 using MasjidOnline.Library.Exceptions;
-using MasjidOnline.Service.Captcha.Interface;
-using MasjidOnline.Service.FieldValidator.Interface;
+using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.Infaq.Infaq;
 
-public class AddAnonymBusiness(
-        ICaptchaService _captchaService,
-    IFieldValidatorService _fieldValidatorService,
-    IIdGenerator _idGenerator) : IAddAnonymBusiness
+public class AddAnonymBusiness(IService _service, IIdGenerator _idGenerator) : IAddAnonymBusiness
 {
-    public async Task<Response> AddAsync(
-        IData _data,
-        ISessionBusiness _sessionBusiness,
-        AddByAnonymRequest? addByAnonymRequest)
+    public async Task<Response> AddAsync(IData _data, ISessionBusiness _sessionBusiness, AddByAnonymRequest? addByAnonymRequest)
     {
-        await _captchaService.VerifyAsync(addByAnonymRequest!.CaptchaToken, addByAnonymRequest.CaptchaAction);
+        await _service.Captcha.VerifyAsync(addByAnonymRequest!.CaptchaToken, addByAnonymRequest.CaptchaAction);
 
         if (_sessionBusiness.UserId == Constant.UserId.Anonymous)
         {
@@ -44,13 +37,13 @@ public class AddAnonymBusiness(
         }
 
 
-        _fieldValidatorService.ValidateRequired(addByAnonymRequest);
-        _fieldValidatorService.ValidateRequiredPlus(addByAnonymRequest!.Amount);
-        _fieldValidatorService.ValidateRequired(addByAnonymRequest.PaymentType);
-        _fieldValidatorService.ValidateRequiredPast(addByAnonymRequest.ManualDateTime);
+        _service.FieldValidator.ValidateRequired(addByAnonymRequest);
+        _service.FieldValidator.ValidateRequiredPlus(addByAnonymRequest!.Amount);
+        _service.FieldValidator.ValidateRequired(addByAnonymRequest.PaymentType);
+        _service.FieldValidator.ValidateRequiredPast(addByAnonymRequest.ManualDateTime);
 
-        addByAnonymRequest.MunfiqName = _fieldValidatorService.ValidateRequiredText255(addByAnonymRequest.MunfiqName);
-        addByAnonymRequest.ManualNotes = _fieldValidatorService.ValidateOptionalText255(addByAnonymRequest.ManualNotes);
+        addByAnonymRequest.MunfiqName = _service.FieldValidator.ValidateRequiredText255(addByAnonymRequest.MunfiqName);
+        addByAnonymRequest.ManualNotes = _service.FieldValidator.ValidateOptionalText255(addByAnonymRequest.ManualNotes);
 
 
         var paymentTypes = new Interface.Model.Payment.PaymentType[]

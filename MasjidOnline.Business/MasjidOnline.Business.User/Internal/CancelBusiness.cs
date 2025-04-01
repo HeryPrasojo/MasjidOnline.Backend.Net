@@ -7,19 +7,19 @@ using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
-using MasjidOnline.Service.FieldValidator.Interface;
+using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.User.Internal;
 
-public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IFieldValidatorService _fieldValidatorService) : ICancelBusiness
+public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : ICancelBusiness
 {
     public async Task<Response> CancelAsync(ISessionBusiness _sessionBusiness, IData _data, CancelRequest? cancelRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, userInternalCancel: true);
 
-        _fieldValidatorService.ValidateRequired(cancelRequest);
-        _fieldValidatorService.ValidateRequiredPlus(cancelRequest!.Id);
-        cancelRequest.Description = _fieldValidatorService.ValidateRequiredText255(cancelRequest.Description);
+        _service.FieldValidator.ValidateRequired(cancelRequest);
+        _service.FieldValidator.ValidateRequiredPlus(cancelRequest!.Id);
+        cancelRequest.Description = _service.FieldValidator.ValidateRequiredText255(cancelRequest.Description);
 
 
         var status = await _data.User.Internal.GetStatusAsync(cancelRequest.Id!.Value);

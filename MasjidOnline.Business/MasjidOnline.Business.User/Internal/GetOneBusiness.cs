@@ -5,18 +5,16 @@ using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Business.User.Internal.Mapper;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
-using MasjidOnline.Service.FieldValidator.Interface;
+using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.User.Internal;
 
-public class GetOneBusiness(IFieldValidatorService _fieldValidatorService) : IGetOneBusiness
+public class GetOneBusiness(IService _service) : IGetOneBusiness
 {
-    public async Task<GetOneResponse> GetAsync(
-        IData _data,
-        GetOneRequest? getOneRequest)
+    public async Task<GetOneResponse> GetAsync(IData _data, GetOneRequest? getOneRequest)
     {
-        _fieldValidatorService.ValidateRequired(getOneRequest);
-        _fieldValidatorService.ValidateRequiredPlus(getOneRequest!.Id);
+        _service.FieldValidator.ValidateRequired(getOneRequest);
+        _service.FieldValidator.ValidateRequiredPlus(getOneRequest!.Id);
 
 
         var @internal = await _data.User.Internal.GetOneAsync(getOneRequest.Id!.Value);

@@ -7,21 +7,17 @@ using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
-using MasjidOnline.Service.FieldValidator.Interface;
+using MasjidOnline.Service.Interface;
 using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Business.Infaq.Infaq;
 
-public class GetOneDueBusiness(
-    IOptionsMonitor<BusinessOptions> _optionsMonitor,
-    IFieldValidatorService _fieldValidatorService) : IGetOneDueBusiness
+public class GetOneDueBusiness(IOptionsMonitor<BusinessOptions> _optionsMonitor, IService _service) : IGetOneDueBusiness
 {
-    public async Task<GetOneDueResponse> GetAsync(
-        IData _data,
-        GetOneDueRequest? getOneDueRequest)
+    public async Task<GetOneDueResponse> GetAsync(IData _data, GetOneDueRequest? getOneDueRequest)
     {
-        _fieldValidatorService.ValidateRequired(getOneDueRequest);
-        _fieldValidatorService.ValidateRequiredPlus(getOneDueRequest!.Id);
+        _service.FieldValidator.ValidateRequired(getOneDueRequest);
+        _service.FieldValidator.ValidateRequiredPlus(getOneDueRequest!.Id);
 
 
         var infaq = await _data.Infaq.Infaq.GetOneDueAsync(getOneDueRequest.Id!.Value);

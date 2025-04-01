@@ -7,27 +7,24 @@ using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
-using MasjidOnline.Service.FieldValidator.Interface;
+using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.User.Internal;
 
 public class AddBusiness(
     IAuthorizationBusiness _authorizationBusiness,
     IIdGenerator _idGenerator,
-    IFieldValidatorService _fieldValidatorService) : IAddBusiness
+    IService _service) : IAddBusiness
 {
-    public async Task<Response> AddAsync(
-        ISessionBusiness _sessionBusiness,
-        IData _data,
-        AddRequest? addRequest)
+    public async Task<Response> AddAsync(ISessionBusiness _sessionBusiness, IData _data, AddRequest? addRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, userInternalAdd: true);
 
 
-        _fieldValidatorService.ValidateRequired(addRequest);
+        _service.FieldValidator.ValidateRequired(addRequest);
 
-        addRequest!.EmailAddress = _fieldValidatorService.ValidateRequiredEmailAddress(addRequest.EmailAddress);
-        addRequest.Name = _fieldValidatorService.ValidateRequiredText255(addRequest.Name);
+        addRequest!.EmailAddress = _service.FieldValidator.ValidateRequiredEmailAddress(addRequest.EmailAddress);
+        addRequest.Name = _service.FieldValidator.ValidateRequiredText255(addRequest.Name);
 
 
         var any = await _data.User.Internal.AnyAsync(addRequest.EmailAddress, Entity.User.InternalStatus.New);

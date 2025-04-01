@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\MasjidOnline.Service\MasjidOnline.Service.Interface\MasjidOnline.Service.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Authorization.Interface\MasjidOnline.Business.Authorization.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.User.Interface\MasjidOnline.Business.User.Interface.csproj" />
     <ProjectReference Include="..\..\MasjidOnline.Data\MasjidOnline.Data.Interface\MasjidOnline.Data.Interface.csproj" />
