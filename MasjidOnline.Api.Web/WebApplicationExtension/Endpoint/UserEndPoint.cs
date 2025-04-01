@@ -17,7 +17,7 @@ internal static class UserEndPoint
             IData _data,
             [FromBody] Business.User.Interface.Model.Internal.AddRequest? addRequest)
         {
-            return await _business.UserInternalAddBusiness.AddAsync(_sessionBusiness, _data, addRequest);
+            return await _business.User.Internal.Add.AddAsync(_sessionBusiness, _data, addRequest);
         }
 
         internal static async Task<Response> ApproveAsync(
@@ -26,7 +26,7 @@ internal static class UserEndPoint
             IData _data,
             [FromBody] Business.User.Interface.Model.Internal.ApproveRequest? approveRequest)
         {
-            return await _business.UserInternalApproveBusiness.ApproveAsync(_sessionBusiness, _data, approveRequest);
+            return await _business.User.Internal.Approve.ApproveAsync(_sessionBusiness, _data, approveRequest);
         }
 
         internal static async Task<Response> CancelAsync(
@@ -35,7 +35,7 @@ internal static class UserEndPoint
             IData _data,
             [FromBody] Business.User.Interface.Model.Internal.CancelRequest? cancelRequest)
         {
-            return await _business.UserInternalCancelBusiness.CancelAsync(_sessionBusiness, _data, cancelRequest);
+            return await _business.User.Internal.Cancel.CancelAsync(_sessionBusiness, _data, cancelRequest);
         }
 
         internal static async Task<GetManyResponse<Business.User.Interface.Model.Internal.GetManyResponseRecord>> GetManyAsync(
@@ -44,7 +44,7 @@ internal static class UserEndPoint
             IData _data,
             [FromBody] Business.User.Interface.Model.Internal.GetManyRequest? getManyRequest)
         {
-            return await _business.UserInternalGetManyBusiness.GetAsync(_sessionBusiness, _data, getManyRequest);
+            return await _business.User.Internal.GetMany.GetAsync(_sessionBusiness, _data, getManyRequest);
         }
 
         internal static async Task<GetManyResponse<Business.User.Interface.Model.Internal.GetManyNewResponseRecord>> GetManyNewAsync(
@@ -52,7 +52,7 @@ internal static class UserEndPoint
             IData _data,
             [FromBody] Business.User.Interface.Model.Internal.GetManyNewRequest? getManyNewRequest)
         {
-            return await _business.UserInternalGetManyNewBusiness.GetAsync(_data, getManyNewRequest);
+            return await _business.User.Internal.GetManyNew.GetAsync(_data, getManyNewRequest);
         }
 
         internal static async Task<Business.User.Interface.Model.Internal.GetOneResponse> GetOneAsync(
@@ -60,7 +60,7 @@ internal static class UserEndPoint
             IData _data,
             [FromBody] Business.User.Interface.Model.Internal.GetOneRequest? getOneRequest)
         {
-            return await _business.UserInternalGetOneBusiness.GetAsync(_data, getOneRequest);
+            return await _business.User.Internal.GetOne.GetAsync(_data, getOneRequest);
         }
 
         internal static async Task<Business.User.Interface.Model.Internal.GetOneNewResponse> GetOneNewAsync(
@@ -68,7 +68,7 @@ internal static class UserEndPoint
             IData _data,
             [FromBody] Business.User.Interface.Model.Internal.GetOneNewRequest? getOneNewRequest)
         {
-            return await _business.UserInternalGetOneNewBusiness.GetAsync(_data, getOneNewRequest);
+            return await _business.User.Internal.GetOneNew.GetAsync(_data, getOneNewRequest);
         }
 
         internal static async Task<Response> RejectAsync(
@@ -77,7 +77,7 @@ internal static class UserEndPoint
             IData _data,
             [FromBody] Business.User.Interface.Model.Internal.RejectRequest? rejectRequest)
         {
-            return await _business.UserInternalRejectBusiness.RejectAsync(_sessionBusiness, _data, rejectRequest);
+            return await _business.User.Internal.Reject.RejectAsync(_sessionBusiness, _data, rejectRequest);
         }
     }
 
@@ -89,7 +89,7 @@ internal static class UserEndPoint
             ISessionBusiness _sessionBusiness,
             [FromBody] Business.User.Interface.Model.User.LoginRequest? loginRequest)
         {
-            return await _business.UserUserLoginBusiness.LoginAsync(_data, _sessionBusiness, loginRequest);
+            return await _business.User.User.Login.LoginAsync(_data, _sessionBusiness, loginRequest);
         }
 
         internal static async Task<Response> SetPasswordAsync(
@@ -98,7 +98,7 @@ internal static class UserEndPoint
             ISessionBusiness _sessionBusiness,
             [FromBody] Business.User.Interface.Model.User.SetPasswordRequest? setPasswordRequest)
         {
-            return await _business.UserUserSetPasswordBusiness.SetAsync(_sessionBusiness, _data, setPasswordRequest);
+            return await _business.User.User.SetPassword.SetAsync(_sessionBusiness, _data, setPasswordRequest);
         }
     }
 }
