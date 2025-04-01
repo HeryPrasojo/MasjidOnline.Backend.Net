@@ -84,7 +84,7 @@ public class InitializerBusiness(
         await _data.User.PasswordCode.AddAsync(passwordCode);
 
 
-        var permission = new InternalPermission
+        var userInternalPermission = new UserInternalPermission
         {
             UserId = user.Id,
 
@@ -102,9 +102,9 @@ public class InitializerBusiness(
             UserInternalCancel = true,
         };
 
-        await _data.Authorization.InternalPermission.AddAsync(permission);
+        await _data.Authorization.UserInternalPermission.AddAsync(userInternalPermission);
 
-        await _data.Audit.PermissionLog.AddAddAsync(permission, utcNow, Constant.UserId.System);
+        await _data.Audit.UserInternalPermissionLog.AddAddAsync(userInternalPermission, utcNow, Constant.UserId.System);
 
 
         await _data.Transaction.CommitAsync();

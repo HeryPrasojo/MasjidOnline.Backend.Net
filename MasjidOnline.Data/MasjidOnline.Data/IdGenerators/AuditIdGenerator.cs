@@ -11,7 +11,7 @@ public class AuditIdGenerator : IAuditIdGenerator
 
     public async Task InitializeAsync(IData data)
     {
-        _permissionLogId = await data.Audit.PermissionLog.GetMaxPermissionLogIdAsync();
+        _permissionLogId = await data.Audit.UserInternalPermissionLog.GetMaxPermissionLogIdAsync();
     }
 
     public int PermissionLogId => Interlocked.Increment(ref _permissionLogId);

@@ -1,10 +1,7 @@
-using System.ComponentModel.DataAnnotations;
+namespace MasjidOnline.Entity.Audit;
 
-namespace MasjidOnline.Entity.Authorization;
-
-public class InternalPermission
+public class UserInternalPermissionLog : Log<UserInternalPermissionLogType>
 {
-    [Key]
     public required int UserId { get; set; }
 
     public required bool InfaqExpireAdd { get; set; }

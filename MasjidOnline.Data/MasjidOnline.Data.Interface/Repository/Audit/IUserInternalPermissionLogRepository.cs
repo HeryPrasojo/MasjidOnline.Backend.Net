@@ -4,8 +4,8 @@ using MasjidOnline.Entity.Authorization;
 
 namespace MasjidOnline.Data.Interface.Repository.Audit;
 
-public interface IPermissionLogRepository
+public interface IUserInternalPermissionLogRepository
 {
-    Task AddAddAsync(InternalPermission permission, DateTime dateTime, int userId);
+    Task AddAddAsync(UserInternalPermission userInternalPermission, DateTime dateTime, int userId);
     Task<int> GetMaxPermissionLogIdAsync();
 }

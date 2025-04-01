@@ -21,6 +21,7 @@ internal static class InitializeExtension
         var userInitializerBusiness = GetService<MasjidOnline.Business.User.Interface.IInitializerBusiness>(serviceScope.ServiceProvider);
 
         await dataInitializer.Audit.InitializeDatabaseAsync(data);
+        await dataInitializer.Authorization.InitializeDatabaseAsync(data);
         await dataInitializer.Captcha.InitializeDatabaseAsync(data);
         await dataInitializer.Event.InitializeDatabaseAsync(data);
         await dataInitializer.Infaq.InitializeDatabaseAsync(data);

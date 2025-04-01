@@ -15,7 +15,7 @@ public abstract class AuthorizationInitializer(IAuthorizationDefinition _authori
         if (!settingTableExists)
         {
             await CreateTableAuthorizationSettingAsync();
-            await CreateTableInternalPermissionAsync();
+            await CreateTableUserInternalPermissionAsync();
 
 
             var authorizationSetting = new AuthorizationSetting
@@ -33,5 +33,5 @@ public abstract class AuthorizationInitializer(IAuthorizationDefinition _authori
 
 
     protected abstract Task<int> CreateTableAuthorizationSettingAsync();
-    protected abstract Task<int> CreateTableInternalPermissionAsync();
+    protected abstract Task<int> CreateTableUserInternalPermissionAsync();
 }

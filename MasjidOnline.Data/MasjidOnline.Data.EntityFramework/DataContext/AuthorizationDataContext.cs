@@ -10,6 +10,6 @@ public class AuthorizationDataContext(DbContextOptions _dbContextOptions) : DbCo
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<AuthorizationSetting>();
-        modelBuilder.Entity<InternalPermission>();
+        modelBuilder.Entity<UserInternalPermission>();
     }
 }

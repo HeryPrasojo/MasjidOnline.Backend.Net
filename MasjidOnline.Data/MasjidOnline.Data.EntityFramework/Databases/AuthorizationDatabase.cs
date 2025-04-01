@@ -8,10 +8,10 @@ namespace MasjidOnline.Data.EntityFramework.Databases;
 public class AuthorizationDatabase(AuthorizationDataContext _authorizationDataContext) : Database(_authorizationDataContext), IAuthorizationDatabase
 {
     private IAuthorizationSettingRepository? _authorizationSettingRepository;
-    private IInternalPermissionRepository? _internalPermissionRepository;
+    private IUserInternalPermissionRepository? _userInternalPermissionRepository;
 
 
-    public IInternalPermissionRepository InternalPermission => _internalPermissionRepository ??= new InternalPermissionRepository(_authorizationDataContext);
+    public IUserInternalPermissionRepository UserInternalPermission => _userInternalPermissionRepository ??= new UserInternalPermissionRepository(_authorizationDataContext);
 
     public IAuthorizationSettingRepository AuthorizationSetting => _authorizationSettingRepository ??= new AuthorizationSettingRepository(_authorizationDataContext);
 }

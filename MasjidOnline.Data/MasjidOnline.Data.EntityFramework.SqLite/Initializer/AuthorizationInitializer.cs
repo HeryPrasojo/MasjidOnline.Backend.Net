@@ -23,10 +23,10 @@ public class AuthorizationInitializer(
         return await _authorizationDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTableInternalPermissionAsync()
+    protected override async Task<int> CreateTableUserInternalPermissionAsync()
     {
         FormattableString sql = @$"
-            CREATE TABLE Permission
+            CREATE TABLE UserInternalPermission
             (
                 UserId INTEGER PRIMARY KEY,
                 InfaqExpireAdd INTEGER NOT NULL,

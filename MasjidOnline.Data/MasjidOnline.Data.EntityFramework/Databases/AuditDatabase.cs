@@ -11,8 +11,8 @@ public class AuditDatabase(
     IAuditIdGenerator _auditIdGenerator) : Database(_auditDataContext), IAuditDatabase
 {
     private IAuditSettingRepository? _auditSettingRepository;
-    private IPermissionLogRepository? _permissionLogRepository;
+    private IUserInternalPermissionLogRepository? _userInternalPermissionLogRepository;
 
     public IAuditSettingRepository AuditSetting => _auditSettingRepository ??= new AuditSettingRepository(_auditDataContext);
-    public IPermissionLogRepository PermissionLog => _permissionLogRepository ??= new PermissionLogRepository(_auditDataContext, _auditIdGenerator);
+    public IUserInternalPermissionLogRepository UserInternalPermissionLog => _userInternalPermissionLogRepository ??= new UserInternalPermissionLogRepository(_auditDataContext, _auditIdGenerator);
 }

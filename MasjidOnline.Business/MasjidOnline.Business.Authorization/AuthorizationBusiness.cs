@@ -30,7 +30,7 @@ public class AuthorizationBusiness : IAuthorizationBusiness
         bool userInternalApprove = default,
         bool userInternalCancel = default)
     {
-        var sessionPermission = await _data.Authorization.InternalPermission.GetByUserIdAsync(_sessionBusiness.UserId);
+        var sessionPermission = await _data.Authorization.UserInternalPermission.GetByUserIdAsync(_sessionBusiness.UserId);
 
         if (sessionPermission == default) throw new PermissionException(nameof(Constant.UserId.Anonymous));
 

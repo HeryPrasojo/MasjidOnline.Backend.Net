@@ -1,6 +1,6 @@
 namespace MasjidOnline.Entity.Audit;
 
-public enum PermissionLogType
+public enum UserInternalPermissionLogType
 {
     Invalid = 0,
     Add = 1,
