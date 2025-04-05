@@ -2,52 +2,54 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Captcha.Interface;
 using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Service.Captcha.ReCaptcha;
 
-public class CaptchaService(IOptionsMonitor<GoogleOptions> _optionsMonitor) : ICaptchaService
+public class CaptchaService(IHttpClientFactory _httpClientFactory, IOptionsMonitor<GoogleOptions> _optionsMonitor) : ICaptchaService
 {
-    // todo optimize
+    private string _serializedRequest = JsonSerializer.Serialize(
+        new
+        {
+            Event = new
+            {
+                ExpectedAction = "[action]",
+                SiteKey = "6LdSD_oqAAAAAOS497xVyGNjp5AAN-TpvCxk8b5R",
+                Token = "[token]",
+            },
+        },
+        new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        });
+
+    private JsonSerializerOptions _deserializeJsonSerializerOptions = new JsonSerializerOptions
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        //Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+    };
+
     public async Task<bool> VerifyAsync(string token, string action)
     {
-        using var httpClient = new HttpClient();
+        var httpClient = _httpClientFactory.CreateClient("recaptcha");
 
-        var request = new
-        {
-            @event = new
-            {
-                expectedAction = action,
-                siteKey = "6LdSD_oqAAAAAOS497xVyGNjp5AAN-TpvCxk8b5R",
-                token = token,
-            },
-        };
-
-        //var serializeJsonSerializerOptions = new JsonSerializerOptions
-        //{
-        //    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        //    //Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-        //};
-
-        //var serializedRequest = JsonSerializer.Serialize(request, serializeJsonSerializerOptions);
-        var serializedRequest = JsonSerializer.Serialize(request);
+        var serializedRequest = _serializedRequest
+            .Replace("[action]", action)
+            .Replace("[token]", token);
 
         using var stringContent = new StringContent(serializedRequest, Encoding.UTF8, "application/json");
 
         using var httpResponseMessage = await httpClient.PostAsync(_optionsMonitor.CurrentValue.ReCaptchaAssessmentsUri, stringContent);
 
-        //httpResponseMessage.EnsureSuccessStatusCode();
+        httpResponseMessage.EnsureSuccessStatusCode();
 
         var serializedResponse = await httpResponseMessage.Content.ReadAsStringAsync();
 
-        var deserializeJsonSerializerOptions = new JsonSerializerOptions
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            //Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-        };
+        var assessmentResponse = JsonSerializer.Deserialize<AssessmentResponse>(serializedResponse, _deserializeJsonSerializerOptions);
 
-        var assessmentResponse = JsonSerializer.Deserialize<AssessmentResponse>(serializedResponse, deserializeJsonSerializerOptions);
+        if (assessmentResponse == default) throw new ErrorException(serializedResponse);
 
         return assessmentResponse.RiskAnalysis.Score > 0.5f;
     }

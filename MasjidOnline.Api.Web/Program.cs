@@ -65,6 +65,7 @@ static WebApplication BuildApplication(string[] args)
         });
     });
 
+    webApplicationBuilder.Services.AddHttpClient("recaptcha");
 
     #region add dependency
 

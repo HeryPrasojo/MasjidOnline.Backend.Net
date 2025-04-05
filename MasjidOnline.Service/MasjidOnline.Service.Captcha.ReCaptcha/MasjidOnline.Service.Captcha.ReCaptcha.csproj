@@ -8,10 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.3" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\MasjidOnline.Library\MasjidOnline.Library.csproj" />
     <ProjectReference Include="..\MasjidOnline.Service.Captcha.Interface\MasjidOnline.Service.Captcha.Interface.csproj" />
   </ItemGroup>
 

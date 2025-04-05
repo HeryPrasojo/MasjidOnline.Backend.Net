@@ -1,4 +1,5 @@
-﻿using MasjidOnline.Service.Captcha.ReCaptcha;
+﻿using System.Net.Http;
+using MasjidOnline.Service.Captcha.ReCaptcha;
 using MasjidOnline.Service.Interface;
 using MasjidOnline.Service.Mail.Interface.Model;
 using Microsoft.Extensions.Options;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Options;
 namespace MasjidOnline.Service;
 
 public class Service(
+    IHttpClientFactory _httpClientFactory,
     IOptions<Cryptography.Interface.Model.CryptographyOptions> _cryptographyOptions,
     IOptionsMonitor<GoogleOptions> _googleOptions,
     IOptionsMonitor<MailOptions> _mailOptions) : IService
@@ -15,7 +17,7 @@ public class Service(
     private Cryptography.Interface.IEncryption128128Service? _encryption128128Service;
 
 
-    public Captcha.Interface.ICaptchaService Captcha => new Captcha.ReCaptcha.CaptchaService(_googleOptions);
+    public Captcha.Interface.ICaptchaService Captcha => new Captcha.ReCaptcha.CaptchaService(_httpClientFactory, _googleOptions);
 
     public Cryptography.Interface.IEncryption128128Service Encryption128128 => _encryption128128Service ??= new Cryptography.Encryption128128Service(_cryptographyOptions, _hash128Service);
 

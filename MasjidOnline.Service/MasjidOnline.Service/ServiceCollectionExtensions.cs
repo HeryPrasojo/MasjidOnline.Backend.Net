@@ -15,6 +15,8 @@ public static class ServiceCollectionExtensions
         services.Configure<MailOptions>(configuration.GetSection("Mail"));
         services.Configure<GoogleOptions>(configuration.GetSection("Google"));
 
+        services.AddHttpClient("recaptcha");
+
         services.AddSingleton<IService, Service>();
 
         return services;
