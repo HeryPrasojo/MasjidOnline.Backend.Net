@@ -21,9 +21,9 @@ public class AddBusiness(
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, userInternalAdd: true);
 
 
-        _service.FieldValidator.ValidateRequired(addRequest);
+        addRequest = _service.FieldValidator.ValidateRequired(addRequest);
 
-        addRequest!.EmailAddress = _service.FieldValidator.ValidateRequiredEmailAddress(addRequest.EmailAddress);
+        addRequest.EmailAddress = _service.FieldValidator.ValidateRequiredEmailAddress(addRequest.EmailAddress);
         addRequest.Name = _service.FieldValidator.ValidateRequiredText255(addRequest.Name);
 
 

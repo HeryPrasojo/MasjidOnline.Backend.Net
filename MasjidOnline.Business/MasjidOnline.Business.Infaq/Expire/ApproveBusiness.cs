@@ -17,8 +17,8 @@ public class ApproveBusiness(IAuthorizationBusiness _authorizationBusiness, ISer
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, infaqExpireApprove: true);
 
-        _service.FieldValidator.ValidateRequired(approveRequest);
-        _service.FieldValidator.ValidateRequiredPlus(approveRequest!.Id);
+        approveRequest = _service.FieldValidator.ValidateRequired(approveRequest);
+        _service.FieldValidator.ValidateRequiredPlus(approveRequest.Id);
 
 
         var expire = await _data.Infaq.Expire.GetForSetStatusAsync(approveRequest.Id!.Value);

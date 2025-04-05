@@ -14,8 +14,8 @@ public class GetManyNewBusiness(IService _service) : IGetManyNewBusiness
 {
     public async Task<GetManyResponse<GetManyNewResponseRecord>> GetAsync(IData _data, GetManyNewRequest? getManyNewRequest)
     {
-        _service.FieldValidator.ValidateRequired(getManyNewRequest);
-        _service.FieldValidator.ValidateRequiredPlus(getManyNewRequest!.Page);
+        getManyNewRequest = _service.FieldValidator.ValidateRequired(getManyNewRequest);
+        _service.FieldValidator.ValidateRequiredPlus(getManyNewRequest.Page);
 
 
         var take = 10;

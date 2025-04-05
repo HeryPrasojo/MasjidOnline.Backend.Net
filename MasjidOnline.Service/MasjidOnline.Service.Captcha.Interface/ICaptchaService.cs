@@ -4,5 +4,5 @@ namespace MasjidOnline.Service.Captcha.Interface;
 
 public interface ICaptchaService
 {
-    Task VerifyAsync(string token, string action);
+    Task<bool> VerifyAsync(string token, string action);
 }

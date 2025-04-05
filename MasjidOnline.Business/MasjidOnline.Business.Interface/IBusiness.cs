@@ -1,3 +1,4 @@
+using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Business.Infaq.Interface;
 using MasjidOnline.Business.User.Interface;
 
@@ -5,9 +6,7 @@ namespace MasjidOnline.Business.Interface;
 
 public interface IBusiness
 {
-    Captcha.Interface.Captcha.IAddBusiness CaptchaAddBusiness { get; }
-    Captcha.Interface.Captcha.IUpdateBusiness CaptchaUpdateBusiness { get; }
-
+    ICaptchaBusiness Captcha { get; }
     IInfaqBusiness Infaq { get; }
     IUserBusiness User { get; }
 }

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MasjidOnline.Api.Web.WebApplicationExtension.Endpoint;
 
-internal static class UserEndPoint
+internal static class UserEndpoint
 {
     internal static class Internal
     {

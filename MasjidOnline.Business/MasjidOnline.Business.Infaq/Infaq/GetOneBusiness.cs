@@ -13,8 +13,8 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
 {
     public async Task<GetOneResponse> GetAsync(IData _data, GetOneRequest? getOneRequest)
     {
-        _service.FieldValidator.ValidateRequired(getOneRequest);
-        _service.FieldValidator.ValidateRequiredPlus(getOneRequest!.Id);
+        getOneRequest = _service.FieldValidator.ValidateRequired(getOneRequest);
+        _service.FieldValidator.ValidateRequiredPlus(getOneRequest.Id);
 
 
         var infaq = await _data.Infaq.Infaq.GetOneAsync(getOneRequest.Id!.Value);

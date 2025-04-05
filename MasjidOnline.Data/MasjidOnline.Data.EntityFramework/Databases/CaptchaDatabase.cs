@@ -7,10 +7,10 @@ namespace MasjidOnline.Data.EntityFramework.Databases;
 
 public class CaptchaDatabase(CaptchaDataContext _captchaDataContext) : Database(_captchaDataContext), ICaptchaDatabase
 {
-    private ICaptchaRepository? _captchaRepository;
+    private IPassRepository? _passRepository;
     private ICaptchaSettingRepository? _captchaSettingRepository;
 
-    public ICaptchaRepository Captcha => _captchaRepository ??= new CaptchaRepository(_captchaDataContext);
+    public IPassRepository Pass => _passRepository ??= new PassRepository(_captchaDataContext);
 
     public ICaptchaSettingRepository CaptchaSetting => _captchaSettingRepository ??= new CaptchaSettingRepository(_captchaDataContext);
 }

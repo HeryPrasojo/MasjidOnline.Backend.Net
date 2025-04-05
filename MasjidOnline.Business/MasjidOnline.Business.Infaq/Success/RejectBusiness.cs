@@ -15,10 +15,10 @@ public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IServ
 {
     public async Task<Response> RejectAsync(ISessionBusiness _sessionBusiness, IData _data, RejectRequest? rejectRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, userInternalCancel: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, userInternalApprove: true);
 
-        _service.FieldValidator.ValidateRequired(rejectRequest);
-        _service.FieldValidator.ValidateRequiredPlus(rejectRequest!.Id);
+        rejectRequest = _service.FieldValidator.ValidateRequired(rejectRequest);
+        _service.FieldValidator.ValidateRequiredPlus(rejectRequest.Id);
         rejectRequest.Description = _service.FieldValidator.ValidateRequiredText255(rejectRequest.Description);
 
 

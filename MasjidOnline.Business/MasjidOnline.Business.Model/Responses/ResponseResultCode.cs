@@ -14,5 +14,6 @@ public enum ResponseResultCode
     CaptchaPass = 111,
     CaptchaWrong = 112,
     CaptchaNeed = 113,
-    CaptchaUnpass = 114,
+    CaptchaUnneed = 114,
+    CaptchaUnpass = 115,
 }

@@ -19,8 +19,8 @@ public class GetManyDueBusiness(IOptionsMonitor<BusinessOptions> _optionsMonitor
 {
     public async Task<GetManyResponse<GetManyDueResponseRecord>> GetAsync(IData _data, GetManyDueRequest? getManyDueRequest)
     {
-        _service.FieldValidator.ValidateRequired(getManyDueRequest);
-        _service.FieldValidator.ValidateRequiredPlus(getManyDueRequest!.Page);
+        getManyDueRequest = _service.FieldValidator.ValidateRequired(getManyDueRequest);
+        _service.FieldValidator.ValidateRequiredPlus(getManyDueRequest.Page);
 
 
         IEnumerable<Entity.Infaq.PaymentType>? paymentTypes = default;

@@ -14,8 +14,8 @@ public class SetPasswordBusiness(IService _service) : ISetPasswordBusiness
 {
     public async Task<Response> SetAsync(ISessionBusiness _sessionBusiness, IData _data, SetPasswordRequest? setPasswordRequest)
     {
-        _service.FieldValidator.ValidateRequired(setPasswordRequest);
-        var passwordCodeBytes = _service.FieldValidator.ValidateRequiredHex(setPasswordRequest!.PasswordCode, 128);
+        setPasswordRequest = _service.FieldValidator.ValidateRequired(setPasswordRequest);
+        var passwordCodeBytes = _service.FieldValidator.ValidateRequiredHex(setPasswordRequest.PasswordCode, 128);
         setPasswordRequest.Password = _service.FieldValidator.ValidateRequiredText255(setPasswordRequest.Password);
         setPasswordRequest.PasswordRepeat = _service.FieldValidator.ValidateRequiredText255(setPasswordRequest.PasswordRepeat);
 

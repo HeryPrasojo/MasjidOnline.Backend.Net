@@ -9,6 +9,7 @@ public interface ISessionBusiness
     string DigestBase64 { get; }
     int UserId { get; }
     int Id { get; }
+    bool IsUserAnonymous { get; }
 
     Task ChangeAndSaveAsync(int userId);
     Task ChangeAsync(int userId);

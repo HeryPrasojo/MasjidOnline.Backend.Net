@@ -23,18 +23,13 @@ public class CaptchaInitializer(
         return await _captchaDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTableCaptchaAsync()
+    protected override async Task<int> CreateTablePassAsync()
     {
         FormattableString sql = @$"
-            CREATE TABLE Captcha
+            CREATE TABLE Pass
             (
-                Id INTEGER PRIMARY KEY,
-                DateTime TEXT NOT NULL,
-                SessionId INTEGER NOT NULL,
-                UpdateDateTime TEXT,
-                IsMatched INTEGER,
-                QuestionFloat REAL NOT NULL,
-                AnswerFloat REAL
+                SessionId INTEGER PRIMARY KEY,
+                DateTime TEXT NOT NULL
             )";
 
         return await _captchaDataContext.Database.ExecuteSqlAsync(sql);

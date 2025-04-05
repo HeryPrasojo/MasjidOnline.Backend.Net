@@ -25,9 +25,11 @@ public class FieldValidatorService : IFieldValidatorService
         return value;
     }
 
-    public void ValidateRequired<TObject>(TObject? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default) where TObject : class
+    public TObject ValidateRequired<TObject>(TObject? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default) where TObject : class
     {
         if (value == default) throw new InputInvalidException(valueExpression);
+
+        return value;
     }
 
     public void ValidateRequired(Enum? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)

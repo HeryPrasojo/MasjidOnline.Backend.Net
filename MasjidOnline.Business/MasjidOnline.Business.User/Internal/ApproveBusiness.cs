@@ -25,8 +25,8 @@ public class ApproveBusiness(
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, userInternalApprove: true);
 
-        _service.FieldValidator.ValidateRequired(approveRequest);
-        _service.FieldValidator.ValidateRequiredPlus(approveRequest!.Id);
+        approveRequest = _service.FieldValidator.ValidateRequired(approveRequest);
+        _service.FieldValidator.ValidateRequiredPlus(approveRequest.Id);
 
 
         var @internal = await _data.User.Internal.GetForApproveAsync(approveRequest.Id!.Value);

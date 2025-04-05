@@ -24,8 +24,8 @@ public class AddBusiness(
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, infaqExpireAdd: true);
 
-        _service.FieldValidator.ValidateRequired(addRequest);
-        _service.FieldValidator.ValidateRequiredPlus(addRequest!.InfaqId);
+        addRequest = _service.FieldValidator.ValidateRequired(addRequest);
+        _service.FieldValidator.ValidateRequiredPlus(addRequest.InfaqId);
 
 
         var any = await _data.Infaq.Expire.AnyAsync(addRequest.InfaqId!.Value, Entity.Infaq.ExpireStatus.New);

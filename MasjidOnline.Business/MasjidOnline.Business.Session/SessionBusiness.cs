@@ -9,11 +9,14 @@ using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.Session;
 
+// hack change to singleton, move scoped to new class.
 public class SessionBusiness(IService _service, IData _data, IIdGenerator _idGenerator) : ISessionBusiness
 {
     private Memory<byte> _digest = Memory<byte>.Empty;
 
+
     public int Id { get; private set; }
+
     public string DigestBase64
     {
         get
@@ -27,6 +30,9 @@ public class SessionBusiness(IService _service, IData _data, IIdGenerator _idGen
     }
 
     public bool IsDigestNew { get; private set; }
+
+    public bool IsUserAnonymous => UserId == Constant.UserId.Anonymous;
+
     public int UserId { get; private set; }
 
     public async Task ChangeAsync(int userId)

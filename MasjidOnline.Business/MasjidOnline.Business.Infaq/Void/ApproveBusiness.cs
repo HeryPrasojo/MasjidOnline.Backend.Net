@@ -15,10 +15,10 @@ public class ApproveBusiness(IAuthorizationBusiness _authorizationBusiness, ISer
 {
     public async Task<Response> ApproveAsync(ISessionBusiness _sessionBusiness, IData _data, ApproveRequest? approveRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, userInternalCancel: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, userInternalApprove: true);
 
-        _service.FieldValidator.ValidateRequired(approveRequest);
-        _service.FieldValidator.ValidateRequiredPlus(approveRequest!.Id);
+        approveRequest = _service.FieldValidator.ValidateRequired(approveRequest);
+        _service.FieldValidator.ValidateRequiredPlus(approveRequest.Id);
 
 
         var @void = await _data.Infaq.Void.GetForSetStatusAsync(approveRequest.Id!.Value);

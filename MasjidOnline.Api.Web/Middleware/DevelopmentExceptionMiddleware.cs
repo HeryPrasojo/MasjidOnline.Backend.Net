@@ -30,6 +30,7 @@ public class DevelopmentExceptionMiddleware(
         {
             Message = exception.Message,
             StackTrace = exception.StackTrace,
+            Type = exception.GetType().Name,
         };
 
         if (exception.InnerException != default)

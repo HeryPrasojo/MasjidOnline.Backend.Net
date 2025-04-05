@@ -9,7 +9,7 @@ public class CaptchaDataContext(DbContextOptions _dbContextOptions) : DbContext(
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<Captcha>();
+        modelBuilder.Entity<Pass>();
         modelBuilder.Entity<CaptchaSetting>();
     }
 }

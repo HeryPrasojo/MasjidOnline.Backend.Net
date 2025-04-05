@@ -4,7 +4,6 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.Databases;
 using MasjidOnline.Library.Exceptions;
 using Microsoft.AspNetCore.Http;
 
@@ -14,7 +13,7 @@ public class ExceptionMiddleware(
     RequestDelegate _nextRequestDelegate,
     IIdGenerator _idGenerator)
 {
-    public async Task Invoke(HttpContext httpContext, IEventDatabase eventDatabase)
+    public async Task Invoke(HttpContext httpContext, IData data)
     {
         try
         {
@@ -22,7 +21,7 @@ public class ExceptionMiddleware(
         }
         catch (Exception exception)
         {
-            await HandleExceptionAsync(httpContext, exception, eventDatabase);
+            await HandleExceptionAsync(httpContext, exception, data);
         }
     }
 
@@ -53,7 +52,7 @@ public class ExceptionMiddleware(
         return exceptionResponse;
     }
 
-    private async Task HandleExceptionAsync(HttpContext httpContext, Exception exception, IEventDatabase eventDatabase)
+    private async Task HandleExceptionAsync(HttpContext httpContext, Exception exception, IData data)
     {
         var exceptionResponse = BuildExceptionResponse(exception);
 
@@ -70,9 +69,9 @@ public class ExceptionMiddleware(
 
             BuildExceptionEntity(exception, exceptionEntities, DateTime.UtcNow);
 
-            await eventDatabase.Exception.AddAsync(exceptionEntities);
+            await data.Event.Exception.AddAsync(exceptionEntities);
 
-            await eventDatabase.SaveAsync();
+            await data.Event.SaveAsync();
         }
     }
 

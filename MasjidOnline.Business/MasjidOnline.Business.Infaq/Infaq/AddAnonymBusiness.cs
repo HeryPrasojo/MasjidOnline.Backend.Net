@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using MasjidOnline.Business.Model;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Entity.Captcha;
 using MasjidOnline.Entity.Infaq;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
@@ -19,26 +21,40 @@ public class AddAnonymBusiness(IService _service, IIdGenerator _idGenerator) : I
 {
     public async Task<Response> AddAsync(IData _data, ISessionBusiness _sessionBusiness, AddByAnonymRequest? addByAnonymRequest)
     {
-        await _service.Captcha.VerifyAsync(addByAnonymRequest!.CaptchaToken, addByAnonymRequest.CaptchaAction);
+        addByAnonymRequest = _service.FieldValidator.ValidateRequired(addByAnonymRequest);
 
-        if (_sessionBusiness.UserId == Constant.UserId.Anonymous)
+        var utcNow = DateTime.UtcNow;
+
+        if (_sessionBusiness.IsUserAnonymous)
         {
-            var captchas = await _data.Captcha.Captcha.GetForInfaqAddByAnonymAsync(_sessionBusiness.Id);
+            var any = await _data.Captcha.Pass.AnyAsync(_sessionBusiness.Id);
 
-            if (!captchas.Any()) return new()
+            if (!any)
             {
-                ResultCode = ResponseResultCode.CaptchaNeed,
-            };
+                addByAnonymRequest.CaptchaAction = _service.FieldValidator.ValidateRequired(addByAnonymRequest.CaptchaAction);
+                addByAnonymRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(addByAnonymRequest.CaptchaToken);
 
-            if (!captchas.Any(e => e.IsMatched == true)) return new()
-            {
-                ResultCode = ResponseResultCode.CaptchaUnpass,
-            };
+                var isVerified = await _service.Captcha.VerifyAsync(addByAnonymRequest.CaptchaToken, addByAnonymRequest.CaptchaAction);
+
+                if (!isVerified) return new()
+                {
+                    ResultCode = ResponseResultCode.InputMismatch,
+                    ResultMessage = nameof(addByAnonymRequest.CaptchaToken),
+                };
+
+
+                var pass = new Pass
+                {
+                    DateTime = utcNow,
+                    SessionId = _sessionBusiness.Id,
+                };
+
+                await _data.Captcha.Pass.AddAndSaveAsync(pass);
+            }
         }
 
 
-        _service.FieldValidator.ValidateRequired(addByAnonymRequest);
-        _service.FieldValidator.ValidateRequiredPlus(addByAnonymRequest!.Amount);
+        _service.FieldValidator.ValidateRequiredPlus(addByAnonymRequest.Amount);
         _service.FieldValidator.ValidateRequired(addByAnonymRequest.PaymentType);
         _service.FieldValidator.ValidateRequiredPast(addByAnonymRequest.ManualDateTime);
 
@@ -58,7 +74,7 @@ public class AddAnonymBusiness(IService _service, IIdGenerator _idGenerator) : I
         {
             Id = _idGenerator.Infaq.InfaqId,
             Amount = addByAnonymRequest.Amount!.Value,
-            DateTime = DateTime.UtcNow,
+            DateTime = utcNow,
             PaymentStatus = PaymentStatus.New,
             PaymentType = addByAnonymRequest.PaymentType!.Value.ToEntity(),
             UserId = _sessionBusiness.UserId,
@@ -81,6 +97,8 @@ public class AddAnonymBusiness(IService _service, IIdGenerator _idGenerator) : I
         }
 
 
+        var temporaryFiles = new List<TemporaryFile>();
+
         if (addByAnonymRequest.Files != default)
         {
             foreach (var file in addByAnonymRequest.Files)
@@ -93,16 +111,24 @@ public class AddAnonymBusiness(IService _service, IIdGenerator _idGenerator) : I
                     InfaqId = infaq.Id,
                 };
 
+                var fileName = infaqFile.Id;
+
+                var temporaryFile = new TemporaryFile
+                {
+                    Path = Constant.Path.InfaqFileDirectory + fileName,
+                    TemporaryPath = Constant.Path.InfaqFileDirectory + '_' + fileName,
+                };
+
                 var fileStreamOptions = new FileStreamOptions
                 {
                     Access = FileAccess.Write,
-                    Mode = FileMode.CreateNew,
+                    Mode = FileMode.Create,
                     Options = FileOptions.WriteThrough,
                     PreallocationSize = file.Length,
                     Share = FileShare.None,
                 };
 
-                using var fileStream = new FileStream("..\\..\\upload\\transaction\\", fileStreamOptions);
+                using var fileStream = new FileStream(temporaryFile.TemporaryPath, fileStreamOptions);
 
                 await file.CopyToAsync(fileStream);
 
@@ -111,15 +137,27 @@ public class AddAnonymBusiness(IService _service, IIdGenerator _idGenerator) : I
                 fileStream.Close();
 
                 await _data.Infaq.InfaqFile.AddAsync(infaqFile);
+
+                temporaryFiles.Add(temporaryFile);
             }
         }
 
 
         await _data.Infaq.SaveAsync();
 
+        foreach (var temporaryFile in temporaryFiles)
+            File.Move(temporaryFile.TemporaryPath, temporaryFile.Path, true);
+
         return new()
         {
             ResultCode = ResponseResultCode.Success,
         };
+    }
+
+    internal class TemporaryFile
+    {
+        public required string Path { get; set; }
+
+        public required string TemporaryPath { get; set; }
     }
 }

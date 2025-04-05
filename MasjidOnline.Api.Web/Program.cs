@@ -56,9 +56,12 @@ static WebApplication BuildApplication(string[] args)
         corsOptions.AddDefaultPolicy(corsPolicyBuilder =>
         {
             corsPolicyBuilder.WithOrigins(option.Uri.WebOrigin)
-                .WithExposedHeaders(Constant.HttpHeaderName.ResultCode, Constant.HttpHeaderName.ResultMessage)
-                .AllowCredentials()
-                .AllowAnyHeader();
+                .AllowAnyHeader()
+                //.WithExposedHeaders(Constant.HttpHeaderName.ResultCode, Constant.HttpHeaderName.ResultMessage)
+                .WithExposedHeaders(Constant.HttpHeaderName.Session);
+            //corsPolicyBuilder.WithOrigins(option.Uri.WebOrigin)
+            //    .AllowCredentials()
+            //    .AllowAnyHeader();
         });
     });
 

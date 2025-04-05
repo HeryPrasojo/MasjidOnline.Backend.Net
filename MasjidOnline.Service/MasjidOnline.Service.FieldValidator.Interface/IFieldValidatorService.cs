@@ -6,7 +6,7 @@ namespace MasjidOnline.Service.FieldValidator.Interface;
 public interface IFieldValidatorService
 {
     string? ValidateOptionalText255(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default);
-    void ValidateRequired<TObject>(TObject? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default) where TObject : class;
+    TObject ValidateRequired<TObject>(TObject? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default) where TObject : class;
     void ValidateRequiredPlus(decimal? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default);
     void ValidateRequired(Enum? value, string? valueExpression = null);
     void ValidateRequiredPast(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);

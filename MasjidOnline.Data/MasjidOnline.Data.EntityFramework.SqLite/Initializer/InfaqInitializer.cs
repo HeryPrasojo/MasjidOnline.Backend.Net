@@ -35,14 +35,11 @@ public class InfaqInitializer(
             (
                 Id INTEGER PRIMARY KEY,
                 DateTime TEXT NOT NULL,
-                Type INTEGER NOT NULL,
                 PaymentStatus INTEGER NOT NULL,
                 PaymentType INTEGER NOT NULL,
                 UserId INTEGER NOT NULL,
                 MunfiqName INTEGER NOT NULL,
-                Amount REAL NOT NULL,
-                ManualBankTransferDateTime TEXT NOT NULL,
-                ManualBankTransferNotes TEXT NOT NULL COLLATE NOCASE
+                Amount REAL NOT NULL
             )";
 
         return await _infaqDataContext.Database.ExecuteSqlAsync(sql);

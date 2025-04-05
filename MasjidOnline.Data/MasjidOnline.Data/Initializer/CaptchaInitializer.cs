@@ -15,7 +15,7 @@ public abstract class CaptchaInitializer(ICaptchaDefinition _captchaDefinition) 
         if (!settingTableExists)
         {
             await CreateTableCaptchaSettingAsync();
-            await CreateTableCaptchaAsync();
+            await CreateTablePassAsync();
 
 
             var captchaSetting = new CaptchaSetting
@@ -32,7 +32,6 @@ public abstract class CaptchaInitializer(ICaptchaDefinition _captchaDefinition) 
     }
 
 
-    protected abstract Task<int> CreateTableCaptchaAsync();
-
     protected abstract Task<int> CreateTableCaptchaSettingAsync();
+    protected abstract Task<int> CreateTablePassAsync();
 }

@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface;
-using MasjidOnline.Business.Model;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
@@ -11,7 +10,7 @@ public class AuthorizationBusiness : IAuthorizationBusiness
 {
     public void AuthorizeNonAnonymous(ISessionBusiness _sessionBusiness)
     {
-        if (_sessionBusiness.UserId == Constant.UserId.Anonymous) throw new PermissionException(nameof(Constant.UserId.Anonymous));
+        if (_sessionBusiness.IsUserAnonymous) throw new PermissionException(nameof(_sessionBusiness.IsUserAnonymous));
     }
 
     public async Task AuthorizePermissionAsync(
@@ -30,9 +29,11 @@ public class AuthorizationBusiness : IAuthorizationBusiness
         bool userInternalApprove = default,
         bool userInternalCancel = default)
     {
+        if (_sessionBusiness.IsUserAnonymous) throw new PermissionException(nameof(_sessionBusiness.IsUserAnonymous));
+
         var sessionPermission = await _data.Authorization.UserInternalPermission.GetByUserIdAsync(_sessionBusiness.UserId);
 
-        if (sessionPermission == default) throw new PermissionException(nameof(Constant.UserId.Anonymous));
+        if (sessionPermission == default) throw new PermissionException(nameof(_sessionBusiness.UserId));
 
         if (infaqExpireAdd && !sessionPermission.InfaqExpireAdd) throw new PermissionException(nameof(sessionPermission.InfaqExpireAdd));
         if (infaqExpireApprove && !sessionPermission.InfaqExpireApprove) throw new PermissionException(nameof(sessionPermission.InfaqExpireApprove));

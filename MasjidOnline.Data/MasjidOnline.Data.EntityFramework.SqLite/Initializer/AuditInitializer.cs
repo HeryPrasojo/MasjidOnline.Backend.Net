@@ -23,10 +23,10 @@ public class AuditInitializer(
         return await _auditDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTablePermissionLogAsync()
+    protected override async Task<int> CreateTableUserInternalPermissionLogAsync()
     {
         FormattableString sql = @$"
-            CREATE TABLE PermissionLog
+            CREATE TABLE UserInternalPermissionLog
             (
                 Id INTEGER PRIMARY KEY,
                 LogDateTime TEXT NOT NULL,

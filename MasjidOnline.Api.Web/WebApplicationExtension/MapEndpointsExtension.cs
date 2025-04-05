@@ -7,79 +7,82 @@ internal static class MapEndpointsExtension
 {
     internal static WebApplication MapEndpoints(this WebApplication webApplication)
     {
-        var captchaGroup = webApplication.MapGroup("/captcha/");
+        var captchaGroup = webApplication.MapGroup("/captcha/").DisableAntiforgery();
 
-        captchaGroup.MapPost("question", CaptchaEndPoint.AddQuestionAsync);
-        captchaGroup.MapPost("answer", CaptchaEndPoint.UpdateAsync);
+        captchaGroup.MapPost("getStatus", CaptchaEndpoint.Pass.GetStatusAsync);
 
 
-        var infaqGroup = webApplication.MapGroup("/infaq/");
+        var infaqGroup = webApplication.MapGroup("/infaq/").DisableAntiforgery();
 
         var infaqInfaqGroup = infaqGroup.MapGroup("infaq/");
 
-        infaqInfaqGroup.MapPost("add/anonym", InfaqEndPoint.Infaq.AddAnonymAsync);
-        infaqInfaqGroup.MapPost("getMany", InfaqEndPoint.Infaq.GetManyAsync);
-        infaqInfaqGroup.MapPost("getMany/due", InfaqEndPoint.Infaq.GetManyDueAsync);
-        infaqInfaqGroup.MapPost("getOne", InfaqEndPoint.Infaq.GetOneAsync);
-        infaqInfaqGroup.MapPost("getOne/due", InfaqEndPoint.Infaq.GetOneDueAsync);
+        infaqInfaqGroup.MapPost("add/anonym", InfaqEndpoint.Infaq.AddAnonymAsync);
+        infaqInfaqGroup.MapPost("getMany", InfaqEndpoint.Infaq.GetManyAsync);
+        infaqInfaqGroup.MapPost("getOne", InfaqEndpoint.Infaq.GetOneAsync);
+        infaqInfaqGroup.MapPost("due/getMany", InfaqEndpoint.Infaq.GetManyDueAsync);
+        infaqInfaqGroup.MapPost("due/getOne", InfaqEndpoint.Infaq.GetOneDueAsync);
 
 
         var infaqExpireGroup = infaqGroup.MapGroup("expire/");
 
-        infaqExpireGroup.MapPost("add", InfaqEndPoint.Expire.AddAsync);
-        infaqExpireGroup.MapPost("approve", InfaqEndPoint.Expire.ApproveAsync);
-        infaqExpireGroup.MapPost("cancel", InfaqEndPoint.Expire.CancelAsync);
-        infaqExpireGroup.MapPost("getMany", InfaqEndPoint.Expire.GetManyAsync);
-        infaqExpireGroup.MapPost("getMany/new", InfaqEndPoint.Expire.GetManyNewAsync);
-        infaqExpireGroup.MapPost("getOne", InfaqEndPoint.Expire.GetOneAsync);
-        infaqExpireGroup.MapPost("getOne/new", InfaqEndPoint.Expire.GetOneNewAsync);
-        infaqExpireGroup.MapPost("reject", InfaqEndPoint.Expire.RejectAsync);
+        infaqExpireGroup.MapPost("add", InfaqEndpoint.Expire.AddAsync);
+        infaqExpireGroup.MapPost("approve", InfaqEndpoint.Expire.ApproveAsync);
+        infaqExpireGroup.MapPost("cancel", InfaqEndpoint.Expire.CancelAsync);
+        infaqExpireGroup.MapPost("getMany", InfaqEndpoint.Expire.GetManyAsync);
+        infaqExpireGroup.MapPost("getOne", InfaqEndpoint.Expire.GetOneAsync);
+        infaqExpireGroup.MapPost("reject", InfaqEndpoint.Expire.RejectAsync);
+        infaqExpireGroup.MapPost("new/getMany", InfaqEndpoint.Expire.GetManyNewAsync);
+        infaqExpireGroup.MapPost("new/getOne", InfaqEndpoint.Expire.GetOneNewAsync);
 
 
         var infaqSuccessGroup = infaqGroup.MapGroup("success/");
 
-        infaqSuccessGroup.MapPost("add", InfaqEndPoint.Success.AddAsync);
-        infaqSuccessGroup.MapPost("approve", InfaqEndPoint.Success.ApproveAsync);
-        infaqSuccessGroup.MapPost("cancel", InfaqEndPoint.Success.CancelAsync);
-        infaqSuccessGroup.MapPost("getMany", InfaqEndPoint.Success.GetManyAsync);
-        infaqSuccessGroup.MapPost("getMany/new", InfaqEndPoint.Success.GetManyNewAsync);
-        infaqSuccessGroup.MapPost("getOne", InfaqEndPoint.Success.GetOneAsync);
-        infaqSuccessGroup.MapPost("getOne/new", InfaqEndPoint.Success.GetOneNewAsync);
-        infaqSuccessGroup.MapPost("reject", InfaqEndPoint.Success.RejectAsync);
+        infaqSuccessGroup.MapPost("add", InfaqEndpoint.Success.AddAsync);
+        infaqSuccessGroup.MapPost("approve", InfaqEndpoint.Success.ApproveAsync);
+        infaqSuccessGroup.MapPost("cancel", InfaqEndpoint.Success.CancelAsync);
+        infaqSuccessGroup.MapPost("getMany", InfaqEndpoint.Success.GetManyAsync);
+        infaqSuccessGroup.MapPost("getOne", InfaqEndpoint.Success.GetOneAsync);
+        infaqSuccessGroup.MapPost("reject", InfaqEndpoint.Success.RejectAsync);
+        infaqSuccessGroup.MapPost("new/getMany", InfaqEndpoint.Success.GetManyNewAsync);
+        infaqSuccessGroup.MapPost("new/getOne", InfaqEndpoint.Success.GetOneNewAsync);
 
 
         var infaqVoidGroup = infaqGroup.MapGroup("void/");
 
-        infaqVoidGroup.MapPost("add", InfaqEndPoint.Void.AddAsync);
-        infaqVoidGroup.MapPost("approve", InfaqEndPoint.Void.ApproveAsync);
-        infaqVoidGroup.MapPost("cancel", InfaqEndPoint.Void.CancelAsync);
-        infaqVoidGroup.MapPost("getMany", InfaqEndPoint.Void.GetManyAsync);
-        infaqVoidGroup.MapPost("getMany/new", InfaqEndPoint.Void.GetManyNewAsync);
-        infaqVoidGroup.MapPost("getOne", InfaqEndPoint.Void.GetOneAsync);
-        infaqVoidGroup.MapPost("getOne/new", InfaqEndPoint.Void.GetOneNewAsync);
-        infaqVoidGroup.MapPost("reject", InfaqEndPoint.Void.RejectAsync);
+        infaqVoidGroup.MapPost("add", InfaqEndpoint.Void.AddAsync);
+        infaqVoidGroup.MapPost("approve", InfaqEndpoint.Void.ApproveAsync);
+        infaqVoidGroup.MapPost("cancel", InfaqEndpoint.Void.CancelAsync);
+        infaqVoidGroup.MapPost("getMany", InfaqEndpoint.Void.GetManyAsync);
+        infaqVoidGroup.MapPost("getOne", InfaqEndpoint.Void.GetOneAsync);
+        infaqVoidGroup.MapPost("reject", InfaqEndpoint.Void.RejectAsync);
+        infaqVoidGroup.MapPost("new/getMany", InfaqEndpoint.Void.GetManyNewAsync);
+        infaqVoidGroup.MapPost("new/getOne", InfaqEndpoint.Void.GetOneNewAsync);
 
 
-        var userGroup = webApplication.MapGroup("/user/");
+        var userGroup = webApplication.MapGroup("/user/").DisableAntiforgery();
 
         var userInternalGroup = userGroup.MapGroup("internal/");
 
-        userInternalGroup.MapPost("add", UserEndPoint.Internal.AddAsync);
-        userInternalGroup.MapPost("approve", UserEndPoint.Internal.ApproveAsync);
-        userInternalGroup.MapPost("cancel", UserEndPoint.Internal.CancelAsync);
-        userInternalGroup.MapPost("getMany", UserEndPoint.Internal.GetManyAsync);
-        userInternalGroup.MapPost("getMany/new", UserEndPoint.Internal.GetManyNewAsync);
-        userInternalGroup.MapPost("getOne", UserEndPoint.Internal.GetOneAsync);
-        userInternalGroup.MapPost("getOne/new", UserEndPoint.Internal.GetOneNewAsync);
-        userInternalGroup.MapPost("reject", UserEndPoint.Internal.RejectAsync);
+        userInternalGroup.MapPost("add", UserEndpoint.Internal.AddAsync);
+        userInternalGroup.MapPost("approve", UserEndpoint.Internal.ApproveAsync);
+        userInternalGroup.MapPost("cancel", UserEndpoint.Internal.CancelAsync);
+        userInternalGroup.MapPost("getMany", UserEndpoint.Internal.GetManyAsync);
+        userInternalGroup.MapPost("getOne", UserEndpoint.Internal.GetOneAsync);
+        userInternalGroup.MapPost("reject", UserEndpoint.Internal.RejectAsync);
+        userInternalGroup.MapPost("new/getMany", UserEndpoint.Internal.GetManyNewAsync);
+        userInternalGroup.MapPost("new/getOne", UserEndpoint.Internal.GetOneNewAsync);
 
 
         var userUserGroup = userGroup.MapGroup("user/");
 
         // todo change path
-        userGroup.MapPost("login", UserEndPoint.User.LoginAsync);
-        userGroup.MapPost("setPassword", UserEndPoint.User.SetPasswordAsync);
+        userUserGroup.MapPost("login", UserEndpoint.User.LoginAsync);
+        userUserGroup.MapPost("setPassword", UserEndpoint.User.SetPasswordAsync);
 
+
+        var sessionGroup = webApplication.MapGroup("session/");
+
+        sessionGroup.MapPost("create", SessionEndpoint.Create).DisableAntiforgery();
 
         return webApplication;
     }

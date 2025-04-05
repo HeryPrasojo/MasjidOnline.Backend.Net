@@ -12,6 +12,7 @@ public class InfaqDataContext(DbContextOptions _dbContextOptions) : DbContext(_d
         modelBuilder.Entity<Expire>();
         modelBuilder.Entity<Infaq>();
         modelBuilder.Entity<InfaqFile>();
+        modelBuilder.Entity<InfaqManual>();
         modelBuilder.Entity<InfaqSetting>();
         modelBuilder.Entity<Success>();
         modelBuilder.Entity<Void>();

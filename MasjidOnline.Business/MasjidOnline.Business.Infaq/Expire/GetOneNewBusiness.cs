@@ -12,8 +12,8 @@ public class GetOneNewBusiness(IService _service) : IGetOneNewBusiness
 {
     public async Task<GetOneNewResponse> GetAsync(IData _data, GetOneNewRequest? getOneNewRequest)
     {
-        _service.FieldValidator.ValidateRequired(getOneNewRequest);
-        _service.FieldValidator.ValidateRequiredPlus(getOneNewRequest!.Id);
+        getOneNewRequest = _service.FieldValidator.ValidateRequired(getOneNewRequest);
+        _service.FieldValidator.ValidateRequiredPlus(getOneNewRequest.Id);
 
 
         var expire = await _data.Infaq.Expire.GetOneNewAsync(getOneNewRequest.Id!.Value);

@@ -5,5 +5,5 @@ namespace MasjidOnline.Data.Interface.Databases;
 public interface ICaptchaDatabase : IDatabase
 {
     ICaptchaSettingRepository CaptchaSetting { get; }
-    ICaptchaRepository Captcha { get; }
+    IPassRepository Pass { get; }
 }

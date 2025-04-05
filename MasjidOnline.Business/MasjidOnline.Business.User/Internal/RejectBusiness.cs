@@ -17,8 +17,8 @@ public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IServ
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, userInternalApprove: true);
 
-        _service.FieldValidator.ValidateRequired(rejectRequest);
-        _service.FieldValidator.ValidateRequiredPlus(rejectRequest!.Id);
+        rejectRequest = _service.FieldValidator.ValidateRequired(rejectRequest);
+        _service.FieldValidator.ValidateRequiredPlus(rejectRequest.Id);
         rejectRequest.Description = _service.FieldValidator.ValidateRequiredText255(rejectRequest.Description);
 
 

@@ -30,7 +30,6 @@ internal static class InitializeExtension
         await dataInitializer.User.InitializeDatabaseAsync(data);
 
         await idGenerator.Audit.InitializeAsync(data);
-        await idGenerator.Captcha.InitializeAsync(data);
         await idGenerator.Event.InitializeAsync(data);
         await idGenerator.Infaq.InitializeAsync(data);
         await idGenerator.Person.InitializeAsync(data);

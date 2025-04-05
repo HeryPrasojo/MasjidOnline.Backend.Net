@@ -1,13 +1,17 @@
+using System;
+using System.Linq;
 using System.Threading.Tasks;
+using MasjidOnline.Business.Infaq.Interface.Model.Payment;
 using MasjidOnline.Business.Interface;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MasjidOnline.Api.Web.WebApplicationExtension.Endpoint;
 
-internal static class InfaqEndPoint
+internal static class InfaqEndpoint
 {
     internal static class Expire
     {
@@ -83,12 +87,43 @@ internal static class InfaqEndPoint
     internal static class Infaq
     {
         internal static async Task<Response> AddAnonymAsync(
+            HttpContext _httpContext,
             IBusiness _business,
             IData _data,
             ISessionBusiness _sessionBusiness,
-            [FromBody] Business.Infaq.Interface.Model.Infaq.AddByAnonymRequest? addByAnonymRequest)
+            [FromForm] decimal? amount,
+            [FromForm] string? captchaAction,
+            [FromForm] string? captchaToken,
+            [FromForm] DateTime? manualDateTime,
+            [FromForm] string? manualNotes,
+            [FromForm] string? munfiqName,
+            [FromForm] PaymentType? paymentType)
         {
-            return await _business.Infaq.Infaq.AddAnonym.AddAsync(_data, _sessionBusiness, addByAnonymRequest);
+            var addByAnonymRequest = new Business.Infaq.Interface.Model.Infaq.AddByAnonymRequest
+            {
+                Amount = amount,
+                CaptchaAction = captchaAction,
+                CaptchaToken = captchaToken,
+                Files = _httpContext.Request.Form.Files.Select(f => f.OpenReadStream()),
+                ManualDateTime = manualDateTime,
+                ManualNotes = manualNotes,
+                MunfiqName = munfiqName,
+                PaymentType = paymentType,
+            };
+
+            var response = await _business.Infaq.Infaq.AddAnonym.AddAsync(_data, _sessionBusiness, addByAnonymRequest);
+
+            if (addByAnonymRequest.Files != default)
+            {
+                foreach (var file in addByAnonymRequest.Files)
+                {
+                    await file.FlushAsync();
+
+                    await file.DisposeAsync();
+                }
+            }
+
+            return response;
         }
 
         internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Infaq.GetManyResponseRecord>> GetManyAsync(

@@ -16,8 +16,8 @@ public class GetOneDueBusiness(IOptionsMonitor<BusinessOptions> _optionsMonitor,
 {
     public async Task<GetOneDueResponse> GetAsync(IData _data, GetOneDueRequest? getOneDueRequest)
     {
-        _service.FieldValidator.ValidateRequired(getOneDueRequest);
-        _service.FieldValidator.ValidateRequiredPlus(getOneDueRequest!.Id);
+        getOneDueRequest = _service.FieldValidator.ValidateRequired(getOneDueRequest);
+        _service.FieldValidator.ValidateRequiredPlus(getOneDueRequest.Id);
 
 
         var infaq = await _data.Infaq.Infaq.GetOneDueAsync(getOneDueRequest.Id!.Value);
