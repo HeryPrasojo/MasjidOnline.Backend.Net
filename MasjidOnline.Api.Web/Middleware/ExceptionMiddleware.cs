@@ -40,9 +40,13 @@ public class ExceptionMiddleware(
         {
             exceptionResponse.ResultCode = ResponseResultCode.InputMismatch;
         }
-        else if (exception is DataMismatchException)
+        else if (exception is SessionExpireException)
         {
-            exceptionResponse.ResultCode = ResponseResultCode.DataMismatch;
+            exceptionResponse.ResultCode = ResponseResultCode.SessionExpire;
+        }
+        else if (exception is SessionMismatchException)
+        {
+            exceptionResponse.ResultCode = ResponseResultCode.SessionMismatch;
         }
         else if (exception is PermissionException)
         {

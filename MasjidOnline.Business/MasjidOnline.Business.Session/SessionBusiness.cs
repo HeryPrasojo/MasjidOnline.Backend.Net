@@ -76,12 +76,12 @@ public class SessionBusiness(IService _service, IData _data, IIdGenerator _idGen
 
             var sessionEntity = await _data.Session.Session.GetForStartAsync(decryptedRquestSessionIdBytes);
 
-            if (sessionEntity == default) throw new InputMismatchException(idBase64Expression);
+            if (sessionEntity == default) throw new SessionMismatchException(idBase64Expression);
 
 
-            if (sessionEntity.DateTime < DateTime.UtcNow.AddDays(-16))
+            if (sessionEntity.DateTime < DateTime.UtcNow.AddDays(-32))
             {
-                await ChangeAndSaveAsync(Constant.UserId.Anonymous);
+                throw new SessionExpireException(idBase64Expression);
             }
             else
             {

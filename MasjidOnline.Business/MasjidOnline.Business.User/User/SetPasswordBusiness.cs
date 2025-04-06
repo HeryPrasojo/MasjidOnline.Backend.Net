@@ -29,7 +29,7 @@ public class SetPasswordBusiness(IService _service) : ISetPasswordBusiness
         if (passwordCode.UseDateTime != default) throw new InputMismatchException(nameof(passwordCode.UseDateTime));
 
 
-        await _data.Transaction.BeginAsync(_data.User);
+        await _data.Transaction.BeginAsync(_data.User, _data.Session);
 
         var passwordBytes = _service.Hash512.Hash(setPasswordRequest.Password);
 

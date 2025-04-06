@@ -6,6 +6,5 @@ public interface IAuditDatabase : IDatabase
 {
     IAuditSettingRepository AuditSetting { get; }
 
-    // todo rename to InternalPermission
     IUserInternalPermissionLogRepository UserInternalPermissionLog { get; }
 }
