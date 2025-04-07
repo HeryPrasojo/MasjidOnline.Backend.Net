@@ -32,16 +32,18 @@ public class FieldValidatorService : IFieldValidatorService
         return value;
     }
 
-    public void ValidateRequired(Enum? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    public Enum ValidateRequired(Enum? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
         if (value is null) throw new InputInvalidException(valueExpression);
 
         var valueType = value.GetType();
 
         if (!Enum.IsDefined(valueType, value)) throw new InputInvalidException(valueExpression);
+
+        return value;
     }
 
-    public void ValidateRequired(string? value, int valueMaximumLength, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    public string ValidateRequired(string? value, int valueMaximumLength, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
         if (value is null) throw new InputInvalidException(valueExpression);
 
@@ -53,6 +55,8 @@ public class FieldValidatorService : IFieldValidatorService
         if (length == 0) throw new InputInvalidException(valueExpression);
 
         if (length > valueMaximumLength) throw new InputInvalidException(valueExpression);
+
+        return value;
     }
 
     public byte[] ValidateRequiredBase64(string? value, int valueLength, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
@@ -95,25 +99,31 @@ public class FieldValidatorService : IFieldValidatorService
         }
     }
 
-    public void ValidateRequiredPast(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    public DateTime ValidateRequiredPast(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
-        if (value == default) throw new InputInvalidException(valueExpression);
+        if (!value.HasValue) throw new InputInvalidException(valueExpression);
 
         if (value >= DateTime.UtcNow) throw new InputInvalidException(valueExpression);
+
+        return value.Value;
     }
 
-    public void ValidateRequiredPlus(decimal? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    public decimal ValidateRequiredPlus(decimal? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
         if (!value.HasValue) throw new InputInvalidException(valueExpression);
 
         if (value < 1m) throw new InputInvalidException(valueExpression);
+
+        return value.Value;
     }
 
-    public void ValidateRequiredPlus(int? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    public int ValidateRequiredPlus(int? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
         if (!value.HasValue) throw new InputInvalidException(valueExpression);
 
         if (value < 1) throw new InputInvalidException(valueExpression);
+
+        return value.Value;
     }
 
     public string ValidateRequiredEmailAddress(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)

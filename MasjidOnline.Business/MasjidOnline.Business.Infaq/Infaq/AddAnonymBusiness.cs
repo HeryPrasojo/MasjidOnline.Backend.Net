@@ -53,9 +53,9 @@ public class AddAnonymBusiness(IService _service, IIdGenerator _idGenerator) : I
         }
 
 
-        _service.FieldValidator.ValidateRequiredPlus(addByAnonymRequest.Amount);
-        _service.FieldValidator.ValidateRequired(addByAnonymRequest.PaymentType);
-        _service.FieldValidator.ValidateRequiredPast(addByAnonymRequest.ManualDateTime);
+        addByAnonymRequest.Amount = _service.FieldValidator.ValidateRequiredPlus(addByAnonymRequest.Amount);
+        addByAnonymRequest.PaymentType = (Interface.Model.Payment.PaymentType?)_service.FieldValidator.ValidateRequired(addByAnonymRequest.PaymentType);
+        addByAnonymRequest.ManualDateTime = _service.FieldValidator.ValidateRequiredPast(addByAnonymRequest.ManualDateTime);
 
         addByAnonymRequest.MunfiqName = _service.FieldValidator.ValidateRequiredText255(addByAnonymRequest.MunfiqName);
         addByAnonymRequest.ManualNotes = _service.FieldValidator.ValidateOptionalText255(addByAnonymRequest.ManualNotes);
@@ -72,10 +72,10 @@ public class AddAnonymBusiness(IService _service, IIdGenerator _idGenerator) : I
         var infaq = new Entity.Infaq.Infaq
         {
             Id = _idGenerator.Infaq.InfaqId,
-            Amount = addByAnonymRequest.Amount!.Value,
+            Amount = addByAnonymRequest.Amount.Value,
             DateTime = utcNow,
             PaymentStatus = PaymentStatus.New,
-            PaymentType = addByAnonymRequest.PaymentType!.Value.ToEntity(),
+            PaymentType = addByAnonymRequest.PaymentType.Value.ToEntity(),
             UserId = session.UserId,
             MunfiqName = addByAnonymRequest.MunfiqName,
         };
@@ -88,7 +88,7 @@ public class AddAnonymBusiness(IService _service, IIdGenerator _idGenerator) : I
             var infaqManual = new InfaqManual
             {
                 InfaqId = infaq.Id,
-                DateTime = addByAnonymRequest.ManualDateTime!.Value,
+                DateTime = addByAnonymRequest.ManualDateTime.Value,
                 Notes = addByAnonymRequest.ManualNotes,
             };
 
