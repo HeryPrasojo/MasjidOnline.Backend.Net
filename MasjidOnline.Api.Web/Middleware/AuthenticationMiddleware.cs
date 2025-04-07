@@ -11,11 +11,11 @@ public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate, ISes
     {
         var requestSessionIdBase64 = httpContext.Request.Headers[Constant.HttpHeaderName.Session];
 
-        await _sessionBusiness.StartAsync(_data, requestSessionIdBase64);
+        await _sessionBusiness.StartAsync(session, _data, requestSessionIdBase64);
 
         httpContext.Response.OnStarting((id) =>
             {
-                if (_sessionBusiness.Id != (int)id)
+                if (session.Id != (int)id)
                 {
                     var sessionDigestBase64 = _sessionBusiness.GetDigestBase64(session);
 
@@ -24,7 +24,7 @@ public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate, ISes
 
                 return Task.CompletedTask;
             },
-            _sessionBusiness.Id);
+            session.Id);
 
         await _nextRequestDelegate(httpContext);
     }

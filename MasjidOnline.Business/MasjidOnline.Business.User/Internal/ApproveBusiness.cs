@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.Model.Responses;
-using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Data.Interface;
@@ -21,7 +20,7 @@ public class ApproveBusiness(
     IService _service,
     IIdGenerator _idGenerator) : IApproveBusiness
 {
-    public async Task<Response> ApproveAsync(ISessionBusiness _sessionBusiness, IData _data, ApproveRequest? approveRequest)
+    public async Task<Response> ApproveAsync(Session.Interface.Session _sessionBusiness, IData _data, ApproveRequest? approveRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, userInternalApprove: true);
 

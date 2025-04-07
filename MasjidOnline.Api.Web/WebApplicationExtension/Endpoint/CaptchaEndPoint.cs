@@ -13,7 +13,7 @@ internal static class CaptchaEndpoint
         internal static async Task<Response> GetStatusAsync(
             IBusiness _business,
             IData _data,
-            ISessionBusiness _sessionBusiness)
+            Session _sessionBusiness)
         {
             return await _business.Captcha.Pass.GetStatus.GetAsync(_data, _sessionBusiness);
         }

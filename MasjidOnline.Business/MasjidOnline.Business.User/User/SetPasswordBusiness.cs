@@ -10,9 +10,9 @@ using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.User.User;
 
-public class SetPasswordBusiness(IService _service) : ISetPasswordBusiness
+public class SetPasswordBusiness(ISessionBusiness _sessionBusiness, IService _service) : ISetPasswordBusiness
 {
-    public async Task<Response> SetAsync(ISessionBusiness _sessionBusiness, IData _data, SetPasswordRequest? setPasswordRequest)
+    public async Task<Response> SetAsync(Session.Interface.Session session, IData _data, SetPasswordRequest? setPasswordRequest)
     {
         setPasswordRequest = _service.FieldValidator.ValidateRequired(setPasswordRequest);
         var passwordCodeBytes = _service.FieldValidator.ValidateRequiredHex(setPasswordRequest.PasswordCode, 128);
@@ -38,7 +38,7 @@ public class SetPasswordBusiness(IService _service) : ISetPasswordBusiness
         _data.User.PasswordCode.SetUseDateTime(passwordCodeBytes, DateTime.UtcNow);
 
 
-        await _sessionBusiness.ChangeAsync(_data, passwordCode.UserId);
+        await _sessionBusiness.ChangeAsync(session, _data, passwordCode.UserId);
 
         await _data.Transaction.CommitAsync();
 

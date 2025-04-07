@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Model.Responses;
-using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Data.Interface;
@@ -13,7 +12,7 @@ namespace MasjidOnline.Business.User.Internal;
 
 public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : IRejectBusiness
 {
-    public async Task<Response> RejectAsync(ISessionBusiness _sessionBusiness, IData _data, RejectRequest? rejectRequest)
+    public async Task<Response> RejectAsync(Session.Interface.Session _sessionBusiness, IData _data, RejectRequest? rejectRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, userInternalApprove: true);
 

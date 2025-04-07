@@ -8,7 +8,6 @@ using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Model;
 using MasjidOnline.Business.Model.Responses;
-using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.Captcha;
 using MasjidOnline.Entity.Infaq;
@@ -19,7 +18,7 @@ namespace MasjidOnline.Business.Infaq.Infaq;
 
 public class AddAnonymBusiness(IService _service, IIdGenerator _idGenerator) : IAddAnonymBusiness
 {
-    public async Task<Response> AddAsync(IData _data, ISessionBusiness _sessionBusiness, AddByAnonymRequest? addByAnonymRequest)
+    public async Task<Response> AddAsync(IData _data, Session.Interface.Session _sessionBusiness, AddByAnonymRequest? addByAnonymRequest)
     {
         addByAnonymRequest = _service.FieldValidator.ValidateRequired(addByAnonymRequest);
 

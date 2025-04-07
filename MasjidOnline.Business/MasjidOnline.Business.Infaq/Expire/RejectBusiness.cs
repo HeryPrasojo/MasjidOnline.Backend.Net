@@ -4,7 +4,6 @@ using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Infaq.Interface.Expire;
 using MasjidOnline.Business.Infaq.Interface.Model.Expire;
 using MasjidOnline.Business.Model.Responses;
-using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
@@ -13,7 +12,7 @@ namespace MasjidOnline.Business.Infaq.Expire;
 
 public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : IRejectBusiness
 {
-    public async Task<Response> RejectAsync(ISessionBusiness _sessionBusiness, IData _data, RejectRequest? rejectRequest)
+    public async Task<Response> RejectAsync(Session.Interface.Session _sessionBusiness, IData _data, RejectRequest? rejectRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, infaqExpireApprove: true);
 

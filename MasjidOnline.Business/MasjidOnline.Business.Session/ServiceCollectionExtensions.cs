@@ -1,5 +1,4 @@
-﻿using MasjidOnline.Business.Session.Interface;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace MasjidOnline.Business.Session;
 
@@ -9,7 +8,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<Interface.Session>();
 
-        services.AddSingleton<ISessionBusiness, SessionBusiness>();
+        services.AddSingleton<Session.Interface.Session, SessionBusiness>();
 
         return services;
     }

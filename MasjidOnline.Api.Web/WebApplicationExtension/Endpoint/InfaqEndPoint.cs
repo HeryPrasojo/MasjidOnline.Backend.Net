@@ -18,7 +18,7 @@ internal static class InfaqEndpoint
         internal static async Task<Response> AddAsync(
             IBusiness _business,
             IData _data,
-            ISessionBusiness _sessionBusiness,
+            Session _sessionBusiness,
             [FromBody] Business.Infaq.Interface.Model.Expire.AddRequest? addRequest)
         {
             return await _business.Infaq.Expire.Add.AddAsync(_data, _sessionBusiness, addRequest);
@@ -26,7 +26,7 @@ internal static class InfaqEndpoint
 
         internal static async Task<Response> ApproveAsync(
             IBusiness _business,
-            ISessionBusiness _sessionBusiness,
+            Session _sessionBusiness,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Expire.ApproveRequest? approveRequest)
         {
@@ -35,7 +35,7 @@ internal static class InfaqEndpoint
 
         internal static async Task<Response> CancelAsync(
             IBusiness _business,
-            ISessionBusiness _sessionBusiness,
+            Session _sessionBusiness,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Expire.CancelRequest? cancelRequest)
         {
@@ -76,7 +76,7 @@ internal static class InfaqEndpoint
 
         internal static async Task<Response> RejectAsync(
             IBusiness _business,
-            ISessionBusiness _sessionBusiness,
+            Session _sessionBusiness,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Expire.RejectRequest? rejectRequest)
         {
@@ -90,7 +90,7 @@ internal static class InfaqEndpoint
             HttpContext _httpContext,
             IBusiness _business,
             IData _data,
-            ISessionBusiness _sessionBusiness,
+            Session _sessionBusiness,
             [FromForm] decimal? amount,
             [FromForm] string? captchaAction,
             [FromForm] string? captchaToken,
@@ -164,7 +164,7 @@ internal static class InfaqEndpoint
         internal static async Task<Response> AddAsync(
             IBusiness _business,
             IData _data,
-            ISessionBusiness _sessionBusiness,
+            Session _sessionBusiness,
             [FromBody] Business.Infaq.Interface.Model.Success.AddRequest? addRequest)
         {
             return await _business.Infaq.Success.Add.AddAsync(_data, _sessionBusiness, addRequest);
@@ -172,7 +172,7 @@ internal static class InfaqEndpoint
 
         internal static async Task<Response> ApproveAsync(
             IBusiness _business,
-            ISessionBusiness _sessionBusiness,
+            Session _sessionBusiness,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Success.ApproveRequest? approveRequest)
         {
@@ -181,7 +181,7 @@ internal static class InfaqEndpoint
 
         internal static async Task<Response> CancelAsync(
             IBusiness _business,
-            ISessionBusiness _sessionBusiness,
+            Session _sessionBusiness,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Success.CancelRequest? cancelRequest)
         {
@@ -222,7 +222,7 @@ internal static class InfaqEndpoint
 
         internal static async Task<Response> RejectAsync(
             IBusiness _business,
-            ISessionBusiness _sessionBusiness,
+            Session _sessionBusiness,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Success.RejectRequest? rejectRequest)
         {
@@ -235,7 +235,7 @@ internal static class InfaqEndpoint
         internal static async Task<Response> AddAsync(
             IBusiness _business,
             IData _data,
-            ISessionBusiness _sessionBusiness,
+            Session _sessionBusiness,
             [FromBody] Business.Infaq.Interface.Model.Void.AddRequest? addRequest)
         {
             return await _business.Infaq.Void.Add.AddAsync(_data, _sessionBusiness, addRequest);
@@ -243,7 +243,7 @@ internal static class InfaqEndpoint
 
         internal static async Task<Response> ApproveAsync(
             IBusiness _business,
-            ISessionBusiness _sessionBusiness,
+            Session _sessionBusiness,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Void.ApproveRequest? approveRequest)
         {
@@ -252,7 +252,7 @@ internal static class InfaqEndpoint
 
         internal static async Task<Response> CancelAsync(
             IBusiness _business,
-            ISessionBusiness _sessionBusiness,
+            Session _sessionBusiness,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Void.CancelRequest? cancelRequest)
         {
@@ -293,7 +293,7 @@ internal static class InfaqEndpoint
 
         internal static async Task<Response> RejectAsync(
             IBusiness _business,
-            ISessionBusiness _sessionBusiness,
+            Session _sessionBusiness,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Void.RejectRequest? rejectRequest)
         {

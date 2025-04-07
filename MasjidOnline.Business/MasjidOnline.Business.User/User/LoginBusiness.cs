@@ -11,9 +11,9 @@ using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.User.User;
 
-public class LoginBusiness(IService _service) : ILoginBusiness
+public class LoginBusiness(ISessionBusiness _sessionBusiness, IService _service) : ILoginBusiness
 {
-    public async Task<Response> LoginAsync(IData _data, ISessionBusiness _sessionBusiness, LoginRequest? loginRequest)
+    public async Task<Response> LoginAsync(IData _data, Session.Interface.Session session, LoginRequest? loginRequest)
     {
         var userId = await _data.User.UserEmailAddress.GetUserIdAsync(loginRequest.EmailAddress);
 
@@ -32,7 +32,7 @@ public class LoginBusiness(IService _service) : ILoginBusiness
         if (!requestPasswordHashBytes.SequenceEqual(user.Password)) throw new InputMismatchException(nameof(loginRequest.Password));
 
 
-        await _sessionBusiness.ChangeAndSaveAsync(_data, userId.Value);
+        await _sessionBusiness.ChangeAndSaveAsync(session, _data, userId.Value);
 
         return new()
         {

@@ -4,7 +4,6 @@ using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Infaq.Interface.Model.Success;
 using MasjidOnline.Business.Infaq.Interface.Success;
 using MasjidOnline.Business.Model.Responses;
-using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
@@ -13,7 +12,7 @@ namespace MasjidOnline.Business.Infaq.Success;
 
 public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : ICancelBusiness
 {
-    public async Task<Response> CancelAsync(ISessionBusiness _sessionBusiness, IData _data, CancelRequest? cancelRequest)
+    public async Task<Response> CancelAsync(Session.Interface.Session _sessionBusiness, IData _data, CancelRequest? cancelRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, userInternalCancel: true);
 

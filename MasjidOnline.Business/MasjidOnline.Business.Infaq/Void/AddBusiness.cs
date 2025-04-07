@@ -5,7 +5,6 @@ using MasjidOnline.Business.Infaq.Interface.Model.Void;
 using MasjidOnline.Business.Infaq.Interface.Void;
 using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.Model.Responses;
-using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.Infaq;
 using MasjidOnline.Library.Exceptions;
@@ -20,7 +19,7 @@ public class AddBusiness(
     IService _service,
     IIdGenerator _idGenerator) : IAddBusiness
 {
-    public async Task<Response> AddAsync(IData _data, ISessionBusiness _sessionBusiness, AddRequest? addRequest)
+    public async Task<Response> AddAsync(IData _data, Session.Interface.Session _sessionBusiness, AddRequest? addRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, infaqVoidAdd: true);
 

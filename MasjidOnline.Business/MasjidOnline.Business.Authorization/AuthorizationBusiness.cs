@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface;
-using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 
@@ -8,13 +7,13 @@ namespace MasjidOnline.Business.Authorization;
 
 public class AuthorizationBusiness : IAuthorizationBusiness
 {
-    public void AuthorizeNonAnonymous(ISessionBusiness _sessionBusiness)
+    public void AuthorizeNonAnonymous(Session.Interface.Session _sessionBusiness)
     {
         if (_sessionBusiness.IsUserAnonymous) throw new PermissionException(nameof(_sessionBusiness.IsUserAnonymous));
     }
 
     public async Task AuthorizePermissionAsync(
-        ISessionBusiness _sessionBusiness,
+        Session.Interface.Session _sessionBusiness,
         IData _data,
         bool infaqExpireAdd = default,
         bool infaqExpireApprove = default,

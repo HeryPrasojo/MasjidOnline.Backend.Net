@@ -14,7 +14,7 @@ namespace MasjidOnline.Business.User.Internal;
 
 public class GetManyBusiness(IService _service) : IGetManyBusiness
 {
-    public async Task<GetManyResponse<GetManyResponseRecord>> GetAsync(ISessionBusiness _sessionBusiness, IData _data, GetManyRequest? getManyRequest)
+    public async Task<GetManyResponse<GetManyResponseRecord>> GetAsync(Session.Interface.Session _sessionBusiness, IData _data, GetManyRequest? getManyRequest)
     {
         getManyRequest = _service.FieldValidator.ValidateRequired(getManyRequest);
         _service.FieldValidator.ValidateRequiredPlus(getManyRequest.Page);
