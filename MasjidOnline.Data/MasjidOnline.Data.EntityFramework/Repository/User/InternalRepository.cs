@@ -91,43 +91,6 @@ public class InternalRepository(UserDataContext _userDataContext) : IInternalRep
         };
     }
 
-    public async Task<ManyResult<ManyNewRecord>> GetManyNewAsync(
-        ManyOrderBy getManyOrderBy = default,
-        OrderByDirection orderByDirection = default,
-        int skip = 0,
-        int take = 1)
-    {
-        var queryable = _dbSet.Where(e => e.Status == InternalStatus.New);
-
-
-        var countTask = queryable.LongCountAsync();
-
-
-        if (getManyOrderBy == ManyOrderBy.DateTime)
-        {
-            if (orderByDirection == OrderByDirection.Descending) queryable = queryable.OrderByDescending(e => e.DateTime);
-            else queryable = queryable.OrderBy(e => e.DateTime);
-        }
-
-
-        var count = await countTask;
-
-        return new()
-        {
-            Records = await queryable.Skip(skip)
-                .Take(take)
-                .Select(e => new ManyNewRecord
-                {
-                    DateTime = e.DateTime,
-                    Description = e.Description,
-                    EmailAddress = e.EmailAddress,
-                    UserId = e.UserId,
-                })
-                .ToArrayAsync(),
-            Total = count,
-        };
-    }
-
     public async Task<One?> GetOneAsync(int id)
     {
         return await _dbSet.Where(e => e.Id == id)
@@ -138,18 +101,6 @@ public class InternalRepository(UserDataContext _userDataContext) : IInternalRep
                 Status = e.Status,
                 UpdateDateTime = e.UpdateDateTime,
                 UpdateUserId = e.UpdateUserId,
-                UserId = e.UserId,
-            })
-            .FirstOrDefaultAsync();
-    }
-
-    public async Task<OneNew?> GetOneNewAsync(int id)
-    {
-        return await _dbSet.Where(e => e.Id == id)
-            .Select(e => new OneNew
-            {
-                DateTime = e.DateTime,
-                EmailAddress = e.EmailAddress,
                 UserId = e.UserId,
             })
             .FirstOrDefaultAsync();

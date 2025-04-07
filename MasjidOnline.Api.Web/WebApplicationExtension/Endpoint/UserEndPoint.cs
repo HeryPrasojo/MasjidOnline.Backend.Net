@@ -47,28 +47,12 @@ internal static class UserEndpoint
             return await _business.User.Internal.GetMany.GetAsync(_sessionBusiness, _data, getManyRequest);
         }
 
-        internal static async Task<GetManyResponse<Business.User.Interface.Model.Internal.GetManyNewResponseRecord>> GetManyNewAsync(
-            IBusiness _business,
-            IData _data,
-            [FromBody] Business.User.Interface.Model.Internal.GetManyNewRequest? getManyNewRequest)
-        {
-            return await _business.User.Internal.GetManyNew.GetAsync(_data, getManyNewRequest);
-        }
-
         internal static async Task<Business.User.Interface.Model.Internal.GetOneResponse> GetOneAsync(
             IBusiness _business,
             IData _data,
             [FromBody] Business.User.Interface.Model.Internal.GetOneRequest? getOneRequest)
         {
             return await _business.User.Internal.GetOne.GetAsync(_data, getOneRequest);
-        }
-
-        internal static async Task<Business.User.Interface.Model.Internal.GetOneNewResponse> GetOneNewAsync(
-            IBusiness _business,
-            IData _data,
-            [FromBody] Business.User.Interface.Model.Internal.GetOneNewRequest? getOneNewRequest)
-        {
-            return await _business.User.Internal.GetOneNew.GetAsync(_data, getOneNewRequest);
         }
 
         internal static async Task<Response> RejectAsync(

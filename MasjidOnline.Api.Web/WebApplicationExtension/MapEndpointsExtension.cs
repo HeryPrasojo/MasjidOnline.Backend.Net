@@ -19,8 +19,6 @@ internal static class MapEndpointsExtension
         infaqInfaqGroup.MapPost("add/anonym", InfaqEndpoint.Infaq.AddAnonymAsync);
         infaqInfaqGroup.MapPost("getMany", InfaqEndpoint.Infaq.GetManyAsync);
         infaqInfaqGroup.MapPost("getOne", InfaqEndpoint.Infaq.GetOneAsync);
-        infaqInfaqGroup.MapPost("due/getMany", InfaqEndpoint.Infaq.GetManyDueAsync);
-        infaqInfaqGroup.MapPost("due/getOne", InfaqEndpoint.Infaq.GetOneDueAsync);
 
 
         var infaqExpireGroup = infaqGroup.MapGroup("expire/");
@@ -31,8 +29,6 @@ internal static class MapEndpointsExtension
         infaqExpireGroup.MapPost("getMany", InfaqEndpoint.Expire.GetManyAsync);
         infaqExpireGroup.MapPost("getOne", InfaqEndpoint.Expire.GetOneAsync);
         infaqExpireGroup.MapPost("reject", InfaqEndpoint.Expire.RejectAsync);
-        infaqExpireGroup.MapPost("new/getMany", InfaqEndpoint.Expire.GetManyNewAsync);
-        infaqExpireGroup.MapPost("new/getOne", InfaqEndpoint.Expire.GetOneNewAsync);
 
 
         var infaqSuccessGroup = infaqGroup.MapGroup("success/");
@@ -43,8 +39,6 @@ internal static class MapEndpointsExtension
         infaqSuccessGroup.MapPost("getMany", InfaqEndpoint.Success.GetManyAsync);
         infaqSuccessGroup.MapPost("getOne", InfaqEndpoint.Success.GetOneAsync);
         infaqSuccessGroup.MapPost("reject", InfaqEndpoint.Success.RejectAsync);
-        infaqSuccessGroup.MapPost("new/getMany", InfaqEndpoint.Success.GetManyNewAsync);
-        infaqSuccessGroup.MapPost("new/getOne", InfaqEndpoint.Success.GetOneNewAsync);
 
 
         var infaqVoidGroup = infaqGroup.MapGroup("void/");
@@ -55,8 +49,6 @@ internal static class MapEndpointsExtension
         infaqVoidGroup.MapPost("getMany", InfaqEndpoint.Void.GetManyAsync);
         infaqVoidGroup.MapPost("getOne", InfaqEndpoint.Void.GetOneAsync);
         infaqVoidGroup.MapPost("reject", InfaqEndpoint.Void.RejectAsync);
-        infaqVoidGroup.MapPost("new/getMany", InfaqEndpoint.Void.GetManyNewAsync);
-        infaqVoidGroup.MapPost("new/getOne", InfaqEndpoint.Void.GetOneNewAsync);
 
 
         var userGroup = webApplication.MapGroup("/user/").DisableAntiforgery();
@@ -69,8 +61,6 @@ internal static class MapEndpointsExtension
         userInternalGroup.MapPost("getMany", UserEndpoint.Internal.GetManyAsync);
         userInternalGroup.MapPost("getOne", UserEndpoint.Internal.GetOneAsync);
         userInternalGroup.MapPost("reject", UserEndpoint.Internal.RejectAsync);
-        userInternalGroup.MapPost("new/getMany", UserEndpoint.Internal.GetManyNewAsync);
-        userInternalGroup.MapPost("new/getOne", UserEndpoint.Internal.GetOneNewAsync);
 
 
         var userUserGroup = userGroup.MapGroup("user/");

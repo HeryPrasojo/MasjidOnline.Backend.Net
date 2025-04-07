@@ -79,43 +79,6 @@ public class SuccessRepository(InfaqDataContext _infaqDataContext) : ISuccessRep
         };
     }
 
-    public async Task<ManyResult<ManyNewRecord>> GetManyNewAsync(
-        ManyOrderBy getManyOrderBy = default,
-        OrderByDirection orderByDirection = default,
-        int skip = 0,
-        int take = 1)
-    {
-        var queryable = _dbSet.Where(e => e.Status == SuccessStatus.New);
-
-
-        var countTask = queryable.LongCountAsync();
-
-
-        if (getManyOrderBy == ManyOrderBy.DateTime)
-        {
-            if (orderByDirection == OrderByDirection.Descending) queryable = queryable.OrderByDescending(e => e.DateTime);
-            else queryable = queryable.OrderBy(e => e.DateTime);
-        }
-
-
-        var count = await countTask;
-
-        return new()
-        {
-            Records = await queryable.Skip(skip)
-                .Take(take)
-                .Select(e => new ManyNewRecord
-                {
-                    DateTime = e.DateTime,
-                    Id = e.Id,
-                    InfaqId = e.InfaqId,
-                    UserId = e.UserId,
-                })
-                .ToArrayAsync(),
-            Total = count,
-        };
-    }
-
     public async Task<int> GetMaxIdAsync()
     {
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
@@ -134,25 +97,6 @@ public class SuccessRepository(InfaqDataContext _infaqDataContext) : ISuccessRep
             })
             .FirstOrDefaultAsync();
     }
-
-    public async Task<OneNew?> GetOneNewAsync(int id)
-    {
-        return await _dbSet.Where(e => e.Id == id)
-            .Select(e => new OneNew
-            {
-                DateTime = e.DateTime,
-                InfaqId = e.InfaqId,
-                UserId = e.UserId,
-            })
-            .FirstOrDefaultAsync();
-    }
-
-    //public async Task<SuccessStatus> GetStatusAsync(int id)
-    //{
-    //    return await _dbSet.Where(e => e.Id == id)
-    //        .Select(e => e.Status)
-    //        .FirstOrDefaultAsync();
-    //}
 
     public void SetStatus(int id, SuccessStatus status, string? description, DateTime updateDateTime, int updateUserId)
     {

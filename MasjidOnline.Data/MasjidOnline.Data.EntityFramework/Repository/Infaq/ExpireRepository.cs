@@ -76,40 +76,6 @@ public class ExpireRepository(InfaqDataContext _infaqDataContext) : IExpireRepos
         };
     }
 
-    public async Task<ManyResult<ManyNewRecord>> GetManyNewAsync(
-        ManyOrderBy getManyOrderBy = default,
-        OrderByDirection orderByDirection = default,
-        int skip = 0,
-        int take = 1)
-    {
-        var queryable = _dbSet.Where(e => e.Status == ExpireStatus.New);
-
-        var countTask = queryable.LongCountAsync();
-
-        if (getManyOrderBy == ManyOrderBy.DateTime)
-        {
-            if (orderByDirection == OrderByDirection.Descending) queryable = queryable.OrderByDescending(e => e.DateTime);
-            else queryable = queryable.OrderBy(e => e.DateTime);
-        }
-
-        var count = await countTask;
-
-        return new()
-        {
-            Records = await queryable.Skip(skip)
-                .Take(take)
-                .Select(e => new ManyNewRecord
-                {
-                    Id = e.Id,
-                    DateTime = e.DateTime,
-                    InfaqId = e.InfaqId,
-                    UserId = e.UserId,
-                })
-                .ToArrayAsync(),
-            Total = count,
-        };
-    }
-
     public async Task<int> GetMaxIdAsync()
     {
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
@@ -130,25 +96,6 @@ public class ExpireRepository(InfaqDataContext _infaqDataContext) : IExpireRepos
             })
             .FirstOrDefaultAsync();
     }
-
-    public async Task<OneNew?> GetOneNewAsync(int id)
-    {
-        return await _dbSet.Where(e => e.Id == id)
-            .Select(e => new OneNew
-            {
-                DateTime = e.DateTime,
-                InfaqId = e.InfaqId,
-                UserId = e.UserId,
-            })
-            .FirstOrDefaultAsync();
-    }
-
-    //public async Task<ExpireStatus> GetStatusAsync(int id)
-    //{
-    //    return await _dbSet.Where(e => e.Id == id)
-    //        .Select(e => e.Status)
-    //        .FirstOrDefaultAsync();
-    //}
 
     public void SetStatus(int id, ExpireStatus status, string? description, DateTime updateDateTime, int updateUserId)
     {

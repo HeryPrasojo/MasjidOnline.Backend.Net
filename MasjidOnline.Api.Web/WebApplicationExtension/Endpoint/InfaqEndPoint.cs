@@ -50,28 +50,12 @@ internal static class InfaqEndpoint
             return await _business.Infaq.Expire.GetMany.GetAsync(_data, getManyRequest);
         }
 
-        internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Expire.GetManyNewResponseRecord>> GetManyNewAsync(
-            IBusiness _business,
-            IData _data,
-            [FromBody] Business.Infaq.Interface.Model.Expire.GetManyNewRequest? getManyNewRequest)
-        {
-            return await _business.Infaq.Expire.GetManyNew.GetAsync(_data, getManyNewRequest);
-        }
-
         internal static async Task<Business.Infaq.Interface.Model.Expire.GetOneResponse> GetOneAsync(
             IBusiness _business,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Expire.GetOneRequest? getOneRequest)
         {
             return await _business.Infaq.Expire.GetOne.GetAsync(_data, getOneRequest);
-        }
-
-        internal static async Task<Business.Infaq.Interface.Model.Expire.GetOneNewResponse> GetOneNewAsync(
-            IBusiness _business,
-            IData _data,
-            [FromBody] Business.Infaq.Interface.Model.Expire.GetOneNewRequest? getOneNewRequest)
-        {
-            return await _business.Infaq.Expire.GetOneNew.GetAsync(_data, getOneNewRequest);
         }
 
         internal static async Task<Response> RejectAsync(
@@ -134,28 +118,12 @@ internal static class InfaqEndpoint
             return await _business.Infaq.Infaq.GetMany.GetAsync(_data, getManyRequest);
         }
 
-        internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Infaq.GetManyDueResponseRecord>> GetManyDueAsync(
-            IBusiness _business,
-            IData _data,
-            [FromBody] Business.Infaq.Interface.Model.Infaq.GetManyDueRequest? getManyDueRequest)
-        {
-            return await _business.Infaq.Infaq.GetManyDue.GetAsync(_data, getManyDueRequest);
-        }
-
         internal static async Task<Business.Infaq.Interface.Model.Infaq.GetOneResponse> GetOneAsync(
             IBusiness _business,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Infaq.GetOneRequest? getOneRequest)
         {
             return await _business.Infaq.Infaq.GetOne.GetAsync(_data, getOneRequest);
-        }
-
-        internal static async Task<Business.Infaq.Interface.Model.Infaq.GetOneDueResponse> GetOneDueAsync(
-            IBusiness _business,
-            IData _data,
-            [FromBody] Business.Infaq.Interface.Model.Infaq.GetOneDueRequest? getOneDueRequest)
-        {
-            return await _business.Infaq.Infaq.GetOneDue.GetAsync(_data, getOneDueRequest);
         }
     }
 
@@ -196,28 +164,12 @@ internal static class InfaqEndpoint
             return await _business.Infaq.Success.GetMany.GetAsync(_data, getManyRequest);
         }
 
-        internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Success.GetManyNewResponseRecord>> GetManyNewAsync(
-            IBusiness _business,
-            IData _data,
-            [FromBody] Business.Infaq.Interface.Model.Success.GetManyNewRequest? getManyNewRequest)
-        {
-            return await _business.Infaq.Success.GetManyNew.GetAsync(_data, getManyNewRequest);
-        }
-
         internal static async Task<Business.Infaq.Interface.Model.Success.GetOneResponse> GetOneAsync(
             IBusiness _business,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Success.GetOneRequest? getOneRequest)
         {
             return await _business.Infaq.Success.GetOne.GetAsync(_data, getOneRequest);
-        }
-
-        internal static async Task<Business.Infaq.Interface.Model.Success.GetOneNewResponse> GetOneNewAsync(
-            IBusiness _business,
-            IData _data,
-            [FromBody] Business.Infaq.Interface.Model.Success.GetOneNewRequest? getOneNewRequest)
-        {
-            return await _business.Infaq.Success.GetOneNew.GetAsync(_data, getOneNewRequest);
         }
 
         internal static async Task<Response> RejectAsync(
@@ -267,28 +219,12 @@ internal static class InfaqEndpoint
             return await _business.Infaq.Void.GetMany.GetAsync(_data, getManyRequest);
         }
 
-        internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Void.GetManyNewResponseRecord>> GetManyNewAsync(
-            IBusiness _business,
-            IData _data,
-            [FromBody] Business.Infaq.Interface.Model.Void.GetManyNewRequest? getManyNewRequest)
-        {
-            return await _business.Infaq.Void.GetManyNew.GetAsync(_data, getManyNewRequest);
-        }
-
         internal static async Task<Business.Infaq.Interface.Model.Void.GetOneResponse> GetOneAsync(
             IBusiness _business,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Void.GetOneRequest? getOneRequest)
         {
             return await _business.Infaq.Void.GetOne.GetAsync(_data, getOneRequest);
-        }
-
-        internal static async Task<Business.Infaq.Interface.Model.Void.GetOneNewResponse> GetOneNewAsync(
-            IBusiness _business,
-            IData _data,
-            [FromBody] Business.Infaq.Interface.Model.Void.GetOneNewRequest? getOneNewRequest)
-        {
-            return await _business.Infaq.Void.GetOneNew.GetAsync(_data, getOneNewRequest);
         }
 
         internal static async Task<Response> RejectAsync(

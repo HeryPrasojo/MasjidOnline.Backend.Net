@@ -6,7 +6,5 @@ public interface IInfaqInfaqBusiness
 {
     IAddAnonymBusiness AddAnonym { get; }
     IGetManyBusiness GetMany { get; }
-    IGetManyDueBusiness GetManyDue { get; }
     IGetOneBusiness GetOne { get; }
-    IGetOneDueBusiness GetOneDue { get; }
 }
