@@ -7,13 +7,13 @@ namespace MasjidOnline.Business.Authorization;
 
 public class AuthorizationBusiness : IAuthorizationBusiness
 {
-    public void AuthorizeNonAnonymous(Session.Interface.Session _sessionBusiness)
+    public void AuthorizeNonAnonymous(Session.Interface.Session session)
     {
-        if (_sessionBusiness.IsUserAnonymous) throw new PermissionException(nameof(_sessionBusiness.IsUserAnonymous));
+        if (session.IsUserAnonymous) throw new PermissionException(nameof(session.IsUserAnonymous));
     }
 
     public async Task AuthorizePermissionAsync(
-        Session.Interface.Session _sessionBusiness,
+        Session.Interface.Session session,
         IData _data,
         bool infaqExpireAdd = default,
         bool infaqExpireApprove = default,
@@ -28,11 +28,11 @@ public class AuthorizationBusiness : IAuthorizationBusiness
         bool userInternalApprove = default,
         bool userInternalCancel = default)
     {
-        if (_sessionBusiness.IsUserAnonymous) throw new PermissionException(nameof(_sessionBusiness.IsUserAnonymous));
+        if (session.IsUserAnonymous) throw new PermissionException(nameof(session.IsUserAnonymous));
 
-        var sessionPermission = await _data.Authorization.UserInternalPermission.GetByUserIdAsync(_sessionBusiness.UserId);
+        var sessionPermission = await _data.Authorization.UserInternalPermission.GetByUserIdAsync(session.UserId);
 
-        if (sessionPermission == default) throw new PermissionException(nameof(_sessionBusiness.UserId));
+        if (sessionPermission == default) throw new PermissionException(nameof(session.UserId));
 
         if (infaqExpireAdd && !sessionPermission.InfaqExpireAdd) throw new PermissionException(nameof(sessionPermission.InfaqExpireAdd));
         if (infaqExpireApprove && !sessionPermission.InfaqExpireApprove) throw new PermissionException(nameof(sessionPermission.InfaqExpireApprove));

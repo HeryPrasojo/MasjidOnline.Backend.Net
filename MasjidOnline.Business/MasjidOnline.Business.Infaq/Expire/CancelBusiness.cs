@@ -12,9 +12,9 @@ namespace MasjidOnline.Business.Infaq.Expire;
 
 public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : ICancelBusiness
 {
-    public async Task<Response> CancelAsync(Session.Interface.Session _sessionBusiness, IData _data, CancelRequest? cancelRequest)
+    public async Task<Response> CancelAsync(Session.Interface.Session session, IData _data, CancelRequest? cancelRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, infaqExpireCancel: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(session, _data, infaqExpireCancel: true);
 
         cancelRequest = _service.FieldValidator.ValidateRequired(cancelRequest);
         _service.FieldValidator.ValidateRequiredPlus(cancelRequest.Id);
@@ -33,7 +33,7 @@ public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IServ
             Entity.Infaq.ExpireStatus.Cancel,
             cancelRequest.Description,
             DateTime.UtcNow,
-            _sessionBusiness.UserId);
+            session.UserId);
 
         _data.Infaq.Infaq.SetPaymentStatus(expire.InfaqId, Entity.Infaq.PaymentStatus.New);
 

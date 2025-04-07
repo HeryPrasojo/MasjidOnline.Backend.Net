@@ -15,9 +15,9 @@ public class AddBusiness(
     IIdGenerator _idGenerator,
     IService _service) : IAddBusiness
 {
-    public async Task<Response> AddAsync(Session.Interface.Session _sessionBusiness, IData _data, AddRequest? addRequest)
+    public async Task<Response> AddAsync(Session.Interface.Session session, IData _data, AddRequest? addRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, userInternalAdd: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(session, _data, userInternalAdd: true);
 
 
         addRequest = _service.FieldValidator.ValidateRequired(addRequest);
@@ -42,7 +42,7 @@ public class AddBusiness(
             EmailAddress = addRequest.EmailAddress,
             Id = _idGenerator.User.InternalId,
             Status = Entity.User.InternalStatus.New,
-            UserId = _sessionBusiness.UserId,
+            UserId = session.UserId,
         };
 
         await _data.User.Internal.AddAndSaveAsync(@internal);

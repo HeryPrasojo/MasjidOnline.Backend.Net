@@ -12,9 +12,9 @@ namespace MasjidOnline.Business.Infaq.Success;
 
 public class ApproveBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : IApproveBusiness
 {
-    public async Task<Response> ApproveAsync(Session.Interface.Session _sessionBusiness, IData _data, ApproveRequest? approveRequest)
+    public async Task<Response> ApproveAsync(Session.Interface.Session session, IData _data, ApproveRequest? approveRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, userInternalApprove: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(session, _data, userInternalApprove: true);
 
         approveRequest = _service.FieldValidator.ValidateRequired(approveRequest);
         _service.FieldValidator.ValidateRequiredPlus(approveRequest.Id);
@@ -32,7 +32,7 @@ public class ApproveBusiness(IAuthorizationBusiness _authorizationBusiness, ISer
             Entity.Infaq.SuccessStatus.Approve,
             default,
             DateTime.UtcNow,
-            _sessionBusiness.UserId);
+            session.UserId);
 
         _data.Infaq.Infaq.SetPaymentStatus(success.InfaqId, Entity.Infaq.PaymentStatus.Success);
 

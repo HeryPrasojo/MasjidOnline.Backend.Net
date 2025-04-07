@@ -5,6 +5,6 @@ namespace MasjidOnline.Business.Authorization.Interface;
 
 public interface IAuthorizationBusiness
 {
-    void AuthorizeNonAnonymous(Session.Interface.Session _sessionBusiness);
-    Task AuthorizePermissionAsync(Session.Interface.Session _sessionBusiness, IData _data, bool infaqExpireAdd = false, bool infaqExpireApprove = false, bool infaqExpireCancel = false, bool infaqSuccessAdd = false, bool infaqSuccessApprove = false, bool infaqSuccessCancel = false, bool infaqVoidAdd = false, bool infaqVoidApprove = false, bool infaqVoidCancel = false, bool userInternalAdd = false, bool userInternalApprove = false, bool userInternalCancel = false);
+    void AuthorizeNonAnonymous(Session.Interface.Session session);
+    Task AuthorizePermissionAsync(Session.Interface.Session session, IData _data, bool infaqExpireAdd = false, bool infaqExpireApprove = false, bool infaqExpireCancel = false, bool infaqSuccessAdd = false, bool infaqSuccessApprove = false, bool infaqSuccessCancel = false, bool infaqVoidAdd = false, bool infaqVoidApprove = false, bool infaqVoidCancel = false, bool userInternalAdd = false, bool userInternalApprove = false, bool userInternalCancel = false);
 }

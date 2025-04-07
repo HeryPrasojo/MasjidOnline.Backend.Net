@@ -12,9 +12,9 @@ namespace MasjidOnline.Business.Infaq.Expire;
 
 public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : IRejectBusiness
 {
-    public async Task<Response> RejectAsync(Session.Interface.Session _sessionBusiness, IData _data, RejectRequest? rejectRequest)
+    public async Task<Response> RejectAsync(Session.Interface.Session session, IData _data, RejectRequest? rejectRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, infaqExpireApprove: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(session, _data, infaqExpireApprove: true);
 
         rejectRequest = _service.FieldValidator.ValidateRequired(rejectRequest);
         _service.FieldValidator.ValidateRequiredPlus(rejectRequest.Id);
@@ -33,7 +33,7 @@ public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IServ
             Entity.Infaq.ExpireStatus.Reject,
             rejectRequest.Description,
             DateTime.UtcNow,
-            _sessionBusiness.UserId);
+            session.UserId);
 
         _data.Infaq.Infaq.SetPaymentStatus(expire.InfaqId, Entity.Infaq.PaymentStatus.New);
 

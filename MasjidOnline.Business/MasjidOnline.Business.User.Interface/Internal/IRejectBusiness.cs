@@ -7,5 +7,5 @@ namespace MasjidOnline.Business.User.Interface.Internal;
 
 public interface IRejectBusiness
 {
-    Task<Response> RejectAsync(Session.Interface.Session _sessionBusiness, IData _data, RejectRequest? rejectRequest);
+    Task<Response> RejectAsync(Session.Interface.Session session, IData _data, RejectRequest? rejectRequest);
 }

@@ -20,9 +20,9 @@ public class ApproveBusiness(
     IService _service,
     IIdGenerator _idGenerator) : IApproveBusiness
 {
-    public async Task<Response> ApproveAsync(Session.Interface.Session _sessionBusiness, IData _data, ApproveRequest? approveRequest)
+    public async Task<Response> ApproveAsync(Session.Interface.Session session, IData _data, ApproveRequest? approveRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, userInternalApprove: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(session, _data, userInternalApprove: true);
 
         approveRequest = _service.FieldValidator.ValidateRequired(approveRequest);
         _service.FieldValidator.ValidateRequiredPlus(approveRequest.Id);
@@ -40,7 +40,7 @@ public class ApproveBusiness(
             Entity.User.InternalStatus.Approve,
             default,
             DateTime.UtcNow,
-            _sessionBusiness.UserId);
+            session.UserId);
 
 
         var user = new Entity.User.User

@@ -18,28 +18,28 @@ internal static class InfaqEndpoint
         internal static async Task<Response> AddAsync(
             IBusiness _business,
             IData _data,
-            Session _sessionBusiness,
+            Session session,
             [FromBody] Business.Infaq.Interface.Model.Expire.AddRequest? addRequest)
         {
-            return await _business.Infaq.Expire.Add.AddAsync(_data, _sessionBusiness, addRequest);
+            return await _business.Infaq.Expire.Add.AddAsync(_data, session, addRequest);
         }
 
         internal static async Task<Response> ApproveAsync(
             IBusiness _business,
-            Session _sessionBusiness,
+            Session session,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Expire.ApproveRequest? approveRequest)
         {
-            return await _business.Infaq.Expire.Approve.ApproveAsync(_sessionBusiness, _data, approveRequest);
+            return await _business.Infaq.Expire.Approve.ApproveAsync(session, _data, approveRequest);
         }
 
         internal static async Task<Response> CancelAsync(
             IBusiness _business,
-            Session _sessionBusiness,
+            Session session,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Expire.CancelRequest? cancelRequest)
         {
-            return await _business.Infaq.Expire.Cancel.CancelAsync(_sessionBusiness, _data, cancelRequest);
+            return await _business.Infaq.Expire.Cancel.CancelAsync(session, _data, cancelRequest);
         }
 
         internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Expire.GetManyResponseRecord>> GetManyAsync(
@@ -60,11 +60,11 @@ internal static class InfaqEndpoint
 
         internal static async Task<Response> RejectAsync(
             IBusiness _business,
-            Session _sessionBusiness,
+            Session session,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Expire.RejectRequest? rejectRequest)
         {
-            return await _business.Infaq.Expire.Reject.RejectAsync(_sessionBusiness, _data, rejectRequest);
+            return await _business.Infaq.Expire.Reject.RejectAsync(session, _data, rejectRequest);
         }
     }
 
@@ -74,7 +74,7 @@ internal static class InfaqEndpoint
             HttpContext _httpContext,
             IBusiness _business,
             IData _data,
-            Session _sessionBusiness,
+            Session session,
             [FromForm] decimal? amount,
             [FromForm] string? captchaAction,
             [FromForm] string? captchaToken,
@@ -95,7 +95,7 @@ internal static class InfaqEndpoint
                 PaymentType = paymentType,
             };
 
-            var response = await _business.Infaq.Infaq.AddAnonym.AddAsync(_data, _sessionBusiness, addByAnonymRequest);
+            var response = await _business.Infaq.Infaq.AddAnonym.AddAsync(_data, session, addByAnonymRequest);
 
             if (addByAnonymRequest.Files != default)
             {
@@ -132,28 +132,28 @@ internal static class InfaqEndpoint
         internal static async Task<Response> AddAsync(
             IBusiness _business,
             IData _data,
-            Session _sessionBusiness,
+            Session session,
             [FromBody] Business.Infaq.Interface.Model.Success.AddRequest? addRequest)
         {
-            return await _business.Infaq.Success.Add.AddAsync(_data, _sessionBusiness, addRequest);
+            return await _business.Infaq.Success.Add.AddAsync(_data, session, addRequest);
         }
 
         internal static async Task<Response> ApproveAsync(
             IBusiness _business,
-            Session _sessionBusiness,
+            Session session,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Success.ApproveRequest? approveRequest)
         {
-            return await _business.Infaq.Success.Approve.ApproveAsync(_sessionBusiness, _data, approveRequest);
+            return await _business.Infaq.Success.Approve.ApproveAsync(session, _data, approveRequest);
         }
 
         internal static async Task<Response> CancelAsync(
             IBusiness _business,
-            Session _sessionBusiness,
+            Session session,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Success.CancelRequest? cancelRequest)
         {
-            return await _business.Infaq.Success.Cancel.CancelAsync(_sessionBusiness, _data, cancelRequest);
+            return await _business.Infaq.Success.Cancel.CancelAsync(session, _data, cancelRequest);
         }
 
         internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Success.GetManyResponseRecord>> GetManyAsync(
@@ -174,11 +174,11 @@ internal static class InfaqEndpoint
 
         internal static async Task<Response> RejectAsync(
             IBusiness _business,
-            Session _sessionBusiness,
+            Session session,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Success.RejectRequest? rejectRequest)
         {
-            return await _business.Infaq.Success.Reject.RejectAsync(_sessionBusiness, _data, rejectRequest);
+            return await _business.Infaq.Success.Reject.RejectAsync(session, _data, rejectRequest);
         }
     }
 
@@ -187,28 +187,28 @@ internal static class InfaqEndpoint
         internal static async Task<Response> AddAsync(
             IBusiness _business,
             IData _data,
-            Session _sessionBusiness,
+            Session session,
             [FromBody] Business.Infaq.Interface.Model.Void.AddRequest? addRequest)
         {
-            return await _business.Infaq.Void.Add.AddAsync(_data, _sessionBusiness, addRequest);
+            return await _business.Infaq.Void.Add.AddAsync(_data, session, addRequest);
         }
 
         internal static async Task<Response> ApproveAsync(
             IBusiness _business,
-            Session _sessionBusiness,
+            Session session,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Void.ApproveRequest? approveRequest)
         {
-            return await _business.Infaq.Void.Approve.ApproveAsync(_sessionBusiness, _data, approveRequest);
+            return await _business.Infaq.Void.Approve.ApproveAsync(session, _data, approveRequest);
         }
 
         internal static async Task<Response> CancelAsync(
             IBusiness _business,
-            Session _sessionBusiness,
+            Session session,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Void.CancelRequest? cancelRequest)
         {
-            return await _business.Infaq.Void.Cancel.CancelAsync(_sessionBusiness, _data, cancelRequest);
+            return await _business.Infaq.Void.Cancel.CancelAsync(session, _data, cancelRequest);
         }
 
         internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Void.GetManyResponseRecord>> GetManyAsync(
@@ -229,11 +229,11 @@ internal static class InfaqEndpoint
 
         internal static async Task<Response> RejectAsync(
             IBusiness _business,
-            Session _sessionBusiness,
+            Session session,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Void.RejectRequest? rejectRequest)
         {
-            return await _business.Infaq.Void.Reject.RejectAsync(_sessionBusiness, _data, rejectRequest);
+            return await _business.Infaq.Void.Reject.RejectAsync(session, _data, rejectRequest);
         }
     }
 }

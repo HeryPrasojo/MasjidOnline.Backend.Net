@@ -18,15 +18,15 @@ namespace MasjidOnline.Business.Infaq.Infaq;
 
 public class AddAnonymBusiness(IService _service, IIdGenerator _idGenerator) : IAddAnonymBusiness
 {
-    public async Task<Response> AddAsync(IData _data, Session.Interface.Session _sessionBusiness, AddByAnonymRequest? addByAnonymRequest)
+    public async Task<Response> AddAsync(IData _data, Session.Interface.Session session, AddByAnonymRequest? addByAnonymRequest)
     {
         addByAnonymRequest = _service.FieldValidator.ValidateRequired(addByAnonymRequest);
 
         var utcNow = DateTime.UtcNow;
 
-        if (_sessionBusiness.IsUserAnonymous)
+        if (session.IsUserAnonymous)
         {
-            var any = await _data.Captcha.Pass.AnyAsync(_sessionBusiness.Id);
+            var any = await _data.Captcha.Pass.AnyAsync(session.Id);
 
             if (!any)
             {
@@ -45,7 +45,7 @@ public class AddAnonymBusiness(IService _service, IIdGenerator _idGenerator) : I
                 var pass = new Pass
                 {
                     DateTime = utcNow,
-                    SessionId = _sessionBusiness.Id,
+                    SessionId = session.Id,
                 };
 
                 await _data.Captcha.Pass.AddAndSaveAsync(pass);
@@ -76,7 +76,7 @@ public class AddAnonymBusiness(IService _service, IIdGenerator _idGenerator) : I
             DateTime = utcNow,
             PaymentStatus = PaymentStatus.New,
             PaymentType = addByAnonymRequest.PaymentType!.Value.ToEntity(),
-            UserId = _sessionBusiness.UserId,
+            UserId = session.UserId,
             MunfiqName = addByAnonymRequest.MunfiqName,
         };
 

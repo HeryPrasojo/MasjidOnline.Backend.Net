@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Model.Responses;
-using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Business.User.Internal.Mapper;
@@ -14,7 +13,7 @@ namespace MasjidOnline.Business.User.Internal;
 
 public class GetManyBusiness(IService _service) : IGetManyBusiness
 {
-    public async Task<GetManyResponse<GetManyResponseRecord>> GetAsync(Session.Interface.Session _sessionBusiness, IData _data, GetManyRequest? getManyRequest)
+    public async Task<GetManyResponse<GetManyResponseRecord>> GetAsync(Session.Interface.Session session, IData _data, GetManyRequest? getManyRequest)
     {
         getManyRequest = _service.FieldValidator.ValidateRequired(getManyRequest);
         _service.FieldValidator.ValidateRequiredPlus(getManyRequest.Page);
@@ -29,7 +28,7 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
             skip: (getManyRequest.Page!.Value - 1) * take,
             take: take);
 
-        var type = await _data.User.User.GetTypeAsync(_sessionBusiness.UserId);
+        var type = await _data.User.User.GetTypeAsync(session.UserId);
 
         return new()
         {

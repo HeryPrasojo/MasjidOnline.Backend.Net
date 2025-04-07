@@ -19,9 +19,9 @@ public class AddBusiness(
     IService _service,
     IIdGenerator _idGenerator) : IAddBusiness
 {
-    public async Task<Response> AddAsync(IData _data, Session.Interface.Session _sessionBusiness, AddRequest? addRequest)
+    public async Task<Response> AddAsync(IData _data, Session.Interface.Session session, AddRequest? addRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(_sessionBusiness, _data, infaqSuccessAdd: true);
+        await _authorizationBusiness.AuthorizePermissionAsync(session, _data, infaqSuccessAdd: true);
 
         addRequest = _service.FieldValidator.ValidateRequired(addRequest);
         _service.FieldValidator.ValidateRequiredPlus(addRequest.InfaqId);
@@ -50,7 +50,7 @@ public class AddBusiness(
             Id = _idGenerator.Infaq.SuccessId,
             InfaqId = addRequest.InfaqId.Value,
             Status = Entity.Infaq.SuccessStatus.New,
-            UserId = _sessionBusiness.UserId,
+            UserId = session.UserId,
         };
 
         await _data.Infaq.Success.AddAsync(success);

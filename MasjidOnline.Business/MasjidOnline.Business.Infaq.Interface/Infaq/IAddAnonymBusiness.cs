@@ -6,5 +6,5 @@ namespace MasjidOnline.Business.Infaq.Interface.Infaq;
 
 public interface IAddAnonymBusiness
 {
-    Task<Response> AddAsync(IData _data, Session.Interface.Session _sessionBusiness, AddByAnonymRequest? addByAnonymRequest);
+    Task<Response> AddAsync(IData _data, Session.Interface.Session session, AddByAnonymRequest? addByAnonymRequest);
 }

@@ -7,15 +7,15 @@ namespace MasjidOnline.Business.Captcha.Pass;
 
 public class GetStatusBusiness : IGetStatusBusiness
 {
-    public async Task<Response> GetAsync(IData _data, Session.Interface.Session _sessionBusiness)
+    public async Task<Response> GetAsync(IData _data, Session.Interface.Session session)
     {
-        if (!_sessionBusiness.IsUserAnonymous) return new()
+        if (!session.IsUserAnonymous) return new()
         {
             ResultCode = ResponseResultCode.CaptchaUnneed,
         };
 
 
-        var any = await _data.Captcha.Pass.AnyAsync(_sessionBusiness.Id);
+        var any = await _data.Captcha.Pass.AnyAsync(session.Id);
 
         if (any) return new()
         {
