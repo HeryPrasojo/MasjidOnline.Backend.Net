@@ -12,13 +12,14 @@ public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate)
 
         await _sessionBusiness.StartAsync(requestSessionIdBase64);
 
-        httpContext.Response.OnStarting(() =>
-        {
-            if (_sessionBusiness.IsDigestNew)
-                httpContext.Response.Headers.Append(Constant.HttpHeaderName.Session, _sessionBusiness.DigestBase64);
+        httpContext.Response.OnStarting((id) =>
+            {
+                if (_sessionBusiness.Id != (int)id)
+                    httpContext.Response.Headers.Append(Constant.HttpHeaderName.Session, _sessionBusiness.DigestBase64);
 
-            return Task.CompletedTask;
-        });
+                return Task.CompletedTask;
+            },
+            _sessionBusiness.Id);
 
         await _nextRequestDelegate(httpContext);
     }
