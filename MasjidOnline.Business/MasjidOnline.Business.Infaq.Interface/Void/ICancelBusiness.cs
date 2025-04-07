@@ -6,5 +6,5 @@ namespace MasjidOnline.Business.Infaq.Interface.Void;
 
 public interface ICancelBusiness
 {
-    Task<Response> CancelAsync(Session.Interface.Session session, IData _data, CancelRequest? cancelRequest);
+    Task<Response> CancelAsync(Session.Interface.Model.Session session, IData _data, CancelRequest? cancelRequest);
 }

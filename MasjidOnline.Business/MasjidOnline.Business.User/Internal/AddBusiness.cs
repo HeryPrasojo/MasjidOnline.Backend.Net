@@ -15,7 +15,7 @@ public class AddBusiness(
     IIdGenerator _idGenerator,
     IService _service) : IAddBusiness
 {
-    public async Task<Response> AddAsync(Session.Interface.Session session, IData _data, AddRequest? addRequest)
+    public async Task<Response> AddAsync(Session.Interface.Model.Session session, IData _data, AddRequest? addRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(session, _data, userInternalAdd: true);
 

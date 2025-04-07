@@ -12,7 +12,7 @@ namespace MasjidOnline.Business.User.Internal;
 
 public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : IRejectBusiness
 {
-    public async Task<Response> RejectAsync(Session.Interface.Session session, IData _data, RejectRequest? rejectRequest)
+    public async Task<Response> RejectAsync(Session.Interface.Model.Session session, IData _data, RejectRequest? rejectRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(session, _data, userInternalApprove: true);
 

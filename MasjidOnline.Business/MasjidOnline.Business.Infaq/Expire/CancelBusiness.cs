@@ -12,7 +12,7 @@ namespace MasjidOnline.Business.Infaq.Expire;
 
 public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : ICancelBusiness
 {
-    public async Task<Response> CancelAsync(Session.Interface.Session session, IData _data, CancelRequest? cancelRequest)
+    public async Task<Response> CancelAsync(Session.Interface.Model.Session session, IData _data, CancelRequest? cancelRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(session, _data, infaqExpireCancel: true);
 

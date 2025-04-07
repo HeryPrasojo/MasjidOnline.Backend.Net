@@ -7,13 +7,13 @@ namespace MasjidOnline.Business.Authorization;
 
 public class AuthorizationBusiness : IAuthorizationBusiness
 {
-    public void AuthorizeNonAnonymous(Session.Interface.Session session)
+    public void AuthorizeNonAnonymous(Session.Interface.Model.Session session)
     {
         if (session.IsUserAnonymous) throw new PermissionException(nameof(session.IsUserAnonymous));
     }
 
     public async Task AuthorizePermissionAsync(
-        Session.Interface.Session session,
+        Session.Interface.Model.Session session,
         IData _data,
         bool infaqExpireAdd = default,
         bool infaqExpireApprove = default,

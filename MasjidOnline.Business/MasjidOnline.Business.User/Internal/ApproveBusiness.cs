@@ -20,7 +20,7 @@ public class ApproveBusiness(
     IService _service,
     IIdGenerator _idGenerator) : IApproveBusiness
 {
-    public async Task<Response> ApproveAsync(Session.Interface.Session session, IData _data, ApproveRequest? approveRequest)
+    public async Task<Response> ApproveAsync(Session.Interface.Model.Session session, IData _data, ApproveRequest? approveRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(session, _data, userInternalApprove: true);
 

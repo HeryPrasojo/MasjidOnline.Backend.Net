@@ -2,7 +2,7 @@
 using System;
 using MasjidOnline.Business.Model;
 
-namespace MasjidOnline.Business.Session.Interface;
+namespace MasjidOnline.Business.Session.Interface.Model;
 
 public class Session
 {

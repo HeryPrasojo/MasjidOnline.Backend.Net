@@ -13,7 +13,7 @@ namespace MasjidOnline.Business.User.User;
 
 public class LoginBusiness(ISessionBusiness _sessionBusiness, IService _service) : ILoginBusiness
 {
-    public async Task<Response> LoginAsync(IData _data, Session.Interface.Session session, LoginRequest? loginRequest)
+    public async Task<Response> LoginAsync(IData _data, Session.Interface.Model.Session session, LoginRequest? loginRequest)
     {
         var userId = await _data.User.UserEmailAddress.GetUserIdAsync(loginRequest.EmailAddress);
 

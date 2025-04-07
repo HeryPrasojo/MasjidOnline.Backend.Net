@@ -12,7 +12,7 @@ namespace MasjidOnline.Business.User.User;
 
 public class SetPasswordBusiness(ISessionBusiness _sessionBusiness, IService _service) : ISetPasswordBusiness
 {
-    public async Task<Response> SetAsync(Session.Interface.Session session, IData _data, SetPasswordRequest? setPasswordRequest)
+    public async Task<Response> SetAsync(Session.Interface.Model.Session session, IData _data, SetPasswordRequest? setPasswordRequest)
     {
         setPasswordRequest = _service.FieldValidator.ValidateRequired(setPasswordRequest);
         var passwordCodeBytes = _service.FieldValidator.ValidateRequiredHex(setPasswordRequest.PasswordCode, 128);

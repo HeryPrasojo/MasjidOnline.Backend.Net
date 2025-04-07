@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using MasjidOnline.Business.Session.Interface;
+using MasjidOnline.Business.Session.Interface.Model;
 using MasjidOnline.Data.Interface;
 using Microsoft.AspNetCore.Http;
 

@@ -18,7 +18,7 @@ namespace MasjidOnline.Business.Infaq.Infaq;
 
 public class AddAnonymBusiness(IService _service, IIdGenerator _idGenerator) : IAddAnonymBusiness
 {
-    public async Task<Response> AddAsync(IData _data, Session.Interface.Session session, AddByAnonymRequest? addByAnonymRequest)
+    public async Task<Response> AddAsync(IData _data, Session.Interface.Model.Session session, AddByAnonymRequest? addByAnonymRequest)
     {
         addByAnonymRequest = _service.FieldValidator.ValidateRequired(addByAnonymRequest);
 
