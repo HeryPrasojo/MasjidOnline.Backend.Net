@@ -2,6 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Model;
+using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
@@ -9,7 +10,7 @@ using MasjidOnline.Service.Interface;
 namespace MasjidOnline.Business.Session;
 
 // hack change to singleton, move scoped to new class.
-public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : Session.Interface.Session
+public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISessionBusiness
 {
     public async Task ChangeAsync(Interface.Session session, IData _data, int userId)
     {
