@@ -38,7 +38,7 @@ public class SetPasswordBusiness(IService _service) : ISetPasswordBusiness
         _data.User.PasswordCode.SetUseDateTime(passwordCodeBytes, DateTime.UtcNow);
 
 
-        await _sessionBusiness.ChangeAsync(passwordCode.UserId);
+        await _sessionBusiness.ChangeAsync(_data, passwordCode.UserId);
 
         await _data.Transaction.CommitAsync();
 

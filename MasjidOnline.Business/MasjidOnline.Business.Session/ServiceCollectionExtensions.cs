@@ -7,7 +7,9 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddSessionBusiness(this IServiceCollection services)
     {
-        services.AddScoped<ISessionBusiness, SessionBusiness>();
+        services.AddScoped<Interface.Session>();
+
+        services.AddSingleton<ISessionBusiness, SessionBusiness>();
 
         return services;
     }

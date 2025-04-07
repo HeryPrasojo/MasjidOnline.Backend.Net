@@ -32,7 +32,7 @@ public class LoginBusiness(IService _service) : ILoginBusiness
         if (!requestPasswordHashBytes.SequenceEqual(user.Password)) throw new InputMismatchException(nameof(loginRequest.Password));
 
 
-        await _sessionBusiness.ChangeAndSaveAsync(userId.Value);
+        await _sessionBusiness.ChangeAndSaveAsync(_data, userId.Value);
 
         return new()
         {
