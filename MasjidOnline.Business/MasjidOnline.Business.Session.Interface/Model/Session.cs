@@ -1,5 +1,4 @@
-﻿// undone move to Model
-using System;
+﻿using System;
 using MasjidOnline.Business.Model;
 
 namespace MasjidOnline.Business.Session.Interface.Model;
