@@ -6,6 +6,7 @@ using MasjidOnline.Data.Interface.Databases;
 namespace MasjidOnline.Data.EntityFramework;
 
 public class Data(
+    AccountancyDataContext _accountancyDataContext,
     AuditDataContext _auditDataContext,
     AuthorizationDataContext _authorizationDataContext,
     CaptchaDataContext _captchaDataContext,
@@ -16,6 +17,7 @@ public class Data(
     UserDataContext _userDataContext,
     IIdGenerator _idGenerator) : MasjidOnline.Data.Data()
 {
+    private IAccountancyDatabase? _accountancyDatabase;
     private IAuditDatabase? _auditDatabase;
     private IAuthorizationDatabase? _authorizationDatabase;
     private ICaptchaDatabase? _captchaData;
@@ -25,6 +27,7 @@ public class Data(
     private ISessionDatabase? _sessionData;
     private IUserDatabase? _userData;
 
+    public override IAccountancyDatabase Accountancy => _accountancyDatabase ??= new AccountancyDatabase(_accountancyDataContext, _idGenerator.Accountancy);
     public override IAuditDatabase Audit => _auditDatabase ??= new AuditDatabase(_auditDataContext, _idGenerator.Audit);
     public override IAuthorizationDatabase Authorization => _authorizationDatabase ??= new AuthorizationDatabase(_authorizationDataContext);
     public override ICaptchaDatabase Captcha => _captchaData ??= new CaptchaDatabase(_captchaDataContext);

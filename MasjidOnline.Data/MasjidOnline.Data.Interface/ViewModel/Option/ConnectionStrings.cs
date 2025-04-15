@@ -2,6 +2,8 @@ namespace MasjidOnline.Data.Interface.ViewModel.Option;
 
 public class ConnectionStrings
 {
+    public required string Accountancy { get; set; }
+
     public required string Audit { get; set; }
 
     public required string Authorization { get; set; }

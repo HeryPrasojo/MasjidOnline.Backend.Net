@@ -1,4 +1,4 @@
-﻿using MasjidOnline.Data.EntityFramework.DataContext;
+using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Initializer;
@@ -6,6 +6,7 @@ using MasjidOnline.Data.Interface.Initializer;
 namespace MasjidOnline.Data.EntityFramework.SqLite;
 
 public class DataInitializer(
+    AccountancyDataContext _accountancyDataContext,
     AuditDataContext _auditDataContext,
     AuthorizationDataContext _authorizationDataContext,
     CaptchaDataContext _captchaDataContext,
@@ -16,6 +17,7 @@ public class DataInitializer(
     UserDataContext _userDataContext
     ) : IDataInitializer
 {
+    private IAccountancyInitializer? _accountancyInitializer;
     private IAuditInitializer? _auditInitializer;
     private IAuthorizationInitializer? _authorizationInitializer;
     private ICaptchaInitializer? _captchaInitializer;
@@ -25,6 +27,7 @@ public class DataInitializer(
     private ISessionInitializer? _sessionInitializer;
     private IUserInitializer? _userInitializer;
 
+    public IAccountancyInitializer Accountancy => _accountancyInitializer ??= new AccountancyInitializer(_accountancyDataContext, new DataDefinition<AccountancyDataContext>(_accountancyDataContext));
     public IAuditInitializer Audit => _auditInitializer ??= new AuditInitializer(_auditDataContext, new DataDefinition<AuditDataContext>(_auditDataContext));
     public IAuthorizationInitializer Authorization => _authorizationInitializer ??= new AuthorizationInitializer(_authorizationDataContext, new DataDefinition<AuthorizationDataContext>(_authorizationDataContext));
     public ICaptchaInitializer Captcha => _captchaInitializer ??= new CaptchaInitializer(_captchaDataContext, new DataDefinition<CaptchaDataContext>(_captchaDataContext));
