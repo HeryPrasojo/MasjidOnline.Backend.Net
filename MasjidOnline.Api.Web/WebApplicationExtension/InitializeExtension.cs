@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface;
 using Microsoft.AspNetCore.Builder;
@@ -18,8 +18,9 @@ internal static class InitializeExtension
 
         var idGenerator = GetService<IIdGenerator>(serviceScope.ServiceProvider);
 
-        var userInitializerBusiness = GetService<MasjidOnline.Business.User.Interface.IInitializerBusiness>(serviceScope.ServiceProvider);
+        var userInitializerBusiness = GetService<Business.User.Interface.IInitializerBusiness>(serviceScope.ServiceProvider);
 
+        await dataInitializer.Accountancy.InitializeDatabaseAsync(data);
         await dataInitializer.Audit.InitializeDatabaseAsync(data);
         await dataInitializer.Authorization.InitializeDatabaseAsync(data);
         await dataInitializer.Captcha.InitializeDatabaseAsync(data);
