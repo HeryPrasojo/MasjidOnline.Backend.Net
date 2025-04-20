@@ -30,10 +30,9 @@ public class AddAnonymBusiness(IService _service, IIdGenerator _idGenerator) : I
 
             if (!any)
             {
-                addByAnonymRequest.CaptchaAction = _service.FieldValidator.ValidateRequired(addByAnonymRequest.CaptchaAction);
                 addByAnonymRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(addByAnonymRequest.CaptchaToken);
 
-                var isVerified = await _service.Captcha.VerifyAsync(addByAnonymRequest.CaptchaToken, addByAnonymRequest.CaptchaAction);
+                var isVerified = await _service.Captcha.VerifyAsync(addByAnonymRequest.CaptchaToken, "infaq");
 
                 if (!isVerified) return new()
                 {

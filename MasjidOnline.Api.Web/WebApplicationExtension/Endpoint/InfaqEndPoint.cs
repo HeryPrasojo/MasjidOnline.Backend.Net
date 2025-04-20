@@ -76,7 +76,6 @@ internal static class InfaqEndpoint
             IData _data,
             Session session,
             [FromForm] decimal? amount,
-            [FromForm] string? captchaAction,
             [FromForm] string? captchaToken,
             [FromForm] DateTime? manualDateTime,
             [FromForm] string? manualNotes,
@@ -86,7 +85,6 @@ internal static class InfaqEndpoint
             var addByAnonymRequest = new Business.Infaq.Interface.Model.Infaq.AddByAnonymRequest
             {
                 Amount = amount,
-                CaptchaAction = captchaAction,
                 CaptchaToken = captchaToken,
                 Files = _httpContext.Request.Form.Files.Select(f => f.OpenReadStream()),
                 ManualDateTime = manualDateTime,

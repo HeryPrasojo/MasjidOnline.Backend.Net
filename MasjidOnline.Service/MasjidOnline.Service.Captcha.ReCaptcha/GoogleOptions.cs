@@ -2,5 +2,5 @@
 
 public class GoogleOptions
 {
-    public required string ReCaptchaAssessmentsUri { get; set; }
+    public required ReCaptchaOptions ReCaptcha { get; set; }
 }

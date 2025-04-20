@@ -36,12 +36,12 @@ public class CaptchaService(IHttpClientFactory _httpClientFactory, IOptionsMonit
         var httpClient = _httpClientFactory.CreateClient("recaptcha");
 
         var serializedRequest = _serializedRequest
-            .Replace("[action]", action)
+            .Replace("[action]", _optionsMonitor.CurrentValue.ReCaptcha.ActionPrefix + action)
             .Replace("[token]", token);
 
         using var stringContent = new StringContent(serializedRequest, Encoding.UTF8, "application/json");
 
-        using var httpResponseMessage = await httpClient.PostAsync(_optionsMonitor.CurrentValue.ReCaptchaAssessmentsUri, stringContent);
+        using var httpResponseMessage = await httpClient.PostAsync(_optionsMonitor.CurrentValue.ReCaptcha.AssessmentsUri, stringContent);
 
         httpResponseMessage.EnsureSuccessStatusCode();
 
