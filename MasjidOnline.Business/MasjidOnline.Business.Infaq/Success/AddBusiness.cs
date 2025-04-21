@@ -24,10 +24,10 @@ public class AddBusiness(
         await _authorizationBusiness.AuthorizePermissionAsync(session, _data, infaqSuccessAdd: true);
 
         addRequest = _service.FieldValidator.ValidateRequired(addRequest);
-        _service.FieldValidator.ValidateRequiredPlus(addRequest.InfaqId);
+        addRequest.InfaqId = _service.FieldValidator.ValidateRequiredPlus(addRequest.InfaqId);
 
 
-        var any = await _data.Infaq.Success.AnyAsync(addRequest.InfaqId!.Value, Entity.Infaq.SuccessStatus.New);
+        var any = await _data.Infaq.Success.AnyAsync(addRequest.InfaqId.Value, Entity.Infaq.SuccessStatus.New);
 
         if (any) throw new InputMismatchException(nameof(addRequest.InfaqId));
 

@@ -17,7 +17,7 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
     public async Task<GetManyResponse<GetManyResponseRecord>> GetAsync(IData _data, GetManyRequest? getManyRequest)
     {
         getManyRequest = _service.FieldValidator.ValidateRequired(getManyRequest);
-        _service.FieldValidator.ValidateRequiredPlus(getManyRequest.Page);
+        getManyRequest.Page = _service.FieldValidator.ValidateRequiredPlus(getManyRequest.Page);
 
 
         IEnumerable<Entity.Infaq.PaymentType>? paymentTypes = default;
@@ -39,7 +39,7 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
             paymentStatuses: paymentStatuses,
             getManyOrderBy: ManyOrderBy.Id,
             orderByDirection: OrderByDirection.Descending,
-            skip: (getManyRequest.Page!.Value - 1) * take,
+            skip: (getManyRequest.Page.Value - 1) * take,
             take: take);
 
         return new()

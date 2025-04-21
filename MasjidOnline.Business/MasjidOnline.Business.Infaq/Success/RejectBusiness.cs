@@ -17,11 +17,11 @@ public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IServ
         await _authorizationBusiness.AuthorizePermissionAsync(session, _data, userInternalApprove: true);
 
         rejectRequest = _service.FieldValidator.ValidateRequired(rejectRequest);
-        _service.FieldValidator.ValidateRequiredPlus(rejectRequest.Id);
+        rejectRequest.Id = _service.FieldValidator.ValidateRequiredPlus(rejectRequest.Id);
         rejectRequest.Description = _service.FieldValidator.ValidateRequiredText255(rejectRequest.Description);
 
 
-        var success = await _data.Infaq.Success.GetForSetStatusAsync(rejectRequest.Id!.Value);
+        var success = await _data.Infaq.Success.GetForSetStatusAsync(rejectRequest.Id.Value);
 
         if (success == default) throw new InputMismatchException($"{nameof(rejectRequest.Id)}: {rejectRequest.Id}");
 

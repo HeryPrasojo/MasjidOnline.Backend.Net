@@ -17,10 +17,10 @@ public class ApproveBusiness(IAuthorizationBusiness _authorizationBusiness, ISer
         await _authorizationBusiness.AuthorizePermissionAsync(session, _data, infaqExpireApprove: true);
 
         approveRequest = _service.FieldValidator.ValidateRequired(approveRequest);
-        _service.FieldValidator.ValidateRequiredPlus(approveRequest.Id);
+        approveRequest.Id = _service.FieldValidator.ValidateRequiredPlus(approveRequest.Id);
 
 
-        var expire = await _data.Infaq.Expire.GetForSetStatusAsync(approveRequest.Id!.Value);
+        var expire = await _data.Infaq.Expire.GetForSetStatusAsync(approveRequest.Id.Value);
 
         if (expire == default) throw new InputMismatchException($"{nameof(approveRequest.Id)}: {approveRequest.Id}");
 
