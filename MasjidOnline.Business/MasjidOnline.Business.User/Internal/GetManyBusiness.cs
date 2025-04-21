@@ -32,6 +32,7 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
 
         return new()
         {
+            PageCount = ((getManyResult.RecordCount - 1) / take) + 1,
             ResultCode = ResponseResultCode.Success,
             Records = getManyResult.Records.Select(e => new GetManyResponseRecord
             {
@@ -43,7 +44,7 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
                 UpdateUserId = e.UpdateUserId,
                 UserId = e.UserId,
             }),
-            Total = getManyResult.Total,
+            RecordCount = getManyResult.RecordCount,
         };
     }
 }

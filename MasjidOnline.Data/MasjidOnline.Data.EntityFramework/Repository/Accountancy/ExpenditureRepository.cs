@@ -75,7 +75,7 @@ public class ExpenditureRepository(AccountancyDataContext _accountancyDataContex
                     UserId = e.UserId,
                 })
                 .ToArrayAsync(),
-            Total = count,
+            RecordCount = count,
         };
     }
 

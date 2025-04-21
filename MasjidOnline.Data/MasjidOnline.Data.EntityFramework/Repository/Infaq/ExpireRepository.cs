@@ -72,7 +72,7 @@ public class ExpireRepository(InfaqDataContext _infaqDataContext) : IExpireRepos
                     UserId = e.UserId,
                 })
                 .ToArrayAsync(),
-            Total = count,
+            RecordCount = count,
         };
     }
 

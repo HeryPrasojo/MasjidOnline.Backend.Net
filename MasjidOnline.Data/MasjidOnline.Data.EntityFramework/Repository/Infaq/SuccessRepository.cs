@@ -75,7 +75,7 @@ public class SuccessRepository(InfaqDataContext _infaqDataContext) : ISuccessRep
                     UserId = e.UserId,
                 })
                 .ToArrayAsync(),
-            Total = count,
+            RecordCount = count,
         };
     }
 

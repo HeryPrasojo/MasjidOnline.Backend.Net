@@ -98,7 +98,7 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
                     PaymentType = e.PaymentType,
                 })
                 .ToArrayAsync(),
-            Total = count,
+            RecordCount = count,
         };
     }
 

@@ -75,7 +75,7 @@ public class VoidRepository(InfaqDataContext _infaqDataContext) : IVoidRepositor
                     UserId = e.UserId,
                 })
                 .ToArrayAsync(),
-            Total = count,
+            RecordCount = count,
         };
     }
 

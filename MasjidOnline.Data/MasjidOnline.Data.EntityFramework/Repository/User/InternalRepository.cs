@@ -87,7 +87,7 @@ public class InternalRepository(UserDataContext _userDataContext) : IInternalRep
                     UserId = e.UserId,
                 })
                 .ToArrayAsync(),
-            Total = count,
+            RecordCount = count,
         };
     }
 
