@@ -1,0 +1,45 @@
+using System;
+using System.Threading.Tasks;
+using MasjidOnline.Business.Accountancy.Interface.Expenditure;
+using MasjidOnline.Business.Accountancy.Interface.Model.Expenditure;
+using MasjidOnline.Business.Authorization.Interface;
+using MasjidOnline.Business.Model.Responses;
+using MasjidOnline.Data.Interface;
+using MasjidOnline.Library.Exceptions;
+using MasjidOnline.Service.Interface;
+
+namespace MasjidOnline.Business.Accountancy.Expenditure;
+
+public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : IRejectBusiness
+{
+    public async Task<Response> RejectAsync(Session.Interface.Model.Session session, IData _data, RejectRequest? rejectRequest)
+    {
+        await _authorizationBusiness.AuthorizePermissionAsync(session, _data, accountancyExpenditureApprove: true);
+
+        rejectRequest = _service.FieldValidator.ValidateRequired(rejectRequest);
+        _service.FieldValidator.ValidateRequiredPlus(rejectRequest.Id);
+        rejectRequest.Description = _service.FieldValidator.ValidateRequiredText255(rejectRequest.Description);
+
+
+        var status = await _data.Accountancy.Expenditure.GetStatusAsync(rejectRequest.Id!.Value);
+
+        if (status != Entity.Accountancy.ExpenditureStatus.New) throw new InputMismatchException($"{nameof(status)}: {status}");
+
+
+        _data.Accountancy.Expenditure.SetStatus(
+            rejectRequest.Id.Value,
+            Entity.Accountancy.ExpenditureStatus.Reject,
+            rejectRequest.Description,
+            DateTime.UtcNow,
+            session.UserId);
+
+        await _data.Accountancy.SaveAsync();
+
+        // todo requester notification
+
+        return new()
+        {
+            ResultCode = ResponseResultCode.Success,
+        };
+    }
+}

@@ -1,6 +1,6 @@
 namespace MasjidOnline.Business.Accountancy.Interface.Model.Expenditure;
 
-public enum InternalStatus
+public enum ExpenditureStatus
 {
     Invalid = 0,
     New = 1,

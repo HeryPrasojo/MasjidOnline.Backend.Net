@@ -12,7 +12,7 @@ public class GetManyResponseRecord
 
     public required int UserId { get; set; }
 
-    public required InternalStatus Status { get; set; }
+    public required ExpenditureStatus Status { get; set; }
 
     public required DateTime? UpdateDateTime { get; set; }
 

@@ -15,6 +15,9 @@ public class AuthorizationBusiness : IAuthorizationBusiness
     public async Task AuthorizePermissionAsync(
         Session.Interface.Model.Session session,
         IData _data,
+        bool accountancyExpenditureAdd = default,
+        bool accountancyExpenditureApprove = default,
+        bool accountancyExpenditureCancel = default,
         bool infaqExpireAdd = default,
         bool infaqExpireApprove = default,
         bool infaqExpireCancel = default,
@@ -30,9 +33,15 @@ public class AuthorizationBusiness : IAuthorizationBusiness
     {
         if (session.IsUserAnonymous) throw new PermissionException(nameof(session.IsUserAnonymous));
 
+
         var sessionPermission = await _data.Authorization.UserInternalPermission.GetByUserIdAsync(session.UserId);
 
         if (sessionPermission == default) throw new PermissionException(nameof(session.UserId));
+
+
+        if (accountancyExpenditureAdd && !sessionPermission.AccountancyExpenditureAdd) throw new PermissionException(nameof(sessionPermission.AccountancyExpenditureAdd));
+        if (accountancyExpenditureApprove && !sessionPermission.AccountancyExpenditureApprove) throw new PermissionException(nameof(sessionPermission.AccountancyExpenditureApprove));
+        if (accountancyExpenditureCancel && !sessionPermission.AccountancyExpenditureCancel) throw new PermissionException(nameof(sessionPermission.AccountancyExpenditureCancel));
 
         if (infaqExpireAdd && !sessionPermission.InfaqExpireAdd) throw new PermissionException(nameof(sessionPermission.InfaqExpireAdd));
         if (infaqExpireApprove && !sessionPermission.InfaqExpireApprove) throw new PermissionException(nameof(sessionPermission.InfaqExpireApprove));
