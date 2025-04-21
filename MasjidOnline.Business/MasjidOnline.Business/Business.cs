@@ -1,3 +1,5 @@
+using MasjidOnline.Business.Accountancy;
+using MasjidOnline.Business.Accountancy.Interface;
 using MasjidOnline.Business.Captcha;
 using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Business.Infaq;
@@ -19,6 +21,8 @@ public class Business(
     Service.Interface.IService _service
     ) : IBusiness
 {
+    public IAccountancyBusiness Accountancy { get; } = new AccountancyBusiness(_authorizationBusiness, _idGenerator, _service);
+
     public ICaptchaBusiness Captcha { get; } = new CaptchaBusiness();
 
     public IInfaqBusiness Infaq { get; } = new InfaqBusiness(_optionsMonitor, _authorizationBusiness, _idGenerator, _service);

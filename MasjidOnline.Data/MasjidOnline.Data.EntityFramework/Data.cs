@@ -27,7 +27,7 @@ public class Data(
     private ISessionDatabase? _sessionData;
     private IUserDatabase? _userData;
 
-    public override IAccountancyDatabase Accountancy => _accountancyDatabase ??= new AccountancyDatabase(_accountancyDataContext, _idGenerator.Accountancy);
+    public override IAccountancyDatabase Accountancy => _accountancyDatabase ??= new AccountancyDatabase(_accountancyDataContext);
     public override IAuditDatabase Audit => _auditDatabase ??= new AuditDatabase(_auditDataContext, _idGenerator.Audit);
     public override IAuthorizationDatabase Authorization => _authorizationDatabase ??= new AuthorizationDatabase(_authorizationDataContext);
     public override ICaptchaDatabase Captcha => _captchaData ??= new CaptchaDatabase(_captchaDataContext);

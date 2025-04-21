@@ -11,7 +11,7 @@ public class AccountancyIdGenerator : IAccountancyIdGenerator
 
     public async Task InitializeAsync(IData data)
     {
-        _expenditureId = await data.Accountancy.Expenditure.GetMaxExpenditureIdAsync();
+        _expenditureId = await data.Accountancy.Expenditure.GetMaxIdAsync();
     }
 
     public int ExpenditureId => Interlocked.Increment(ref _expenditureId);

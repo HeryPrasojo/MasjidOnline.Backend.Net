@@ -88,6 +88,9 @@ public class InitializerBusiness(
         {
             UserId = user.Id,
 
+            AccountancyExpenditureAdd = true,
+            AccountancyExpenditureApprove = true,
+            AccountancyExpenditureCancel = true,
             InfaqExpireAdd = true,
             InfaqExpireApprove = true,
             InfaqExpireCancel = true,

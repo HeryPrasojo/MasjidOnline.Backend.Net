@@ -6,13 +6,13 @@ public class Expenditure
 {
     public required int Id { get; set; }
 
-    public required DateTime DateTime { get; set; }
+    public DateTime DateTime { get; set; }
 
-    public required int UserId { get; set; }
+    public int UserId { get; set; }
 
-    public required string Description { get; set; }
+    public string Description { get; set; } = default!;
 
-    public required decimal Amount { get; set; }
+    public decimal Amount { get; set; }
 
     public required ExpenditureStatus Status { get; set; }
 

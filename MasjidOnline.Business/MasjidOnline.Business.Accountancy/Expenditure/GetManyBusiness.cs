@@ -13,10 +13,10 @@ namespace MasjidOnline.Business.Accountancy.Expenditure;
 
 public class GetManyBusiness(IService _service) : IGetManyBusiness
 {
-    public async Task<GetManyResponse<GetManyResponseRecord>> GetAsync(Session.Interface.Model.Session session, IData _data, GetManyRequest? getManyRequest)
+    public async Task<GetManyResponse<GetManyResponseRecord>> GetAsync(IData _data, GetManyRequest? getManyRequest)
     {
         getManyRequest = _service.FieldValidator.ValidateRequired(getManyRequest);
-        _service.FieldValidator.ValidateRequiredPlus(getManyRequest.Page);
+        getManyRequest.Page = _service.FieldValidator.ValidateRequiredPlus(getManyRequest.Page);
 
 
         var take = 10;
@@ -25,7 +25,7 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
             status: getManyRequest.Status.ToEntity(),
             getManyOrderBy: ManyOrderBy.DateTime,
             orderByDirection: OrderByDirection.Descending,
-            skip: (getManyRequest.Page!.Value - 1) * take,
+            skip: (getManyRequest.Page.Value - 1) * take,
             take: take);
 
         return new()
@@ -33,12 +33,15 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
             ResultCode = ResponseResultCode.Success,
             Records = getManyResult.Records.Select(e => new GetManyResponseRecord
             {
+                Amount = e.Amount,
                 DateTime = e.DateTime,
+                Description = e.Description,
                 Id = e.Id,
                 Status = e.Status.ToModel(),
+                StatusDescription = e.StatusDescription,
                 UpdateDateTime = e.UpdateDateTime,
-                UpdateExpenditureId = e.UpdateExpenditureId,
-                ExpenditureId = e.ExpenditureId,
+                UpdateUserId = e.UpdateUserId,
+                UserId = e.UserId,
             }),
             Total = getManyResult.Total,
         };

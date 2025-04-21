@@ -7,6 +7,16 @@ internal static class MapEndpointsExtension
 {
     internal static WebApplication MapEndpoints(this WebApplication webApplication)
     {
+        var expenditureGroup = webApplication.MapGroup("/expenditure/").DisableAntiforgery();
+
+        expenditureGroup.MapPost("add", AccountancyEndpoint.Expenditure.AddAsync);
+        expenditureGroup.MapPost("approve", AccountancyEndpoint.Expenditure.ApproveAsync);
+        expenditureGroup.MapPost("cancel", AccountancyEndpoint.Expenditure.CancelAsync);
+        expenditureGroup.MapPost("getMany", AccountancyEndpoint.Expenditure.GetManyAsync);
+        expenditureGroup.MapPost("getOne", AccountancyEndpoint.Expenditure.GetOneAsync);
+        expenditureGroup.MapPost("reject", AccountancyEndpoint.Expenditure.RejectAsync);
+
+
         var captchaGroup = webApplication.MapGroup("/captcha/").DisableAntiforgery();
 
         captchaGroup.MapPost("getStatus", CaptchaEndpoint.Pass.GetStatusAsync);
@@ -70,9 +80,9 @@ internal static class MapEndpointsExtension
         userUserGroup.MapPost("setPassword", UserEndpoint.User.SetPasswordAsync);
 
 
-        var sessionGroup = webApplication.MapGroup("session/");
+        var sessionGroup = webApplication.MapGroup("session/").DisableAntiforgery();
 
-        sessionGroup.MapPost("create", SessionEndpoint.Create).DisableAntiforgery();
+        sessionGroup.MapPost("create", SessionEndpoint.Create);
 
         return webApplication;
     }

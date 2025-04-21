@@ -21,20 +21,21 @@ public class AddBusiness(
 
         addRequest = _service.FieldValidator.ValidateRequired(addRequest);
 
-        addRequest.EmailAddress = _service.FieldValidator.ValidateRequiredEmailAddress(addRequest.EmailAddress);
-        addRequest.Name = _service.FieldValidator.ValidateRequiredText255(addRequest.Name);
+        addRequest.Amount = _service.FieldValidator.ValidateRequiredPlus(addRequest.Amount);
+        addRequest.Description = _service.FieldValidator.ValidateRequiredText255(addRequest.Description);
 
 
-        var @internal = new Entity.Accountancy.Expenditure
+        var expenditure = new Entity.Accountancy.Expenditure
         {
+            Amount = addRequest.Amount.Value,
             DateTime = DateTime.UtcNow,
-            Description = addRequest.EmailAddress,
+            Description = addRequest.Description,
             Id = _idGenerator.Accountancy.ExpenditureId,
             Status = Entity.Accountancy.ExpenditureStatus.New,
             UserId = session.UserId,
         };
 
-        await _data.Accountancy.Expenditure.AddAndSaveAsync(@internal);
+        await _data.Accountancy.Expenditure.AddAndSaveAsync(expenditure);
 
         // todo approver notification
 

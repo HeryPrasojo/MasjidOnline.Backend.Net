@@ -2,7 +2,7 @@ namespace MasjidOnline.Business.Accountancy.Interface.Model.Expenditure;
 
 public class AddRequest
 {
-    public string? Name { get; set; }
+    public decimal? Amount { get; set; }
 
-    public string? EmailAddress { get; set; }
+    public string? Description { get; set; }
 }

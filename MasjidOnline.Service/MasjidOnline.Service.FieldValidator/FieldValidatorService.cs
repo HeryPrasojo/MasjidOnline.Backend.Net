@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
@@ -117,6 +117,7 @@ public class FieldValidatorService : IFieldValidatorService
         return value.Value;
     }
 
+    // todo find references and remove !
     public int ValidateRequiredPlus(int? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
         if (!value.HasValue) throw new InputInvalidException(valueExpression);

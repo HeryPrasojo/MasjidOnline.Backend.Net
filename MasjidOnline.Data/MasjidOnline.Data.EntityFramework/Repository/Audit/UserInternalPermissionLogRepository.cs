@@ -40,7 +40,7 @@ public class UserInternalPermissionLogRepository(AuditDataContext _auditDataCont
         await _dbSet.AddAsync(userInternalPermissionLog);
     }
 
-    public async Task<int> GetMaxPermissionLogIdAsync()
+    public async Task<int> GetMaxIdAsync()
     {
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
     }

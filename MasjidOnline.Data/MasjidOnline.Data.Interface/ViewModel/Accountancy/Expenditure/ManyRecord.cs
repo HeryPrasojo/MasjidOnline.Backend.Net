@@ -17,6 +17,8 @@ public class ManyRecord
 
     public required ExpenditureStatus Status { get; set; }
 
+    public required string? StatusDescription { get; set; }
+
     public required DateTime? UpdateDateTime { get; set; }
 
     public required int? UpdateUserId { get; set; }

@@ -17,11 +17,11 @@ public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IServ
         await _authorizationBusiness.AuthorizePermissionAsync(session, _data, userInternalCancel: true);
 
         cancelRequest = _service.FieldValidator.ValidateRequired(cancelRequest);
-        _service.FieldValidator.ValidateRequiredPlus(cancelRequest.Id);
+        cancelRequest.Id = _service.FieldValidator.ValidateRequiredPlus(cancelRequest.Id);
         cancelRequest.Description = _service.FieldValidator.ValidateRequiredText255(cancelRequest.Description);
 
 
-        var status = await _data.User.Internal.GetStatusAsync(cancelRequest.Id!.Value);
+        var status = await _data.User.Internal.GetStatusAsync(cancelRequest.Id.Value);
 
         if (status != Entity.User.InternalStatus.New) throw new InputMismatchException($"{nameof(status)}: {status}");
 

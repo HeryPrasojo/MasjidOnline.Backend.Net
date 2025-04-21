@@ -3,30 +3,26 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.Accountancy.Interface.Expenditure;
 using MasjidOnline.Business.Accountancy.Interface.Model.Expenditure;
 using MasjidOnline.Business.Authorization.Interface;
-using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
-using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Business.Accountancy.Expenditure;
 
 public class ApproveBusiness(
-    IOptionsMonitor<BusinessOptions> _optionsMonitor,
     IAuthorizationBusiness _authorizationBusiness,
-    IService _service,
-    IIdGenerator _idGenerator) : IApproveBusiness
+    IService _service) : IApproveBusiness
 {
     public async Task<Response> ApproveAsync(Session.Interface.Model.Session session, IData _data, ApproveRequest? approveRequest)
     {
         await _authorizationBusiness.AuthorizePermissionAsync(session, _data, accountancyExpenditureApprove: true);
 
         approveRequest = _service.FieldValidator.ValidateRequired(approveRequest);
-        _service.FieldValidator.ValidateRequiredPlus(approveRequest.Id);
+        approveRequest.Id = _service.FieldValidator.ValidateRequiredPlus(approveRequest.Id);
 
 
-        var @internal = await _data.Accountancy.Expenditure.GetForApproveAsync(approveRequest.Id!.Value);
+        var @internal = await _data.Accountancy.Expenditure.GetForApproveAsync(approveRequest.Id.Value);
 
         if (@internal == default) throw new InputMismatchException($"{nameof(approveRequest.Id)}: {approveRequest.Id}");
 
