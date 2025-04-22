@@ -10,6 +10,7 @@ public class Data(
     AuditDataContext _auditDataContext,
     AuthorizationDataContext _authorizationDataContext,
     CaptchaDataContext _captchaDataContext,
+    DatabaseTemplateDataContext _databaseTemplateDataContext,
     EventDataContext _eventDataContext,
     InfaqDataContext _infaqDataContext,
     PaymentDataContext _paymentDataContext,
@@ -22,6 +23,7 @@ public class Data(
     private IAuditDatabase? _auditDatabase;
     private IAuthorizationDatabase? _authorizationDatabase;
     private ICaptchaDatabase? _captchaData;
+    private IDatabaseTemplateDatabase? _databaseTemplateData;
     private IEventDatabase? _eventDatabase;
     private IInfaqDatabase? _infaqData;
     private IPaymentDatabase? _paymentData;
@@ -33,6 +35,7 @@ public class Data(
     public override IAuditDatabase Audit => _auditDatabase ??= new AuditDatabase(_auditDataContext, _idGenerator.Audit);
     public override IAuthorizationDatabase Authorization => _authorizationDatabase ??= new AuthorizationDatabase(_authorizationDataContext);
     public override ICaptchaDatabase Captcha => _captchaData ??= new CaptchaDatabase(_captchaDataContext);
+    public override IDatabaseTemplateDatabase DatabaseTemplate => _databaseTemplateData ??= new DatabaseTemplateDatabase(_databaseTemplateDataContext);
     public override IEventDatabase Event => _eventDatabase ??= new EventDatabase(_eventDataContext);
     public override IInfaqDatabase Infaq => _infaqData ??= new InfaqDatabase(_infaqDataContext);
     public override IPaymentDatabase Payment => _paymentData ??= new PaymentDatabase(_paymentDataContext);

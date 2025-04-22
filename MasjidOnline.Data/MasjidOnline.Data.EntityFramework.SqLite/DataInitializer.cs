@@ -10,6 +10,7 @@ public class DataInitializer(
     AuditDataContext _auditDataContext,
     AuthorizationDataContext _authorizationDataContext,
     CaptchaDataContext _captchaDataContext,
+    DatabaseTemplateDataContext _databaseTemplateDataContext,
     EventDataContext _eventDataContext,
     InfaqDataContext _infaqDataContext,
     PaymentDataContext _paymentDataContext,
@@ -22,6 +23,7 @@ public class DataInitializer(
     private IAuditInitializer? _auditInitializer;
     private IAuthorizationInitializer? _authorizationInitializer;
     private ICaptchaInitializer? _captchaInitializer;
+    private IDatabaseTemplateInitializer? _databaseTemplateInitializer;
     private IEventInitializer? _eventInitializer;
     private IInfaqInitializer? _infaqInitializer;
     private IPaymentInitializer? _paymentInitializer;
@@ -32,6 +34,7 @@ public class DataInitializer(
     public IAccountancyInitializer Accountancy => _accountancyInitializer ??= new AccountancyInitializer(_accountancyDataContext, new DataDefinition<AccountancyDataContext>(_accountancyDataContext));
     public IAuditInitializer Audit => _auditInitializer ??= new AuditInitializer(_auditDataContext, new DataDefinition<AuditDataContext>(_auditDataContext));
     public IAuthorizationInitializer Authorization => _authorizationInitializer ??= new AuthorizationInitializer(_authorizationDataContext, new DataDefinition<AuthorizationDataContext>(_authorizationDataContext));
+    public IDatabaseTemplateInitializer DatabaseTemplate => _databaseTemplateInitializer ??= new DatabaseTemplateInitializer(_databaseTemplateDataContext, new DataDefinition<DatabaseTemplateDataContext>(_databaseTemplateDataContext));
     public ICaptchaInitializer Captcha => _captchaInitializer ??= new CaptchaInitializer(_captchaDataContext, new DataDefinition<CaptchaDataContext>(_captchaDataContext));
     public IEventInitializer Event => _eventInitializer ??= new EventInitializer(_eventDataContext, new DataDefinition<EventDataContext>(_eventDataContext));
     public IInfaqInitializer Infaq => _infaqInitializer ??= new InfaqInitializer(_infaqDataContext, new DataDefinition<InfaqDataContext>(_infaqDataContext));

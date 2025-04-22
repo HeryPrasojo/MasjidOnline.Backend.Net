@@ -10,6 +10,8 @@ public class ConnectionStrings
 
     public required string Captcha { get; set; }
 
+    public required string DatabaseTemplate { get; set; }
+
     public required string Event { get; set; }
 
     public required string Infaq { get; set; }

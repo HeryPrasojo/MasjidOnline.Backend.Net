@@ -12,6 +12,7 @@ public class DataDefinition<TDataContext>(TDataContext _tDataContext) :
     IAccountancyDefinition,
     IAuditDefinition,
     ICaptchaDefinition,
+    IDatabaseTemplateDefinition,
     IPaymentDefinition,
     IPersonDefinition,
     IEventDefinition,

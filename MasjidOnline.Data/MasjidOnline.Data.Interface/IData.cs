@@ -10,6 +10,7 @@ public interface IData
     IAuditDatabase Audit { get; }
     IAuthorizationDatabase Authorization { get; }
     ICaptchaDatabase Captcha { get; }
+    IDatabaseTemplateDatabase DatabaseTemplate { get; }
     IEventDatabase Event { get; }
     IInfaqDatabase Infaq { get; }
     IPaymentDatabase Payment { get; }

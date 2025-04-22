@@ -8,6 +8,7 @@ public interface IDataInitializer
     IAuditInitializer Audit { get; }
     IAuthorizationInitializer Authorization { get; }
     ICaptchaInitializer Captcha { get; }
+    IDatabaseTemplateInitializer DatabaseTemplate { get; }
     IEventInitializer Event { get; }
     IInfaqInitializer Infaq { get; }
     IPaymentInitializer Payment { get; }
