@@ -4,6 +4,10 @@ public class UserInternalPermissionLog : Log<UserInternalPermissionLogType>
 {
     public required int UserId { get; set; }
 
+    public required bool AccountancyExpenditureAdd { get; set; }
+    public required bool AccountancyExpenditureApprove { get; set; }
+    public required bool AccountancyExpenditureCancel { get; set; }
+
     public required bool InfaqExpireAdd { get; set; }
     public required bool InfaqExpireApprove { get; set; }
     public required bool InfaqExpireCancel { get; set; }

@@ -34,6 +34,9 @@ public class AuditInitializer(
                 LogUserId INTEGER NOT NULL,
 
                 UserId INTEGER NOT NULL,
+                AccountancyExpenditureAdd INTEGER NOT NULL,
+                AccountancyExpenditureApprove INTEGER NOT NULL,
+                AccountancyExpenditureCancel INTEGER NOT NULL,
                 InfaqExpireAdd INTEGER NOT NULL,
                 InfaqExpireApprove INTEGER NOT NULL,
                 InfaqExpireCancel INTEGER NOT NULL,

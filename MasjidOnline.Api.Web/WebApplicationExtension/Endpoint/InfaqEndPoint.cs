@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Infaq.Interface.Model.Payment;
 using MasjidOnline.Business.Interface;
 using MasjidOnline.Business.Model.Responses;
+using MasjidOnline.Business.Payment.Interface.Model;
 using MasjidOnline.Business.Session.Interface.Model;
 using MasjidOnline.Data.Interface;
 using Microsoft.AspNetCore.Http;

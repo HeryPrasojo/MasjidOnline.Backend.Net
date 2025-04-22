@@ -23,6 +23,9 @@ public class UserInternalPermissionLogRepository(AuditDataContext _auditDataCont
             LogUserId = userId,
 
             UserId = userInternalPermission.UserId,
+            AccountancyExpenditureAdd = userInternalPermission.AccountancyExpenditureAdd,
+            AccountancyExpenditureApprove = userInternalPermission.AccountancyExpenditureApprove,
+            AccountancyExpenditureCancel = userInternalPermission.AccountancyExpenditureCancel,
             InfaqExpireAdd = userInternalPermission.InfaqExpireAdd,
             InfaqExpireApprove = userInternalPermission.InfaqExpireApprove,
             InfaqExpireCancel = userInternalPermission.InfaqExpireCancel,

@@ -1,4 +1,4 @@
-using MasjidOnline.Business.Infaq.Interface.Model.Payment;
+using MasjidOnline.Business.Payment.Interface.Model;
 
 namespace MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 

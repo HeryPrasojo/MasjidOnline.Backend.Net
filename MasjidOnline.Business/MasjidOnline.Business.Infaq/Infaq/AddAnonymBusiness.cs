@@ -53,16 +53,16 @@ public class AddAnonymBusiness(IService _service, IIdGenerator _idGenerator) : I
 
 
         addByAnonymRequest.Amount = _service.FieldValidator.ValidateRequiredPlus(addByAnonymRequest.Amount);
-        addByAnonymRequest.PaymentType = (Interface.Model.Payment.PaymentType?)_service.FieldValidator.ValidateRequired(addByAnonymRequest.PaymentType);
+        addByAnonymRequest.PaymentType = (Payment.Interface.Model.PaymentType)_service.FieldValidator.ValidateRequired(addByAnonymRequest.PaymentType);
         addByAnonymRequest.ManualDateTime = _service.FieldValidator.ValidateRequiredPast(addByAnonymRequest.ManualDateTime);
 
         addByAnonymRequest.MunfiqName = _service.FieldValidator.ValidateRequiredText255(addByAnonymRequest.MunfiqName);
         addByAnonymRequest.ManualNotes = _service.FieldValidator.ValidateOptionalText255(addByAnonymRequest.ManualNotes);
 
 
-        var paymentTypes = new Interface.Model.Payment.PaymentType[]
+        var paymentTypes = new Payment.Interface.Model.PaymentType[]
         {
-            Interface.Model.Payment.PaymentType.ManualBankTransfer
+            Payment.Interface.Model.PaymentType.ManualBankTransfer
         };
 
         if (!paymentTypes.Any(t => t == addByAnonymRequest.PaymentType)) throw new InputInvalidException(nameof(addByAnonymRequest.PaymentType));

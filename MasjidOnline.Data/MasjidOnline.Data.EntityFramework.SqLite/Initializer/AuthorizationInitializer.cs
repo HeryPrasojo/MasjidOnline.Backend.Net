@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Definition;
@@ -29,15 +29,23 @@ public class AuthorizationInitializer(
             CREATE TABLE UserInternalPermission
             (
                 UserId INTEGER PRIMARY KEY,
+
+                AccountancyExpenditureAdd INTEGER NOT NULL,
+                AccountancyExpenditureApprove INTEGER NOT NULL,
+                AccountancyExpenditureCancel INTEGER NOT NULL,
+
                 InfaqExpireAdd INTEGER NOT NULL,
                 InfaqExpireApprove INTEGER NOT NULL,
                 InfaqExpireCancel INTEGER NOT NULL,
+
                 InfaqSuccessAdd INTEGER NOT NULL,
                 InfaqSuccessApprove INTEGER NOT NULL,
                 InfaqSuccessCancel INTEGER NOT NULL,
+
                 InfaqVoidAdd INTEGER NOT NULL,
                 InfaqVoidApprove INTEGER NOT NULL,
                 InfaqVoidCancel INTEGER NOT NULL,
+
                 UserInternalAdd INTEGER NOT NULL,
                 UserInternalApprove INTEGER NOT NULL,
                 UserInternalCancel INTEGER NOT NULL

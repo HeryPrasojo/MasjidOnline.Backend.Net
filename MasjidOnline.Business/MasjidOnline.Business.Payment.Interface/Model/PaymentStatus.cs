@@ -1,6 +1,5 @@
-namespace MasjidOnline.Business.Infaq.Interface.Model.Payment;
+namespace MasjidOnline.Business.Payment.Interface.Model;
 
-// hack move to MasjidOnline.Business.Interface.Model
 public enum PaymentStatus
 {
     Invalid = 0,
