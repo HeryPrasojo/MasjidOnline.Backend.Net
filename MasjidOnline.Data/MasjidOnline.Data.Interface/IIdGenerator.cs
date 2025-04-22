@@ -7,6 +7,7 @@ public interface IIdGenerator
     IAccountancyIdGenerator Accountancy { get; }
     IAuditIdGenerator Audit { get; }
     IAuthorizationIdGenerator Authorization { get; }
+    IDatabaseIdGenerator Database { get; }
     IEventIdGenerator Event { get; }
     IInfaqIdGenerator Infaq { get; }
     IPersonIdGenerator Person { get; }

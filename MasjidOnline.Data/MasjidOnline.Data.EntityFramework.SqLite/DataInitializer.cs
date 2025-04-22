@@ -10,6 +10,7 @@ public class DataInitializer(
     AuditDataContext _auditDataContext,
     AuthorizationDataContext _authorizationDataContext,
     CaptchaDataContext _captchaDataContext,
+    DatabaseDataContext _databaseDataContext,
     EventDataContext _eventDataContext,
     InfaqDataContext _infaqDataContext,
     PersonDataContext _personDataContext,
@@ -21,6 +22,7 @@ public class DataInitializer(
     private IAuditInitializer? _auditInitializer;
     private IAuthorizationInitializer? _authorizationInitializer;
     private ICaptchaInitializer? _captchaInitializer;
+    private IDatabaseInitializer? _databaseInitializer;
     private IEventInitializer? _eventInitializer;
     private IInfaqInitializer? _infaqInitializer;
     private IPersonInitializer? _personInitializer;
@@ -30,6 +32,7 @@ public class DataInitializer(
     public IAccountancyInitializer Accountancy => _accountancyInitializer ??= new AccountancyInitializer(_accountancyDataContext, new DataDefinition<AccountancyDataContext>(_accountancyDataContext));
     public IAuditInitializer Audit => _auditInitializer ??= new AuditInitializer(_auditDataContext, new DataDefinition<AuditDataContext>(_auditDataContext));
     public IAuthorizationInitializer Authorization => _authorizationInitializer ??= new AuthorizationInitializer(_authorizationDataContext, new DataDefinition<AuthorizationDataContext>(_authorizationDataContext));
+    public IDatabaseInitializer Database => _databaseInitializer ??= new DatabaseInitializer(_databaseDataContext, new DataDefinition<DatabaseDataContext>(_databaseDataContext));
     public ICaptchaInitializer Captcha => _captchaInitializer ??= new CaptchaInitializer(_captchaDataContext, new DataDefinition<CaptchaDataContext>(_captchaDataContext));
     public IEventInitializer Event => _eventInitializer ??= new EventInitializer(_eventDataContext, new DataDefinition<EventDataContext>(_eventDataContext));
     public IInfaqInitializer Infaq => _infaqInitializer ??= new InfaqInitializer(_infaqDataContext, new DataDefinition<InfaqDataContext>(_infaqDataContext));

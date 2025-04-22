@@ -16,4 +16,8 @@
     <ProjectReference Include="..\..\MasjidOnline.Entity\MasjidOnline.Entity.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repository\Table\" />
+  </ItemGroup>
+
 </Project>

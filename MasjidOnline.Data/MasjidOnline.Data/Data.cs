@@ -13,6 +13,7 @@ public abstract class Data() : IData
     public abstract IAuditDatabase Audit { get; }
     public abstract IAuthorizationDatabase Authorization { get; }
     public abstract ICaptchaDatabase Captcha { get; }
+    public abstract IDatabaseDatabase Database { get; }
     public abstract IEventDatabase Event { get; }
     public abstract IInfaqDatabase Infaq { get; }
     public abstract IPersonDatabase Person { get; }

@@ -2,6 +2,7 @@ using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.EntityFramework.Repository.Accountancy;
 using MasjidOnline.Data.Interface.Databases;
 using MasjidOnline.Data.Interface.Repository.Accountancy;
+using MasjidOnline.Data.Interface.Repository.Database;
 
 namespace MasjidOnline.Data.EntityFramework.Databases;
 

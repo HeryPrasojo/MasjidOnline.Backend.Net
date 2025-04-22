@@ -10,6 +10,7 @@ public class IdGenerator(IService _service) : IIdGenerator
     public IAccountancyIdGenerator Accountancy { get; } = new AccountancyIdGenerator();
     public IAuditIdGenerator Audit { get; } = new AuditIdGenerator();
     public IAuthorizationIdGenerator Authorization { get; } = new AuthorizationIdGenerator();
+    public IDatabaseIdGenerator Database { get; } = new DatabaseIdGenerator();
     public IEventIdGenerator Event { get; } = new EventIdGenerator();
     public IInfaqIdGenerator Infaq { get; } = new InfaqIdGenerator();
     public IPersonIdGenerator Person { get; } = new PersonIdGenerator();
