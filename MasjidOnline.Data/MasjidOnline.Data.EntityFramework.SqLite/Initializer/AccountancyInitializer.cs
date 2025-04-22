@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore;
 namespace MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 
 public class AccountancyInitializer(
-    AccountancyDataContext _auditDataContext,
-    IAccountancyDefinition _auditDefinition) : MasjidOnline.Data.Initializer.AccountancyInitializer(_auditDefinition)
+    AccountancyDataContext _accountancyDataContext,
+    IAccountancyDefinition _accountancyDefinition) : MasjidOnline.Data.Initializer.AccountancyInitializer(_accountancyDefinition)
 {
     protected override async Task<int> CreateTableAccountancySettingAsync()
     {
@@ -20,7 +20,7 @@ public class AccountancyInitializer(
                 Value TEXT NOT NULL COLLATE NOCASE
             )";
 
-        return await _auditDataContext.Database.ExecuteSqlAsync(sql);
+        return await _accountancyDataContext.Database.ExecuteSqlAsync(sql);
     }
 
     protected override async Task<int> CreateTableExpenditureAsync()
@@ -39,6 +39,6 @@ public class AccountancyInitializer(
                 UpdateUserId INTEGER
             )";
 
-        return await _auditDataContext.Database.ExecuteSqlAsync(sql);
+        return await _accountancyDataContext.Database.ExecuteSqlAsync(sql);
     }
 }

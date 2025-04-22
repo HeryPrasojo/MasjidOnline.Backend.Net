@@ -18,14 +18,14 @@ public abstract class AccountancyInitializer(IAccountancyDefinition _accountancy
             await CreateTableExpenditureAsync();
 
 
-            var auditSetting = new AccountancySetting
+            var accountancySetting = new AccountancySetting
             {
                 Id = (int)AccountancySettingId.DatabaseVersion,
                 Description = nameof(AccountancySettingId.DatabaseVersion),
                 Value = "1",
             };
 
-            await data.Accountancy.AccountancySetting.AddAsync(auditSetting);
+            await data.Accountancy.AccountancySetting.AddAsync(accountancySetting);
 
             await data.Accountancy.SaveAsync();
         }
