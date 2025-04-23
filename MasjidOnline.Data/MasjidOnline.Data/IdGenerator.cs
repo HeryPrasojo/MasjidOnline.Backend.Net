@@ -12,6 +12,7 @@ public class IdGenerator(IService _service) : IIdGenerator
     public IAuthorizationIdGenerator Authorization { get; } = new AuthorizationIdGenerator();
     public IEventIdGenerator Event { get; } = new EventIdGenerator();
     public IInfaqIdGenerator Infaq { get; } = new InfaqIdGenerator();
+    public IPaymentIdGenerator Payment { get; } = new PaymentIdGenerator();
     public IPersonIdGenerator Person { get; } = new PersonIdGenerator();
     public ISessionIdGenerator Session { get; } = new SessionIdGenerator(_service.Hash512);
     public IUserIdGenerator User { get; } = new UserIdGenerator(_service.Hash512);

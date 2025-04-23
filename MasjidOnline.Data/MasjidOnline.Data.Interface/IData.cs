@@ -12,6 +12,7 @@ public interface IData
     ICaptchaDatabase Captcha { get; }
     IEventDatabase Event { get; }
     IInfaqDatabase Infaq { get; }
+    IPaymentDatabase Payment { get; }
     IPersonDatabase Person { get; }
     ISessionDatabase Session { get; }
     IUserDatabase User { get; }

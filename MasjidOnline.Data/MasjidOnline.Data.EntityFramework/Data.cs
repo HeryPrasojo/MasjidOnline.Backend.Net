@@ -12,6 +12,7 @@ public class Data(
     CaptchaDataContext _captchaDataContext,
     EventDataContext _eventDataContext,
     InfaqDataContext _infaqDataContext,
+    PaymentDataContext _paymentDataContext,
     PersonDataContext _personDataContext,
     SessionDataContext _sessionDataContext,
     UserDataContext _userDataContext,
@@ -23,6 +24,7 @@ public class Data(
     private ICaptchaDatabase? _captchaData;
     private IEventDatabase? _eventDatabase;
     private IInfaqDatabase? _infaqData;
+    private IPaymentDatabase? _paymentData;
     private IPersonDatabase? _personDatabase;
     private ISessionDatabase? _sessionData;
     private IUserDatabase? _userData;
@@ -33,6 +35,7 @@ public class Data(
     public override ICaptchaDatabase Captcha => _captchaData ??= new CaptchaDatabase(_captchaDataContext);
     public override IEventDatabase Event => _eventDatabase ??= new EventDatabase(_eventDataContext);
     public override IInfaqDatabase Infaq => _infaqData ??= new InfaqDatabase(_infaqDataContext);
+    public override IPaymentDatabase Payment => _paymentData ??= new PaymentDatabase(_paymentDataContext);
     public override IPersonDatabase Person => _personDatabase ??= new PersonDatabase(_personDataContext);
     public override ISessionDatabase Session => _sessionData ??= new SessionDatabase(_sessionDataContext);
     public override IUserDatabase User => _userData ??= new UserDatabase(_userDataContext);

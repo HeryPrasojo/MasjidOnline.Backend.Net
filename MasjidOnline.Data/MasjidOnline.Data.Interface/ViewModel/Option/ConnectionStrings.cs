@@ -14,6 +14,8 @@ public class ConnectionStrings
 
     public required string Infaq { get; set; }
 
+    public required string Payment { get; set; }
+
     public required string Person { get; set; }
 
     public required string Session { get; set; }

@@ -9,6 +9,7 @@ public interface IIdGenerator
     IAuthorizationIdGenerator Authorization { get; }
     IEventIdGenerator Event { get; }
     IInfaqIdGenerator Infaq { get; }
+    IPaymentIdGenerator Payment { get; }
     IPersonIdGenerator Person { get; }
     ISessionIdGenerator Session { get; }
     IUserIdGenerator User { get; }

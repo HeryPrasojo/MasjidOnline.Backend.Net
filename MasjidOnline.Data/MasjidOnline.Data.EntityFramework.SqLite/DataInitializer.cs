@@ -12,6 +12,7 @@ public class DataInitializer(
     CaptchaDataContext _captchaDataContext,
     EventDataContext _eventDataContext,
     InfaqDataContext _infaqDataContext,
+    PaymentDataContext _paymentDataContext,
     PersonDataContext _personDataContext,
     SessionDataContext _sessionDataContext,
     UserDataContext _userDataContext
@@ -23,6 +24,7 @@ public class DataInitializer(
     private ICaptchaInitializer? _captchaInitializer;
     private IEventInitializer? _eventInitializer;
     private IInfaqInitializer? _infaqInitializer;
+    private IPaymentInitializer? _paymentInitializer;
     private IPersonInitializer? _personInitializer;
     private ISessionInitializer? _sessionInitializer;
     private IUserInitializer? _userInitializer;
@@ -33,6 +35,7 @@ public class DataInitializer(
     public ICaptchaInitializer Captcha => _captchaInitializer ??= new CaptchaInitializer(_captchaDataContext, new DataDefinition<CaptchaDataContext>(_captchaDataContext));
     public IEventInitializer Event => _eventInitializer ??= new EventInitializer(_eventDataContext, new DataDefinition<EventDataContext>(_eventDataContext));
     public IInfaqInitializer Infaq => _infaqInitializer ??= new InfaqInitializer(_infaqDataContext, new DataDefinition<InfaqDataContext>(_infaqDataContext));
+    public IPaymentInitializer Payment => _paymentInitializer ??= new PaymentInitializer(_paymentDataContext, new DataDefinition<PaymentDataContext>(_paymentDataContext));
     public IPersonInitializer Person => _personInitializer ??= new PersonInitializer(_personDataContext, new DataDefinition<PersonDataContext>(_personDataContext));
     public ISessionInitializer Session => _sessionInitializer ??= new SessionInitializer(_sessionDataContext, new DataDefinition<SessionDataContext>(_sessionDataContext));
     public IUserInitializer User => _userInitializer ??= new UserInitializer(_userDataContext, new DataDefinition<UserDataContext>(_userDataContext));

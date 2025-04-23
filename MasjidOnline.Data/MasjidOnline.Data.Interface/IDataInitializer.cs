@@ -10,6 +10,7 @@ public interface IDataInitializer
     ICaptchaInitializer Captcha { get; }
     IEventInitializer Event { get; }
     IInfaqInitializer Infaq { get; }
+    IPaymentInitializer Payment { get; }
     IPersonInitializer Person { get; }
     ISessionInitializer Session { get; }
     IUserInitializer User { get; }

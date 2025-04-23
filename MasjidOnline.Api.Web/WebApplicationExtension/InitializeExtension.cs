@@ -26,6 +26,7 @@ internal static class InitializeExtension
         await dataInitializer.Captcha.InitializeDatabaseAsync(data);
         await dataInitializer.Event.InitializeDatabaseAsync(data);
         await dataInitializer.Infaq.InitializeDatabaseAsync(data);
+        await dataInitializer.Payment.InitializeDatabaseAsync(data);
         await dataInitializer.Person.InitializeDatabaseAsync(data);
         await dataInitializer.Session.InitializeDatabaseAsync(data);
         await dataInitializer.User.InitializeDatabaseAsync(data);
@@ -33,6 +34,7 @@ internal static class InitializeExtension
         await idGenerator.Audit.InitializeAsync(data);
         await idGenerator.Event.InitializeAsync(data);
         await idGenerator.Infaq.InitializeAsync(data);
+        await idGenerator.Payment.InitializeAsync(data);
         await idGenerator.Person.InitializeAsync(data);
         await idGenerator.Session.InitializeAsync(data);
         await idGenerator.Session.InitializeAsync(data);

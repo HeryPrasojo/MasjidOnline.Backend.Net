@@ -21,6 +21,7 @@ public static class ServiceCollectionExtensions
         services.AddDbContextPool<CaptchaDataContext>(b => b.UseSqlite(connectionStrings.Captcha), poolSize: 2);
         services.AddDbContextPool<EventDataContext>(b => b.UseSqlite(connectionStrings.Event), poolSize: 2);
         services.AddDbContextPool<InfaqDataContext>(b => b.UseSqlite(connectionStrings.Infaq), poolSize: 2);
+        services.AddDbContextPool<PaymentDataContext>(b => b.UseSqlite(connectionStrings.Payment), poolSize: 2);
         services.AddDbContextPool<PersonDataContext>(b => b.UseSqlite(connectionStrings.Person), poolSize: 2);
         services.AddDbContextPool<SessionDataContext>(b => b.UseSqlite(connectionStrings.Session), poolSize: 2);
         services.AddDbContextPool<UserDataContext>(b => b.UseSqlite(connectionStrings.User), poolSize: 2);
