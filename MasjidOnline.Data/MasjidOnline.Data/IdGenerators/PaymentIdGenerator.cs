@@ -7,12 +7,14 @@ namespace MasjidOnline.Data.IdGenerators;
 
 public class PaymentIdGenerator : IPaymentIdGenerator
 {
-    private int _tableId;
+    private int _manualRecommendationIdId;
 
     public async Task InitializeAsync(IData data)
     {
-        _tableId = await data.Payment.ManualRecommendationId.GetMaxIdAsync();
+        _manualRecommendationIdId = await data.Payment.ManualRecommendationId.GetMaxIdAsync();
+
+        if (_manualRecommendationIdId < 100001) _manualRecommendationIdId = 100001;
     }
 
-    public int TableId => Interlocked.Increment(ref _tableId);
+    public int ManualRecommendationIdId => Interlocked.Increment(ref _manualRecommendationIdId);
 }

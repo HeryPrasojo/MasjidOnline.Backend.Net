@@ -4,7 +4,7 @@ namespace MasjidOnline.Data.Interface.IdGenerator;
 
 public interface IPaymentIdGenerator
 {
-    int TableId { get; }
+    int ManualRecommendationIdId { get; }
 
     Task InitializeAsync(IData data);
 }
