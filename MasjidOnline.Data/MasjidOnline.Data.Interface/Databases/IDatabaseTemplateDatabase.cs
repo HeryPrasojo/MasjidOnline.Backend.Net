@@ -1,10 +1,10 @@
-using MasjidOnline.Data.Interface.Repository.Database;
+using MasjidOnline.Data.Interface.Repository.DatabaseTemplate;
 
 namespace MasjidOnline.Data.Interface.Databases;
 
 public interface IDatabaseTemplateDatabase : IDatabase
 {
-    IDatabaseSettingRepository DatabaseSetting { get; }
+    IDatabaseTemplateSettingRepository DatabaseTemplateSetting { get; }
 
-    ITableRepository Table { get; }
+    ITableTemplateRepository TableTemplate { get; }
 }

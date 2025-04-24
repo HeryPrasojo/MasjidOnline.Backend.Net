@@ -1,5 +1,4 @@
 using MasjidOnline.Data.Interface.Repository.Accountancy;
-using MasjidOnline.Data.Interface.Repository.Database;
 
 namespace MasjidOnline.Data.Interface.Databases;
 

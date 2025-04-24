@@ -2,14 +2,14 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
-using MasjidOnline.Data.Interface.Repository.Database;
+using MasjidOnline.Data.Interface.Repository.DatabaseTemplate;
 using MasjidOnline.Data.Interface.ViewModel.Repository;
 using MasjidOnline.Entity.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.DatabaseTemplate;
 
-public class TableTemplateRepository(DatabaseTemplateDataContext _databaseTemplateDataContext) : ITableRepository
+public class TableTemplateRepository(DatabaseTemplateDataContext _databaseTemplateDataContext) : ITableTemplateRepository
 {
     private readonly DbSet<Table> _dbSet = _databaseTemplateDataContext.Set<Table>();
 

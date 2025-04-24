@@ -12,7 +12,7 @@ public class DatabaseTemplateIdGenerator : IDatabaseTemplateIdGenerator
 
     public async Task InitializeAsync(IData data)
     {
-        _tableTemplateId = await data.DatabaseTemplate.Table.GetMaxIdAsync();
+        _tableTemplateId = await data.DatabaseTemplate.TableTemplate.GetMaxIdAsync();
     }
 
     // undone rename

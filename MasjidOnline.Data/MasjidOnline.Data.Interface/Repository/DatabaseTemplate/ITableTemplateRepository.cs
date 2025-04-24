@@ -4,9 +4,9 @@ using MasjidOnline.Data.Interface.ViewModel.Repository;
 using MasjidOnline.Entity.Accountancy;
 using MasjidOnline.Entity.Database;
 
-namespace MasjidOnline.Data.Interface.Repository.Database;
+namespace MasjidOnline.Data.Interface.Repository.DatabaseTemplate;
 
-public interface ITableRepository
+public interface ITableTemplateRepository
 {
     Task AddAsync(Table table);
     Task<int> GetMaxIdAsync();

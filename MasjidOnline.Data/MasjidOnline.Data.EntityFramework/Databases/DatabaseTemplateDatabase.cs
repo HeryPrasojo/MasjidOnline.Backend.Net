@@ -1,16 +1,16 @@
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.EntityFramework.Repository.DatabaseTemplate;
 using MasjidOnline.Data.Interface.Databases;
-using MasjidOnline.Data.Interface.Repository.Database;
+using MasjidOnline.Data.Interface.Repository.DatabaseTemplate;
 
 namespace MasjidOnline.Data.EntityFramework.Databases;
 
 public class DatabaseTemplateDatabase(
     DatabaseTemplateDataContext _databaseTemplateDataContext) : Database(_databaseTemplateDataContext), IDatabaseTemplateDatabase
 {
-    private IDatabaseSettingRepository? _databaseSettingRepository;
-    private ITableRepository? _userInternalPermissionLogRepository;
+    private IDatabaseTemplateSettingRepository? _databaseTemplateSettingRepository;
+    private ITableTemplateRepository? _tableTemplateRepository;
 
-    public IDatabaseSettingRepository DatabaseSetting => _databaseSettingRepository ??= new DatabaseTemplateSettingRepository(_databaseTemplateDataContext);
-    public ITableRepository Table => _userInternalPermissionLogRepository ??= new TableTemplateRepository(_databaseTemplateDataContext);
+    public IDatabaseTemplateSettingRepository DatabaseTemplateSetting => _databaseTemplateSettingRepository ??= new DatabaseTemplateSettingRepository(_databaseTemplateDataContext);
+    public ITableTemplateRepository TableTemplate => _tableTemplateRepository ??= new TableTemplateRepository(_databaseTemplateDataContext);
 }

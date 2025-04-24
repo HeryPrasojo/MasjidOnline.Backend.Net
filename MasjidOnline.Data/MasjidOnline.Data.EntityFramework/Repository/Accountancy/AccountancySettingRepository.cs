@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.Accountancy;
-using MasjidOnline.Data.Interface.Repository.Database;
 using MasjidOnline.Entity.Accountancy;
 using Microsoft.EntityFrameworkCore;
 
