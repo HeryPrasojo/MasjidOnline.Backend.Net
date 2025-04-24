@@ -1,10 +1,11 @@
 using System.Threading.Tasks;
+using MasjidOnline.Business.Payment.Interface.Manual;
 using MasjidOnline.Business.Payment.Interface.Model.Manual;
 using MasjidOnline.Data.Interface;
 
 namespace MasjidOnline.Business.Payment.Manual;
 
-public class GetRecommendationNoteBusiness(IIdGenerator _idGenerator)
+public class GetRecommendationNoteBusiness(IIdGenerator _idGenerator) : IGetRecommendationNoteBusiness
 {
     public async Task<GetRecommendationNoteResponse> Get(IData data, Session.Interface.Model.Session session)
     {
