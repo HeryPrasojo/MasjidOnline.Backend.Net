@@ -1,16 +1,16 @@
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.DatabaseTemplate;
-using MasjidOnline.Entity.Database;
+using MasjidOnline.Entity.DatabaseTemplate;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.DatabaseTemplate;
 
 public class DatabaseTemplateSettingRepository(DatabaseTemplateDataContext _databaseTemplateDataContext) : IDatabaseTemplateSettingRepository
 {
-    private readonly DbSet<DatabaseSetting> _dbSet = _databaseTemplateDataContext.Set<DatabaseSetting>();
+    private readonly DbSet<DatabaseTemplateSetting> _dbSet = _databaseTemplateDataContext.Set<DatabaseTemplateSetting>();
 
-    public async Task AddAsync(DatabaseSetting databaseSetting)
+    public async Task AddAsync(DatabaseTemplateSetting databaseSetting)
     {
         await _dbSet.AddAsync(databaseSetting);
     }

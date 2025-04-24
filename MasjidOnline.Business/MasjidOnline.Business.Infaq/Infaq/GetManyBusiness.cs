@@ -8,6 +8,7 @@ using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.ViewModel.Infaq.Infaq;
 using MasjidOnline.Data.Interface.ViewModel.Repository;
+using MasjidOnline.Entity.Payment;
 using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.Infaq.Infaq;
@@ -20,13 +21,13 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
         getManyRequest.Page = _service.FieldValidator.ValidateRequiredPlus(getManyRequest.Page);
 
 
-        IEnumerable<Entity.Infaq.PaymentType>? paymentTypes = default;
+        IEnumerable<PaymentType>? paymentTypes = default;
 
         if (getManyRequest.PaymentTypes != default)
             paymentTypes = getManyRequest.PaymentTypes.Select(m => m.ToEntity());
 
 
-        IEnumerable<Entity.Infaq.PaymentStatus>? paymentStatuses = default;
+        IEnumerable<PaymentStatus>? paymentStatuses = default;
 
         if (getManyRequest.PaymentStatuses != default)
             paymentStatuses = getManyRequest.PaymentStatuses.Select(m => m.ToEntity());

@@ -6,7 +6,7 @@ using MasjidOnline.Business.Infaq.Interface.Void;
 using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Entity.Infaq;
+using MasjidOnline.Entity.Payment;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
 using Microsoft.Extensions.Options;

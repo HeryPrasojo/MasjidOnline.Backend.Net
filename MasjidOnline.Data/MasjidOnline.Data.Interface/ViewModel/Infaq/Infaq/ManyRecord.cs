@@ -1,5 +1,5 @@
-﻿using System;
-using MasjidOnline.Entity.Infaq;
+using System;
+using MasjidOnline.Entity.Payment;
 
 namespace MasjidOnline.Data.Interface.ViewModel.Infaq.Infaq;
 

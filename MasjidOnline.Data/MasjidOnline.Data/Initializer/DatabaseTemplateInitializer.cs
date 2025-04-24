@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Definition;
 using MasjidOnline.Data.Interface.Initializer;
-using MasjidOnline.Entity.Database;
+using MasjidOnline.Entity.DatabaseTemplate;
 
 namespace MasjidOnline.Data.Initializer;
 
@@ -10,7 +10,7 @@ public abstract class DatabaseTemplateInitializer(IDatabaseTemplateDefinition _d
 {
     public async Task InitializeDatabaseAsync(IData data)
     {
-        var settingTableExists = await _databaseTemplateDefinition.CheckTableExistsAsync(nameof(DatabaseSetting));
+        var settingTableExists = await _databaseTemplateDefinition.CheckTableExistsAsync(nameof(DatabaseTemplateSetting));
 
         if (!settingTableExists)
         {
@@ -18,10 +18,10 @@ public abstract class DatabaseTemplateInitializer(IDatabaseTemplateDefinition _d
             await CreateTableTableTemplateAsync();
 
 
-            var databaseSetting = new DatabaseSetting
+            var databaseSetting = new DatabaseTemplateSetting
             {
-                Id = (int)DatabaseSettingId.DatabaseVersion,
-                Description = nameof(DatabaseSettingId.DatabaseVersion),
+                Id = (int)DatabaseTemplateSettingId.DatabaseVersion,
+                Description = nameof(DatabaseTemplateSettingId.DatabaseVersion),
                 Value = "1",
             };
 

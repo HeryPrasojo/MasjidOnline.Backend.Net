@@ -10,7 +10,7 @@ public class DatabaseTemplateInitializer(
     DatabaseTemplateDataContext _databaseTemplateDataContext,
     IDatabaseTemplateDefinition _databaseTemplateDefinition) : MasjidOnline.Data.Initializer.DatabaseTemplateInitializer(_databaseTemplateDefinition)
 {
-    // todo rename
+    // todo template rename
     protected override async Task<int> CreateTableDatabaseTemplateSettingAsync()
     {
         FormattableString sql = @$"
@@ -24,7 +24,7 @@ public class DatabaseTemplateInitializer(
         return await _databaseTemplateDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    // todo rename
+    // todo template rename
     protected override async Task<int> CreateTableTableTemplateAsync()
     {
         FormattableString sql = @$"

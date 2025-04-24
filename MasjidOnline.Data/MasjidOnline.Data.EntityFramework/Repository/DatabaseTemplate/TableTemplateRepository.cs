@@ -4,16 +4,16 @@ using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.DatabaseTemplate;
 using MasjidOnline.Data.Interface.ViewModel.Repository;
-using MasjidOnline.Entity.Database;
+using MasjidOnline.Entity.DatabaseTemplate;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.DatabaseTemplate;
 
 public class TableTemplateRepository(DatabaseTemplateDataContext _databaseTemplateDataContext) : ITableTemplateRepository
 {
-    private readonly DbSet<Table> _dbSet = _databaseTemplateDataContext.Set<Table>();
+    private readonly DbSet<TableTemplate> _dbSet = _databaseTemplateDataContext.Set<TableTemplate>();
 
-    public async Task AddAsync(Table table)
+    public async Task AddAsync(TableTemplate table)
     {
         await _dbSet.AddAsync(table);
     }

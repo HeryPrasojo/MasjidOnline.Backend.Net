@@ -1,6 +1,6 @@
-namespace MasjidOnline.Entity.Database;
+namespace MasjidOnline.Entity.DatabaseTemplate;
 
-public class DatabaseSetting
+public class DatabaseTemplateSetting
 {
     public required int Id { get; set; }
 

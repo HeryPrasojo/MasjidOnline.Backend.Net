@@ -1,4 +1,4 @@
-using MasjidOnline.Entity.Database;
+using MasjidOnline.Entity.DatabaseTemplate;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.DataContext;
@@ -9,7 +9,7 @@ public class DatabaseTemplateDataContext(DbContextOptions _dbContextOptions) : D
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<DatabaseSetting>();
-        modelBuilder.Entity<Table>();
+        modelBuilder.Entity<DatabaseTemplateSetting>();
+        modelBuilder.Entity<TableTemplate>();
     }
 }

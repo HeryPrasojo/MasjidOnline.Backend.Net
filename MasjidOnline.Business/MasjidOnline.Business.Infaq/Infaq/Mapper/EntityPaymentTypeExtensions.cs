@@ -1,17 +1,18 @@
+using MasjidOnline.Entity.Payment;
 using MasjidOnline.Library.Exceptions;
 
 namespace MasjidOnline.Business.Infaq.Infaq.Mapper;
 
 public static class EntityPaymentTypeExtensions
 {
-    public static Payment.Interface.Model.PaymentType ToModel(this Entity.Infaq.PaymentType paymentType)
+    public static Payment.Interface.Model.PaymentType ToModel(this PaymentType paymentType)
     {
         return paymentType switch
         {
-            Entity.Infaq.PaymentType.Cash
+            PaymentType.Cash
                 => Payment.Interface.Model.PaymentType.Cash,
 
-            Entity.Infaq.PaymentType.ManualBankTransfer
+            PaymentType.ManualBankTransfer
                 => Payment.Interface.Model.PaymentType.ManualBankTransfer,
 
             _ => throw new ErrorException(nameof(paymentType)),

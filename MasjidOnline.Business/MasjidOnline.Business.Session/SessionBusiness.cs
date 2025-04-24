@@ -9,7 +9,6 @@ using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.Session;
 
-// hack change to singleton, move scoped to new class.
 public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISessionBusiness
 {
     public async Task ChangeAsync(Interface.Model.Session session, IData _data, int userId)

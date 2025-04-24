@@ -1,10 +1,9 @@
 using System.Threading.Tasks;
-using MasjidOnline.Entity.Database;
+using MasjidOnline.Entity.DatabaseTemplate;
 
 namespace MasjidOnline.Data.Interface.Repository.DatabaseTemplate;
 
-// undone
 public interface IDatabaseTemplateSettingRepository
 {
-    Task AddAsync(DatabaseSetting databaseSetting);
+    Task AddAsync(DatabaseTemplateSetting databaseSetting);
 }

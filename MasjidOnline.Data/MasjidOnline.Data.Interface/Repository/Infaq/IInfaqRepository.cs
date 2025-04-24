@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.ViewModel.Infaq.Infaq;
 using MasjidOnline.Data.Interface.ViewModel.Repository;
-using MasjidOnline.Entity.Infaq;
+using MasjidOnline.Entity.Payment;
 
 namespace MasjidOnline.Data.Interface.Repository.Infaq;
 

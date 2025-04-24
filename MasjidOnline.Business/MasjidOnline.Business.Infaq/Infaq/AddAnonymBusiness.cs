@@ -11,6 +11,7 @@ using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.Captcha;
 using MasjidOnline.Entity.Infaq;
+using MasjidOnline.Entity.Payment;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
 
