@@ -6,6 +6,8 @@ using MasjidOnline.Business.Infaq;
 using MasjidOnline.Business.Infaq.Interface;
 using MasjidOnline.Business.Interface;
 using MasjidOnline.Business.Model.Options;
+using MasjidOnline.Business.Payment;
+using MasjidOnline.Business.Payment.Interface;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User;
 using MasjidOnline.Business.User.Interface;
@@ -26,6 +28,8 @@ public class Business(
     public ICaptchaBusiness Captcha { get; } = new CaptchaBusiness();
 
     public IInfaqBusiness Infaq { get; } = new InfaqBusiness(_optionsMonitor, _authorizationBusiness, _idGenerator, _service);
+
+    public IPaymentBusiness Payment { get; } = new PaymentBusiness(_idGenerator);
 
     public IUserBusiness User { get; } = new UserBusiness(_optionsMonitor, _authorizationBusiness, _idGenerator, _sessionBusiness, _service);
 }
