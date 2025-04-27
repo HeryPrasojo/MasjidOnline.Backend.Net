@@ -16,7 +16,7 @@ public class UserIdGenerator(IHash512Service _hash512Service) : IUserIdGenerator
         _internalId = await data.User.Internal.GetMaxIdAsync();
         _userId = await data.User.User.GetMaxIdAsync();
 
-        if (_userId < 11) _userId = 11;
+        if (_userId < 10) _userId = 10;
     }
 
     public int InternalId => Interlocked.Increment(ref _internalId);

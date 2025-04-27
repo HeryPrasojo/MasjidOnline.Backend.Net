@@ -9,4 +9,5 @@ public interface IManualRecommendationIdRepository
     Task AddAndSaveAsync(ManualRecommendationId manualRecommendationId);
     Task<LastBySessionId?> GetLastBySessionIdAsync(int sessionId);
     Task<int> GetMaxIdAsync();
+    Task SetUsedBySessionIdAsync(int sessionId);
 }

@@ -13,7 +13,7 @@ public class PaymentIdGenerator : IPaymentIdGenerator
     {
         _manualRecommendationIdId = await data.Payment.ManualRecommendationId.GetMaxIdAsync();
 
-        if (_manualRecommendationIdId < 100001) _manualRecommendationIdId = 100001;
+        if (_manualRecommendationIdId < 100000) _manualRecommendationIdId = 100000;
     }
 
     public int ManualRecommendationIdId => Interlocked.Increment(ref _manualRecommendationIdId);

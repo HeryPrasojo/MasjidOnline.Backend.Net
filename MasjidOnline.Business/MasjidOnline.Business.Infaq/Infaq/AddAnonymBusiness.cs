@@ -69,6 +69,8 @@ public class AddAnonymBusiness(IService _service, IIdGenerator _idGenerator) : I
         if (!paymentTypes.Any(t => t == addByAnonymRequest.PaymentType)) throw new InputInvalidException(nameof(addByAnonymRequest.PaymentType));
 
 
+        await _data.Transaction.BeginAsync(_data.Infaq, _data.Payment);
+
         var infaq = new Entity.Infaq.Infaq
         {
             Id = _idGenerator.Infaq.InfaqId,
@@ -142,7 +144,9 @@ public class AddAnonymBusiness(IService _service, IIdGenerator _idGenerator) : I
         }
 
 
-        await _data.Infaq.SaveAsync();
+        await _data.Payment.ManualRecommendationId.SetUsedBySessionIdAsync(session.Id);
+
+        await _data.Transaction.CommitAsync();
 
         foreach (var temporaryFile in temporaryFiles)
             File.Move(temporaryFile.TemporaryPath, temporaryFile.Path, true);

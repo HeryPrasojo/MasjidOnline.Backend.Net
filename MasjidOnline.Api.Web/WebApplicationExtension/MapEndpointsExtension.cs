@@ -61,6 +61,13 @@ internal static class MapEndpointsExtension
         infaqVoidGroup.MapPost("reject", InfaqEndpoint.Void.RejectAsync);
 
 
+        var paymentGroup = webApplication.MapGroup("/payment/").DisableAntiforgery();
+
+        var paymentManualGroup = paymentGroup.MapGroup("manual/");
+
+        paymentManualGroup.MapPost("getRecommendationNote", PaymentEndpoint.Manual.GetRecommendationNoteAsync);
+
+
         var userGroup = webApplication.MapGroup("/user/").DisableAntiforgery();
 
         var userInternalGroup = userGroup.MapGroup("internal/");

@@ -12,8 +12,6 @@ public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate, ISes
     {
         var requestSessionIdBase64 = httpContext.Request.Headers[Constant.HttpHeaderName.Session];
 
-        await _sessionBusiness.StartAsync(session, _data, requestSessionIdBase64);
-
         httpContext.Response.OnStarting((id) =>
             {
                 if (session.Id != (int)id)
@@ -26,6 +24,8 @@ public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate, ISes
                 return Task.CompletedTask;
             },
             session.Id);
+
+        await _sessionBusiness.StartAsync(session, _data, requestSessionIdBase64);
 
         await _nextRequestDelegate(httpContext);
     }

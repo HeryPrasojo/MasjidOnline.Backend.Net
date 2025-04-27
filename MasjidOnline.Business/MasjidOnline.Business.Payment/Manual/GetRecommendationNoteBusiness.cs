@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Payment.Interface.Manual;
 using MasjidOnline.Business.Payment.Interface.Model.Manual;
 using MasjidOnline.Data.Interface;
@@ -7,13 +8,16 @@ namespace MasjidOnline.Business.Payment.Manual;
 
 public class GetRecommendationNoteBusiness(IIdGenerator _idGenerator) : IGetRecommendationNoteBusiness
 {
-    public async Task<GetRecommendationNoteResponse> Get(IData data, Session.Interface.Model.Session session)
+    private const string _notesFormat = "MO Infaq {0}";
+
+    public async Task<GetRecommendationNoteResponse> Get(IData _data, Session.Interface.Model.Session session)
     {
-        var lastManualRecommendationId = await data.Payment.ManualRecommendationId.GetLastBySessionIdAsync(session.Id);
+        var lastManualRecommendationId = await _data.Payment.ManualRecommendationId.GetLastBySessionIdAsync(session.Id);
 
         if ((lastManualRecommendationId != default) && (!lastManualRecommendationId.Used)) return new()
         {
-            Note = "" + lastManualRecommendationId,
+            ResultCode = ResponseResultCode.Success,
+            Note = string.Format(_notesFormat, lastManualRecommendationId),
         };
 
 
@@ -24,11 +28,12 @@ public class GetRecommendationNoteBusiness(IIdGenerator _idGenerator) : IGetReco
             Used = false,
         };
 
-        await data.Payment.ManualRecommendationId.AddAndSaveAsync(manualRecommendationId);
+        await _data.Payment.ManualRecommendationId.AddAndSaveAsync(manualRecommendationId);
 
         return new()
         {
-            Note = "" + lastManualRecommendationId,
+            ResultCode = ResponseResultCode.Success,
+            Note = string.Format(_notesFormat, manualRecommendationId.Id),
         };
     }
 }
