@@ -17,7 +17,7 @@ using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.Infaq.Infaq;
 
-public class AddAnonymBusiness(IService _service, IIdGenerator _idGenerator) : IAddAnonymBusiness
+public class AddByAnonymBusiness(IService _service, IIdGenerator _idGenerator) : IAddByAnonymBusiness
 {
     public async Task<Response> AddAsync(IData _data, Session.Interface.Model.Session session, AddByAnonymRequest? addByAnonymRequest)
     {

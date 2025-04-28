@@ -9,7 +9,7 @@ public class InfaqInfaqBusiness(
     Service.Interface.IService _service
     ) : IInfaqInfaqBusiness
 {
-    public IAddAnonymBusiness AddAnonym { get; } = new AddAnonymBusiness(_service, _idGenerator);
+    public IAddByAnonymBusiness AddByAnonym { get; } = new AddByAnonymBusiness(_service, _idGenerator);
     public IGetManyBusiness GetMany { get; } = new GetManyBusiness(_service);
     public IGetOneBusiness GetOne { get; } = new GetOneBusiness(_service);
 }

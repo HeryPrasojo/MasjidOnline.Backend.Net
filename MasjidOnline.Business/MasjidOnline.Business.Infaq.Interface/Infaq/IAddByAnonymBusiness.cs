@@ -4,7 +4,7 @@ using MasjidOnline.Data.Interface;
 
 namespace MasjidOnline.Business.Infaq.Interface.Infaq;
 
-public interface IAddAnonymBusiness
+public interface IAddByAnonymBusiness
 {
     Task<Response> AddAsync(IData _data, Session.Interface.Model.Session session, AddByAnonymRequest? addByAnonymRequest);
 }

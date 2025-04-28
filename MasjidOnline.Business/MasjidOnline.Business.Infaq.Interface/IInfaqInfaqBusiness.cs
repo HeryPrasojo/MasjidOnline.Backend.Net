@@ -1,10 +1,10 @@
-﻿using MasjidOnline.Business.Infaq.Interface.Infaq;
+using MasjidOnline.Business.Infaq.Interface.Infaq;
 
 namespace MasjidOnline.Business.Infaq.Interface;
 
 public interface IInfaqInfaqBusiness
 {
-    IAddAnonymBusiness AddAnonym { get; }
+    IAddByAnonymBusiness AddByAnonym { get; }
     IGetManyBusiness GetMany { get; }
     IGetOneBusiness GetOne { get; }
 }

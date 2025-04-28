@@ -93,7 +93,7 @@ internal static class InfaqEndpoint
                 PaymentType = paymentType,
             };
 
-            var response = await _business.Infaq.Infaq.AddAnonym.AddAsync(_data, session, addByAnonymRequest);
+            var response = await _business.Infaq.Infaq.AddByAnonym.AddAsync(_data, session, addByAnonymRequest);
 
             if (addByAnonymRequest.Files != default)
             {
