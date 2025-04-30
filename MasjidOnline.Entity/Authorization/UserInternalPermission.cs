@@ -11,6 +11,8 @@ public class UserInternalPermission
     public required bool AccountancyExpenditureApprove { get; set; }
     public required bool AccountancyExpenditureCancel { get; set; }
 
+    public required bool InfaqInternalAdd { get; set; }
+
     public required bool InfaqExpireAdd { get; set; }
     public required bool InfaqExpireApprove { get; set; }
     public required bool InfaqExpireCancel { get; set; }

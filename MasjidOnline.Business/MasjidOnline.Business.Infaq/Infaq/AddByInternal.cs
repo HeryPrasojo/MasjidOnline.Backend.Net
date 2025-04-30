@@ -1,0 +1,54 @@
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using MasjidOnline.Business.Authorization.Interface;
+using MasjidOnline.Business.Infaq.Infaq.Mapper;
+using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
+using MasjidOnline.Data.Interface;
+using MasjidOnline.Entity.Payment;
+using MasjidOnline.Library.Exceptions;
+using MasjidOnline.Service.Interface;
+
+namespace MasjidOnline.Business.Infaq.Infaq;
+
+public class AddByInternal(IAuthorizationBusiness _authorizationBusiness, IService _service, IIdGenerator _idGenerator) : Add
+{
+
+    public async Task AddAsync(IData _data, Session.Interface.Model.Session session, AddByInternalRequest addByInternalRequest)
+    {
+        await _authorizationBusiness.AuthorizePermissionAsync(session, _data, infaqInternalAdd: true);
+
+
+        addByInternalRequest = _service.FieldValidator.ValidateRequired(addByInternalRequest);
+
+        addByInternalRequest.Amount = _service.FieldValidator.ValidateRequiredPlus(addByInternalRequest.Amount);
+        addByInternalRequest.PaymentType = (Payment.Interface.Model.PaymentType)_service.FieldValidator.ValidateRequired(addByInternalRequest.PaymentType);
+
+
+        var paymentTypes = new Payment.Interface.Model.PaymentType[]
+        {
+            Payment.Interface.Model.PaymentType.Cash,
+            Payment.Interface.Model.PaymentType.ManualBankTransfer,
+        };
+
+        if (!paymentTypes.Any(t => t == addByInternalRequest.PaymentType)) throw new InputInvalidException(nameof(addByInternalRequest.PaymentType));
+
+
+        var utcNow = DateTime.UtcNow;
+
+        var infaq = new Entity.Infaq.Infaq
+        {
+            Id = _idGenerator.Infaq.InfaqId,
+            Amount = addByInternalRequest.Amount.Value,
+            DateTime = utcNow,
+            PaymentStatus = PaymentStatus.New,
+            PaymentType = addByInternalRequest.PaymentType.Value.ToEntity(),
+            UserId = session.UserId,
+            MunfiqName = addByInternalRequest.MunfiqName,
+        };
+
+        await _data.Infaq.Infaq.AddAsync(infaq);
+
+    }
+
+}

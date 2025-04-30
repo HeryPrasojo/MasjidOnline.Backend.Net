@@ -18,6 +18,7 @@ public class AuthorizationBusiness : IAuthorizationBusiness
         bool accountancyExpenditureAdd = default,
         bool accountancyExpenditureApprove = default,
         bool accountancyExpenditureCancel = default,
+        bool infaqInternalAdd = default,
         bool infaqExpireAdd = default,
         bool infaqExpireApprove = default,
         bool infaqExpireCancel = default,
@@ -34,29 +35,31 @@ public class AuthorizationBusiness : IAuthorizationBusiness
         if (session.IsUserAnonymous) throw new PermissionException(nameof(session.IsUserAnonymous));
 
 
-        var sessionPermission = await _data.Authorization.UserInternalPermission.GetByUserIdAsync(session.UserId);
+        var userInternalPermission = await _data.Authorization.UserInternalPermission.GetByUserIdAsync(session.UserId);
 
-        if (sessionPermission == default) throw new PermissionException(nameof(session.UserId));
+        if (userInternalPermission == default) throw new PermissionException(nameof(session.UserId));
 
 
-        if (accountancyExpenditureAdd && !sessionPermission.AccountancyExpenditureAdd) throw new PermissionException(nameof(sessionPermission.AccountancyExpenditureAdd));
-        if (accountancyExpenditureApprove && !sessionPermission.AccountancyExpenditureApprove) throw new PermissionException(nameof(sessionPermission.AccountancyExpenditureApprove));
-        if (accountancyExpenditureCancel && !sessionPermission.AccountancyExpenditureCancel) throw new PermissionException(nameof(sessionPermission.AccountancyExpenditureCancel));
+        if (accountancyExpenditureAdd && !userInternalPermission.AccountancyExpenditureAdd) throw new PermissionException(nameof(userInternalPermission.AccountancyExpenditureAdd));
+        if (accountancyExpenditureApprove && !userInternalPermission.AccountancyExpenditureApprove) throw new PermissionException(nameof(userInternalPermission.AccountancyExpenditureApprove));
+        if (accountancyExpenditureCancel && !userInternalPermission.AccountancyExpenditureCancel) throw new PermissionException(nameof(userInternalPermission.AccountancyExpenditureCancel));
 
-        if (infaqExpireAdd && !sessionPermission.InfaqExpireAdd) throw new PermissionException(nameof(sessionPermission.InfaqExpireAdd));
-        if (infaqExpireApprove && !sessionPermission.InfaqExpireApprove) throw new PermissionException(nameof(sessionPermission.InfaqExpireApprove));
-        if (infaqExpireCancel && !sessionPermission.InfaqExpireCancel) throw new PermissionException(nameof(sessionPermission.InfaqExpireCancel));
+        if (infaqInternalAdd && !userInternalPermission.InfaqInternalAdd) throw new PermissionException(nameof(userInternalPermission.InfaqInternalAdd));
 
-        if (infaqSuccessAdd && !sessionPermission.InfaqSuccessAdd) throw new PermissionException(nameof(sessionPermission.InfaqSuccessAdd));
-        if (infaqSuccessApprove && !sessionPermission.InfaqSuccessApprove) throw new PermissionException(nameof(sessionPermission.InfaqSuccessApprove));
-        if (infaqSuccessCancel && !sessionPermission.InfaqSuccessCancel) throw new PermissionException(nameof(sessionPermission.InfaqSuccessCancel));
+        if (infaqExpireAdd && !userInternalPermission.InfaqExpireAdd) throw new PermissionException(nameof(userInternalPermission.InfaqExpireAdd));
+        if (infaqExpireApprove && !userInternalPermission.InfaqExpireApprove) throw new PermissionException(nameof(userInternalPermission.InfaqExpireApprove));
+        if (infaqExpireCancel && !userInternalPermission.InfaqExpireCancel) throw new PermissionException(nameof(userInternalPermission.InfaqExpireCancel));
 
-        if (infaqVoidAdd && !sessionPermission.InfaqVoidAdd) throw new PermissionException(nameof(sessionPermission.InfaqVoidAdd));
-        if (infaqVoidApprove && !sessionPermission.InfaqVoidApprove) throw new PermissionException(nameof(sessionPermission.InfaqVoidApprove));
-        if (infaqVoidCancel && !sessionPermission.InfaqVoidCancel) throw new PermissionException(nameof(sessionPermission.InfaqVoidCancel));
+        if (infaqSuccessAdd && !userInternalPermission.InfaqSuccessAdd) throw new PermissionException(nameof(userInternalPermission.InfaqSuccessAdd));
+        if (infaqSuccessApprove && !userInternalPermission.InfaqSuccessApprove) throw new PermissionException(nameof(userInternalPermission.InfaqSuccessApprove));
+        if (infaqSuccessCancel && !userInternalPermission.InfaqSuccessCancel) throw new PermissionException(nameof(userInternalPermission.InfaqSuccessCancel));
 
-        if (userInternalAdd && !sessionPermission.UserInternalAdd) throw new PermissionException(nameof(sessionPermission.UserInternalAdd));
-        if (userInternalApprove && !sessionPermission.UserInternalApprove) throw new PermissionException(nameof(sessionPermission.UserInternalApprove));
-        if (userInternalCancel && !sessionPermission.UserInternalCancel) throw new PermissionException(nameof(sessionPermission.UserInternalCancel));
+        if (infaqVoidAdd && !userInternalPermission.InfaqVoidAdd) throw new PermissionException(nameof(userInternalPermission.InfaqVoidAdd));
+        if (infaqVoidApprove && !userInternalPermission.InfaqVoidApprove) throw new PermissionException(nameof(userInternalPermission.InfaqVoidApprove));
+        if (infaqVoidCancel && !userInternalPermission.InfaqVoidCancel) throw new PermissionException(nameof(userInternalPermission.InfaqVoidCancel));
+
+        if (userInternalAdd && !userInternalPermission.UserInternalAdd) throw new PermissionException(nameof(userInternalPermission.UserInternalAdd));
+        if (userInternalApprove && !userInternalPermission.UserInternalApprove) throw new PermissionException(nameof(userInternalPermission.UserInternalApprove));
+        if (userInternalCancel && !userInternalPermission.UserInternalCancel) throw new PermissionException(nameof(userInternalPermission.UserInternalCancel));
     }
 }

@@ -17,7 +17,7 @@ using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.Infaq.Infaq;
 
-public class AddByAnonymBusiness(IService _service, IIdGenerator _idGenerator) : IAddByAnonymBusiness
+public class AddByAnonymBusiness(IService _service, IIdGenerator _idGenerator) : Add, IAddByAnonymBusiness
 {
     public async Task<Response> AddAsync(IData _data, Session.Interface.Model.Session session, AddByAnonymRequest? addByAnonymRequest)
     {
@@ -63,7 +63,7 @@ public class AddByAnonymBusiness(IService _service, IIdGenerator _idGenerator) :
 
         var paymentTypes = new Payment.Interface.Model.PaymentType[]
         {
-            Payment.Interface.Model.PaymentType.ManualBankTransfer
+            Payment.Interface.Model.PaymentType.ManualBankTransfer,
         };
 
         if (!paymentTypes.Any(t => t == addByAnonymRequest.PaymentType)) throw new InputInvalidException(nameof(addByAnonymRequest.PaymentType));
