@@ -108,14 +108,12 @@ public class AddByAnonymBusiness(IService _service, IIdGenerator _idGenerator) :
         }
 
 
-        var temporaryFiles = new List<TemporaryFile>();
+        var temporaryFiles = new List<(string path, string temporaryPath)>();
 
         if (addByAnonymRequest.Files != default)
         {
             foreach (var file in addByAnonymRequest.Files)
             {
-                if (file.Length > 1048576) throw new InputInvalidException(nameof(addByAnonymRequest.Files));
-
                 var infaqFile = new InfaqFile
                 {
                     Id = _idGenerator.Infaq.InfaqFileId,
@@ -124,32 +122,15 @@ public class AddByAnonymBusiness(IService _service, IIdGenerator _idGenerator) :
 
                 var fileName = infaqFile.Id;
 
-                var temporaryFile = new TemporaryFile
-                {
-                    Path = Constant.Path.InfaqFileDirectory + fileName,
-                    TemporaryPath = Constant.Path.InfaqFileDirectory + '_' + fileName,
-                };
+                var path = Constant.Path.InfaqFileDirectory + fileName;
+                var temporaryPath = Constant.Path.InfaqFileDirectory + '_' + fileName;
 
-                var fileStreamOptions = new FileStreamOptions
-                {
-                    Access = FileAccess.Write,
-                    Mode = FileMode.Create,
-                    Options = FileOptions.WriteThrough,
-                    PreallocationSize = file.Length,
-                    Share = FileShare.None,
-                };
 
-                using var fileStream = new FileStream(temporaryFile.TemporaryPath, fileStreamOptions);
-
-                await file.CopyToAsync(fileStream);
-
-                await fileStream.FlushAsync();
-
-                fileStream.Close();
+                await _service.File.CreateAsync(file, temporaryPath);
 
                 await _data.Infaq.InfaqFile.AddAsync(infaqFile);
 
-                temporaryFiles.Add(temporaryFile);
+                temporaryFiles.Add((path, temporaryPath));
             }
         }
 

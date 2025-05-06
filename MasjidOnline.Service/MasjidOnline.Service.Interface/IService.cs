@@ -1,6 +1,7 @@
-﻿using MasjidOnline.Service.Captcha.Interface;
+using MasjidOnline.Service.Captcha.Interface;
 using MasjidOnline.Service.Cryptography.Interface;
 using MasjidOnline.Service.FieldValidator.Interface;
+using MasjidOnline.Service.File.Interface;
 using MasjidOnline.Service.Hash.Interface;
 using MasjidOnline.Service.Mail.Interface;
 
@@ -14,4 +15,5 @@ public interface IService
     IHash128Service Hash128 { get; }
     IHash512Service Hash512 { get; }
     IMailSenderService MailSender { get; }
+    IFileService File { get; }
 }

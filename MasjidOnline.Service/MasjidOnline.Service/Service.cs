@@ -1,4 +1,4 @@
-﻿using System.Net.Http;
+using System.Net.Http;
 using MasjidOnline.Service.Captcha.ReCaptcha;
 using MasjidOnline.Service.Interface;
 using MasjidOnline.Service.Mail.Interface.Model;
@@ -12,7 +12,7 @@ public class Service(
     IOptionsMonitor<GoogleOptions> _googleOptions,
     IOptionsMonitor<MailOptions> _mailOptions) : IService
 {
-    private Hash.Interface.IHash128Service _hash128Service = new Hash.Hash128Service();
+    private readonly Hash.Interface.IHash128Service _hash128Service = new Hash.Hash128Service();
 
     private Cryptography.Interface.IEncryption128128Service? _encryption128128Service;
 
@@ -22,6 +22,8 @@ public class Service(
     public Cryptography.Interface.IEncryption128128Service Encryption128128 => _encryption128128Service ??= new Cryptography.Encryption128128Service(_cryptographyOptions, _hash128Service);
 
     public FieldValidator.Interface.IFieldValidatorService FieldValidator => new FieldValidator.FieldValidatorService();
+
+    public File.Interface.IFileService File => new File.FileService();
 
     public Hash.Interface.IHash128Service Hash128 => _hash128Service;
 

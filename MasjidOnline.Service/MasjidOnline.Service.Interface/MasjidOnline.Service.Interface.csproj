@@ -10,6 +10,7 @@
     <ProjectReference Include="..\MasjidOnline.Service.Captcha.Interface\MasjidOnline.Service.Captcha.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Service.Cryptography.Interface\MasjidOnline.Service.Cryptography.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Service.FieldValidator.Interface\MasjidOnline.Service.FieldValidator.Interface.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Service.File.Interface\MasjidOnline.Service.File.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Service.Hash.Interface\MasjidOnline.Service.Hash.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Service.Mail.Interface\MasjidOnline.Service.Mail.Interface.csproj" />
   </ItemGroup>
