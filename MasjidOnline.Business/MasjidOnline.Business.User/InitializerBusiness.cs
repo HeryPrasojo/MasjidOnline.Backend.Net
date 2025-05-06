@@ -94,6 +94,7 @@ public class InitializerBusiness(
             InfaqExpireAdd = true,
             InfaqExpireApprove = true,
             InfaqExpireCancel = true,
+            InfaqInternalAdd = true,
             InfaqSuccessAdd = true,
             InfaqSuccessApprove = true,
             InfaqSuccessCancel = true,

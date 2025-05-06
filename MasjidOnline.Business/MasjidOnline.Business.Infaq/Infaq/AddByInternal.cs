@@ -5,6 +5,7 @@ using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Infaq.Infaq.Mapper;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Entity.Infaq;
 using MasjidOnline.Entity.Payment;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
@@ -23,6 +24,7 @@ public class AddByInternal(IAuthorizationBusiness _authorizationBusiness, IServi
 
         addByInternalRequest.Amount = _service.FieldValidator.ValidateRequiredPlus(addByInternalRequest.Amount);
         addByInternalRequest.PaymentType = (Payment.Interface.Model.PaymentType)_service.FieldValidator.ValidateRequired(addByInternalRequest.PaymentType);
+        addByInternalRequest.ManualDateTime = _service.FieldValidator.ValidateRequiredPast(addByInternalRequest.ManualDateTime);
 
 
         var paymentTypes = new Payment.Interface.Model.PaymentType[]
@@ -33,6 +35,8 @@ public class AddByInternal(IAuthorizationBusiness _authorizationBusiness, IServi
 
         if (!paymentTypes.Any(t => t == addByInternalRequest.PaymentType)) throw new InputInvalidException(nameof(addByInternalRequest.PaymentType));
 
+
+        await _data.Transaction.BeginAsync(_data.Infaq, _data.Payment);
 
         var utcNow = DateTime.UtcNow;
 
@@ -48,6 +52,18 @@ public class AddByInternal(IAuthorizationBusiness _authorizationBusiness, IServi
         };
 
         await _data.Infaq.Infaq.AddAsync(infaq);
+
+
+        var infaqManual = new InfaqManual
+        {
+            InfaqId = infaq.Id,
+            DateTime = addByInternalRequest.ManualDateTime.Value,
+            Notes = addByInternalRequest.ManualNotes,
+        };
+
+        await _data.Infaq.InfaqManual.AddAsync(infaqManual);
+
+        await _data.Transaction.CommitAsync();
 
     }
 

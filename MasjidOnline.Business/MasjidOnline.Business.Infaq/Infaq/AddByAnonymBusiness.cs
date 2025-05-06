@@ -55,18 +55,28 @@ public class AddByAnonymBusiness(IService _service, IIdGenerator _idGenerator) :
 
         addByAnonymRequest.Amount = _service.FieldValidator.ValidateRequiredPlus(addByAnonymRequest.Amount);
         addByAnonymRequest.PaymentType = (Payment.Interface.Model.PaymentType)_service.FieldValidator.ValidateRequired(addByAnonymRequest.PaymentType);
-        addByAnonymRequest.ManualDateTime = _service.FieldValidator.ValidateRequiredPast(addByAnonymRequest.ManualDateTime);
 
         addByAnonymRequest.MunfiqName = _service.FieldValidator.ValidateRequiredText255(addByAnonymRequest.MunfiqName);
         addByAnonymRequest.ManualNotes = _service.FieldValidator.ValidateOptionalText255(addByAnonymRequest.ManualNotes);
 
 
-        var paymentTypes = new Payment.Interface.Model.PaymentType[]
+        var supportedPaymentTypes = new Payment.Interface.Model.PaymentType[]
         {
             Payment.Interface.Model.PaymentType.ManualBankTransfer,
         };
 
-        if (!paymentTypes.Any(t => t == addByAnonymRequest.PaymentType)) throw new InputInvalidException(nameof(addByAnonymRequest.PaymentType));
+        if (!supportedPaymentTypes.Any(t => t == addByAnonymRequest.PaymentType)) throw new InputInvalidException(nameof(addByAnonymRequest.PaymentType));
+
+
+        var manualPaymentTypes = new Payment.Interface.Model.PaymentType[]
+        {
+            Payment.Interface.Model.PaymentType.ManualBankTransfer,
+        };
+
+        if (manualPaymentTypes.Any(t => t == addByAnonymRequest.PaymentType))
+        {
+            addByAnonymRequest.ManualDateTime = _service.FieldValidator.ValidateRequiredPast(addByAnonymRequest.ManualDateTime);
+        }
 
 
         await _data.Transaction.BeginAsync(_data.Infaq, _data.Payment);
@@ -85,12 +95,12 @@ public class AddByAnonymBusiness(IService _service, IIdGenerator _idGenerator) :
         await _data.Infaq.Infaq.AddAsync(infaq);
 
 
-        if (infaq.PaymentType == PaymentType.ManualBankTransfer)
+        if (manualPaymentTypes.Any(t => t == addByAnonymRequest.PaymentType))
         {
             var infaqManual = new InfaqManual
             {
                 InfaqId = infaq.Id,
-                DateTime = addByAnonymRequest.ManualDateTime.Value,
+                DateTime = addByAnonymRequest.ManualDateTime!.Value,
                 Notes = addByAnonymRequest.ManualNotes,
             };
 
