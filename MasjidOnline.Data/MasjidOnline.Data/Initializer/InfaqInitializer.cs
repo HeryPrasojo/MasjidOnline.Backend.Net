@@ -17,6 +17,7 @@ public abstract class InfaqInitializer(IInfaqsDefinition _infaqsDefinition) : II
             await CreateTableExpireAsync();
             await CreateTableInfaqAsync();
             await CreateTableInfaqFileAsync();
+            await CreateTableInfaqInternalAsync();
             await CreateTableInfaqManualAsync();
             await CreateTableInfaqSettingAsync();
             await CreateTableSuccessAsync();
@@ -44,6 +45,8 @@ public abstract class InfaqInitializer(IInfaqsDefinition _infaqsDefinition) : II
     protected abstract Task<int> CreateTableInfaqFileAsync();
 
     protected abstract Task<int> CreateTableInfaqManualAsync();
+
+    protected abstract Task<int> CreateTableInfaqInternalAsync();
 
     protected abstract Task<int> CreateTableInfaqSettingAsync();
 

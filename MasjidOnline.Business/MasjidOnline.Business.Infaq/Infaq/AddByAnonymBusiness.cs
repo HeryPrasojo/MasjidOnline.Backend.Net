@@ -139,8 +139,8 @@ public class AddByAnonymBusiness(IService _service, IIdGenerator _idGenerator) :
 
         await _data.Transaction.CommitAsync();
 
-        foreach (var temporaryFile in temporaryFiles)
-            File.Move(temporaryFile.TemporaryPath, temporaryFile.Path, true);
+        foreach ((var path, var temporaryPath) in temporaryFiles)
+            File.Move(temporaryPath, path, true);
 
         return new()
         {
