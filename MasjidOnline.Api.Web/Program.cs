@@ -38,12 +38,12 @@ webApplication.UseRequestLocalization(requestLocalizationOptions =>
 {
     requestLocalizationOptions.ApplyCurrentCultureToResponseHeaders = true;
 
-    requestLocalizationOptions.AddInitialRequestCultureProvider(new CustomRequestCultureProvider(httpContext =>
+    requestLocalizationOptions.AddInitialRequestCultureProvider(new CustomRequestCultureProvider(async httpContext =>
     {
         var cultureQueryExists = httpContext.Request.Query.TryGetValue("culture", out var culture);
 
         if (cultureQueryExists && !string.IsNullOrWhiteSpace(culture))
-            return new ProviderCultureResult(culture.ToString();
+            return new ProviderCultureResult(culture.ToString());
 
         return null;
     }));
