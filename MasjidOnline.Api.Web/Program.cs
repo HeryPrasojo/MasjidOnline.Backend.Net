@@ -12,6 +12,7 @@ using MasjidOnline.Data.EntityFramework.SqLite;
 using MasjidOnline.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -32,6 +33,21 @@ else
 webApplication.UseCors();
 
 webApplication.UseMiddleware<AuthenticationMiddleware>();
+
+webApplication.UseRequestLocalization(requestLocalizationOptions =>
+{
+    requestLocalizationOptions.ApplyCurrentCultureToResponseHeaders = true;
+
+    requestLocalizationOptions.AddInitialRequestCultureProvider(new CustomRequestCultureProvider(httpContext =>
+    {
+        var cultureQueryExists = httpContext.Request.Query.TryGetValue("culture", out var culture);
+
+        if (cultureQueryExists && !string.IsNullOrWhiteSpace(culture))
+            return new ProviderCultureResult(culture.ToString();
+
+        return null;
+    }));
+});
 
 webApplication.MapEndpoints();
 
