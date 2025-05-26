@@ -65,6 +65,10 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
             {
                 throw new SessionExpireException(idBase64Expression);
             }
+            else if(sessionEntity.DateTime < DateTime.UtcNow.AddDays(-16))
+            {
+                await ChangeAndSaveAsync(session, _data, Constant.UserId.Anonymous);
+            }
             else
             {
                 session.Digest = requestSessionIdBytes;
