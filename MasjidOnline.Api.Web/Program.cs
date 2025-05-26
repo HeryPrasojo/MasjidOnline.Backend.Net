@@ -9,6 +9,8 @@ using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Data;
 using MasjidOnline.Data.EntityFramework;
 using MasjidOnline.Data.EntityFramework.SqLite;
+using MasjidOnline.Data.Interface;
+using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -43,9 +45,31 @@ webApplication.UseRequestLocalization(requestLocalizationOptions =>
         var cultureQueryExists = httpContext.Request.Query.TryGetValue("culture", out var culture);
 
         if (cultureQueryExists && !string.IsNullOrWhiteSpace(culture))
-            return new ProviderCultureResult(culture.ToString());
+        {
+            string cultureString = culture.ToString();
 
-        return null;
+            var data = httpContext.RequestServices.GetService<IData>() ?? throw new ErrorException($"get {nameof(IData)} failed");
+
+            data.User.UserPreference.;
+
+            // todo save to db
+
+            return new ProviderCultureResult(cultureString, cultureString);
+        }
+
+
+        // todo check cookie
+
+
+        // todo check db: session, user
+
+
+        // todo check http header
+
+
+        // todo else return default
+
+        return new ProviderCultureResult("", "");
     }));
 });
 
