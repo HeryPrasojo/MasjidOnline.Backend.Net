@@ -10,6 +10,7 @@ public class UserDatabase(UserDataContext _userDataContext) : Database(_userData
     private IInternalRepository? _internalRepository;
     private IPasswordCodeRepository? _passwordCodeRepository;
     private IUserRepository? _userRepository;
+    private IUserPreferenceRepository? _userPreferenceRepository;
     private IUserEmailAddressRepository? _userEmailAddressRepository;
     private IUserSettingRepository? _userSettingRepository;
 
@@ -19,6 +20,8 @@ public class UserDatabase(UserDataContext _userDataContext) : Database(_userData
     public IPasswordCodeRepository PasswordCode => _passwordCodeRepository ??= new PasswordCodeRepository(_userDataContext);
 
     public IUserRepository User => _userRepository ??= new UserRepository(_userDataContext);
+
+    public IUserPreferenceRepository UserPreference => _userPreferenceRepository ??= new UserPreferenceRepository(_userDataContext);
 
     public IUserEmailAddressRepository UserEmailAddress => _userEmailAddressRepository ??= new UserEmailAddressRepository(_userDataContext);
 

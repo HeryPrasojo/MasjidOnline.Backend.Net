@@ -68,6 +68,18 @@ public class UserInitializer(
         return await _userDataContext.Database.ExecuteSqlAsync(sql);
     }
 
+    protected override async Task<int> CreateTableUserPreferenceAsync()
+    {
+        FormattableString sql = @$"
+            CREATE TABLE UserPreference
+            (
+                UserId INTEGER PRIMARY KEY,
+                ApplicationCulture INTEGER NOT NULL
+            )";
+
+        return await _userDataContext.Database.ExecuteSqlAsync(sql);
+    }
+
     protected override async Task<int> CreateTableUserSettingAsync()
     {
         FormattableString sql = @$"
