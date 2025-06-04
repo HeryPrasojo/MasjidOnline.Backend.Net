@@ -9,6 +9,8 @@ namespace MasjidOnline.Api.Web.WebApplicationExtension;
 
 public static class LocalizationExtension
 {
+    private static readonly string[] requestCultureProvider = ["en"];
+
     internal static WebApplication UseLocalization(this WebApplication webApplication)
     {
         webApplication.UseRequestLocalization(requestLocalizationOptions =>
@@ -23,6 +25,8 @@ public static class LocalizationExtension
                 {
                     string cultureString = culture.ToString();
 
+                    requestCultureProvider;
+
                     var session = httpContext.RequestServices.GetService<Session>() ?? throw new ErrorException($"get {nameof(Session)} failed");
                     var data = httpContext.RequestServices.GetService<IData>() ?? throw new ErrorException($"get {nameof(IData)} failed");
 
@@ -32,7 +36,7 @@ public static class LocalizationExtension
 
                         if (any)
                         {
-                            data.User.UserPreference.;
+                            data.User.UserPreference.SetApplicationCulture();
                         }
                     }
 

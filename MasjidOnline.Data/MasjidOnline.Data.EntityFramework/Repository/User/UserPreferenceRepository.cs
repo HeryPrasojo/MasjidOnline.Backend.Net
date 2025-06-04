@@ -20,13 +20,11 @@ public class UserPreferenceRepository(UserDataContext _userDataContext) : IUserP
         var user = new UserPreference
         {
             UserId = userId,
-            ApplicationCulture = password,
-            Status = UserStatus.Active,
+            ApplicationCulture = applicationCulture,
         };
 
         var entityEntry = _dbSet.Attach(user);
 
-        entityEntry.Property(e => e.Password).IsModified = true;
-        entityEntry.Property(e => e.Status).IsModified = true;
+        entityEntry.Property(e => e.ApplicationCulture).IsModified = true;
     }
 }
