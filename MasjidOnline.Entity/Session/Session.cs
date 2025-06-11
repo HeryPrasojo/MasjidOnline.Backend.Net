@@ -10,7 +10,9 @@ public class Session
 
     public required DateTime DateTime { get; set; }
 
-    public required byte[]? PreviousId { get; set; }
+    public required int? PreviousId { get; set; }
 
     public required int UserId { get; set; }
+
+    public required string ApplicationCulture { get; set; }
 }

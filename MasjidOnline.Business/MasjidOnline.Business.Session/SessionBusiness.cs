@@ -15,10 +15,11 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
     {
         var sessionEntity = new Entity.Session.Session
         {
+            ApplicationCulture = session.ApplicationCulture,
             DateTime = DateTime.UtcNow,
             Digest = _idGenerator.Session.SessionDigest,
             Id = _idGenerator.Session.SessionId,
-            PreviousId = session.Digest.ToArray(),
+            PreviousId = session.Id,
             UserId = userId,
         };
 
@@ -65,12 +66,13 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
             {
                 throw new SessionExpireException(idBase64Expression);
             }
-            else if(sessionEntity.DateTime < DateTime.UtcNow.AddDays(-16))
+            else if (sessionEntity.DateTime < DateTime.UtcNow.AddDays(-16))
             {
                 await ChangeAndSaveAsync(session, _data, Constant.UserId.Anonymous);
             }
             else
             {
+                session.ApplicationCulture = sessionEntity.ApplicationCulture;
                 session.Digest = requestSessionIdBytes;
                 session.Id = sessionEntity.Id;
                 session.UserId = sessionEntity.UserId;

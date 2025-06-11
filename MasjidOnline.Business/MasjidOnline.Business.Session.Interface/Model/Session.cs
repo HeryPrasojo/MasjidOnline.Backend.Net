@@ -5,6 +5,8 @@ namespace MasjidOnline.Business.Session.Interface.Model;
 
 public class Session
 {
+    public required string ApplicationCulture { get; set; }
+
     public Memory<byte> Digest { get; set; }
 
     public int Id { get; set; }

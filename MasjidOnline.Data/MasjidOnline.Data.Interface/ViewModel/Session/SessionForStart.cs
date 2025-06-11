@@ -9,4 +9,6 @@ public class SessionForStart
     public required DateTime DateTime { get; set; }
 
     public required int UserId { get; set; }
+
+    public required string ApplicationCulture { get; set; }
 }
