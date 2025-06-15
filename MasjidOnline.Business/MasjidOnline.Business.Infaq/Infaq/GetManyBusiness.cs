@@ -49,11 +49,11 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
             ResultCode = ResponseResultCode.Success,
             Records = getManyResult.Records.Select(e => new GetManyResponseRecord
             {
-                Amount = e.Amount,
-                DateTime = e.DateTime,
-                Id = e.Id,
+                Amount = _service.Localization.FormatDecimal(e.Amount),
+                DateTime = _service.Localization.FormatDateTime(e.DateTime),
+                Id = _service.Localization.FormatInt(e.Id),
                 MunfiqName = e.MunfiqName,
-                PaymentStatus = e.PaymentStatus.ToModel(),
+                PaymentStatus = _service.Localization.Strings.PaymentStatus[e.PaymentStatus.ToLocale()],
                 PaymentType = e.PaymentType.ToModel(),
             }),
             RecordCount = getManyResult.RecordCount,

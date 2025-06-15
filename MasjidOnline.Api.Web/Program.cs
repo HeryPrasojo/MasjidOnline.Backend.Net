@@ -46,7 +46,7 @@ static WebApplication BuildApplication(string[] args)
 
     webApplicationBuilder.Configuration.AddJsonFile("appsettings.Local.json", true, true);
 
-    var option = webApplicationBuilder.Configuration.Get<BusinessOptions>() ?? throw new ApplicationException($"Get {nameof(BusinessOptions)} fail");
+    var businessOption = webApplicationBuilder.Configuration.Get<BusinessOptions>() ?? throw new ApplicationException($"Get {nameof(BusinessOptions)} fail");
 
     webApplicationBuilder.Services.ConfigureHttpJsonOptions(options =>
     {
@@ -57,7 +57,7 @@ static WebApplication BuildApplication(string[] args)
     {
         corsOptions.AddDefaultPolicy(corsPolicyBuilder =>
         {
-            corsPolicyBuilder.WithOrigins(option.Uri.WebOrigin)
+            corsPolicyBuilder.WithOrigins(businessOption.Uri.WebOrigin)
                 .AllowAnyHeader()
                 //.WithExposedHeaders(Constant.HttpHeaderName.ResultCode, Constant.HttpHeaderName.ResultMessage)
                 .WithExposedHeaders(Constant.HttpHeaderName.Session);

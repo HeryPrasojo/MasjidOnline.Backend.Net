@@ -5,42 +5,31 @@ namespace MasjidOnline.Business.Infaq.Infaq.Mapper;
 
 public static class EntityPaymentStatusExtensions
 {
-    public static Payment.Interface.Model.PaymentStatus ToModel(this PaymentStatus paymentStatus)
+    public static string ToLocale(this PaymentStatus paymentStatus)
     {
         return paymentStatus switch
         {
-            PaymentStatus.Cancel
-                => Payment.Interface.Model.PaymentStatus.Cancel,
+            PaymentStatus.Cancel => "Cancel",
 
-            PaymentStatus.CancelRequest
-                => Payment.Interface.Model.PaymentStatus.CancelRequest,
+            PaymentStatus.CancelRequest => "CancelRequest",
 
-            PaymentStatus.Expire
-                => Payment.Interface.Model.PaymentStatus.Expire,
+            PaymentStatus.Expire => "Expire",
 
-            PaymentStatus.ExpireRequest
-                => Payment.Interface.Model.PaymentStatus.ExpireRequest,
+            PaymentStatus.ExpireRequest => "ExpireRequest",
 
-            PaymentStatus.Fail
-                => Payment.Interface.Model.PaymentStatus.Fail,
+            PaymentStatus.Fail => "Fail",
 
-            PaymentStatus.FailRequest
-                => Payment.Interface.Model.PaymentStatus.FailRequest,
+            PaymentStatus.FailRequest => "FailRequest",
 
-            PaymentStatus.New
-                => Payment.Interface.Model.PaymentStatus.Pending,
+            PaymentStatus.New => "Pending",
 
-            PaymentStatus.Success
-                => Payment.Interface.Model.PaymentStatus.Success,
+            PaymentStatus.Success => "Success",
 
-            PaymentStatus.SuccessRequest
-                => Payment.Interface.Model.PaymentStatus.SuccessRequest,
+            PaymentStatus.SuccessRequest => "SuccessRequest",
 
-            PaymentStatus.Void
-                => Payment.Interface.Model.PaymentStatus.Void,
+            PaymentStatus.Void => "Void",
 
-            PaymentStatus.VoidRequest
-                => Payment.Interface.Model.PaymentStatus.VoidRequest,
+            PaymentStatus.VoidRequest => "VoidRequest",
 
             _ => throw new ErrorException(nameof(paymentStatus)),
         };

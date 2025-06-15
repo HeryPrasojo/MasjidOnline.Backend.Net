@@ -17,7 +17,7 @@ public class Service(
     private Cryptography.Interface.IEncryption128128Service? _encryption128128Service;
 
 
-    public Captcha.Interface.ICaptchaService Captcha => new Captcha.ReCaptcha.CaptchaService(_httpClientFactory, _googleOptions);
+    public Captcha.Interface.ICaptchaService Captcha => new CaptchaService(_httpClientFactory, _googleOptions);
 
     public Cryptography.Interface.IEncryption128128Service Encryption128128 => _encryption128128Service ??= new Cryptography.Encryption128128Service(_cryptographyOptions, _hash128Service);
 
@@ -30,4 +30,6 @@ public class Service(
     public Hash.Interface.IHash512Service Hash512 => new Hash.Hash512Service();
 
     public Mail.Interface.IMailSenderService MailSender => new Mail.MailKit.SmtpMailSenderService(_mailOptions);
+
+    public Localization.Interface.ILocalizationService Localization => new Localization.LocalizationService(new Localization.LocalizationStringService());
 }

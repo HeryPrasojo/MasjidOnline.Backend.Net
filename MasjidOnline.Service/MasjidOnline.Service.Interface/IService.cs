@@ -4,6 +4,7 @@ using MasjidOnline.Service.FieldValidator.Interface;
 using MasjidOnline.Service.File.Interface;
 using MasjidOnline.Service.Hash.Interface;
 using MasjidOnline.Service.Mail.Interface;
+using MasjidOnline.Service.Localization.Interface;
 
 namespace MasjidOnline.Service.Interface;
 
@@ -16,4 +17,5 @@ public interface IService
     IHash512Service Hash512 { get; }
     IMailSenderService MailSender { get; }
     IFileService File { get; }
+    ILocalizationService Localization { get; }
 }
