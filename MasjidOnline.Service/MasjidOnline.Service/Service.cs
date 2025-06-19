@@ -13,14 +13,12 @@ public class Service(
     IOptionsMonitor<GoogleOptions> _googleOptions,
     IOptionsMonitor<MailOptions> _mailOptions) : IService
 {
-    private readonly Hash.Interface.IHash128Service _hash128Service = new Hash.Hash128Service();
-
-    private Cryptography.Interface.IEncryption128128Service? _encryption128128Service;
+    private static readonly Hash.Interface.IHash128Service _hash128Service = new Hash.Hash128Service();
 
 
     public Captcha.Interface.ICaptchaService Captcha { get; } = new CaptchaService(_httpClientFactory, _googleOptions);
 
-    public Cryptography.Interface.IEncryption128128Service Encryption128128 { get; } = _encryption128128Service ??= new Cryptography.Encryption128128Service(_cryptographyOptions, _hash128Service);
+    public Cryptography.Interface.IEncryption128128Service Encryption128128 { get; } = new Cryptography.Encryption128128Service(_cryptographyOptions, _hash128Service);
 
     public FieldValidator.Interface.IFieldValidatorService FieldValidator { get; } = new FieldValidator.FieldValidatorService();
 

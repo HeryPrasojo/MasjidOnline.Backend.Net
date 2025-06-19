@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using MasjidOnline.Entity.User;
 
 namespace MasjidOnline.Entity.Session;
 
@@ -6,13 +7,13 @@ public class Session
 {
     public required int Id { get; set; }
 
-    public required byte[] Digest { get; set; }
+    public byte[] Digest { get; set; } = default!;
 
-    public required DateTime DateTime { get; set; }
+    public DateTime DateTime { get; set; }
 
-    public required int? PreviousId { get; set; }
+    public int? PreviousId { get; set; }
 
-    public required int UserId { get; set; }
+    public int UserId { get; set; }
 
-    public required string ApplicationCulture { get; set; }
+    public required UserPreferenceApplicationCulture ApplicationCulture { get; set; }
 }

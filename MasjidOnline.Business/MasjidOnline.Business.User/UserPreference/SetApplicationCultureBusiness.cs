@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.User.Interface.UserPreference;
 using MasjidOnline.Business.User.UserPreference.Mapper;
@@ -34,7 +34,7 @@ public class SetApplicationCultureBusiness : ISetApplicationCultureBusiness
                     }
                 }
 
-                _data.Session.Session.
+                _data.Session.Session.SetApplicationCulture(session.Id,)
 
                 session.ApplicationCulture;
 

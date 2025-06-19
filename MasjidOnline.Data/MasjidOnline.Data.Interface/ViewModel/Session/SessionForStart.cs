@@ -1,4 +1,5 @@
 using System;
+using MasjidOnline.Entity.User;
 
 namespace MasjidOnline.Data.Interface.ViewModel.Session;
 
@@ -10,5 +11,5 @@ public class SessionForStart
 
     public required int UserId { get; set; }
 
-    public required string ApplicationCulture { get; set; }
+    public required UserPreferenceApplicationCulture ApplicationCulture { get; set; }
 }

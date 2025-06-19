@@ -39,7 +39,7 @@ public class SessionRepository(SessionDataContext _sessionDataContext) : ISessio
     {
         var user = new Entity.Session.Session
         {
-            UserId = userId,
+            Id = id,
             ApplicationCulture = applicationCulture,
         };
 
