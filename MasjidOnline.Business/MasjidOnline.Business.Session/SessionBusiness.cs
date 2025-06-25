@@ -2,6 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Model;
+using MasjidOnline.Business.Model.Extensions;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
@@ -15,7 +16,7 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
     {
         var sessionEntity = new Entity.Session.Session
         {
-            ApplicationCulture = session.ApplicationCulture,
+            ApplicationCulture = Constant.StringMapper.UserPreferenceApplicationCulture.FromCultureName[session.ApplicationCultureName],
             DateTime = DateTime.UtcNow,
             Digest = _idGenerator.Session.SessionDigest,
             Id = _idGenerator.Session.SessionId,
@@ -49,6 +50,8 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
     {
         if (idBase64 == default)
         {
+            session.ApplicationCultureName = Constant.DefaultUserPreferenceApplicationCulture;
+
             await ChangeAndSaveAsync(session, _data, Constant.UserId.Anonymous);
         }
         else
@@ -72,7 +75,7 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
             }
             else
             {
-                session.ApplicationCulture = sessionEntity.ApplicationCulture;
+                session.ApplicationCultureName = sessionEntity.ApplicationCulture.ToCultureName();
                 session.Digest = requestSessionIdBytes;
                 session.Id = sessionEntity.Id;
                 session.UserId = sessionEntity.UserId;

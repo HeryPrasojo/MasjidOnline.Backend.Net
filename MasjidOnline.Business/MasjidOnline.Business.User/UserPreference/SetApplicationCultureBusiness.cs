@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
+using MasjidOnline.Business.Model;
 using MasjidOnline.Business.User.Interface.UserPreference;
 using MasjidOnline.Business.User.UserPreference.Mapper;
 using MasjidOnline.Data.Interface;
@@ -8,9 +9,7 @@ namespace MasjidOnline.Business.User.UserPreference;
 
 public class SetApplicationCultureBusiness : ISetApplicationCultureBusiness
 {
-    private const string defaultSupportedCulture = "en";
-
-    private static readonly string[] supportedCultures = [defaultSupportedCulture];
+    private static readonly string[] supportedCultures = [Constant.DefaultUserPreferenceApplicationCulture];
 
     public async Task<string> SetAsync(IData _data, Session.Interface.Model.Session session, string cultureName)
     {
@@ -20,30 +19,30 @@ public class SetApplicationCultureBusiness : ISetApplicationCultureBusiness
 
             if (anySupportedCulture)
             {
+                await _data.Transaction.BeginAsync(_data.Session, _data.User);
+
+                var userPreferenceApplicationCulture = UserPreferenceApplicationCultureMapper.FromString(cultureName);
+
                 if (!session.IsUserAnonymous)
                 {
                     var anyUserPreference = await _data.User.UserPreference.AnyAsync(session.UserId);
 
                     if (anyUserPreference)
                     {
-                        var userPreferenceApplicationCulture = UserPreferenceApplicationCultureMapper.FromString(cultureName);
-
                         _data.User.UserPreference.SetApplicationCulture(session.UserId, userPreferenceApplicationCulture);
-
-                        await _data.User.SaveAsync();
                     }
                 }
 
-                _data.Session.Session.SetApplicationCulture(session.Id,)
+                _data.Session.Session.SetApplicationCulture(session.Id, userPreferenceApplicationCulture);
 
-                session.ApplicationCulture;
+                await _data.Transaction.CommitAsync();
 
-                // todo save session
+                session.ApplicationCultureName = cultureName;
 
                 return cultureName;
             }
         }
 
-        return defaultSupportedCulture;
+        return Constant.DefaultUserPreferenceApplicationCulture;
     }
 }

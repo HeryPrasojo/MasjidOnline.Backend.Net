@@ -1,4 +1,5 @@
 using MasjidOnline.Business.Interface;
+using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.Session.Interface.Model;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
@@ -28,12 +29,15 @@ public static class LocalizationExtension
                     var data = httpContext.RequestServices.GetService<IData>() ?? throw new ErrorException($"get {nameof(IData)} failed");
                     var business = httpContext.RequestServices.GetService<IBusiness>() ?? throw new ErrorException($"get {nameof(IBusiness)} failed");
 
-                    var cultureResult = await business.User.UserPreference.SetApplicationCulture.SetAsync(data, session, cultureString);
+                    var cultureName = await business.User.UserPreference.SetApplicationCulture.SetAsync(data, session, cultureString);
 
-                    return new ProviderCultureResult(cultureResult, cultureResult);
+                    return new ProviderCultureResult(cultureName, cultureName);
                 }
 
 
+                var sessionBusiness = httpContext.RequestServices.GetService<ISessionBusiness>() ?? throw new ErrorException($"get {nameof(ISessionBusiness)} failed");
+
+                sessionBusiness.getApplicationCulture
                 // todo check db: session, user
 
 

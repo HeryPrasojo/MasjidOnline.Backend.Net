@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using MasjidOnline.Business.Model;
 
 namespace MasjidOnline.Business.Session.Interface.Model;
 
 public class Session
 {
-    public required string ApplicationCulture { get; set; }
+    public required string ApplicationCultureName { get; set; }
 
     public Memory<byte> Digest { get; set; }
 

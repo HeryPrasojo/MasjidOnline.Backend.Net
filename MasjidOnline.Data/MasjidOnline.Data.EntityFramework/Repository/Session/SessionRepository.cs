@@ -22,6 +22,19 @@ public class SessionRepository(SessionDataContext _sessionDataContext) : ISessio
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
     }
 
+    public async Task<UserPreferenceApplicationCulture> GetUserPreferenceApplicationCultureAsync(int id)
+    {
+        return await _dbSet.Where(e => e.Id == id)
+            .Select(e => new SessionForStart
+            {
+                ApplicationCulture = e.ApplicationCulture,
+                DateTime = e.DateTime,
+                Id = e.Id,
+                UserId = e.UserId,
+            })
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<SessionForStart?> GetForStartAsync(byte[] digest)
     {
         return await _dbSet.Where(e => e.Digest.SequenceEqual(digest))
