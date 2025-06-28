@@ -1,7 +1,6 @@
 using System.Net.Http;
 using MasjidOnline.Service.Captcha.ReCaptcha;
 using MasjidOnline.Service.Interface;
-using MasjidOnline.Service.Localization.Strings;
 using MasjidOnline.Service.Mail.Interface.Model;
 using Microsoft.Extensions.Options;
 
@@ -30,5 +29,5 @@ public class Service(
 
     public Mail.Interface.IMailSenderService MailSender { get; } = new Mail.MailKit.SmtpMailSenderService(_mailOptions);
 
-    public Localization.Interface.ILocalizationService Localization { get; } = new Localization.LocalizationService(new Localization.LocalizationStringService(new PaymentStatusService()));
+    public Localization.Interface.ILocalizationService Localization { get; } = new Localization.LocalizationService();
 }

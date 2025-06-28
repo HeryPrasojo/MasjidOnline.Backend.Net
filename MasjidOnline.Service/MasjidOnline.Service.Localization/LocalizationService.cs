@@ -1,24 +1,87 @@
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using MasjidOnline.Service.Localization.Interface;
+using MasjidOnline.Service.Localization.Interface.Model;
 
 namespace MasjidOnline.Service.Localization;
 
-public class LocalizationService(ILocalizationStringService _strings) : ILocalizationService
+public class LocalizationService() : ILocalizationService
 {
-    public ILocalizationStringService Strings { get; } = _strings;
-
-    public string FormatDateTime(DateTime value)
+    private static readonly Dictionary<string, Dictionary<CultureInfo, string>> _strings = new()
     {
-        return value.ToString("yyyy MMM dd, HH:mm");
+        {
+            "Invalid",
+            new Dictionary<CultureInfo, string>
+            {
+                {Constant.CultureInfoEnglish, "Invalid"},
+                {Constant.CultureInfoIndonesian, "Tidak sah"},
+            }
+        },
+        {
+            "",
+            new Dictionary<CultureInfo, string>
+            {
+                {Constant.CultureInfoEnglish, ""},
+                {Constant.CultureInfoIndonesian, ""},
+            }
+        },
+    };
+
+    public string this[DateTime value, CultureInfo cultureInfo]
+    {
+        get
+        {
+            return value.ToString("yyyy MMM dd, HH:mm", cultureInfo);
+        }
     }
 
-    public string FormatDecimal(decimal value)
+    public string this[decimal value, CultureInfo cultureInfo]
     {
-        return value.ToString();
+        get
+        {
+            return value.ToString(cultureInfo);
+        }
     }
 
-    public string FormatInt(int value)
+    public string this[Enum value, CultureInfo cultureInfo]
     {
-        return value.ToString();
+        get
+        {
+            return this[value.ToString(), cultureInfo];
+        }
+    }
+
+    public string this[int value, CultureInfo cultureInfo]
+    {
+        get
+        {
+            return value.ToString(cultureInfo);
+        }
+    }
+
+    public string this[string key, CultureInfo cultureInfo]
+    {
+        get
+        {
+            //var valueDictionary = _strings.GetValueOrDefault(key);
+
+            //if (valueDictionary == default) return key;
+
+
+            //var valueString = valueDictionary.GetValueOrDefault(cultureInfo);
+
+            //if (valueString != default) return valueString;
+
+
+            //if (cultureInfo == Constant.CultureInfoEnglish) return key;
+
+            //valueString = valueDictionary.GetValueOrDefault(Constant.CultureInfoEnglish);
+
+            //if (valueDictionary == default) return key;
+
+            //return valueString;
+            return _strings[key][cultureInfo];
+        }
     }
 }

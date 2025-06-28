@@ -33,8 +33,6 @@ webApplication.UseCors();
 
 webApplication.UseMiddleware<AuthenticationMiddleware>();
 
-webApplication.UseLocalization();
-
 webApplication.MapEndpoints();
 
 webApplication.Run();

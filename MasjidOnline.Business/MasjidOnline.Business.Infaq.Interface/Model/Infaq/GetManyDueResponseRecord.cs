@@ -1,5 +1,3 @@
-using MasjidOnline.Business.Payment.Interface.Model;
-
 namespace MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 
 public class GetManyDueResponseRecord
@@ -13,5 +11,5 @@ public class GetManyDueResponseRecord
     public required decimal Amount { get; set; }
 
 
-    public required PaymentType PaymentType { get; set; }
+    //public required PaymentType PaymentType { get; set; }
 }

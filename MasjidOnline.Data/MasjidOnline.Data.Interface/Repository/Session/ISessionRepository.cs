@@ -9,5 +9,6 @@ public interface ISessionRepository
     Task AddAsync(Entity.Session.Session setting);
     Task<SessionForStart?> GetForStartAsync(byte[] digest);
     Task<int> GetMaxIdAsync();
+    Task<UserPreferenceApplicationCulture> GetUserPreferenceApplicationCultureAsync(int id);
     void SetApplicationCulture(int id, UserPreferenceApplicationCulture applicationCulture);
 }

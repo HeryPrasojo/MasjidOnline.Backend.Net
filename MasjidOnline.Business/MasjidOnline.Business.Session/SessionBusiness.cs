@@ -1,8 +1,6 @@
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Model;
-using MasjidOnline.Business.Model.Extensions;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
@@ -16,7 +14,7 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
     {
         var sessionEntity = new Entity.Session.Session
         {
-            ApplicationCulture = Constant.StringMapper.UserPreferenceApplicationCulture.FromCultureName[session.ApplicationCultureName],
+            ApplicationCulture = Model.Constant.UserPreferenceApplicationCulture.FromCultureInfo[session.CultureInfo],
             DateTime = DateTime.UtcNow,
             Digest = _idGenerator.Session.SessionDigest,
             Id = _idGenerator.Session.SessionId,
@@ -46,13 +44,20 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
         return Convert.ToBase64String(encryptedDigest);
     }
 
-    public async Task StartAsync(Interface.Model.Session session, IData _data, string? idBase64, [CallerArgumentExpression(nameof(idBase64))] string? idBase64Expression = default)
+    public async Task StartAsync(Interface.Model.Session session, IData _data, string? idBase64, string? cultureName, [CallerArgumentExpression(nameof(idBase64))] string? idBase64Expression = default)
     {
         if (idBase64 == default)
         {
-            session.ApplicationCultureName = Constant.DefaultUserPreferenceApplicationCulture;
+            if (string.IsNullOrWhiteSpace(cultureName))
+            {
+                session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfoEnglish;
+            }
+            else
+            {
+                session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfos[cultureName];
+            }
 
-            await ChangeAndSaveAsync(session, _data, Constant.UserId.Anonymous);
+            await ChangeAndSaveAsync(session, _data, Model.Constant.UserId.Anonymous);
         }
         else
         {
@@ -64,21 +69,59 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
 
             if (sessionEntity == default) throw new SessionMismatchException(idBase64Expression);
 
+            if (sessionEntity.DateTime < DateTime.UtcNow.AddDays(-32)) throw new SessionExpireException(idBase64Expression);
 
-            if (sessionEntity.DateTime < DateTime.UtcNow.AddDays(-32))
+            session.Digest = requestSessionIdBytes;
+            session.Id = sessionEntity.Id;
+            session.UserId = sessionEntity.UserId;
+
+            if (sessionEntity.DateTime < DateTime.UtcNow.AddDays(-16))
             {
-                throw new SessionExpireException(idBase64Expression);
-            }
-            else if (sessionEntity.DateTime < DateTime.UtcNow.AddDays(-16))
-            {
-                await ChangeAndSaveAsync(session, _data, Constant.UserId.Anonymous);
+                await _data.Transaction.BeginAsync(_data.Session, _data.User);
+
+                if (string.IsNullOrWhiteSpace(cultureName))
+                {
+                    session.CultureInfo = Model.Constant.UserPreferenceApplicationCulture.ToCultureInfo[sessionEntity.ApplicationCulture];
+                }
+                else
+                {
+                    session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfos[cultureName];
+
+                    if (!session.IsUserAnonymous)
+                    {
+                        var userPreferenceApplicationCulture = Model.Constant.UserPreferenceApplicationCulture.FromCultureInfo[session.CultureInfo];
+
+                        _data.User.UserPreference.SetApplicationCulture(session.UserId, userPreferenceApplicationCulture);
+                    }
+                }
+
+                await ChangeAsync(session, _data, sessionEntity.UserId);
+
+                await _data.Transaction.CommitAsync();
             }
             else
             {
-                session.ApplicationCultureName = sessionEntity.ApplicationCulture.ToCultureName();
-                session.Digest = requestSessionIdBytes;
-                session.Id = sessionEntity.Id;
-                session.UserId = sessionEntity.UserId;
+                if (string.IsNullOrWhiteSpace(cultureName))
+                {
+                    session.CultureInfo = Model.Constant.UserPreferenceApplicationCulture.ToCultureInfo[sessionEntity.ApplicationCulture];
+                }
+                else
+                {
+                    await _data.Transaction.BeginAsync(_data.Session, _data.User);
+
+                    session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfos[cultureName];
+
+                    var userPreferenceApplicationCulture = Model.Constant.UserPreferenceApplicationCulture.FromCultureInfo[session.CultureInfo];
+
+                    if (!session.IsUserAnonymous)
+                    {
+                        _data.User.UserPreference.SetApplicationCulture(session.UserId, userPreferenceApplicationCulture);
+                    }
+
+                    _data.Session.Session.SetApplicationCulture(session.Id, userPreferenceApplicationCulture);
+
+                    await _data.Transaction.CommitAsync();
+                }
             }
         }
     }

@@ -110,10 +110,11 @@ internal static class InfaqEndpoint
 
         internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Infaq.GetManyResponseRecord>> GetManyAsync(
             IBusiness _business,
+            Session session,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Infaq.GetManyRequest? getManyRequest)
         {
-            return await _business.Infaq.Infaq.GetMany.GetAsync(_data, getManyRequest);
+            return await _business.Infaq.Infaq.GetMany.GetAsync(session, _data, getManyRequest);
         }
 
         internal static async Task<Business.Infaq.Interface.Model.Infaq.GetOneResponse> GetOneAsync(

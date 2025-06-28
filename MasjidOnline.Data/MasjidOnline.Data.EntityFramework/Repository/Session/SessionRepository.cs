@@ -25,13 +25,7 @@ public class SessionRepository(SessionDataContext _sessionDataContext) : ISessio
     public async Task<UserPreferenceApplicationCulture> GetUserPreferenceApplicationCultureAsync(int id)
     {
         return await _dbSet.Where(e => e.Id == id)
-            .Select(e => new SessionForStart
-            {
-                ApplicationCulture = e.ApplicationCulture,
-                DateTime = e.DateTime,
-                Id = e.Id,
-                UserId = e.UserId,
-            })
+            .Select(e => e.ApplicationCulture)
             .FirstOrDefaultAsync();
     }
 

@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.Session.Interface.Model;
 using MasjidOnline.Data.Interface;
@@ -11,6 +11,7 @@ public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate, ISes
     public async Task Invoke(HttpContext httpContext, Session session, IData _data)
     {
         var requestSessionIdBase64 = httpContext.Request.Headers[Constant.HttpHeaderName.Session];
+        var cultureName = httpContext.Request.Query["culture"];
 
         httpContext.Response.OnStarting((id) =>
             {
@@ -25,7 +26,7 @@ public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate, ISes
             },
             session.Id);
 
-        await _sessionBusiness.StartAsync(session, _data, requestSessionIdBase64);
+        await _sessionBusiness.StartAsync(session, _data, requestSessionIdBase64, cultureName);
 
         await _nextRequestDelegate(httpContext);
     }
