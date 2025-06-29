@@ -32,7 +32,8 @@ public class SessionInitializer(
                 Digest BLOB NOT NULL,
                 DateTime TEXT NOT NULL,
                 PreviousId INTEGER,
-                UserId INTEGER NOT NULL
+                UserId INTEGER NOT NULL,
+                ApplicationCulture INTEGER NOT NULL
             )";
 
         return await _sessionDataContext.Database.ExecuteSqlAsync(sql);
