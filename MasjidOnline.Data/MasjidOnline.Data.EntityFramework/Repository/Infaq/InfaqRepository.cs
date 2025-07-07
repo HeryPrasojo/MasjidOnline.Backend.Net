@@ -58,12 +58,10 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
     public async Task<ManyResult<ManyRecord>> GetManyAsync(
         IEnumerable<PaymentType>? paymentTypes = default,
         IEnumerable<PaymentStatus>? paymentStatuses = default,
-        ManyOrderBy getManyOrderBy = default,
-        OrderByDirection orderByDirection = default,
-        int skip = 0,
+        int lastId = 0,
         int take = 1)
     {
-        var queryable = _dbSet.AsQueryable();
+        var queryable = _dbSet.Where(e => e.Id < lastId);
 
         if (paymentStatuses != default)
             queryable = queryable.Where(e => paymentStatuses.Any(s => s == e.PaymentStatus));
@@ -75,18 +73,14 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
         var countTask = queryable.LongCountAsync();
 
 
-        if (getManyOrderBy == ManyOrderBy.Id)
-        {
-            if (orderByDirection == OrderByDirection.Descending) queryable = queryable.OrderByDescending(e => e.Id);
-            else queryable = queryable.OrderBy(e => e.Id);
-        }
+        queryable = queryable.OrderByDescending(e => e.Id);
 
 
         var count = await countTask;
 
         return new()
         {
-            Records = await queryable.Skip(skip)
+            Records = await queryable.Skip(lastId)
                 .Take(take)
                 .Select(e => new ManyRecord
                 {

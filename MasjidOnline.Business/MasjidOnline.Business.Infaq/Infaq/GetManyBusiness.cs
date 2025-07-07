@@ -6,8 +6,6 @@ using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.ViewModel.Infaq.Infaq;
-using MasjidOnline.Data.Interface.ViewModel.Repository;
 using MasjidOnline.Entity.Payment;
 using MasjidOnline.Service.Interface;
 
@@ -18,7 +16,7 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
     public async Task<GetManyResponse<GetManyResponseRecord>> GetAsync(Session.Interface.Model.Session session, IData _data, GetManyRequest? getManyRequest)
     {
         getManyRequest = _service.FieldValidator.ValidateRequired(getManyRequest);
-        getManyRequest.Page = _service.FieldValidator.ValidateRequiredPlus(getManyRequest.Page);
+        getManyRequest.LastId = _service.FieldValidator.ValidateRequiredPlus(getManyRequest.LastId);
 
 
         IEnumerable<PaymentType>? paymentTypes = default;
@@ -38,9 +36,7 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
         var getManyResult = await _data.Infaq.Infaq.GetManyAsync(
             paymentTypes: paymentTypes,
             paymentStatuses: paymentStatuses,
-            getManyOrderBy: ManyOrderBy.Id,
-            orderByDirection: OrderByDirection.Descending,
-            skip: (getManyRequest.Page.Value - 1) * take,
+            lastId: getManyRequest.LastId.Value,
             take: take);
 
         return new()
