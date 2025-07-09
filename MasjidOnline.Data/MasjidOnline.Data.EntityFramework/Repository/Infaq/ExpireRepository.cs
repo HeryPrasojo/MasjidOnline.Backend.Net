@@ -47,17 +47,11 @@ public class ExpireRepository(InfaqDataContext _infaqDataContext) : IExpireRepos
 
         var countTask = queryable.LongCountAsync();
 
-        if (getManyOrderBy == ManyOrderBy.DateTime)
-        {
-            if (orderByDirection == OrderByDirection.Descending) queryable = queryable.OrderByDescending(e => e.DateTime);
-            else queryable = queryable.OrderBy(e => e.DateTime);
-        }
-
-        var count = await countTask;
+        queryable = queryable.OrderByDescending(e => e.DateTime);
 
         return new()
         {
-            Records = await queryable.Skip(skip)
+            Records = await queryable
                 .Take(take)
                 .Select(e => new ManyRecord
                 {
@@ -70,7 +64,7 @@ public class ExpireRepository(InfaqDataContext _infaqDataContext) : IExpireRepos
                     UserId = e.UserId,
                 })
                 .ToArrayAsync(),
-            RecordCount = count,
+            RecordCount = await countTask,
         };
     }
 
