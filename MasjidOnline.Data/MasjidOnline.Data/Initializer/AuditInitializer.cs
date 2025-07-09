@@ -32,6 +32,6 @@ public abstract class AuditInitializer(IAuditDefinition _auditDefinition) : IAud
     }
 
 
-    protected abstract Task<int> CreateTableAuditSettingAsync();
-    protected abstract Task<int> CreateTableUserInternalPermissionLogAsync();
+    protected abstract Task CreateTableAuditSettingAsync();
+    protected abstract Task CreateTableUserInternalPermissionLogAsync();
 }

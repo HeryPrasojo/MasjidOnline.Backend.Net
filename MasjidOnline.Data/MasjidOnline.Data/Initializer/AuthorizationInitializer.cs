@@ -32,6 +32,6 @@ public abstract class AuthorizationInitializer(IAuthorizationDefinition _authori
     }
 
 
-    protected abstract Task<int> CreateTableAuthorizationSettingAsync();
-    protected abstract Task<int> CreateTableUserInternalPermissionAsync();
+    protected abstract Task CreateTableAuthorizationSettingAsync();
+    protected abstract Task CreateTableUserInternalPermissionAsync();
 }

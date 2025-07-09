@@ -10,7 +10,7 @@ public class AccountancyInitializer(
     AccountancyDataContext _accountancyDataContext,
     IAccountancyDefinition _accountancyDefinition) : MasjidOnline.Data.Initializer.AccountancyInitializer(_accountancyDefinition)
 {
-    protected override async Task<int> CreateTableAccountancySettingAsync()
+    protected override async Task CreateTableAccountancySettingAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE AccountancySetting
@@ -20,10 +20,10 @@ public class AccountancyInitializer(
                 Value TEXT NOT NULL COLLATE NOCASE
             )";
 
-        return await _accountancyDataContext.Database.ExecuteSqlAsync(sql);
+        await _accountancyDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTableExpenditureAsync()
+    protected override async Task CreateTableExpenditureAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE Expenditure
@@ -39,6 +39,11 @@ public class AccountancyInitializer(
                 UpdateUserId INTEGER
             )";
 
-        return await _accountancyDataContext.Database.ExecuteSqlAsync(sql);
+        await _accountancyDataContext.Database.ExecuteSqlAsync(sql);
+
+
+        sql = $@"CREATE INDEX ExpenditureDateTime ON Expenditure(DateTime)";
+
+        await _accountancyDataContext.Database.ExecuteSqlAsync(sql);
     }
 }

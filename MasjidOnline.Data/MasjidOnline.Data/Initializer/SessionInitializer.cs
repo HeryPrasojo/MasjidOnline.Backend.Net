@@ -33,7 +33,7 @@ public abstract class SessionInitializer(ISessionsDefinition _sessionDefinition)
     }
 
 
-    protected abstract Task<int> CreateTableSessionSettingAsync();
+    protected abstract Task CreateTableSessionSettingAsync();
 
-    protected abstract Task<int> CreateTableSessionAsync();
+    protected abstract Task CreateTableSessionAsync();
 }

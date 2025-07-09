@@ -10,7 +10,7 @@ public class AuthorizationInitializer(
     AuthorizationDataContext _authorizationDataContext,
     IAuthorizationDefinition _authorizationDefinition) : MasjidOnline.Data.Initializer.AuthorizationInitializer(_authorizationDefinition)
 {
-    protected override async Task<int> CreateTableAuthorizationSettingAsync()
+    protected override async Task CreateTableAuthorizationSettingAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE AuthorizationSetting
@@ -20,10 +20,10 @@ public class AuthorizationInitializer(
                 Value TEXT NOT NULL COLLATE NOCASE
             )";
 
-        return await _authorizationDataContext.Database.ExecuteSqlAsync(sql);
+        await _authorizationDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTableUserInternalPermissionAsync()
+    protected override async Task CreateTableUserInternalPermissionAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE UserInternalPermission
@@ -51,6 +51,6 @@ public class AuthorizationInitializer(
                 UserInternalCancel INTEGER NOT NULL
             )";
 
-        return await _authorizationDataContext.Database.ExecuteSqlAsync(sql);
+        await _authorizationDataContext.Database.ExecuteSqlAsync(sql);
     }
 }

@@ -31,6 +31,6 @@ public abstract class DatabaseTemplateInitializer(IDatabaseTemplateDefinition _d
         }
     }
 
-    protected abstract Task<int> CreateTableDatabaseTemplateSettingAsync();
-    protected abstract Task<int> CreateTableTableTemplateAsync();
+    protected abstract Task CreateTableDatabaseTemplateSettingAsync();
+    protected abstract Task CreateTableTableTemplateAsync();
 }

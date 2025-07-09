@@ -10,7 +10,7 @@ public class InfaqInitializer(
     InfaqDataContext _infaqDataContext,
     IInfaqsDefinition _infaqsDefinition) : MasjidOnline.Data.Initializer.InfaqInitializer(_infaqsDefinition)
 {
-    protected override async Task<int> CreateTableExpireAsync()
+    protected override async Task CreateTableExpireAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE Expire
@@ -25,10 +25,20 @@ public class InfaqInitializer(
                 UpdateUserId INTEGER
             )";
 
-        return await _infaqDataContext.Database.ExecuteSqlAsync(sql);
+        await _infaqDataContext.Database.ExecuteSqlAsync(sql);
+
+
+        sql = $@"CREATE INDEX ExpireDateTime ON Expire (DateTime)";
+
+        await _infaqDataContext.Database.ExecuteSqlAsync(sql);
+
+
+        sql = $@"CREATE INDEX ExpireStatus ON Expire (Status)";
+
+        await _infaqDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTableInfaqAsync()
+    protected override async Task CreateTableInfaqAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE Infaq
@@ -42,10 +52,20 @@ public class InfaqInitializer(
                 Amount REAL NOT NULL
             )";
 
-        return await _infaqDataContext.Database.ExecuteSqlAsync(sql);
+        await _infaqDataContext.Database.ExecuteSqlAsync(sql);
+
+
+        sql = $@"CREATE INDEX InfaqDateTime ON Infaq (DateTime)";
+
+        await _infaqDataContext.Database.ExecuteSqlAsync(sql);
+
+
+        sql = $@"CREATE INDEX InfaqPaymentStatus ON Infaq (PaymentStatus)";
+
+        await _infaqDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTableInfaqFileAsync()
+    protected override async Task CreateTableInfaqFileAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE InfaqFile
@@ -54,10 +74,15 @@ public class InfaqInitializer(
                 InfaqId INTEGER NOT NULL
             )";
 
-        return await _infaqDataContext.Database.ExecuteSqlAsync(sql);
+        await _infaqDataContext.Database.ExecuteSqlAsync(sql);
+
+
+        sql = $@"CREATE INDEX InfaqFileInfaqId ON InfaqFile (InfaqId)";
+
+        await _infaqDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTableInfaqInternalAsync()
+    protected override async Task CreateTableInfaqInternalAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE InfaqInternal
@@ -66,10 +91,10 @@ public class InfaqInitializer(
                 BehalfUserId INTEGER NOT NULL
             )";
 
-        return await _infaqDataContext.Database.ExecuteSqlAsync(sql);
+        await _infaqDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTableInfaqManualAsync()
+    protected override async Task CreateTableInfaqManualAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE InfaqManual
@@ -79,10 +104,10 @@ public class InfaqInitializer(
                 Notes TEXT NOT NULL COLLATE NOCASE
             )";
 
-        return await _infaqDataContext.Database.ExecuteSqlAsync(sql);
+        await _infaqDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTableInfaqSettingAsync()
+    protected override async Task CreateTableInfaqSettingAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE InfaqSetting
@@ -92,10 +117,10 @@ public class InfaqInitializer(
                 Value TEXT NOT NULL COLLATE NOCASE
             )";
 
-        return await _infaqDataContext.Database.ExecuteSqlAsync(sql);
+        await _infaqDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTableSuccessAsync()
+    protected override async Task CreateTableSuccessAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE Success
@@ -110,10 +135,20 @@ public class InfaqInitializer(
                 UpdateUserId INTEGER
             )";
 
-        return await _infaqDataContext.Database.ExecuteSqlAsync(sql);
+        await _infaqDataContext.Database.ExecuteSqlAsync(sql);
+
+
+        sql = $@"CREATE INDEX SuccessDateTime ON Success (DateTime)";
+
+        await _infaqDataContext.Database.ExecuteSqlAsync(sql);
+
+
+        sql = $@"CREATE INDEX SuccessStatus ON Success (Status)";
+
+        await _infaqDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTableVoidAsync()
+    protected override async Task CreateTableVoidAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE Void
@@ -128,6 +163,16 @@ public class InfaqInitializer(
                 UpdateUserId INTEGER
             )";
 
-        return await _infaqDataContext.Database.ExecuteSqlAsync(sql);
+        await _infaqDataContext.Database.ExecuteSqlAsync(sql);
+
+
+        sql = $@"CREATE INDEX VoidDateTime ON Void (DateTime)";
+
+        await _infaqDataContext.Database.ExecuteSqlAsync(sql);
+
+
+        sql = $@"CREATE INDEX VoidStatus ON Void (Status)";
+
+        await _infaqDataContext.Database.ExecuteSqlAsync(sql);
     }
 }

@@ -10,7 +10,7 @@ public class CaptchaInitializer(
     CaptchaDataContext _captchaDataContext,
     ICaptchaDefinition _captchaDefinition) : MasjidOnline.Data.Initializer.CaptchaInitializer(_captchaDefinition)
 {
-    protected override async Task<int> CreateTableCaptchaSettingAsync()
+    protected override async Task CreateTableCaptchaSettingAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE CaptchaSetting
@@ -20,10 +20,10 @@ public class CaptchaInitializer(
                 Value TEXT NOT NULL COLLATE NOCASE
             )";
 
-        return await _captchaDataContext.Database.ExecuteSqlAsync(sql);
+        await _captchaDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTablePassAsync()
+    protected override async Task CreateTablePassAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE Pass
@@ -32,6 +32,6 @@ public class CaptchaInitializer(
                 DateTime TEXT NOT NULL
             )";
 
-        return await _captchaDataContext.Database.ExecuteSqlAsync(sql);
+        await _captchaDataContext.Database.ExecuteSqlAsync(sql);
     }
 }

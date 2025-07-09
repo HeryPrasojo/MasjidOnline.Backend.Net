@@ -16,7 +16,7 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
     public async Task<GetManyResponse<GetManyResponseRecord>> GetAsync(IData _data, GetManyRequest? getManyRequest)
     {
         getManyRequest = _service.FieldValidator.ValidateRequired(getManyRequest);
-        getManyRequest.Page = _service.FieldValidator.ValidateRequiredPlus(getManyRequest.Page);
+        getManyRequest.LastId = _service.FieldValidator.ValidateRequiredPlus(getManyRequest.LastId);
 
 
         var take = 10;
@@ -25,7 +25,7 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
             status: getManyRequest.Status.ToEntity(),
             getManyOrderBy: ManyOrderBy.DateTime,
             orderByDirection: OrderByDirection.Descending,
-            skip: (getManyRequest.Page.Value - 1) * take,
+            skip: (getManyRequest.LastId.Value - 1) * take,
             take: take);
 
         return new()

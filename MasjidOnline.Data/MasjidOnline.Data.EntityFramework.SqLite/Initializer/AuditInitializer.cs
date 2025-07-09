@@ -10,7 +10,7 @@ public class AuditInitializer(
     AuditDataContext _auditDataContext,
     IAuditDefinition _auditDefinition) : MasjidOnline.Data.Initializer.AuditInitializer(_auditDefinition)
 {
-    protected override async Task<int> CreateTableAuditSettingAsync()
+    protected override async Task CreateTableAuditSettingAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE AuditSetting
@@ -20,10 +20,10 @@ public class AuditInitializer(
                 Value TEXT NOT NULL COLLATE NOCASE
             )";
 
-        return await _auditDataContext.Database.ExecuteSqlAsync(sql);
+        await _auditDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTableUserInternalPermissionLogAsync()
+    protected override async Task CreateTableUserInternalPermissionLogAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE UserInternalPermissionLog
@@ -51,6 +51,21 @@ public class AuditInitializer(
                 UserInternalCancel INTEGER NOT NULL
             )";
 
-        return await _auditDataContext.Database.ExecuteSqlAsync(sql);
+        await _auditDataContext.Database.ExecuteSqlAsync(sql);
+
+
+        sql = $@"CREATE INDEX UserInternalPermissionLogDateTime ON UserInternalPermissionLog (LogDateTime)";
+
+        await _auditDataContext.Database.ExecuteSqlAsync(sql);
+
+
+        sql = $@"CREATE INDEX UserInternalPermissionLogUserId ON UserInternalPermissionLog (LogUserId)";
+
+        await _auditDataContext.Database.ExecuteSqlAsync(sql);
+
+
+        sql = $@"CREATE INDEX UserInternalPermissionUserId ON UserInternalPermissionLog (UserId)";
+
+        await _auditDataContext.Database.ExecuteSqlAsync(sql);
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Definition;
@@ -10,7 +10,7 @@ public class PersonInitializer(
     PersonDataContext _personDataContext,
     IPersonDefinition _personDefinition) : MasjidOnline.Data.Initializer.PersonInitializer(_personDefinition)
 {
-    protected override async Task<int> CreateTablePersonSettingAsync()
+    protected override async Task CreateTablePersonSettingAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE PersonSetting
@@ -20,6 +20,6 @@ public class PersonInitializer(
                 Value TEXT NOT NULL COLLATE NOCASE
             )";
 
-        return await _personDataContext.Database.ExecuteSqlAsync(sql);
+        await _personDataContext.Database.ExecuteSqlAsync(sql);
     }
 }

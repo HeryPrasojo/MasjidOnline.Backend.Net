@@ -10,7 +10,7 @@ public class SessionInitializer(
     SessionDataContext _sessionDataContext,
     ISessionsDefinition _sessionDefinition) : MasjidOnline.Data.Initializer.SessionInitializer(_sessionDefinition)
 {
-    protected override async Task<int> CreateTableSessionSettingAsync()
+    protected override async Task CreateTableSessionSettingAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE SessionSetting
@@ -20,10 +20,10 @@ public class SessionInitializer(
                 Value TEXT NOT NULL COLLATE NOCASE
             )";
 
-        return await _sessionDataContext.Database.ExecuteSqlAsync(sql);
+        await _sessionDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTableSessionAsync()
+    protected override async Task CreateTableSessionAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE Session
@@ -36,6 +36,11 @@ public class SessionInitializer(
                 ApplicationCulture INTEGER NOT NULL
             )";
 
-        return await _sessionDataContext.Database.ExecuteSqlAsync(sql);
+        await _sessionDataContext.Database.ExecuteSqlAsync(sql);
+
+
+        sql = $@"CREATE INDEX SessionDateTime ON Session (DateTime)";
+
+        await _sessionDataContext.Database.ExecuteSqlAsync(sql);
     }
 }

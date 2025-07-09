@@ -36,10 +36,10 @@ public abstract class UserInitializer(IUsersDefinition _userDefinition) : IUserI
     }
 
 
-    protected abstract Task<int> CreateTableInternalAsync();
-    protected abstract Task<int> CreateTablePasswordCodeAsync();
-    protected abstract Task<int> CreateTableUserAsync();
-    protected abstract Task<int> CreateTableUserEmailAddressAsync();
-    protected abstract Task<int> CreateTableUserPreferenceAsync();
-    protected abstract Task<int> CreateTableUserSettingAsync();
+    protected abstract Task CreateTableInternalAsync();
+    protected abstract Task CreateTablePasswordCodeAsync();
+    protected abstract Task CreateTableUserAsync();
+    protected abstract Task CreateTableUserEmailAddressAsync();
+    protected abstract Task CreateTableUserPreferenceAsync();
+    protected abstract Task CreateTableUserSettingAsync();
 }

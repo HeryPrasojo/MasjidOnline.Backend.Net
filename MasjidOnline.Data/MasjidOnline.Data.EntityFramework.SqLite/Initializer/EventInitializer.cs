@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Definition;
@@ -10,7 +10,7 @@ public class EventInitializer(
     EventDataContext _eventDataContext,
     IEventDefinition _eventDefinition) : MasjidOnline.Data.Initializer.EventInitializer(_eventDefinition)
 {
-    protected override async Task<int> CreateTableErrorExceptionAsync()
+    protected override async Task CreateTableErrorExceptionAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE Exception
@@ -23,10 +23,15 @@ public class EventInitializer(
                 InnerExceptionId INTEGER
             )";
 
-        return await _eventDataContext.Database.ExecuteSqlAsync(sql);
+        await _eventDataContext.Database.ExecuteSqlAsync(sql);
+
+
+        sql = $@"CREATE INDEX ExceptionDateTime ON Exception (ExceptionDateTime)";
+
+        await _eventDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTableEventSettingAsync()
+    protected override async Task CreateTableEventSettingAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE EventSetting
@@ -36,6 +41,6 @@ public class EventInitializer(
                 Value TEXT NOT NULL COLLATE NOCASE
             )";
 
-        return await _eventDataContext.Database.ExecuteSqlAsync(sql);
+        await _eventDataContext.Database.ExecuteSqlAsync(sql);
     }
 }

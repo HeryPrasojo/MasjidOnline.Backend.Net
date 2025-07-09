@@ -32,6 +32,6 @@ public abstract class AccountancyInitializer(IAccountancyDefinition _accountancy
     }
 
 
-    protected abstract Task<int> CreateTableAccountancySettingAsync();
-    protected abstract Task<int> CreateTableExpenditureAsync();
+    protected abstract Task CreateTableAccountancySettingAsync();
+    protected abstract Task CreateTableExpenditureAsync();
 }

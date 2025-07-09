@@ -11,7 +11,7 @@ public class DatabaseTemplateInitializer(
     IDatabaseTemplateDefinition _databaseTemplateDefinition) : MasjidOnline.Data.Initializer.DatabaseTemplateInitializer(_databaseTemplateDefinition)
 {
     // todo template rename
-    protected override async Task<int> CreateTableDatabaseTemplateSettingAsync()
+    protected override async Task CreateTableDatabaseTemplateSettingAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE DatabaseTemplateSetting
@@ -21,11 +21,10 @@ public class DatabaseTemplateInitializer(
                 Value TEXT NOT NULL COLLATE NOCASE
             )";
 
-        return await _databaseTemplateDataContext.Database.ExecuteSqlAsync(sql);
+        await _databaseTemplateDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    // todo template rename
-    protected override async Task<int> CreateTableTableTemplateAsync()
+    protected override async Task CreateTableTableTemplateAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE TableTemplate
@@ -33,6 +32,11 @@ public class DatabaseTemplateInitializer(
                 Id INTEGER PRIMARY KEY,
             )";
 
-        return await _databaseTemplateDataContext.Database.ExecuteSqlAsync(sql);
+        await _databaseTemplateDataContext.Database.ExecuteSqlAsync(sql);
+
+
+        sql = $@"CREATE INDEX TableTemplateDateTime ON TableTemplate (DateTime)";
+
+        await _databaseTemplateDataContext.Database.ExecuteSqlAsync(sql);
     }
 }

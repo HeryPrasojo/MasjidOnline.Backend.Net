@@ -75,13 +75,9 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
 
         queryable = queryable.OrderByDescending(e => e.Id);
 
-
-        var count = await countTask;
-
         return new()
         {
-            Records = await queryable.Skip(lastId)
-                .Take(take)
+            Records = await queryable.Take(take)
                 .Select(e => new ManyRecord
                 {
                     Amount = e.Amount,
@@ -92,7 +88,7 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
                     PaymentType = e.PaymentType,
                 })
                 .ToArrayAsync(),
-            RecordCount = count,
+            RecordCount = await countTask,
         };
     }
 

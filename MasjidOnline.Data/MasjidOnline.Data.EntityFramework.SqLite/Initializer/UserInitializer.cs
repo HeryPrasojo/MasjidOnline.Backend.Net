@@ -10,7 +10,7 @@ public class UserInitializer(
     UserDataContext _userDataContext,
     IUsersDefinition _userDefinition) : MasjidOnline.Data.Initializer.UserInitializer(_userDefinition)
 {
-    protected override async Task<int> CreateTableInternalAsync()
+    protected override async Task CreateTableInternalAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE Internal
@@ -25,10 +25,15 @@ public class UserInitializer(
                 UpdateUserId INTEGER
             )";
 
-        return await _userDataContext.Database.ExecuteSqlAsync(sql);
+        await _userDataContext.Database.ExecuteSqlAsync(sql);
+
+
+        sql = $@"CREATE INDEX InternalDateTime ON Internal (DateTime)";
+
+        await _userDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTablePasswordCodeAsync()
+    protected override async Task CreateTablePasswordCodeAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE PasswordCode
@@ -39,10 +44,15 @@ public class UserInitializer(
                 UseDateTime TEXT
             )";
 
-        return await _userDataContext.Database.ExecuteSqlAsync(sql);
+        await _userDataContext.Database.ExecuteSqlAsync(sql);
+
+
+        sql = $@"CREATE INDEX PasswordCodeDateTime ON PasswordCode (DateTime)";
+
+        await _userDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTableUserAsync()
+    protected override async Task CreateTableUserAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE User
@@ -53,10 +63,15 @@ public class UserInitializer(
                 Password BLOB
             )";
 
-        return await _userDataContext.Database.ExecuteSqlAsync(sql);
+        await _userDataContext.Database.ExecuteSqlAsync(sql);
+
+
+        sql = $@"CREATE INDEX UserStatus ON User (Status)";
+
+        await _userDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTableUserEmailAddressAsync()
+    protected override async Task CreateTableUserEmailAddressAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE UserEmailAddress
@@ -65,10 +80,15 @@ public class UserInitializer(
                 UserId INTEGER NOT NULL
             )";
 
-        return await _userDataContext.Database.ExecuteSqlAsync(sql);
+        await _userDataContext.Database.ExecuteSqlAsync(sql);
+
+
+        sql = $@"CREATE INDEX UserEmailAddressUserId ON UserEmailAddress (UserId)";
+
+        await _userDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTableUserPreferenceAsync()
+    protected override async Task CreateTableUserPreferenceAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE UserPreference
@@ -77,7 +97,7 @@ public class UserInitializer(
                 ApplicationCulture INTEGER NOT NULL
             )";
 
-        return await _userDataContext.Database.ExecuteSqlAsync(sql);
+        await _userDataContext.Database.ExecuteSqlAsync(sql);
     }
 
     protected override async Task<int> CreateTableUserSettingAsync()

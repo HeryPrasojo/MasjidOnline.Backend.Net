@@ -32,6 +32,6 @@ public abstract class PaymentInitializer(IPaymentDefinition _databaseDefinition)
     }
 
 
-    protected abstract Task<int> CreateTablePaymentSettingAsync();
-    protected abstract Task<int> CreateTableManualRecommendationIdAsync();
+    protected abstract Task CreateTablePaymentSettingAsync();
+    protected abstract Task CreateTableManualRecommendationIdAsync();
 }

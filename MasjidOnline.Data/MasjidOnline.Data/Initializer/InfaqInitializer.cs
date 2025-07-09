@@ -38,19 +38,19 @@ public abstract class InfaqInitializer(IInfaqsDefinition _infaqsDefinition) : II
     }
 
 
-    protected abstract Task<int> CreateTableExpireAsync();
+    protected abstract Task CreateTableExpireAsync();
 
-    protected abstract Task<int> CreateTableInfaqAsync();
+    protected abstract Task CreateTableInfaqAsync();
 
-    protected abstract Task<int> CreateTableInfaqFileAsync();
+    protected abstract Task CreateTableInfaqFileAsync();
 
-    protected abstract Task<int> CreateTableInfaqManualAsync();
+    protected abstract Task CreateTableInfaqManualAsync();
 
-    protected abstract Task<int> CreateTableInfaqInternalAsync();
+    protected abstract Task CreateTableInfaqInternalAsync();
 
-    protected abstract Task<int> CreateTableInfaqSettingAsync();
+    protected abstract Task CreateTableInfaqSettingAsync();
 
-    protected abstract Task<int> CreateTableSuccessAsync();
+    protected abstract Task CreateTableSuccessAsync();
 
-    protected abstract Task<int> CreateTableVoidAsync();
+    protected abstract Task CreateTableVoidAsync();
 }

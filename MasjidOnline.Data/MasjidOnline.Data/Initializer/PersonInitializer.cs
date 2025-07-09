@@ -31,5 +31,5 @@ public abstract class PersonInitializer(IPersonDefinition _personDefinition) : I
     }
 
 
-    protected abstract Task<int> CreateTablePersonSettingAsync();
+    protected abstract Task CreateTablePersonSettingAsync();
 }

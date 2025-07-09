@@ -31,7 +31,7 @@ public abstract class EventInitializer(IEventDefinition _eventDefinition) : IEve
         }
     }
 
-    protected abstract Task<int> CreateTableEventSettingAsync();
+    protected abstract Task CreateTableEventSettingAsync();
 
     protected abstract Task CreateTableErrorExceptionAsync();
 }

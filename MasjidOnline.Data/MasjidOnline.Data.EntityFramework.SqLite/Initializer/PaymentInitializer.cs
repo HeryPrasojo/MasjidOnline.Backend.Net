@@ -10,7 +10,7 @@ public class PaymentInitializer(
     PaymentDataContext _databaseDataContext,
     IPaymentDefinition _databaseDefinition) : MasjidOnline.Data.Initializer.PaymentInitializer(_databaseDefinition)
 {
-    protected override async Task<int> CreateTablePaymentSettingAsync()
+    protected override async Task CreateTablePaymentSettingAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE PaymentSetting
@@ -20,10 +20,10 @@ public class PaymentInitializer(
                 Value TEXT NOT NULL COLLATE NOCASE
             )";
 
-        return await _databaseDataContext.Database.ExecuteSqlAsync(sql);
+        await _databaseDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task<int> CreateTableManualRecommendationIdAsync()
+    protected override async Task CreateTableManualRecommendationIdAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE ManualRecommendationId
@@ -33,6 +33,11 @@ public class PaymentInitializer(
                 Used INTEGER NOT NULL
             )";
 
-        return await _databaseDataContext.Database.ExecuteSqlAsync(sql);
+        await _databaseDataContext.Database.ExecuteSqlAsync(sql);
+
+
+        sql = $@"CREATE INDEX ManualRecommendationIdSessionId ON ManualRecommendationId (SessionId)";
+
+        await _databaseDataContext.Database.ExecuteSqlAsync(sql);
     }
 }

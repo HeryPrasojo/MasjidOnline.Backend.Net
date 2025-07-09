@@ -32,6 +32,6 @@ public abstract class CaptchaInitializer(ICaptchaDefinition _captchaDefinition) 
     }
 
 
-    protected abstract Task<int> CreateTableCaptchaSettingAsync();
-    protected abstract Task<int> CreateTablePassAsync();
+    protected abstract Task CreateTableCaptchaSettingAsync();
+    protected abstract Task CreateTablePassAsync();
 }
