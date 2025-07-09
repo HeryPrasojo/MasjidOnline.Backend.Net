@@ -17,7 +17,7 @@ public class AddByInternal(IAuthorizationBusiness _authorizationBusiness, IServi
 
     public async Task AddAsync(IData _data, Session.Interface.Model.Session session, AddByInternalRequest addByInternalRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(session, _data, infaqInternalAdd: true);
+        await _authorizationBusiness.Infaq.Infaq.AuthorizeInternalAddAync(session, _data);
 
 
         addByInternalRequest = _service.FieldValidator.ValidateRequired(addByInternalRequest);

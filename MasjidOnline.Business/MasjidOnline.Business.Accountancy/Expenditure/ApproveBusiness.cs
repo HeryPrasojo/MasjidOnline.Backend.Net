@@ -16,7 +16,7 @@ public class ApproveBusiness(
 {
     public async Task<Response> ApproveAsync(Session.Interface.Model.Session session, IData _data, ApproveRequest? approveRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(session, _data, accountancyExpenditureApprove: true);
+        await _authorizationBusiness.Accountancy.Expenditure.AuthorizeApproveAync(session, _data);
 
         approveRequest = _service.FieldValidator.ValidateRequired(approveRequest);
         approveRequest.Id = _service.FieldValidator.ValidateRequiredPlus(approveRequest.Id);

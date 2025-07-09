@@ -21,7 +21,7 @@ public class AddBusiness(
 {
     public async Task<Response> AddAsync(IData _data, Session.Interface.Model.Session session, AddRequest? addRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(session, _data, infaqSuccessAdd: true);
+        await _authorizationBusiness.Infaq.Success.AuthorizeAddAync(session, _data);
 
         addRequest = _service.FieldValidator.ValidateRequired(addRequest);
         addRequest.InfaqId = _service.FieldValidator.ValidateRequiredPlus(addRequest.InfaqId);

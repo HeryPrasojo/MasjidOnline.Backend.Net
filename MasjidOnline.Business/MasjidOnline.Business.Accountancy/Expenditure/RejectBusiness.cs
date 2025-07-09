@@ -14,7 +14,7 @@ public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IServ
 {
     public async Task<Response> RejectAsync(Session.Interface.Model.Session session, IData _data, RejectRequest? rejectRequest)
     {
-        await _authorizationBusiness.AuthorizePermissionAsync(session, _data, accountancyExpenditureApprove: true);
+        await _authorizationBusiness.Accountancy.Expenditure.AuthorizeApproveAync(session, _data);
 
         rejectRequest = _service.FieldValidator.ValidateRequired(rejectRequest);
         rejectRequest.Id = _service.FieldValidator.ValidateRequiredPlus(rejectRequest.Id);
