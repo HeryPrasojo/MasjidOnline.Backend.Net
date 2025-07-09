@@ -37,7 +37,7 @@ public class ExpireRepository(InfaqDataContext _infaqDataContext) : IExpireRepos
 
     public async Task<ManyResult<ManyRecord>> GetManyAsync(
         ExpireStatus? status = default,
-        int lastId = 0,
+        int skip = 0,
         int take = 1)
     {
         var queryable = _dbSet.AsQueryable();
@@ -51,7 +51,7 @@ public class ExpireRepository(InfaqDataContext _infaqDataContext) : IExpireRepos
 
         return new()
         {
-            Records = await queryable
+            Records = await queryable.Skip(skip)
                 .Take(take)
                 .Select(e => new ManyRecord
                 {

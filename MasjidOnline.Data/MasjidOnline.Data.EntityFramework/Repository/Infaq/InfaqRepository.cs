@@ -58,10 +58,10 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
     public async Task<ManyResult<ManyRecord>> GetManyAsync(
         IEnumerable<PaymentType>? paymentTypes = default,
         IEnumerable<PaymentStatus>? paymentStatuses = default,
-        int lastId = 0,
+        int skip = 0,
         int take = 1)
     {
-        var queryable = _dbSet.Where(e => e.Id < lastId);
+        var queryable = _dbSet.AsQueryable();
 
         if (paymentStatuses != default)
             queryable = queryable.Where(e => paymentStatuses.Any(s => s == e.PaymentStatus));
@@ -77,7 +77,8 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
 
         return new()
         {
-            Records = await queryable.Take(take)
+            Records = await queryable.Skip(skip)
+            .Take(take)
                 .Select(e => new ManyRecord
                 {
                     Amount = e.Amount,

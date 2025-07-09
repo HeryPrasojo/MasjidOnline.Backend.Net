@@ -11,7 +11,7 @@ public interface IExpireRepository
     Task AddAsync(Expire expire);
     Task<bool> AnyAsync(int infaqId, ExpireStatus status);
     Task<ForSetStatus?> GetForSetStatusAsync(int id);
-    Task<ManyResult<ManyRecord>> GetManyAsync(ExpireStatus? status = ExpireStatus.Invalid, int lastId = 0, int take = 1);
+    Task<ManyResult<ManyRecord>> GetManyAsync(ExpireStatus? status = ExpireStatus.Invalid, int skip = 0, int take = 1);
     Task<int> GetMaxIdAsync();
     Task<One?> GetOneAsync(int id);
 

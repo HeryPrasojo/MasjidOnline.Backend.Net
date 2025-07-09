@@ -5,8 +5,6 @@ using MasjidOnline.Business.Infaq.Interface.Expire;
 using MasjidOnline.Business.Infaq.Interface.Model.Expire;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Data.Interface.ViewModel.Infaq.Expire;
-using MasjidOnline.Data.Interface.ViewModel.Repository;
 using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.Infaq.Expire;
@@ -16,16 +14,14 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
     public async Task<GetManyResponse<GetManyResponseRecord>> GetAsync(IData _data, GetManyRequest? getManyRequest)
     {
         getManyRequest = _service.FieldValidator.ValidateRequired(getManyRequest);
-        getManyRequest.LastId = _service.FieldValidator.ValidateRequiredPlus(getManyRequest.LastId);
+        getManyRequest.Page = _service.FieldValidator.ValidateRequiredPlus(getManyRequest.Page);
 
 
         var take = 10;
 
         var getManyResult = await _data.Infaq.Expire.GetManyAsync(
             status: getManyRequest.Status.ToEntity(),
-            getManyOrderBy: ManyOrderBy.DateTime,
-            orderByDirection: OrderByDirection.Descending,
-            skip: (getManyRequest.LastId.Value - 1) * take,
+            skip: (getManyRequest.Page.Value - 1) * take,
             take: take);
 
         return new()

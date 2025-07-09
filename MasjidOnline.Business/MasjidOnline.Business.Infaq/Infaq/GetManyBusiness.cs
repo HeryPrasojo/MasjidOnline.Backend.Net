@@ -16,7 +16,7 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
     public async Task<GetManyResponse<GetManyResponseRecord>> GetAsync(Session.Interface.Model.Session session, IData _data, GetManyRequest? getManyRequest)
     {
         getManyRequest = _service.FieldValidator.ValidateRequired(getManyRequest);
-        getManyRequest.LastId = _service.FieldValidator.ValidateRequiredPlus(getManyRequest.LastId);
+        getManyRequest.Page = _service.FieldValidator.ValidateRequiredPlus(getManyRequest.Page);
 
 
         IEnumerable<PaymentType>? paymentTypes = default;
@@ -36,7 +36,7 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
         var getManyResult = await _data.Infaq.Infaq.GetManyAsync(
             paymentTypes: paymentTypes,
             paymentStatuses: paymentStatuses,
-            lastId: getManyRequest.LastId.Value,
+            skip: (getManyRequest.Page.Value - 1) * take,
             take: take);
 
         return new()
