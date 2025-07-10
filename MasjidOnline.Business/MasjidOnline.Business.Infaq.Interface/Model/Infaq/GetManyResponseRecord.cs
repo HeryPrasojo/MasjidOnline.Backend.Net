@@ -2,7 +2,7 @@ namespace MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 
 public class GetManyResponseRecord
 {
-    public required string Id { get; set; }
+    public required int Id { get; set; }
 
     public required string DateTime { get; set; }
 

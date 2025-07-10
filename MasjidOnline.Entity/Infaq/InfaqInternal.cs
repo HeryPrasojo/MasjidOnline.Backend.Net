@@ -7,5 +7,5 @@ public class InfaqInternal
     [Key]
     public required int InfaqId { get; set; }
 
-    public int BehalfUserId { get; set; }
+    public int UserId { get; set; }
 }
