@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\MasjidOnline.Library\MasjidOnline.Library.csproj" />
     <ProjectReference Include="..\MasjidOnline.Service.Localization.Interface\MasjidOnline.Service.Localization.Interface.csproj" />
   </ItemGroup>
 

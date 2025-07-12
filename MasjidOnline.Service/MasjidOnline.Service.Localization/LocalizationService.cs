@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using MasjidOnline.Library.Extensions;
 using MasjidOnline.Service.Localization.Interface;
 using MasjidOnline.Service.Localization.Interface.Model;
 
@@ -16,6 +17,14 @@ public class LocalizationService() : ILocalizationService
             {
                 {Constant.CultureInfoEnglish, "Invalid"},
                 {Constant.CultureInfoIndonesian, "Tidak sah"},
+            }
+        },
+        {
+            "New",
+            new Dictionary<CultureInfo, string>
+            {
+                {Constant.CultureInfoEnglish, ""},
+                {Constant.CultureInfoIndonesian, ""},
             }
         },
         {
@@ -64,24 +73,24 @@ public class LocalizationService() : ILocalizationService
     {
         get
         {
-            //var valueDictionary = _strings.GetValueOrDefault(key);
+            var valueDictionary = _strings.GetValueOrDefault(key);
 
-            //if (valueDictionary == default) return key;
-
-
-            //var valueString = valueDictionary.GetValueOrDefault(cultureInfo);
-
-            //if (valueString != default) return valueString;
+            if (valueDictionary == default) return key;
 
 
-            //if (cultureInfo == Constant.CultureInfoEnglish) return key;
+            var valueString = valueDictionary.GetValueOrDefault(cultureInfo);
 
-            //valueString = valueDictionary.GetValueOrDefault(Constant.CultureInfoEnglish);
+            if (!valueString.IsNullOrEmptyOrWhiteSpace()) return valueString!;
 
-            //if (valueDictionary == default) return key;
 
-            //return valueString;
-            return _strings[key][cultureInfo];
+            if (cultureInfo == Constant.CultureInfoEnglish) return key;
+
+            valueString = valueDictionary.GetValueOrDefault(Constant.CultureInfoEnglish);
+
+            if (valueString.IsNullOrEmptyOrWhiteSpace()) return key;
+
+            return valueString!;
+            //return _strings[key][cultureInfo];
         }
     }
 }
