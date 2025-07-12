@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using MasjidOnline.Business.Accountancy;
 using MasjidOnline.Business.Accountancy.Interface;
 using MasjidOnline.Business.Captcha;
@@ -11,6 +12,7 @@ using MasjidOnline.Business.Payment.Interface;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User;
 using MasjidOnline.Business.User.Interface;
+using MasjidOnline.Data.Interface;
 using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Business;
@@ -19,7 +21,7 @@ namespace MasjidOnline.Business;
 public class Business(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
     Authorization.Interface.IAuthorizationBusiness _authorizationBusiness,
-    Data.Interface.IIdGenerator _idGenerator,
+    IIdGenerator _idGenerator,
     ISessionBusiness _sessionBusiness,
     Service.Interface.IService _service
     ) : IBusiness
@@ -33,4 +35,9 @@ public class Business(
     public IPaymentBusiness Payment { get; } = new PaymentBusiness(_idGenerator);
 
     public IUserBusiness User { get; } = new UserBusiness(_optionsMonitor, _authorizationBusiness, _idGenerator, _sessionBusiness, _service);
+
+    public async Task InitializeAsync(IData _data)
+    {
+        await User.InitializeAsync(_data);
+    }
 }

@@ -30,13 +30,13 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
             ResultCode = ResponseResultCode.Success,
             Records = getManyResult.Records.Select(e => new GetManyResponseRecord
             {
-                DateTime = e.DateTime,
-                Id = e.Id,
-                InfaqId = e.InfaqId,
-                Status = e.Status.ToModel(),
-                UpdateDateTime = e.UpdateDateTime,
-                UpdateUserId = e.UpdateUserId,
-                UserId = e.UserId,
+                DateTime = "",// e.DateTime,
+                Id = 0,//e.Id,
+                //InfaqId = 0,//e.InfaqId,
+                Status = "",//e.Status.ToModel(),
+                UpdateDateTime = "",//e.UpdateDateTime,
+                UpdateUserId = "",//e.UpdateUserId,
+                //UserId = 0,//e.UserId,
             }),
             RecordCount = getManyResult.RecordCount,
         };

@@ -1,12 +1,11 @@
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Definition;
-using MasjidOnline.Data.Interface.Initializer;
 using MasjidOnline.Entity.User;
 
 namespace MasjidOnline.Data.Initializer;
 
-public abstract class UserInitializer(IUsersDefinition _userDefinition) : IUserInitializer
+public abstract class UserInitializer(IUsersDefinition _userDefinition)
 {
     public async Task InitializeDatabaseAsync(IData data)
     {

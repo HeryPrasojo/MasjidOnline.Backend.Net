@@ -1,12 +1,11 @@
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Definition;
-using MasjidOnline.Data.Interface.Initializer;
 using MasjidOnline.Entity.Captcha;
 
 namespace MasjidOnline.Data.Initializer;
 
-public abstract class CaptchaInitializer(ICaptchaDefinition _captchaDefinition) : ICaptchaInitializer
+public abstract class CaptchaInitializer(ICaptchaDefinition _captchaDefinition)
 {
     public async Task InitializeDatabaseAsync(IData data)
     {

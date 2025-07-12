@@ -1,12 +1,11 @@
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Definition;
-using MasjidOnline.Data.Interface.Initializer;
 using MasjidOnline.Entity.Audit;
 
 namespace MasjidOnline.Data.Initializer;
 
-public abstract class AuditInitializer(IAuditDefinition _auditDefinition) : IAuditInitializer
+public abstract class AuditInitializer(IAuditDefinition _auditDefinition)
 {
     public async Task InitializeDatabaseAsync(IData data)
     {

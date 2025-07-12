@@ -1,12 +1,11 @@
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Definition;
-using MasjidOnline.Data.Interface.Initializer;
 using MasjidOnline.Entity.Event;
 
 namespace MasjidOnline.Data.Initializer;
 
-public abstract class EventInitializer(IEventDefinition _eventDefinition) : IEventInitializer
+public abstract class EventInitializer(IEventDefinition _eventDefinition)
 {
     public async Task InitializeDatabaseAsync(IData data)
     {

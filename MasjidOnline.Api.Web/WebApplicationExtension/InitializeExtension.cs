@@ -1,6 +1,8 @@
 using System;
 using System.Threading.Tasks;
+using MasjidOnline.Business.Interface;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Service.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,33 +15,18 @@ internal static class InitializeExtension
         using var serviceScope = webApplication.Services.CreateScope();
 
         var data = GetService<IData>(serviceScope.ServiceProvider);
-
         var dataInitializer = GetService<IDataInitializer>(serviceScope.ServiceProvider);
-
         var idGenerator = GetService<IIdGenerator>(serviceScope.ServiceProvider);
+        var service = GetService<IService>(serviceScope.ServiceProvider);
+        var business = GetService<IBusiness>(serviceScope.ServiceProvider);
 
-        var userInitializerBusiness = GetService<Business.User.Interface.IInitializerBusiness>(serviceScope.ServiceProvider);
+        await dataInitializer.InitializeAsync(data);
 
-        await dataInitializer.Accountancy.InitializeDatabaseAsync(data);
-        await dataInitializer.Audit.InitializeDatabaseAsync(data);
-        await dataInitializer.Authorization.InitializeDatabaseAsync(data);
-        await dataInitializer.Captcha.InitializeDatabaseAsync(data);
-        await dataInitializer.Event.InitializeDatabaseAsync(data);
-        await dataInitializer.Infaq.InitializeDatabaseAsync(data);
-        await dataInitializer.Payment.InitializeDatabaseAsync(data);
-        await dataInitializer.Person.InitializeDatabaseAsync(data);
-        await dataInitializer.Session.InitializeDatabaseAsync(data);
-        await dataInitializer.User.InitializeDatabaseAsync(data);
+        await idGenerator.InitializeAsync(data);
 
-        await idGenerator.Audit.InitializeAsync(data);
-        await idGenerator.Event.InitializeAsync(data);
-        await idGenerator.Infaq.InitializeAsync(data);
-        await idGenerator.Payment.InitializeAsync(data);
-        await idGenerator.Person.InitializeAsync(data);
-        await idGenerator.Session.InitializeAsync(data);
-        await idGenerator.Session.InitializeAsync(data);
+        service.Initialize([Business.Model.Constant.Path.InfaqFileDirectory]);
 
-        await userInitializerBusiness.InitializeAsync(data);
+        await business.InitializeAsync(data);
 
         return webApplication;
     }

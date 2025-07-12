@@ -1,12 +1,11 @@
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Definition;
-using MasjidOnline.Data.Interface.Initializer;
 using MasjidOnline.Entity.Authorization;
 
 namespace MasjidOnline.Data.Initializer;
 
-public abstract class AuthorizationInitializer(IAuthorizationDefinition _authorizationDefinition) : IAuthorizationInitializer
+public abstract class AuthorizationInitializer(IAuthorizationDefinition _authorizationDefinition)
 {
     public async Task InitializeDatabaseAsync(IData data)
     {

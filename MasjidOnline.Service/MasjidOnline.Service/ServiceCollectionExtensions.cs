@@ -1,4 +1,5 @@
-﻿using MasjidOnline.Service.Captcha.ReCaptcha;
+using MasjidOnline.Service.Captcha.Interface;
+using MasjidOnline.Service.Captcha.ReCaptcha;
 using MasjidOnline.Service.Cryptography.Interface.Model;
 using MasjidOnline.Service.Interface;
 using MasjidOnline.Service.Mail.Interface.Model;
@@ -15,7 +16,7 @@ public static class ServiceCollectionExtensions
         services.Configure<MailOptions>(configuration.GetSection("Mail"));
         services.Configure<GoogleOptions>(configuration.GetSection("Google"));
 
-        services.AddHttpClient("recaptcha");
+        services.AddHttpClient(Constant.HttpClientName);
 
         services.AddSingleton<IService, Service>();
 

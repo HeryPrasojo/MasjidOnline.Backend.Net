@@ -1,12 +1,11 @@
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Definition;
-using MasjidOnline.Data.Interface.Initializer;
 using MasjidOnline.Entity.Payment;
 
 namespace MasjidOnline.Data.Initializer;
 
-public abstract class PaymentInitializer(IPaymentDefinition _databaseDefinition) : IPaymentInitializer
+public abstract class PaymentInitializer(IPaymentDefinition _databaseDefinition)
 {
     public async Task InitializeDatabaseAsync(IData data)
     {

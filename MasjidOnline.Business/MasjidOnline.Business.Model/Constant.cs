@@ -9,7 +9,7 @@ public static class Constant
 
     public static class Path
     {
-        public const string InfaqFileDirectory = "..\\..\\file\\infaq\\";
+        public const string InfaqFileDirectory = "file\\infaq\\";
     }
 
     public static class UserId

@@ -1,8 +1,10 @@
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using MasjidOnline.Library.Exceptions;
+using MasjidOnline.Library.Extensions;
 using MasjidOnline.Service.Captcha.Interface;
 using Microsoft.Extensions.Options;
 
@@ -10,7 +12,12 @@ namespace MasjidOnline.Service.Captcha.ReCaptcha;
 
 public class CaptchaService(IHttpClientFactory _httpClientFactory, IOptionsMonitor<GoogleOptions> _optionsMonitor) : ICaptchaService
 {
-    private string _serializedRequest = JsonSerializer.Serialize(
+    private static readonly JsonSerializerOptions _jsonSerializerOptions = new()
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+    };
+
+    private static readonly string _serializedRequest = JsonSerializer.Serialize(
         new
         {
             Event = new
@@ -20,23 +27,26 @@ public class CaptchaService(IHttpClientFactory _httpClientFactory, IOptionsMonit
                 Token = "[token]",
             },
         },
-        new JsonSerializerOptions
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        });
+        _jsonSerializerOptions);
 
-    private JsonSerializerOptions _deserializeJsonSerializerOptions = new JsonSerializerOptions
+    private static readonly JsonSerializerOptions _deserializeJsonSerializerOptions = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         //Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
     };
 
+    public void Initialize()
+    {
+        if (_optionsMonitor.CurrentValue.ReCaptcha.ActionAffix.IsNullOrEmptyOrWhiteSpace())
+            throw new Exception($"{nameof(_optionsMonitor.CurrentValue.ReCaptcha.ActionAffix)} IsNullOrEmptyOrWhiteSpace");
+    }
+
     public async Task<bool> VerifyAsync(string token, string action)
     {
-        var httpClient = _httpClientFactory.CreateClient("recaptcha");
+        var httpClient = _httpClientFactory.CreateClient(Constant.HttpClientName);
 
         var serializedRequest = _serializedRequest
-            .Replace("[action]", _optionsMonitor.CurrentValue.ReCaptcha.ActionPrefix + action)
+            .Replace("[action]", action + _optionsMonitor.CurrentValue.ReCaptcha.ActionAffix)
             .Replace("[token]", token);
 
         using var stringContent = new StringContent(serializedRequest, Encoding.UTF8, "application/json");

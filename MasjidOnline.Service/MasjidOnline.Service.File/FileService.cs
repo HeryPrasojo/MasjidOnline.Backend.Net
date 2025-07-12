@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using MasjidOnline.Library.Exceptions;
@@ -11,7 +13,7 @@ public class FileService : IFileService
     {
         Access = FileAccess.Write,
         Mode = FileMode.Create,
-        Options = FileOptions.WriteThrough,
+        Options = FileOptions.SequentialScan,
         Share = FileShare.None,
     };
 
@@ -28,5 +30,18 @@ public class FileService : IFileService
         await fileStream.FlushAsync();
 
         fileStream.Close();
+    }
+
+    public void Initialize(IEnumerable<string> createDirectories)
+    {
+        foreach (var createDirectory in createDirectories)
+        {
+            if (!Directory.Exists(createDirectory))
+            {
+                Debug.WriteLine($"Creating directory: {createDirectory}");
+
+                Directory.CreateDirectory(createDirectory);
+            }
+        }
     }
 }
