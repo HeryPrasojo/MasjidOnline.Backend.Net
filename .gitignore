@@ -84,6 +84,7 @@
 /MasjidOnline.Library/bin
 /MasjidOnline.Library/obj
 /MasjidOnline.Api.Web/bin
+/MasjidOnline.Api.Web/file
 /MasjidOnline.Api.Web/obj
 /MasjidOnline.Api.Web/appsettings.Local.json
 /MasjidOnline.Api.Web/MasjidOnline.Api.Web.csproj.user

@@ -35,11 +35,7 @@ public class AddByAnonymBusiness(IService _service, IIdGenerator _idGenerator) :
 
                 var isVerified = await _service.Captcha.VerifyAsync(addByAnonymRequest.CaptchaToken, "infaq");
 
-                if (!isVerified) return new()
-                {
-                    ResultCode = ResponseResultCode.InputMismatch,
-                    ResultMessage = nameof(addByAnonymRequest.CaptchaToken),
-                };
+                if (!isVerified) throw new InputMismatchException(nameof(addByAnonymRequest.CaptchaToken));
 
 
                 var pass = new Pass
