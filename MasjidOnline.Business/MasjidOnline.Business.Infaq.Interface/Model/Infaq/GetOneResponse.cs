@@ -4,6 +4,11 @@ namespace MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 
 public class GetOneResponse : Response
 {
+    public required GetOneResponseInfaq Infaq { get; set; }
+}
+
+public class GetOneResponseInfaq
+{
     public required string DateTime { get; set; }
 
     public required string? MunfiqName { get; set; }

@@ -1,8 +1,10 @@
+using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Entity.Payment;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
 
@@ -10,7 +12,7 @@ namespace MasjidOnline.Business.Infaq.Infaq;
 
 public class GetOneBusiness(IService _service) : IGetOneBusiness
 {
-    public async Task<GetOneResponse> GetAsync(IData _data, GetOneRequest? getOneRequest)
+    public async Task<GetOneResponse> GetAsync(Session.Interface.Model.Session session, IData _data, GetOneRequest? getOneRequest)
     {
         getOneRequest = _service.FieldValidator.ValidateRequired(getOneRequest);
         getOneRequest.Id = _service.FieldValidator.ValidateRequiredPlus(getOneRequest.Id);
@@ -20,14 +22,34 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
 
         if (infaq == default) throw new InputMismatchException($"{nameof(getOneRequest.Id)}: {getOneRequest.Id}");
 
+
+        var getOneResponseInfaq = new GetOneResponseInfaq()
+        {
+            Amount = _service.Localization[infaq.Amount, session.CultureInfo],
+            DateTime = _service.Localization[infaq.DateTime, session.CultureInfo],
+            MunfiqName = infaq.MunfiqName,
+            PaymentStatus = _service.Localization[infaq.PaymentStatus, session.CultureInfo],
+            PaymentType = _service.Localization[infaq.PaymentType, session.CultureInfo],
+        };
+
+
+        -;// undone check authorization
+
+        var manualPaymentTypes = new PaymentType[] { PaymentType.ManualBankTransfer, PaymentType.ManualCash, PaymentType.ManualGopay };
+
+        if (manualPaymentTypes.Contains(infaq.PaymentType))
+        {
+            if (infaq.PaymentStatus == PaymentStatus.New)
+            {
+
+            }
+        }
+
+
         return new()
         {
             ResultCode = ResponseResultCode.Success,
-            Amount = "",
-            DateTime = "",
-            MunfiqName = "",
-            PaymentStatus = "",
-            PaymentType = "",
+            Infaq = getOneResponseInfaq,
         };
     }
 }

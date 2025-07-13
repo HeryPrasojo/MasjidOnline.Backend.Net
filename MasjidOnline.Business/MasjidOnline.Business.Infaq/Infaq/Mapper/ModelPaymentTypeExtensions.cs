@@ -10,7 +10,7 @@ public static class ModelPaymentTypeExtensions
         return paymentType switch
         {
             Payment.Interface.Model.PaymentType.Cash
-                => PaymentType.Cash,
+                => PaymentType.ManualCash,
 
             Payment.Interface.Model.PaymentType.ManualBankTransfer
                 => PaymentType.ManualBankTransfer,

@@ -119,10 +119,11 @@ internal static class InfaqEndpoint
 
         internal static async Task<Business.Infaq.Interface.Model.Infaq.GetOneResponse> GetOneAsync(
             IBusiness _business,
+            Session session,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Infaq.GetOneRequest? getOneRequest)
         {
-            return await _business.Infaq.Infaq.GetOne.GetAsync(_data, getOneRequest);
+            return await _business.Infaq.Infaq.GetOne.GetAsync(session, _data, getOneRequest);
         }
     }
 
