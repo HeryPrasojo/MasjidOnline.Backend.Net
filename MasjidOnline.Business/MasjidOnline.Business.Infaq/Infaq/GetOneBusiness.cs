@@ -5,6 +5,7 @@ using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.Payment;
+using MasjidOnline.Entity.User;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
 
@@ -33,15 +34,25 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
         };
 
 
-        -;// undone check authorization
-
-        var manualPaymentTypes = new PaymentType[] { PaymentType.ManualBankTransfer, PaymentType.ManualCash, PaymentType.ManualGopay };
-
-        if (manualPaymentTypes.Contains(infaq.PaymentType))
+        if (!session.IsUserAnonymous)
         {
-            if (infaq.PaymentStatus == PaymentStatus.New)
+            var userType = await _data.User.User.GetTypeAsync(session.UserId);
+
+            if (userType == UserType.Internal)
             {
 
+            }
+
+            _data.Authorization.UserInternalPermission.GetByUserIdAsync();// undone check authorization
+
+            var manualPaymentTypes = new PaymentType[] { PaymentType.ManualBankTransfer, PaymentType.ManualCash, PaymentType.ManualGopay };
+
+            if (manualPaymentTypes.Contains(infaq.PaymentType))
+            {
+                if (infaq.PaymentStatus == PaymentStatus.New)
+                {
+
+                }
             }
         }
 

@@ -5,5 +5,5 @@ namespace MasjidOnline.Business.Infaq.Interface.Infaq;
 
 public interface IGetOneBusiness
 {
-    Task<GetOneResponse> GetAsync(Session.Interface.Model.Session, IData _data, GetOneRequest? getOneRequest);
+    Task<GetOneResponse> GetAsync(Session.Interface.Model.Session session, IData _data, GetOneRequest? getOneRequest);
 }
