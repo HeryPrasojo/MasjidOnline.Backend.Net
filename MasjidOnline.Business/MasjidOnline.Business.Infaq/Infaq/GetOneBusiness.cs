@@ -37,10 +37,23 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
 
         if (!session.IsUserAnonymous)
         {
-            var manualPaymentTypes = new PaymentType[] { PaymentType.ManualBankTransfer, PaymentType.ManualCash, PaymentType.ManualGopay };
+            PaymentType[] manualPaymentTypes = [
+                PaymentType.ManualBankTransfer,
+                PaymentType.ManualCash,
+                PaymentType.ManualGopay,
+            ];
 
             if (manualPaymentTypes.Contains(infaq.PaymentType))
             {
+                PaymentStatus[] paymentStatuses = [
+                    PaymentStatus.CancelRequest,
+                    PaymentStatus.ExpireRequest,
+                    PaymentStatus.FailRequest,
+                    PaymentStatus.New,
+                    PaymentStatus.SuccessRequest,
+                    PaymentStatus.VoidRequest,
+                ];
+
                 if (infaq.PaymentStatus == PaymentStatus.New)
                 {
                     var userType = await _data.User.User.GetTypeAsync(session.UserId);
@@ -50,9 +63,27 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
                         var userInternalPermission = await _data.Authorization.UserInternalPermission.FirstOrDefaultAsync(session.UserId)
                             ?? throw new DataMismatchException("UserInternalPermission " + session.UserId);
 
-                        if (userInternalPermission.InfaqExpireAdd)
+                        if (infaq.PaymentStatus == PaymentStatus.New)
                         {
-                            getOneResponseFlags.CanExpire = true;
+                            if (userInternalPermission.InfaqExpireAdd)
+                            {
+                                // undone check date
+                                getOneResponseFlags.CanExpire = true;
+                            }
+
+                            if (userInternalPermission.InfaqSuccessAdd)
+                            {
+                                getOneResponseFlags.CanSuccess = true;
+                            }
+
+                            if (userInternalPermission.InfaqVoidAdd)
+                            {
+                                getOneResponseFlags.CanVoid = true;
+                            }
+                        }
+                        else if (infaq.PaymentStatus == PaymentStatus.SuccessRequest)
+                        {
+
                         }
                         // undone check authorization
                     }
@@ -64,6 +95,7 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
         return new()
         {
             ResultCode = ResponseResultCode.Success,
+            Flags = getOneResponseFlags,
             Infaq = getOneResponseInfaq,
         };
     }
