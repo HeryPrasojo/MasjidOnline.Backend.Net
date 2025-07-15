@@ -33,25 +33,29 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
             PaymentType = _service.Localization[infaq.PaymentType, session.CultureInfo],
         };
 
+        var getOneResponseFlags = new GetOneResponseFlags();
 
         if (!session.IsUserAnonymous)
         {
-            var userType = await _data.User.User.GetTypeAsync(session.UserId);
-
-            if (userType == UserType.Internal)
-            {
-
-            }
-
-            _data.Authorization.UserInternalPermission.GetByUserIdAsync();// undone check authorization
-
             var manualPaymentTypes = new PaymentType[] { PaymentType.ManualBankTransfer, PaymentType.ManualCash, PaymentType.ManualGopay };
 
             if (manualPaymentTypes.Contains(infaq.PaymentType))
             {
                 if (infaq.PaymentStatus == PaymentStatus.New)
                 {
+                    var userType = await _data.User.User.GetTypeAsync(session.UserId);
 
+                    if (userType == UserType.Internal)
+                    {
+                        var userInternalPermission = await _data.Authorization.UserInternalPermission.FirstOrDefaultAsync(session.UserId)
+                            ?? throw new DataMismatchException("UserInternalPermission " + session.UserId);
+
+                        if (userInternalPermission.InfaqExpireAdd)
+                        {
+                            getOneResponseFlags.CanExpire = true;
+                        }
+                        // undone check authorization
+                    }
                 }
             }
         }

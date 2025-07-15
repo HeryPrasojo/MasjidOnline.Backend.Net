@@ -16,7 +16,7 @@ public class UserInternalPermissionRepository(AuthorizationDataContext _authoriz
     }
 
     // hack multiple specific column only
-    public async Task<UserInternalPermission?> GetByUserIdAsync(int userId)
+    public async Task<UserInternalPermission?> FirstOrDefaultAsync(int userId)
     {
         return await _dbSet.FirstOrDefaultAsync(e => e.UserId == userId);
     }

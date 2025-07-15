@@ -6,5 +6,5 @@ namespace MasjidOnline.Data.Interface.Repository.Authorization;
 public interface IUserInternalPermissionRepository
 {
     Task AddAsync(UserInternalPermission userInternalPermission);
-    Task<UserInternalPermission?> GetByUserIdAsync(int userId);
+    Task<UserInternalPermission?> FirstOrDefaultAsync(int userId);
 }

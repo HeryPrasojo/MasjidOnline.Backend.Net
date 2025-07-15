@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 
@@ -29,7 +29,7 @@ internal abstract class AuthorizationBase
         if (session.IsUserAnonymous) throw new PermissionException(nameof(session.IsUserAnonymous));
 
 
-        var userInternalPermission = await _data.Authorization.UserInternalPermission.GetByUserIdAsync(session.UserId);
+        var userInternalPermission = await _data.Authorization.UserInternalPermission.FirstOrDefaultAsync(session.UserId);
 
         if (userInternalPermission == default) throw new PermissionException(nameof(session.UserId));
 
