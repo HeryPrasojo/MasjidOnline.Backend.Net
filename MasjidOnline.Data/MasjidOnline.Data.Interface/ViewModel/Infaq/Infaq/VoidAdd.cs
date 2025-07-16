@@ -9,5 +9,5 @@ public class VoidAdd
 
     public required PaymentType PaymentType { get; set; }
 
-    public required PaymentStatus PaymentStatus { get; set; }
+    public required PaymentStatus Status { get; set; }
 }

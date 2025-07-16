@@ -29,7 +29,7 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
             Amount = _service.Localization[infaq.Amount, session.CultureInfo],
             DateTime = _service.Localization[infaq.DateTime, session.CultureInfo],
             MunfiqName = infaq.MunfiqName,
-            PaymentStatus = _service.Localization[infaq.PaymentStatus, session.CultureInfo],
+            PaymentStatus = _service.Localization[infaq.Status, session.CultureInfo],
             PaymentType = _service.Localization[infaq.PaymentType, session.CultureInfo],
         };
 
@@ -51,10 +51,11 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
                     PaymentStatus.FailRequest,
                     PaymentStatus.New,
                     PaymentStatus.SuccessRequest,
+                    PaymentStatus.Success,
                     PaymentStatus.VoidRequest,
                 ];
 
-                if (infaq.PaymentStatus == PaymentStatus.New)
+                if (paymentStatuses.Any(s => s == infaq.Status))
                 {
                     var userType = await _data.User.User.GetTypeAsync(session.UserId);
 
@@ -63,25 +64,30 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
                         var userInternalPermission = await _data.Authorization.UserInternalPermission.FirstOrDefaultAsync(session.UserId)
                             ?? throw new DataMismatchException("UserInternalPermission " + session.UserId);
 
-                        if (infaq.PaymentStatus == PaymentStatus.New)
+                        if (infaq.Status == PaymentStatus.New)
                         {
                             if (userInternalPermission.InfaqExpireAdd)
                             {
-                                // undone check date
-                                getOneResponseFlags.CanExpire = true;
+                                if (infaq.DateTime < System.DateTime.Now.AddDays(-3d)) getOneResponseFlags.CanAddExpire = true;
                             }
 
-                            if (userInternalPermission.InfaqSuccessAdd)
-                            {
-                                getOneResponseFlags.CanSuccess = true;
-                            }
-
-                            if (userInternalPermission.InfaqVoidAdd)
-                            {
-                                getOneResponseFlags.CanVoid = true;
-                            }
+                            if (userInternalPermission.InfaqSuccessAdd) getOneResponseFlags.CanAddSuccess = true;
                         }
-                        else if (infaq.PaymentStatus == PaymentStatus.SuccessRequest)
+                        else if (infaq.Status == PaymentStatus.ExpireRequest)
+                        {
+                            if (userInternalPermission.InfaqExpireApprove) getOneResponseFlags.CanApproveExpire = true;
+
+                            if (userInternalPermission.InfaqExpireCancel) getOneResponseFlags.CanCancelExpire = true;
+                        }
+                        else if (infaq.Status == PaymentStatus.SuccessRequest)
+                        {
+
+                        }
+                        else if (infaq.Status == PaymentStatus.Success)
+                        {
+
+                        }
+                        else if (infaq.Status == PaymentStatus.VoidRequest)
                         {
 
                         }

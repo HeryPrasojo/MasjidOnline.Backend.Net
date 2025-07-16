@@ -45,7 +45,7 @@ public class InfaqInitializer(
             (
                 Id INTEGER PRIMARY KEY,
                 DateTime TEXT NOT NULL,
-                PaymentStatus INTEGER NOT NULL,
+                Status INTEGER NOT NULL,
                 PaymentType INTEGER NOT NULL,
                 UserId INTEGER NOT NULL,
                 MunfiqName INTEGER NOT NULL,

@@ -82,7 +82,7 @@ public class AddByAnonymBusiness(IService _service, IIdGenerator _idGenerator) :
             Id = _idGenerator.Infaq.InfaqId,
             Amount = addByAnonymRequest.Amount.Value,
             DateTime = utcNow,
-            PaymentStatus = PaymentStatus.New,
+            Status = PaymentStatus.New,
             PaymentType = addByAnonymRequest.PaymentType.Value.ToEntity(),
             UserId = session.UserId,
             MunfiqName = addByAnonymRequest.MunfiqName,

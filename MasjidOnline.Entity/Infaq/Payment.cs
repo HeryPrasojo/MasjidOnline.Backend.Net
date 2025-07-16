@@ -10,5 +10,5 @@ public class Payment
 
     public required DateTime DateTime { get; set; }
 
-    public required PaymentStatus PaymentStatus { get; set; }
+    public required PaymentStatus Status { get; set; }
 }

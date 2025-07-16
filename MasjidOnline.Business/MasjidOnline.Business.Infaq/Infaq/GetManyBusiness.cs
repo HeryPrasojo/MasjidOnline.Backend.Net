@@ -52,7 +52,7 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
                 DateTime = _service.Localization[e.DateTime, session.CultureInfo],
                 Id = e.Id,
                 MunfiqName = e.MunfiqName,
-                PaymentStatus = _service.Localization[e.PaymentStatus, session.CultureInfo],
+                PaymentStatus = _service.Localization[e.Status, session.CultureInfo],
                 PaymentType = _service.Localization[e.PaymentType, session.CultureInfo],
             }),
             RecordCount = getManyResult.RecordCount,

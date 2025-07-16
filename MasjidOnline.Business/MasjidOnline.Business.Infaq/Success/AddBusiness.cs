@@ -36,7 +36,7 @@ public class AddBusiness(
 
         if (infaq == default) throw new InputMismatchException(nameof(addRequest.InfaqId));
 
-        if (infaq.PaymentStatus != PaymentStatus.New) throw new InputMismatchException(nameof(infaq.PaymentStatus));
+        if (infaq.Status != PaymentStatus.New) throw new InputMismatchException(nameof(infaq.Status));
 
 
         var successDateTime = infaq.DateTime.AddDays(_optionsMonitor.CurrentValue.PaymentExpire);

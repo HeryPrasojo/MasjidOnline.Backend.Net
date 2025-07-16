@@ -25,9 +25,13 @@ public class GetOneResponseInfaq
 
 public class GetOneResponseFlags
 {
-    public bool CanExpire { get; set; }
+    public bool CanAddExpire { get; set; }
 
-    public bool CanSuccess { get; set; }
+    public bool CanAddSuccess { get; set; }
+
+    public bool CanApproveExpire { get; set; }
+
+    public bool CanCancelExpire { get; set; }
 
     public bool CanVoid { get; set; }
 }

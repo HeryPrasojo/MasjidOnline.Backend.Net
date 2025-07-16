@@ -45,7 +45,7 @@ public class AddByInternal(IAuthorizationBusiness _authorizationBusiness, IServi
             Id = _idGenerator.Infaq.InfaqId,
             Amount = addByInternalRequest.Amount.Value,
             DateTime = utcNow,
-            PaymentStatus = PaymentStatus.New,
+            Status = PaymentStatus.New,
             PaymentType = addByInternalRequest.PaymentType.Value.ToEntity(),
             UserId = session.UserId,
             MunfiqName = addByInternalRequest.MunfiqName,

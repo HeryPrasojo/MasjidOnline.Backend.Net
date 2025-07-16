@@ -25,7 +25,7 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
             .Select(e => new ExpireAdd
             {
                 DateTime = e.DateTime,
-                PaymentStatus = e.PaymentStatus,
+                Status = e.Status,
                 PaymentType = e.PaymentType,
             })
             .FirstOrDefaultAsync();
@@ -37,7 +37,7 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
             .Select(e => new SuccessAdd
             {
                 DateTime = e.DateTime,
-                PaymentStatus = e.PaymentStatus,
+                Status = e.Status,
                 PaymentType = e.PaymentType,
             })
             .FirstOrDefaultAsync();
@@ -49,7 +49,7 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
             .Select(e => new VoidAdd
             {
                 DateTime = e.DateTime,
-                PaymentStatus = e.PaymentStatus,
+                Status = e.Status,
                 PaymentType = e.PaymentType,
             })
             .FirstOrDefaultAsync();
@@ -64,7 +64,7 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
         var queryable = _dbSet.AsQueryable();
 
         if (paymentStatuses != default)
-            queryable = queryable.Where(e => paymentStatuses.Any(s => s == e.PaymentStatus));
+            queryable = queryable.Where(e => paymentStatuses.Any(s => s == e.Status));
 
         if (paymentTypes != default)
             queryable = queryable.Where(e => paymentTypes.Any(s => s == e.PaymentType));
@@ -85,7 +85,7 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
                     DateTime = e.DateTime,
                     Id = e.Id,
                     MunfiqName = e.MunfiqName,
-                    PaymentStatus = e.PaymentStatus,
+                    Status = e.Status,
                     PaymentType = e.PaymentType,
                 })
                 .ToArrayAsync(),
@@ -106,7 +106,7 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
                 Amount = e.Amount,
                 DateTime = e.DateTime,
                 MunfiqName = e.MunfiqName,
-                PaymentStatus = e.PaymentStatus,
+                Status = e.Status,
                 PaymentType = e.PaymentType,
             })
             .FirstOrDefaultAsync();
@@ -118,11 +118,11 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
         var infaq = new Entity.Infaq.Infaq
         {
             Id = id,
-            PaymentStatus = paymentStatus,
+            Status = paymentStatus,
         };
 
         _dbSet.Attach(infaq)
-            .Property(e => e.PaymentStatus)
+            .Property(e => e.Status)
             .IsModified = true;
     }
 }
