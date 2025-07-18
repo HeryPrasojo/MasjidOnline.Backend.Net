@@ -60,7 +60,7 @@ public class InfaqInitializer(
         await _infaqDataContext.Database.ExecuteSqlAsync(sql);
 
 
-        sql = $@"CREATE INDEX InfaqPaymentStatus ON Infaq (PaymentStatus)";
+        sql = $@"CREATE INDEX InfaqPaymentStatus ON Infaq (Status)";
 
         await _infaqDataContext.Database.ExecuteSqlAsync(sql);
     }

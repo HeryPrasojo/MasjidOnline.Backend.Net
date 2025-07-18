@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.Infaq.Infaq.Mapper;
 using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
-using MasjidOnline.Business.Model;
+using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.Captcha;
@@ -14,10 +14,11 @@ using MasjidOnline.Entity.Infaq;
 using MasjidOnline.Entity.Payment;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
+using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Business.Infaq.Infaq;
 
-public class AddByAnonymBusiness(IService _service, IIdGenerator _idGenerator) : Add, IAddByAnonymBusiness
+public class AddByAnonymBusiness(IService _service, IIdGenerator _idGenerator, IOptionsMonitor<BusinessOptions> _optionsMonitor) : Add, IAddByAnonymBusiness
 {
     public async Task<Response> AddAsync(IData _data, Session.Interface.Model.Session session, AddByAnonymRequest? addByAnonymRequest)
     {
@@ -118,8 +119,8 @@ public class AddByAnonymBusiness(IService _service, IIdGenerator _idGenerator) :
 
                 var fileName = infaqFile.Id;
 
-                var path = Constant.Path.InfaqFileDirectory + fileName;
-                var temporaryPath = Constant.Path.InfaqFileDirectory + '_' + fileName;
+                var path = _optionsMonitor.CurrentValue.Directory.Infaq + fileName;
+                var temporaryPath = _optionsMonitor.CurrentValue.Directory.Infaq + '_' + fileName;
 
 
                 await _service.File.CreateAsync(file, temporaryPath);

@@ -1,9 +1,11 @@
 using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface;
+using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Service.Interface;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MasjidOnline.Api.Web.WebApplicationExtension;
@@ -20,11 +22,13 @@ internal static class InitializeExtension
         var service = GetService<IService>(serviceScope.ServiceProvider);
         var business = GetService<IBusiness>(serviceScope.ServiceProvider);
 
+        var businessOptions = webApplication.Configuration.Get<BusinessOptions>() ?? throw new ApplicationException($"Get {nameof(BusinessOptions)} fail");
+
         await dataInitializer.InitializeAsync(data);
 
         await idGenerator.InitializeAsync(data);
 
-        service.Initialize([Business.Model.Constant.Path.InfaqFileDirectory]);
+        service.Initialize([businessOptions.Directory.Infaq]);
 
         await business.InitializeAsync(data);
 

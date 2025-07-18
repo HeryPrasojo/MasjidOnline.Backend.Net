@@ -33,6 +33,9 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
             PaymentType = _service.Localization[infaq.PaymentType, session.CultureInfo],
         };
 
+
+        // todo move to each entity
+
         var getOneResponseFlags = new GetOneResponseFlags();
 
         if (!session.IsUserAnonymous)
@@ -68,7 +71,7 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
                         {
                             if (userInternalPermission.InfaqExpireAdd)
                             {
-                                if (infaq.DateTime < System.DateTime.Now.AddDays(-3d)) getOneResponseFlags.CanAddExpire = true;
+                                if (infaq.DateTime < System.DateTime.UtcNow.AddDays(-3d)) getOneResponseFlags.CanAddExpire = true;
                             }
 
                             if (userInternalPermission.InfaqSuccessAdd) getOneResponseFlags.CanAddSuccess = true;
@@ -81,17 +84,21 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
                         }
                         else if (infaq.Status == PaymentStatus.SuccessRequest)
                         {
+                            if (userInternalPermission.InfaqSuccessApprove) getOneResponseFlags.CanApproveSuccess = true;
 
+                            if (userInternalPermission.InfaqSuccessCancel) getOneResponseFlags.CanCancelSuccess = true;
                         }
                         else if (infaq.Status == PaymentStatus.Success)
                         {
-
+                            // todo check infaq finalized
+                            if (userInternalPermission.InfaqVoidAdd) getOneResponseFlags.CanAddVoid = true;
                         }
                         else if (infaq.Status == PaymentStatus.VoidRequest)
                         {
+                            if (userInternalPermission.InfaqVoidApprove) getOneResponseFlags.CanAddVoid = true;
 
+                            if (userInternalPermission.InfaqVoidCancel) getOneResponseFlags.CanAddVoid = true;
                         }
-                        // undone check authorization
                     }
                 }
             }
@@ -101,6 +108,11 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
         return new()
         {
             ResultCode = ResponseResultCode.Success,
+            Amount = _service.Localization[infaq.Amount, session.CultureInfo],
+            DateTime = _service.Localization[infaq.DateTime, session.CultureInfo],
+            MunfiqName = infaq.MunfiqName,
+            Status = _service.Localization[infaq.Status, session.CultureInfo],
+            PaymentType = _service.Localization[infaq.PaymentType, session.CultureInfo],
             Flags = getOneResponseFlags,
             Infaq = getOneResponseInfaq,
         };

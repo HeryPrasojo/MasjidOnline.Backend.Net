@@ -5,6 +5,7 @@ using MasjidOnline.Data.Interface.Databases;
 
 namespace MasjidOnline.Data.EntityFramework;
 
+// hack move *DataContext constructor parameters to each of it's property, use IServiceProvider
 public class Data(
     AccountancyDataContext _accountancyDataContext,
     AuditDataContext _auditDataContext,
