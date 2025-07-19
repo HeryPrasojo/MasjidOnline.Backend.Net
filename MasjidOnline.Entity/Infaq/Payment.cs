@@ -2,7 +2,7 @@ using System;
 
 namespace MasjidOnline.Entity.Infaq;
 
-// todo ? remove
+// todo ? move/remove
 public class Payment
 {
     public required int InfaqId { get; set; }

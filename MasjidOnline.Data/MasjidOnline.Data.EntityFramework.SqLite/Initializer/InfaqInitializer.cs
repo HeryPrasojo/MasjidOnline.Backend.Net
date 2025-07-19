@@ -85,10 +85,10 @@ public class InfaqInitializer(
     protected override async Task CreateTableInfaqInternalAsync()
     {
         FormattableString sql = @$"
-            CREATE TABLE InfaqInternal
+            CREATE TABLE InfaqOnBehalf
             (
                 InfaqId INTEGER PRIMARY KEY,
-                BehalfUserId INTEGER NOT NULL
+                ByUserId INTEGER NOT NULL
             )";
 
         await _infaqDataContext.Database.ExecuteSqlAsync(sql);

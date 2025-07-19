@@ -11,7 +11,7 @@ using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.Infaq.Infaq;
 
-public class AddByInternal(IAuthorizationBusiness _authorizationBusiness, IService _service, IIdGenerator _idGenerator) : Add
+public class AddByBehalf(IAuthorizationBusiness _authorizationBusiness, IService _service, IIdGenerator _idGenerator) : Add
 {
 
     public async Task AddAsync(IData _data, Session.Interface.Model.Session session, AddByInternalRequest addByInternalRequest)
@@ -64,6 +64,8 @@ public class AddByInternal(IAuthorizationBusiness _authorizationBusiness, IServi
 
         await _data.Transaction.CommitAsync();
 
+
+        //todo low undone
     }
 
 }

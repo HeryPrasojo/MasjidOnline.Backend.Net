@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using MasjidOnline.Service.Mail.Interface;
@@ -10,7 +10,7 @@ namespace MasjidOnline.Service.Mail.MailKit;
 
 public class SmtpMailSenderService(IOptionsMonitor<MailOptions> _optionsMonitor) : IMailSenderService
 {
-    // hack create queue when fail
+    // hack low create queue when fail
     public async Task SendMailAsync(MailMessage mailMessage)
     {
         var mailOption = _optionsMonitor.CurrentValue;

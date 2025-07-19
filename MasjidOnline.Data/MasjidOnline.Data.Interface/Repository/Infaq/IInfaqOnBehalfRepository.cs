@@ -3,7 +3,7 @@ using MasjidOnline.Entity.Infaq;
 
 namespace MasjidOnline.Data.Interface.Repository.Infaq;
 
-public interface IInfaqInternalRepository
+public interface IInfaqOnBehalfRepository
 {
-    Task AddAsync(InfaqInternal infaqInternal);
+    Task AddAsync(InfaqOnBehalf infaqOnBehalf);
 }
