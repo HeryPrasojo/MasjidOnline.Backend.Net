@@ -192,4 +192,52 @@ public class FieldValidatorService : IFieldValidatorService
 
         return value;
     }
+
+    public string ValidateRequiredPassword(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    {
+        if (value == default) throw new InputInvalidException(valueExpression);
+
+
+        var length = value.Length;
+
+        if (length < 8) throw new InputInvalidException(valueExpression);
+
+
+        var isDigitExists = false;
+        var isLowerExists = false;
+        var isSymbolExists = false;
+        var isUpperExists = false;
+
+        foreach (var v in value)
+        {
+            if (!isDigitExists)
+            {
+                if (char.IsNumber(v)) isDigitExists = true;
+            }
+
+            if (!isLowerExists)
+            {
+                if (char.IsLower(v)) isLowerExists = true;
+            }
+
+            if (!isSymbolExists)
+            {
+                if (char.IsSymbol(v)) isSymbolExists = true;
+            }
+
+            if (!isUpperExists)
+            {
+                if (char.IsUpper(v)) isUpperExists = true;
+            }
+
+            if (isDigitExists && isLowerExists && isSymbolExists && isUpperExists)
+            {
+                break;
+            }
+        }
+
+        if (!isDigitExists || !isLowerExists || !isSymbolExists || !isUpperExists) throw new InputInvalidException(valueExpression);
+
+        return value;
+    }
 }

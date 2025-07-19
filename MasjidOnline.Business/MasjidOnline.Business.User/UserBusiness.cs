@@ -111,7 +111,7 @@ public class UserBusiness(
             InfaqExpireAdd = true,
             InfaqExpireApprove = true,
             InfaqExpireCancel = true,
-            InfaqInternalAdd = true,
+            InfaqOnBehalfAdd = true,
             InfaqSuccessAdd = true,
             InfaqSuccessApprove = true,
             InfaqSuccessCancel = true,

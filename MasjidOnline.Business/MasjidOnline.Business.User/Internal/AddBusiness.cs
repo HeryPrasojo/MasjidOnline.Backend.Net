@@ -28,7 +28,7 @@ public class AddBusiness(
 
         var any = await _data.User.Internal.AnyAsync(addRequest.EmailAddress, Entity.User.InternalStatus.New);
 
-        if (any) throw new InputMismatchException(nameof(addRequest.EmailAddress));
+        if (any) throw new InputMismatchException($"New {addRequest.EmailAddress} exists");
 
 
         any = await _data.User.UserEmailAddress.AnyAsync(addRequest.EmailAddress);
@@ -48,6 +48,8 @@ public class AddBusiness(
         await _data.User.Internal.AddAndSaveAsync(@internal);
 
         // todo wait approver notification
+
+        // todo wait undone
 
         return new()
         {

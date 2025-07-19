@@ -14,6 +14,6 @@ public class UserUserBusiness(
     ) : IUserUserBusiness
 {
     public IAddRegisterBusiness AddRegister { get; } = new AddRegisterBusiness();
-    public ILoginBusiness Login { get; } = new LoginBusiness(_sessionBusiness, _service);
+    public ILoginEmailBusiness LoginEmail { get; } = new LoginEmailBusiness(_sessionBusiness, _service);
     public ISetPasswordBusiness SetPassword { get; } = new SetPasswordBusiness(_sessionBusiness, _service);
 }

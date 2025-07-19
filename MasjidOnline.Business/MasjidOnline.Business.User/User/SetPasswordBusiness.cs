@@ -16,8 +16,8 @@ public class SetPasswordBusiness(ISessionBusiness _sessionBusiness, IService _se
     {
         setPasswordRequest = _service.FieldValidator.ValidateRequired(setPasswordRequest);
         var passwordCodeBytes = _service.FieldValidator.ValidateRequiredHex(setPasswordRequest.PasswordCode, 128);
-        setPasswordRequest.Password = _service.FieldValidator.ValidateRequiredText255(setPasswordRequest.Password);
-        setPasswordRequest.PasswordRepeat = _service.FieldValidator.ValidateRequiredText255(setPasswordRequest.PasswordRepeat);
+        setPasswordRequest.Password = _service.FieldValidator.ValidateRequiredPassword(setPasswordRequest.Password);
+        setPasswordRequest.PasswordRepeat = _service.FieldValidator.ValidateRequired(setPasswordRequest.PasswordRepeat);
 
         if (setPasswordRequest.Password != setPasswordRequest.PasswordRepeat) throw new InputInvalidException(nameof(setPasswordRequest.PasswordRepeat));
 

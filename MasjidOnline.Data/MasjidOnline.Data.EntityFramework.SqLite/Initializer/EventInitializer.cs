@@ -26,7 +26,7 @@ public class EventInitializer(
         await _eventDataContext.Database.ExecuteSqlAsync(sql);
 
 
-        sql = $@"CREATE INDEX ExceptionDateTime ON Exception (ExceptionDateTime)";
+        sql = $@"CREATE INDEX ExceptionDateTime ON Exception (DateTime)";
 
         await _eventDataContext.Database.ExecuteSqlAsync(sql);
     }

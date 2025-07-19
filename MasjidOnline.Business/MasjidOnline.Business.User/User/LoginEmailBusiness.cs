@@ -11,10 +11,15 @@ using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.User.User;
 
-public class LoginBusiness(ISessionBusiness _sessionBusiness, IService _service) : ILoginBusiness
+public class LoginEmailBusiness(ISessionBusiness _sessionBusiness, IService _service) : ILoginEmailBusiness
 {
+    // undone
     public async Task<Response> LoginAsync(IData _data, Session.Interface.Model.Session session, LoginRequest? loginRequest)
     {
+        loginRequest = _service.FieldValidator.ValidateRequired(loginRequest);
+        loginRequest.EmailAddress = _service.FieldValidator.ValidateRequiredEmailAddress(loginRequest.EmailAddress);
+        loginRequest.Password = _service.FieldValidator.ValidateRequiredText255(loginRequest.Password);
+
         var userId = await _data.User.UserEmailAddress.GetUserIdAsync(loginRequest.EmailAddress);
 
         if (userId == default) throw new InputMismatchException(nameof(loginRequest.EmailAddress));

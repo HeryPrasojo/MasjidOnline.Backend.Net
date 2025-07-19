@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.CompilerServices;
 
 namespace MasjidOnline.Service.FieldValidator.Interface;
@@ -16,4 +16,5 @@ public interface IFieldValidatorService
     byte[] ValidateRequiredBase64(string? value, int valueLength, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
     int ValidateRequiredPlus(int? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
     Enum ValidateRequired(Enum? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
+    string ValidateRequiredPassword(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
 }

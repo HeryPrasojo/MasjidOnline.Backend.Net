@@ -16,7 +16,7 @@ public class AddByBehalf(IAuthorizationBusiness _authorizationBusiness, IService
 
     public async Task AddAsync(IData _data, Session.Interface.Model.Session session, AddByInternalRequest addByInternalRequest)
     {
-        await _authorizationBusiness.Infaq.Infaq.AuthorizeInternalAddAync(session, _data);
+        await _authorizationBusiness.Infaq.Infaq.AuthorizeOnBehalfAddAync(session, _data);
 
 
         addByInternalRequest = _service.FieldValidator.ValidateRequired(addByInternalRequest);

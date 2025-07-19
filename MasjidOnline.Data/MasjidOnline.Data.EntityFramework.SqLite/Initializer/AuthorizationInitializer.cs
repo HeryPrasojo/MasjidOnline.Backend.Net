@@ -34,6 +34,8 @@ public class AuthorizationInitializer(
                 AccountancyExpenditureApprove INTEGER NOT NULL,
                 AccountancyExpenditureCancel INTEGER NOT NULL,
 
+                InfaqOnBehalfAdd INTEGER NOT NULL,
+
                 InfaqExpireAdd INTEGER NOT NULL,
                 InfaqExpireApprove INTEGER NOT NULL,
                 InfaqExpireCancel INTEGER NOT NULL,

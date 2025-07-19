@@ -73,7 +73,7 @@ internal static class UserEndpoint
             Session session,
             [FromBody] Business.User.Interface.Model.User.LoginRequest? loginRequest)
         {
-            return await _business.User.User.Login.LoginAsync(_data, session, loginRequest);
+            return await _business.User.User.LoginEmail.LoginAsync(_data, session, loginRequest);
         }
 
         internal static async Task<Response> SetPasswordAsync(
