@@ -10,6 +10,11 @@ public class UserPreferenceRepository(UserDataContext _userDataContext) : IUserP
 {
     private readonly DbSet<UserPreference> _dbSet = _userDataContext.Set<UserPreference>();
 
+    public async Task AddAsync(UserPreference userPreference)
+    {
+        await _dbSet.AddAsync(userPreference);
+    }
+
     public async Task<bool> AnyAsync(int userId)
     {
         return await _dbSet.AnyAsync(e => e.UserId == userId);

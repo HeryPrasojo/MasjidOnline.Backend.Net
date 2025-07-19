@@ -15,10 +15,10 @@ public class GetOneResponse : Response
 
     public required string Status { get; set; }
 
-    // todo remove
+    // todo wait remove
     public required GetOneResponseFlags Flags { get; set; }
 
-    // todo remove
+    // todo wait remove
     public required GetOneResponseInfaq Infaq { get; set; }
 }
 

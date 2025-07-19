@@ -6,7 +6,7 @@ using MasjidOnline.Business.Infaq.Interface.Success;
 using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Entity.Payment;
+using MasjidOnline.Entity.Infaq;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
 using Microsoft.Extensions.Options;
@@ -36,7 +36,7 @@ public class AddBusiness(
 
         if (infaq == default) throw new InputMismatchException(nameof(addRequest.InfaqId));
 
-        if (infaq.Status != PaymentStatus.New) throw new InputMismatchException(nameof(infaq.Status));
+        if (infaq.Status != InfaqStatus.New) throw new InputMismatchException(nameof(infaq.Status));
 
 
         var successDateTime = infaq.DateTime.AddDays(_optionsMonitor.CurrentValue.PaymentExpire);
@@ -55,11 +55,11 @@ public class AddBusiness(
 
         await _data.Infaq.Success.AddAsync(success);
 
-        _data.Infaq.Infaq.SetPaymentStatus(addRequest.InfaqId.Value, PaymentStatus.SuccessRequest);
+        _data.Infaq.Infaq.SetStatus(addRequest.InfaqId.Value, InfaqStatus.SuccessRequest);
 
         await _data.Infaq.SaveAsync();
 
-        // todo approver notification
+        // todo wait approver notification
 
         return new()
         {

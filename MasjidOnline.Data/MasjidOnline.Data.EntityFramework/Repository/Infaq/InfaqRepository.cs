@@ -5,6 +5,7 @@ using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.Infaq;
 using MasjidOnline.Data.Interface.ViewModel.Infaq.Infaq;
 using MasjidOnline.Data.Interface.ViewModel.Repository;
+using MasjidOnline.Entity.Infaq;
 using MasjidOnline.Entity.Payment;
 using Microsoft.EntityFrameworkCore;
 
@@ -57,7 +58,7 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
 
     public async Task<ManyResult<ManyRecord>> GetManyAsync(
         IEnumerable<PaymentType>? paymentTypes = default,
-        IEnumerable<PaymentStatus>? paymentStatuses = default,
+        IEnumerable<InfaqStatus>? paymentStatuses = default,
         int skip = 0,
         int take = 1)
     {
@@ -113,7 +114,7 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
     }
 
 
-    public void SetPaymentStatus(int id, PaymentStatus paymentStatus)
+    public void SetStatus(int id, InfaqStatus paymentStatus)
     {
         var infaq = new Entity.Infaq.Infaq
         {

@@ -5,7 +5,7 @@ using MasjidOnline.Business.Infaq.Interface.Model.Success;
 using MasjidOnline.Business.Infaq.Interface.Success;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Entity.Payment;
+using MasjidOnline.Entity.Infaq;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
 
@@ -35,7 +35,7 @@ public class ApproveBusiness(IAuthorizationBusiness _authorizationBusiness, ISer
             DateTime.UtcNow,
             session.UserId);
 
-        _data.Infaq.Infaq.SetPaymentStatus(success.InfaqId, PaymentStatus.Success);
+        _data.Infaq.Infaq.SetStatus(success.InfaqId, InfaqStatus.Success);
 
         await _data.Infaq.SaveAsync();
 

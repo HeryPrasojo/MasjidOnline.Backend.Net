@@ -82,7 +82,7 @@ internal static class MapEndpointsExtension
 
         var userUserGroup = userGroup.MapGroup("user/");
 
-        // todo change path
+        // todo wait change path
         userUserGroup.MapPost("login", UserEndpoint.User.LoginAsync);
         userUserGroup.MapPost("setPassword", UserEndpoint.User.SetPasswordAsync);
 

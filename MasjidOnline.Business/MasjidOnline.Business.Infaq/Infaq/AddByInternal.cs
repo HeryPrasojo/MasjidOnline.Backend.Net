@@ -6,7 +6,6 @@ using MasjidOnline.Business.Infaq.Infaq.Mapper;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.Infaq;
-using MasjidOnline.Entity.Payment;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
 
@@ -45,7 +44,7 @@ public class AddByInternal(IAuthorizationBusiness _authorizationBusiness, IServi
             Id = _idGenerator.Infaq.InfaqId,
             Amount = addByInternalRequest.Amount.Value,
             DateTime = utcNow,
-            Status = PaymentStatus.New,
+            Status = InfaqStatus.New,
             PaymentType = addByInternalRequest.PaymentType.Value.ToEntity(),
             UserId = session.UserId,
             MunfiqName = addByInternalRequest.MunfiqName,

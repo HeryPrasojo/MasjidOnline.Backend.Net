@@ -4,6 +4,7 @@ using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Entity.Infaq;
 using MasjidOnline.Entity.Payment;
 using MasjidOnline.Entity.User;
 using MasjidOnline.Library.Exceptions;
@@ -34,7 +35,7 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
         };
 
 
-        // todo move to each entity
+        // todo wait move to each entity
 
         var getOneResponseFlags = new GetOneResponseFlags();
 
@@ -48,17 +49,17 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
 
             if (manualPaymentTypes.Contains(infaq.PaymentType))
             {
-                PaymentStatus[] paymentStatuses = [
-                    PaymentStatus.CancelRequest,
-                    PaymentStatus.ExpireRequest,
-                    PaymentStatus.FailRequest,
-                    PaymentStatus.New,
-                    PaymentStatus.SuccessRequest,
-                    PaymentStatus.Success,
-                    PaymentStatus.VoidRequest,
+                InfaqStatus[] infaqStatuses = [
+                    InfaqStatus.CancelRequest,
+                    InfaqStatus.ExpireRequest,
+                    InfaqStatus.FailRequest,
+                    InfaqStatus.New,
+                    InfaqStatus.SuccessRequest,
+                    InfaqStatus.Success,
+                    InfaqStatus.VoidRequest,
                 ];
 
-                if (paymentStatuses.Any(s => s == infaq.Status))
+                if (infaqStatuses.Any(s => s == infaq.Status))
                 {
                     var userType = await _data.User.User.GetTypeAsync(session.UserId);
 
@@ -67,7 +68,7 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
                         var userInternalPermission = await _data.Authorization.UserInternalPermission.FirstOrDefaultAsync(session.UserId)
                             ?? throw new DataMismatchException("UserInternalPermission " + session.UserId);
 
-                        if (infaq.Status == PaymentStatus.New)
+                        if (infaq.Status == InfaqStatus.New)
                         {
                             if (userInternalPermission.InfaqExpireAdd)
                             {
@@ -76,24 +77,24 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
 
                             if (userInternalPermission.InfaqSuccessAdd) getOneResponseFlags.CanAddSuccess = true;
                         }
-                        else if (infaq.Status == PaymentStatus.ExpireRequest)
+                        else if (infaq.Status == InfaqStatus.ExpireRequest)
                         {
                             if (userInternalPermission.InfaqExpireApprove) getOneResponseFlags.CanApproveExpire = true;
 
                             if (userInternalPermission.InfaqExpireCancel) getOneResponseFlags.CanCancelExpire = true;
                         }
-                        else if (infaq.Status == PaymentStatus.SuccessRequest)
+                        else if (infaq.Status == InfaqStatus.SuccessRequest)
                         {
                             if (userInternalPermission.InfaqSuccessApprove) getOneResponseFlags.CanApproveSuccess = true;
 
                             if (userInternalPermission.InfaqSuccessCancel) getOneResponseFlags.CanCancelSuccess = true;
                         }
-                        else if (infaq.Status == PaymentStatus.Success)
+                        else if (infaq.Status == InfaqStatus.Success)
                         {
-                            // todo check infaq finalized
+                            // todo wait check infaq finalized
                             if (userInternalPermission.InfaqVoidAdd) getOneResponseFlags.CanAddVoid = true;
                         }
-                        else if (infaq.Status == PaymentStatus.VoidRequest)
+                        else if (infaq.Status == InfaqStatus.VoidRequest)
                         {
                             if (userInternalPermission.InfaqVoidApprove) getOneResponseFlags.CanAddVoid = true;
 

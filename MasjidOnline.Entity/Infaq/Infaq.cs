@@ -18,6 +18,5 @@ public class Infaq
 
     public PaymentType PaymentType { get; set; }
 
-    // todo rename to Status
-    public required PaymentStatus Status { get; set; }
+    public required InfaqStatus Status { get; set; }
 }

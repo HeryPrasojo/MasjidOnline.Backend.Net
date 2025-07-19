@@ -35,7 +35,7 @@ public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IServ
 
         await _data.User.SaveAsync();
 
-        // todo requester notification
+        // todo wait requester notification
 
         return new()
         {

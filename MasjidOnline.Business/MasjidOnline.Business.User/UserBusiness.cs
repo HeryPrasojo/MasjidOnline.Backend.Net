@@ -92,6 +92,15 @@ public class UserBusiness(
         await _data.User.PasswordCode.AddAsync(passwordCode);
 
 
+        var userPreference = new UserPreference
+        {
+            ApplicationCulture = UserPreferenceApplicationCulture.English,
+            UserId = user.Id,
+        };
+
+        await _data.User.UserPreference.AddAsync(userPreference);
+
+
         var userInternalPermission = new UserInternalPermission
         {
             UserId = user.Id,
@@ -117,9 +126,6 @@ public class UserBusiness(
         await _data.Authorization.UserInternalPermission.AddAsync(userInternalPermission);
 
         await _data.Audit.UserInternalPermissionLog.AddAddAsync(userInternalPermission, utcNow, Constant.UserId.System);
-
-
-        // todo add userPreference
 
 
         await _data.Transaction.CommitAsync();

@@ -7,7 +7,7 @@ namespace MasjidOnline.Data.IdGenerators;
 
 public class DatabaseTemplateIdGenerator : IDatabaseTemplateIdGenerator
 {
-    // undone rename
+    // undone template rename
     private int _tableTemplateId;
 
     public async Task InitializeAsync(IData data)
@@ -15,6 +15,6 @@ public class DatabaseTemplateIdGenerator : IDatabaseTemplateIdGenerator
         _tableTemplateId = await data.DatabaseTemplate.TableTemplate.GetMaxIdAsync();
     }
 
-    // undone rename
+    // undone template rename
     public int TableTemplateId => Interlocked.Increment(ref _tableTemplateId);
 }

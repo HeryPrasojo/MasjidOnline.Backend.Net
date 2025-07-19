@@ -47,7 +47,7 @@ public class AddBusiness(
 
         await _data.User.Internal.AddAndSaveAsync(@internal);
 
-        // todo approver notification
+        // todo wait approver notification
 
         return new()
         {

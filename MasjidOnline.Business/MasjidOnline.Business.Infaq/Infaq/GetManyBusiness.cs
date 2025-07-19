@@ -6,6 +6,7 @@ using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Entity.Infaq;
 using MasjidOnline.Entity.Payment;
 using MasjidOnline.Service.Interface;
 
@@ -28,17 +29,17 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
             paymentTypes = getManyRequest.PaymentTypes.Select(m => m.ToEntity());
 
 
-        IEnumerable<PaymentStatus>? paymentStatuses = default;
+        IEnumerable<InfaqStatus>? infaqStatuses = default;
 
         if (getManyRequest.PaymentStatuses != default)
-            paymentStatuses = getManyRequest.PaymentStatuses.Select(m => m.ToEntity());
+            infaqStatuses = getManyRequest.PaymentStatuses.Select(m => m.ToEntity());
 
 
         var take = 10;
 
         var getManyResult = await _data.Infaq.Infaq.GetManyAsync(
             paymentTypes: paymentTypes,
-            paymentStatuses: paymentStatuses,
+            paymentStatuses: infaqStatuses,
             skip: (getManyRequest.Page.Value - 1) * take,
             take: take);
 

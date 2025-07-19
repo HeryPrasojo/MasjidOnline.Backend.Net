@@ -11,7 +11,6 @@ using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.Captcha;
 using MasjidOnline.Entity.Infaq;
-using MasjidOnline.Entity.Payment;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
 using Microsoft.Extensions.Options;
@@ -83,7 +82,7 @@ public class AddByAnonymBusiness(IService _service, IIdGenerator _idGenerator, I
             Id = _idGenerator.Infaq.InfaqId,
             Amount = addByAnonymRequest.Amount.Value,
             DateTime = utcNow,
-            Status = PaymentStatus.New,
+            Status = InfaqStatus.New,
             PaymentType = addByAnonymRequest.PaymentType.Value.ToEntity(),
             UserId = session.UserId,
             MunfiqName = addByAnonymRequest.MunfiqName,

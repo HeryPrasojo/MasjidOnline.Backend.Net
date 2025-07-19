@@ -5,7 +5,7 @@ using MasjidOnline.Business.Infaq.Interface.Model.Success;
 using MasjidOnline.Business.Infaq.Interface.Success;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Entity.Payment;
+using MasjidOnline.Entity.Infaq;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
 
@@ -36,11 +36,11 @@ public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IServ
             DateTime.UtcNow,
             session.UserId);
 
-        _data.Infaq.Infaq.SetPaymentStatus(success.InfaqId, PaymentStatus.New);
+        _data.Infaq.Infaq.SetStatus(success.InfaqId, InfaqStatus.New);
 
         await _data.Infaq.SaveAsync();
 
-        // todo requester notification
+        // todo wait requester notification
 
         return new()
         {

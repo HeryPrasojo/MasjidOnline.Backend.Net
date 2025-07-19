@@ -1,6 +1,7 @@
-namespace MasjidOnline.Entity.Payment;
+namespace MasjidOnline.Entity.Infaq;
 
-public enum PaymentStatus
+// todo high rename to InfaqStatus
+public enum InfaqStatus
 {
     Invalid = 0,
     New = 11,

@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MasjidOnline.Entity.Infaq;
 
+// todo medium rename to onbehalf
 public class InfaqInternal
 {
     [Key]

@@ -37,7 +37,7 @@ public class AddBusiness(
 
         await _data.Accountancy.Expenditure.AddAndSaveAsync(expenditure);
 
-        // todo approver notification
+        // todo wait notification approver
 
         return new()
         {

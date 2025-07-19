@@ -17,7 +17,7 @@ using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Business;
 
-// todo add sealed
+// hack add sealed
 public class Business(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
     Authorization.Interface.IAuthorizationBusiness _authorizationBusiness,
