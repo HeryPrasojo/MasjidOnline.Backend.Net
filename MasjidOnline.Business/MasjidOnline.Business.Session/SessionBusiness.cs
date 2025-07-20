@@ -14,7 +14,7 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
     {
         var sessionEntity = new Entity.Session.Session
         {
-            ApplicationCulture = Model.Constant.UserPreferenceApplicationCulture.FromCultureInfo[session.CultureInfo],
+            ApplicationCulture = Model.Constant.UserPreferenceApplicationCulture[session.CultureInfo],
             DateTime = DateTime.UtcNow,
             Digest = _idGenerator.Session.SessionDigest,
             Id = _idGenerator.Session.SessionId,
@@ -81,7 +81,7 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
 
                 if (string.IsNullOrWhiteSpace(cultureName))
                 {
-                    session.CultureInfo = Model.Constant.UserPreferenceApplicationCulture.ToCultureInfo[sessionEntity.ApplicationCulture];
+                    session.CultureInfo = Model.Constant.UserPreferenceApplicationCulture[sessionEntity.ApplicationCulture];
                 }
                 else
                 {
@@ -89,7 +89,7 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
 
                     if (!session.IsUserAnonymous)
                     {
-                        var userPreferenceApplicationCulture = Model.Constant.UserPreferenceApplicationCulture.FromCultureInfo[session.CultureInfo];
+                        var userPreferenceApplicationCulture = Model.Constant.UserPreferenceApplicationCulture[session.CultureInfo];
 
                         _data.User.UserPreference.SetApplicationCulture(session.UserId, userPreferenceApplicationCulture);
                     }
@@ -103,7 +103,7 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
             {
                 if (string.IsNullOrWhiteSpace(cultureName))
                 {
-                    session.CultureInfo = Model.Constant.UserPreferenceApplicationCulture.ToCultureInfo[sessionEntity.ApplicationCulture];
+                    session.CultureInfo = Model.Constant.UserPreferenceApplicationCulture[sessionEntity.ApplicationCulture];
                 }
                 else
                 {
@@ -111,7 +111,7 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
 
                     session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfos[cultureName];
 
-                    var userPreferenceApplicationCulture = Model.Constant.UserPreferenceApplicationCulture.FromCultureInfo[session.CultureInfo];
+                    var userPreferenceApplicationCulture = Model.Constant.UserPreferenceApplicationCulture[session.CultureInfo];
 
                     if (!session.IsUserAnonymous)
                     {

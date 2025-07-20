@@ -57,7 +57,7 @@ public class UserBusiness(
             Status = InternalStatus.Approve,
             UpdateDateTime = utcNow,
             UpdateUserId = Constant.UserId.System,
-            UserId = Constant.UserId.System,
+            UserId = Constant.UserId.Root,
         };
 
         await _data.User.Internal.AddAsync(@internal);
@@ -90,15 +90,6 @@ public class UserBusiness(
         };
 
         await _data.User.PasswordCode.AddAsync(passwordCode);
-
-
-        var userPreference = new UserPreference
-        {
-            ApplicationCulture = UserPreferenceApplicationCulture.English,
-            UserId = user.Id,
-        };
-
-        await _data.User.UserPreference.AddAsync(userPreference);
 
 
         var userInternalPermission = new UserInternalPermission

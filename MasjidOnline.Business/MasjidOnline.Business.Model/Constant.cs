@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Globalization;
-
 namespace MasjidOnline.Business.Model;
 
 public static class Constant
@@ -14,16 +11,5 @@ public static class Constant
         public const int Root = 3;
     }
 
-    public static class UserPreferenceApplicationCulture
-    {
-        public static readonly Dictionary<CultureInfo, Entity.User.UserPreferenceApplicationCulture> FromCultureInfo = new()
-        {
-            { Service.Localization.Interface.Model.Constant.CultureInfoEnglish, Entity.User.UserPreferenceApplicationCulture.English },
-        };
-
-        public static readonly Dictionary<Entity.User.UserPreferenceApplicationCulture, CultureInfo> ToCultureInfo = new()
-        {
-            { Entity.User.UserPreferenceApplicationCulture.English, Service.Localization.Interface.Model.Constant.CultureInfoEnglish },
-        };
-    }
+    public static readonly UserPreferenceApplicationCulture UserPreferenceApplicationCulture = new();
 }

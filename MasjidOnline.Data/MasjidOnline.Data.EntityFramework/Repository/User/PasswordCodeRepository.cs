@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.User;
-using MasjidOnline.Data.Interface.ViewModel.User;
 using MasjidOnline.Entity.User;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,14 +17,18 @@ public class PasswordCodeRepository(UserDataContext _userDataContext) : IPasswor
         await _dbSet.AddAsync(passwordCode);
     }
 
-    public async Task<PasswordCodeForUserSetPassword?> GetForUserSetPasswordAsync(byte[] code)
+    public async Task<byte[]?> GetLatestCodeForSetPasswordAsync(int userId)
     {
-        return await _dbSet.Where(e => e.Code.SequenceEqual(code) && e.UseDateTime == default)
-            .Select(e => new PasswordCodeForUserSetPassword
-            {
-                UserId = e.UserId,
-                UseDateTime = e.UseDateTime,
-            })
+        return await _dbSet.Where(e => (e.UserId == userId) && (e.UseDateTime == default))
+            .OrderByDescending(e => e.DateTime)
+            .Select(e => e.Code)
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<int?> GetUserIdForSetPasswordAsync(byte[] code)
+    {
+        return await _dbSet.Where(e => e.Code.SequenceEqual(code) && (e.UseDateTime == default))
+            .Select(e => e.UserId)
             .FirstOrDefaultAsync();
     }
 

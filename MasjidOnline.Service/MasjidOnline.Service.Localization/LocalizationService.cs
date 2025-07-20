@@ -37,37 +37,13 @@ public class LocalizationService() : ILocalizationService
         },
     };
 
-    public string this[DateTime value, CultureInfo cultureInfo]
-    {
-        get
-        {
-            return value.ToString("yyyy MMM dd, HH:mm", cultureInfo);
-        }
-    }
+    public string this[DateTime value, CultureInfo cultureInfo] => value.ToString("yyyy MMM dd, HH:mm", cultureInfo);
 
-    public string this[decimal value, CultureInfo cultureInfo]
-    {
-        get
-        {
-            return value.ToString(cultureInfo);
-        }
-    }
+    public string this[decimal value, CultureInfo cultureInfo] => value.ToString(cultureInfo);
 
-    public string this[Enum value, CultureInfo cultureInfo]
-    {
-        get
-        {
-            return this[value.ToString(), cultureInfo];
-        }
-    }
+    public string this[Enum value, CultureInfo cultureInfo] => this[value.ToString(), cultureInfo];
 
-    public string this[int value, CultureInfo cultureInfo]
-    {
-        get
-        {
-            return value.ToString(cultureInfo);
-        }
-    }
+    public string this[int value, CultureInfo cultureInfo] => value.ToString(cultureInfo);
 
     public string this[string key, CultureInfo cultureInfo]
     {
