@@ -67,7 +67,7 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
 
             var sessionEntity = await _data.Session.Session.GetForStartAsync(decryptedRquestSessionIdBytes);
 
-            if (sessionEntity == default) throw new SessionMismatchException(idBase64Expression);
+            if (sessionEntity == default) -throw new SessionMismatchException(idBase64Expression);
 
             if (sessionEntity.DateTime < DateTime.UtcNow.AddDays(-32)) throw new SessionExpireException(idBase64Expression);
 

@@ -17,23 +17,23 @@ public class SetPasswordBusiness(ISessionBusiness _sessionBusiness, IService _se
     public async Task<Response> SetAsync(Session.Interface.Model.Session session, IData _data, SetPasswordRequest? setPasswordRequest)
     {
         setPasswordRequest = _service.FieldValidator.ValidateRequired(setPasswordRequest);
-        var passwordCodeBytes = _service.FieldValidator.ValidateRequiredHex(setPasswordRequest.PasswordCode, 128);
+        var codeBytes = _service.FieldValidator.ValidateRequiredHex(setPasswordRequest.Code, 128);
         setPasswordRequest.Password = _service.FieldValidator.ValidateRequiredPassword(setPasswordRequest.Password);
-        setPasswordRequest.PasswordRepeat = _service.FieldValidator.ValidateRequired(setPasswordRequest.PasswordRepeat);
+        setPasswordRequest.Password2 = _service.FieldValidator.ValidateRequired(setPasswordRequest.Password2);
 
-        if (setPasswordRequest.Password != setPasswordRequest.PasswordRepeat) throw new InputInvalidException(nameof(setPasswordRequest.PasswordRepeat));
+        if (setPasswordRequest.Password != setPasswordRequest.Password2) throw new InputInvalidException(nameof(setPasswordRequest.Password2));
 
 
-        var userId = await _data.User.PasswordCode.GetUserIdForSetPasswordAsync(passwordCodeBytes);
+        var userId = await _data.User.PasswordCode.GetUserIdForSetPasswordAsync(codeBytes);
 
-        if (userId == default) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+        if (userId == default) throw new InputMismatchException(nameof(setPasswordRequest.Code));
 
 
         var code = await _data.User.PasswordCode.GetLatestCodeForSetPasswordAsync(userId.Value);
 
-        if (code == default) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+        if (code == default) throw new InputMismatchException(nameof(setPasswordRequest.Code));
 
-        if (code.SequenceEqual(passwordCodeBytes)) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+        if (code.SequenceEqual(codeBytes)) throw new InputMismatchException(nameof(setPasswordRequest.Code));
 
 
         await _data.Transaction.BeginAsync(_data.User, _data.Session);
@@ -42,7 +42,7 @@ public class SetPasswordBusiness(ISessionBusiness _sessionBusiness, IService _se
 
         _data.User.User.SetFirstPassword(userId.Value, passwordBytes);
 
-        _data.User.PasswordCode.SetUseDateTime(passwordCodeBytes, DateTime.UtcNow);
+        _data.User.PasswordCode.SetUseDateTime(codeBytes, DateTime.UtcNow);
 
 
         var userPreference = new UserPreference

@@ -53,6 +53,8 @@ public class ExceptionMiddleware(
             exceptionResponse.ResultCode = ResponseResultCode.Success;
         }
 
+        exceptionResponse.ResultMessage = exception.Message;
+
         return exceptionResponse;
     }
 
