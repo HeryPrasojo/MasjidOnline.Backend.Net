@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Accountancy;
 
+// todo low change *DataContext to DbContext
 public class ExpenditureRepository(AccountancyDataContext _accountancyDataContext) : IExpenditureRepository
 {
     private readonly DbSet<Expenditure> _dbSet = _accountancyDataContext.Set<Expenditure>();

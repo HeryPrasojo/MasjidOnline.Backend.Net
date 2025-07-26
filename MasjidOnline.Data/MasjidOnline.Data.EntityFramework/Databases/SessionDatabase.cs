@@ -5,6 +5,7 @@ using MasjidOnline.Data.Interface.Repository.Session;
 
 namespace MasjidOnline.Data.EntityFramework.Databases;
 
+// todo low change *DataContext to DbContext
 public class SessionDatabase(SessionDataContext _sessionDataContext) : Database(_sessionDataContext), ISessionDatabase
 {
     private ISessionSettingRepository? _sessionSettingRepository;

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Payment;
 
+// todo low change *DataContext to DbContext
 public class ManualRecommendationIdRepository(PaymentDataContext _databaseDataContext) : IManualRecommendationIdRepository
 {
     private readonly DbSet<ManualRecommendationId> _dbSet = _databaseDataContext.Set<ManualRecommendationId>();

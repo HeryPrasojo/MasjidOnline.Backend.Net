@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Authorization;
 
+// todo low change *DataContext to DbContext
 public class UserInternalPermissionRepository(AuthorizationDataContext _authorizationDataContext) : IUserInternalPermissionRepository
 {
     private readonly DbSet<UserInternalPermission> _dbSet = _authorizationDataContext.Set<UserInternalPermission>();

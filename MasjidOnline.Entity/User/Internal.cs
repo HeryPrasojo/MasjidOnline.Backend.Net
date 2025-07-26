@@ -2,6 +2,7 @@ using System;
 
 namespace MasjidOnline.Entity.User;
 
+// todo low rename to InternalUser
 public class Internal
 {
     public required int Id { get; set; }

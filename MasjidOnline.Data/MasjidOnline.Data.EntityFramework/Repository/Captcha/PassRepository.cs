@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.Captcha;
 using MasjidOnline.Entity.Captcha;
@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Captcha;
 
+// todo low change *DataContext to DbContext
 public class PassRepository(CaptchaDataContext _captchaDataContext) : IPassRepository
 {
     private readonly DbSet<Pass> _dbSet = _captchaDataContext.Set<Pass>();

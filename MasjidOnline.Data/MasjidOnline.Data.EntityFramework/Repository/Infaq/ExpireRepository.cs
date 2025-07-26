@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Infaq;
 
+// todo low change *DataContext to DbContext
 public class ExpireRepository(InfaqDataContext _infaqDataContext) : IExpireRepository
 {
     private readonly DbSet<Expire> _dbSet = _infaqDataContext.Set<Expire>();

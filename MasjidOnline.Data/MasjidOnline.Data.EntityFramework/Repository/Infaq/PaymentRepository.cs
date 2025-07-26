@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Infaq;
 
+// todo low change *DataContext to DbContext
 public class PaymentRepository(InfaqDataContext _infaqDataContext) : IPaymentRepository
 {
     private readonly DbSet<Entity.Infaq.Payment> _dbSet = _infaqDataContext.Set<Entity.Infaq.Payment>();

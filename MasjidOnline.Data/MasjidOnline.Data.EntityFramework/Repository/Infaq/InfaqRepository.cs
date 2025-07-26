@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Infaq;
 
+// todo low change *DataContext to DbContext
 public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqRepository
 {
     private readonly DbSet<Entity.Infaq.Infaq> _dbSet = _infaqDataContext.Set<Entity.Infaq.Infaq>();
@@ -79,7 +80,7 @@ public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqReposit
         return new()
         {
             Records = await queryable.Skip(skip)
-            .Take(take)
+                .Take(take)
                 .Select(e => new ManyRecord
                 {
                     Amount = e.Amount,

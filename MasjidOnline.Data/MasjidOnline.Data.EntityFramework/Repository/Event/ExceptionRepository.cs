@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Event;
 
+// todo low change *DataContext to DbContext
 public class ExceptionRepository(EventDataContext _eventDataContext) : IExceptionRepository
 {
     private readonly DbSet<Exception> _dbSet = _eventDataContext.Set<Exception>();

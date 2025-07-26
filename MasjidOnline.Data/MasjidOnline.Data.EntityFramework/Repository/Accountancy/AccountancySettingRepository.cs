@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Accountancy;
 
+// todo low change *DataContext to DbContext
 public class AccountancySettingRepository(AccountancyDataContext _accountancyDataContext) : IAccountancySettingRepository
 {
     private readonly DbSet<AccountancySetting> _dbSet = _accountancyDataContext.Set<AccountancySetting>();

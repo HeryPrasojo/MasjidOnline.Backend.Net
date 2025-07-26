@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Infaq;
 
+// todo low change *DataContext to DbContext
 public class InfaqManualRepository(InfaqDataContext _infaqDataContext) : IInfaqManualRepository
 {
     private readonly DbSet<InfaqManual> _dbSet = _infaqDataContext.Set<InfaqManual>();

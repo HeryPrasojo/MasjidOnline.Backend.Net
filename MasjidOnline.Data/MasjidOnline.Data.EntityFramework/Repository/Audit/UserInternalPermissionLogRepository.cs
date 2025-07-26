@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Audit;
 
+// todo low change *DataContext to DbContext
 public class UserInternalPermissionLogRepository(AuditDataContext _auditDataContext, IAuditIdGenerator _auditIdGenerator) : IUserInternalPermissionLogRepository
 {
     private readonly DbSet<UserInternalPermissionLog> _dbSet = _auditDataContext.Set<UserInternalPermissionLog>();

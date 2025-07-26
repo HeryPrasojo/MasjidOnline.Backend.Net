@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.User;
 
+// todo low change *DataContext to DbContext
 public class PasswordCodeRepository(UserDataContext _userDataContext) : IPasswordCodeRepository
 {
     private readonly DbSet<PasswordCode> _dbSet = _userDataContext.Set<PasswordCode>();

@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.User;
 
+// todo low change *DataContext to DbContext
 public class InternalRepository(UserDataContext _userDataContext) : IInternalRepository
 {
     private readonly DbSet<Internal> _dbSet = _userDataContext.Set<Internal>();

@@ -5,6 +5,7 @@ using MasjidOnline.Data.Interface.Repository.Accountancy;
 
 namespace MasjidOnline.Data.EntityFramework.Databases;
 
+// todo low change *DataContext to DbContext
 public class AccountancyDatabase(
     AccountancyDataContext _accountancyDataContext) : Database(_accountancyDataContext), IAccountancyDatabase
 {

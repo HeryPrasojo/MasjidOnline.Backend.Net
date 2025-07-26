@@ -7,6 +7,8 @@ using MasjidOnline.Business.User.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.Authorization;
 using MasjidOnline.Entity.User;
+using MasjidOnline.Library.Extensions;
+using MasjidOnline.Service.Interface;
 using MasjidOnline.Service.Mail.Interface.Model;
 using Microsoft.Extensions.Options;
 
@@ -17,7 +19,7 @@ public class UserBusiness(
     Authorization.Interface.IAuthorizationBusiness _authorizationBusiness,
     IIdGenerator _idGenerator,
     ISessionBusiness _sessionBusiness,
-    Service.Interface.IService _service
+    IService _service
     ) : IUserBusiness
 {
     public IUserInternalBusiness Internal { get; } = new UserInternalBusiness(_optionsMonitor, _authorizationBusiness, _idGenerator, _service);
@@ -36,6 +38,9 @@ public class UserBusiness(
 
 
         var option = _optionsMonitor.CurrentValue;
+
+        if (option.RootUserEmailAddress.IsNullOrEmptyOrWhiteSpace())
+            throw new ApplicationException($"{nameof(option.RootUserEmailAddress)}");
 
         var utcNow = DateTime.UtcNow;
 

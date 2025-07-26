@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.User;
 
+// todo low change *DataContext to DbContext
 public class UserEmailAddressRepository(UserDataContext _userDataContext) : IUserEmailAddressRepository
 {
     private readonly DbSet<UserEmailAddress> _dbSet = _userDataContext.Set<UserEmailAddress>();

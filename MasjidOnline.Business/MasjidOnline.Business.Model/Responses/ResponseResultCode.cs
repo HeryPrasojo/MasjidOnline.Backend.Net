@@ -3,7 +3,6 @@ namespace MasjidOnline.Business.Model.Responses;
 public enum ResponseResultCode
 {
     Success = 0,
-    SessionMismatch = 3,
     SessionExpire = 5,
     PermissionMismatch = 7,
     Error = 9,

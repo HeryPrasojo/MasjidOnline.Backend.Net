@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.User;
 
+// todo low change *DataContext to DbContext
 public class UserPreferenceRepository(UserDataContext _userDataContext) : IUserPreferenceRepository
 {
     private readonly DbSet<UserPreference> _dbSet = _userDataContext.Set<UserPreference>();

@@ -5,6 +5,7 @@ using MasjidOnline.Data.Interface.Repository.DatabaseTemplate;
 
 namespace MasjidOnline.Data.EntityFramework.Databases;
 
+// todo low change *DataContext to DbContext
 public class DatabaseTemplateDatabase(
     DatabaseTemplateDataContext _databaseTemplateDataContext) : Database(_databaseTemplateDataContext), IDatabaseTemplateDatabase
 {

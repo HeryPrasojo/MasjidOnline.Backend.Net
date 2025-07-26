@@ -5,6 +5,7 @@ using MasjidOnline.Data.Interface.Repository.Authorization;
 
 namespace MasjidOnline.Data.EntityFramework.Databases;
 
+// todo low change *DataContext to DbContext
 public class AuthorizationDatabase(AuthorizationDataContext _authorizationDataContext) : Database(_authorizationDataContext), IAuthorizationDatabase
 {
     private IAuthorizationSettingRepository? _authorizationSettingRepository;

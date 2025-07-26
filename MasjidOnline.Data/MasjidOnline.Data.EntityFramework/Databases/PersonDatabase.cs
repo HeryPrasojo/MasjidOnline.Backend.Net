@@ -5,6 +5,7 @@ using MasjidOnline.Data.Interface.Repository.Person;
 
 namespace MasjidOnline.Data.EntityFramework.Databases;
 
+// todo low change *DataContext to DbContext
 public class PersonDatabase(PersonDataContext _personDataContext) : Database(_personDataContext), IPersonDatabase
 {
     private IPersonSettingRepository? _personSettingRepository;

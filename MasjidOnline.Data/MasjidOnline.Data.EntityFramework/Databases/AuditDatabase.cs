@@ -6,6 +6,7 @@ using MasjidOnline.Data.Interface.Repository.Audit;
 
 namespace MasjidOnline.Data.EntityFramework.Databases;
 
+// todo low change *DataContext to DbContext
 public class AuditDatabase(
     AuditDataContext _auditDataContext,
     IAuditIdGenerator _auditIdGenerator) : Database(_auditDataContext), IAuditDatabase

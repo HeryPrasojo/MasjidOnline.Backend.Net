@@ -44,10 +44,6 @@ public class ExceptionMiddleware(
         {
             exceptionResponse.ResultCode = ResponseResultCode.SessionExpire;
         }
-        else if (exception is SessionMismatchException)
-        {
-            exceptionResponse.ResultCode = ResponseResultCode.SessionMismatch;
-        }
         else if (exception is PermissionException)
         {
             exceptionResponse.ResultCode = ResponseResultCode.Success;

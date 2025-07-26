@@ -5,6 +5,7 @@ using MasjidOnline.Data.Interface.Repository.User;
 
 namespace MasjidOnline.Data.EntityFramework.Databases;
 
+// todo low change *DataContext to DbContext
 public class UserDatabase(UserDataContext _userDataContext) : Database(_userDataContext), IUserDatabase
 {
     private IInternalRepository? _internalRepository;

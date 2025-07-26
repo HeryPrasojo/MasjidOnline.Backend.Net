@@ -5,6 +5,7 @@ using MasjidOnline.Data.Interface.Repository.Infaq;
 
 namespace MasjidOnline.Data.EntityFramework.Databases;
 
+// todo low change *DataContext to DbContext
 public class InfaqDatabase(InfaqDataContext _infaqDataContext) : Database(_infaqDataContext), IInfaqDatabase
 {
     private IExpireRepository? _expireRepository;

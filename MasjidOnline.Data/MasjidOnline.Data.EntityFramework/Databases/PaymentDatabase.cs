@@ -5,6 +5,7 @@ using MasjidOnline.Data.Interface.Repository.Payment;
 
 namespace MasjidOnline.Data.EntityFramework.Databases;
 
+// todo low change *DataContext to DbContext
 public class PaymentDatabase(
     PaymentDataContext _databaseDataContext) : Database(_databaseDataContext), IPaymentDatabase
 {

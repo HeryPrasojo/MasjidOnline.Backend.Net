@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Session;
 
+// todo low change *DataContext to DbContext
 public class SessionRepository(SessionDataContext _sessionDataContext) : ISessionRepository
 {
     private readonly DbSet<Entity.Session.Session> _dbSet = _sessionDataContext.Set<Entity.Session.Session>();

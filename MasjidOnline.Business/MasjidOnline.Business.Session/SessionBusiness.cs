@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
+using MasjidOnline.Library.Extensions;
 using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.Session;
@@ -48,7 +49,7 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
     {
         if (idBase64 == default)
         {
-            if (string.IsNullOrWhiteSpace(cultureName))
+            if (cultureName.IsNullOrEmptyOrWhiteSpace())
             {
                 session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfoEnglish;
             }
@@ -67,60 +68,76 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
 
             var sessionEntity = await _data.Session.Session.GetForStartAsync(decryptedRquestSessionIdBytes);
 
-            if (sessionEntity == default) -throw new SessionMismatchException(idBase64Expression);
-
-            if (sessionEntity.DateTime < DateTime.UtcNow.AddDays(-32)) throw new SessionExpireException(idBase64Expression);
-
-            session.Digest = requestSessionIdBytes;
-            session.Id = sessionEntity.Id;
-            session.UserId = sessionEntity.UserId;
-
-            if (sessionEntity.DateTime < DateTime.UtcNow.AddDays(-16))
+            if (sessionEntity == default)
             {
-                await _data.Transaction.BeginAsync(_data.Session, _data.User);
-
-                if (string.IsNullOrWhiteSpace(cultureName))
+                if (cultureName.IsNullOrEmptyOrWhiteSpace())
                 {
-                    session.CultureInfo = Model.Constant.UserPreferenceApplicationCulture[sessionEntity.ApplicationCulture];
+                    session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfoEnglish;
                 }
                 else
                 {
                     session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfos[cultureName];
-
-                    if (!session.IsUserAnonymous)
-                    {
-                        var userPreferenceApplicationCulture = Model.Constant.UserPreferenceApplicationCulture[session.CultureInfo];
-
-                        _data.User.UserPreference.SetApplicationCulture(session.UserId, userPreferenceApplicationCulture);
-                    }
                 }
 
-                await ChangeAsync(session, _data, sessionEntity.UserId);
+                await ChangeAndSaveAsync(session, _data, Model.Constant.UserId.Anonymous);
 
-                await _data.Transaction.CommitAsync();
+                // hack log event
             }
             else
             {
-                if (string.IsNullOrWhiteSpace(cultureName))
-                {
-                    session.CultureInfo = Model.Constant.UserPreferenceApplicationCulture[sessionEntity.ApplicationCulture];
-                }
-                else
+                if (sessionEntity.DateTime < DateTime.UtcNow.AddDays(-32)) throw new SessionExpireException(idBase64Expression);
+
+                session.Digest = requestSessionIdBytes;
+                session.Id = sessionEntity.Id;
+                session.UserId = sessionEntity.UserId;
+
+                if (sessionEntity.DateTime < DateTime.UtcNow.AddDays(-16))
                 {
                     await _data.Transaction.BeginAsync(_data.Session, _data.User);
 
-                    session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfos[cultureName];
-
-                    var userPreferenceApplicationCulture = Model.Constant.UserPreferenceApplicationCulture[session.CultureInfo];
-
-                    if (!session.IsUserAnonymous)
+                    if (cultureName.IsNullOrEmptyOrWhiteSpace())
                     {
-                        _data.User.UserPreference.SetApplicationCulture(session.UserId, userPreferenceApplicationCulture);
+                        session.CultureInfo = Model.Constant.UserPreferenceApplicationCulture[sessionEntity.ApplicationCulture];
+                    }
+                    else
+                    {
+                        session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfos[cultureName];
+
+                        if (!session.IsUserAnonymous)
+                        {
+                            var userPreferenceApplicationCulture = Model.Constant.UserPreferenceApplicationCulture[session.CultureInfo];
+
+                            _data.User.UserPreference.SetApplicationCulture(session.UserId, userPreferenceApplicationCulture);
+                        }
                     }
 
-                    _data.Session.Session.SetApplicationCulture(session.Id, userPreferenceApplicationCulture);
+                    await ChangeAsync(session, _data, sessionEntity.UserId);
 
                     await _data.Transaction.CommitAsync();
+                }
+                else
+                {
+                    if (cultureName.IsNullOrEmptyOrWhiteSpace())
+                    {
+                        session.CultureInfo = Model.Constant.UserPreferenceApplicationCulture[sessionEntity.ApplicationCulture];
+                    }
+                    else
+                    {
+                        await _data.Transaction.BeginAsync(_data.Session, _data.User);
+
+                        session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfos[cultureName];
+
+                        var userPreferenceApplicationCulture = Model.Constant.UserPreferenceApplicationCulture[session.CultureInfo];
+
+                        if (!session.IsUserAnonymous)
+                        {
+                            _data.User.UserPreference.SetApplicationCulture(session.UserId, userPreferenceApplicationCulture);
+                        }
+
+                        _data.Session.Session.SetApplicationCulture(session.Id, userPreferenceApplicationCulture);
+
+                        await _data.Transaction.CommitAsync();
+                    }
                 }
             }
         }
