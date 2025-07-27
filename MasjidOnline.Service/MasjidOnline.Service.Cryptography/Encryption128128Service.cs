@@ -7,9 +7,9 @@ using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Service.Cryptography;
 
-public class Encryption128128Service(IOptions<Interface.Model.CryptographyOptions> _options, IHash128Service _hash128Service) : IEncryption128128Service
+public class Encryption128128Service(IOptionsMonitor<Interface.Model.CryptographyOptions> _options, IHash128Service _hash128Service) : IEncryption128128Service
 {
-    private readonly byte[] _key = _hash128Service.Hash(_options.Value.Key128);
+    private readonly byte[] _key = _hash128Service.Hash(_options.CurrentValue.Key128);
 
     public byte[] Decrypt(ReadOnlySpan<byte> bytes)
     {

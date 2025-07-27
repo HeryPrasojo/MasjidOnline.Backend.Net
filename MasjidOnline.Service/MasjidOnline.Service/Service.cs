@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using MasjidOnline.Service.Captcha.ReCaptcha;
 using MasjidOnline.Service.Cryptography;
+using MasjidOnline.Service.Cryptography.Interface.Model;
 using MasjidOnline.Service.FieldValidator;
 using MasjidOnline.Service.File;
 using MasjidOnline.Service.Hash;
@@ -13,21 +15,36 @@ using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Service;
 
-public class Service(
-    IHttpClientFactory httpClientFactory,
-    IOptions<Cryptography.Interface.Model.CryptographyOptions> cryptographyOptions,
-    IOptionsMonitor<GoogleOptions> googleOptions,
-    IOptionsMonitor<MailOptions> mailOptions) : IService
+public class Service : IService
 {
-    private static readonly Hash128Service _hash128Service = new();
+    private readonly CaptchaService _captchaService;
+    private readonly FileService _fileService;
+    private readonly LocalizationService _localizationService;
+    private readonly Hash128Service _hash128Service;
+    private readonly Encryption128128Service _encryption128128Service;
+    private readonly FieldValidatorService _fieldValidatorService;
+    private readonly Hash512Service _hash512Service;
+    private readonly SmtpMailSenderService _mailSenderService;
 
-    private readonly CaptchaService _captchaService = new(httpClientFactory, googleOptions);
-    private readonly Encryption128128Service _encryption128128Service = new(cryptographyOptions, _hash128Service);
-    private readonly FieldValidatorService _fieldValidatorService = new();
-    private readonly FileService _fileService = new();
-    private readonly Hash512Service _hash512Service = new();
-    private readonly SmtpMailSenderService _mailSenderService = new(mailOptions);
-    private readonly LocalizationService _localizationService = new();
+    public Service(
+        IHttpClientFactory httpClientFactory,
+        IOptionsMonitor<CryptographyOptions> cryptographyOption,
+        IOptionsMonitor<GoogleOptions> googleOptions,
+        IOptionsMonitor<MailOptions> mailOption)
+    {
+        if (cryptographyOption.CurrentValue.Key128 == default)
+            throw new ApplicationException($"{nameof(CryptographyOptions)}.{nameof(CryptographyOptions.Key128)} is not found");
+
+        _fieldValidatorService = new();
+        _fileService = new();
+        _hash128Service = new();
+        _hash512Service = new();
+        _localizationService = new();
+
+        _captchaService = new(httpClientFactory, googleOptions);
+        _encryption128128Service = new(cryptographyOption, _hash128Service);
+        _mailSenderService = new(mailOption);
+    }
 
     public Captcha.Interface.ICaptchaService Captcha => _captchaService;
     public Cryptography.Interface.IEncryption128128Service Encryption128128 => _encryption128128Service;
