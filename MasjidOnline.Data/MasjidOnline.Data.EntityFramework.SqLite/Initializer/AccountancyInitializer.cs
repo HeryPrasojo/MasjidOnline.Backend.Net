@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 
+// todo low change *DataContext to DbContext
 public class AccountancyInitializer(
     AccountancyDataContext _accountancyDataContext,
     IAccountancyDefinition _accountancyDefinition) : MasjidOnline.Data.Initializer.AccountancyInitializer(_accountancyDefinition)
