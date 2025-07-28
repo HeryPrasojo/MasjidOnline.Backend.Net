@@ -17,4 +17,5 @@ public interface IFieldValidatorService
     int ValidateRequiredPlus(int? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
     Enum ValidateRequired(Enum? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
     string ValidateRequiredPassword(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
+    string ValidateRequiredPhoneNumber(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
 }

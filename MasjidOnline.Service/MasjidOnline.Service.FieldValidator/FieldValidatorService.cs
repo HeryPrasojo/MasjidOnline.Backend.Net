@@ -108,6 +108,28 @@ public class FieldValidatorService : IFieldValidatorService
         return value.Value;
     }
 
+    public string ValidateRequiredPhoneNumber(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    {
+        if (value == default) throw new InputInvalidException(valueExpression);
+
+
+        value = value.Trim();
+
+        var length = value.Length;
+
+        if ((length < 10) || (length > 15)) throw new InputInvalidException(valueExpression);
+
+
+        if (value[0] != '+') throw new InputInvalidException(valueExpression);
+
+        for (var i = 1; i < length; i++)
+        {
+            if (!char.IsDigit(value[i])) throw new InputInvalidException(valueExpression);
+        }
+
+        return value;
+    }
+
     public decimal ValidateRequiredPlus(decimal? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
         if (!value.HasValue) throw new InputInvalidException(valueExpression);
