@@ -117,12 +117,10 @@ public class FieldValidatorService : IFieldValidatorService
 
         var length = value.Length;
 
-        if ((length < 10) || (length > 15)) throw new InputInvalidException(valueExpression);
+        if ((length < 9) || (length > 14)) throw new InputInvalidException(valueExpression);
 
 
-        if (value[0] != '+') throw new InputInvalidException(valueExpression);
-
-        for (var i = 1; i < length; i++)
+        for (var i = 0; i < length; i++)
         {
             if (!char.IsDigit(value[i])) throw new InputInvalidException(valueExpression);
         }
