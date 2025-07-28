@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using MasjidOnline.Service.Hash.Interface;
@@ -15,9 +16,12 @@ public class Hash512Service : IHash512Service
         {
             var number = _random.NextInt64();
 
-            var bytes = BitConverter.GetBytes(number);
+            var bytes = BitConverter.GetBytes(DateTime.Now.Ticks);
+            var bytes2 = BitConverter.GetBytes(number);
 
-            return SHA512.HashData(bytes.AsSpan());
+            var bytes3 = bytes.Concat(bytes2).ToArray();
+
+            return SHA512.HashData(bytes3.AsSpan());
         }
     }
 
