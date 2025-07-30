@@ -19,7 +19,7 @@ public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IServ
 
         rejectRequest = _service.FieldValidator.ValidateRequired(rejectRequest);
         rejectRequest.Id = _service.FieldValidator.ValidateRequiredPlus(rejectRequest.Id);
-        rejectRequest.Description = _service.FieldValidator.ValidateRequiredText255(rejectRequest.Description);
+        rejectRequest.Description = _service.FieldValidator.ValidateRequiredTextDb255(rejectRequest.Description);
 
 
         var @void = await _data.Infaq.Void.GetForSetStatusAsync(rejectRequest.Id.Value);

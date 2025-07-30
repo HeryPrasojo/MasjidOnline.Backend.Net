@@ -18,7 +18,7 @@ public class LoginEmailBusiness(ISessionBusiness _sessionBusiness, IService _ser
     {
         loginRequest = _service.FieldValidator.ValidateRequired(loginRequest);
         loginRequest.EmailAddress = _service.FieldValidator.ValidateRequiredEmailAddress(loginRequest.EmailAddress);
-        loginRequest.Password = _service.FieldValidator.ValidateRequiredText255(loginRequest.Password);
+        loginRequest.Password = _service.FieldValidator.ValidateRequiredTextDb255(loginRequest.Password);
 
         var userId = await _data.User.UserEmailAddress.GetUserIdAsync(loginRequest.EmailAddress);
 

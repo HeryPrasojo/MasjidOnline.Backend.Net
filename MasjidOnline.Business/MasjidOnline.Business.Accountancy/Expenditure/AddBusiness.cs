@@ -22,7 +22,7 @@ public class AddBusiness(
         addRequest = _service.FieldValidator.ValidateRequired(addRequest);
 
         addRequest.Amount = _service.FieldValidator.ValidateRequiredPlus(addRequest.Amount);
-        addRequest.Description = _service.FieldValidator.ValidateRequiredText255(addRequest.Description);
+        addRequest.Description = _service.FieldValidator.ValidateRequiredTextDb255(addRequest.Description);
 
 
         var expenditure = new Entity.Accountancy.Expenditure

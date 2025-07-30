@@ -23,7 +23,7 @@ public class AddBusiness(
         addRequest = _service.FieldValidator.ValidateRequired(addRequest);
 
         addRequest.EmailAddress = _service.FieldValidator.ValidateRequiredEmailAddress(addRequest.EmailAddress);
-        addRequest.Name = _service.FieldValidator.ValidateRequiredText255(addRequest.Name);
+        addRequest.Name = _service.FieldValidator.ValidateRequiredTextDb255(addRequest.Name);
 
 
         var any = await _data.User.Internal.AnyAsync(addRequest.EmailAddress, Entity.User.InternalStatus.New);

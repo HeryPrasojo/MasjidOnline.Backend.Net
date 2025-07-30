@@ -43,7 +43,7 @@ public class FieldValidatorService : IFieldValidatorService
         return value;
     }
 
-    public string ValidateRequired(string? value, int valueMaximumLength, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    public string ValidateRequired(string? value, int valueLength, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
         if (value is null) throw new InputInvalidException(valueExpression);
 
@@ -52,7 +52,21 @@ public class FieldValidatorService : IFieldValidatorService
 
         var length = value.Length;
 
-        if (length == 0) throw new InputInvalidException(valueExpression);
+        if (length != valueLength) throw new InputInvalidException(valueExpression);
+
+        return value;
+    }
+
+    public string ValidateRequired(string? value, int valueMinimumLength, int valueMaximumLength, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    {
+        if (value is null) throw new InputInvalidException(valueExpression);
+
+
+        value = value.Trim();
+
+        var length = value.Length;
+
+        if (length < valueMinimumLength) throw new InputInvalidException(valueExpression);
 
         if (length > valueMaximumLength) throw new InputInvalidException(valueExpression);
 
@@ -77,73 +91,6 @@ public class FieldValidatorService : IFieldValidatorService
         {
             throw new InputInvalidException(valueExpression, exception);
         }
-    }
-
-    public byte[] ValidateRequiredHex(string? value, int valueLength, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
-    {
-        if (value == default) throw new InputInvalidException(valueExpression);
-
-
-        value = value.Trim();
-
-        if (value.Length != valueLength) throw new InputInvalidException(valueExpression);
-
-
-        try
-        {
-            return Convert.FromHexString(value);
-        }
-        catch (Exception exception)
-        {
-            throw new InputInvalidException(valueExpression, exception);
-        }
-    }
-
-    public DateTime ValidateRequiredPast(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
-    {
-        if (!value.HasValue) throw new InputInvalidException(valueExpression);
-
-        if (value >= DateTime.UtcNow) throw new InputInvalidException(valueExpression);
-
-        return value.Value;
-    }
-
-    public string ValidateRequiredPhoneNumber(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
-    {
-        if (value == default) throw new InputInvalidException(valueExpression);
-
-
-        value = value.Trim();
-
-        var length = value.Length;
-
-        if ((length < 9) || (length > 14)) throw new InputInvalidException(valueExpression);
-
-
-        for (var i = 0; i < length; i++)
-        {
-            if (!char.IsDigit(value[i])) throw new InputInvalidException(valueExpression);
-        }
-
-        return value;
-    }
-
-    public decimal ValidateRequiredPlus(decimal? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
-    {
-        if (!value.HasValue) throw new InputInvalidException(valueExpression);
-
-        if (value < 1m) throw new InputInvalidException(valueExpression);
-
-        return value.Value;
-    }
-
-    public int ValidateRequiredPlus(int? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
-    {
-        if (!value.HasValue) throw new InputInvalidException(valueExpression);
-
-        if (value < 1) throw new InputInvalidException(valueExpression);
-
-        return value.Value;
     }
 
     public string ValidateRequiredEmailAddress(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
@@ -199,18 +146,33 @@ public class FieldValidatorService : IFieldValidatorService
         return value;
     }
 
-    public string ValidateRequiredText255(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    public byte[] ValidateRequiredHex(string? value, int valueLength, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
         if (value == default) throw new InputInvalidException(valueExpression);
 
 
         value = value.Trim();
 
-        var length = value.Length;
+        if (value.Length != valueLength) throw new InputInvalidException(valueExpression);
 
-        if (length == 0 || length > 255) throw new InputInvalidException(valueExpression);
 
-        return value;
+        try
+        {
+            return Convert.FromHexString(value);
+        }
+        catch (Exception exception)
+        {
+            throw new InputInvalidException(valueExpression, exception);
+        }
+    }
+
+    public DateTime ValidateRequiredPast(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    {
+        if (!value.HasValue) throw new InputInvalidException(valueExpression);
+
+        if (value >= DateTime.UtcNow) throw new InputInvalidException(valueExpression);
+
+        return value.Value;
     }
 
     public string ValidateRequiredPassword(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
@@ -259,5 +221,61 @@ public class FieldValidatorService : IFieldValidatorService
         if (!isDigitExists || !isLowerExists || !isSymbolExists || !isUpperExists) throw new InputInvalidException(valueExpression);
 
         return value;
+    }
+
+    // hack validate prefix
+    public string ValidateRequiredPhoneNumber(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    {
+        if (value == default) throw new InputInvalidException(valueExpression);
+
+
+        value = value.Trim();
+
+        var length = value.Length;
+
+        if ((length < 9) || (length > 14)) throw new InputInvalidException(valueExpression);
+
+
+        //if (value[0] != '+') throw new InputInvalidException(valueExpression);
+
+        //for (var i = 1; i < length; i++)
+        for (var i = 0; i < length; i++)
+        {
+            if (!char.IsDigit(value[i])) throw new InputInvalidException(valueExpression);
+        }
+
+        return value;
+    }
+
+    public decimal ValidateRequiredPlus(decimal? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    {
+        if (!value.HasValue) throw new InputInvalidException(valueExpression);
+
+        if (value < 1m) throw new InputInvalidException(valueExpression);
+
+        return value.Value;
+    }
+
+    public int ValidateRequiredPlus(int? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    {
+        if (!value.HasValue) throw new InputInvalidException(valueExpression);
+
+        if (value < 1) throw new InputInvalidException(valueExpression);
+
+        return value.Value;
+    }
+
+    public string ValidateRequiredTextDb255(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    {
+        if (value == default) throw new InputInvalidException(valueExpression);
+
+
+        value = value.Trim();
+
+        var length = value.Length;
+
+        if (length == 0 || length > 255) throw new InputInvalidException(valueExpression);
+
+        return ValidateRequired(value, 1, 255);
     }
 }

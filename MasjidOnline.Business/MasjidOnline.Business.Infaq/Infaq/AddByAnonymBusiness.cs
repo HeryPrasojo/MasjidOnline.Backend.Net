@@ -52,7 +52,7 @@ public class AddByAnonymBusiness(IService _service, IIdGenerator _idGenerator, I
         addByAnonymRequest.Amount = _service.FieldValidator.ValidateRequiredPlus(addByAnonymRequest.Amount);
         addByAnonymRequest.PaymentType = (Payment.Interface.Model.PaymentType)_service.FieldValidator.ValidateRequired(addByAnonymRequest.PaymentType);
 
-        addByAnonymRequest.MunfiqName = _service.FieldValidator.ValidateRequiredText255(addByAnonymRequest.MunfiqName);
+        addByAnonymRequest.MunfiqName = _service.FieldValidator.ValidateRequiredTextDb255(addByAnonymRequest.MunfiqName);
         addByAnonymRequest.ManualNotes = _service.FieldValidator.ValidateOptionalText255(addByAnonymRequest.ManualNotes);
 
 

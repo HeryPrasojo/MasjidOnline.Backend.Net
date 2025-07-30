@@ -19,7 +19,7 @@ public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IServ
 
         cancelRequest = _service.FieldValidator.ValidateRequired(cancelRequest);
         cancelRequest.Id = _service.FieldValidator.ValidateRequiredPlus(cancelRequest.Id);
-        cancelRequest.Description = _service.FieldValidator.ValidateRequiredText255(cancelRequest.Description);
+        cancelRequest.Description = _service.FieldValidator.ValidateRequiredTextDb255(cancelRequest.Description);
 
 
         var expire = await _data.Infaq.Expire.GetForSetStatusAsync(cancelRequest.Id.Value);
