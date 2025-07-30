@@ -15,7 +15,11 @@ public static class ServiceCollectionExtensions
         var connectionStrings = configuration.GetSection("ConnectionStrings")
             .Get<ConnectionStrings>() ?? throw new ApplicationException($"Get {nameof(ConnectionStrings)} fail");
 
-        services.AddDbContextPool<AccountancyDataContext>(b => b.UseSqlite(connectionStrings.Accountancy), poolSize: 2);
+        // todo low UseQueryTrackingBehavior
+        services.AddDbContextPool<AccountancyDataContext>(
+            b => b.UseSqlite(connectionStrings.Accountancy)
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking),
+            poolSize: 2);
         services.AddDbContextPool<AuditDataContext>(b => b.UseSqlite(connectionStrings.Audit), poolSize: 2);
         services.AddDbContextPool<AuthorizationDataContext>(b => b.UseSqlite(connectionStrings.Authorization), poolSize: 2);
         services.AddDbContextPool<CaptchaDataContext>(b => b.UseSqlite(connectionStrings.Captcha), poolSize: 2);

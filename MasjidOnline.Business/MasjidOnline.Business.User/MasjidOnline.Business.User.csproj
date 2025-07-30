@@ -22,8 +22,4 @@
     <ProjectReference Include="..\..\MasjidOnline.Service\MasjidOnline.Service.Mail.Interface\MasjidOnline.Service.Mail.Interface.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UserPreference\" />
-  </ItemGroup>
-
 </Project>
