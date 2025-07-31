@@ -88,6 +88,8 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
             }
             else
             {
+                // hack update Session.DateTime
+
                 if (sessionEntity.DateTime < DateTime.UtcNow.AddDays(-32)) throw new SessionExpireException(idBase64Expression);
 
                 session.Digest = requestSessionIdBytes;
