@@ -37,7 +37,9 @@ public class LoginEmailBusiness(ISessionBusiness _sessionBusiness, IService _ser
         if (!requestPasswordHashBytes.SequenceEqual(user.Password)) throw new InputMismatchException(nameof(loginRequest.Password));
 
 
-        await _sessionBusiness.ChangeAndSaveAsync(session, _data, userId.Value);
+        session.UserId = userId.Value;
+
+        await _sessionBusiness.ChangeAndSaveAsync(session, _data);
 
         return new()
         {

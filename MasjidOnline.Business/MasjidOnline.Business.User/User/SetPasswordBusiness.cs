@@ -54,7 +54,9 @@ public class SetPasswordBusiness(ISessionBusiness _sessionBusiness, IService _se
         await _data.User.UserPreference.AddAsync(userPreference);
 
 
-        await _sessionBusiness.ChangeAsync(session, _data, userId.Value);
+        session.UserId = userId.Value;
+
+        await _sessionBusiness.ChangeAsync(session, _data);
 
         await _data.Transaction.CommitAsync();
 

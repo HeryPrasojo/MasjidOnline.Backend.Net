@@ -11,7 +11,7 @@ namespace MasjidOnline.Business.Session;
 
 public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISessionBusiness
 {
-    public async Task ChangeAsync(Interface.Model.Session session, IData _data, int userId)
+    public async Task ChangeAsync(Interface.Model.Session session, IData _data)
     {
         var sessionEntity = new Entity.Session.Session
         {
@@ -20,7 +20,7 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
             Digest = _idGenerator.Session.SessionDigest,
             Id = _idGenerator.Session.SessionId,
             PreviousId = session.Id,
-            UserId = userId,
+            UserId = session.UserId,
         };
 
         await _data.Session.Session.AddAsync(sessionEntity);
@@ -28,12 +28,11 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
 
         session.Digest = sessionEntity.Digest;
         session.Id = sessionEntity.Id;
-        session.UserId = sessionEntity.UserId;
     }
 
-    public async Task ChangeAndSaveAsync(Interface.Model.Session session, IData _data, int userId)
+    public async Task ChangeAndSaveAsync(Interface.Model.Session session, IData _data)
     {
-        await ChangeAsync(session, _data, userId);
+        await ChangeAsync(session, _data);
 
         await _data.Session.SaveAsync();
     }
@@ -49,16 +48,18 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
     {
         if (idBase64 == default)
         {
+            session.UserId = Model.Constant.UserId.Anonymous;
+
             if (cultureName.IsNullOrEmptyOrWhiteSpace())
             {
                 session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfoEnglish;
             }
             else
             {
-                session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfos[cultureName];
+                session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfos[cultureName!];
             }
 
-            await ChangeAndSaveAsync(session, _data, Model.Constant.UserId.Anonymous);
+            await ChangeAndSaveAsync(session, _data);
         }
         else
         {
@@ -70,16 +71,18 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
 
             if (sessionEntity == default)
             {
+                session.UserId = Model.Constant.UserId.Anonymous;
+
                 if (cultureName.IsNullOrEmptyOrWhiteSpace())
                 {
                     session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfoEnglish;
                 }
                 else
                 {
-                    session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfos[cultureName];
+                    session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfos[cultureName!];
                 }
 
-                await ChangeAndSaveAsync(session, _data, Model.Constant.UserId.Anonymous);
+                await ChangeAndSaveAsync(session, _data);
 
                 // hack log event
             }
@@ -101,7 +104,7 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
                     }
                     else
                     {
-                        session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfos[cultureName];
+                        session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfos[cultureName!];
 
                         if (!session.IsUserAnonymous)
                         {
@@ -111,7 +114,7 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
                         }
                     }
 
-                    await ChangeAsync(session, _data, sessionEntity.UserId);
+                    await ChangeAsync(session, _data);
 
                     await _data.Transaction.CommitAsync();
                 }
@@ -125,7 +128,7 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
                     {
                         await _data.Transaction.BeginAsync(_data.Session, _data.User);
 
-                        session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfos[cultureName];
+                        session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfos[cultureName!];
 
                         var userPreferenceApplicationCulture = Model.Constant.UserPreferenceApplicationCulture[session.CultureInfo];
 
