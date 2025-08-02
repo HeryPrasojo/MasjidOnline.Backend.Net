@@ -1,4 +1,3 @@
-using MasjidOnline.Business.Authorization;
 using MasjidOnline.Business.Interface;
 using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.Session;
@@ -15,7 +14,6 @@ public static class ServiceCollectionExtensions
 
         services.AddSingleton<IBusiness, Business>();
 
-        services.AddAuthorizationBusiness();
         services.AddSessionBusiness();
 
         return services;

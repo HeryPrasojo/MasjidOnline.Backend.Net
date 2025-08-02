@@ -1,6 +1,8 @@
 using System.Threading.Tasks;
 using MasjidOnline.Business.Accountancy;
 using MasjidOnline.Business.Accountancy.Interface;
+using MasjidOnline.Business.Authorization;
+using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Captcha;
 using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Business.Infaq;
@@ -20,13 +22,17 @@ namespace MasjidOnline.Business;
 // hack low add sealed
 public class Business(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
-    Authorization.Interface.IAuthorizationBusiness _authorizationBusiness,
     IIdGenerator _idGenerator,
     ISessionBusiness _sessionBusiness,
     Service.Interface.IService _service
     ) : IBusiness
 {
+    private static readonly IAuthorizationBusiness _authorizationBusiness = new AuthorizationBusiness();
+
+
     public IAccountancyBusiness Accountancy { get; } = new AccountancyBusiness(_authorizationBusiness, _idGenerator, _service);
+
+    public IAuthorizationBusiness Authorization { get; } = _authorizationBusiness;
 
     public ICaptchaBusiness Captcha { get; } = new CaptchaBusiness();
 
