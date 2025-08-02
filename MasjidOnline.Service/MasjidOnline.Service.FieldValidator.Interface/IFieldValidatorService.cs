@@ -22,4 +22,5 @@ public interface IFieldValidatorService
     TEnum ValidateRequiredEnum<TEnum>(TEnum? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null) where TEnum : struct, Enum;
     string ValidateRequired(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
     DateTime? ValidateOptionalBirth(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
+    TEnum? ValidateOptionalEnum<TEnum>(TEnum? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null) where TEnum : struct, Enum;
 }

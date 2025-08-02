@@ -21,6 +21,17 @@ public class FieldValidatorService : IFieldValidatorService
         return value.Value;
     }
 
+    public TEnum? ValidateOptionalEnum<TEnum>(TEnum? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default) where TEnum : struct, Enum
+    {
+        if (!value.HasValue) return default;
+
+        var valueType = value.Value.GetType();
+
+        if (!Enum.IsDefined(valueType, value)) throw new InputInvalidException(valueExpression);
+
+        return value.Value;
+    }
+
     public string? ValidateOptionalTextDb255(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
         if (value == default) return default;

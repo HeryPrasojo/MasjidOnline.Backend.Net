@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface.Accountancy;
 using MasjidOnline.Data.Interface;
 

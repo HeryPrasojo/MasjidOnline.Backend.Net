@@ -6,7 +6,7 @@ namespace MasjidOnline.Business.Authorization;
 
 internal abstract class AuthorizationBase
 {
-    protected async Task AuthorizePermissionAsync(
+    protected static async Task AuthorizePermissionAsync(
         Session.Interface.Model.Session session,
         IData _data,
         bool accountancyExpenditureAdd = default,

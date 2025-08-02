@@ -30,6 +30,7 @@ public class ExceptionMiddleware(
         var exceptionResponse = new ExceptionResponse
         {
             ResultCode = ResponseResultCode.Error,
+            ResultMessage = exception.Message,
         };
 
         if (exception is InputInvalidException or BadHttpRequestException)
@@ -47,9 +48,8 @@ public class ExceptionMiddleware(
         else if (exception is PermissionException)
         {
             exceptionResponse.ResultCode = ResponseResultCode.Success;
+            exceptionResponse.ResultMessage = default;
         }
-
-        exceptionResponse.ResultMessage = exception.Message;
 
         return exceptionResponse;
     }

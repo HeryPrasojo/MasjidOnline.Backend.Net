@@ -17,6 +17,7 @@ public class DevelopmentExceptionMiddleware(
         if (exception is PermissionException)
         {
             exceptionResponse.ResultCode = ResponseResultCode.PermissionMismatch;
+            exceptionResponse.ResultMessage = exception.Message;
         }
 
         exceptionResponse.Exception = BuildExceptionResponseException(exception);
@@ -24,7 +25,7 @@ public class DevelopmentExceptionMiddleware(
         return exceptionResponse;
     }
 
-    public ExceptionResponseException BuildExceptionResponseException(Exception exception)
+    private static ExceptionResponseException BuildExceptionResponseException(Exception exception)
     {
         var exceptionResponseException = new ExceptionResponseException
         {
