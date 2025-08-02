@@ -30,9 +30,7 @@ public abstract class InfaqInitializer(IInfaqsDefinition _infaqsDefinition)
                 Value = "1",
             };
 
-            await data.Infaq.InfaqSetting.AddAsync(transactionSetting);
-
-            await data.Infaq.SaveAsync();
+            await data.Infaq.InfaqSetting.AddAndSaveAsync(transactionSetting);
         }
     }
 

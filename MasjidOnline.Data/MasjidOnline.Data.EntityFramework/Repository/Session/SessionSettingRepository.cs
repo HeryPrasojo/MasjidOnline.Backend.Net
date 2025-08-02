@@ -1,18 +1,18 @@
 using System.Threading.Tasks;
-using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.Session;
 using MasjidOnline.Entity.Session;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Session;
 
-// todo low change *DataContext to DbContext
-public class SessionSettingRepository(SessionDataContext _sessionDataContext) : ISessionSettingRepository
+public class SessionSettingRepository(DbContext _dbContext) : ISessionSettingRepository
 {
-    private readonly DbSet<SessionSetting> _dbSet = _sessionDataContext.Set<SessionSetting>();
+    private readonly DbSet<SessionSetting> _dbSet = _dbContext.Set<SessionSetting>();
 
-    public async Task AddAsync(SessionSetting sessionSetting)
+    public async Task AddAndSaveAsync(SessionSetting sessionSetting)
     {
         await _dbSet.AddAsync(sessionSetting);
+
+        await _dbContext.SaveChangesAsync();
     }
 }

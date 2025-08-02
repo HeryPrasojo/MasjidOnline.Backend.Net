@@ -1,12 +1,11 @@
-using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.EntityFramework.Repository.User;
 using MasjidOnline.Data.Interface.Databases;
 using MasjidOnline.Data.Interface.Repository.User;
+using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Databases;
 
-// todo low change *DataContext to DbContext
-public class UserDatabase(UserDataContext _userDataContext) : Database(_userDataContext), IUserDatabase
+public class UserDatabase(DbContext _dbContext) : Database(_dbContext), IUserDatabase
 {
     private IInternalRepository? _internalRepository;
     private IPasswordCodeRepository? _passwordCodeRepository;
@@ -16,15 +15,15 @@ public class UserDatabase(UserDataContext _userDataContext) : Database(_userData
     private IUserSettingRepository? _userSettingRepository;
 
 
-    public IInternalRepository Internal => _internalRepository ??= new InternalRepository(_userDataContext);
+    public IInternalRepository Internal => _internalRepository ??= new InternalRepository(_dbContext);
 
-    public IPasswordCodeRepository PasswordCode => _passwordCodeRepository ??= new PasswordCodeRepository(_userDataContext);
+    public IPasswordCodeRepository PasswordCode => _passwordCodeRepository ??= new PasswordCodeRepository(_dbContext);
 
-    public IUserRepository User => _userRepository ??= new UserRepository(_userDataContext);
+    public IUserRepository User => _userRepository ??= new UserRepository(_dbContext);
 
-    public IUserPreferenceRepository UserPreference => _userPreferenceRepository ??= new UserPreferenceRepository(_userDataContext);
+    public IUserPreferenceRepository UserPreference => _userPreferenceRepository ??= new UserPreferenceRepository(_dbContext);
 
-    public IUserEmailAddressRepository UserEmailAddress => _userEmailAddressRepository ??= new UserEmailAddressRepository(_userDataContext);
+    public IUserEmailAddressRepository UserEmailAddress => _userEmailAddressRepository ??= new UserEmailAddressRepository(_dbContext);
 
-    public IUserSettingRepository UserSetting => _userSettingRepository ??= new UserSettingRepository(_userDataContext);
+    public IUserSettingRepository UserSetting => _userSettingRepository ??= new UserSettingRepository(_dbContext);
 }

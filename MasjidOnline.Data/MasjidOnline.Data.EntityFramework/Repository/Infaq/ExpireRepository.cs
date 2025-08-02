@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.Infaq;
 using MasjidOnline.Data.Interface.ViewModel.Infaq.Expire;
 using MasjidOnline.Data.Interface.ViewModel.Repository;
@@ -10,10 +9,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Infaq;
 
-// todo low change *DataContext to DbContext
-public class ExpireRepository(InfaqDataContext _infaqDataContext) : IExpireRepository
+public class ExpireRepository(DbContext _dbContext) : IExpireRepository
 {
-    private readonly DbSet<Expire> _dbSet = _infaqDataContext.Set<Expire>();
+    private readonly DbSet<Expire> _dbSet = _dbContext.Set<Expire>();
 
     public async Task AddAsync(Expire expire)
     {

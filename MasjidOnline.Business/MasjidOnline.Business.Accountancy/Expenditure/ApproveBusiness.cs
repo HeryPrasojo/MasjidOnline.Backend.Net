@@ -29,14 +29,12 @@ public class ApproveBusiness(
         if (@internal.Status != Entity.Accountancy.ExpenditureStatus.New) throw new InputMismatchException($"{nameof(@internal.Status)}: {@internal.Status}");
 
 
-        _data.Accountancy.Expenditure.SetStatus(
+        await _data.Accountancy.Expenditure.SetStatusAndSaveAsync(
             approveRequest.Id.Value,
             Entity.Accountancy.ExpenditureStatus.Approve,
             default,
             DateTime.UtcNow,
             session.UserId);
-
-        await _data.Accountancy.SaveAsync();
 
         return new()
         {

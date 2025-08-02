@@ -50,10 +50,10 @@ public class AddByAnonymBusiness(IService _service, IIdGenerator _idGenerator, I
 
 
         addByAnonymRequest.Amount = _service.FieldValidator.ValidateRequiredPlus(addByAnonymRequest.Amount);
-        addByAnonymRequest.PaymentType = (Payment.Interface.Model.PaymentType)_service.FieldValidator.ValidateRequired(addByAnonymRequest.PaymentType);
+        addByAnonymRequest.PaymentType = _service.FieldValidator.ValidateRequiredEnum(addByAnonymRequest.PaymentType);
 
         addByAnonymRequest.MunfiqName = _service.FieldValidator.ValidateRequiredTextDb255(addByAnonymRequest.MunfiqName);
-        addByAnonymRequest.ManualNotes = _service.FieldValidator.ValidateOptionalText255(addByAnonymRequest.ManualNotes);
+        addByAnonymRequest.ManualNotes = _service.FieldValidator.ValidateOptionalTextDb255(addByAnonymRequest.ManualNotes);
 
 
         var supportedPaymentTypes = new Payment.Interface.Model.PaymentType[]

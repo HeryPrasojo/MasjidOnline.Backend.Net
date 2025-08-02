@@ -24,9 +24,7 @@ public abstract class AuthorizationInitializer(IAuthorizationDefinition _authori
                 Value = "1",
             };
 
-            await data.Authorization.AuthorizationSetting.AddAsync(authorizationSetting);
-
-            await data.Authorization.SaveAsync();
+            await data.Authorization.AuthorizationSetting.AddAndSaveAsync(authorizationSetting);
         }
     }
 

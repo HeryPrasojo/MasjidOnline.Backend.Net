@@ -1,15 +1,14 @@
-using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.EntityFramework.Repository.Person;
 using MasjidOnline.Data.Interface.Databases;
 using MasjidOnline.Data.Interface.Repository.Person;
+using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Databases;
 
-// todo low change *DataContext to DbContext
-public class PersonDatabase(PersonDataContext _personDataContext) : Database(_personDataContext), IPersonDatabase
+public class PersonDatabase(DbContext _dbContext) : Database(_dbContext), IPersonDatabase
 {
     private IPersonSettingRepository? _personSettingRepository;
 
 
-    public IPersonSettingRepository PersonSetting => _personSettingRepository ??= new PersonSettingRepository(_personDataContext);
+    public IPersonSettingRepository PersonSetting => _personSettingRepository ??= new PersonSettingRepository(_dbContext);
 }

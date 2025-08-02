@@ -24,9 +24,7 @@ public abstract class DatabaseTemplateInitializer(IDatabaseTemplateDefinition _d
                 Value = "1",
             };
 
-            await data.DatabaseTemplate.DatabaseTemplateSetting.AddAsync(databaseSetting);
-
-            await data.DatabaseTemplate.SaveAsync();
+            await data.DatabaseTemplate.DatabaseTemplateSetting.AddAndSaveAsync(databaseSetting);
         }
     }
 

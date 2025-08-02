@@ -1,15 +1,13 @@
 using System.Threading.Tasks;
-using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.Captcha;
 using MasjidOnline.Entity.Captcha;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Captcha;
 
-// todo low change *DataContext to DbContext
-public class PassRepository(CaptchaDataContext _captchaDataContext) : IPassRepository
+public class PassRepository(DbContext _dbContext) : IPassRepository
 {
-    private readonly DbSet<Pass> _dbSet = _captchaDataContext.Set<Pass>();
+    private readonly DbSet<Pass> _dbSet = _dbContext.Set<Pass>();
 
     public async Task AddAndSaveAsync(Pass pass)
     {
@@ -26,6 +24,6 @@ public class PassRepository(CaptchaDataContext _captchaDataContext) : IPassRepos
 
     private async Task SaveAsync()
     {
-        await _captchaDataContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
     }
 }

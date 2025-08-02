@@ -14,5 +14,5 @@ public interface IExpenditureRepository
     Task<int> GetMaxIdAsync();
     Task<One?> GetOneAsync(int id);
     Task<ExpenditureStatus> GetStatusAsync(int id);
-    void SetStatus(int id, ExpenditureStatus status, string? statusDescription, DateTime updateDateTime, int updateUserId);
+    Task SetStatusAndSaveAsync(int id, ExpenditureStatus status, string? statusDescription, DateTime updateDateTime, int updateUserId);
 }

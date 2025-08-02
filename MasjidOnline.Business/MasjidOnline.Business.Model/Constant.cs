@@ -11,5 +11,6 @@ public static class Constant
         public const int Root = 3;
     }
 
+    // hack move to Mapper
     public static readonly UserPreferenceApplicationCulture UserPreferenceApplicationCulture = new();
 }

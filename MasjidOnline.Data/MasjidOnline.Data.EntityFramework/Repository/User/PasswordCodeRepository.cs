@@ -1,17 +1,15 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.User;
 using MasjidOnline.Entity.User;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.User;
 
-// todo low change *DataContext to DbContext
-public class PasswordCodeRepository(UserDataContext _userDataContext) : IPasswordCodeRepository
+public class PasswordCodeRepository(DbContext _dbContext) : IPasswordCodeRepository
 {
-    private readonly DbSet<PasswordCode> _dbSet = _userDataContext.Set<PasswordCode>();
+    private readonly DbSet<PasswordCode> _dbSet = _dbContext.Set<PasswordCode>();
 
     public async Task AddAsync(PasswordCode passwordCode)
     {

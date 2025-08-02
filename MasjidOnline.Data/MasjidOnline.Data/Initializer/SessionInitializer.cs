@@ -25,9 +25,7 @@ public abstract class SessionInitializer(ISessionsDefinition _sessionDefinition)
                 Value = "1",
             };
 
-            await data.Session.SessionSetting.AddAsync(sessionSetting);
-
-            await data.Session.SaveAsync();
+            await data.Session.SessionSetting.AddAndSaveAsync(sessionSetting);
         }
     }
 

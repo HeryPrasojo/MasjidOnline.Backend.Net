@@ -23,9 +23,7 @@ public abstract class PersonInitializer(IPersonDefinition _personDefinition)
                 Value = "1",
             };
 
-            await data.Person.PersonSetting.AddAsync(personSetting);
-
-            await data.Person.SaveAsync();
+            await data.Person.PersonSetting.AddAndSaveAsync(personSetting);
         }
     }
 

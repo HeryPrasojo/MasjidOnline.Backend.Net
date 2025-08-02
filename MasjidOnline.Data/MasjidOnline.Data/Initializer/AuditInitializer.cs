@@ -24,9 +24,7 @@ public abstract class AuditInitializer(IAuditDefinition _auditDefinition)
                 Value = "1",
             };
 
-            await data.Audit.AuditSetting.AddAsync(auditSetting);
-
-            await data.Audit.SaveAsync();
+            await data.Audit.AuditSetting.AddAndSaveAsync(auditSetting);
         }
     }
 

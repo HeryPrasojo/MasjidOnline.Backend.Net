@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.Accountancy;
 using MasjidOnline.Data.Interface.ViewModel.Accountancy.Expenditure;
 using MasjidOnline.Data.Interface.ViewModel.Repository;
@@ -10,16 +9,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Accountancy;
 
-// todo low change *DataContext to DbContext
-public class ExpenditureRepository(AccountancyDataContext _accountancyDataContext) : IExpenditureRepository
+public class ExpenditureRepository(DbContext _dbContext) : IExpenditureRepository
 {
-    private readonly DbSet<Expenditure> _dbSet = _accountancyDataContext.Set<Expenditure>();
+    private readonly DbSet<Expenditure> _dbSet = _dbContext.Set<Expenditure>();
 
     public async Task AddAndSaveAsync(Expenditure expenditure)
     {
         await _dbSet.AddAsync(expenditure);
 
-        await _accountancyDataContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
     }
 
     public async Task<ForApprove?> GetForApproveAsync(int id)
@@ -108,7 +106,7 @@ public class ExpenditureRepository(AccountancyDataContext _accountancyDataContex
             .FirstOrDefaultAsync();
     }
 
-    public void SetStatus(int id, ExpenditureStatus status, string? statusDescription, DateTime updateDateTime, int updateUserId)
+    public async Task SetStatusAndSaveAsync(int id, ExpenditureStatus status, string? statusDescription, DateTime updateDateTime, int updateUserId)
     {
         var expenditure = new Expenditure
         {
@@ -125,5 +123,8 @@ public class ExpenditureRepository(AccountancyDataContext _accountancyDataContex
         entityEntry.Property(e => e.StatusDescription).IsModified = true;
         entityEntry.Property(e => e.UpdateDateTime).IsModified = true;
         entityEntry.Property(e => e.UpdateUserId).IsModified = true;
+
+
+        await _dbContext.SaveChangesAsync();
     }
 }

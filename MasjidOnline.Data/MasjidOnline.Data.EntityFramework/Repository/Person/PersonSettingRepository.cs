@@ -1,18 +1,18 @@
 using System.Threading.Tasks;
-using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.Person;
 using MasjidOnline.Entity.Person;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Person;
 
-// todo low change *DataContext to DbContext
-public class PersonSettingRepository(PersonDataContext _personDataContext) : IPersonSettingRepository
+public class PersonSettingRepository(DbContext _dbContext) : IPersonSettingRepository
 {
-    private readonly DbSet<PersonSetting> _dbSet = _personDataContext.Set<PersonSetting>();
+    private readonly DbSet<PersonSetting> _dbSet = _dbContext.Set<PersonSetting>();
 
-    public async Task AddAsync(PersonSetting personSetting)
+    public async Task AddAndSaveAsync(PersonSetting personSetting)
     {
         await _dbSet.AddAsync(personSetting);
+
+        await _dbContext.SaveChangesAsync();
     }
 }

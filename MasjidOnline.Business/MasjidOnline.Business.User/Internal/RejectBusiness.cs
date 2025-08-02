@@ -26,14 +26,12 @@ public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IServ
         if (status != Entity.User.InternalStatus.New) throw new InputMismatchException($"{nameof(status)}: {status}");
 
 
-        _data.User.Internal.SetStatus(
+        await _data.User.Internal.SetStatusAndSaveAsync(
             rejectRequest.Id.Value,
             Entity.User.InternalStatus.Reject,
             rejectRequest.Description,
             DateTime.UtcNow,
             session.UserId);
-
-        await _data.User.SaveAsync();
 
         // todo wait requester notification
 

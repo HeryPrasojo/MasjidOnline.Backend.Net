@@ -24,9 +24,7 @@ public abstract class EventInitializer(IEventDefinition _eventDefinition)
                 Value = "1",
             };
 
-            await data.Event.EventSetting.AddAsync(setting);
-
-            await data.Event.SaveAsync();
+            await data.Event.EventSetting.AddAndSaveAsync(setting);
         }
     }
 

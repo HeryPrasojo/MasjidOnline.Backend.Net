@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.User;
 using MasjidOnline.Data.Interface.ViewModel.Repository;
 using MasjidOnline.Data.Interface.ViewModel.User.Internal;
@@ -10,10 +9,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.User;
 
-// todo low change *DataContext to DbContext
-public class InternalRepository(UserDataContext _userDataContext) : IInternalRepository
+public class InternalRepository(DbContext _dbContext) : IInternalRepository
 {
-    private readonly DbSet<Internal> _dbSet = _userDataContext.Set<Internal>();
+    private readonly DbSet<Internal> _dbSet = _dbContext.Set<Internal>();
 
     public async Task AddAsync(Internal @internal)
     {
@@ -24,7 +22,7 @@ public class InternalRepository(UserDataContext _userDataContext) : IInternalRep
     {
         await _dbSet.AddAsync(@internal);
 
-        await _userDataContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
     }
 
     public async Task<bool> AnyAsync(string emailAddress, InternalStatus status)
@@ -131,5 +129,12 @@ public class InternalRepository(UserDataContext _userDataContext) : IInternalRep
         entityEntry.Property(e => e.Status).IsModified = true;
         entityEntry.Property(e => e.UpdateDateTime).IsModified = true;
         entityEntry.Property(e => e.UpdateUserId).IsModified = true;
+    }
+
+    public async Task SetStatusAndSaveAsync(int id, InternalStatus status, string? description, DateTime updateDateTime, int updateUserId)
+    {
+        SetStatus(id, status, description, updateDateTime, updateUserId);
+
+        await _dbContext.SaveChangesAsync();
     }
 }

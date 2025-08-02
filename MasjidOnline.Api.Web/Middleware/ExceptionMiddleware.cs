@@ -71,9 +71,9 @@ public class ExceptionMiddleware(
 
             BuildExceptionEntity(exception, exceptionEntities, DateTime.UtcNow);
 
-            await data.Event.Exception.AddAsync(exceptionEntities);
+            await data.Transaction.RollbackAsync();
 
-            await data.Event.SaveAsync();
+            await data.Event.Exception.AddAndSaveAsync(exceptionEntities);
         }
     }
 

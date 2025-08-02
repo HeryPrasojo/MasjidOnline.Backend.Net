@@ -24,9 +24,7 @@ public abstract class AccountancyInitializer(IAccountancyDefinition _accountancy
                 Value = "1",
             };
 
-            await data.Accountancy.AccountancySetting.AddAsync(accountancySetting);
-
-            await data.Accountancy.SaveAsync();
+            await data.Accountancy.AccountancySetting.AddAndSaveAsync(accountancySetting);
         }
     }
 

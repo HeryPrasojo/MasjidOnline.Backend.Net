@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Threading.Tasks;
-using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.Session;
 using MasjidOnline.Data.Interface.ViewModel.Session;
 using MasjidOnline.Entity.User;
@@ -8,10 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Session;
 
-// todo low change *DataContext to DbContext
-public class SessionRepository(SessionDataContext _sessionDataContext) : ISessionRepository
+public class SessionRepository(DbContext _dbContext) : ISessionRepository
 {
-    private readonly DbSet<Entity.Session.Session> _dbSet = _sessionDataContext.Set<Entity.Session.Session>();
+    private readonly DbSet<Entity.Session.Session> _dbSet = _dbContext.Set<Entity.Session.Session>();
 
     public async Task AddAsync(Entity.Session.Session session)
     {

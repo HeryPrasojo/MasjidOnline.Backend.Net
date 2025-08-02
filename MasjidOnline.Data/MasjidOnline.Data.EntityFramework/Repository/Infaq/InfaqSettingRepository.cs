@@ -1,18 +1,18 @@
 using System.Threading.Tasks;
-using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.Infaq;
 using MasjidOnline.Entity.Infaq;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Infaq;
 
-// todo low change *DataContext to DbContext
-public class InfaqSettingRepository(InfaqDataContext _infaqDataContext) : IInfaqSettingRepository
+public class InfaqSettingRepository(DbContext _dbContext) : IInfaqSettingRepository
 {
-    private readonly DbSet<InfaqSetting> _dbSet = _infaqDataContext.Set<InfaqSetting>();
+    private readonly DbSet<InfaqSetting> _dbSet = _dbContext.Set<InfaqSetting>();
 
-    public async Task AddAsync(InfaqSetting infaqSetting)
+    public async Task AddAndSaveAsync(InfaqSetting infaqSetting)
     {
         await _dbSet.AddAsync(infaqSetting);
+
+        await _dbContext.SaveChangesAsync();
     }
 }

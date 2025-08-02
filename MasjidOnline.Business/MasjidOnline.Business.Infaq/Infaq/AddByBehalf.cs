@@ -22,7 +22,7 @@ public class AddByBehalf(IAuthorizationBusiness _authorizationBusiness, IService
         addByInternalRequest = _service.FieldValidator.ValidateRequired(addByInternalRequest);
 
         addByInternalRequest.Amount = _service.FieldValidator.ValidateRequiredPlus(addByInternalRequest.Amount);
-        addByInternalRequest.PaymentType = (Payment.Interface.Model.PaymentType)_service.FieldValidator.ValidateRequired(addByInternalRequest.PaymentType);
+        addByInternalRequest.PaymentType = _service.FieldValidator.ValidateRequiredEnum(addByInternalRequest.PaymentType);
         addByInternalRequest.ManualDateTime = _service.FieldValidator.ValidateRequiredPast(addByInternalRequest.ManualDateTime);
 
 

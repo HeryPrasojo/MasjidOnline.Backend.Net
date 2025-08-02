@@ -1,18 +1,18 @@
 using System.Threading.Tasks;
-using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.DatabaseTemplate;
 using MasjidOnline.Entity.DatabaseTemplate;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.DatabaseTemplate;
 
-// todo low change *DataContext to DbContext
-public class DatabaseTemplateSettingRepository(DatabaseTemplateDataContext _databaseTemplateDataContext) : IDatabaseTemplateSettingRepository
+public class DatabaseTemplateSettingRepository(DbContext _dbContext) : IDatabaseTemplateSettingRepository
 {
-    private readonly DbSet<DatabaseTemplateSetting> _dbSet = _databaseTemplateDataContext.Set<DatabaseTemplateSetting>();
+    private readonly DbSet<DatabaseTemplateSetting> _dbSet = _dbContext.Set<DatabaseTemplateSetting>();
 
-    public async Task AddAsync(DatabaseTemplateSetting databaseSetting)
+    public async Task AddAndSaveAsync(DatabaseTemplateSetting databaseSetting)
     {
         await _dbSet.AddAsync(databaseSetting);
+
+        await _dbContext.SaveChangesAsync();
     }
 }

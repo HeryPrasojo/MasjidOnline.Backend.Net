@@ -6,6 +6,6 @@ namespace MasjidOnline.Data.Interface.Repository.Event;
 
 public interface IExceptionRepository
 {
-    Task AddAsync(IEnumerable<Exception> exceptions);
+    Task AddAndSaveAsync(IEnumerable<Exception> exceptions);
     Task<int> GetMaxIdAsync();
 }

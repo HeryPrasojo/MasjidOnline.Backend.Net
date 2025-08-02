@@ -28,4 +28,14 @@ public class DataTransaction : IDataTransaction
 
         _datas.Clear();
     }
+
+    public async Task RollbackAsync()
+    {
+        _datas.Reverse();
+
+        foreach (var data in _datas)
+            await data.RolbackTransactionAsync();
+
+        _datas.Clear();
+    }
 }

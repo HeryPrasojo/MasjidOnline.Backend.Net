@@ -26,14 +26,12 @@ public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IServ
         if (status != Entity.Accountancy.ExpenditureStatus.New) throw new InputMismatchException($"{nameof(status)}: {status}");
 
 
-        _data.Accountancy.Expenditure.SetStatus(
+        await _data.Accountancy.Expenditure.SetStatusAndSaveAsync(
             cancelRequest.Id.Value,
             Entity.Accountancy.ExpenditureStatus.Cancel,
             cancelRequest.Description,
             DateTime.UtcNow,
             session.UserId);
-
-        await _data.Accountancy.SaveAsync();
 
         return new()
         {

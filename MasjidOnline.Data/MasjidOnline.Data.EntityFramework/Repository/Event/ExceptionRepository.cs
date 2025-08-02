@@ -1,23 +1,23 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.Event;
 using MasjidOnline.Entity.Event;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Event;
 
-// todo low change *DataContext to DbContext
-public class ExceptionRepository(EventDataContext _eventDataContext) : IExceptionRepository
+public class ExceptionRepository(DbContext _dbContext) : IExceptionRepository
 {
-    private readonly DbSet<Exception> _dbSet = _eventDataContext.Set<Exception>();
+    private readonly DbSet<Exception> _dbSet = _dbContext.Set<Exception>();
 
-    public async Task AddAsync(IEnumerable<Exception> exceptions)
+    public async Task AddAndSaveAsync(IEnumerable<Exception> exceptions)
     {
         foreach (var exception in exceptions)
         {
             await _dbSet.AddAsync(exception);
         }
+
+        await _dbContext.SaveChangesAsync();
     }
 
 

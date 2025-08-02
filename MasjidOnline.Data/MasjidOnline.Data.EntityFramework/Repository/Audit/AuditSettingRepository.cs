@@ -1,18 +1,18 @@
 using System.Threading.Tasks;
-using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.Audit;
 using MasjidOnline.Entity.Audit;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Audit;
 
-// todo low change *DataContext to DbContext
-public class AuditSettingRepository(AuditDataContext _auditDataContext) : IAuditSettingRepository
+public class AuditSettingRepository(DbContext _dbContext) : IAuditSettingRepository
 {
-    private readonly DbSet<AuditSetting> _dbSet = _auditDataContext.Set<AuditSetting>();
+    private readonly DbSet<AuditSetting> _dbSet = _dbContext.Set<AuditSetting>();
 
-    public async Task AddAsync(AuditSetting auditSetting)
+    public async Task AddAndSaveAsync(AuditSetting auditSetting)
     {
         await _dbSet.AddAsync(auditSetting);
+
+        await _dbContext.SaveChangesAsync();
     }
 }

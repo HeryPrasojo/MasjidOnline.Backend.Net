@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Data.Interface.Repository.Audit;
 using MasjidOnline.Entity.Audit;
@@ -9,10 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Audit;
 
-// todo low change *DataContext to DbContext
-public class UserInternalPermissionLogRepository(AuditDataContext _auditDataContext, IAuditIdGenerator _auditIdGenerator) : IUserInternalPermissionLogRepository
+public class UserInternalPermissionLogRepository(DbContext _dbContext, IAuditIdGenerator _auditIdGenerator) : IUserInternalPermissionLogRepository
 {
-    private readonly DbSet<UserInternalPermissionLog> _dbSet = _auditDataContext.Set<UserInternalPermissionLog>();
+    private readonly DbSet<UserInternalPermissionLog> _dbSet = _dbContext.Set<UserInternalPermissionLog>();
 
     public async Task AddAddAsync(UserInternalPermission userInternalPermission, DateTime dateTime, int userId)
     {

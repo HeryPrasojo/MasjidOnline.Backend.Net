@@ -24,9 +24,7 @@ public abstract class PaymentInitializer(IPaymentDefinition _databaseDefinition)
                 Value = "1",
             };
 
-            await data.Payment.DatabaseSetting.AddAsync(databaseSetting);
-
-            await data.Payment.SaveAsync();
+            await data.Payment.DatabaseSetting.AddAndSaveAsync(databaseSetting);
         }
     }
 

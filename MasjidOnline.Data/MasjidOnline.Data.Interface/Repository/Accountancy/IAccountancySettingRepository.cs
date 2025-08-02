@@ -5,5 +5,5 @@ namespace MasjidOnline.Data.Interface.Repository.Accountancy;
 
 public interface IAccountancySettingRepository
 {
-    Task AddAsync(AccountancySetting accountancySetting);
+    Task AddAndSaveAsync(AccountancySetting accountancySetting);
 }

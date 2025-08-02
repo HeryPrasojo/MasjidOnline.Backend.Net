@@ -1,14 +1,12 @@
 using System.Threading.Tasks;
-using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.Infaq;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Infaq;
 
-// todo low change *DataContext to DbContext
-public class PaymentRepository(InfaqDataContext _infaqDataContext) : IPaymentRepository
+public class PaymentRepository(DbContext _dbContext) : IPaymentRepository
 {
-    private readonly DbSet<Entity.Infaq.Payment> _dbSet = _infaqDataContext.Set<Entity.Infaq.Payment>();
+    private readonly DbSet<Entity.Infaq.Payment> _dbSet = _dbContext.Set<Entity.Infaq.Payment>();
 
     public async Task AddAsync(Entity.Infaq.Payment payment)
     {

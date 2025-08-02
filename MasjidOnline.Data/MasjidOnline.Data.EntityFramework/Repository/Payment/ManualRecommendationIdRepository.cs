@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Threading.Tasks;
-using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.Payment;
 using MasjidOnline.Data.Interface.ViewModel.Payment.ManualRecommendationIdRepository;
 using MasjidOnline.Entity.Payment;
@@ -8,16 +7,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Payment;
 
-// todo low change *DataContext to DbContext
-public class ManualRecommendationIdRepository(PaymentDataContext _databaseDataContext) : IManualRecommendationIdRepository
+public class ManualRecommendationIdRepository(DbContext _dbContext) : IManualRecommendationIdRepository
 {
-    private readonly DbSet<ManualRecommendationId> _dbSet = _databaseDataContext.Set<ManualRecommendationId>();
+    private readonly DbSet<ManualRecommendationId> _dbSet = _dbContext.Set<ManualRecommendationId>();
 
     public async Task AddAndSaveAsync(ManualRecommendationId manualRecommendationId)
     {
         await _dbSet.AddAsync(manualRecommendationId);
 
-        await _databaseDataContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
     }
 
     public async Task<LastBySessionId?> GetLastBySessionIdAsync(int sessionId)

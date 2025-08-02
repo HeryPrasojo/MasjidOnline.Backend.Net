@@ -17,4 +17,5 @@ public interface IInternalRepository
     Task<One?> GetOneAsync(int id);
     Task<InternalStatus> GetStatusAsync(int id);
     void SetStatus(int id, InternalStatus status, string? description, DateTime updateDateTime, int updateUserId);
+    Task SetStatusAndSaveAsync(int id, InternalStatus status, string? description, DateTime updateDateTime, int updateUserId);
 }

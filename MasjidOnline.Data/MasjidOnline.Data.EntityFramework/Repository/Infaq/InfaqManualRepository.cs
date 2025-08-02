@@ -1,15 +1,13 @@
 using System.Threading.Tasks;
-using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.Infaq;
 using MasjidOnline.Entity.Infaq;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Infaq;
 
-// todo low change *DataContext to DbContext
-public class InfaqManualRepository(InfaqDataContext _infaqDataContext) : IInfaqManualRepository
+public class InfaqManualRepository(DbContext _dbContext) : IInfaqManualRepository
 {
-    private readonly DbSet<InfaqManual> _dbSet = _infaqDataContext.Set<InfaqManual>();
+    private readonly DbSet<InfaqManual> _dbSet = _dbContext.Set<InfaqManual>();
 
     public async Task AddAsync(InfaqManual infaqManual)
     {

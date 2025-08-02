@@ -5,5 +5,5 @@ namespace MasjidOnline.Data.Interface.Repository.Payment;
 
 public interface IPaymentSettingRepository
 {
-    Task AddAsync(PaymentSetting databaseSetting);
+    Task AddAndSaveAsync(PaymentSetting databaseSetting);
 }

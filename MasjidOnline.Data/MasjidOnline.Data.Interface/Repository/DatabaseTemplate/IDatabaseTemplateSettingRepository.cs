@@ -5,5 +5,5 @@ namespace MasjidOnline.Data.Interface.Repository.DatabaseTemplate;
 
 public interface IDatabaseTemplateSettingRepository
 {
-    Task AddAsync(DatabaseTemplateSetting databaseSetting);
+    Task AddAndSaveAsync(DatabaseTemplateSetting databaseSetting);
 }

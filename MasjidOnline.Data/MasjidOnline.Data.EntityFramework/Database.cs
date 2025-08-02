@@ -21,6 +21,11 @@ public abstract class Database(DbContext _dbContext) : Interface.IDatabase
         await _dbContext.Database.CommitTransactionAsync();
     }
 
+    public async Task RolbackTransactionAsync()
+    {
+        await _dbContext.Database.RollbackTransactionAsync();
+    }
+
     public async Task SaveAsync()
     {
         await _dbContext.SaveChangesAsync();

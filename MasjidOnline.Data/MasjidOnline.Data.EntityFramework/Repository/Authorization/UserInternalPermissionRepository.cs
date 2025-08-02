@@ -1,15 +1,13 @@
 using System.Threading.Tasks;
-using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.Authorization;
 using MasjidOnline.Entity.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Authorization;
 
-// todo low change *DataContext to DbContext
-public class UserInternalPermissionRepository(AuthorizationDataContext _authorizationDataContext) : IUserInternalPermissionRepository
+public class UserInternalPermissionRepository(DbContext _dbContext) : IUserInternalPermissionRepository
 {
-    private readonly DbSet<UserInternalPermission> _dbSet = _authorizationDataContext.Set<UserInternalPermission>();
+    private readonly DbSet<UserInternalPermission> _dbSet = _dbContext.Set<UserInternalPermission>();
 
     public async Task AddAsync(UserInternalPermission userInternalPermission)
     {

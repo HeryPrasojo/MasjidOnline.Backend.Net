@@ -28,9 +28,7 @@ public abstract class UserInitializer(IUsersDefinition _userDefinition)
                 Value = "1",
             };
 
-            await data.User.UserSetting.AddAsync(userSetting);
-
-            await data.User.SaveAsync();
+            await data.User.UserSetting.AddAndSaveAsync(userSetting);
         }
     }
 

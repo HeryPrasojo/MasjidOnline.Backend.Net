@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Threading.Tasks;
-using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.User;
 using MasjidOnline.Data.Interface.ViewModel.User;
 using MasjidOnline.Entity.User;
@@ -8,10 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.User;
 
-// todo low change *DataContext to DbContext
-public class UserRepository(UserDataContext _userDataContext) : IUserRepository
+public class UserRepository(DbContext _dbContext) : IUserRepository
 {
-    private readonly DbSet<Entity.User.User> _dbSet = _userDataContext.Set<Entity.User.User>();
+    private readonly DbSet<Entity.User.User> _dbSet = _dbContext.Set<Entity.User.User>();
 
     public async Task AddAsync(Entity.User.User user)
     {

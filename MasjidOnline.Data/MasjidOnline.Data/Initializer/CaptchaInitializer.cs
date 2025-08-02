@@ -24,9 +24,7 @@ public abstract class CaptchaInitializer(ICaptchaDefinition _captchaDefinition)
                 Value = "1",
             };
 
-            await data.Captcha.CaptchaSetting.AddAsync(captchaSetting);
-
-            await data.Captcha.SaveAsync();
+            await data.Captcha.CaptchaSetting.AddAndSaveAsync(captchaSetting);
         }
     }
 

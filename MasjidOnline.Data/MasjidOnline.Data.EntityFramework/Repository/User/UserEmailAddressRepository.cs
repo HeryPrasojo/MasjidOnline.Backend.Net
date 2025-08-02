@@ -1,16 +1,14 @@
 using System.Linq;
 using System.Threading.Tasks;
-using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.User;
 using MasjidOnline.Entity.User;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.User;
 
-// todo low change *DataContext to DbContext
-public class UserEmailAddressRepository(UserDataContext _userDataContext) : IUserEmailAddressRepository
+public class UserEmailAddressRepository(DbContext _dbContext) : IUserEmailAddressRepository
 {
-    private readonly DbSet<UserEmailAddress> _dbSet = _userDataContext.Set<UserEmailAddress>();
+    private readonly DbSet<UserEmailAddress> _dbSet = _dbContext.Set<UserEmailAddress>();
 
     public async Task AddAsync(UserEmailAddress userEmailAddress)
     {

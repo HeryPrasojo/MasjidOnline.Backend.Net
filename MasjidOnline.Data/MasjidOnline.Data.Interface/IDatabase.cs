@@ -8,6 +8,7 @@ public interface IDatabase
 
     Task BeginTransactionAsync();
     Task CommitTransactionAsync();
+    Task RolbackTransactionAsync();
     Task SaveAsync();
     Task UseTransactionAsync(object? transactionObject);
 }

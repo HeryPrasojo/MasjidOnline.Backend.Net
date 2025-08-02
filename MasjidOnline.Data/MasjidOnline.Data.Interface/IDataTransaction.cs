@@ -6,4 +6,5 @@ public interface IDataTransaction
 {
     Task BeginAsync(params IDatabase[] datas);
     Task CommitAsync();
+    Task RollbackAsync();
 }

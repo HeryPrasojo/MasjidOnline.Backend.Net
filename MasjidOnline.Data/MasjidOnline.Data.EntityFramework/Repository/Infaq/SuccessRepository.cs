@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.Infaq;
 using MasjidOnline.Data.Interface.ViewModel.Infaq.Success;
 using MasjidOnline.Data.Interface.ViewModel.Repository;
@@ -10,10 +9,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Infaq;
 
-// todo low change *DataContext to DbContext
-public class SuccessRepository(InfaqDataContext _infaqDataContext) : ISuccessRepository
+public class SuccessRepository(DbContext _dbContext) : ISuccessRepository
 {
-    private readonly DbSet<Success> _dbSet = _infaqDataContext.Set<Success>();
+    private readonly DbSet<Success> _dbSet = _dbContext.Set<Success>();
 
     public async Task AddAsync(Success success)
     {

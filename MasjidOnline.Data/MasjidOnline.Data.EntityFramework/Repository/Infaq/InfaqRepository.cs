@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.Infaq;
 using MasjidOnline.Data.Interface.ViewModel.Infaq.Infaq;
 using MasjidOnline.Data.Interface.ViewModel.Repository;
@@ -11,10 +10,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Infaq;
 
-// todo low change *DataContext to DbContext
-public class InfaqRepository(InfaqDataContext _infaqDataContext) : IInfaqRepository
+public class InfaqRepository(DbContext _dbContext) : IInfaqRepository
 {
-    private readonly DbSet<Entity.Infaq.Infaq> _dbSet = _infaqDataContext.Set<Entity.Infaq.Infaq>();
+    private readonly DbSet<Entity.Infaq.Infaq> _dbSet = _dbContext.Set<Entity.Infaq.Infaq>();
 
     public async Task AddAsync(Entity.Infaq.Infaq infaq)
     {

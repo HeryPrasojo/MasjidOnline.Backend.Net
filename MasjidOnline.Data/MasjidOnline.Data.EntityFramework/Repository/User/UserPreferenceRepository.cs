@@ -1,15 +1,13 @@
 using System.Threading.Tasks;
-using MasjidOnline.Data.EntityFramework.DataContext;
 using MasjidOnline.Data.Interface.Repository.User;
 using MasjidOnline.Entity.User;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.User;
 
-// todo low change *DataContext to DbContext
-public class UserPreferenceRepository(UserDataContext _userDataContext) : IUserPreferenceRepository
+public class UserPreferenceRepository(DbContext _dbContext) : IUserPreferenceRepository
 {
-    private readonly DbSet<UserPreference> _dbSet = _userDataContext.Set<UserPreference>();
+    private readonly DbSet<UserPreference> _dbSet = _dbContext.Set<UserPreference>();
 
     public async Task AddAsync(UserPreference userPreference)
     {

@@ -5,5 +5,5 @@ namespace MasjidOnline.Data.Interface.Repository.Infaq;
 
 public interface IInfaqSettingRepository
 {
-    Task AddAsync(InfaqSetting infaqSetting);
+    Task AddAndSaveAsync(InfaqSetting infaqSetting);
 }

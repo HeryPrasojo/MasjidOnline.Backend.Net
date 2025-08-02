@@ -9,7 +9,19 @@ namespace MasjidOnline.Service.FieldValidator;
 
 public class FieldValidatorService : IFieldValidatorService
 {
-    public string? ValidateOptionalText255(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    public DateTime? ValidateOptionalBirth(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    {
+        if (!value.HasValue) return default;
+
+        if (value.Value == default) throw new InputInvalidException(valueExpression);
+
+        // hack move parameter to db setting
+        if (value > DateTime.UtcNow.AddYears(-2)) throw new InputInvalidException(valueExpression);
+
+        return value.Value;
+    }
+
+    public string? ValidateOptionalTextDb255(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
         if (value == default) return default;
 
@@ -32,13 +44,14 @@ public class FieldValidatorService : IFieldValidatorService
         return value;
     }
 
-    public Enum ValidateRequired(Enum? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    public string ValidateRequired(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
         if (value is null) throw new InputInvalidException(valueExpression);
 
-        var valueType = value.GetType();
 
-        if (!Enum.IsDefined(valueType, value)) throw new InputInvalidException(valueExpression);
+        value = value.Trim();
+
+        if (value.Length < 1) throw new InputInvalidException(valueExpression);
 
         return value;
     }
@@ -91,6 +104,18 @@ public class FieldValidatorService : IFieldValidatorService
         {
             throw new InputInvalidException(valueExpression, exception);
         }
+    }
+
+    public DateTime ValidateRequiredBirth(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    {
+        if (!value.HasValue) throw new InputInvalidException(valueExpression);
+
+        if (value.Value == default) throw new InputInvalidException(valueExpression);
+
+        // hack move parameter to db setting
+        if (value > DateTime.UtcNow.AddYears(-2)) throw new InputInvalidException(valueExpression);
+
+        return value.Value;
     }
 
     public string ValidateRequiredEmailAddress(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
@@ -146,6 +171,17 @@ public class FieldValidatorService : IFieldValidatorService
         return value;
     }
 
+    public TEnum ValidateRequiredEnum<TEnum>(TEnum? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default) where TEnum : struct, Enum
+    {
+        if (!value.HasValue) throw new InputInvalidException(valueExpression);
+
+        var valueType = value.Value.GetType();
+
+        if (!Enum.IsDefined(valueType, value)) throw new InputInvalidException(valueExpression);
+
+        return value.Value;
+    }
+
     public byte[] ValidateRequiredHex(string? value, int valueLength, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
         if (value == default) throw new InputInvalidException(valueExpression);
@@ -169,6 +205,8 @@ public class FieldValidatorService : IFieldValidatorService
     public DateTime ValidateRequiredPast(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
         if (!value.HasValue) throw new InputInvalidException(valueExpression);
+
+        if (value.Value == default) throw new InputInvalidException(valueExpression);
 
         if (value >= DateTime.UtcNow) throw new InputInvalidException(valueExpression);
 
