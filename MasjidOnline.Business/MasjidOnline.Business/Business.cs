@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.Accountancy;
 using MasjidOnline.Business.Accountancy.Interface;
 using MasjidOnline.Business.Authorization;
-using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Captcha;
 using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Business.Infaq;
@@ -28,17 +27,16 @@ public class Business : IBusiness
         Service.Interface.IService _service
     )
     {
+        var authorizationBusiness = new AuthorizationBusiness();
         var sessionBusiness = new SessionBusiness(_service, _idGenerator);
 
-        Accountancy = new AccountancyBusiness(Authorization, _idGenerator, _service);
-        Infaq = new InfaqBusiness(_optionsMonitor, Authorization, _idGenerator, _service);
+        Accountancy = new AccountancyBusiness(authorizationBusiness, _idGenerator, _service);
+        Infaq = new InfaqBusiness(_optionsMonitor, authorizationBusiness, _idGenerator, _service);
         Payment = new PaymentBusiness(_idGenerator);
-        User = new UserBusiness(_optionsMonitor, Authorization, _idGenerator, sessionBusiness, _service);
+        User = new UserBusiness(_optionsMonitor, authorizationBusiness, _idGenerator, sessionBusiness, _service);
     }
 
     public IAccountancyBusiness Accountancy { get; }
-
-    public IAuthorizationBusiness Authorization { get; } = new AuthorizationBusiness();
 
     public ICaptchaBusiness Captcha { get; } = new CaptchaBusiness();
 
