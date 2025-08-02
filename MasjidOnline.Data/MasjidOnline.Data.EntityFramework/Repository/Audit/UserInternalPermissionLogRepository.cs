@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Audit;
 
+// todo low move IdGenerator to a new AuditBusiness project
 public class UserInternalPermissionLogRepository(DbContext _dbContext, IAuditIdGenerator _auditIdGenerator) : IUserInternalPermissionLogRepository
 {
     private readonly DbSet<UserInternalPermissionLog> _dbSet = _dbContext.Set<UserInternalPermissionLog>();
