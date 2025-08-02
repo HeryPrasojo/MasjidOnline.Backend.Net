@@ -12,7 +12,6 @@ using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.Payment;
 using MasjidOnline.Business.Payment.Interface;
 using MasjidOnline.Business.Session;
-using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User;
 using MasjidOnline.Business.User.Interface;
 using MasjidOnline.Data.Interface;
@@ -23,20 +22,18 @@ namespace MasjidOnline.Business;
 // hack low add sealed
 public class Business : IBusiness
 {
-    private readonly ISessionBusiness _sessionBusiness;
-
     public Business(
         IOptionsMonitor<BusinessOptions> _optionsMonitor,
         IIdGenerator _idGenerator,
         Service.Interface.IService _service
     )
     {
-        _sessionBusiness = new SessionBusiness(_service, _idGenerator);
+        var sessionBusiness = new SessionBusiness(_service, _idGenerator);
 
         Accountancy = new AccountancyBusiness(Authorization, _idGenerator, _service);
         Infaq = new InfaqBusiness(_optionsMonitor, Authorization, _idGenerator, _service);
         Payment = new PaymentBusiness(_idGenerator);
-        User = new UserBusiness(_optionsMonitor, Authorization, _idGenerator, _sessionBusiness, _service);
+        User = new UserBusiness(_optionsMonitor, Authorization, _idGenerator, sessionBusiness, _service);
     }
 
     public IAccountancyBusiness Accountancy { get; }
