@@ -282,7 +282,7 @@ public class FieldValidatorService : IFieldValidatorService
 
         var length = value.Length;
 
-        if ((length < 9) || (length > 14)) throw new InputInvalidException(valueExpression);
+        if ((length < 7) || (length > 15)) throw new InputInvalidException(valueExpression);
 
 
         //if (value[0] != '+') throw new InputInvalidException(valueExpression);
