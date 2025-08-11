@@ -92,7 +92,7 @@ public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISe
 
                 if (sessionEntity.DateTime < DateTime.UtcNow.AddDays(-32)) throw new SessionExpireException(idBase64Expression);
 
-                session.Digest = requestSessionIdBytes;
+                session.Digest = decryptedRquestSessionIdBytes;
                 session.Id = sessionEntity.Id;
                 session.UserId = sessionEntity.UserId;
 
