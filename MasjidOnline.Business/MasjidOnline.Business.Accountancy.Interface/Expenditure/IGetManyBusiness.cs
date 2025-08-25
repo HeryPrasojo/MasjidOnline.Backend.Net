@@ -7,5 +7,5 @@ namespace MasjidOnline.Business.Accountancy.Interface.Expenditure;
 
 public interface IGetManyBusiness
 {
-    Task<GetManyResponse<GetManyResponseRecord>> GetAsync(IData _data, GetManyRequest? getManyRequest);
+    Task<Response<GetManyResponse<GetManyResponseRecord>>> GetAsync(IData _data, GetManyRequest? getManyRequest);
 }

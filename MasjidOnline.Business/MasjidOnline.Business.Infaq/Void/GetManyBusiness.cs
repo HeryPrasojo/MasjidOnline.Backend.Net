@@ -13,7 +13,7 @@ namespace MasjidOnline.Business.Infaq.Void;
 
 public class GetManyBusiness(IService _service) : IGetManyBusiness
 {
-    public async Task<GetManyResponse<GetManyResponseRecord>> GetAsync(IData _data, GetManyRequest? getManyRequest)
+    public async Task<Response<GetManyResponse<GetManyResponseRecord>>> GetAsync(IData _data, GetManyRequest? getManyRequest)
     {
         getManyRequest = _service.FieldValidator.ValidateRequired(getManyRequest);
         getManyRequest.Page = _service.FieldValidator.ValidateRequiredPlus(getManyRequest.Page);
@@ -30,19 +30,22 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
 
         return new()
         {
-            PageCount = ((getManyResult.RecordCount - 1) / take) + 1,
             ResultCode = ResponseResultCode.Success,
-            Records = getManyResult.Records.Select(e => new GetManyResponseRecord
+            Data = new()
             {
-                DateTime = e.DateTime,
-                Id = e.Id,
-                InfaqId = e.InfaqId,
-                Status = e.Status.ToModel(),
-                UpdateDateTime = e.UpdateDateTime,
-                UpdateUserId = e.UpdateUserId,
-                UserId = e.UserId,
-            }),
-            RecordCount = getManyResult.RecordCount,
+                PageCount = ((getManyResult.RecordCount - 1) / take) + 1,
+                RecordCount = getManyResult.RecordCount,
+                Records = getManyResult.Records.Select(e => new GetManyResponseRecord
+                {
+                    DateTime = e.DateTime,
+                    Id = e.Id,
+                    InfaqId = e.InfaqId,
+                    Status = e.Status.ToModel(),
+                    UpdateDateTime = e.UpdateDateTime,
+                    UpdateUserId = e.UpdateUserId,
+                    UserId = e.UserId,
+                }),
+            },
         };
     }
 }

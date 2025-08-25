@@ -14,7 +14,7 @@ namespace MasjidOnline.Business.Infaq.Infaq;
 
 public class GetManyBusiness(IService _service) : IGetManyBusiness
 {
-    public async Task<GetManyResponse<GetManyResponseRecord>> GetAsync(
+    public async Task<Response<GetManyResponse<GetManyResponseRecord>>> GetAsync(
         Session.Interface.Model.Session session,
         IData _data,
         GetManyRequest? getManyRequest)
@@ -45,18 +45,21 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
 
         return new()
         {
-            PageCount = ((getManyResult.RecordCount - 1) / take) + 1,
             ResultCode = ResponseResultCode.Success,
-            Records = getManyResult.Records.Select(e => new GetManyResponseRecord
+            Data = new()
             {
-                Amount = _service.Localization[e.Amount, session.CultureInfo],
-                DateTime = _service.Localization[e.DateTime, session.CultureInfo],
-                Id = e.Id,
-                MunfiqName = e.MunfiqName,
-                PaymentStatus = _service.Localization[e.Status, session.CultureInfo],
-                PaymentType = _service.Localization[e.PaymentType, session.CultureInfo],
-            }),
-            RecordCount = getManyResult.RecordCount,
+                PageCount = ((getManyResult.RecordCount - 1) / take) + 1,
+                RecordCount = getManyResult.RecordCount,
+                Records = getManyResult.Records.Select(e => new GetManyResponseRecord
+                {
+                    Amount = _service.Localization[e.Amount, session.CultureInfo],
+                    DateTime = _service.Localization[e.DateTime, session.CultureInfo],
+                    Id = e.Id,
+                    MunfiqName = e.MunfiqName,
+                    PaymentStatus = _service.Localization[e.Status, session.CultureInfo],
+                    PaymentType = _service.Localization[e.PaymentType, session.CultureInfo],
+                }),
+            }
         };
     }
 }

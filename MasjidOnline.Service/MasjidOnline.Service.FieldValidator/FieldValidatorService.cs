@@ -32,6 +32,15 @@ public class FieldValidatorService : IFieldValidatorService
         return value.Value;
     }
 
+    public DateTime ValidateOptionalFuture(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    {
+        if (!value.HasValue) return default;
+
+        if (value <= DateTime.UtcNow) throw new InputInvalidException(valueExpression);
+
+        return value.Value;
+    }
+
     public string? ValidateOptionalTextDb255(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
         if (value == default) return default;
@@ -189,6 +198,17 @@ public class FieldValidatorService : IFieldValidatorService
         var valueType = value.Value.GetType();
 
         if (!Enum.IsDefined(valueType, value)) throw new InputInvalidException(valueExpression);
+
+        return value.Value;
+    }
+
+    public DateTime ValidateRequiredFuture(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    {
+        if (!value.HasValue) throw new InputInvalidException(valueExpression);
+
+        if (value.Value == default) throw new InputInvalidException(valueExpression);
+
+        if (value <= DateTime.UtcNow) throw new InputInvalidException(valueExpression);
 
         return value.Value;
     }

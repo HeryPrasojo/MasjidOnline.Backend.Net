@@ -1,6 +1,12 @@
-﻿namespace MasjidOnline.Business.Model.Responses;
+namespace MasjidOnline.Business.Model.Responses;
 
-public class ExceptionResponse : Response
+public class ExceptionResponse
 {
-    public ExceptionResponseException? Exception { get; set; }
+    public required string Type { get; set; }
+
+    public required string Message { get; set; }
+
+    public string? StackTrace { get; set; }
+
+    public ExceptionResponse? InnerException { get; set; }
 }

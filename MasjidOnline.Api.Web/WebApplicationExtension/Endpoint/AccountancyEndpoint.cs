@@ -38,7 +38,7 @@ internal static class AccountancyEndpoint
             return await _business.Accountancy.Expenditure.Cancel.CancelAsync(session, _data, cancelRequest);
         }
 
-        internal static async Task<GetManyResponse<Business.Accountancy.Interface.Model.Expenditure.GetManyResponseRecord>> GetManyAsync(
+        internal static async Task<Response<GetManyResponse<Business.Accountancy.Interface.Model.Expenditure.GetManyResponseRecord>>> GetManyAsync(
             IBusiness _business,
             IData _data,
             [FromBody] Business.Accountancy.Interface.Model.Expenditure.GetManyRequest? getManyRequest)

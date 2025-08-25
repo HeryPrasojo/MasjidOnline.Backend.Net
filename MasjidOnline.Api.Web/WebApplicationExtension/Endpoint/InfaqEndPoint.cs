@@ -42,7 +42,7 @@ internal static class InfaqEndpoint
             return await _business.Infaq.Expire.Cancel.CancelAsync(session, _data, cancelRequest);
         }
 
-        internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Expire.GetManyResponseRecord>> GetManyAsync(
+        internal static async Task<Response<GetManyResponse<Business.Infaq.Interface.Model.Expire.GetManyResponseRecord>>> GetManyAsync(
             IBusiness _business,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Expire.GetManyRequest? getManyRequest)
@@ -108,7 +108,7 @@ internal static class InfaqEndpoint
             return response;
         }
 
-        internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Infaq.GetManyResponseRecord>> GetManyAsync(
+        internal static async Task<Response<GetManyResponse<Business.Infaq.Interface.Model.Infaq.GetManyResponseRecord>>> GetManyAsync(
             IBusiness _business,
             Session session,
             IData _data,
@@ -156,7 +156,7 @@ internal static class InfaqEndpoint
             return await _business.Infaq.Success.Cancel.CancelAsync(session, _data, cancelRequest);
         }
 
-        internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Success.GetManyResponseRecord>> GetManyAsync(
+        internal static async Task<Response<GetManyResponse<Business.Infaq.Interface.Model.Success.GetManyResponseRecord>>> GetManyAsync(
             IBusiness _business,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Success.GetManyRequest? getManyRequest)
@@ -211,7 +211,7 @@ internal static class InfaqEndpoint
             return await _business.Infaq.Void.Cancel.CancelAsync(session, _data, cancelRequest);
         }
 
-        internal static async Task<GetManyResponse<Business.Infaq.Interface.Model.Void.GetManyResponseRecord>> GetManyAsync(
+        internal static async Task<Response<GetManyResponse<Business.Infaq.Interface.Model.Void.GetManyResponseRecord>>> GetManyAsync(
             IBusiness _business,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Void.GetManyRequest? getManyRequest)

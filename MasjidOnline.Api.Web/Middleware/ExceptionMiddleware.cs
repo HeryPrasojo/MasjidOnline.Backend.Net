@@ -25,9 +25,9 @@ public class ExceptionMiddleware(
         }
     }
 
-    protected virtual ExceptionResponse BuildExceptionResponse(Exception exception)
+    protected virtual Response<ExceptionResponse> BuildExceptionResponse(Exception exception)
     {
-        var exceptionResponse = new ExceptionResponse
+        var exceptionResponse = new Response<ExceptionResponse>
         {
             ResultCode = ResponseResultCode.Error,
             ResultMessage = exception.Message,

@@ -10,7 +10,7 @@ using MasjidOnline.Business.Interface;
 using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.Payment;
 using MasjidOnline.Business.Payment.Interface;
-using MasjidOnline.Business.Session;
+using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User;
 using MasjidOnline.Business.User.Interface;
 using MasjidOnline.Data.Interface;
@@ -22,18 +22,18 @@ namespace MasjidOnline.Business;
 public class Business : IBusiness
 {
     public Business(
-        IOptionsMonitor<BusinessOptions> _optionsMonitor,
-        IIdGenerator _idGenerator,
-        Service.Interface.IService _service
+        IOptionsMonitor<BusinessOptions> optionsMonitor,
+        IIdGenerator idGenerator,
+        Service.Interface.IService service,
+        ISessionBusiness sessionBusiness
     )
     {
         var authorizationBusiness = new AuthorizationBusiness();
-        var sessionBusiness = new SessionBusiness(_service, _idGenerator);
 
-        Accountancy = new AccountancyBusiness(authorizationBusiness, _idGenerator, _service);
-        Infaq = new InfaqBusiness(_optionsMonitor, authorizationBusiness, _idGenerator, _service);
-        Payment = new PaymentBusiness(_idGenerator);
-        User = new UserBusiness(_optionsMonitor, authorizationBusiness, _idGenerator, sessionBusiness, _service);
+        Accountancy = new AccountancyBusiness(authorizationBusiness, idGenerator, service);
+        Infaq = new InfaqBusiness(optionsMonitor, authorizationBusiness, idGenerator, service);
+        Payment = new PaymentBusiness(idGenerator);
+        User = new UserBusiness(optionsMonitor, authorizationBusiness, idGenerator, sessionBusiness, service);
     }
 
     public IAccountancyBusiness Accountancy { get; }
