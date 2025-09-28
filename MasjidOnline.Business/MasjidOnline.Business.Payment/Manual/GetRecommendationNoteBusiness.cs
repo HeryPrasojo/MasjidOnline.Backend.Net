@@ -10,14 +10,17 @@ public class GetRecommendationNoteBusiness(IIdGenerator _idGenerator) : IGetReco
 {
     private const string _notesFormat = "MO Infaq {0}";
 
-    public async Task<GetRecommendationNoteResponse> Get(IData _data, Session.Interface.Model.Session session)
+    public async Task<Response<GetRecommendationNoteResponse>> Get(IData _data, Session.Interface.Model.Session session)
     {
         var lastManualRecommendationId = await _data.Payment.ManualRecommendationId.GetLastBySessionIdAsync(session.Id);
 
         if ((lastManualRecommendationId != default) && (!lastManualRecommendationId.Used)) return new()
         {
             ResultCode = ResponseResultCode.Success,
-            Note = string.Format(_notesFormat, lastManualRecommendationId),
+            Data = new()
+            {
+                Note = string.Format(_notesFormat, lastManualRecommendationId),
+            },
         };
 
 
@@ -33,7 +36,10 @@ public class GetRecommendationNoteBusiness(IIdGenerator _idGenerator) : IGetReco
         return new()
         {
             ResultCode = ResponseResultCode.Success,
-            Note = string.Format(_notesFormat, manualRecommendationId.Id),
+            Data = new()
+            {
+                Note = string.Format(_notesFormat, manualRecommendationId.Id),
+            },
         };
     }
 }

@@ -14,7 +14,7 @@ namespace MasjidOnline.Business.Infaq.Infaq;
 
 public class GetOneBusiness(IService _service) : IGetOneBusiness
 {
-    public async Task<GetOneResponse> GetAsync(Session.Interface.Model.Session session, IData _data, GetOneRequest? getOneRequest)
+    public async Task<Response<GetOneResponse>> GetAsync(Session.Interface.Model.Session session, IData _data, GetOneRequest? getOneRequest)
     {
         getOneRequest = _service.FieldValidator.ValidateRequired(getOneRequest);
         getOneRequest.Id = _service.FieldValidator.ValidateRequiredPlus(getOneRequest.Id);
@@ -109,13 +109,16 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
         return new()
         {
             ResultCode = ResponseResultCode.Success,
-            Amount = _service.Localization[infaq.Amount, session.CultureInfo],
-            DateTime = _service.Localization[infaq.DateTime, session.CultureInfo],
-            MunfiqName = infaq.MunfiqName,
-            Status = _service.Localization[infaq.Status, session.CultureInfo],
-            PaymentType = _service.Localization[infaq.PaymentType, session.CultureInfo],
-            Flags = getOneResponseFlags,
-            Infaq = getOneResponseInfaq,
+            Data = new GetOneResponse()
+            {
+                Amount = _service.Localization[infaq.Amount, session.CultureInfo],
+                DateTime = _service.Localization[infaq.DateTime, session.CultureInfo],
+                MunfiqName = infaq.MunfiqName,
+                Status = _service.Localization[infaq.Status, session.CultureInfo],
+                PaymentType = _service.Localization[infaq.PaymentType, session.CultureInfo],
+                Flags = getOneResponseFlags,
+                Infaq = getOneResponseInfaq,
+            },
         };
     }
 }

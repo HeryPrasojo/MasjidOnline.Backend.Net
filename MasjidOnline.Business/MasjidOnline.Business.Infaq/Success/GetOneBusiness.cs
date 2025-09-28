@@ -11,7 +11,7 @@ namespace MasjidOnline.Business.Infaq.Success;
 
 public class GetOneBusiness(IService _service) : IGetOneBusiness
 {
-    public async Task<GetOneResponse> GetAsync(IData _data, GetOneRequest? getOneRequest)
+    public async Task<Response<GetOneResponse>> GetAsync(IData _data, GetOneRequest? getOneRequest)
     {
         getOneRequest = _service.FieldValidator.ValidateRequired(getOneRequest);
         getOneRequest.Id = _service.FieldValidator.ValidateRequiredPlus(getOneRequest.Id);
@@ -24,11 +24,14 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
         return new()
         {
             ResultCode = ResponseResultCode.Success,
-            DateTime = infaq.DateTime,
-            Status = infaq.Status.ToModel(),
-            UpdateDateTime = infaq.UpdateDateTime,
-            UpdateUserId = infaq.UpdateUserId,
-            UserId = infaq.UserId,
+            Data = new()
+            {
+                DateTime = infaq.DateTime,
+                Status = infaq.Status.ToModel(),
+                UpdateDateTime = infaq.UpdateDateTime,
+                UpdateUserId = infaq.UpdateUserId,
+                UserId = infaq.UserId,
+            },
         };
     }
 }

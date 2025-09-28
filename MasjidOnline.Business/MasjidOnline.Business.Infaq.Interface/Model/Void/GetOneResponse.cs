@@ -1,8 +1,6 @@
-using MasjidOnline.Business.Model.Responses;
-
 namespace MasjidOnline.Business.Infaq.Interface.Model.Void;
 
-public class GetOneResponse : Response
+public class GetOneResponse
 {
     public required DateTime DateTime { get; set; }
 

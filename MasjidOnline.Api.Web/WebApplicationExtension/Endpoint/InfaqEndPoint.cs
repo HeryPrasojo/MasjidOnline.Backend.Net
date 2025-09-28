@@ -50,7 +50,7 @@ internal static class InfaqEndpoint
             return await _business.Infaq.Expire.GetMany.GetAsync(_data, getManyRequest);
         }
 
-        internal static async Task<Business.Infaq.Interface.Model.Expire.GetOneResponse> GetOneAsync(
+        internal static async Task<Response<Business.Infaq.Interface.Model.Expire.GetOneResponse>> GetOneAsync(
             IBusiness _business,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Expire.GetOneRequest? getOneRequest)
@@ -117,7 +117,7 @@ internal static class InfaqEndpoint
             return await _business.Infaq.Infaq.GetMany.GetAsync(session, _data, getManyRequest);
         }
 
-        internal static async Task<Business.Infaq.Interface.Model.Infaq.GetOneResponse> GetOneAsync(
+        internal static async Task<Response<Business.Infaq.Interface.Model.Infaq.GetOneResponse>> GetOneAsync(
             IBusiness _business,
             Session session,
             IData _data,
@@ -164,7 +164,7 @@ internal static class InfaqEndpoint
             return await _business.Infaq.Success.GetMany.GetAsync(_data, getManyRequest);
         }
 
-        internal static async Task<Business.Infaq.Interface.Model.Success.GetOneResponse> GetOneAsync(
+        internal static async Task<Response<Business.Infaq.Interface.Model.Success.GetOneResponse>> GetOneAsync(
             IBusiness _business,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Success.GetOneRequest? getOneRequest)
@@ -219,7 +219,7 @@ internal static class InfaqEndpoint
             return await _business.Infaq.Void.GetMany.GetAsync(_data, getManyRequest);
         }
 
-        internal static async Task<Business.Infaq.Interface.Model.Void.GetOneResponse> GetOneAsync(
+        internal static async Task<Response<Business.Infaq.Interface.Model.Void.GetOneResponse>> GetOneAsync(
             IBusiness _business,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Void.GetOneRequest? getOneRequest)

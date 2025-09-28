@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Data.Interface;
 
@@ -6,5 +7,5 @@ namespace MasjidOnline.Business.User.Interface.Internal;
 
 public interface IGetOneBusiness
 {
-    Task<GetOneResponse> GetAsync(IData _data, GetOneRequest? getOneRequest);
+    Task<Response<GetOneResponse>> GetAsync(IData _data, GetOneRequest? getOneRequest);
 }

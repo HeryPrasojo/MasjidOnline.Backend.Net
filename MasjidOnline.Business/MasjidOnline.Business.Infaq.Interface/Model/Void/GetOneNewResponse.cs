@@ -1,8 +1,6 @@
-using MasjidOnline.Business.Model.Responses;
-
 namespace MasjidOnline.Business.Infaq.Interface.Model.Void;
 
-public class GetOneNewResponse : Response
+public class GetOneNewResponse
 {
     public required int InfaqId { get; set; }
 

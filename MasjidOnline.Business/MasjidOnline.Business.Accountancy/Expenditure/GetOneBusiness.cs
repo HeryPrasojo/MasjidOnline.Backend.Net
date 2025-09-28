@@ -11,7 +11,7 @@ namespace MasjidOnline.Business.Accountancy.Expenditure;
 
 public class GetOneBusiness(IService _service) : IGetOneBusiness
 {
-    public async Task<GetOneResponse> GetAsync(IData _data, GetOneRequest? getOneRequest)
+    public async Task<Response<GetOneResponse>> GetAsync(IData _data, GetOneRequest? getOneRequest)
     {
         getOneRequest = _service.FieldValidator.ValidateRequired(getOneRequest);
         getOneRequest.Id = _service.FieldValidator.ValidateRequiredPlus(getOneRequest.Id);
@@ -24,11 +24,14 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
         return new()
         {
             ResultCode = ResponseResultCode.Success,
-            DateTime = expenditure.DateTime,
-            Status = expenditure.Status.ToModel(),
-            UpdateDateTime = expenditure.UpdateDateTime,
-            UpdateUserId = expenditure.UpdateUserId,
-            UserId = expenditure.UserId,
+            Data = new()
+            {
+                DateTime = expenditure.DateTime,
+                Status = expenditure.Status.ToModel(),
+                UpdateDateTime = expenditure.UpdateDateTime,
+                UpdateUserId = expenditure.UpdateUserId,
+                UserId = expenditure.UserId,
+            },
         };
     }
 }

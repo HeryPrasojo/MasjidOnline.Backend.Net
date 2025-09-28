@@ -1,9 +1,8 @@
 using System;
-using MasjidOnline.Business.Model.Responses;
 
 namespace MasjidOnline.Business.Accountancy.Interface.Model.Expenditure;
 
-public class GetOneResponse : Response
+public class GetOneResponse
 {
     public required DateTime DateTime { get; set; }
 

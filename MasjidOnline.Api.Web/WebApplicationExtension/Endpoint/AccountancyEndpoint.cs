@@ -46,7 +46,7 @@ internal static class AccountancyEndpoint
             return await _business.Accountancy.Expenditure.GetMany.GetAsync(_data, getManyRequest);
         }
 
-        internal static async Task<Business.Accountancy.Interface.Model.Expenditure.GetOneResponse> GetOneAsync(
+        internal static async Task<Response<Business.Accountancy.Interface.Model.Expenditure.GetOneResponse>> GetOneAsync(
             IBusiness _business,
             IData _data,
             [FromBody] Business.Accountancy.Interface.Model.Expenditure.GetOneRequest? getOneRequest)
