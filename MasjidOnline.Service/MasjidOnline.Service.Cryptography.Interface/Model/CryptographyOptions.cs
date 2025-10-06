@@ -1,6 +1,6 @@
-﻿namespace MasjidOnline.Service.Cryptography.Interface.Model;
+namespace MasjidOnline.Service.Cryptography.Interface.Model;
 
 public class CryptographyOptions
 {
-    public required string Key128 { get; set; }
+    public required string Key256Base64 { get; set; }
 }

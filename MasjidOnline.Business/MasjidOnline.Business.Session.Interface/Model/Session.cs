@@ -8,7 +8,7 @@ public class Session
 {
     public required CultureInfo CultureInfo { get; set; }
 
-    public Memory<byte> Digest { get; set; }
+    public Memory<byte> Code { get; set; }
 
     public int Id { get; set; }
 

@@ -29,9 +29,8 @@ public class SessionInitializer(
             CREATE TABLE Session
             (
                 Id INTEGER PRIMARY KEY,
-                Digest BLOB NOT NULL,
+                Code BLOB NOT NULL,
                 DateTime TEXT NOT NULL,
-                PreviousId INTEGER,
                 UserId INTEGER NOT NULL,
                 ApplicationCulture INTEGER NOT NULL
             )";

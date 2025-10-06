@@ -7,11 +7,9 @@ public class Session
 {
     public required int Id { get; set; }
 
-    public byte[] Digest { get; set; } = default!;
+    public required byte[] Code { get; set; }
 
     public DateTime DateTime { get; set; }
-
-    public int? PreviousId { get; set; }
 
     public int UserId { get; set; }
 

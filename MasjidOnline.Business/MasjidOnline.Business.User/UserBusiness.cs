@@ -89,7 +89,7 @@ public class UserBusiness(
 
         var passwordCode = new PasswordCode
         {
-            Code = _idGenerator.User.PasswordCodeCode,
+            Code = _service.Hash512.RandomByteArray,
             DateTime = utcNow,
             UserId = user.Id,
         };

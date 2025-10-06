@@ -16,7 +16,6 @@ public class DevelopmentExceptionMiddleware(
 
         if (exception is PermissionException)
         {
-            exceptionResponse.ResultCode = ResponseResultCode.PermissionMismatch;
             exceptionResponse.ResultMessage = exception.Message;
         }
 

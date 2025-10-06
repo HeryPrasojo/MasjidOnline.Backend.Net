@@ -10,6 +10,8 @@ public class Hash512Service : IHash512Service
 {
     private readonly Random _random = new();
 
+    public byte[] RandomByteArray => RandomNumberGenerator.GetBytes(64);
+
     public byte[] RandomDigestByteArray
     {
         get
@@ -42,11 +44,11 @@ public class Hash512Service : IHash512Service
 
     public string RandomDigestHexString => Convert.ToHexString(RandomDigestByteSpan);
 
-    //public ReadOnlySpan<byte> Hash(ReadOnlySpan<byte> bytes)
-    //{
-    //    return SHA512.HashData(bytes)
-    //        .AsSpan();
-    //}
+    public ReadOnlySpan<byte> Hash(ReadOnlySpan<byte> bytes)
+    {
+        return SHA512.HashData(bytes)
+            .AsSpan();
+    }
 
     public byte[] Hash(string text)
     {

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Repository.Session;
@@ -16,6 +17,13 @@ public class SessionRepository(DbContext _dbContext) : ISessionRepository
         await _dbSet.AddAsync(session);
     }
 
+    public async Task AddAndSaveAsync(Entity.Session.Session session)
+    {
+        await _dbSet.AddAsync(session);
+
+        await _dbContext.SaveChangesAsync();
+    }
+
     public async Task<int> GetMaxIdAsync()
     {
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
@@ -28,9 +36,9 @@ public class SessionRepository(DbContext _dbContext) : ISessionRepository
             .FirstOrDefaultAsync();
     }
 
-    public async Task<SessionForStart?> GetForStartAsync(byte[] digest)
+    public async Task<SessionForStart?> GetForStartAsync(byte[] code)
     {
-        return await _dbSet.Where(e => e.Digest.SequenceEqual(digest))
+        return await _dbSet.Where(e => e.Code.SequenceEqual(code))
             .Select(e => new SessionForStart
             {
                 ApplicationCulture = e.ApplicationCulture,
@@ -45,6 +53,7 @@ public class SessionRepository(DbContext _dbContext) : ISessionRepository
     {
         var user = new Entity.Session.Session
         {
+            Code = default!,
             Id = id,
             ApplicationCulture = applicationCulture,
         };
@@ -52,5 +61,23 @@ public class SessionRepository(DbContext _dbContext) : ISessionRepository
         var entityEntry = _dbSet.Attach(user);
 
         entityEntry.Property(e => e.ApplicationCulture).IsModified = true;
+    }
+
+    public async Task SetDateTimeAsync(int id, DateTime dateTime)
+    {
+        var session = new Entity.Session.Session
+        {
+            ApplicationCulture = default!,
+            Id = id,
+            Code = default!,
+            DateTime = dateTime,
+        };
+
+        _dbSet.Attach(session)
+            .Property(e => e.DateTime)
+            .IsModified = true;
+
+
+        await _dbContext.SaveChangesAsync();
     }
 }

@@ -14,22 +14,19 @@ public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate, ISes
 
         var cultureName = httpContext.Request.Query["culture"];
 
-        await _sessionBusiness.StartAsync(session, _data, requestSessionIdBase64, cultureName);
+        var responseSessionId = await _sessionBusiness.StartAsync(session, _data, requestSessionIdBase64, cultureName);
 
-
-        httpContext.Response.OnStarting(
-            (id) =>
-            {
-                if (((string?)requestSessionIdBase64 == default) || (session.Id != (int)id))
+        if (responseSessionId != default)
+        {
+            httpContext.Response.OnStarting(
+                () =>
                 {
-                    var sessionDigestBase64 = _sessionBusiness.GetDigestBase64(session);
+                    httpContext.Response.Headers.Append(Constant.HttpHeaderName.Session, responseSessionId);
 
-                    httpContext.Response.Headers.Append(Constant.HttpHeaderName.Session, sessionDigestBase64);
+                    return Task.CompletedTask;
                 }
-
-                return Task.CompletedTask;
-            },
-            session.Id);
+            );
+        }
 
         await _nextRequestDelegate(httpContext);
     }

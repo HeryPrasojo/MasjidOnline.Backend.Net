@@ -47,7 +47,7 @@ public class ExceptionMiddleware(
         }
         else if (exception is PermissionException)
         {
-            exceptionResponse.ResultCode = ResponseResultCode.Success;
+            exceptionResponse.ResultCode = ResponseResultCode.PermissionMismatch;
             exceptionResponse.ResultMessage = default;
         }
 

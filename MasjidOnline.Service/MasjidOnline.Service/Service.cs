@@ -18,12 +18,13 @@ namespace MasjidOnline.Service;
 public class Service : IService
 {
     private readonly CaptchaService _captchaService;
-    private readonly FileService _fileService;
-    private readonly LocalizationService _localizationService;
-    private readonly Hash128Service _hash128Service;
-    private readonly Encryption128128Service _encryption128128Service;
+    private readonly Encryption128b256kService _encryption128b256kService;
     private readonly FieldValidatorService _fieldValidatorService;
+    private readonly FileService _fileService;
+    private readonly Hash128Service _hash128Service;
+    private readonly Hash256Service _hash256Service;
     private readonly Hash512Service _hash512Service;
+    private readonly LocalizationService _localizationService;
     private readonly SmtpMailSenderService _mailSenderService;
 
     public Service(
@@ -32,22 +33,23 @@ public class Service : IService
         IOptionsMonitor<GoogleOptions> googleOptions,
         IOptionsMonitor<MailOptions> mailOption)
     {
-        if (cryptographyOption.CurrentValue.Key128 == default)
-            throw new ApplicationException($"{nameof(CryptographyOptions)}.{nameof(CryptographyOptions.Key128)} is not found");
+        if (cryptographyOption.CurrentValue.Key256Base64 == default)
+            throw new ApplicationException($"{nameof(CryptographyOptions)}.{nameof(CryptographyOptions.Key256Base64)} is not found");
 
         _fieldValidatorService = new();
         _fileService = new();
         _hash128Service = new();
+        _hash256Service = new();
         _hash512Service = new();
         _localizationService = new();
 
         _captchaService = new(httpClientFactory, googleOptions);
-        _encryption128128Service = new(cryptographyOption, _hash128Service);
+        _encryption128b256kService = new(cryptographyOption, _hash256Service);
         _mailSenderService = new(mailOption);
     }
 
     public Captcha.Interface.ICaptchaService Captcha => _captchaService;
-    public Cryptography.Interface.IEncryption128128Service Encryption128128 => _encryption128128Service;
+    public Cryptography.Interface.IEncryption128b256kService Encryption128b256kService => _encryption128b256kService;
     public FieldValidator.Interface.IFieldValidatorService FieldValidator => _fieldValidatorService;
     public File.Interface.IFileService File => _fileService;
     public Hash.Interface.IHash128Service Hash128 => _hash128Service;

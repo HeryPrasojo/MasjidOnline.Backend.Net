@@ -64,7 +64,7 @@ public class ApproveBusiness(
 
         var passwordCode = new PasswordCode
         {
-            Code = _idGenerator.User.PasswordCodeCode,
+            Code = _service.Hash512.RandomByteArray,
             DateTime = DateTime.UtcNow,
             UserId = user.Id,
         };

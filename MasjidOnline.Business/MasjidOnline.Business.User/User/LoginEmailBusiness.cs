@@ -39,8 +39,6 @@ public class LoginEmailBusiness(ISessionBusiness _sessionBusiness, IService _ser
 
         session.UserId = userId.Value;
 
-        await _sessionBusiness.ChangeAndSaveAsync(session, _data);
-
         return new()
         {
             ResultCode = ResponseResultCode.Success
