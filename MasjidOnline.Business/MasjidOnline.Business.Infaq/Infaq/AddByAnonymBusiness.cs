@@ -9,7 +9,6 @@ using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Entity.Captcha;
 using MasjidOnline.Entity.Infaq;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
@@ -27,25 +26,11 @@ public class AddByAnonymBusiness(IService _service, IIdGenerator _idGenerator, I
 
         if (session.IsUserAnonymous)
         {
-            var any = await _data.Captcha.Pass.AnyAsync(session.Id);
+            addByAnonymRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(addByAnonymRequest.CaptchaToken);
 
-            if (!any)
-            {
-                addByAnonymRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(addByAnonymRequest.CaptchaToken);
+            var isVerified = await _service.Captcha.VerifyAsync(addByAnonymRequest.CaptchaToken, "infaq");
 
-                var isVerified = await _service.Captcha.VerifyAsync(addByAnonymRequest.CaptchaToken, "infaq");
-
-                if (!isVerified) throw new InputMismatchException(nameof(addByAnonymRequest.CaptchaToken));
-
-
-                var pass = new Pass
-                {
-                    DateTime = utcNow,
-                    SessionId = session.Id,
-                };
-
-                await _data.Captcha.Pass.AddAndSaveAsync(pass);
-            }
+            if (!isVerified) throw new InputMismatchException(nameof(addByAnonymRequest.CaptchaToken));
         }
 
 

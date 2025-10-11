@@ -17,11 +17,6 @@ internal static class MapEndpointsExtension
         expenditureGroup.MapPost("reject", AccountancyEndpoint.Expenditure.RejectAsync);
 
 
-        var captchaGroup = webApplication.MapGroup("/captcha/").DisableAntiforgery();
-
-        captchaGroup.MapPost("getStatus", CaptchaEndpoint.Pass.GetStatusAsync);
-
-
         var infaqGroup = webApplication.MapGroup("/infaq/").DisableAntiforgery();
 
         var infaqInfaqGroup = infaqGroup.MapGroup("infaq/");

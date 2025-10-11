@@ -2,8 +2,6 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.Accountancy;
 using MasjidOnline.Business.Accountancy.Interface;
 using MasjidOnline.Business.Authorization;
-using MasjidOnline.Business.Captcha;
-using MasjidOnline.Business.Captcha.Interface;
 using MasjidOnline.Business.Infaq;
 using MasjidOnline.Business.Infaq.Interface;
 using MasjidOnline.Business.Interface;
@@ -37,8 +35,6 @@ public class Business : IBusiness
     }
 
     public IAccountancyBusiness Accountancy { get; }
-
-    public ICaptchaBusiness Captcha { get; } = new CaptchaBusiness();
 
     public IInfaqBusiness Infaq { get; }
 

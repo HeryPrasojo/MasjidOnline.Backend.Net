@@ -13,5 +13,7 @@ public class Session
 
     public int UserId { get; set; }
 
+
+    // hack move to new SessionData
     public required UserPreferenceApplicationCulture ApplicationCulture { get; set; }
 }
