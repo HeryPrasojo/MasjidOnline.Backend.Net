@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace MasjidOnline.Api.Web.Middleware;
 
-public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate, ISessionBusiness _sessionBusiness)
+public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate, ISessionAuthenticationBusiness _sessionAuthenticationBusiness)
 {
     public async Task Invoke(HttpContext httpContext, Session session, IData _data)
     {
@@ -14,7 +14,7 @@ public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate, ISes
 
         var cultureName = httpContext.Request.Query["culture"];
 
-        var responseSessionId = await _sessionBusiness.StartAsync(session, _data, requestSessionIdBase64, cultureName);
+        var responseSessionId = await _sessionAuthenticationBusiness.StartAsync(session, _data, requestSessionIdBase64, cultureName);
 
         if (responseSessionId != default)
         {

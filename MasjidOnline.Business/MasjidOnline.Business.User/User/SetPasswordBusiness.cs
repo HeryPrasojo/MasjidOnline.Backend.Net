@@ -12,7 +12,7 @@ using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.User.User;
 
-public class SetPasswordBusiness(ISessionBusiness _sessionBusiness, IService _service) : ISetPasswordBusiness
+public class SetPasswordBusiness(ISessionAuthenticationBusiness _sessionAuthenticationBusiness, IService _service) : ISetPasswordBusiness
 {
     public async Task<Response> SetAsync(Session.Interface.Model.Session session, IData _data, SetPasswordRequest? setPasswordRequest)
     {

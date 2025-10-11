@@ -4,7 +4,7 @@ using MasjidOnline.Data.Interface;
 
 namespace MasjidOnline.Business.Session.Interface;
 
-public interface ISessionBusiness
+public interface ISessionAuthenticationBusiness
 {
     Task<string?> StartAsync(Model.Session session, IData _data, string? idBase64, string? cultureName, [CallerArgumentExpression(nameof(idBase64))] string? idBase64Expression = null);
 }

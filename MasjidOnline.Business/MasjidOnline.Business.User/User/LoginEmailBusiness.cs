@@ -11,7 +11,7 @@ using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.User.User;
 
-public class LoginEmailBusiness(ISessionBusiness _sessionBusiness, IService _service) : ILoginEmailBusiness
+public class LoginEmailBusiness(ISessionAuthenticationBusiness _sessionAuthenticationBusiness, IService _service) : ILoginEmailBusiness
 {
     // undone
     public async Task<Response> LoginAsync(IData _data, Session.Interface.Model.Session session, LoginRequest? loginRequest)

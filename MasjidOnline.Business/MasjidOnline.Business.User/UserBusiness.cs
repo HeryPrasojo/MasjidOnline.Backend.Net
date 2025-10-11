@@ -18,13 +18,13 @@ public class UserBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
     Authorization.Interface.IAuthorizationBusiness _authorizationBusiness,
     IIdGenerator _idGenerator,
-    ISessionBusiness _sessionBusiness,
+    ISessionAuthenticationBusiness _sessionAuthenticationBusiness,
     IService _service
     ) : IUserBusiness
 {
     public IUserInternalBusiness Internal { get; } = new UserInternalBusiness(_optionsMonitor, _authorizationBusiness, _idGenerator, _service);
     public IUserPreferenceBusiness UserPreference { get; } = new UserPreferenceBusiness();
-    public IUserUserBusiness User { get; } = new UserUserBusiness(_sessionBusiness, _service);
+    public IUserUserBusiness User { get; } = new UserUserBusiness(_sessionAuthenticationBusiness, _service);
 
 
     public async Task InitializeAsync(IData _data)

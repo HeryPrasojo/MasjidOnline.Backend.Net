@@ -9,7 +9,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<Interface.Model.Session>();
 
-        services.AddSingleton<ISessionBusiness, SessionBusiness>();
+        services.AddSingleton<ISessionAuthenticationBusiness, SessionAuthenticationBusiness>();
 
         return services;
     }

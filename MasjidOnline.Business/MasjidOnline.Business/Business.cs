@@ -23,7 +23,7 @@ public class Business : IBusiness
         IOptionsMonitor<BusinessOptions> optionsMonitor,
         IIdGenerator idGenerator,
         Service.Interface.IService service,
-        ISessionBusiness sessionBusiness
+        ISessionAuthenticationBusiness sessionAuthenticationBusiness
     )
     {
         var authorizationBusiness = new AuthorizationBusiness();
@@ -31,7 +31,7 @@ public class Business : IBusiness
         Accountancy = new AccountancyBusiness(authorizationBusiness, idGenerator, service);
         Infaq = new InfaqBusiness(optionsMonitor, authorizationBusiness, idGenerator, service);
         Payment = new PaymentBusiness(idGenerator);
-        User = new UserBusiness(optionsMonitor, authorizationBusiness, idGenerator, sessionBusiness, service);
+        User = new UserBusiness(optionsMonitor, authorizationBusiness, idGenerator, sessionAuthenticationBusiness, service);
     }
 
     public IAccountancyBusiness Accountancy { get; }
