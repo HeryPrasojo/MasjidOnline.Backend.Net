@@ -63,6 +63,11 @@ internal static class MapEndpointsExtension
         paymentManualGroup.MapPost("getRecommendationNote", PaymentEndpoint.Manual.GetRecommendationNoteAsync);
 
 
+        var sessionSessionGroup = webApplication.MapGroup("session/").DisableAntiforgery();
+
+        sessionSessionGroup.MapPost("create", SessionEndpoint.Session.CreateAsync);
+
+
         var userGroup = webApplication.MapGroup("/user/").DisableAntiforgery();
 
         var userInternalGroup = userGroup.MapGroup("internal/");
@@ -81,10 +86,6 @@ internal static class MapEndpointsExtension
         userUserGroup.MapPost("login", UserEndpoint.User.LoginAsync);
         userUserGroup.MapPost("setPassword", UserEndpoint.User.SetPasswordAsync);
 
-
-        var sessionGroup = webApplication.MapGroup("session/").DisableAntiforgery();
-
-        sessionGroup.MapPost("create", SessionEndpoint.Create);
 
         return webApplication;
     }

@@ -6,5 +6,5 @@ namespace MasjidOnline.Business.Session.Interface;
 
 public interface ISessionAuthenticationBusiness
 {
-    Task<string?> StartAsync(Model.Session session, IData _data, string? idBase64, string? cultureName, [CallerArgumentExpression(nameof(idBase64))] string? idBase64Expression = null);
+    Task<bool> AuthenticateAsync(Model.Session session, IData _data, string? codeBase64, string? cultureName, string requestPath, [CallerArgumentExpression(nameof(codeBase64))] string? idBase64Expression = null);
 }

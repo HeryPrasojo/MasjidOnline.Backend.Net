@@ -8,6 +8,7 @@ using MasjidOnline.Business.Interface;
 using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.Payment;
 using MasjidOnline.Business.Payment.Interface;
+using MasjidOnline.Business.Session;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User;
 using MasjidOnline.Business.User.Interface;
@@ -31,6 +32,7 @@ public class Business : IBusiness
         Accountancy = new AccountancyBusiness(authorizationBusiness, idGenerator, service);
         Infaq = new InfaqBusiness(optionsMonitor, authorizationBusiness, idGenerator, service);
         Payment = new PaymentBusiness(idGenerator);
+        Session = new SessionBusiness(service, idGenerator);
         User = new UserBusiness(optionsMonitor, authorizationBusiness, idGenerator, sessionAuthenticationBusiness, service);
     }
 
@@ -39,6 +41,8 @@ public class Business : IBusiness
     public IInfaqBusiness Infaq { get; }
 
     public IPaymentBusiness Payment { get; }
+
+    public ISessionBusiness Session { get; }
 
     public IUserBusiness User { get; }
 

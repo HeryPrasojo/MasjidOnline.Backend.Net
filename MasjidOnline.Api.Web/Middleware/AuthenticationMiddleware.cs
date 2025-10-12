@@ -10,23 +10,14 @@ public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate, ISes
 {
     public async Task Invoke(HttpContext httpContext, Session session, IData _data)
     {
-        var requestSessionIdBase64 = httpContext.Request.Headers[Constant.HttpHeaderName.Session];
+        var authenticateResult = await _sessionAuthenticationBusiness.AuthenticateAsync(
+            session,
+            _data,
+            httpContext.Request.Headers[Constant.HttpHeaderName.Session],
+            httpContext.Request.Query["culture"],
+            httpContext.Request.Path);
 
-        var cultureName = httpContext.Request.Query["culture"];
-
-        var responseSessionId = await _sessionAuthenticationBusiness.StartAsync(session, _data, requestSessionIdBase64, cultureName);
-
-        if (responseSessionId != default)
-        {
-            httpContext.Response.OnStarting(
-                () =>
-                {
-                    httpContext.Response.Headers.Append(Constant.HttpHeaderName.Session, responseSessionId);
-
-                    return Task.CompletedTask;
-                }
-            );
-        }
+        if (!authenticateResult) return;
 
         await _nextRequestDelegate(httpContext);
     }
