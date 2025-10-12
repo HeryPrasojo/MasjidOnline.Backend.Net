@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
@@ -13,6 +14,12 @@ public class ExceptionMiddleware(
     RequestDelegate _nextRequestDelegate,
     IIdGenerator _idGenerator)
 {
+    private static readonly JsonSerializerOptions _jsonSerializerOptions = new()
+    {
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+    };
+
     public async Task Invoke(HttpContext httpContext, IData data)
     {
         try
@@ -25,9 +32,9 @@ public class ExceptionMiddleware(
         }
     }
 
-    protected virtual Response<ExceptionResponse> BuildExceptionResponse(Exception exception)
+    protected virtual ExceptionResponse BuildExceptionResponse(Exception exception)
     {
-        var exceptionResponse = new Response<ExceptionResponse>
+        var exceptionResponse = new ExceptionResponse
         {
             ResultCode = ResponseResultCode.Error,
             ResultMessage = exception.Message,
@@ -60,7 +67,7 @@ public class ExceptionMiddleware(
 
         httpContext.Response.ContentType = "application/json";
 
-        var responseString = JsonSerializer.Serialize(exceptionResponse, options: JsonSerializerOptions.Web);
+        var responseString = JsonSerializer.Serialize(exceptionResponse, options: _jsonSerializerOptions);
 
         await httpContext.Response.WriteAsync(responseString);
 

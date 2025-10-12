@@ -10,7 +10,7 @@ public class DevelopmentExceptionMiddleware(
     RequestDelegate _nextRequestDelegate,
     IIdGenerator _idGenerator) : ExceptionMiddleware(_nextRequestDelegate, _idGenerator)
 {
-    protected override Response<ExceptionResponse> BuildExceptionResponse(Exception exception)
+    protected override ExceptionResponse BuildExceptionResponse(Exception exception)
     {
         var exceptionResponse = base.BuildExceptionResponse(exception);
 
@@ -19,14 +19,14 @@ public class DevelopmentExceptionMiddleware(
             exceptionResponse.ResultMessage = exception.Message;
         }
 
-        exceptionResponse.Data = BuildExceptionResponseException(exception);
+        exceptionResponse.Exception = BuildExceptionResponseException(exception);
 
         return exceptionResponse;
     }
 
-    private static ExceptionResponse BuildExceptionResponseException(Exception exception)
+    private static ExceptionResponseException BuildExceptionResponseException(Exception exception)
     {
-        var exceptionResponseException = new ExceptionResponse
+        var exceptionResponseException = new ExceptionResponseException
         {
             Message = exception.Message,
             StackTrace = exception.StackTrace,
