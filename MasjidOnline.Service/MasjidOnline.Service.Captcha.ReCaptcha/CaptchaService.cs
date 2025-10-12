@@ -43,6 +43,7 @@ public class CaptchaService(IHttpClientFactory _httpClientFactory, IOptionsMonit
 
     public async Task<bool> VerifyAsync(string token, string action)
     {
+        disable on development environment;
         var httpClient = _httpClientFactory.CreateClient(Constant.HttpClientName);
 
         var serializedRequest = _serializedRequest

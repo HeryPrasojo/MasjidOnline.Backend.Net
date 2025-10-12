@@ -10,7 +10,7 @@ internal static class PaymentEndpoint
 {
     internal static class Manual
     {
-        internal static async Task<Response<Business.Payment.Interface.Model.Manual.GetRecommendationNoteResponse>> GetRecommendationNoteAsync(
+        internal static async Task<Response<string>> GetRecommendationNoteAsync(
             IBusiness _business,
             Session session,
             IData _data)

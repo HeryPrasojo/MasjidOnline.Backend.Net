@@ -1,26 +1,22 @@
 using System.Threading.Tasks;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Payment.Interface.Manual;
-using MasjidOnline.Business.Payment.Interface.Model.Manual;
 using MasjidOnline.Data.Interface;
 
 namespace MasjidOnline.Business.Payment.Manual;
 
 public class GetRecommendationNoteBusiness(IIdGenerator _idGenerator) : IGetRecommendationNoteBusiness
 {
-    private const string _notesFormat = "MO Infaq {0}";
+    private const string _notesFormat = "MO Infaq 0";
 
-    public async Task<Response<GetRecommendationNoteResponse>> Get(IData _data, Session.Interface.Model.Session session)
+    public async Task<Response<string>> Get(IData _data, Session.Interface.Model.Session session)
     {
         var lastManualRecommendationId = await _data.Payment.ManualRecommendationId.GetLastBySessionIdAsync(session.Id);
 
         if ((lastManualRecommendationId != default) && (!lastManualRecommendationId.Used)) return new()
         {
             ResultCode = ResponseResultCode.Success,
-            Data = new()
-            {
-                Note = string.Format(_notesFormat, lastManualRecommendationId),
-            },
+            Data = lastManualRecommendationId.Id.ToString(_notesFormat),
         };
 
 
@@ -36,10 +32,7 @@ public class GetRecommendationNoteBusiness(IIdGenerator _idGenerator) : IGetReco
         return new()
         {
             ResultCode = ResponseResultCode.Success,
-            Data = new()
-            {
-                Note = string.Format(_notesFormat, manualRecommendationId.Id),
-            },
+            Data = manualRecommendationId.Id.ToString(_notesFormat),
         };
     }
 }
