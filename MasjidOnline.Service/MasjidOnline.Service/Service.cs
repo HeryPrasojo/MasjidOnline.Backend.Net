@@ -11,6 +11,7 @@ using MasjidOnline.Service.Interface;
 using MasjidOnline.Service.Localization;
 using MasjidOnline.Service.Mail.Interface.Model;
 using MasjidOnline.Service.Mail.MailKit;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Service;
@@ -28,6 +29,7 @@ public class Service : IService
     private readonly SmtpMailSenderService _mailSenderService;
 
     public Service(
+        IHostEnvironment hostEnvironment,
         IHttpClientFactory httpClientFactory,
         IOptionsMonitor<CryptographyOptions> cryptographyOption,
         IOptionsMonitor<GoogleOptions> googleOptions,
@@ -36,6 +38,8 @@ public class Service : IService
         if (cryptographyOption.CurrentValue.Key256Base64 == default)
             throw new ApplicationException($"{nameof(CryptographyOptions)}.{nameof(CryptographyOptions.Key256Base64)} is not found");
 
+        var isEnvironmentDevelopment = hostEnvironment.IsDevelopment();
+
         _fieldValidatorService = new();
         _fileService = new();
         _hash128Service = new();
@@ -43,7 +47,7 @@ public class Service : IService
         _hash512Service = new();
         _localizationService = new();
 
-        _captchaService = new(httpClientFactory, googleOptions);
+        _captchaService = new(!isEnvironmentDevelopment, httpClientFactory, googleOptions);
         _encryption128b256kService = new(cryptographyOption, _hash256Service);
         _mailSenderService = new(mailOption);
     }
