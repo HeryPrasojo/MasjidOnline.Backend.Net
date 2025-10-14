@@ -10,7 +10,7 @@ using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Service.Captcha.ReCaptcha;
 
-public class CaptchaService(bool enabled, IHttpClientFactory _httpClientFactory, IOptionsMonitor<GoogleOptions> _optionsMonitor) : ICaptchaService
+public class CaptchaService(bool _enabled, IHttpClientFactory _httpClientFactory, IOptionsMonitor<GoogleOptions> _optionsMonitor) : ICaptchaService
 {
     private static readonly JsonSerializerOptions _jsonSerializerOptions = new()
     {
@@ -43,7 +43,8 @@ public class CaptchaService(bool enabled, IHttpClientFactory _httpClientFactory,
 
     public async Task<bool> VerifyAsync(string token, string action)
     {
-        disable on development environment;
+        if (!_enabled) return true;
+
         var httpClient = _httpClientFactory.CreateClient(Constant.HttpClientName);
 
         var serializedRequest = _serializedRequest
