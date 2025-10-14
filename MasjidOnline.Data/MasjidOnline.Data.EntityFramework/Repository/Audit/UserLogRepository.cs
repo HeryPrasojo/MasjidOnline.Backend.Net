@@ -1,0 +1,35 @@
+using System;
+using System.Threading.Tasks;
+using MasjidOnline.Data.Interface.Repository.Audit;
+using MasjidOnline.Entity.Audit;
+using Microsoft.EntityFrameworkCore;
+
+namespace MasjidOnline.Data.EntityFramework.Repository.Audit;
+
+public class UserLogRepository(DbContext _dbContext) : IUserLogRepository
+{
+    private readonly DbSet<UserLog> _dbSet = _dbContext.Set<UserLog>();
+
+    public async Task AddAddAsync(Entity.User.User user, int id, DateTime dateTime, int userId)
+    {
+        var userLog = new UserLog
+        {
+            Id = id,
+            LogDateTime = dateTime,
+            LogType = UserLogType.Add,
+            LogUserId = userId,
+
+            UserId = user.Id,
+            Password = user.Password,
+            Status = user.Status,
+            Type = user.Type,
+        };
+
+        await _dbSet.AddAsync(userLog);
+    }
+
+    public async Task<int> GetMaxIdAsync()
+    {
+        return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
+    }
+}

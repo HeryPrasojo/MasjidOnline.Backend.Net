@@ -6,6 +6,7 @@ using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Entity.Authorization;
 using MasjidOnline.Entity.User;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
@@ -35,11 +36,15 @@ public class ApproveBusiness(
         if (@internal.Status != Entity.User.InternalStatus.New) throw new InputMismatchException($"{nameof(@internal.Status)}: {@internal.Status}");
 
 
+        await _data.Transaction.BeginAsync(_data.User, _data.Authorization, _data.Audit);
+
+        var utcNow = DateTime.UtcNow;
+
         _data.User.Internal.SetStatus(
             approveRequest.Id.Value,
             Entity.User.InternalStatus.Approve,
             default,
-            DateTime.UtcNow,
+            utcNow,
             session.UserId);
 
 
@@ -61,6 +66,35 @@ public class ApproveBusiness(
 
         await _data.User.UserEmailAddress.AddAsync(userEmailAddress);
 
+        await _data.Audit.UserEmailAddressLog.AddAddAsync(userEmailAddress, _idGenerator.Audit.UserEmailAddressLogId, utcNow, session.UserId);
+
+
+        var userInternalPermission = new UserInternalPermission
+        {
+            UserId = user.Id,
+
+            AccountancyExpenditureAdd = false,
+            AccountancyExpenditureApprove = false,
+            AccountancyExpenditureCancel = false,
+            InfaqExpireAdd = false,
+            InfaqExpireApprove = false,
+            InfaqExpireCancel = false,
+            InfaqOnBehalfAdd = false,
+            InfaqSuccessAdd = false,
+            InfaqSuccessApprove = false,
+            InfaqSuccessCancel = false,
+            InfaqVoidAdd = false,
+            InfaqVoidApprove = false,
+            InfaqVoidCancel = false,
+            UserInternalAdd = false,
+            UserInternalApprove = false,
+            UserInternalCancel = false,
+        };
+
+        await _data.Authorization.UserInternalPermission.AddAsync(userInternalPermission);
+
+        await _data.Audit.UserInternalPermissionLog.AddAddAsync(userInternalPermission, _idGenerator.Audit.PermissionLogId, utcNow, session.UserId);
+
 
         var passwordCode = new PasswordCode
         {
@@ -71,7 +105,7 @@ public class ApproveBusiness(
 
         await _data.User.PasswordCode.AddAsync(passwordCode);
 
-        await _data.User.SaveAsync();
+        await _data.Transaction.CommitAsync();
 
 
         var uri = _optionsMonitor.CurrentValue.Uri.UserPassword + Convert.ToHexString(passwordCode.Code.AsSpan());

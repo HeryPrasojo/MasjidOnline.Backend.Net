@@ -1,7 +1,6 @@
 using System;
 using MasjidOnline.Data.EntityFramework.Databases;
 using MasjidOnline.Data.EntityFramework.DataContext;
-using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Databases;
 using MasjidOnline.Library.Exceptions;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,9 +43,8 @@ public class Data(IServiceProvider _serviceProvider) : MasjidOnline.Data.Data()
             if (_auditDatabase == default)
             {
                 var dataContext = _serviceProvider.GetService<AuditDataContext>() ?? throw new ErrorException($"GetService fail: {nameof(AuditDataContext)}");
-                var idGenerator = _serviceProvider.GetService<IIdGenerator>() ?? throw new ErrorException($"GetService fail: {nameof(IIdGenerator)}");
 
-                _auditDatabase = new AuditDatabase(dataContext, idGenerator.Audit);
+                _auditDatabase = new AuditDatabase(dataContext);
             }
 
             return _auditDatabase;

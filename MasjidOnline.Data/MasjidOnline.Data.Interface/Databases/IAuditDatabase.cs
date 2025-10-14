@@ -7,4 +7,6 @@ public interface IAuditDatabase : IDatabase
     IAuditSettingRepository AuditSetting { get; }
 
     IUserInternalPermissionLogRepository UserInternalPermissionLog { get; }
+    IUserLogRepository UserLog { get; }
+    IUserEmailAddressLogRepository UserEmailAddressLog { get; }
 }

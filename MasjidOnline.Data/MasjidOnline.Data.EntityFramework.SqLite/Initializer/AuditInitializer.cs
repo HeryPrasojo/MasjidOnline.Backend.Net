@@ -68,4 +68,23 @@ public class AuditInitializer(
 
         await _auditDataContext.Database.ExecuteSqlAsync(sql);
     }
+
+    protected override async Task CreateTableUserLogAsync()
+    {
+        FormattableString sql = @$"
+            CREATE TABLE UserLog
+            (
+                Id INTEGER PRIMARY KEY,
+                LogDateTime TEXT NOT NULL,
+                LogType TEXT NOT NULL,
+                LogUserId INTEGER NOT NULL,
+
+                UserId INTEGER NOT NULL,
+                Status INTEGER NOT NULL,
+                Type INTEGER NOT NULL,
+                Password BLOB
+            )";
+
+        await _auditDataContext.Database.ExecuteSqlAsync(sql);
+    }
 }

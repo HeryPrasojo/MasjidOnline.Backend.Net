@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using MasjidOnline.Data.Interface.IdGenerator;
 using MasjidOnline.Data.Interface.Repository.Audit;
 using MasjidOnline.Entity.Audit;
 using MasjidOnline.Entity.Authorization;
@@ -8,16 +7,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.Audit;
 
-// todo low move IdGenerator to a new AuditBusiness project
-public class UserInternalPermissionLogRepository(DbContext _dbContext, IAuditIdGenerator _auditIdGenerator) : IUserInternalPermissionLogRepository
+public class UserInternalPermissionLogRepository(DbContext _dbContext) : IUserInternalPermissionLogRepository
 {
     private readonly DbSet<UserInternalPermissionLog> _dbSet = _dbContext.Set<UserInternalPermissionLog>();
 
-    public async Task AddAddAsync(UserInternalPermission userInternalPermission, DateTime dateTime, int userId)
+    public async Task AddAddAsync(UserInternalPermission userInternalPermission, int id, DateTime dateTime, int userId)
     {
         var userInternalPermissionLog = new UserInternalPermissionLog
         {
-            Id = _auditIdGenerator.PermissionLogId,
+            Id = id,
             LogDateTime = dateTime,
             LogType = UserInternalPermissionLogType.Add,
             LogUserId = userId,
