@@ -24,7 +24,7 @@ public class UserBusiness(
 {
     public IUserInternalBusiness Internal { get; } = new UserInternalBusiness(_optionsMonitor, _authorizationBusiness, _idGenerator, _service);
     public IUserPreferenceBusiness UserPreference { get; } = new UserPreferenceBusiness();
-    public IUserUserBusiness User { get; } = new UserUserBusiness(_sessionAuthenticationBusiness, _service);
+    public IUserUserBusiness User { get; } = new UserUserBusiness(_idGenerator, _sessionAuthenticationBusiness, _service);
 
 
     public async Task InitializeAsync(IData _data)

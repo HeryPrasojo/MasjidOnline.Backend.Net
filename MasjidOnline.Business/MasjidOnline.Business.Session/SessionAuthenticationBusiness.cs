@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Entity.User;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Library.Extensions;
 using MasjidOnline.Service.Interface;
@@ -11,6 +13,11 @@ namespace MasjidOnline.Business.Session;
 
 public class SessionAuthenticationBusiness(IService _service) : ISessionAuthenticationBusiness
 {
+    private readonly HashSet<string> _allowUnauthenticatedPaths = [
+        "/session/create",
+        "/user/setPassword",
+    ];
+
     public async Task<bool> AuthenticateAsync(
         Interface.Model.Session session,
         IData _data,
@@ -21,9 +28,12 @@ public class SessionAuthenticationBusiness(IService _service) : ISessionAuthenti
     {
         if (codeBase64 == default)
         {
-            if (requestPath != "/session/create") return false;
+            var contained = _allowUnauthenticatedPaths.Contains(requestPath);
 
-            return true;
+            if (contained) return true;
+
+
+            return false;
         }
 
 
@@ -44,28 +54,30 @@ public class SessionAuthenticationBusiness(IService _service) : ISessionAuthenti
         }
 
 
-        await _data.Session.Session.SetDateTimeAsync(sessionEntity.Id, DateTime.UtcNow);
+
+        await _data.Transaction.BeginAsync(_data.User, _data.Session);
+
+        UserPreferenceApplicationCulture? userPreferenceApplicationCulture = default;
 
         session.Id = sessionEntity.Id;
         session.UserId = sessionEntity.UserId;
 
         if (!cultureName.IsNullOrEmptyOrWhiteSpace())
         {
-            await _data.Transaction.BeginAsync(_data.Session, _data.User);
 
             session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfos[cultureName!];
 
-            var userPreferenceApplicationCulture = Model.Constant.UserPreferenceApplicationCulture[session.CultureInfo];
+            userPreferenceApplicationCulture = Model.Constant.UserPreferenceApplicationCulture[session.CultureInfo];
 
             if (!session.IsUserAnonymous)
             {
-                _data.User.UserPreference.SetApplicationCulture(session.UserId, userPreferenceApplicationCulture);
+                _data.User.UserPreference.SetApplicationCulture(session.UserId, userPreferenceApplicationCulture.Value);
             }
-
-            _data.Session.Session.SetApplicationCulture(session.Id, userPreferenceApplicationCulture);
-
-            await _data.Transaction.CommitAsync();
         }
+
+        _data.Session.Session.SetForAuthenticate(session.Id, DateTime.UtcNow, userPreferenceApplicationCulture);
+
+        await _data.Transaction.CommitAsync();
 
         return true;
     }

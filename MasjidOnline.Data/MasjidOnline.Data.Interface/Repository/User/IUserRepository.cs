@@ -11,5 +11,5 @@ public interface IUserRepository
     Task<UserForLogin?> GetForLoginAsync(int id);
     Task<int> GetMaxIdAsync();
     Task<UserType> GetTypeAsync(int id);
-    void SetFirstPassword(int id, byte[] password);
+    Entity.User.User SetFirstPassword(int id, byte[] password);
 }

@@ -49,35 +49,23 @@ public class SessionRepository(DbContext _dbContext) : ISessionRepository
             .FirstOrDefaultAsync();
     }
 
-    public void SetApplicationCulture(int id, UserPreferenceApplicationCulture applicationCulture)
-    {
-        var user = new Entity.Session.Session
-        {
-            Code = default!,
-            Id = id,
-            ApplicationCulture = applicationCulture,
-        };
-
-        var entityEntry = _dbSet.Attach(user);
-
-        entityEntry.Property(e => e.ApplicationCulture).IsModified = true;
-    }
-
-    public async Task SetDateTimeAsync(int id, DateTime dateTime)
+    public void SetForAuthenticate(int id, DateTime dateTime, UserPreferenceApplicationCulture? applicationCulture)
     {
         var session = new Entity.Session.Session
         {
-            ApplicationCulture = default!,
-            Id = id,
             Code = default!,
             DateTime = dateTime,
+            Id = id,
         };
 
-        _dbSet.Attach(session)
-            .Property(e => e.DateTime)
-            .IsModified = true;
+        if (applicationCulture.HasValue) session.ApplicationCulture = applicationCulture.Value;
 
 
-        await _dbContext.SaveChangesAsync();
+        var entityEntry = _dbSet.Attach(session);
+
+        entityEntry.Property(e => e.DateTime).IsModified = true;
+
+        if (applicationCulture.HasValue)
+            entityEntry.Property(e => e.ApplicationCulture).IsModified = true;
     }
 }

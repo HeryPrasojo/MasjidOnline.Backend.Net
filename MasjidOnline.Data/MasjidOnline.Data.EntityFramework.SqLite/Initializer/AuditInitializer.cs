@@ -81,7 +81,7 @@ public class AuditInitializer(
 
                 UserId INTEGER NOT NULL,
                 Status INTEGER NOT NULL,
-                Type INTEGER NOT NULL,
+                Type INTEGER,
                 Password BLOB
             )";
 

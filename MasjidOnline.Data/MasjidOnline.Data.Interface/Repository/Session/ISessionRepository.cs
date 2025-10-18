@@ -12,6 +12,5 @@ public interface ISessionRepository
     Task<SessionForStart?> GetForStartAsync(byte[] digest);
     Task<int> GetMaxIdAsync();
     Task<UserPreferenceApplicationCulture> GetUserPreferenceApplicationCultureAsync(int id);
-    void SetApplicationCulture(int id, UserPreferenceApplicationCulture applicationCulture);
-    Task SetDateTimeAsync(int id, DateTime dateTime);
+    void SetForAuthenticate(int id, DateTime dateTime, UserPreferenceApplicationCulture? applicationCulture);
 }

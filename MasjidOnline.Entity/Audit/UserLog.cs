@@ -8,7 +8,7 @@ public class UserLog : Log<UserLogType>
 
     public UserStatus Status { get; set; }
 
-    public UserType Type { get; set; }
+    public UserType? Type { get; set; }
 
     public byte[]? Password { get; set; }
 }

@@ -46,7 +46,7 @@ public class UserRepository(DbContext _dbContext) : IUserRepository
     }
 
 
-    public void SetFirstPassword(int id, byte[] password)
+    public Entity.User.User SetFirstPassword(int id, byte[] password)
     {
         var user = new Entity.User.User
         {
@@ -59,5 +59,7 @@ public class UserRepository(DbContext _dbContext) : IUserRepository
 
         entityEntry.Property(e => e.Password).IsModified = true;
         entityEntry.Property(e => e.Status).IsModified = true;
+
+        return user;
     }
 }
