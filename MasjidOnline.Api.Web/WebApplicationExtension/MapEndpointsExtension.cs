@@ -81,6 +81,7 @@ internal static class MapEndpointsExtension
 
 
         userGroup.MapPost("login", UserEndpoint.User.LoginAsync);
+        userGroup.MapPost("logout", UserEndpoint.User.LogoutAsync);
         userGroup.MapPost("setPassword", UserEndpoint.User.SetPasswordAsync);
 
 

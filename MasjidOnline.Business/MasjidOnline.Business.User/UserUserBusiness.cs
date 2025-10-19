@@ -16,5 +16,6 @@ public class UserUserBusiness(
 {
     public IAddRegisterBusiness AddRegister { get; } = new AddRegisterBusiness();
     public ILoginEmailBusiness LoginEmail { get; } = new LoginEmailBusiness(_sessionAuthenticationBusiness, _service);
+    public ILogoutBusiness Logout { get; } = new LogoutBusiness();
     public ISetPasswordBusiness SetPassword { get; } = new SetPasswordBusiness(_idGenerator, _service);
 }

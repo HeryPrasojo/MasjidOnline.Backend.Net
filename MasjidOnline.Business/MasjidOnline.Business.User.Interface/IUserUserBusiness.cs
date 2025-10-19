@@ -7,4 +7,5 @@ public interface IUserUserBusiness
     IAddRegisterBusiness AddRegister { get; }
     ILoginEmailBusiness LoginEmail { get; }
     ISetPasswordBusiness SetPassword { get; }
+    ILogoutBusiness Logout { get; }
 }

@@ -66,6 +66,12 @@ public class SessionRepository(DbContext _dbContext) : ISessionRepository
         entityEntry.Property(e => e.UserId).IsModified = true;
         entityEntry.Property(e => e.DateTime).IsModified = true;
     }
+    public async Task SetUserIdAndSaveAsync(int id, int userId, DateTime dateTime)
+    {
+        SetUserId(id, userId, dateTime);
+
+        await _dbContext.SaveChangesAsync();
+    }
 
 
     public void SetForAuthenticate(int id, DateTime dateTime, UserPreferenceApplicationCulture? applicationCulture)
