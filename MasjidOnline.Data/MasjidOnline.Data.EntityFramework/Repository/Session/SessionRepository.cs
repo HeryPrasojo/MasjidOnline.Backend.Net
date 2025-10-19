@@ -24,6 +24,7 @@ public class SessionRepository(DbContext _dbContext) : ISessionRepository
         await _dbContext.SaveChangesAsync();
     }
 
+
     public async Task<int> GetMaxIdAsync()
     {
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
@@ -35,6 +36,7 @@ public class SessionRepository(DbContext _dbContext) : ISessionRepository
             .Select(e => e.ApplicationCulture)
             .FirstOrDefaultAsync();
     }
+
 
     public async Task<SessionForStart?> GetForStartAsync(byte[] code)
     {
@@ -49,11 +51,27 @@ public class SessionRepository(DbContext _dbContext) : ISessionRepository
             .FirstOrDefaultAsync();
     }
 
+
+    public void SetUserId(int id, int userId, DateTime dateTime)
+    {
+        var session = new Entity.Session.Session
+        {
+            DateTime = dateTime,
+            Id = id,
+            UserId = userId,
+        };
+
+        var entityEntry = _dbSet.Attach(session);
+
+        entityEntry.Property(e => e.UserId).IsModified = true;
+        entityEntry.Property(e => e.DateTime).IsModified = true;
+    }
+
+
     public void SetForAuthenticate(int id, DateTime dateTime, UserPreferenceApplicationCulture? applicationCulture)
     {
         var session = new Entity.Session.Session
         {
-            Code = default!,
             DateTime = dateTime,
             Id = id,
         };

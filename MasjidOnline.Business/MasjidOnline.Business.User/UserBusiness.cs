@@ -77,7 +77,7 @@ public class UserBusiness(
 
         await _data.User.User.AddAsync(user);
 
-        await _data.Audit.UserLog.AddAddAsync(user, _idGenerator.Audit.UserLogId, utcNow, Constant.UserId.System);
+        await _data.Audit.UserLog.AddAddAsync(_idGenerator.Audit.UserLogId, utcNow, Constant.UserId.System, user);
 
 
         var userEmailAddress = new UserEmailAddress
@@ -88,7 +88,7 @@ public class UserBusiness(
 
         await _data.User.UserEmailAddress.AddAsync(userEmailAddress);
 
-        await _data.Audit.UserEmailAddressLog.AddAddAsync(userEmailAddress, _idGenerator.Audit.UserEmailAddressLogId, utcNow, Constant.UserId.System);
+        await _data.Audit.UserEmailAddressLog.AddAddAsync(_idGenerator.Audit.UserEmailAddressLogId, utcNow, Constant.UserId.System, userEmailAddress);
 
 
         var passwordCode = new PasswordCode
@@ -125,7 +125,7 @@ public class UserBusiness(
 
         await _data.Authorization.UserInternalPermission.AddAsync(userInternalPermission);
 
-        await _data.Audit.UserInternalPermissionLog.AddAddAsync(userInternalPermission, _idGenerator.Audit.PermissionLogId, utcNow, Constant.UserId.System);
+        await _data.Audit.UserInternalPermissionLog.AddAddAsync(_idGenerator.Audit.PermissionLogId, utcNow, Constant.UserId.System, userInternalPermission);
 
 
         await _data.Transaction.CommitAsync();

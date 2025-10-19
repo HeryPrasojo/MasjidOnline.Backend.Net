@@ -5,6 +5,7 @@ using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.User.Interface.Model.User;
 using MasjidOnline.Business.User.Interface.User;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Entity.User;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
 
@@ -14,11 +15,10 @@ public class SetPasswordBusiness(
     IIdGenerator _idGenerator,
     IService _service) : ISetPasswordBusiness
 {
-    public async Task<Response> SetAsync(Session.Interface.Model.Session session, IData _data, SetPasswordRequest? setPasswordRequest)
+    public async Task<Response<string>> SetAsync(Session.Interface.Model.Session session, IData _data, SetPasswordRequest? setPasswordRequest)
     {
         setPasswordRequest = _service.FieldValidator.ValidateRequired(setPasswordRequest);
 
-        setPasswordRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(setPasswordRequest.CaptchaToken);
         var codeBytes = _service.FieldValidator.ValidateRequiredHex(setPasswordRequest.PasswordCode, 128);
         setPasswordRequest.Password = _service.FieldValidator.ValidateRequiredPassword(setPasswordRequest.Password);
         setPasswordRequest.Password2 = _service.FieldValidator.ValidateRequired(setPasswordRequest.Password2);
@@ -28,6 +28,8 @@ public class SetPasswordBusiness(
 
         if (session.Id == default)
         {
+            setPasswordRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(setPasswordRequest.CaptchaToken);
+
             var isVerified = await _service.Captcha.VerifyAsync(setPasswordRequest.CaptchaToken, "setPassword");
 
             if (!isVerified) throw new InputMismatchException(nameof(setPasswordRequest.CaptchaToken));
@@ -43,26 +45,40 @@ public class SetPasswordBusiness(
 
         if (code == default) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
 
-        if (code.SequenceEqual(codeBytes)) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+        if (!code.SequenceEqual(codeBytes)) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+
 
 
         var utcNow = DateTime.UtcNow;
+
+        var userStatus = await _data.User.User.GetStatusAsync(userId.Value);
 
         await _data.Transaction.BeginAsync(_data.User, _data.Audit, _data.Session);
 
         var passwordBytes = _service.Hash512.Hash(setPasswordRequest.Password);
 
-        var user = _data.User.User.SetFirstPassword(userId.Value, passwordBytes);
+        if (userStatus == UserStatus.New)
+        {
+            var user = _data.User.User.SetFirstPassword(userId.Value, passwordBytes);
 
+            await _data.Audit.UserLog.AddSetFirstPasswordAsync(_idGenerator.Audit.UserLogId, utcNow, userId.Value, user);
+        }
+        else
+        {
+            var user = _data.User.User.SetPassword(userId.Value, passwordBytes);
 
-        await _data.Audit.UserLog.AddSetFirstPasswordAsync(_idGenerator.Audit.UserLogId, utcNow, userId.Value, user);
+            await _data.Audit.UserLog.AddSetPasswordAsync(_idGenerator.Audit.UserLogId, utcNow, userId.Value, user);
+        }
 
 
         _data.User.PasswordCode.SetUseDateTime(codeBytes, utcNow);
 
 
+        byte[]? newSessionCode = default;
+
         if (session.Id == default)
         {
+            session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfoEnglish;
             session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfoEnglish;
             session.Id = _idGenerator.Session.SessionId;
             session.UserId = userId.Value;
@@ -78,17 +94,33 @@ public class SetPasswordBusiness(
             };
 
             await _data.Session.Session.AddAsync(sessionEntity);
+
+
+            newSessionCode = sessionEntity.Code;
         }
         else
         {
+            if (session.IsUserAnonymous)
+            {
+                session.UserId = userId.Value;
 
+                _data.Session.Session.SetUserId(session.Id, session.UserId, utcNow);
+            }
         }
 
         await _data.Transaction.CommitAsync();
 
-        return new()
+
+        var response = new Response<string>()
         {
             ResultCode = ResponseResultCode.Success,
         };
+
+        if (newSessionCode != default)
+        {
+            response.Data = Convert.ToBase64String(_service.Encryption128b256kService.Encrypt(newSessionCode.AsSpan()));
+        }
+
+        return response;
     }
 }

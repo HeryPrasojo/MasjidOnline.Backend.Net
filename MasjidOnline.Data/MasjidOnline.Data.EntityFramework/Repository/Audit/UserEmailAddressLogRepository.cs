@@ -10,14 +10,14 @@ public class UserEmailAddressLogRepository(DbContext _dbContext) : IUserEmailAdd
 {
     private readonly DbSet<UserEmailAddressLog> _dbSet = _dbContext.Set<UserEmailAddressLog>();
 
-    public async Task AddAddAsync(Entity.User.UserEmailAddress userEmailAddress, int id, DateTime dateTime, int userId)
+    public async Task AddAddAsync(int id, DateTime dateTime, int logUserId, Entity.User.UserEmailAddress userEmailAddress)
     {
         var userEmailAddressLog = new UserEmailAddressLog
         {
             Id = id,
             LogDateTime = dateTime,
             LogType = UserEmailAddressLogType.Add,
-            LogUserId = userId,
+            LogUserId = logUserId,
 
             UserId = userEmailAddress.UserId,
             EmailAddress = userEmailAddress.EmailAddress,

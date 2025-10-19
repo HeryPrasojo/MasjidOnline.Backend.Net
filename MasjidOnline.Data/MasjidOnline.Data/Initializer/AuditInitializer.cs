@@ -14,8 +14,9 @@ public abstract class AuditInitializer(IAuditDefinition _auditDefinition)
         if (!settingTableExists)
         {
             await CreateTableAuditSettingAsync();
-            await CreateTableUserInternalPermissionLogAsync();
             await CreateTableUserLogAsync();
+            await CreateTableUserEmailAddressLogAsync();
+            await CreateTableUserInternalPermissionLogAsync();
 
 
             var auditSetting = new AuditSetting
@@ -31,6 +32,7 @@ public abstract class AuditInitializer(IAuditDefinition _auditDefinition)
 
 
     protected abstract Task CreateTableAuditSettingAsync();
-    protected abstract Task CreateTableUserInternalPermissionLogAsync();
     protected abstract Task CreateTableUserLogAsync();
+    protected abstract Task CreateTableUserEmailAddressLogAsync();
+    protected abstract Task CreateTableUserInternalPermissionLogAsync();
 }

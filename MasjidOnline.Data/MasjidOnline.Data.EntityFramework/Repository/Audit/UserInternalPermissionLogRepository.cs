@@ -11,14 +11,14 @@ public class UserInternalPermissionLogRepository(DbContext _dbContext) : IUserIn
 {
     private readonly DbSet<UserInternalPermissionLog> _dbSet = _dbContext.Set<UserInternalPermissionLog>();
 
-    public async Task AddAddAsync(UserInternalPermission userInternalPermission, int id, DateTime dateTime, int userId)
+    public async Task AddAddAsync(int id, DateTime dateTime, int logUserId, UserInternalPermission userInternalPermission)
     {
         var userInternalPermissionLog = new UserInternalPermissionLog
         {
             Id = id,
             LogDateTime = dateTime,
             LogType = UserInternalPermissionLogType.Add,
-            LogUserId = userId,
+            LogUserId = logUserId,
 
             UserId = userInternalPermission.UserId,
             AccountancyExpenditureAdd = userInternalPermission.AccountancyExpenditureAdd,

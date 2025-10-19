@@ -23,6 +23,42 @@ public class AuditInitializer(
         await _auditDataContext.Database.ExecuteSqlAsync(sql);
     }
 
+    protected override async Task CreateTableUserLogAsync()
+    {
+        FormattableString sql = @$"
+            CREATE TABLE UserLog
+            (
+                Id INTEGER PRIMARY KEY,
+                LogDateTime TEXT NOT NULL,
+                LogType TEXT NOT NULL,
+                LogUserId INTEGER NOT NULL,
+
+                UserId INTEGER NOT NULL,
+                Status INTEGER,
+                Type INTEGER,
+                Password BLOB
+            )";
+
+        await _auditDataContext.Database.ExecuteSqlAsync(sql);
+    }
+
+    protected override async Task CreateTableUserEmailAddressLogAsync()
+    {
+        FormattableString sql = @$"
+            CREATE TABLE UserEmailAddressLog
+            (
+                Id INTEGER PRIMARY KEY,
+                LogDateTime TEXT NOT NULL,
+                LogType INTEGER NOT NULL,
+                LogUserId INTEGER NOT NULL,
+
+                UserId INTEGER NOT NULL,
+                EmailAddress TEXT NOT NULL
+            )";
+
+        await _auditDataContext.Database.ExecuteSqlAsync(sql);
+    }
+
     protected override async Task CreateTableUserInternalPermissionLogAsync()
     {
         FormattableString sql = @$"
@@ -65,25 +101,6 @@ public class AuditInitializer(
 
 
         sql = $@"CREATE INDEX UserInternalPermissionUserId ON UserInternalPermissionLog (UserId)";
-
-        await _auditDataContext.Database.ExecuteSqlAsync(sql);
-    }
-
-    protected override async Task CreateTableUserLogAsync()
-    {
-        FormattableString sql = @$"
-            CREATE TABLE UserLog
-            (
-                Id INTEGER PRIMARY KEY,
-                LogDateTime TEXT NOT NULL,
-                LogType TEXT NOT NULL,
-                LogUserId INTEGER NOT NULL,
-
-                UserId INTEGER NOT NULL,
-                Status INTEGER NOT NULL,
-                Type INTEGER,
-                Password BLOB
-            )";
 
         await _auditDataContext.Database.ExecuteSqlAsync(sql);
     }

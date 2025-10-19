@@ -6,6 +6,6 @@ namespace MasjidOnline.Data.Interface.Repository.Audit;
 
 public interface IUserEmailAddressLogRepository
 {
-    Task AddAddAsync(UserEmailAddress userEmailAddress, int id, DateTime dateTime, int userId);
+    Task AddAddAsync(int id, DateTime dateTime, int logUserId, UserEmailAddress userEmailAddress);
     Task<int> GetMaxIdAsync();
 }

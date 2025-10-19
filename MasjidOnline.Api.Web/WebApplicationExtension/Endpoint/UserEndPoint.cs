@@ -76,7 +76,7 @@ internal static class UserEndpoint
             return await _business.User.User.LoginEmail.LoginAsync(_data, session, loginRequest);
         }
 
-        internal static async Task<Response> SetPasswordAsync(
+        internal static async Task<Response<string>> SetPasswordAsync(
             IBusiness _business,
             IData _data,
             Session session,

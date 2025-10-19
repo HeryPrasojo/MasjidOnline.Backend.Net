@@ -80,11 +80,8 @@ internal static class MapEndpointsExtension
         userInternalGroup.MapPost("reject", UserEndpoint.Internal.RejectAsync);
 
 
-        var userUserGroup = userGroup.MapGroup("user/");
-
-        // todo wait change path
-        userUserGroup.MapPost("login", UserEndpoint.User.LoginAsync);
-        userUserGroup.MapPost("setPassword", UserEndpoint.User.SetPasswordAsync);
+        userGroup.MapPost("login", UserEndpoint.User.LoginAsync);
+        userGroup.MapPost("setPassword", UserEndpoint.User.SetPasswordAsync);
 
 
         return webApplication;

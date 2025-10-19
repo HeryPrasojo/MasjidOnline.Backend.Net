@@ -66,7 +66,7 @@ public class ApproveBusiness(
 
         await _data.User.UserEmailAddress.AddAsync(userEmailAddress);
 
-        await _data.Audit.UserEmailAddressLog.AddAddAsync(userEmailAddress, _idGenerator.Audit.UserEmailAddressLogId, utcNow, session.UserId);
+        await _data.Audit.UserEmailAddressLog.AddAddAsync(_idGenerator.Audit.UserEmailAddressLogId, utcNow, session.UserId, userEmailAddress);
 
 
         var userInternalPermission = new UserInternalPermission
@@ -93,7 +93,7 @@ public class ApproveBusiness(
 
         await _data.Authorization.UserInternalPermission.AddAsync(userInternalPermission);
 
-        await _data.Audit.UserInternalPermissionLog.AddAddAsync(userInternalPermission, _idGenerator.Audit.PermissionLogId, utcNow, session.UserId);
+        await _data.Audit.UserInternalPermissionLog.AddAddAsync(_idGenerator.Audit.PermissionLogId, utcNow, session.UserId, userInternalPermission);
 
 
         var passwordCode = new PasswordCode

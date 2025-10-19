@@ -6,6 +6,6 @@ namespace MasjidOnline.Data.Interface.Repository.Audit;
 
 public interface IUserInternalPermissionLogRepository
 {
-    Task AddAddAsync(UserInternalPermission userInternalPermission, int id, DateTime dateTime, int userId);
+    Task AddAddAsync(int id, DateTime dateTime, int logUserId, UserInternalPermission userInternalPermission);
     Task<int> GetMaxIdAsync();
 }
