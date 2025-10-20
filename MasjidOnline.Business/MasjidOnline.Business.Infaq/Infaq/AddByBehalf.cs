@@ -11,6 +11,7 @@ using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.Infaq.Infaq;
 
+// todo rename to AddByInternal
 public class AddByBehalf(IAuthorizationBusiness _authorizationBusiness, IService _service, IIdGenerator _idGenerator) : Add
 {
 

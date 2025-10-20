@@ -21,24 +21,16 @@ public class AddByAnonymBusiness(IService _service, IIdGenerator _idGenerator, I
     public async Task<Response> AddAsync(IData _data, Session.Interface.Model.Session session, AddByAnonymRequest? addByAnonymRequest)
     {
         addByAnonymRequest = _service.FieldValidator.ValidateRequired(addByAnonymRequest);
-
-        var utcNow = DateTime.UtcNow;
-
-        if (session.IsUserAnonymous)
-        {
-            addByAnonymRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(addByAnonymRequest.CaptchaToken);
-
-            var isVerified = await _service.Captcha.VerifyAsync(addByAnonymRequest.CaptchaToken, "infaq");
-
-            if (!isVerified) throw new InputMismatchException(nameof(addByAnonymRequest.CaptchaToken));
-        }
-
-
+        addByAnonymRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(addByAnonymRequest.CaptchaToken);
         addByAnonymRequest.Amount = _service.FieldValidator.ValidateRequiredPlus(addByAnonymRequest.Amount);
         addByAnonymRequest.PaymentType = _service.FieldValidator.ValidateRequiredEnum(addByAnonymRequest.PaymentType);
-
         addByAnonymRequest.MunfiqName = _service.FieldValidator.ValidateRequiredTextDb255(addByAnonymRequest.MunfiqName);
         addByAnonymRequest.ManualNotes = _service.FieldValidator.ValidateOptionalTextDb255(addByAnonymRequest.ManualNotes);
+
+
+        var isCaptchaVerified = await _service.Captcha.VerifyAsync(addByAnonymRequest.CaptchaToken, "infaq");
+
+        if (!isCaptchaVerified) throw new InputMismatchException(nameof(addByAnonymRequest.CaptchaToken));
 
 
         var supportedPaymentTypes = new Payment.Interface.Model.PaymentType[]
@@ -66,7 +58,7 @@ public class AddByAnonymBusiness(IService _service, IIdGenerator _idGenerator, I
         {
             Id = _idGenerator.Infaq.InfaqId,
             Amount = addByAnonymRequest.Amount.Value,
-            DateTime = utcNow,
+            DateTime = DateTime.UtcNow,
             Status = InfaqStatus.New,
             PaymentType = addByAnonymRequest.PaymentType.Value.ToEntity(),
             UserId = session.UserId,

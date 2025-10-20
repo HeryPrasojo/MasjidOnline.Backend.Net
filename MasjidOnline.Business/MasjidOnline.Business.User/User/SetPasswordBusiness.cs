@@ -15,10 +15,11 @@ public class SetPasswordBusiness(
     IIdGenerator _idGenerator,
     IService _service) : ISetPasswordBusiness
 {
+    // undone check session user id vs password code user id
     public async Task<Response<string>> SetAsync(Session.Interface.Model.Session session, IData _data, SetPasswordRequest? setPasswordRequest)
     {
         setPasswordRequest = _service.FieldValidator.ValidateRequired(setPasswordRequest);
-
+        setPasswordRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(setPasswordRequest.CaptchaToken);
         var codeBytes = _service.FieldValidator.ValidateRequiredHex(setPasswordRequest.PasswordCode, 128);
         setPasswordRequest.Password = _service.FieldValidator.ValidateRequiredPassword(setPasswordRequest.Password);
         setPasswordRequest.Password2 = _service.FieldValidator.ValidateRequired(setPasswordRequest.Password2);
@@ -26,14 +27,9 @@ public class SetPasswordBusiness(
         if (setPasswordRequest.Password != setPasswordRequest.Password2) throw new InputInvalidException(nameof(setPasswordRequest.Password2));
 
 
-        if (session.Id == default)
-        {
-            setPasswordRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(setPasswordRequest.CaptchaToken);
+        var isCaptchaVerified = await _service.Captcha.VerifyAsync(setPasswordRequest.CaptchaToken, "setPassword");
 
-            var isVerified = await _service.Captcha.VerifyAsync(setPasswordRequest.CaptchaToken, "setPassword");
-
-            if (!isVerified) throw new InputMismatchException(nameof(setPasswordRequest.CaptchaToken));
-        }
+        if (!isCaptchaVerified) throw new InputMismatchException(nameof(setPasswordRequest.CaptchaToken));
 
 
         var userId = await _data.User.PasswordCode.GetUserIdForSetPasswordAsync(codeBytes);
