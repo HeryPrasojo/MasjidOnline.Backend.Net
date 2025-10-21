@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Session.Interface;
@@ -13,11 +12,6 @@ namespace MasjidOnline.Business.Session;
 
 public class SessionAuthenticationBusiness(IService _service) : ISessionAuthenticationBusiness
 {
-    private readonly HashSet<string> _allowUnauthenticatedPaths = [
-        "/session/create",
-        "/user/setPassword",
-    ];
-
     public async Task<bool> AuthenticateAsync(
         Interface.Model.Session session,
         IData _data,
@@ -28,10 +22,7 @@ public class SessionAuthenticationBusiness(IService _service) : ISessionAuthenti
     {
         if (codeBase64 == default)
         {
-            var contained = _allowUnauthenticatedPaths.Contains(requestPath);
-
-            if (contained) return true;
-
+            if (requestPath == "/session/create") return true;
 
             return false;
         }

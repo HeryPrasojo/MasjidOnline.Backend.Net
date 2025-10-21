@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
+using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Model;
 using MasjidOnline.Business.Model.Options;
-using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.Authorization;
@@ -16,15 +16,14 @@ namespace MasjidOnline.Business.User;
 
 public class UserBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
-    Authorization.Interface.IAuthorizationBusiness _authorizationBusiness,
+    IAuthorizationBusiness _authorizationBusiness,
     IIdGenerator _idGenerator,
-    ISessionAuthenticationBusiness _sessionAuthenticationBusiness,
     IService _service
     ) : IUserBusiness
 {
     public IUserInternalBusiness Internal { get; } = new UserInternalBusiness(_optionsMonitor, _authorizationBusiness, _idGenerator, _service);
     public IUserPreferenceBusiness UserPreference { get; } = new UserPreferenceBusiness();
-    public IUserUserBusiness User { get; } = new UserUserBusiness(_idGenerator, _sessionAuthenticationBusiness, _service);
+    public IUserUserBusiness User { get; } = new UserUserBusiness(_authorizationBusiness, _idGenerator, _service);
 
 
     public async Task InitializeAsync(IData _data)

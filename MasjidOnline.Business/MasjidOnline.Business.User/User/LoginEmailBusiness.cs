@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Model.Responses;
-using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User.Interface.Model.User;
 using MasjidOnline.Business.User.Interface.User;
 using MasjidOnline.Data.Interface;
@@ -11,18 +11,26 @@ using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.User.User;
 
-public class LoginEmailBusiness(ISessionAuthenticationBusiness _sessionAuthenticationBusiness, IService _service) : ILoginEmailBusiness
+public class LoginEmailBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : ILoginEmailBusiness
 {
     // undone
     public async Task<Response> LoginAsync(IData _data, Session.Interface.Model.Session session, LoginRequest? loginRequest)
     {
+        _authorizationBusiness.AuthorizeAnonymous(session);
+
         loginRequest = _service.FieldValidator.ValidateRequired(loginRequest);
+        loginRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(loginRequest.CaptchaToken);
         loginRequest.EmailAddress = _service.FieldValidator.ValidateRequiredEmailAddress(loginRequest.EmailAddress);
         loginRequest.Password = _service.FieldValidator.ValidateRequiredTextDb255(loginRequest.Password);
 
         var userId = await _data.User.UserEmailAddress.GetUserIdAsync(loginRequest.EmailAddress);
 
         if (userId == default) throw new InputMismatchException(nameof(loginRequest.EmailAddress));
+
+
+        var isCaptchaVerified = await _service.Captcha.VerifyAsync(loginRequest.CaptchaToken, "setPassword");
+
+        if (!isCaptchaVerified) throw new InputMismatchException(nameof(loginRequest.CaptchaToken));
 
 
         var user = await _data.User.User.GetForLoginAsync(userId.Value);
