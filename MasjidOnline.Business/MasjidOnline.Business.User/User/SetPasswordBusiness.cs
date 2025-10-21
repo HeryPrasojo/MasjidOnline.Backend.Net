@@ -15,7 +15,6 @@ public class SetPasswordBusiness(
     IIdGenerator _idGenerator,
     IService _service) : ISetPasswordBusiness
 {
-    // undone check session user id vs password code user id
     public async Task<Response<string>> SetAsync(Session.Interface.Model.Session session, IData _data, SetPasswordRequest? setPasswordRequest)
     {
         setPasswordRequest = _service.FieldValidator.ValidateRequired(setPasswordRequest);
@@ -35,6 +34,12 @@ public class SetPasswordBusiness(
         var userId = await _data.User.PasswordCode.GetUserIdForSetPasswordAsync(codeBytes);
 
         if (userId == default) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+
+
+        if (session.Id != default)
+        {
+            if (session.UserId != userId.Value) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+        }
 
 
         var code = await _data.User.PasswordCode.GetLatestCodeForSetPasswordAsync(userId.Value);

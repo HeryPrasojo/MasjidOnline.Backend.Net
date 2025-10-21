@@ -3,15 +3,25 @@ using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Payment.Interface.Manual;
 using MasjidOnline.Business.Payment.Interface.Model.Manual;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Library.Exceptions;
+using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.Payment.Manual;
 
-public class GetRecommendationNoteBusiness(IIdGenerator _idGenerator) : IGetRecommendationNoteBusiness
+public class GetRecommendationNoteBusiness(IIdGenerator _idGenerator, IService _service) : IGetRecommendationNoteBusiness
 {
     private const string _notesFormat = "MO Infaq 0";
 
-    public async Task<Response<string>> Get(IData _data, Session.Interface.Model.Session session, GetRecommendationNoteRequest getRecommendationNoteRequest)
+    public async Task<Response<string>> GetAsync(
+        IData _data,
+        Session.Interface.Model.Session session,
+        GetRecommendationNoteRequest getRecommendationNoteRequest)
     {
+        getRecommendationNoteRequest = _service.FieldValidator.ValidateRequired(getRecommendationNoteRequest);
+
+        getRecommendationNoteRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(getRecommendationNoteRequest.CaptchaToken);
+
+
         var lastManualRecommendationId = await _data.Payment.ManualRecommendationId.GetLastBySessionIdAsync(session.Id);
 
         if ((lastManualRecommendationId != default) && (!lastManualRecommendationId.Used)) return new()
@@ -21,11 +31,10 @@ public class GetRecommendationNoteBusiness(IIdGenerator _idGenerator) : IGetReco
         };
 
 
-        setPasswordRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(setPasswordRequest.CaptchaToken);
 
-        var isVerified = await _service.Captcha.VerifyAsync(setPasswordRequest.CaptchaToken, "setPassword");
+        var isCaptchaVerified = await _service.Captcha.VerifyAsync(getRecommendationNoteRequest.CaptchaToken, "setPassword");
 
-        if (!isVerified) throw new InputMismatchException(nameof(setPasswordRequest.CaptchaToken));
+        if (!isCaptchaVerified) throw new InputMismatchException(nameof(getRecommendationNoteRequest.CaptchaToken));
 
 
         var manualRecommendationId = new Entity.Payment.ManualRecommendationId

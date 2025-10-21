@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface;
 using MasjidOnline.Business.Model.Responses;
+using MasjidOnline.Business.Payment.Interface.Model.Manual;
 using MasjidOnline.Business.Session.Interface.Model;
 using MasjidOnline.Data.Interface;
 
@@ -13,9 +14,10 @@ internal static class PaymentEndpoint
         internal static async Task<Response<string>> GetRecommendationNoteAsync(
             IBusiness _business,
             Session session,
-            IData _data)
+            IData _data,
+            GetRecommendationNoteRequest getRecommendationNoteRequest)
         {
-            return await _business.Payment.Manual.GetRecommendationNote.Get(_data, session);
+            return await _business.Payment.Manual.GetRecommendationNote.GetAsync(_data, session, getRecommendationNoteRequest);
         }
     }
 }

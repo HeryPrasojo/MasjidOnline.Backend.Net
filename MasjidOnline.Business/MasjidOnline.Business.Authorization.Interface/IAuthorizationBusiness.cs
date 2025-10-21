@@ -1,3 +1,4 @@
+
 namespace MasjidOnline.Business.Authorization.Interface;
 
 public interface IAuthorizationBusiness
@@ -6,5 +7,6 @@ public interface IAuthorizationBusiness
     IUserAuthorizationBusiness User { get; }
     IInfaqAuthorizationBusiness Infaq { get; }
 
+    void AuthorizeAnonymous(Session.Interface.Model.Session session);
     void AuthorizeNonAnonymous(Session.Interface.Model.Session session);
 }

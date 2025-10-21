@@ -7,5 +7,5 @@ namespace MasjidOnline.Business.Payment.Interface.Manual;
 
 public interface IGetRecommendationNoteBusiness
 {
-    Task<Response<string>> Get(IData _data, Session.Interface.Model.Session session, GetRecommendationNoteRequest getRecommendationNoteRequest);
+    Task<Response<string>> GetAsync(IData _data, Session.Interface.Model.Session session, GetRecommendationNoteRequest getRecommendationNoteRequest);
 }

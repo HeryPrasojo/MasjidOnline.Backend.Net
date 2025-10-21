@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Infaq.Infaq.Mapper;
 using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
@@ -16,10 +17,16 @@ using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Business.Infaq.Infaq;
 
-public class AddByAnonymBusiness(IService _service, IIdGenerator _idGenerator, IOptionsMonitor<BusinessOptions> _optionsMonitor) : Add, IAddByAnonymBusiness
+public class AddByAnonymBusiness(
+    IAuthorizationBusiness _authorizationBusiness,
+    IService _service,
+    IIdGenerator _idGenerator,
+    IOptionsMonitor<BusinessOptions> _optionsMonitor) : Add, IAddByAnonymBusiness
 {
     public async Task<Response> AddAsync(IData _data, Session.Interface.Model.Session session, AddByAnonymRequest? addByAnonymRequest)
     {
+        _authorizationBusiness.AuthorizeAnonymous(session);
+
         addByAnonymRequest = _service.FieldValidator.ValidateRequired(addByAnonymRequest);
         addByAnonymRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(addByAnonymRequest.CaptchaToken);
         addByAnonymRequest.Amount = _service.FieldValidator.ValidateRequiredPlus(addByAnonymRequest.Amount);

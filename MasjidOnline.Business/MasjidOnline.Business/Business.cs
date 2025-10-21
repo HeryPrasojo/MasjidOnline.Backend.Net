@@ -31,7 +31,7 @@ public class Business : IBusiness
 
         Accountancy = new AccountancyBusiness(authorizationBusiness, idGenerator, service);
         Infaq = new InfaqBusiness(optionsMonitor, authorizationBusiness, idGenerator, service);
-        Payment = new PaymentBusiness(idGenerator);
+        Payment = new PaymentBusiness(idGenerator, service);
         Session = new SessionBusiness(service, idGenerator);
         User = new UserBusiness(optionsMonitor, authorizationBusiness, idGenerator, sessionAuthenticationBusiness, service);
     }
