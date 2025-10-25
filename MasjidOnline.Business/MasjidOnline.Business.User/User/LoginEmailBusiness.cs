@@ -47,6 +47,10 @@ public class LoginEmailBusiness(IAuthorizationBusiness _authorizationBusiness, I
 
         session.UserId = userId.Value;
 
+        //_data.Session.Session.SetUserId(session.Id, session.UserId, utcNow);
+
+        // undone log login
+
         return new()
         {
             ResultCode = ResponseResultCode.Success

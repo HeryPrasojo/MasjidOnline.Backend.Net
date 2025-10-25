@@ -53,9 +53,12 @@ public class SessionAuthenticationBusiness(IService _service) : ISessionAuthenti
         session.Id = sessionEntity.Id;
         session.UserId = sessionEntity.UserId;
 
-        if (!cultureName.IsNullOrEmptyOrWhiteSpace())
+        if (cultureName.IsNullOrEmptyOrWhiteSpace())
         {
-
+            session.CultureInfo = Model.Constant.UserPreferenceApplicationCulture[sessionEntity.ApplicationCulture];
+        }
+        else
+        {
             session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfos[cultureName!];
 
             userPreferenceApplicationCulture = Model.Constant.UserPreferenceApplicationCulture[session.CultureInfo];
