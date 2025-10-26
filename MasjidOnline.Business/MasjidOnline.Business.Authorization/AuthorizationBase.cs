@@ -12,7 +12,6 @@ internal abstract class AuthorizationBase
         bool accountancyExpenditureAdd = default,
         bool accountancyExpenditureApprove = default,
         bool accountancyExpenditureCancel = default,
-        bool infaqOnBehalfAdd = default,
         bool infaqExpireAdd = default,
         bool infaqExpireApprove = default,
         bool infaqExpireCancel = default,
@@ -37,8 +36,6 @@ internal abstract class AuthorizationBase
         if (accountancyExpenditureAdd && !userInternalPermission.AccountancyExpenditureAdd) throw new PermissionException(nameof(userInternalPermission.AccountancyExpenditureAdd));
         if (accountancyExpenditureApprove && !userInternalPermission.AccountancyExpenditureApprove) throw new PermissionException(nameof(userInternalPermission.AccountancyExpenditureApprove));
         if (accountancyExpenditureCancel && !userInternalPermission.AccountancyExpenditureCancel) throw new PermissionException(nameof(userInternalPermission.AccountancyExpenditureCancel));
-
-        if (infaqOnBehalfAdd && !userInternalPermission.InfaqOnBehalfAdd) throw new PermissionException(nameof(userInternalPermission.InfaqOnBehalfAdd));
 
         if (infaqExpireAdd && !userInternalPermission.InfaqExpireAdd) throw new PermissionException(nameof(userInternalPermission.InfaqExpireAdd));
         if (infaqExpireApprove && !userInternalPermission.InfaqExpireApprove) throw new PermissionException(nameof(userInternalPermission.InfaqExpireApprove));

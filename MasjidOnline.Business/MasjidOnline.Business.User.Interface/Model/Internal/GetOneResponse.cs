@@ -8,7 +8,7 @@ public class GetOneResponse
 
     public required int UserId { get; set; }
 
-    public InternalStatus Status { get; set; }
+    public InternalUserStatus Status { get; set; }
 
     public required DateTime? UpdateDateTime { get; set; }
 

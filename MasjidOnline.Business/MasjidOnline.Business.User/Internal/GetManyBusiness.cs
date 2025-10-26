@@ -21,7 +21,7 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
 
         var take = 10;
 
-        var getManyResult = await _data.User.Internal.GetManyAsync(
+        var getManyResult = await _data.User.InternalUser.GetManyAsync(
             status: getManyRequest.Status.ToEntity(),
             getManyOrderBy: ManyOrderBy.DateTime,
             orderByDirection: OrderByDirection.Descending,

@@ -1,7 +1,6 @@
 namespace MasjidOnline.Entity.User;
 
-// todo low rename to InternalUser
-public enum InternalStatus
+public enum InternalUserStatus
 {
     New = 1,
     Cancel = 2,

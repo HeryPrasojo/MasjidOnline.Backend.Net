@@ -9,23 +9,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.User;
 
-public class InternalRepository(DbContext _dbContext) : IInternalRepository
+public class InternalUserRepository(DbContext _dbContext) : IInternalUserRepository
 {
-    private readonly DbSet<Internal> _dbSet = _dbContext.Set<Internal>();
+    private readonly DbSet<InternalUser> _dbSet = _dbContext.Set<InternalUser>();
 
-    public async Task AddAsync(Internal @internal)
+    public async Task AddAsync(InternalUser internalUser)
     {
-        await _dbSet.AddAsync(@internal);
+        await _dbSet.AddAsync(internalUser);
     }
 
-    public async Task AddAndSaveAsync(Internal @internal)
+    public async Task AddAndSaveAsync(InternalUser internalUser)
     {
-        await _dbSet.AddAsync(@internal);
+        await _dbSet.AddAsync(internalUser);
 
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<bool> AnyAsync(string emailAddress, InternalStatus status)
+    public async Task<bool> AnyAsync(string emailAddress, InternalUserStatus status)
     {
         return await _dbSet.AnyAsync(e => (e.EmailAddress == emailAddress) && (e.Status == status));
     }
@@ -47,7 +47,7 @@ public class InternalRepository(DbContext _dbContext) : IInternalRepository
     }
 
     public async Task<ManyResult<ManyRecord>> GetManyAsync(
-        InternalStatus? status = default,
+        InternalUserStatus? status = default,
         ManyOrderBy getManyOrderBy = default,
         OrderByDirection orderByDirection = default,
         int skip = 0,
@@ -105,16 +105,16 @@ public class InternalRepository(DbContext _dbContext) : IInternalRepository
             .FirstOrDefaultAsync();
     }
 
-    public async Task<InternalStatus> GetStatusAsync(int id)
+    public async Task<InternalUserStatus> GetStatusAsync(int id)
     {
         return await _dbSet.Where(e => e.Id == id)
             .Select(e => e.Status)
             .FirstOrDefaultAsync();
     }
 
-    public void SetStatus(int id, InternalStatus status, string? description, DateTime updateDateTime, int updateUserId)
+    public void SetStatus(int id, InternalUserStatus status, string? description, DateTime updateDateTime, int updateUserId)
     {
-        var @internal = new Internal
+        var internalUser = new InternalUser
         {
             Description = description,
             Id = id,
@@ -123,7 +123,7 @@ public class InternalRepository(DbContext _dbContext) : IInternalRepository
             UpdateUserId = updateUserId,
         };
 
-        var entityEntry = _dbSet.Attach(@internal);
+        var entityEntry = _dbSet.Attach(internalUser);
 
         entityEntry.Property(e => e.Description).IsModified = true;
         entityEntry.Property(e => e.Status).IsModified = true;
@@ -131,7 +131,7 @@ public class InternalRepository(DbContext _dbContext) : IInternalRepository
         entityEntry.Property(e => e.UpdateUserId).IsModified = true;
     }
 
-    public async Task SetStatusAndSaveAsync(int id, InternalStatus status, string? description, DateTime updateDateTime, int updateUserId)
+    public async Task SetStatusAndSaveAsync(int id, InternalUserStatus status, string? description, DateTime updateDateTime, int updateUserId)
     {
         SetStatus(id, status, description, updateDateTime, updateUserId);
 

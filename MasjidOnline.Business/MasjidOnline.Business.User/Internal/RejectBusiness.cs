@@ -21,14 +21,14 @@ public class RejectBusiness(IAuthorizationBusiness _authorizationBusiness, IServ
         rejectRequest.Description = _service.FieldValidator.ValidateRequiredTextDb255(rejectRequest.Description);
 
 
-        var status = await _data.User.Internal.GetStatusAsync(rejectRequest.Id.Value);
+        var status = await _data.User.InternalUser.GetStatusAsync(rejectRequest.Id.Value);
 
-        if (status != Entity.User.InternalStatus.New) throw new InputMismatchException($"{nameof(status)}: {status}");
+        if (status != Entity.User.InternalUserStatus.New) throw new InputMismatchException($"{nameof(status)}: {status}");
 
 
-        await _data.User.Internal.SetStatusAndSaveAsync(
+        await _data.User.InternalUser.SetStatusAndSaveAsync(
             rejectRequest.Id.Value,
-            Entity.User.InternalStatus.Reject,
+            Entity.User.InternalUserStatus.Reject,
             rejectRequest.Description,
             DateTime.UtcNow,
             session.UserId);

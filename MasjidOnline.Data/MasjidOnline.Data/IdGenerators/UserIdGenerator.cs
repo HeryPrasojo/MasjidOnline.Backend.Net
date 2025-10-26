@@ -13,7 +13,7 @@ public class UserIdGenerator(IHash512Service _hash512Service) : IUserIdGenerator
 
     public async Task InitializeAsync(IData data)
     {
-        _internalId = await data.User.Internal.GetMaxIdAsync();
+        _internalId = await data.User.InternalUser.GetMaxIdAsync();
         _userId = await data.User.User.GetMaxIdAsync();
 
         if (_userId < 10) _userId = 10;

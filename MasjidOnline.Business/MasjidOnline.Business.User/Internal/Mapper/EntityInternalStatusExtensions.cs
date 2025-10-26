@@ -5,23 +5,23 @@ namespace MasjidOnline.Business.User.Internal.Mapper;
 
 public static class EntityInternalStatusExtensions
 {
-    public static Interface.Model.Internal.InternalStatus ToModel(this Entity.User.InternalStatus internalStatus)
+    public static Interface.Model.Internal.InternalUserStatus ToModel(this Entity.User.InternalUserStatus status)
     {
-        return internalStatus switch
+        return status switch
         {
-            Entity.User.InternalStatus.Approve
-                => Interface.Model.Internal.InternalStatus.Approve,
+            Entity.User.InternalUserStatus.Approve
+                => Interface.Model.Internal.InternalUserStatus.Approve,
 
-            Entity.User.InternalStatus.Cancel
-                => Interface.Model.Internal.InternalStatus.Cancel,
+            Entity.User.InternalUserStatus.Cancel
+                => Interface.Model.Internal.InternalUserStatus.Cancel,
 
-            Entity.User.InternalStatus.New
-                => Interface.Model.Internal.InternalStatus.New,
+            Entity.User.InternalUserStatus.New
+                => Interface.Model.Internal.InternalUserStatus.New,
 
-            Entity.User.InternalStatus.Reject
-                => Interface.Model.Internal.InternalStatus.Reject,
+            Entity.User.InternalUserStatus.Reject
+                => Interface.Model.Internal.InternalUserStatus.Reject,
 
-            _ => throw new ErrorException(nameof(internalStatus)),
+            _ => throw new ErrorException(nameof(status)),
         };
     }
 }

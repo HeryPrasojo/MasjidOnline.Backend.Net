@@ -29,20 +29,20 @@ public class ApproveBusiness(
         approveRequest.Id = _service.FieldValidator.ValidateRequiredPlus(approveRequest.Id);
 
 
-        var @internal = await _data.User.Internal.GetForApproveAsync(approveRequest.Id.Value);
+        var @internal = await _data.User.InternalUser.GetForApproveAsync(approveRequest.Id.Value);
 
         if (@internal == default) throw new InputMismatchException($"{nameof(approveRequest.Id)}: {approveRequest.Id}");
 
-        if (@internal.Status != Entity.User.InternalStatus.New) throw new InputMismatchException($"{nameof(@internal.Status)}: {@internal.Status}");
+        if (@internal.Status != Entity.User.InternalUserStatus.New) throw new InputMismatchException($"{nameof(@internal.Status)}: {@internal.Status}");
 
 
         await _data.Transaction.BeginAsync(_data.User, _data.Authorization, _data.Audit);
 
         var utcNow = DateTime.UtcNow;
 
-        _data.User.Internal.SetStatus(
+        _data.User.InternalUser.SetStatus(
             approveRequest.Id.Value,
-            Entity.User.InternalStatus.Approve,
+            Entity.User.InternalUserStatus.Approve,
             default,
             utcNow,
             session.UserId);
@@ -79,7 +79,6 @@ public class ApproveBusiness(
             InfaqExpireAdd = false,
             InfaqExpireApprove = false,
             InfaqExpireCancel = false,
-            InfaqOnBehalfAdd = false,
             InfaqSuccessAdd = false,
             InfaqSuccessApprove = false,
             InfaqSuccessCancel = false,

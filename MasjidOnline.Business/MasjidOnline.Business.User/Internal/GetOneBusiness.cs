@@ -17,7 +17,7 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
         getOneRequest.Id = _service.FieldValidator.ValidateRequiredPlus(getOneRequest.Id);
 
 
-        var @internal = await _data.User.Internal.GetOneAsync(getOneRequest.Id.Value);
+        var @internal = await _data.User.InternalUser.GetOneAsync(getOneRequest.Id.Value);
 
         if (@internal == default) throw new InputMismatchException($"{nameof(getOneRequest.Id)}: {getOneRequest.Id}");
 

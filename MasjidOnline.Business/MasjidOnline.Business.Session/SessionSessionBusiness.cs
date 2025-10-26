@@ -5,14 +5,13 @@ using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.Session.Interface.Model.Sessions;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
-using MasjidOnline.Library.Extensions;
 using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.Session;
 
 public class SessionSessionBusiness(IService _service, IIdGenerator _idGenerator) : ISessionSessionBusiness
 {
-    public async Task<Response<string>> CreateAsync(IData _data, Interface.Model.Session session, string? cultureName, CreateRequest createRequest)
+    public async Task<Response<string>> CreateAsync(IData _data, Interface.Model.Session session, CreateRequest createRequest)
     {
         if (session.Id != default) return new()
         {
@@ -29,17 +28,9 @@ public class SessionSessionBusiness(IService _service, IIdGenerator _idGenerator
         if (!isVerified) throw new InputMismatchException(nameof(createRequest.CaptchaToken));
 
 
+        session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfoEnglish;
         session.Id = _idGenerator.Session.SessionId;
         session.UserId = Model.Constant.UserId.Anonymous;
-
-        if (cultureName.IsNullOrEmptyOrWhiteSpace())
-        {
-            session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfoEnglish;
-        }
-        else
-        {
-            session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfos[cultureName!];
-        }
 
         var sessionEntity = new Entity.Session.Session
         {

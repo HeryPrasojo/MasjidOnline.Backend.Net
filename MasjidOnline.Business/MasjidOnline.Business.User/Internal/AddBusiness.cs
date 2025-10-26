@@ -26,7 +26,7 @@ public class AddBusiness(
         addRequest.Name = _service.FieldValidator.ValidateRequiredTextDb255(addRequest.Name);
 
 
-        var any = await _data.User.Internal.AnyAsync(addRequest.EmailAddress, Entity.User.InternalStatus.New);
+        var any = await _data.User.InternalUser.AnyAsync(addRequest.EmailAddress, Entity.User.InternalUserStatus.New);
 
         if (any) throw new InputMismatchException($"New {addRequest.EmailAddress} exists");
 
@@ -36,16 +36,16 @@ public class AddBusiness(
         if (any) throw new InputMismatchException($"{addRequest.EmailAddress} exists");
 
 
-        var @internal = new Entity.User.Internal
+        var internalUser = new Entity.User.InternalUser
         {
             DateTime = DateTime.UtcNow,
             EmailAddress = addRequest.EmailAddress,
             Id = _idGenerator.User.InternalId,
-            Status = Entity.User.InternalStatus.New,
+            Status = Entity.User.InternalUserStatus.New,
             UserId = session.UserId,
         };
 
-        await _data.User.Internal.AddAndSaveAsync(@internal);
+        await _data.User.InternalUser.AddAndSaveAsync(internalUser);
 
         // todo wait approver notification
 

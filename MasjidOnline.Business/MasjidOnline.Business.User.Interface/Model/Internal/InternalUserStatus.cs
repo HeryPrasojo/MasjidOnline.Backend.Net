@@ -1,6 +1,6 @@
 namespace MasjidOnline.Business.User.Interface.Model.Internal;
 
-public enum InternalStatus
+public enum InternalUserStatus
 {
     Invalid = 0,
     New = 1,

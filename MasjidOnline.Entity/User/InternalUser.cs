@@ -2,8 +2,7 @@ using System;
 
 namespace MasjidOnline.Entity.User;
 
-// todo low rename to InternalUser
-public class Internal
+public class InternalUser
 {
     public required int Id { get; set; }
 
@@ -13,7 +12,7 @@ public class Internal
 
     public int UserId { get; set; }
 
-    public required InternalStatus Status { get; set; }
+    public required InternalUserStatus Status { get; set; }
 
     public string? Description { get; set; }
 

@@ -21,14 +21,14 @@ public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IServ
         cancelRequest.Description = _service.FieldValidator.ValidateRequiredTextDb255(cancelRequest.Description);
 
 
-        var status = await _data.User.Internal.GetStatusAsync(cancelRequest.Id.Value);
+        var status = await _data.User.InternalUser.GetStatusAsync(cancelRequest.Id.Value);
 
-        if (status != Entity.User.InternalStatus.New) throw new InputMismatchException($"{nameof(status)}: {status}");
+        if (status != Entity.User.InternalUserStatus.New) throw new InputMismatchException($"{nameof(status)}: {status}");
 
 
-        await _data.User.Internal.SetStatusAndSaveAsync(
+        await _data.User.InternalUser.SetStatusAndSaveAsync(
             cancelRequest.Id.Value,
-            Entity.User.InternalStatus.Cancel,
+            Entity.User.InternalUserStatus.Cancel,
             cancelRequest.Description,
             DateTime.UtcNow,
             session.UserId);

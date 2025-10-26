@@ -10,10 +10,10 @@ public class UserInitializer(
     UserDataContext _userDataContext,
     IUsersDefinition _userDefinition) : MasjidOnline.Data.Initializer.UserInitializer(_userDefinition)
 {
-    protected override async Task CreateTableInternalAsync()
+    protected override async Task CreateTableInternalUserAsync()
     {
         FormattableString sql = @$"
-            CREATE TABLE Internal
+            CREATE TABLE InternalUser
             (
                 Id INTEGER PRIMARY KEY,
                 DateTime TEXT NOT NULL,
@@ -28,7 +28,7 @@ public class UserInitializer(
         await _userDataContext.Database.ExecuteSqlAsync(sql);
 
 
-        sql = $@"CREATE INDEX InternalDateTime ON Internal (DateTime)";
+        sql = $@"CREATE INDEX InternalDateTime ON InternalUser (DateTime)";
 
         await _userDataContext.Database.ExecuteSqlAsync(sql);
     }

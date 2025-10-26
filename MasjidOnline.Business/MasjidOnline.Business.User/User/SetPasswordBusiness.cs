@@ -15,6 +15,7 @@ public class SetPasswordBusiness(
     IIdGenerator _idGenerator,
     IService _service) : ISetPasswordBusiness
 {
+    // todo get applicationCulture
     public async Task<Response<string>> SetAsync(Session.Interface.Model.Session session, IData _data, SetPasswordRequest? setPasswordRequest)
     {
         setPasswordRequest = _service.FieldValidator.ValidateRequired(setPasswordRequest);

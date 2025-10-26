@@ -15,10 +15,9 @@ internal static class SessionEndpoint
             IBusiness _business,
             IData _data,
             Business.Session.Interface.Model.Session session,
-            string? cultureName,
             [FromBody] CreateRequest createRequest)
         {
-            return await _business.Session.Session.CreateAsync(_data, session, cultureName, createRequest);
+            return await _business.Session.Session.CreateAsync(_data, session, createRequest);
         }
     }
 }

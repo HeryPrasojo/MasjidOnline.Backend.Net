@@ -7,5 +7,5 @@ namespace MasjidOnline.Business.Session.Interface;
 
 public interface ISessionSessionBusiness
 {
-    Task<Response<string>> CreateAsync(IData _data, Model.Session session, string? cultureName, CreateRequest createRequest);
+    Task<Response<string>> CreateAsync(IData _data, Model.Session session, CreateRequest createRequest);
 }

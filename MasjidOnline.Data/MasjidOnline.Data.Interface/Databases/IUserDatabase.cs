@@ -4,7 +4,7 @@ namespace MasjidOnline.Data.Interface.Databases;
 
 public interface IUserDatabase : IDatabase
 {
-    IInternalRepository Internal { get; }
+    IInternalUserRepository InternalUser { get; }
     IPasswordCodeRepository PasswordCode { get; }
     IUserRepository User { get; }
     IUserEmailAddressRepository UserEmailAddress { get; }

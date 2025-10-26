@@ -7,7 +7,7 @@ namespace MasjidOnline.Data.EntityFramework.Databases;
 
 public class UserDatabase(DbContext _dbContext) : Database(_dbContext), IUserDatabase
 {
-    private IInternalRepository? _internalRepository;
+    private IInternalUserRepository? _internalUserRepository;
     private IPasswordCodeRepository? _passwordCodeRepository;
     private IUserRepository? _userRepository;
     private IUserPreferenceRepository? _userPreferenceRepository;
@@ -15,7 +15,7 @@ public class UserDatabase(DbContext _dbContext) : Database(_dbContext), IUserDat
     private IUserSettingRepository? _userSettingRepository;
 
 
-    public IInternalRepository Internal => _internalRepository ??= new InternalRepository(_dbContext);
+    public IInternalUserRepository InternalUser => _internalUserRepository ??= new InternalUserRepository(_dbContext);
 
     public IPasswordCodeRepository PasswordCode => _passwordCodeRepository ??= new PasswordCodeRepository(_dbContext);
 

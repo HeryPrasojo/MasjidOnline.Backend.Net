@@ -15,8 +15,6 @@ public class UserInternalPermission
     public required bool InfaqExpireApprove { get; set; }
     public required bool InfaqExpireCancel { get; set; }
 
-    public required bool InfaqOnBehalfAdd { get; set; }
-
     public required bool InfaqSuccessAdd { get; set; }
     public required bool InfaqSuccessApprove { get; set; }
     public required bool InfaqSuccessCancel { get; set; }

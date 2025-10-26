@@ -53,18 +53,18 @@ public class UserBusiness(
         await _data.User.User.AddAsync(user);
 
 
-        var @internal = new Entity.User.Internal
+        var internalUser = new InternalUser
         {
             DateTime = utcNow,
             EmailAddress = option.RootUserEmailAddress,
             Id = _idGenerator.User.InternalId,
-            Status = InternalStatus.Approve,
+            Status = InternalUserStatus.Approve,
             UpdateDateTime = utcNow,
             UpdateUserId = Constant.UserId.System,
             UserId = Constant.UserId.Root,
         };
 
-        await _data.User.Internal.AddAsync(@internal);
+        await _data.User.InternalUser.AddAsync(internalUser);
 
 
         user = new Entity.User.User
@@ -110,7 +110,6 @@ public class UserBusiness(
             InfaqExpireAdd = true,
             InfaqExpireApprove = true,
             InfaqExpireCancel = true,
-            InfaqOnBehalfAdd = true,
             InfaqSuccessAdd = true,
             InfaqSuccessApprove = true,
             InfaqSuccessCancel = true,
