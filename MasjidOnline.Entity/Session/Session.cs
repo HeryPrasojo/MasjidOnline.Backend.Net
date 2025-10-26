@@ -14,6 +14,6 @@ public class Session
     public int UserId { get; set; }
 
 
-    // hack move to new SessionData
+    // hack low move to new SessionData
     public UserPreferenceApplicationCulture ApplicationCulture { get; set; }
 }

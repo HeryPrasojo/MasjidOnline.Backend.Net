@@ -2,7 +2,7 @@ namespace MasjidOnline.Entity.DatabaseTemplate;
 
 public class DatabaseTemplateSetting
 {
-    public required int Id { get; set; }
+    public required DatabaseTemplateSettingId Id { get; set; }
 
     public required string Description { get; set; }
 

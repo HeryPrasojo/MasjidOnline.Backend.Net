@@ -23,7 +23,7 @@ public abstract class UserInitializer(IUsersDefinition _userDefinition)
 
             var userSetting = new UserSetting
             {
-                Id = (int)UserSettingId.DatabaseVersion,
+                Id = UserSettingId.DatabaseVersion,
                 Description = nameof(UserSettingId.DatabaseVersion),
                 Value = "1",
             };

@@ -1,8 +1,8 @@
-﻿namespace MasjidOnline.Entity.Session;
+namespace MasjidOnline.Entity.Session;
 
 public class SessionSetting
 {
-    public required int Id { get; set; }
+    public required SessionSettingId Id { get; set; }
 
     public required string Description { get; set; }
 

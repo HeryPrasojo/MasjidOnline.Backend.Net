@@ -19,7 +19,7 @@ public abstract class PaymentInitializer(IPaymentDefinition _databaseDefinition)
 
             var databaseSetting = new PaymentSetting
             {
-                Id = (int)PaymentSettingId.DatabaseVersion,
+                Id = PaymentSettingId.DatabaseVersion,
                 Description = nameof(PaymentSettingId.DatabaseVersion),
                 Value = "1",
             };

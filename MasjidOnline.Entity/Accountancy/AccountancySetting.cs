@@ -2,7 +2,7 @@ namespace MasjidOnline.Entity.Accountancy;
 
 public class AccountancySetting
 {
-    public required int Id { get; set; }
+    public required AccountancySettingId Id { get; set; }
 
     public required string Description { get; set; }
 

@@ -19,7 +19,7 @@ public abstract class AccountancyInitializer(IAccountancyDefinition _accountancy
 
             var accountancySetting = new AccountancySetting
             {
-                Id = (int)AccountancySettingId.DatabaseVersion,
+                Id = AccountancySettingId.DatabaseVersion,
                 Description = nameof(AccountancySettingId.DatabaseVersion),
                 Value = "1",
             };

@@ -1,8 +1,8 @@
-﻿namespace MasjidOnline.Entity.Audit;
+namespace MasjidOnline.Entity.Audit;
 
 public class AuditSetting
 {
-    public required int Id { get; set; }
+    public required AuditSettingId Id { get; set; }
 
     public required string Description { get; set; }
 

@@ -2,7 +2,7 @@ namespace MasjidOnline.Entity.Payment;
 
 public class PaymentSetting
 {
-    public required int Id { get; set; }
+    public required PaymentSettingId Id { get; set; }
 
     public required string Description { get; set; }
 

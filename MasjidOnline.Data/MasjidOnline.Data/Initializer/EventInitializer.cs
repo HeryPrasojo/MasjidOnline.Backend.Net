@@ -19,7 +19,7 @@ public abstract class EventInitializer(IEventDefinition _eventDefinition)
 
             var setting = new EventSetting
             {
-                Id = (int)EventSettingId.DatabaseVersion,
+                Id = EventSettingId.DatabaseVersion,
                 Description = nameof(EventSettingId.DatabaseVersion),
                 Value = "1",
             };

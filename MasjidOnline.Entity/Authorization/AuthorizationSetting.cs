@@ -1,8 +1,8 @@
-﻿namespace MasjidOnline.Entity.Authorization;
+namespace MasjidOnline.Entity.Authorization;
 
 public class AuthorizationSetting
 {
-    public required int Id { get; set; }
+    public required AuthorizationSettingId Id { get; set; }
 
     public required string Description { get; set; }
 

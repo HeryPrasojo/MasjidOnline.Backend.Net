@@ -21,7 +21,7 @@ public abstract class AuditInitializer(IAuditDefinition _auditDefinition)
 
             var auditSetting = new AuditSetting
             {
-                Id = (int)AuditSettingId.DatabaseVersion,
+                Id = AuditSettingId.DatabaseVersion,
                 Description = nameof(AuditSettingId.DatabaseVersion),
                 Value = "1",
             };

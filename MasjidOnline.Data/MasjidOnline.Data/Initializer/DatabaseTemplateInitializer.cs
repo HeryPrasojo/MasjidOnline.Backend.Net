@@ -19,7 +19,7 @@ public abstract class DatabaseTemplateInitializer(IDatabaseTemplateDefinition _d
 
             var databaseSetting = new DatabaseTemplateSetting
             {
-                Id = (int)DatabaseTemplateSettingId.DatabaseVersion,
+                Id = DatabaseTemplateSettingId.DatabaseVersion,
                 Description = nameof(DatabaseTemplateSettingId.DatabaseVersion),
                 Value = "1",
             };

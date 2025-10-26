@@ -19,7 +19,7 @@ public abstract class AuthorizationInitializer(IAuthorizationDefinition _authori
 
             var authorizationSetting = new AuthorizationSetting
             {
-                Id = (int)AuthorizationSettingId.DatabaseVersion,
+                Id = AuthorizationSettingId.DatabaseVersion,
                 Description = nameof(AuthorizationSettingId.DatabaseVersion),
                 Value = "1",
             };

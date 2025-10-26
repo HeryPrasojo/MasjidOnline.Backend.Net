@@ -25,7 +25,7 @@ public abstract class InfaqInitializer(IInfaqsDefinition _infaqsDefinition)
 
             var transactionSetting = new InfaqSetting
             {
-                Id = (int)InfaqSettingId.DatabaseVersion,
+                Id = InfaqSettingId.DatabaseVersion,
                 Description = nameof(InfaqSettingId.DatabaseVersion),
                 Value = "1",
             };

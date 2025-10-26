@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MasjidOnline.Entity.User;
 
-// hack rename to UserData
 public class UserPreference
 {
     [Key]

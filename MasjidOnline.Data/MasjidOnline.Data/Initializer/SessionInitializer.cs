@@ -20,7 +20,7 @@ public abstract class SessionInitializer(ISessionsDefinition _sessionDefinition)
 
             var sessionSetting = new SessionSetting
             {
-                Id = (int)SessionSettingId.DatabaseVersion,
+                Id = SessionSettingId.DatabaseVersion,
                 Description = nameof(SessionSettingId.DatabaseVersion),
                 Value = "1",
             };

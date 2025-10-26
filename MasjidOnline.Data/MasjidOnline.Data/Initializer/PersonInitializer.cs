@@ -18,7 +18,7 @@ public abstract class PersonInitializer(IPersonDefinition _personDefinition)
 
             var personSetting = new PersonSetting
             {
-                Id = (int)PersonSettingId.DatabaseVersion,
+                Id = PersonSettingId.DatabaseVersion,
                 Description = nameof(PersonSettingId.DatabaseVersion),
                 Value = "1",
             };

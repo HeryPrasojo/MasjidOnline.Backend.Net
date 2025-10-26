@@ -1,8 +1,8 @@
-﻿namespace MasjidOnline.Entity.Captcha;
+namespace MasjidOnline.Entity.Captcha;
 
 public class CaptchaSetting
 {
-    public required int Id { get; set; }
+    public required CaptchaSettingId Id { get; set; }
 
     public required string Description { get; set; }
 

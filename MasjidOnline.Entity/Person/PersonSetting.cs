@@ -1,8 +1,8 @@
-﻿namespace MasjidOnline.Entity.Person;
+namespace MasjidOnline.Entity.Person;
 
 public class PersonSetting
 {
-    public required int Id { get; set; }
+    public required PersonSettingId Id { get; set; }
 
     public required string Description { get; set; }
 
