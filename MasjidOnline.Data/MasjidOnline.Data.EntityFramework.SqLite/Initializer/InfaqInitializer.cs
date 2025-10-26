@@ -95,18 +95,6 @@ public class InfaqInitializer(
         await _infaqDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task CreateTableInfaqOnBehalfAsync()
-    {
-        FormattableString sql = @$"
-            CREATE TABLE InfaqOnBehalf
-            (
-                InfaqId INTEGER PRIMARY KEY,
-                ByUserId INTEGER NOT NULL
-            )";
-
-        await _infaqDataContext.Database.ExecuteSqlAsync(sql);
-    }
-
     protected override async Task CreateTableInfaqSettingAsync()
     {
         FormattableString sql = @$"
