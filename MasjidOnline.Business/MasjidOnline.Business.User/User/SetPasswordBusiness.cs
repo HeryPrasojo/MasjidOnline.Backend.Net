@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using MasjidOnline.Business.Model;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.User.Interface.Model.User;
 using MasjidOnline.Business.User.Interface.User;
@@ -16,7 +17,8 @@ public class SetPasswordBusiness(
     IService _service) : ISetPasswordBusiness
 {
     // todo get applicationCulture
-    public async Task<Response<string>> SetAsync(Session.Interface.Model.Session session, IData _data, SetPasswordRequest? setPasswordRequest)
+    // todo require session
+    public async Task<Response> SetAsync(Session.Interface.Model.Session session, IData _data, SetPasswordRequest? setPasswordRequest)
     {
         setPasswordRequest = _service.FieldValidator.ValidateRequired(setPasswordRequest);
         setPasswordRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(setPasswordRequest.CaptchaToken);
@@ -36,11 +38,7 @@ public class SetPasswordBusiness(
 
         if (userId == default) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
 
-
-        if (session.Id != default)
-        {
-            if (session.UserId != userId.Value) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
-        }
+        if (userId.Value != session.UserId) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
 
 
         var code = await _data.User.PasswordCode.GetLatestCodeForSetPasswordAsync(userId.Value);
@@ -61,68 +59,36 @@ public class SetPasswordBusiness(
 
         if (userStatus == UserStatus.New)
         {
-            var user = _data.User.User.SetFirstPassword(userId.Value, passwordBytes);
+            var firstPasswordUser = _data.User.User.SetFirstPassword(userId.Value, passwordBytes);
 
-            await _data.Audit.UserLog.AddSetFirstPasswordAsync(_idGenerator.Audit.UserLogId, utcNow, userId.Value, user);
+            await _data.Audit.UserLog.AddSetFirstPasswordAsync(_idGenerator.Audit.UserLogId, utcNow, userId.Value, firstPasswordUser);
         }
         else
         {
-            var user = _data.User.User.SetPassword(userId.Value, passwordBytes);
+            var passwordUser = _data.User.User.SetPassword(userId.Value, passwordBytes);
 
-            await _data.Audit.UserLog.AddSetPasswordAsync(_idGenerator.Audit.UserLogId, utcNow, userId.Value, user);
+            await _data.Audit.UserLog.AddSetPasswordAsync(_idGenerator.Audit.UserLogId, utcNow, userId.Value, passwordUser);
         }
 
 
         _data.User.PasswordCode.SetUseDateTime(codeBytes, utcNow);
 
 
-        byte[]? newSessionCode = default;
-
-        if (session.Id == default)
+        if (session.IsUserAnonymous)
         {
-            session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfoEnglish;
-            session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfoEnglish;
-            session.Id = _idGenerator.Session.SessionId;
+            var userPreferenceApplicationCulture = await _data.User.UserPreference.GetApplicationCultureAsync(userId.Value);
+
+            session.CultureInfo = Constant.UserPreferenceApplicationCulture[userPreferenceApplicationCulture];
             session.UserId = userId.Value;
 
-
-            var sessionEntity = new Entity.Session.Session
-            {
-                ApplicationCulture = Model.Constant.UserPreferenceApplicationCulture[session.CultureInfo],
-                DateTime = utcNow,
-                Code = _service.Hash512.RandomByteArray,
-                Id = session.Id,
-                UserId = session.UserId,
-            };
-
-            await _data.Session.Session.AddAsync(sessionEntity);
-
-
-            newSessionCode = sessionEntity.Code;
-        }
-        else
-        {
-            if (session.IsUserAnonymous)
-            {
-                session.UserId = userId.Value;
-
-                _data.Session.Session.SetUserId(session.Id, session.UserId, utcNow);
-            }
+            _data.Session.Session.SetForSetPassword(session.Id, session.UserId, utcNow, userPreferenceApplicationCulture);
         }
 
         await _data.Transaction.CommitAsync();
 
-
-        var response = new Response<string>()
+        return new Response()
         {
             ResultCode = ResponseResultCode.Success,
         };
-
-        if (newSessionCode != default)
-        {
-            response.Data = Convert.ToBase64String(_service.Encryption128b256kService.Encrypt(newSessionCode.AsSpan()));
-        }
-
-        return response;
     }
 }

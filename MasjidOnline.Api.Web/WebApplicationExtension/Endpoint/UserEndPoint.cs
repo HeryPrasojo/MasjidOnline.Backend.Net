@@ -84,7 +84,7 @@ internal static class UserEndpoint
             return await _business.User.User.Logout.LogoutAsync(session, _data);
         }
 
-        internal static async Task<Response<string>> SetPasswordAsync(
+        internal static async Task<Response> SetPasswordAsync(
             IBusiness _business,
             IData _data,
             Session session,

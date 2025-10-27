@@ -13,6 +13,7 @@ public interface ISessionRepository
     Task<int> GetMaxIdAsync();
     Task<UserPreferenceApplicationCulture> GetUserPreferenceApplicationCultureAsync(int id);
     void SetForAuthenticate(int id, DateTime dateTime, UserPreferenceApplicationCulture? applicationCulture);
+    void SetForSetPassword(int id, int userId, DateTime dateTime, UserPreferenceApplicationCulture userPreferenceApplicationCulture);
     void SetUserId(int id, int userId, DateTime dateTime);
     Task SetUserIdAndSaveAsync(int id, int userId, DateTime dateTime);
 }

@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Repository.User;
 using MasjidOnline.Entity.User;
@@ -18,6 +19,14 @@ public class UserPreferenceRepository(DbContext _dbContext) : IUserPreferenceRep
     {
         return await _dbSet.AnyAsync(e => e.UserId == userId);
     }
+
+    public async Task<UserPreferenceApplicationCulture> GetApplicationCultureAsync(int userId)
+    {
+        return await _dbSet.Where(e => e.UserId == userId)
+            .Select(e => e.ApplicationCulture)
+            .FirstOrDefaultAsync();
+    }
+
 
     public void SetApplicationCulture(int userId, UserPreferenceApplicationCulture applicationCulture)
     {

@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Repository.User;
-using MasjidOnline.Data.Interface.ViewModel.User;
+using MasjidOnline.Data.Interface.ViewModel.User.User;
 using MasjidOnline.Entity.User;
 using Microsoft.EntityFrameworkCore;
 
@@ -42,10 +42,10 @@ public class UserRepository(DbContext _dbContext) : IUserRepository
     }
 
 
-    public async Task<UserForLogin?> GetForLoginAsync(int id)
+    public async Task<ForLogin?> GetForLoginAsync(int id)
     {
         return await _dbSet.Where(e => e.Id == id)
-            .Select(e => new UserForLogin
+            .Select(e => new ForLogin
             {
                 Password = e.Password,
             })
