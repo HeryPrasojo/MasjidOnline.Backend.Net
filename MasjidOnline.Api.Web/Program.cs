@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Text.Json.Serialization;
 using MasjidOnline.Api.Web;
+using MasjidOnline.Api.Web.HostedServices;
 using MasjidOnline.Api.Web.Middleware;
 using MasjidOnline.Api.Web.WebApplicationExtension;
 using MasjidOnline.Business;
@@ -77,6 +78,7 @@ static WebApplication BuildApplication(string[] args)
 
     #endregion
 
+    webApplicationBuilder.Services.AddHostedService<SessionExpireHostedService>();
 
     webApplicationBuilder.WebHost.UseShutdownTimeout(TimeSpan.FromSeconds(16));
 
