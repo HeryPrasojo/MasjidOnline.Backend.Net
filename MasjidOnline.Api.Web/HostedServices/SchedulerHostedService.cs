@@ -12,8 +12,7 @@ public class SchedulerHostedService : IHostedService
 {
     private readonly IServiceProvider _serviceProvider;
     private readonly IBusiness _business;
-
-    private Timer _timer;
+    private readonly Timer _timer;
 
     public SchedulerHostedService(IServiceProvider serviceProvider, IBusiness business)
     {
