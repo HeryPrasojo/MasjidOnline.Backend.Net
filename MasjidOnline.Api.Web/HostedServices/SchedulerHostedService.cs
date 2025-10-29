@@ -12,16 +12,14 @@ public class SchedulerHostedService : IHostedService
 {
     private readonly IServiceProvider _serviceProvider;
     private readonly IBusiness _business;
-    private readonly IIdGenerator _idGenerator;
 
     private Timer _timer;
 
-    public SchedulerHostedService(IServiceProvider serviceProvider, IBusiness business, IIdGenerator idGenerator)
+    public SchedulerHostedService(IServiceProvider serviceProvider, IBusiness business)
     {
         _timer = new(TimerCallbackAsync);
         _serviceProvider = serviceProvider;
         _business = business;
-        _idGenerator = idGenerator;
     }
 
     public Task StartAsync(CancellationToken cancellationToken)
