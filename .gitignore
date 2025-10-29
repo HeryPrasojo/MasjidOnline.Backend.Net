@@ -1,4 +1,8 @@
 /.vs
+/MasjidOnline.Api.Web/bin
+/MasjidOnline.Api.Web/obj
+/MasjidOnline.Api.Web/appsettings.Local.json
+/MasjidOnline.Api.Web/MasjidOnline.Api.Web.csproj.user
 /MasjidOnline.Business/MasjidOnline.Business/bin
 /MasjidOnline.Business/MasjidOnline.Business/obj
 /MasjidOnline.Business/MasjidOnline.Business.Accountancy/bin
@@ -13,6 +17,10 @@
 /MasjidOnline.Business/MasjidOnline.Business.Captcha/obj
 /MasjidOnline.Business/MasjidOnline.Business.Captcha.Interface/bin
 /MasjidOnline.Business/MasjidOnline.Business.Captcha.Interface/obj
+/MasjidOnline.Business/MasjidOnline.Business.Event/bin
+/MasjidOnline.Business/MasjidOnline.Business.Event/obj
+/MasjidOnline.Business/MasjidOnline.Business.Event.Interface/bin
+/MasjidOnline.Business/MasjidOnline.Business.Event.Interface/obj
 /MasjidOnline.Business/MasjidOnline.Business.Infaq/bin
 /MasjidOnline.Business/MasjidOnline.Business.Infaq/obj
 /MasjidOnline.Business/MasjidOnline.Business.Infaq.Interface/bin
@@ -45,6 +53,10 @@
 /MasjidOnline.Data/MasjidOnline.Data.EntityFramework/obj
 /MasjidOnline.Data/MasjidOnline.Data.EntityFramework.SqLite/bin
 /MasjidOnline.Data/MasjidOnline.Data.EntityFramework.SqLite/obj
+/MasjidOnline.Entity/bin
+/MasjidOnline.Entity/obj
+/MasjidOnline.Library/bin
+/MasjidOnline.Library/obj
 /MasjidOnline.Service/MasjidOnline.Service/bin
 /MasjidOnline.Service/MasjidOnline.Service/obj
 /MasjidOnline.Service/MasjidOnline.Service.Captcha/bin
@@ -79,11 +91,3 @@
 /MasjidOnline.Service/MasjidOnline.Service.Mail.Interface/obj
 /MasjidOnline.Service/MasjidOnline.Service.Mail.MailKit/bin
 /MasjidOnline.Service/MasjidOnline.Service.Mail.MailKit/obj
-/MasjidOnline.Entity/bin
-/MasjidOnline.Entity/obj
-/MasjidOnline.Library/bin
-/MasjidOnline.Library/obj
-/MasjidOnline.Api.Web/bin
-/MasjidOnline.Api.Web/obj
-/MasjidOnline.Api.Web/appsettings.Local.json
-/MasjidOnline.Api.Web/MasjidOnline.Api.Web.csproj.user

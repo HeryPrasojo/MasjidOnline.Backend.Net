@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using MasjidOnline.Business.Accountancy.Interface;
+using MasjidOnline.Business.Event.Interface;
 using MasjidOnline.Business.Infaq.Interface;
 using MasjidOnline.Business.Payment.Interface;
 using MasjidOnline.Business.Session.Interface;
@@ -10,11 +11,12 @@ namespace MasjidOnline.Business.Interface;
 
 public interface IBusiness
 {
-    IInfaqBusiness Infaq { get; }
-    IUserBusiness User { get; }
     IAccountancyBusiness Accountancy { get; }
+    IEventBusiness Event { get; }
+    IInfaqBusiness Infaq { get; }
     IPaymentBusiness Payment { get; }
     ISessionBusiness Session { get; }
+    IUserBusiness User { get; }
 
     Task InitializeAsync(IData _data);
 }

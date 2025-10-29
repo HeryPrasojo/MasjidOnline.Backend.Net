@@ -17,7 +17,7 @@ internal static class SessionEndpoint
             Business.Session.Interface.Model.Session session,
             [FromBody] CreateRequest createRequest)
         {
-            return await _business.Session.Session.CreateAsync(_data, session, createRequest);
+            return await _business.Session.Create.CreateAsync(_data, session, createRequest);
         }
     }
 }

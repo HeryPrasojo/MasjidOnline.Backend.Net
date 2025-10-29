@@ -52,6 +52,13 @@ public class SessionRepository(DbContext _dbContext) : ISessionRepository
     }
 
 
+    public async Task RemoveExpireAsync(DateTime dateTime)
+    {
+        await _dbSet.Where(e => e.DateTime < dateTime)
+            .ExecuteDeleteAsync();
+    }
+
+
     public void SetUserId(int id, int userId, DateTime dateTime)
     {
         var session = new Entity.Session.Session

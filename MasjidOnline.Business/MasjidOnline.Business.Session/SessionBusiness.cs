@@ -6,5 +6,7 @@ namespace MasjidOnline.Business.Session;
 
 public class SessionBusiness(IService _service, IIdGenerator _idGenerator) : ISessionBusiness
 {
-    public ISessionSessionBusiness Session { get; } = new SessionSessionBusiness(_service, _idGenerator);
+    public ISessionCreateBusiness Create { get; } = new SessionCreateBusiness(_service, _idGenerator);
+
+    public ISessionExpireBusiness Expire { get; } = new SessionExpireBusiness();
 }

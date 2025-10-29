@@ -12,6 +12,7 @@ public interface ISessionRepository
     Task<SessionForStart?> GetForStartAsync(byte[] digest);
     Task<int> GetMaxIdAsync();
     Task<UserPreferenceApplicationCulture> GetUserPreferenceApplicationCultureAsync(int id);
+    Task RemoveExpireAsync(DateTime dateTime);
     void SetForAuthenticate(int id, DateTime dateTime, UserPreferenceApplicationCulture? applicationCulture);
     void SetForSetPassword(int id, int userId, DateTime dateTime, UserPreferenceApplicationCulture userPreferenceApplicationCulture);
     void SetUserId(int id, int userId, DateTime dateTime);

@@ -90,12 +90,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Locali
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Localization.Interface", "MasjidOnline.Service\MasjidOnline.Service.Localization.Interface\MasjidOnline.Service.Localization.Interface.csproj", "{E29FAC70-4D52-4F92-8B0B-463CA75D5F10}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Event", "MasjidOnline.Business\MasjidOnline.Business.Event\MasjidOnline.Business.Event.csproj", "{5E9CA55F-6577-4FCC-A1CB-EFB9652F04D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Event.Interface", "MasjidOnline.Business\MasjidOnline.Business.Event.Interface\MasjidOnline.Business.Event.Interface.csproj", "{4DCCDCCC-C3A1-4494-B00D-131AF82C00D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{86C5F90E-1610-45D1-A323-366CEEFF5C7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86C5F90E-1610-45D1-A323-366CEEFF5C7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86C5F90E-1610-45D1-A323-366CEEFF5C7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86C5F90E-1610-45D1-A323-366CEEFF5C7A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{68E142D7-F104-4655-BE96-4C33891C19C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{68E142D7-F104-4655-BE96-4C33891C19C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68E142D7-F104-4655-BE96-4C33891C19C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -184,10 +192,6 @@ Global
 		{47EA932D-324B-43AE-A42A-1B855C414F13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47EA932D-324B-43AE-A42A-1B855C414F13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47EA932D-324B-43AE-A42A-1B855C414F13}.Release|Any CPU.Build.0 = Release|Any CPU
-		{86C5F90E-1610-45D1-A323-366CEEFF5C7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{86C5F90E-1610-45D1-A323-366CEEFF5C7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{86C5F90E-1610-45D1-A323-366CEEFF5C7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{86C5F90E-1610-45D1-A323-366CEEFF5C7A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B2A147D3-EF60-4E54-A8F6-95D39E7E2C28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B2A147D3-EF60-4E54-A8F6-95D39E7E2C28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2A147D3-EF60-4E54-A8F6-95D39E7E2C28}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -248,6 +252,14 @@ Global
 		{E29FAC70-4D52-4F92-8B0B-463CA75D5F10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E29FAC70-4D52-4F92-8B0B-463CA75D5F10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E29FAC70-4D52-4F92-8B0B-463CA75D5F10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E9CA55F-6577-4FCC-A1CB-EFB9652F04D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E9CA55F-6577-4FCC-A1CB-EFB9652F04D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E9CA55F-6577-4FCC-A1CB-EFB9652F04D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E9CA55F-6577-4FCC-A1CB-EFB9652F04D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DCCDCCC-C3A1-4494-B00D-131AF82C00D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DCCDCCC-C3A1-4494-B00D-131AF82C00D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DCCDCCC-C3A1-4494-B00D-131AF82C00D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DCCDCCC-C3A1-4494-B00D-131AF82C00D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -288,6 +300,8 @@ Global
 		{595C6631-B3E4-44F6-A9B2-EF7B8D7A5484} = {2E44B54A-491D-4C1C-88CA-9D332653F92E}
 		{A38F8ECE-7C7C-4E39-A772-EC5054ECFCBC} = {2E44B54A-491D-4C1C-88CA-9D332653F92E}
 		{E29FAC70-4D52-4F92-8B0B-463CA75D5F10} = {2E44B54A-491D-4C1C-88CA-9D332653F92E}
+		{5E9CA55F-6577-4FCC-A1CB-EFB9652F04D4} = {9532ED15-56B2-415E-8DDF-F24515892619}
+		{4DCCDCCC-C3A1-4494-B00D-131AF82C00D8} = {9532ED15-56B2-415E-8DDF-F24515892619}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E21BDE61-C24C-41E1-87AC-909B6CE35E70}

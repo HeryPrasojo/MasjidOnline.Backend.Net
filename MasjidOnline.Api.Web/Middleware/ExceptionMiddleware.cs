@@ -1,8 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using MasjidOnline.Business.Interface;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
@@ -11,8 +11,8 @@ using Microsoft.AspNetCore.Http;
 namespace MasjidOnline.Api.Web.Middleware;
 
 public class ExceptionMiddleware(
-    RequestDelegate _nextRequestDelegate,
-    IIdGenerator _idGenerator)
+    IBusiness _business,
+    RequestDelegate _nextRequestDelegate)
 {
     private static readonly JsonSerializerOptions _jsonSerializerOptions = new()
     {
@@ -20,7 +20,8 @@ public class ExceptionMiddleware(
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
     };
 
-    public async Task Invoke(HttpContext httpContext, IData data)
+    // first parameter must be HttpContext
+    public async Task InvokeAsync(HttpContext httpContext, IData _data)
     {
         try
         {
@@ -28,7 +29,7 @@ public class ExceptionMiddleware(
         }
         catch (Exception exception)
         {
-            await HandleExceptionAsync(httpContext, exception, data);
+            await HandleExceptionAsync(httpContext, exception, _data);
         }
     }
 
@@ -61,7 +62,7 @@ public class ExceptionMiddleware(
         return exceptionResponse;
     }
 
-    private async Task HandleExceptionAsync(HttpContext httpContext, Exception exception, IData data)
+    private async Task HandleExceptionAsync(HttpContext httpContext, Exception exception, IData _data)
     {
         var exceptionResponse = BuildExceptionResponse(exception);
 
@@ -74,36 +75,7 @@ public class ExceptionMiddleware(
 
         if (exceptionResponse.ResultCode == ResponseResultCode.Error)
         {
-            var exceptionEntities = new List<Entity.Event.Exception>();
-
-            BuildExceptionEntity(exception, exceptionEntities, DateTime.UtcNow);
-
-            await data.Transaction.RollbackAsync();
-
-            await data.Event.Exception.AddAndSaveAsync(exceptionEntities);
+            await _business.Event.Exception.HandleAsync(_data, exception);
         }
-    }
-
-    private Entity.Event.Exception BuildExceptionEntity(Exception exception, List<Entity.Event.Exception> exceptionEntities, DateTime dateTime)
-    {
-        var exceptionEntity = new Entity.Event.Exception
-        {
-            DateTime = dateTime,
-            Id = _idGenerator.Event.ExceptionId,
-            Message = exception.Message,
-            StackTrace = exception.StackTrace,
-            Type = exception.GetType().Name,
-        };
-
-        exceptionEntities.Add(exceptionEntity);
-
-        if (exception.InnerException != default)
-        {
-            var innerExceptionEntities = BuildExceptionEntity(exception.InnerException, exceptionEntities, dateTime);
-
-            exceptionEntity.InnerExceptionId = innerExceptionEntities.Id;
-        }
-
-        return exceptionEntity;
     }
 }

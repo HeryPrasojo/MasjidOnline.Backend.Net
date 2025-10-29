@@ -78,7 +78,7 @@ static WebApplication BuildApplication(string[] args)
 
     #endregion
 
-    webApplicationBuilder.Services.AddHostedService<SessionExpireHostedService>();
+    webApplicationBuilder.Services.AddHostedServices();
 
     webApplicationBuilder.WebHost.UseShutdownTimeout(TimeSpan.FromSeconds(16));
 

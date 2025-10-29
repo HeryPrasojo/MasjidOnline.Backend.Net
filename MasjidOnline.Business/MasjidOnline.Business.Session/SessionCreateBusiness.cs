@@ -9,7 +9,7 @@ using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.Session;
 
-public class SessionSessionBusiness(IService _service, IIdGenerator _idGenerator) : ISessionSessionBusiness
+public class SessionCreateBusiness(IService _service, IIdGenerator _idGenerator) : ISessionCreateBusiness
 {
     public async Task<Response<string>> CreateAsync(IData _data, Interface.Model.Session session, CreateRequest createRequest)
     {

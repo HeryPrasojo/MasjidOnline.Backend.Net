@@ -2,6 +2,8 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.Accountancy;
 using MasjidOnline.Business.Accountancy.Interface;
 using MasjidOnline.Business.Authorization;
+using MasjidOnline.Business.Event;
+using MasjidOnline.Business.Event.Interface;
 using MasjidOnline.Business.Infaq;
 using MasjidOnline.Business.Infaq.Interface;
 using MasjidOnline.Business.Interface;
@@ -29,6 +31,7 @@ public class Business : IBusiness
         var authorizationBusiness = new AuthorizationBusiness();
 
         Accountancy = new AccountancyBusiness(authorizationBusiness, idGenerator, service);
+        Event = new EventBusiness(idGenerator);
         Infaq = new InfaqBusiness(optionsMonitor, authorizationBusiness, idGenerator, service);
         Payment = new PaymentBusiness(idGenerator, service);
         Session = new SessionBusiness(service, idGenerator);
@@ -36,6 +39,8 @@ public class Business : IBusiness
     }
 
     public IAccountancyBusiness Accountancy { get; }
+
+    public IEventBusiness Event { get; }
 
     public IInfaqBusiness Infaq { get; }
 

@@ -1,14 +1,14 @@
 using System;
+using MasjidOnline.Business.Interface;
 using MasjidOnline.Business.Model.Responses;
-using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using Microsoft.AspNetCore.Http;
 
 namespace MasjidOnline.Api.Web.Middleware;
 
 public class DevelopmentExceptionMiddleware(
-    RequestDelegate _nextRequestDelegate,
-    IIdGenerator _idGenerator) : ExceptionMiddleware(_nextRequestDelegate, _idGenerator)
+    IBusiness _business,
+    RequestDelegate _nextRequestDelegate) : ExceptionMiddleware(_business, _nextRequestDelegate)
 {
     protected override ExceptionResponse BuildExceptionResponse(Exception exception)
     {
