@@ -5,7 +5,6 @@ using MasjidOnline.Data.Interface;
 
 namespace MasjidOnline.Business.Session.Interface;
 
-// undone rename to ISessionCreateBusiness
 public interface ISessionCreateBusiness
 {
     Task<Response<string>> CreateAsync(IData _data, Model.Session session, CreateRequest createRequest);

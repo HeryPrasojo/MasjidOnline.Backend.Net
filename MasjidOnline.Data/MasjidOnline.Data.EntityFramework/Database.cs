@@ -19,6 +19,8 @@ public abstract class Database(DbContext _dbContext) : Interface.IDatabase
     public async Task CommitTransactionAsync()
     {
         await _dbContext.Database.CommitTransactionAsync();
+
+        _dbContext.ChangeTracker.Clear();
     }
 
     public async Task RolbackTransactionAsync()

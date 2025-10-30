@@ -18,7 +18,7 @@ public class SessionAuthenticationBusiness(IService _service) : ISessionAuthenti
         string? codeBase64,
         string? cultureName,
         string requestPath,
-        [CallerArgumentExpression(nameof(codeBase64))] string? idBase64Expression = default)
+        [CallerArgumentExpression(nameof(codeBase64))] string? codeBase64Expression = default)
     {
         if (codeBase64 == default)
         {
@@ -28,7 +28,7 @@ public class SessionAuthenticationBusiness(IService _service) : ISessionAuthenti
         }
 
 
-        var requestSessionIdBytes = _service.FieldValidator.ValidateRequiredBase64(codeBase64, 128, idBase64Expression);
+        var requestSessionIdBytes = _service.FieldValidator.ValidateRequiredBase64(codeBase64, 128, codeBase64Expression);
 
         var decryptedRquestSessionIdBytes = _service.Encryption128b256kService.Decrypt(requestSessionIdBytes);
 

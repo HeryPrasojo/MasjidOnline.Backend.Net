@@ -70,6 +70,11 @@ internal static class MapEndpointsExtension
 
         var userGroup = webApplication.MapGroup("/user/").DisableAntiforgery();
 
+        userGroup.MapPost("login", UserEndpoint.User.LoginAsync);
+        userGroup.MapPost("logout", UserEndpoint.User.LogoutAsync);
+        userGroup.MapPost("setPassword", UserEndpoint.User.SetPasswordAsync);
+
+
         var userInternalGroup = userGroup.MapGroup("internal/");
 
         userInternalGroup.MapPost("add", UserEndpoint.Internal.AddAsync);
@@ -78,11 +83,6 @@ internal static class MapEndpointsExtension
         userInternalGroup.MapPost("getMany", UserEndpoint.Internal.GetManyAsync);
         userInternalGroup.MapPost("getOne", UserEndpoint.Internal.GetOneAsync);
         userInternalGroup.MapPost("reject", UserEndpoint.Internal.RejectAsync);
-
-
-        userGroup.MapPost("login", UserEndpoint.User.LoginAsync);
-        userGroup.MapPost("logout", UserEndpoint.User.LogoutAsync);
-        userGroup.MapPost("setPassword", UserEndpoint.User.SetPasswordAsync);
 
 
         return webApplication;

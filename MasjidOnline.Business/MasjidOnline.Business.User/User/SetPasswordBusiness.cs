@@ -16,13 +16,11 @@ public class SetPasswordBusiness(
     IIdGenerator _idGenerator,
     IService _service) : ISetPasswordBusiness
 {
-    // todo get applicationCulture
-    // todo require session
     public async Task<Response> SetAsync(Session.Interface.Model.Session session, IData _data, SetPasswordRequest? setPasswordRequest)
     {
         setPasswordRequest = _service.FieldValidator.ValidateRequired(setPasswordRequest);
         setPasswordRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(setPasswordRequest.CaptchaToken);
-        var codeBytes = _service.FieldValidator.ValidateRequiredHex(setPasswordRequest.PasswordCode, 128);
+        var codeBytes = _service.FieldValidator.ValidateRequiredBase64(setPasswordRequest.PasswordCode, 88);
         setPasswordRequest.Password = _service.FieldValidator.ValidateRequiredPassword(setPasswordRequest.Password);
         setPasswordRequest.Password2 = _service.FieldValidator.ValidateRequired(setPasswordRequest.Password2);
 
@@ -38,7 +36,10 @@ public class SetPasswordBusiness(
 
         if (userId == default) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
 
-        if (userId.Value != session.UserId) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+        if (!session.IsUserAnonymous)
+        {
+            if (userId.Value != session.UserId) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+        }
 
 
         var code = await _data.User.PasswordCode.GetLatestCodeForSetPasswordAsync(userId.Value);

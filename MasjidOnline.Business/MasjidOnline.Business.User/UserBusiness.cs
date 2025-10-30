@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using System.Web;
 using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Model;
 using MasjidOnline.Business.Model.Options;
@@ -129,7 +130,7 @@ public class UserBusiness(
         await _data.Transaction.CommitAsync();
 
 
-        var uri = option.Uri.UserPassword + Convert.ToHexString(passwordCode.Code.AsSpan());
+        var uri = option.Uri.UserPassword + HttpUtility.UrlEncode(Convert.ToBase64String(passwordCode.Code.AsSpan()));
 
         var mailMessage = new MailMessage
         {
