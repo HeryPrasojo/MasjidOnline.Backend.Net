@@ -63,7 +63,7 @@ public class Service : IService
 
     public void Initialize(IEnumerable<string> createDirectories)
     {
-        _captchaService.Initialize();
-        _fileService.Initialize(createDirectories);
+        Captcha.Initialize();
+        File.Initialize(createDirectories);
     }
 }
