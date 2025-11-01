@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface;
+using MasjidOnline.Business.Model;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.User.Interface.Model.User;
 using MasjidOnline.Business.User.Interface.User;
@@ -45,11 +46,19 @@ public class LoginEmailBusiness(IAuthorizationBusiness _authorizationBusiness, I
         if (!requestPasswordHashBytes.SequenceEqual(user.Password)) throw new InputMismatchException(nameof(loginRequest.Password));
 
 
+        await _data.Transaction.BeginAsync(_data.Session);
+
+        var userPreferenceApplicationCulture = await _data.User.UserPreference.GetApplicationCultureAsync(userId.Value);
+
+        session.UserId = userId.Value;
+        session.CultureInfo = Constant.UserPreferenceApplicationCulture[userPreferenceApplicationCulture];
         session.UserId = userId.Value;
 
-        //_data.Session.Session.SetUserId(session.Id, session.UserId, utcNow);
+        _data.Session.Session.SetForLogin(session.Id, session.UserId, DateTime.UtcNow, userPreferenceApplicationCulture);
 
         // undone log login
+
+        await _data.Transaction.CommitAsync();
 
         return new()
         {
