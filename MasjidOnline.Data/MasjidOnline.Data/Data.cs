@@ -16,6 +16,7 @@ public abstract class Data() : IData
     public abstract IDatabaseTemplateDatabase DatabaseTemplate { get; }
     public abstract IEventDatabase Event { get; }
     public abstract IInfaqDatabase Infaq { get; }
+    public abstract IIdGenerator IdGenerator { get; }
     public abstract IPaymentDatabase Payment { get; }
     public abstract IPersonDatabase Person { get; }
     public abstract ISessionDatabase Session { get; }

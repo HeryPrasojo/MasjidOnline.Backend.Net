@@ -24,18 +24,17 @@ public class Business : IBusiness
 {
     public Business(
         IOptionsMonitor<BusinessOptions> optionsMonitor,
-        IIdGenerator idGenerator,
         Service.Interface.IService service
     )
     {
         var authorizationBusiness = new AuthorizationBusiness();
 
-        Accountancy = new AccountancyBusiness(authorizationBusiness, idGenerator, service);
-        Event = new EventBusiness(idGenerator);
-        Infaq = new InfaqBusiness(optionsMonitor, authorizationBusiness, idGenerator, service);
-        Payment = new PaymentBusiness(idGenerator, service);
-        Session = new SessionBusiness(service, idGenerator);
-        User = new UserBusiness(optionsMonitor, authorizationBusiness, idGenerator, service);
+        Accountancy = new AccountancyBusiness(authorizationBusiness, service);
+        Event = new EventBusiness();
+        Infaq = new InfaqBusiness(optionsMonitor, authorizationBusiness, service);
+        Payment = new PaymentBusiness(service);
+        Session = new SessionBusiness(service);
+        User = new UserBusiness(optionsMonitor, authorizationBusiness, service);
     }
 
     public IAccountancyBusiness Accountancy { get; }

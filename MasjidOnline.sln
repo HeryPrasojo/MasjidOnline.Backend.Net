@@ -94,6 +94,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Event
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Event.Interface", "MasjidOnline.Business\MasjidOnline.Business.Event.Interface\MasjidOnline.Business.Event.Interface.csproj", "{4DCCDCCC-C3A1-4494-B00D-131AF82C00D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Mapper", "MasjidOnline.Business\MasjidOnline.Business.Mapper\MasjidOnline.Business.Mapper.csproj", "{FECD4EA7-C5B7-4419-8404-BA4CCC7A5366}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -260,6 +262,10 @@ Global
 		{4DCCDCCC-C3A1-4494-B00D-131AF82C00D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DCCDCCC-C3A1-4494-B00D-131AF82C00D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DCCDCCC-C3A1-4494-B00D-131AF82C00D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FECD4EA7-C5B7-4419-8404-BA4CCC7A5366}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FECD4EA7-C5B7-4419-8404-BA4CCC7A5366}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FECD4EA7-C5B7-4419-8404-BA4CCC7A5366}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FECD4EA7-C5B7-4419-8404-BA4CCC7A5366}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -302,6 +308,7 @@ Global
 		{E29FAC70-4D52-4F92-8B0B-463CA75D5F10} = {2E44B54A-491D-4C1C-88CA-9D332653F92E}
 		{5E9CA55F-6577-4FCC-A1CB-EFB9652F04D4} = {9532ED15-56B2-415E-8DDF-F24515892619}
 		{4DCCDCCC-C3A1-4494-B00D-131AF82C00D8} = {9532ED15-56B2-415E-8DDF-F24515892619}
+		{FECD4EA7-C5B7-4419-8404-BA4CCC7A5366} = {9532ED15-56B2-415E-8DDF-F24515892619}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E21BDE61-C24C-41E1-87AC-909B6CE35E70}

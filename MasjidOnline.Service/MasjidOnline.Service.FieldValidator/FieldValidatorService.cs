@@ -27,7 +27,7 @@ public class FieldValidatorService : IFieldValidatorService
 
         var valueType = value.Value.GetType();
 
-        if (!Enum.IsDefined(valueType, value)) throw new InputInvalidException(valueExpression);
+        if (!Enum.IsDefined(valueType, value.Value)) throw new InputInvalidException(valueExpression);
 
         return value.Value;
     }
@@ -62,6 +62,13 @@ public class FieldValidatorService : IFieldValidatorService
         if (value == default) throw new InputInvalidException(valueExpression);
 
         return value;
+    }
+
+    public void ValidateRequired<TObject>(TObject value, Func<TObject, bool> predicate, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    {
+        var result = predicate(value);
+
+        if (!result) throw new InputInvalidException(valueExpression);
     }
 
     public string ValidateRequired(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
@@ -197,7 +204,7 @@ public class FieldValidatorService : IFieldValidatorService
 
         var valueType = value.Value.GetType();
 
-        if (!Enum.IsDefined(valueType, value)) throw new InputInvalidException(valueExpression);
+        if (!Enum.IsDefined(valueType, value.Value)) throw new InputInvalidException(valueExpression);
 
         return value.Value;
     }

@@ -11,7 +11,6 @@ namespace MasjidOnline.Business.Accountancy.Expenditure;
 
 public class AddBusiness(
     IAuthorizationBusiness _authorizationBusiness,
-    IIdGenerator _idGenerator,
     IService _service) : IAddBusiness
 {
     public async Task<Response> AddAsync(Session.Interface.Model.Session session, IData _data, AddRequest? addRequest)
@@ -30,7 +29,7 @@ public class AddBusiness(
             Amount = addRequest.Amount.Value,
             DateTime = DateTime.UtcNow,
             Description = addRequest.Description,
-            Id = _idGenerator.Accountancy.ExpenditureId,
+            Id = _data.IdGenerator.Accountancy.ExpenditureId,
             Status = Entity.Accountancy.ExpenditureStatus.New,
             UserId = session.UserId,
         };

@@ -18,13 +18,12 @@ namespace MasjidOnline.Business.User;
 public class UserBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
     IAuthorizationBusiness _authorizationBusiness,
-    IIdGenerator _idGenerator,
     IService _service
     ) : IUserBusiness
 {
-    public IUserInternalBusiness Internal { get; } = new UserInternalBusiness(_optionsMonitor, _authorizationBusiness, _idGenerator, _service);
+    public IUserInternalBusiness Internal { get; } = new UserInternalBusiness(_optionsMonitor, _authorizationBusiness, _service);
     public IUserPreferenceBusiness UserPreference { get; } = new UserPreferenceBusiness();
-    public IUserUserBusiness User { get; } = new UserUserBusiness(_authorizationBusiness, _idGenerator, _service);
+    public IUserUserBusiness User { get; } = new UserUserBusiness(_authorizationBusiness, _service);
 
 
     public async Task InitializeAsync(IData _data)
@@ -58,7 +57,7 @@ public class UserBusiness(
         {
             DateTime = utcNow,
             EmailAddress = option.RootUserEmailAddress,
-            Id = _idGenerator.User.InternalId,
+            Id = _data.IdGenerator.User.InternalId,
             Status = InternalUserStatus.Approve,
             UpdateDateTime = utcNow,
             UpdateUserId = Constant.UserId.System,
@@ -77,7 +76,7 @@ public class UserBusiness(
 
         await _data.User.User.AddAsync(user);
 
-        await _data.Audit.UserLog.AddAddAsync(_idGenerator.Audit.UserLogId, utcNow, Constant.UserId.System, user);
+        await _data.Audit.UserLog.AddAddAsync(_data.IdGenerator.Audit.UserLogId, utcNow, Constant.UserId.System, user);
 
 
         var userEmailAddress = new UserEmailAddress
@@ -88,7 +87,7 @@ public class UserBusiness(
 
         await _data.User.UserEmailAddress.AddAsync(userEmailAddress);
 
-        await _data.Audit.UserEmailAddressLog.AddAddAsync(_idGenerator.Audit.UserEmailAddressLogId, utcNow, Constant.UserId.System, userEmailAddress);
+        await _data.Audit.UserEmailAddressLog.AddAddAsync(_data.IdGenerator.Audit.UserEmailAddressLogId, utcNow, Constant.UserId.System, userEmailAddress);
 
 
         var passwordCode = new PasswordCode
@@ -124,7 +123,7 @@ public class UserBusiness(
 
         await _data.Authorization.UserInternalPermission.AddAsync(userInternalPermission);
 
-        await _data.Audit.UserInternalPermissionLog.AddAddAsync(_idGenerator.Audit.PermissionLogId, utcNow, Constant.UserId.System, userInternalPermission);
+        await _data.Audit.UserInternalPermissionLog.AddAddAsync(_data.IdGenerator.Audit.PermissionLogId, utcNow, Constant.UserId.System, userInternalPermission);
 
 
         await _data.Transaction.CommitAsync();

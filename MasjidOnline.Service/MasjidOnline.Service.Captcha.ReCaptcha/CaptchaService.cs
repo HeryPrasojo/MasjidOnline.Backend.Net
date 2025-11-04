@@ -45,6 +45,8 @@ public class CaptchaService(bool _enabled, IHttpClientFactory _httpClientFactory
     {
         if (!_enabled) return true;
 
+        // todo limit verification only for specific actions
+
         var httpClient = _httpClientFactory.CreateClient(Constant.HttpClientName);
 
         var serializedRequest = _serializedRequest

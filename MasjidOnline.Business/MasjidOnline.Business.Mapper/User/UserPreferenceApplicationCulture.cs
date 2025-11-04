@@ -1,11 +1,10 @@
-using System.Collections.Generic;
 using System.Globalization;
 
-namespace MasjidOnline.Business.Model;
+namespace MasjidOnline.Business.Mapper.User;
 
 public class UserPreferenceApplicationCulture
 {
-    private static readonly Dictionary<CultureInfo, Entity.User.UserPreferenceApplicationCulture> _toUserPreferenceApplicationCulture = new()
+    private static readonly Dictionary<CultureInfo, Entity.User.UserPreferenceApplicationCulture> _toEntities = new()
         {
             { Service.Localization.Interface.Model.Constant.CultureInfoEnglish, Entity.User.UserPreferenceApplicationCulture.English },
         };
@@ -18,7 +17,7 @@ public class UserPreferenceApplicationCulture
 
     public Entity.User.UserPreferenceApplicationCulture this[CultureInfo cultureInfo]
     {
-        get => _toUserPreferenceApplicationCulture[cultureInfo];
+        get => _toEntities[cultureInfo];
     }
 
     public CultureInfo this[Entity.User.UserPreferenceApplicationCulture userPreferenceApplicationCulture]

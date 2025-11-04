@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\MasjidOnline.Entity\MasjidOnline.Entity.csproj" />
+    <ProjectReference Include="..\..\MasjidOnline.Service\MasjidOnline.Service.Localization.Interface\MasjidOnline.Service.Localization.Interface.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Business.Event.Interface\MasjidOnline.Business.Event.Interface.csproj" />
+  </ItemGroup>
+
+</Project>

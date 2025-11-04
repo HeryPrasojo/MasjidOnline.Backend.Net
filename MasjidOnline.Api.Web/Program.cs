@@ -50,6 +50,7 @@ static WebApplication BuildApplication(string[] args)
     webApplicationBuilder.Services.ConfigureHttpJsonOptions(options =>
     {
         options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault;
+        options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
 
     webApplicationBuilder.Services.AddCors(corsOptions =>

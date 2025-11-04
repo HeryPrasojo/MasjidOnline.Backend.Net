@@ -14,7 +14,8 @@ public abstract class EventInitializer(IEventDefinition _eventDefinition)
         if (!settingTableExists)
         {
             await CreateTableEventSettingAsync();
-            await CreateTableErrorExceptionAsync();
+            await CreateTableExceptionAsync();
+            await CreateTableUserLoginAsync();
 
 
             var setting = new EventSetting
@@ -30,5 +31,6 @@ public abstract class EventInitializer(IEventDefinition _eventDefinition)
 
     protected abstract Task CreateTableEventSettingAsync();
 
-    protected abstract Task CreateTableErrorExceptionAsync();
+    protected abstract Task CreateTableExceptionAsync();
+    protected abstract Task CreateTableUserLoginAsync();
 }

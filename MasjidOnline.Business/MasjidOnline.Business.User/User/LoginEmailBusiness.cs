@@ -2,11 +2,12 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface;
-using MasjidOnline.Business.Model;
+using MasjidOnline.Business.Mapper;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.User.Interface.Model.User;
 using MasjidOnline.Business.User.Interface.User;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Entity.Event;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
 
@@ -14,7 +15,6 @@ namespace MasjidOnline.Business.User.User;
 
 public class LoginEmailBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : ILoginEmailBusiness
 {
-    // undone
     public async Task<Response> LoginAsync(IData _data, Session.Interface.Model.Session session, LoginRequest? loginRequest)
     {
         _authorizationBusiness.AuthorizeAnonymous(session);
@@ -23,6 +23,9 @@ public class LoginEmailBusiness(IAuthorizationBusiness _authorizationBusiness, I
         loginRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(loginRequest.CaptchaToken);
         loginRequest.EmailAddress = _service.FieldValidator.ValidateRequiredEmailAddress(loginRequest.EmailAddress);
         loginRequest.Password = _service.FieldValidator.ValidateRequiredTextDb255(loginRequest.Password);
+        loginRequest.Client = _service.FieldValidator.ValidateRequiredEnum(loginRequest.Client);
+
+        _service.FieldValidator.ValidateRequired(loginRequest.Client, m => m != Event.Interface.Model.UserLoginClient.Default);
 
         var userId = await _data.User.UserEmailAddress.GetUserIdAsync(loginRequest.EmailAddress);
 
@@ -46,17 +49,37 @@ public class LoginEmailBusiness(IAuthorizationBusiness _authorizationBusiness, I
         if (!requestPasswordHashBytes.SequenceEqual(user.Password)) throw new InputMismatchException(nameof(loginRequest.Password));
 
 
-        await _data.Transaction.BeginAsync(_data.Session);
-
         var userPreferenceApplicationCulture = await _data.User.UserPreference.GetApplicationCultureAsync(userId.Value);
 
+        await _data.Transaction.BeginAsync(_data.Session, _data.Event);
+
+        var utcNow = DateTime.UtcNow;
+
         session.UserId = userId.Value;
-        session.CultureInfo = Constant.UserPreferenceApplicationCulture[userPreferenceApplicationCulture];
+        session.CultureInfo = UserMapper.UserPreferenceApplicationCulture[userPreferenceApplicationCulture];
         session.UserId = userId.Value;
 
-        _data.Session.Session.SetForLogin(session.Id, session.UserId, DateTime.UtcNow, userPreferenceApplicationCulture);
+        _data.Session.Session.SetForLogin(session.Id, session.UserId, utcNow, userPreferenceApplicationCulture);
 
-        // undone log login
+
+        var userLogin = new UserLogin
+        {
+            DateTime = utcNow,
+            Id = _data.IdGenerator.Event.UserLoginId,
+            IpAddress = loginRequest.IpAddress,
+            LocationAltitude = loginRequest.LocationAltitude,
+            LocationAltitudePrecision = loginRequest.LocationAltitudePrecision,
+            LocationLatitude = loginRequest.LocationLatitude,
+            LocationLongitude = loginRequest.LocationLongitude,
+            LocationPrecision = loginRequest.LocationPrecision,
+            Client = EventMapper.UserLoginClient[loginRequest.Client.Value],
+            SessionId = session.Id,
+            UserAgent = loginRequest.UserAgent,
+            UserId = session.UserId,
+            UserIdString = loginRequest.EmailAddress,
+        };
+
+        await _data.Event.UserLogin.AddAsync(userLogin);
 
         await _data.Transaction.CommitAsync();
 

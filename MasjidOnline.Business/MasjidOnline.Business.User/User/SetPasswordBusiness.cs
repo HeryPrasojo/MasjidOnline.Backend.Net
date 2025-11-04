@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Model;
+using MasjidOnline.Business.Mapper;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.User.Interface.Model.User;
 using MasjidOnline.Business.User.Interface.User;
@@ -13,7 +13,6 @@ using MasjidOnline.Service.Interface;
 namespace MasjidOnline.Business.User.User;
 
 public class SetPasswordBusiness(
-    IIdGenerator _idGenerator,
     IService _service) : ISetPasswordBusiness
 {
     public async Task<Response> SetAsync(Session.Interface.Model.Session session, IData _data, SetPasswordRequest? setPasswordRequest)
@@ -62,13 +61,13 @@ public class SetPasswordBusiness(
         {
             var firstPasswordUser = _data.User.User.SetFirstPassword(userId.Value, passwordBytes);
 
-            await _data.Audit.UserLog.AddSetFirstPasswordAsync(_idGenerator.Audit.UserLogId, utcNow, userId.Value, firstPasswordUser);
+            await _data.Audit.UserLog.AddSetFirstPasswordAsync(_data.IdGenerator.Audit.UserLogId, utcNow, userId.Value, firstPasswordUser);
         }
         else
         {
             var passwordUser = _data.User.User.SetPassword(userId.Value, passwordBytes);
 
-            await _data.Audit.UserLog.AddSetPasswordAsync(_idGenerator.Audit.UserLogId, utcNow, userId.Value, passwordUser);
+            await _data.Audit.UserLog.AddSetPasswordAsync(_data.IdGenerator.Audit.UserLogId, utcNow, userId.Value, passwordUser);
         }
 
 
@@ -79,7 +78,7 @@ public class SetPasswordBusiness(
         {
             var userPreferenceApplicationCulture = await _data.User.UserPreference.GetApplicationCultureAsync(userId.Value);
 
-            session.CultureInfo = Constant.UserPreferenceApplicationCulture[userPreferenceApplicationCulture];
+            session.CultureInfo = UserMapper.UserPreferenceApplicationCulture[userPreferenceApplicationCulture];
             session.UserId = userId.Value;
 
             _data.Session.Session.SetForSetPassword(session.Id, session.UserId, utcNow, userPreferenceApplicationCulture);

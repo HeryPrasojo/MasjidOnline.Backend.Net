@@ -3,25 +3,25 @@ using MasjidOnline.Data.Interface;
 
 namespace MasjidOnline.Business.Event;
 
-public class ExceptionEventBusiness(IIdGenerator _idGenerator) : IExceptionEventBusiness
+public class ExceptionEventBusiness() : IExceptionEventBusiness
 {
-    public async Task HandleAsync(IData data, Exception exception)
+    public async Task HandleAsync(IData _data, Exception exception)
     {
         var exceptionEntities = new List<Entity.Event.Exception>();
 
-        BuildExceptionEntity(exception, exceptionEntities, DateTime.UtcNow);
+        BuildExceptionEntity(_data, exception, exceptionEntities, DateTime.UtcNow);
 
-        await data.Transaction.RollbackAsync();
+        await _data.Transaction.RollbackAsync();
 
-        await data.Event.Exception.AddAndSaveAsync(exceptionEntities);
+        await _data.Event.Exception.AddAndSaveAsync(exceptionEntities);
     }
 
-    private Entity.Event.Exception BuildExceptionEntity(Exception exception, List<Entity.Event.Exception> exceptionEntities, DateTime dateTime)
+    private static Entity.Event.Exception BuildExceptionEntity(IData _data, Exception exception, List<Entity.Event.Exception> exceptionEntities, DateTime dateTime)
     {
         var exceptionEntity = new Entity.Event.Exception
         {
             DateTime = dateTime,
-            Id = _idGenerator.Event.ExceptionId,
+            Id = _data.IdGenerator.Event.ExceptionId,
             Message = exception.Message,
             StackTrace = exception.StackTrace,
             Type = exception.GetType().Name,
@@ -31,7 +31,7 @@ public class ExceptionEventBusiness(IIdGenerator _idGenerator) : IExceptionEvent
 
         if (exception.InnerException != default)
         {
-            var innerExceptionEntities = BuildExceptionEntity(exception.InnerException, exceptionEntities, dateTime);
+            var innerExceptionEntities = BuildExceptionEntity(_data, exception.InnerException, exceptionEntities, dateTime);
 
             exceptionEntity.InnerExceptionId = innerExceptionEntities.Id;
         }

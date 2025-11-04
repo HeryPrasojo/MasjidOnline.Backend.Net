@@ -8,7 +8,7 @@ using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.Payment.Manual;
 
-public class GetRecommendationNoteBusiness(IIdGenerator _idGenerator, IService _service) : IGetRecommendationNoteBusiness
+public class GetRecommendationNoteBusiness(IService _service) : IGetRecommendationNoteBusiness
 {
     private const string _notesFormat = "MO Infaq 0";
 
@@ -39,7 +39,7 @@ public class GetRecommendationNoteBusiness(IIdGenerator _idGenerator, IService _
 
         var manualRecommendationId = new Entity.Payment.ManualRecommendationId
         {
-            Id = _idGenerator.Payment.ManualRecommendationIdId,
+            Id = _data.IdGenerator.Payment.ManualRecommendationIdId,
             SessionId = session.Id,
             Used = false,
         };

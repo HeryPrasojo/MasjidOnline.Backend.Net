@@ -18,7 +18,7 @@ public class DataTransaction : IDataTransaction
 
     public async Task CommitAsync()
     {
-        _datas.Reverse();
+        //_datas.Reverse();
 
         foreach (var data in _datas)
             await data.SaveAsync();
@@ -31,7 +31,7 @@ public class DataTransaction : IDataTransaction
 
     public async Task RollbackAsync()
     {
-        _datas.Reverse();
+        //_datas.Reverse();
 
         foreach (var data in _datas)
             await data.RolbackTransactionAsync();

@@ -16,8 +16,7 @@ namespace MasjidOnline.Business.Infaq.Void;
 public class AddBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
     IAuthorizationBusiness _authorizationBusiness,
-    IService _service,
-    IIdGenerator _idGenerator) : IAddBusiness
+    IService _service) : IAddBusiness
 {
     public async Task<Response> AddAsync(IData _data, Session.Interface.Model.Session session, AddRequest? addRequest)
     {
@@ -47,7 +46,7 @@ public class AddBusiness(
         var @void = new Entity.Infaq.Void
         {
             DateTime = DateTime.UtcNow,
-            Id = _idGenerator.Infaq.VoidId,
+            Id = _data.IdGenerator.Infaq.VoidId,
             InfaqId = addRequest.InfaqId.Value,
             Status = Entity.Infaq.VoidStatus.New,
             UserId = session.UserId,

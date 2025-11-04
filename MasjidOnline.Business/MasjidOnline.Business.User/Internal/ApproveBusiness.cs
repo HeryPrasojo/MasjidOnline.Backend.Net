@@ -18,8 +18,7 @@ namespace MasjidOnline.Business.User.Internal;
 public class ApproveBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
     IAuthorizationBusiness _authorizationBusiness,
-    IService _service,
-    IIdGenerator _idGenerator) : IApproveBusiness
+    IService _service) : IApproveBusiness
 {
     public async Task<Response> ApproveAsync(Session.Interface.Model.Session session, IData _data, ApproveRequest? approveRequest)
     {
@@ -50,7 +49,7 @@ public class ApproveBusiness(
 
         var user = new Entity.User.User
         {
-            Id = _idGenerator.User.UserId,
+            Id = _data.IdGenerator.User.UserId,
             Status = UserStatus.New,
             Type = UserType.Internal,
         };
@@ -66,7 +65,7 @@ public class ApproveBusiness(
 
         await _data.User.UserEmailAddress.AddAsync(userEmailAddress);
 
-        await _data.Audit.UserEmailAddressLog.AddAddAsync(_idGenerator.Audit.UserEmailAddressLogId, utcNow, session.UserId, userEmailAddress);
+        await _data.Audit.UserEmailAddressLog.AddAddAsync(_data.IdGenerator.Audit.UserEmailAddressLogId, utcNow, session.UserId, userEmailAddress);
 
 
         var userInternalPermission = new UserInternalPermission
@@ -92,7 +91,7 @@ public class ApproveBusiness(
 
         await _data.Authorization.UserInternalPermission.AddAsync(userInternalPermission);
 
-        await _data.Audit.UserInternalPermissionLog.AddAddAsync(_idGenerator.Audit.PermissionLogId, utcNow, session.UserId, userInternalPermission);
+        await _data.Audit.UserInternalPermissionLog.AddAddAsync(_data.IdGenerator.Audit.PermissionLogId, utcNow, session.UserId, userInternalPermission);
 
 
         var passwordCode = new PasswordCode

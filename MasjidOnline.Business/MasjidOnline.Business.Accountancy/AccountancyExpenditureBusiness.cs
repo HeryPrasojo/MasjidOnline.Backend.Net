@@ -6,11 +6,10 @@ namespace MasjidOnline.Business.Accountancy;
 
 public class AccountancyExpenditureBusiness(
     Authorization.Interface.IAuthorizationBusiness _authorizationBusiness,
-    Data.Interface.IIdGenerator _idGenerator,
     Service.Interface.IService _service
     ) : IAccountancyExpenditureBusiness
 {
-    public IAddBusiness Add { get; } = new AddBusiness(_authorizationBusiness, _idGenerator, _service);
+    public IAddBusiness Add { get; } = new AddBusiness(_authorizationBusiness, _service);
     public IApproveBusiness Approve { get; } = new ApproveBusiness(_authorizationBusiness, _service);
     public ICancelBusiness Cancel { get; } = new CancelBusiness(_authorizationBusiness, _service);
     public IGetManyBusiness GetMany { get; } = new GetManyBusiness(_service);

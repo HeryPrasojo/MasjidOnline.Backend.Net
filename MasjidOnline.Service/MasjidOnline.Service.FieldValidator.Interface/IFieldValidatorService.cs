@@ -25,4 +25,5 @@ public interface IFieldValidatorService
     TEnum? ValidateOptionalEnum<TEnum>(TEnum? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null) where TEnum : struct, Enum;
     DateTime ValidateRequiredFuture(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
     DateTime ValidateOptionalFuture(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
+    void ValidateRequired<TObject>(TObject value, Func<TObject, bool> predicate, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
 }

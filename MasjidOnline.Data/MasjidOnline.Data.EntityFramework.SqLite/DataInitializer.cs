@@ -10,7 +10,7 @@ public class DataInitializer(
     AuditDataContext _auditDataContext,
     AuthorizationDataContext _authorizationDataContext,
     CaptchaDataContext _captchaDataContext,
-    DatabaseTemplateDataContext _databaseTemplateDataContext,
+    //DatabaseTemplateDataContext _databaseTemplateDataContext,
     EventDataContext _eventDataContext,
     InfaqDataContext _infaqDataContext,
     PaymentDataContext _paymentDataContext,

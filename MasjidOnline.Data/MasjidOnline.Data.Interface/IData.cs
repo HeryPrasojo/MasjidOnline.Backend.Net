@@ -13,6 +13,7 @@ public interface IData
     IDatabaseTemplateDatabase DatabaseTemplate { get; }
     IEventDatabase Event { get; }
     IInfaqDatabase Infaq { get; }
+    IIdGenerator IdGenerator { get; }
     IPaymentDatabase Payment { get; }
     IPersonDatabase Person { get; }
     ISessionDatabase Session { get; }

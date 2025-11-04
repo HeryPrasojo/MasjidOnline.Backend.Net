@@ -2,11 +2,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.IdGenerator;
-using MasjidOnline.Service.Hash.Interface;
 
 namespace MasjidOnline.Data.IdGenerators;
 
-public class UserIdGenerator(IHash512Service _hash512Service) : IUserIdGenerator
+public class UserIdGenerator() : IUserIdGenerator
 {
     private int _internalId;
     private int _userId;

@@ -10,7 +10,7 @@ public class EventInitializer(
     EventDataContext _eventDataContext,
     IEventDefinition _eventDefinition) : MasjidOnline.Data.Initializer.EventInitializer(_eventDefinition)
 {
-    protected override async Task CreateTableErrorExceptionAsync()
+    protected override async Task CreateTableExceptionAsync()
     {
         FormattableString sql = @$"
             CREATE TABLE Exception
@@ -39,6 +39,29 @@ public class EventInitializer(
                 Id INTEGER PRIMARY KEY,
                 Description TEXT NOT NULL COLLATE NOCASE,
                 Value TEXT NOT NULL COLLATE NOCASE
+            )";
+
+        await _eventDataContext.Database.ExecuteSqlAsync(sql);
+    }
+
+    protected override async Task CreateTableUserLoginAsync()
+    {
+        FormattableString sql = @$"
+            CREATE TABLE UserLogin
+            (
+                Id INTEGER PRIMARY KEY,
+                UserId INTEGER NOT NULL,
+                SessionId INTEGER NOT NULL,
+                UserIdString TEXT NOT NULL COLLATE NOCASE,
+                DateTime TEXT NOT NULL,
+                UserAgent TEXT COLLATE NOCASE,
+                OperatingSystem TEXT COLLATE NOCASE,
+                LocationLatitude REAL,
+                LocationLongitude REAL,
+                LocationPrecision REAL,
+                LocationAltitude REAL,
+                LocationAltitudePrecision REAL,
+                IpAddress TEXT,
             )";
 
         await _eventDataContext.Database.ExecuteSqlAsync(sql);

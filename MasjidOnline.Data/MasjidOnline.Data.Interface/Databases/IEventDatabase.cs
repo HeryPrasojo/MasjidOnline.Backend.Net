@@ -6,4 +6,5 @@ public interface IEventDatabase : IDatabase
 {
     IExceptionRepository Exception { get; }
     IEventSettingRepository EventSetting { get; }
+    IUserLoginRepository UserLogin { get; }
 }

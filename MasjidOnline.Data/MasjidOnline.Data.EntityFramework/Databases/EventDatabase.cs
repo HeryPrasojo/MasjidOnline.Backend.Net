@@ -10,10 +10,13 @@ public class EventDatabase(DbContext _dbContext) : Database(_dbContext), IEventD
     private IEventSettingRepository? _eventSettingRepository;
 
     private IExceptionRepository? _exceptionRepository;
+    private IUserLoginRepository? _userLoginRepository;
 
 
     public IEventSettingRepository EventSetting => _eventSettingRepository ??= new EventSettingRepository(_dbContext);
 
 
     public IExceptionRepository Exception => _exceptionRepository ??= new ExceptionRepository(_dbContext);
+
+    public IUserLoginRepository UserLogin => _userLoginRepository ??= new UserLoginRepository(_dbContext);
 }

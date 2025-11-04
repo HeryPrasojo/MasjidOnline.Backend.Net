@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using MasjidOnline.Business.Mapper;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.Session.Interface.Model.Sessions;
@@ -9,7 +10,7 @@ using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.Session;
 
-public class SessionCreateBusiness(IService _service, IIdGenerator _idGenerator) : ISessionCreateBusiness
+public class SessionCreateBusiness(IService _service) : ISessionCreateBusiness
 {
     public async Task<Response<string>> CreateAsync(IData _data, Interface.Model.Session session, CreateRequest createRequest)
     {
@@ -29,12 +30,12 @@ public class SessionCreateBusiness(IService _service, IIdGenerator _idGenerator)
 
 
         session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfoEnglish;
-        session.Id = _idGenerator.Session.SessionId;
+        session.Id = _data.IdGenerator.Session.SessionId;
         session.UserId = Model.Constant.UserId.Anonymous;
 
         var sessionEntity = new Entity.Session.Session
         {
-            ApplicationCulture = Model.Constant.UserPreferenceApplicationCulture[session.CultureInfo],
+            ApplicationCulture = UserMapper.UserPreferenceApplicationCulture[session.CultureInfo],
             DateTime = DateTime.UtcNow,
             Code = _service.Hash512.RandomByteArray,
             Id = session.Id,

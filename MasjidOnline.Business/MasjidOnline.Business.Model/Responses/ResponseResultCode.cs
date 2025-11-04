@@ -1,8 +1,5 @@
-using System.Text.Json.Serialization;
-
 namespace MasjidOnline.Business.Model.Responses;
 
-[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum ResponseResultCode
 {
     Success = 0,

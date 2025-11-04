@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.Interface;
 using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Library.Extensions;
 using MasjidOnline.Service.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -16,27 +17,21 @@ internal static class InitializeExtension
     {
         using var serviceScope = webApplication.Services.CreateScope();
 
-        var data = GetService<IData>(serviceScope.ServiceProvider);
-        var dataInitializer = GetService<IDataInitializer>(serviceScope.ServiceProvider);
-        var idGenerator = GetService<IIdGenerator>(serviceScope.ServiceProvider);
-        var service = GetService<IService>(serviceScope.ServiceProvider);
-        var business = GetService<IBusiness>(serviceScope.ServiceProvider);
+        var data = serviceScope.ServiceProvider.GetServiceOrThrow<IData>();
+        var dataInitializer = serviceScope.ServiceProvider.GetServiceOrThrow<IDataInitializer>();
+        var service = serviceScope.ServiceProvider.GetServiceOrThrow<IService>();
+        var business = serviceScope.ServiceProvider.GetServiceOrThrow<IBusiness>();
 
         var businessOptions = webApplication.Configuration.Get<BusinessOptions>() ?? throw new ApplicationException($"Get {nameof(BusinessOptions)} fail");
 
-        await dataInitializer.InitializeAsync(data);
+        await data.IdGenerator.InitializeAsync(data);
 
-        await idGenerator.InitializeAsync(data);
+        await dataInitializer.InitializeAsync(data);
 
         service.Initialize([businessOptions.Directory.Infaq]);
 
         await business.InitializeAsync(data);
 
         return webApplication;
-    }
-
-    private static TService GetService<TService>(IServiceProvider serviceProvider)
-    {
-        return serviceProvider.GetService<TService>() ?? throw new ApplicationException($"Get {typeof(TService).Name} service fail");
     }
 }

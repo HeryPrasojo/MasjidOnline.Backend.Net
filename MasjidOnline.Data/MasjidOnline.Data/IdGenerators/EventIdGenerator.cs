@@ -8,11 +8,15 @@ namespace MasjidOnline.Data.IdGenerators;
 public class EventIdGenerator : IEventIdGenerator
 {
     private int _exceptionId;
+    private int _userLoginId;
 
     public async Task InitializeAsync(IData data)
     {
         _exceptionId = await data.Event.Exception.GetMaxIdAsync();
+        _userLoginId = await data.Event.UserLogin.GetMaxIdAsync();
     }
 
     public int ExceptionId => Interlocked.Increment(ref _exceptionId);
+
+    public int UserLoginId => Interlocked.Increment(ref _userLoginId);
 }

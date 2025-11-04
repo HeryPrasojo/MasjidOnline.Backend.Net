@@ -2,11 +2,10 @@ using System.Threading.Tasks;
 using MasjidOnline.Data.IdGenerators;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.IdGenerator;
-using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Data;
 
-public class IdGenerator(IService _service) : IIdGenerator
+public class IdGenerator() : IIdGenerator
 {
     private readonly AccountancyIdGenerator _accountancyIdGenerator = new();
     private readonly AuditIdGenerator _auditIdGenerator = new();
@@ -15,8 +14,8 @@ public class IdGenerator(IService _service) : IIdGenerator
     private readonly InfaqIdGenerator _infaqIdGenerator = new();
     private readonly PaymentIdGenerator _paymentIdGenerator = new();
     private readonly PersonIdGenerator _personIdGenerator = new();
-    private readonly SessionIdGenerator _sessionIdGenerator = new(_service.Hash512);
-    private readonly UserIdGenerator _userIdGenerator = new(_service.Hash512);
+    private readonly SessionIdGenerator _sessionIdGenerator = new();
+    private readonly UserIdGenerator _userIdGenerator = new();
     //private readonly DatabaseTemplateIdGenerator _databaseTemplateIdGenerator = new();
 
     public IAccountancyIdGenerator Accountancy => _accountancyIdGenerator;

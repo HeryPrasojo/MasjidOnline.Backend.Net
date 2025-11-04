@@ -9,12 +9,11 @@ namespace MasjidOnline.Business.Infaq;
 
 public class InfaqInfaqBusiness(
     IAuthorizationBusiness _authorizationBusiness,
-    Data.Interface.IIdGenerator _idGenerator,
     Service.Interface.IService _service,
     IOptionsMonitor<BusinessOptions> _optionsMonitor
     ) : IInfaqInfaqBusiness
 {
-    public IAddByAnonymBusiness AddByAnonym { get; } = new AddByAnonymBusiness(_authorizationBusiness, _service, _idGenerator, _optionsMonitor);
+    public IAddByAnonymBusiness AddByAnonym { get; } = new AddByAnonymBusiness(_authorizationBusiness, _service, _optionsMonitor);
     public IGetManyBusiness GetMany { get; } = new GetManyBusiness(_service);
     public IGetOneBusiness GetOne { get; } = new GetOneBusiness(_service);
 }

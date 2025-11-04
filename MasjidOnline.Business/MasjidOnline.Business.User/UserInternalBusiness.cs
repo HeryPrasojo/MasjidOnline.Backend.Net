@@ -1,4 +1,4 @@
-﻿using MasjidOnline.Business.Model.Options;
+using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.User.Interface;
 using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Business.User.Internal;
@@ -9,12 +9,11 @@ namespace MasjidOnline.Business.User;
 public class UserInternalBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
     Authorization.Interface.IAuthorizationBusiness _authorizationBusiness,
-    Data.Interface.IIdGenerator _idGenerator,
     Service.Interface.IService _service
     ) : IUserInternalBusiness
 {
-    public IAddBusiness Add { get; } = new AddBusiness(_authorizationBusiness, _idGenerator, _service);
-    public IApproveBusiness Approve { get; } = new ApproveBusiness(_optionsMonitor, _authorizationBusiness, _service, _idGenerator);
+    public IAddBusiness Add { get; } = new AddBusiness(_authorizationBusiness, _service);
+    public IApproveBusiness Approve { get; } = new ApproveBusiness(_optionsMonitor, _authorizationBusiness, _service);
     public ICancelBusiness Cancel { get; } = new CancelBusiness(_authorizationBusiness, _service);
     public IGetManyBusiness GetMany { get; } = new GetManyBusiness(_service);
     public IGetOneBusiness GetOne { get; } = new GetOneBusiness(_service);

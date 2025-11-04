@@ -1,9 +1,9 @@
 using System;
 using MasjidOnline.Data.EntityFramework.Databases;
 using MasjidOnline.Data.EntityFramework.DataContext;
+using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.Databases;
-using MasjidOnline.Library.Exceptions;
-using Microsoft.Extensions.DependencyInjection;
+using MasjidOnline.Library.Extensions;
 
 namespace MasjidOnline.Data.EntityFramework;
 
@@ -15,6 +15,7 @@ public class Data(IServiceProvider _serviceProvider) : MasjidOnline.Data.Data()
     private ICaptchaDatabase? _captchaDatabase;
     private IDatabaseTemplateDatabase? _databaseTemplateDatabase;
     private IEventDatabase? _eventDatabase;
+    private IIdGenerator? _idGenerator;
     private IInfaqDatabase? _infaqDatabase;
     private IPaymentDatabase? _paymentDatabase;
     private IPersonDatabase? _personDatabase;
@@ -27,7 +28,7 @@ public class Data(IServiceProvider _serviceProvider) : MasjidOnline.Data.Data()
         {
             if (_accountancyDatabase == default)
             {
-                var dataContext = _serviceProvider.GetService<AccountancyDataContext>() ?? throw new ErrorException($"GetService fail: {nameof(AccountancyDataContext)}");
+                var dataContext = _serviceProvider.GetServiceOrThrow<AccountancyDataContext>();
 
                 _accountancyDatabase = new AccountancyDatabase(dataContext);
             }
@@ -42,7 +43,7 @@ public class Data(IServiceProvider _serviceProvider) : MasjidOnline.Data.Data()
         {
             if (_auditDatabase == default)
             {
-                var dataContext = _serviceProvider.GetService<AuditDataContext>() ?? throw new ErrorException($"GetService fail: {nameof(AuditDataContext)}");
+                var dataContext = _serviceProvider.GetServiceOrThrow<AuditDataContext>();
 
                 _auditDatabase = new AuditDatabase(dataContext);
             }
@@ -57,7 +58,7 @@ public class Data(IServiceProvider _serviceProvider) : MasjidOnline.Data.Data()
         {
             if (_authorizationDatabase == default)
             {
-                var dataContext = _serviceProvider.GetService<AuthorizationDataContext>() ?? throw new ErrorException($"GetService fail: {nameof(AuthorizationDataContext)}");
+                var dataContext = _serviceProvider.GetServiceOrThrow<AuthorizationDataContext>();
 
                 _authorizationDatabase = new AuthorizationDatabase(dataContext);
             }
@@ -72,7 +73,7 @@ public class Data(IServiceProvider _serviceProvider) : MasjidOnline.Data.Data()
         {
             if (_captchaDatabase == default)
             {
-                var dataContext = _serviceProvider.GetService<CaptchaDataContext>() ?? throw new ErrorException($"GetService fail: {nameof(CaptchaDataContext)}");
+                var dataContext = _serviceProvider.GetServiceOrThrow<CaptchaDataContext>();
 
                 _captchaDatabase = new CaptchaDatabase(dataContext);
             }
@@ -87,7 +88,7 @@ public class Data(IServiceProvider _serviceProvider) : MasjidOnline.Data.Data()
         {
             if (_databaseTemplateDatabase == default)
             {
-                var dataContext = _serviceProvider.GetService<DatabaseTemplateDataContext>() ?? throw new ErrorException($"GetService fail: {nameof(DatabaseTemplateDataContext)}");
+                var dataContext = _serviceProvider.GetServiceOrThrow<DatabaseTemplateDataContext>();
 
                 _databaseTemplateDatabase = new DatabaseTemplateDatabase(dataContext);
             }
@@ -102,7 +103,7 @@ public class Data(IServiceProvider _serviceProvider) : MasjidOnline.Data.Data()
         {
             if (_eventDatabase == default)
             {
-                var dataContext = _serviceProvider.GetService<EventDataContext>() ?? throw new ErrorException($"GetService fail: {nameof(EventDataContext)}");
+                var dataContext = _serviceProvider.GetServiceOrThrow<EventDataContext>();
 
                 _eventDatabase = new EventDatabase(dataContext);
             }
@@ -117,12 +118,25 @@ public class Data(IServiceProvider _serviceProvider) : MasjidOnline.Data.Data()
         {
             if (_infaqDatabase == default)
             {
-                var dataContext = _serviceProvider.GetService<InfaqDataContext>() ?? throw new ErrorException($"GetService fail: {nameof(InfaqDataContext)}");
+                var dataContext = _serviceProvider.GetServiceOrThrow<InfaqDataContext>();
 
                 _infaqDatabase = new InfaqDatabase(dataContext);
             }
 
             return _infaqDatabase;
+        }
+    }
+
+    public override IIdGenerator IdGenerator
+    {
+        get
+        {
+            if (_idGenerator == default)
+            {
+                _idGenerator = _serviceProvider.GetServiceOrThrow<IIdGenerator>();
+            }
+
+            return _idGenerator;
         }
     }
 
@@ -132,7 +146,7 @@ public class Data(IServiceProvider _serviceProvider) : MasjidOnline.Data.Data()
         {
             if (_paymentDatabase == default)
             {
-                var dataContext = _serviceProvider.GetService<PaymentDataContext>() ?? throw new ErrorException($"GetService fail: {nameof(PaymentDataContext)}");
+                var dataContext = _serviceProvider.GetServiceOrThrow<PaymentDataContext>();
 
                 _paymentDatabase = new PaymentDatabase(dataContext);
             }
@@ -147,7 +161,7 @@ public class Data(IServiceProvider _serviceProvider) : MasjidOnline.Data.Data()
         {
             if (_personDatabase == default)
             {
-                var dataContext = _serviceProvider.GetService<PersonDataContext>() ?? throw new ErrorException($"GetService fail: {nameof(PersonDataContext)}");
+                var dataContext = _serviceProvider.GetServiceOrThrow<PersonDataContext>();
 
                 _personDatabase = new PersonDatabase(dataContext);
             }
@@ -162,7 +176,7 @@ public class Data(IServiceProvider _serviceProvider) : MasjidOnline.Data.Data()
         {
             if (_sessionDatabase == default)
             {
-                var dataContext = _serviceProvider.GetService<SessionDataContext>() ?? throw new ErrorException($"GetService fail: {nameof(SessionDataContext)}");
+                var dataContext = _serviceProvider.GetServiceOrThrow<SessionDataContext>();
 
                 _sessionDatabase = new SessionDatabase(dataContext);
             }
@@ -177,7 +191,7 @@ public class Data(IServiceProvider _serviceProvider) : MasjidOnline.Data.Data()
         {
             if (_userDatabase == default)
             {
-                var dataContext = _serviceProvider.GetService<UserDataContext>() ?? throw new ErrorException($"GetService fail: {nameof(UserDataContext)}");
+                var dataContext = _serviceProvider.GetServiceOrThrow<UserDataContext>();
 
                 _userDatabase = new UserDatabase(dataContext);
             }

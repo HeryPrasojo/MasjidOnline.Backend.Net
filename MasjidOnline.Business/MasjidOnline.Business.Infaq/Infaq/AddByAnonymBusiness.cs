@@ -20,7 +20,6 @@ namespace MasjidOnline.Business.Infaq.Infaq;
 public class AddByAnonymBusiness(
     IAuthorizationBusiness _authorizationBusiness,
     IService _service,
-    IIdGenerator _idGenerator,
     IOptionsMonitor<BusinessOptions> _optionsMonitor) : Add, IAddByAnonymBusiness
 {
     public async Task<Response> AddAsync(IData _data, Session.Interface.Model.Session session, AddByAnonymRequest? addByAnonymRequest)
@@ -63,7 +62,7 @@ public class AddByAnonymBusiness(
 
         var infaq = new Entity.Infaq.Infaq
         {
-            Id = _idGenerator.Infaq.InfaqId,
+            Id = _data.IdGenerator.Infaq.InfaqId,
             Amount = addByAnonymRequest.Amount.Value,
             DateTime = DateTime.UtcNow,
             Status = InfaqStatus.New,
@@ -96,7 +95,7 @@ public class AddByAnonymBusiness(
             {
                 var infaqFile = new InfaqFile
                 {
-                    Id = _idGenerator.Infaq.InfaqFileId,
+                    Id = _data.IdGenerator.Infaq.InfaqFileId,
                     InfaqId = infaq.Id,
                 };
 

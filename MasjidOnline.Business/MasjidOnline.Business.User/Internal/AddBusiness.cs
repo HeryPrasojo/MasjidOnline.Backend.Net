@@ -12,7 +12,6 @@ namespace MasjidOnline.Business.User.Internal;
 
 public class AddBusiness(
     IAuthorizationBusiness _authorizationBusiness,
-    IIdGenerator _idGenerator,
     IService _service) : IAddBusiness
 {
     public async Task<Response> AddAsync(Session.Interface.Model.Session session, IData _data, AddRequest? addRequest)
@@ -40,7 +39,7 @@ public class AddBusiness(
         {
             DateTime = DateTime.UtcNow,
             EmailAddress = addRequest.EmailAddress,
-            Id = _idGenerator.User.InternalId,
+            Id = _data.IdGenerator.User.InternalId,
             Status = Entity.User.InternalUserStatus.New,
             UserId = session.UserId,
         };

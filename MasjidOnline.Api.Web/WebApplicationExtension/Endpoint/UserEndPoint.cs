@@ -1,8 +1,10 @@
+using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Session.Interface.Model;
 using MasjidOnline.Data.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MasjidOnline.Api.Web.WebApplicationExtension.Endpoint;
@@ -68,11 +70,23 @@ internal static class UserEndpoint
     internal static class User
     {
         internal static async Task<Response> LoginAsync(
+            HttpContext _httpContext,
             IBusiness _business,
             IData _data,
             Session session,
             [FromBody] Business.User.Interface.Model.User.LoginRequest? loginRequest)
         {
+            if (loginRequest != default)
+            {
+                loginRequest.UserAgent = _httpContext.Request.Headers.UserAgent.FirstOrDefault();
+
+                loginRequest.IpAddress = _httpContext.Request.Headers["X-Forwarded-For"]
+                    .FirstOrDefault()
+                    ?.Split(',')
+                    .FirstOrDefault()
+                    ?? _httpContext.Connection.RemoteIpAddress?.ToString();
+            }
+
             return await _business.User.User.LoginEmail.LoginAsync(_data, session, loginRequest);
         }
 
