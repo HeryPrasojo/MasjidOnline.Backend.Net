@@ -8,7 +8,7 @@ using MimeKit;
 
 namespace MasjidOnline.Service.Mail.MailKit;
 
-public class SmtpMailSenderService(IOptionsMonitor<MailOptions> _optionsMonitor) : IMailSenderService
+public class SmtpMailSenderService(bool isEnvirontmentDevelopment, IOptionsMonitor<MailOptions> _optionsMonitor) : IMailSenderService
 {
     // hack low create queue when fail
     public async Task SendMailAsync(MailMessage mailMessage)
@@ -36,6 +36,11 @@ public class SmtpMailSenderService(IOptionsMonitor<MailOptions> _optionsMonitor)
             Body = bodyBuilder.ToMessageBody(),
             Subject = mailMessage.Subject,
         };
+
+        if (isEnvirontmentDevelopment)
+        {
+            mimeMessage.Subject = "Test " + string.Join(", ", mailMessage.To) + ' ' + mimeMessage.Subject;
+        }
 
         foreach (var to in mailMessage.To)
         {

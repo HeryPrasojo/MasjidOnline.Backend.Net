@@ -49,7 +49,7 @@ public class Service : IService
 
         _captchaService = new(!isEnvironmentDevelopment, httpClientFactory, googleOptions);
         _encryption128b256kService = new(cryptographyOption, _hash256Service);
-        _mailSenderService = new(mailOption);
+        _mailSenderService = new(isEnvironmentDevelopment, mailOption);
     }
 
     public Captcha.Interface.ICaptchaService Captcha => _captchaService;
