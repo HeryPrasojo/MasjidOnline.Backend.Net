@@ -61,7 +61,7 @@ public class EventInitializer(
                 LocationPrecision REAL,
                 LocationAltitude REAL,
                 LocationAltitudePrecision REAL,
-                IpAddress TEXT,
+                IpAddress TEXT
             )";
 
         await _eventDataContext.Database.ExecuteSqlAsync(sql);

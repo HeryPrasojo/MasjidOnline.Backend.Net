@@ -24,9 +24,9 @@ internal static class InitializeExtension
 
         var businessOptions = webApplication.Configuration.Get<BusinessOptions>() ?? throw new ApplicationException($"Get {nameof(BusinessOptions)} fail");
 
-        await data.IdGenerator.InitializeAsync(data);
-
         await dataInitializer.InitializeAsync(data);
+
+        await data.IdGenerator.InitializeAsync(data);
 
         service.Initialize([businessOptions.Directory.Infaq]);
 
