@@ -54,6 +54,7 @@ public class EventInitializer(
                 SessionId INTEGER NOT NULL,
                 UserIdString TEXT NOT NULL COLLATE NOCASE,
                 DateTime TEXT NOT NULL,
+                Client INTEGER NOT NULL,
                 UserAgent TEXT COLLATE NOCASE,
                 OperatingSystem TEXT COLLATE NOCASE,
                 LocationLatitude REAL,
