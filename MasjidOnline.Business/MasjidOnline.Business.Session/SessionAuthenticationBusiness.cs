@@ -23,9 +23,11 @@ public class SessionAuthenticationBusiness(IService _service) : ISessionAuthenti
     {
         if (codeBase64 == default)
         {
-            if (requestPath == "/session/create") return true;
-
-            return false;
+            return requestPath switch
+            {
+                "/session/create" => true,
+                _ => false
+            };
         }
 
 

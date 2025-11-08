@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.Accountancy;
 using MasjidOnline.Business.Accountancy.Interface;
 using MasjidOnline.Business.Authorization;
+using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Event;
 using MasjidOnline.Business.Event.Interface;
 using MasjidOnline.Business.Infaq;
@@ -27,17 +28,19 @@ public class Business : IBusiness
         Service.Interface.IService service
     )
     {
-        var authorizationBusiness = new AuthorizationBusiness();
+        Authorization = new AuthorizationBusiness();
 
-        Accountancy = new AccountancyBusiness(authorizationBusiness, service);
+        Accountancy = new AccountancyBusiness(Authorization, service);
         Event = new EventBusiness();
-        Infaq = new InfaqBusiness(optionsMonitor, authorizationBusiness, service);
+        Infaq = new InfaqBusiness(optionsMonitor, Authorization, service);
         Payment = new PaymentBusiness(service);
         Session = new SessionBusiness(service);
-        User = new UserBusiness(optionsMonitor, authorizationBusiness, service);
+        User = new UserBusiness(optionsMonitor, Authorization, service);
     }
 
     public IAccountancyBusiness Accountancy { get; }
+
+    public IAuthorizationBusiness Authorization { get; }
 
     public IEventBusiness Event { get; }
 

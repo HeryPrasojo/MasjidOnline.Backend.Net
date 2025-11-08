@@ -36,6 +36,8 @@ webApplication.UseMiddleware<AuthenticationMiddleware>();
 
 webApplication.MapEndpoints();
 
+webApplication.MapHub<ConnectionHub>("/hub");
+
 webApplication.Run();
 
 
@@ -66,6 +68,8 @@ static WebApplication BuildApplication(string[] args)
             //    .AllowAnyHeader();
         });
     });
+
+    webApplicationBuilder.Services.AddSignalR();
 
     #region add dependency
 
