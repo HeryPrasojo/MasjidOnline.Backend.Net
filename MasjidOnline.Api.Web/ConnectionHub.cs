@@ -2,7 +2,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface;
-using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Session.Interface.Model;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
@@ -18,14 +17,19 @@ public class ConnectionHub(IBusiness _business) : Hub
 
     public override async Task OnConnectedAsync()
     {
-        Console.WriteLine($"\nHashCode={GetHashCode()}\n");
+        Console.WriteLine($"\nOnConnectedAsync HashCode={GetHashCode()}\n");
         var httpContext = Context.GetHttpContext();
 
         var _session = httpContext?.Items["Session"] as Session ?? throw new ErrorException("Session not found");
 
-        _business.Authorization.AuthorizeNonAnonymous(_session);
+        var newSession = new Session
+        {
+            Id = _session.Id,
+            UserId = _session.UserId,
+            CultureInfo = _session.CultureInfo,
+        };
 
-        var result = _sessions.TryAdd(Context.ConnectionId, _session);
+        var result = _sessions.TryAdd(Context.ConnectionId, newSession);
 
         await base.OnConnectedAsync();
 
@@ -39,7 +43,7 @@ public class ConnectionHub(IBusiness _business) : Hub
 
     public override async Task OnDisconnectedAsync(Exception? exception)
     {
-        Console.WriteLine($"\nHashCode={GetHashCode()}\n");
+        Console.WriteLine($"\nOnDisconnectedAsync HashCode={GetHashCode()}\n");
         var result = _sessions.TryRemove(Context.ConnectionId, out var _);
 
         await base.OnDisconnectedAsync(exception);
@@ -48,12 +52,12 @@ public class ConnectionHub(IBusiness _business) : Hub
     }
 
 
-    public async Task<Response> UserUserLogoutAsync(
+    public async Task UserUserLogoutAsync(
         IData _data)
     {
-        Console.WriteLine($"\nHashCode={GetHashCode()}\n");
-        Context.Abort();
+        Console.WriteLine($"\nUserUserLogoutAsync HashCode={GetHashCode()}\n");
+        await _business.User.User.Logout.LogoutAsync(Session, _data);
 
-        return await _business.User.User.Logout.LogoutAsync(Session, _data);
+        Context.Abort();
     }
 }

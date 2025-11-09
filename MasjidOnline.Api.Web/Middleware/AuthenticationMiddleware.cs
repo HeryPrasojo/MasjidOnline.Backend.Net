@@ -12,30 +12,36 @@ public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate, ISes
     {
         if (httpContext.Request.Path.StartsWithSegments("/hub"))
         {
-            var authenticateResult = await _sessionAuthenticationBusiness.AuthenticateAsync(
-                session,
-                _data,
-                httpContext.Request.Query["access_token"],
-                default,
-                httpContext.Request.Path);
-
-            if (!authenticateResult) return;
-
             if (httpContext.Request.Path == "/hub")
             {
+                await _sessionAuthenticationBusiness.AuthenticateAsync(
+                    session,
+                    _data,
+                    httpContext.Request.Query["access_token"],
+                    default);
+
                 httpContext.Items.Add("Session", session);
             }
+            else
+            {
+                await _sessionAuthenticationBusiness.AuthenticateAsync(
+                    session,
+                    _data,
+                    httpContext.Request.Headers[Constant.HttpHeaderName.Session],
+                    httpContext.Request.Query["culture"]);
+            }
+
+            if ((session.Id == default) || session.IsUserAnonymous) return;
         }
         else if (httpContext.Request.Path != "/session/create")
         {
-            var authenticateResult = await _sessionAuthenticationBusiness.AuthenticateAsync(
+            await _sessionAuthenticationBusiness.AuthenticateAsync(
                 session,
                 _data,
                 httpContext.Request.Headers[Constant.HttpHeaderName.Session],
-                httpContext.Request.Query["culture"],
-                httpContext.Request.Path);
+                httpContext.Request.Query["culture"]);
 
-            if (!authenticateResult) return;
+            if (session.Id == default) return;
         }
 
         await _nextRequestDelegate(httpContext);
