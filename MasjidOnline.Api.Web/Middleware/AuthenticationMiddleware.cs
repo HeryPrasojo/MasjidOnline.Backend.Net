@@ -19,8 +19,6 @@ public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate, ISes
                     _data,
                     httpContext.Request.Query["access_token"],
                     default);
-
-                httpContext.Items.Add("Session", session);
             }
             else
             {

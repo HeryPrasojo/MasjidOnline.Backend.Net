@@ -6,6 +6,7 @@ using MasjidOnline.Business.Session.Interface.Model;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MasjidOnline.Api.Web;
 
@@ -20,7 +21,7 @@ public class ConnectionHub(IBusiness _business) : Hub
         Console.WriteLine($"\nOnConnectedAsync HashCode={GetHashCode()}\n");
         var httpContext = Context.GetHttpContext();
 
-        var _session = httpContext?.Items["Session"] as Session ?? throw new ErrorException("Session not found");
+        var _session = httpContext?.RequestServices.GetService<Session>() ?? throw new ErrorException("Get session fail");
 
         var newSession = new Session
         {
