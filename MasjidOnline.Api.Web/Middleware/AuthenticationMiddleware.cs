@@ -10,14 +10,33 @@ public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate, ISes
 {
     public async Task Invoke(HttpContext httpContext, Session session, IData _data)
     {
-        var authenticateResult = await _sessionAuthenticationBusiness.AuthenticateAsync(
-            session,
-            _data,
-            httpContext.Request.Headers[Constant.HttpHeaderName.Session],
-            httpContext.Request.Query["culture"],
-            httpContext.Request.Path);
+        if (httpContext.Request.Path.StartsWithSegments("/hub"))
+        {
+            var authenticateResult = await _sessionAuthenticationBusiness.AuthenticateAsync(
+                session,
+                _data,
+                httpContext.Request.Query["access_token"],
+                default,
+                httpContext.Request.Path);
 
-        if (!authenticateResult) return;
+            if (!authenticateResult) return;
+
+            if (httpContext.Request.Path == "/hub")
+            {
+                httpContext.Items.Add("Session", session);
+            }
+        }
+        else if (httpContext.Request.Path != "/session/create")
+        {
+            var authenticateResult = await _sessionAuthenticationBusiness.AuthenticateAsync(
+                session,
+                _data,
+                httpContext.Request.Headers[Constant.HttpHeaderName.Session],
+                httpContext.Request.Query["culture"],
+                httpContext.Request.Path);
+
+            if (!authenticateResult) return;
+        }
 
         await _nextRequestDelegate(httpContext);
     }

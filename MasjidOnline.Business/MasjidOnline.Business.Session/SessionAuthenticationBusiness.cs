@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Mapper;
@@ -14,11 +13,6 @@ namespace MasjidOnline.Business.Session;
 
 public class SessionAuthenticationBusiness(IService _service) : ISessionAuthenticationBusiness
 {
-    private static readonly HashSet<string> noSessionIdCodePaths = new() {
-        { "/hub" },
-        { "/session/create" },
-    };
-
     public async Task<bool> AuthenticateAsync(
         Interface.Model.Session session,
         IData _data,
@@ -27,10 +21,7 @@ public class SessionAuthenticationBusiness(IService _service) : ISessionAuthenti
         string requestPath,
         [CallerArgumentExpression(nameof(codeBase64))] string? codeBase64Expression = default)
     {
-        if (codeBase64 == default)
-        {
-            return noSessionIdCodePaths.Contains(requestPath);
-        }
+        if (codeBase64 == default) return false;
 
 
         var requestSessionIdBytes = _service.FieldValidator.ValidateRequiredBase64(codeBase64, 128, codeBase64Expression);
