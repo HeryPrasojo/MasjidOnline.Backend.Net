@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Text.Json.Serialization;
 using MasjidOnline.Api.Web;
+using MasjidOnline.Api.Web.Filter;
 using MasjidOnline.Api.Web.HostedServices;
 using MasjidOnline.Api.Web.Middleware;
 using MasjidOnline.Api.Web.WebApplicationExtension;
@@ -13,6 +14,7 @@ using MasjidOnline.Data.EntityFramework.SqLite;
 using MasjidOnline.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -55,7 +57,8 @@ static WebApplication BuildApplication(string[] args)
         options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
 
-    webApplicationBuilder.Services.AddCors(corsOptions =>
+    webApplicationBuilder.Services.AddCors(
+        corsOptions =>
     {
         corsOptions.AddDefaultPolicy(corsPolicyBuilder =>
         {
@@ -69,7 +72,16 @@ static WebApplication BuildApplication(string[] args)
         });
     });
 
-    webApplicationBuilder.Services.AddSignalR();
+
+    webApplicationBuilder.Services.AddSignalR(
+        hubOptions =>
+    {
+        hubOptions.AddFilter<HubFilter>();
+    });
+
+    webApplicationBuilder.Services.AddSingleton<ConnectionHub>();
+    webApplicationBuilder.Services.AddSingleton<HubFilter>();
+
 
     #region add dependency
 

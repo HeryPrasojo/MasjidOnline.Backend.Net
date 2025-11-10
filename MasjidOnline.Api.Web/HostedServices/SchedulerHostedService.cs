@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Library.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -62,8 +63,7 @@ public class SchedulerHostedService : IHostedService
 
             using var serviceScope = _serviceProvider.CreateScope();
 
-            var _data = serviceScope.ServiceProvider.GetService<IData>()
-                ?? throw new ApplicationException($"Get {nameof(IData)} service fail");
+            var _data = serviceScope.ServiceProvider.GetServiceOrThrow<IData>();
 
             try
             {
