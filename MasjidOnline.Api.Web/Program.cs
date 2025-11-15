@@ -14,6 +14,7 @@ using MasjidOnline.Data.EntityFramework.SqLite;
 using MasjidOnline.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,9 +37,9 @@ webApplication.UseCors();
 
 webApplication.UseMiddleware<AuthenticationMiddleware>();
 
-webApplication.MapEndpoints();
+webApplication.MapHub<ConnectionHub>("/hub", httpConnectionDispatcherOptions => { });
 
-webApplication.MapHub<ConnectionHub>("/hub");
+webApplication.MapEndpoints();
 
 webApplication.Run();
 
@@ -81,6 +82,8 @@ static WebApplication BuildApplication(string[] args)
 
     webApplicationBuilder.Services.AddSingleton<ConnectionHub>();
     webApplicationBuilder.Services.AddSingleton<HubFilter>();
+
+    webApplicationBuilder.Services.AddSingleton<IEndpointFilter, EndpointFilter>();
 
 
     #region add dependency

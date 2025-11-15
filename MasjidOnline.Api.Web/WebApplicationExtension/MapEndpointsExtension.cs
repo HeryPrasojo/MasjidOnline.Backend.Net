@@ -1,5 +1,7 @@
 using MasjidOnline.Api.Web.WebApplicationExtension.Endpoint;
+using MasjidOnline.Library.Extensions;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 
 namespace MasjidOnline.Api.Web.WebApplicationExtension;
 
@@ -7,6 +9,9 @@ internal static class MapEndpointsExtension
 {
     internal static WebApplication MapEndpoints(this WebApplication webApplication)
     {
+        var endpointFilter = webApplication.Services.GetServiceOrThrow<IEndpointFilter>();
+
+
         var expenditureGroup = webApplication.MapGroup("/expenditure/").DisableAntiforgery();
 
         expenditureGroup.MapPost("add", AccountancyEndpoint.Expenditure.AddAsync);
@@ -68,7 +73,7 @@ internal static class MapEndpointsExtension
         sessionSessionGroup.MapPost("create", SessionEndpoint.Session.CreateAsync);
 
 
-        var userGroup = webApplication.MapGroup("/user/").DisableAntiforgery();
+        var userGroup = webApplication.MapGroup("/user/").DisableAntiforgery().AddEndpointFilter(endpointFilter);
 
         userGroup.MapPost("login", UserEndpoint.User.LoginAsync);
         userGroup.MapPost("setPassword", UserEndpoint.User.SetPasswordAsync);
@@ -79,7 +84,6 @@ internal static class MapEndpointsExtension
         userInternalGroup.MapPost("add", UserEndpoint.Internal.AddAsync);
         userInternalGroup.MapPost("approve", UserEndpoint.Internal.ApproveAsync);
         userInternalGroup.MapPost("cancel", UserEndpoint.Internal.CancelAsync);
-        userInternalGroup.MapPost("getMany", UserEndpoint.Internal.GetManyAsync);
         userInternalGroup.MapPost("getOne", UserEndpoint.Internal.GetOneAsync);
         userInternalGroup.MapPost("reject", UserEndpoint.Internal.RejectAsync);
 

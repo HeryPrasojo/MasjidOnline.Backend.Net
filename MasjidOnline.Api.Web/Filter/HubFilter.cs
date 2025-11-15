@@ -41,7 +41,9 @@ public class HubFilter(IBusiness _business) : IHubFilter
     {
         try
         {
-            return await next(invocationContext);
+            var o = await next(invocationContext);
+            //await JsonSerializer.SerializeAsync(o);
+            return o;
         }
         catch (Exception exception)
         {

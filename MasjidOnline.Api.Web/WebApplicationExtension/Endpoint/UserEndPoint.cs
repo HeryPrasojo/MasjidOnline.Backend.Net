@@ -40,15 +40,6 @@ internal static class UserEndpoint
             return await _business.User.Internal.Cancel.CancelAsync(session, _data, cancelRequest);
         }
 
-        internal static async Task<Response<GetManyResponse<Business.User.Interface.Model.Internal.GetManyResponseRecord>>> GetManyAsync(
-            Session session,
-            IBusiness _business,
-            IData _data,
-            [FromBody] Business.User.Interface.Model.Internal.GetManyRequest? getManyRequest)
-        {
-            return await _business.User.Internal.GetMany.GetAsync(session, _data, getManyRequest);
-        }
-
         internal static async Task<Response<Business.User.Interface.Model.Internal.GetOneResponse>> GetOneAsync(
             IBusiness _business,
             IData _data,

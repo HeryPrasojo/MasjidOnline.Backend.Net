@@ -2,6 +2,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface;
+using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Session.Interface.Model;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
@@ -51,7 +52,14 @@ public class ConnectionHub(IBusiness _business) : Hub
     }
 
 
-    public async Task UserUserLogoutAsync(
+    public async Task<Response<GetManyResponse<Business.User.Interface.Model.Internal.GetManyResponseRecord>>> UserInternalList(
+        IData _data,
+        Business.User.Interface.Model.Internal.GetManyRequest? getManyRequest)
+    {
+        return await _business.User.Internal.GetMany.GetAsync(Session, _data, getManyRequest);
+    }
+
+    public async Task UserUserLogout(
         IData _data)
     {
         Context.Abort();
