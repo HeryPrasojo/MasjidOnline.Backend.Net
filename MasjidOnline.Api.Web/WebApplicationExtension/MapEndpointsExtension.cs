@@ -12,7 +12,9 @@ internal static class MapEndpointsExtension
         var endpointFilter = webApplication.Services.GetServiceOrThrow<IEndpointFilter>();
 
 
-        var expenditureGroup = webApplication.MapGroup("/expenditure/").DisableAntiforgery();
+        var expenditureGroup = webApplication.MapGroup("/expenditure/")
+            .DisableAntiforgery()
+            .AddEndpointFilter(endpointFilter);
 
         expenditureGroup.MapPost("add", AccountancyEndpoint.Expenditure.AddAsync);
         expenditureGroup.MapPost("approve", AccountancyEndpoint.Expenditure.ApproveAsync);
@@ -22,7 +24,9 @@ internal static class MapEndpointsExtension
         expenditureGroup.MapPost("reject", AccountancyEndpoint.Expenditure.RejectAsync);
 
 
-        var infaqGroup = webApplication.MapGroup("/infaq/").DisableAntiforgery();
+        var infaqGroup = webApplication.MapGroup("/infaq/")
+            .DisableAntiforgery()
+            .AddEndpointFilter(endpointFilter);
 
         var infaqInfaqGroup = infaqGroup.MapGroup("infaq/");
 
@@ -61,19 +65,25 @@ internal static class MapEndpointsExtension
         infaqVoidGroup.MapPost("reject", InfaqEndpoint.Void.RejectAsync);
 
 
-        var paymentGroup = webApplication.MapGroup("/payment/").DisableAntiforgery();
+        var paymentGroup = webApplication.MapGroup("/payment/")
+            .DisableAntiforgery()
+            .AddEndpointFilter(endpointFilter);
 
         var paymentManualGroup = paymentGroup.MapGroup("manual/");
 
         paymentManualGroup.MapPost("getRecommendationNote", PaymentEndpoint.Manual.GetRecommendationNoteAsync);
 
 
-        var sessionSessionGroup = webApplication.MapGroup("session/").DisableAntiforgery();
+        var sessionSessionGroup = webApplication.MapGroup("session/")
+            .DisableAntiforgery()
+            .AddEndpointFilter(endpointFilter);
 
         sessionSessionGroup.MapPost("create", SessionEndpoint.Session.CreateAsync);
 
 
-        var userGroup = webApplication.MapGroup("/user/").DisableAntiforgery().AddEndpointFilter(endpointFilter);
+        var userGroup = webApplication.MapGroup("/user/")
+            .DisableAntiforgery()
+            .AddEndpointFilter(endpointFilter);
 
         userGroup.MapPost("login", UserEndpoint.User.LoginAsync);
         userGroup.MapPost("setPassword", UserEndpoint.User.SetPasswordAsync);

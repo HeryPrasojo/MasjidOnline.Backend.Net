@@ -1,7 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface;
+using MasjidOnline.Business.Session.Interface.Model;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Library;
 using MasjidOnline.Library.Extensions;
 using Microsoft.AspNetCore.SignalR;
 
@@ -41,9 +43,14 @@ public class HubFilter(IBusiness _business) : IHubFilter
     {
         try
         {
-            var o = await next(invocationContext);
-            //await JsonSerializer.SerializeAsync(o);
-            return o;
+            var result = await next(invocationContext);
+
+            if (result == default) return default;
+
+
+            var session = invocationContext.ServiceProvider.GetServiceOrThrow<Session>();
+
+            return JsonSerializer.Serialize(result, session.CultureInfo);
         }
         catch (Exception exception)
         {

@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Reflection;
 using System.Text;
 
@@ -6,7 +7,7 @@ namespace MasjidOnline.Library;
 
 public static class JsonSerializer
 {
-    public static string Serialize(object obj)
+    public static string Serialize(object obj, CultureInfo cultureInfo)
     {
         var stringBuilder = new StringBuilder();
 
@@ -51,7 +52,7 @@ public static class JsonSerializer
                 }
                 else
                 {
-                    stringBuilder.Append(Serialize(propertyValue));
+                    stringBuilder.Append(Serialize(propertyValue, cultureInfo));
                 }
             }
         }

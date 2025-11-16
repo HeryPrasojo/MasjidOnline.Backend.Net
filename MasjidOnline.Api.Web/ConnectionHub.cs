@@ -62,8 +62,8 @@ public class ConnectionHub(IBusiness _business) : Hub
     public async Task UserUserLogout(
         IData _data)
     {
-        Context.Abort();
-
         await _business.User.User.Logout.LogoutAsync(Session, _data);
+
+        Context.Abort();
     }
 }

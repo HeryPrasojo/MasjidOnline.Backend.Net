@@ -8,11 +8,9 @@ using MasjidOnline.Api.Web.Middleware;
 using MasjidOnline.Api.Web.WebApplicationExtension;
 using MasjidOnline.Business;
 using MasjidOnline.Business.Model.Options;
-using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data;
 using MasjidOnline.Data.EntityFramework;
 using MasjidOnline.Data.EntityFramework.SqLite;
-using MasjidOnline.Library;
 using MasjidOnline.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,13 +20,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-var r = new Response()
-{
-    ResultCode = ResponseResultCode.DataMismatch,
-};
-var s = JsonSerializer.Serialize(r);
-Console.WriteLine(s);
-return;
+//var r = new Response()
+//{
+//    ResultCode = ResponseResultCode.DataMismatch,
+//};
+//var s = JsonSerializer.Serialize(r);
+//Console.WriteLine(s);
+//return;
 
 var webApplication = BuildApplication(args);
 
