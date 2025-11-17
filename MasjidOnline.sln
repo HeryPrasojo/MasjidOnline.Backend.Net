@@ -96,6 +96,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Event
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Mapper", "MasjidOnline.Business\MasjidOnline.Business.Mapper\MasjidOnline.Business.Mapper.csproj", "{FECD4EA7-C5B7-4419-8404-BA4CCC7A5366}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Serializer", "MasjidOnline.Service\MasjidOnline.Service.Serializer\MasjidOnline.Service.Serializer.csproj", "{98F3E51E-6102-4E8E-9817-20F28A71B0AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Serializer.Interface", "MasjidOnline.Service\MasjidOnline.Service.Serializer.Interface\MasjidOnline.Service.Serializer.Interface.csproj", "{FEC253EE-BB7D-4C12-934E-31304BFB4CD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -266,6 +270,14 @@ Global
 		{FECD4EA7-C5B7-4419-8404-BA4CCC7A5366}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FECD4EA7-C5B7-4419-8404-BA4CCC7A5366}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FECD4EA7-C5B7-4419-8404-BA4CCC7A5366}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98F3E51E-6102-4E8E-9817-20F28A71B0AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98F3E51E-6102-4E8E-9817-20F28A71B0AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98F3E51E-6102-4E8E-9817-20F28A71B0AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98F3E51E-6102-4E8E-9817-20F28A71B0AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEC253EE-BB7D-4C12-934E-31304BFB4CD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEC253EE-BB7D-4C12-934E-31304BFB4CD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEC253EE-BB7D-4C12-934E-31304BFB4CD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEC253EE-BB7D-4C12-934E-31304BFB4CD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -309,6 +321,8 @@ Global
 		{5E9CA55F-6577-4FCC-A1CB-EFB9652F04D4} = {9532ED15-56B2-415E-8DDF-F24515892619}
 		{4DCCDCCC-C3A1-4494-B00D-131AF82C00D8} = {9532ED15-56B2-415E-8DDF-F24515892619}
 		{FECD4EA7-C5B7-4419-8404-BA4CCC7A5366} = {9532ED15-56B2-415E-8DDF-F24515892619}
+		{98F3E51E-6102-4E8E-9817-20F28A71B0AA} = {2E44B54A-491D-4C1C-88CA-9D332653F92E}
+		{FEC253EE-BB7D-4C12-934E-31304BFB4CD0} = {2E44B54A-491D-4C1C-88CA-9D332653F92E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E21BDE61-C24C-41E1-87AC-909B6CE35E70}

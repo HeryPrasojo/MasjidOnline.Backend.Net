@@ -1,13 +1,17 @@
+
+
 using System;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
+using MasjidOnline.Service.Localization.Interface;
+using MasjidOnline.Service.Serializer.Interface;
 
-namespace MasjidOnline.Library;
+namespace MasjidOnline.Service.Serializer;
 
-public static class JsonSerializer
+public class JsonSerializerService(ILocalizationService _localizationService) : ISerializerService
 {
-    public static string Serialize(object obj, CultureInfo cultureInfo)
+    public string Serialize(object obj, CultureInfo cultureInfo)
     {
         var stringBuilder = new StringBuilder();
 
@@ -26,14 +30,16 @@ public static class JsonSerializer
             if (propertyValue is Enum)
             {
                 var defaultValue = Activator.CreateInstance(propertyInfo.PropertyType);
+
                 var isEqualDefaultValue = propertyValue.Equals(defaultValue);
+
                 if (!isEqualDefaultValue)
                 {
                     AppendPropertySeparator(stringBuilder, ref propertySeparatorFlag);
 
                     AppendPropertyNameAndPairSeparator(stringBuilder, propertyInfo);
 
-                    stringBuilder.Append($"\"{propertyValue}\"");
+                    AppendValue(stringBuilder, (string)propertyValue);
                 }
             }
             else if (propertyValue != default)
@@ -44,7 +50,7 @@ public static class JsonSerializer
 
                 if (propertyInfo.PropertyType == typeof(string))
                 {
-                    stringBuilder.Append($"\"{propertyValue}\"");
+                    AppendValue(stringBuilder, (string)propertyValue);
                 }
                 else if (propertyInfo.PropertyType.IsPrimitive)
                 {
@@ -76,5 +82,12 @@ public static class JsonSerializer
             stringBuilder.Append(',');
         else
             propertySeparatorFlag = true;
+    }
+
+    private static void AppendValue(StringBuilder stringBuilder, string value)
+    {
+        stringBuilder.Append('\"');
+        stringBuilder.Append(value);
+        stringBuilder.Append('\"');
     }
 }

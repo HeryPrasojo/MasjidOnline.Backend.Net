@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.Interface;
 using MasjidOnline.Business.Session.Interface.Model;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Library;
 using MasjidOnline.Library.Extensions;
+using MasjidOnline.Service.Interface;
 using Microsoft.AspNetCore.SignalR;
 
 namespace MasjidOnline.Api.Web.Filter;
 
-public class HubFilter(IBusiness _business) : IHubFilter
+public class HubFilter(IBusiness _business, IService _service) : IHubFilter
 {
     public async Task OnConnectedAsync(HubLifetimeContext context, Func<HubLifetimeContext, Task> next)
     {
@@ -50,7 +50,7 @@ public class HubFilter(IBusiness _business) : IHubFilter
 
             var session = invocationContext.ServiceProvider.GetServiceOrThrow<Session>();
 
-            return JsonSerializer.Serialize(result, session.CultureInfo);
+            return _service.Serializer.Serialize(result, session.CultureInfo);
         }
         catch (Exception exception)
         {

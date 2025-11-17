@@ -52,12 +52,12 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
                 RecordCount = getManyResult.RecordCount,
                 Records = getManyResult.Records.Select(e => new GetManyResponseRecord
                 {
-                    Amount = _service.Localization[e.Amount, session.CultureInfo],
-                    DateTime = _service.Localization[e.DateTime, session.CultureInfo],
+                    Amount = e.Amount,
+                    DateTime = e.DateTime,
                     Id = e.Id,
                     MunfiqName = e.MunfiqName,
-                    PaymentStatus = _service.Localization[e.Status, session.CultureInfo],
-                    PaymentType = _service.Localization[e.PaymentType, session.CultureInfo],
+                    Status = e.Status,
+                    PaymentType = e.PaymentType,
                 }),
             }
         };
