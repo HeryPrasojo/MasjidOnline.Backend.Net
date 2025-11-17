@@ -47,11 +47,11 @@ public class Service : IService
         _hash128Service = new();
         _hash256Service = new();
         _hash512Service = new();
-        _jsonSerializerService = new();
         _localizationService = new();
 
         _captchaService = new(!isEnvironmentDevelopment, httpClientFactory, googleOptions);
         _encryption128b256kService = new(cryptographyOption, _hash256Service);
+        _jsonSerializerService = new(_localizationService);
         _mailSenderService = new(isEnvironmentDevelopment, mailOption);
     }
 

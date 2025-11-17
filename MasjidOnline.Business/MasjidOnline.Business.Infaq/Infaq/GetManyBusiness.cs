@@ -31,8 +31,8 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
 
         IEnumerable<InfaqStatus>? infaqStatuses = default;
 
-        if (getManyRequest.PaymentStatuses != default)
-            infaqStatuses = getManyRequest.PaymentStatuses.Select(m => m.ToEntity());
+        if (getManyRequest.Statuses != default)
+            infaqStatuses = getManyRequest.Statuses.Select(m => m.ToEntity());
 
 
         var take = 10;
