@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Infaq.Infaq.Mapper;
 using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Model.Responses;
@@ -26,13 +25,13 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
         IEnumerable<PaymentType>? paymentTypes = default;
 
         if (getManyRequest.PaymentTypes != default)
-            paymentTypes = getManyRequest.PaymentTypes.Select(m => m.ToEntity());
+            paymentTypes = getManyRequest.PaymentTypes.Select(m => Mapper.Mapper.Payment.PaymentType[m]);
 
 
         IEnumerable<InfaqStatus>? infaqStatuses = default;
 
         if (getManyRequest.Statuses != default)
-            infaqStatuses = getManyRequest.Statuses.Select(m => m.ToEntity());
+            infaqStatuses = getManyRequest.Statuses.Select(m => Mapper.Mapper.Infaq.InfaqStatus[m]);
 
 
         var take = 10;
@@ -56,8 +55,8 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
                     DateTime = e.DateTime,
                     Id = e.Id,
                     MunfiqName = e.MunfiqName,
-                    Status = e.Status,
-                    PaymentType = e.PaymentType,
+                    Status = Mapper.Mapper.Infaq.InfaqStatus[e.Status],
+                    PaymentType = Mapper.Mapper.Payment.PaymentType[e.PaymentType],
                 }),
             }
         };

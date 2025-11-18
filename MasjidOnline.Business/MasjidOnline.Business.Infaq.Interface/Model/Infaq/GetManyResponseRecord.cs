@@ -1,3 +1,5 @@
+using MasjidOnline.Business.Payment.Interface.Model;
+
 namespace MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 
 public class GetManyResponseRecord
@@ -11,7 +13,7 @@ public class GetManyResponseRecord
     public required decimal Amount { get; set; }
 
 
-    public required string PaymentType { get; set; }
+    public required PaymentType PaymentType { get; set; }
 
-    public required string Status { get; set; }
+    public required InfaqStatus Status { get; set; }
 }

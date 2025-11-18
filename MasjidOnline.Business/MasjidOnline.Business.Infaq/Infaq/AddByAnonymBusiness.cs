@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface;
-using MasjidOnline.Business.Infaq.Infaq.Mapper;
 using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Model.Options;
@@ -66,7 +65,7 @@ public class AddByAnonymBusiness(
             Amount = addByAnonymRequest.Amount.Value,
             DateTime = DateTime.UtcNow,
             Status = InfaqStatus.New,
-            PaymentType = addByAnonymRequest.PaymentType.Value.ToEntity(),
+            PaymentType = Mapper.Mapper.Payment.PaymentType[addByAnonymRequest.PaymentType.Value],
             UserId = session.UserId,
             MunfiqName = addByAnonymRequest.MunfiqName,
         };

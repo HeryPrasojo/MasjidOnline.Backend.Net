@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Mapper;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.User.Interface.Model.User;
 using MasjidOnline.Business.User.Interface.User;
@@ -78,7 +77,7 @@ public class SetPasswordBusiness(
         {
             var userPreferenceApplicationCulture = await _data.User.UserPreference.GetApplicationCultureAsync(userId.Value);
 
-            session.CultureInfo = UserMapper.UserPreferenceApplicationCulture[userPreferenceApplicationCulture];
+            session.CultureInfo = Mapper.Mapper.User.UserPreferenceApplicationCulture[userPreferenceApplicationCulture];
             session.UserId = userId.Value;
 
             _data.Session.Session.SetForSetPassword(session.Id, session.UserId, utcNow, userPreferenceApplicationCulture);

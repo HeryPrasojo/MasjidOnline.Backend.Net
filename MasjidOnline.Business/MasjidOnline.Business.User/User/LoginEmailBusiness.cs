@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface;
-using MasjidOnline.Business.Mapper;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.User.Interface.Model.User;
 using MasjidOnline.Business.User.Interface.User;
@@ -56,7 +55,7 @@ public class LoginEmailBusiness(IAuthorizationBusiness _authorizationBusiness, I
         var utcNow = DateTime.UtcNow;
 
         session.UserId = userId.Value;
-        session.CultureInfo = UserMapper.UserPreferenceApplicationCulture[userPreferenceApplicationCulture];
+        session.CultureInfo = Mapper.Mapper.User.UserPreferenceApplicationCulture[userPreferenceApplicationCulture];
         session.UserId = userId.Value;
 
         _data.Session.Session.SetForLogin(session.Id, session.UserId, utcNow, userPreferenceApplicationCulture);
@@ -72,7 +71,7 @@ public class LoginEmailBusiness(IAuthorizationBusiness _authorizationBusiness, I
             LocationLatitude = loginRequest.LocationLatitude,
             LocationLongitude = loginRequest.LocationLongitude,
             LocationPrecision = loginRequest.LocationPrecision,
-            Client = EventMapper.UserLoginClient[loginRequest.Client.Value],
+            Client = Mapper.Mapper.Event.UserLoginClient[loginRequest.Client.Value],
             SessionId = session.Id,
             UserAgent = loginRequest.UserAgent,
             UserId = session.UserId,

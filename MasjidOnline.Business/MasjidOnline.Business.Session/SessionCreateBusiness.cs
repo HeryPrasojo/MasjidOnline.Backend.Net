@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Mapper;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.Session.Interface.Model.Sessions;
@@ -35,7 +34,7 @@ public class SessionCreateBusiness(IService _service) : ISessionCreateBusiness
 
         var sessionEntity = new Entity.Session.Session
         {
-            ApplicationCulture = UserMapper.UserPreferenceApplicationCulture[session.CultureInfo],
+            ApplicationCulture = Mapper.Mapper.User.UserPreferenceApplicationCulture[session.CultureInfo],
             DateTime = DateTime.UtcNow,
             Code = _service.Hash512.RandomByteArray,
             Id = session.Id,

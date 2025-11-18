@@ -1,7 +1,6 @@
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Mapper;
 using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.User;
@@ -51,13 +50,13 @@ public class SessionAuthenticationBusiness(IService _service) : ISessionAuthenti
 
         if (cultureName.IsNullOrEmptyOrWhiteSpace())
         {
-            session.CultureInfo = UserMapper.UserPreferenceApplicationCulture[sessionEntity.ApplicationCulture];
+            session.CultureInfo = Mapper.Mapper.User.UserPreferenceApplicationCulture[sessionEntity.ApplicationCulture];
         }
         else
         {
             session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfos[cultureName!];
 
-            userPreferenceApplicationCulture = UserMapper.UserPreferenceApplicationCulture[session.CultureInfo];
+            userPreferenceApplicationCulture = Mapper.Mapper.User.UserPreferenceApplicationCulture[session.CultureInfo];
 
             if (!session.IsUserAnonymous)
             {
