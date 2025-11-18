@@ -35,6 +35,7 @@ public class CaptchaService(bool _enabled, IHttpClientFactory _httpClientFactory
         //Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
     };
 
+
     public void Initialize()
     {
         if (_optionsMonitor.CurrentValue.ReCaptcha.ActionAffix.IsNullOrEmptyOrWhiteSpace())

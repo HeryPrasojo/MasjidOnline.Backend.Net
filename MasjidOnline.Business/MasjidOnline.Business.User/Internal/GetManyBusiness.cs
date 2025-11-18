@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Business.User.Interface.Model.Internal;
-using MasjidOnline.Business.User.Internal.Mapper;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.ViewModel.Repository;
 using MasjidOnline.Data.Interface.ViewModel.User.Internal;
@@ -16,13 +15,14 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
     public async Task<Response<GetManyResponse<GetManyResponseRecord>>> GetAsync(Session.Interface.Model.Session session, IData _data, GetManyRequest? getManyRequest)
     {
         getManyRequest = _service.FieldValidator.ValidateRequired(getManyRequest);
+        getManyRequest.Status = _service.FieldValidator.ValidateRequiredEnum(getManyRequest.Status);
         getManyRequest.Page = _service.FieldValidator.ValidateRequiredPlus(getManyRequest.Page);
 
 
         var take = 10;
 
         var getManyResult = await _data.User.InternalUser.GetManyAsync(
-            status: getManyRequest.Status.ToEntity(),
+            status: Mapper.Mapper.User.InternalUserStatus[getManyRequest.Status.Value],
             getManyOrderBy: ManyOrderBy.DateTime,
             orderByDirection: OrderByDirection.Descending,
             skip: (getManyRequest.Page.Value - 1) * take,
@@ -42,7 +42,7 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
                     DateTime = e.DateTime,
                     EmailAddress = (type == Entity.User.UserType.Internal) ? e.EmailAddress : default,
                     Id = e.Id,
-                    Status = e.Status.ToModel(),
+                    Status = Mapper.Mapper.User.InternalUserStatus[e.Status],
                     UpdateDateTime = e.UpdateDateTime,
                     UpdateUserId = e.UpdateUserId,
                     UserId = e.UserId,

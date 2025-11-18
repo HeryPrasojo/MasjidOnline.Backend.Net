@@ -2,6 +2,7 @@ using MasjidOnline.Library.Exceptions;
 
 namespace MasjidOnline.Business.Accountancy.Expenditure.Mapper;
 
+// todo move to Mapper project
 public static class ModelExpenditureStatusExtensions
 {
     public static Entity.Accountancy.ExpenditureStatus? ToEntity(this Interface.Model.Expenditure.ExpenditureStatus? internalStatus)

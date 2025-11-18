@@ -24,6 +24,8 @@ public static class Mapper
 
     public static class User
     {
+        public static readonly InternalUserStatusMapper InternalUserStatus = new();
+
         public static readonly UserPreferenceApplicationCultureMapper UserPreferenceApplicationCulture = new();
     }
 }

@@ -3,6 +3,7 @@ using MasjidOnline.Library.Exceptions;
 
 namespace MasjidOnline.Business.Infaq.Void.Mapper;
 
+// todo move to Mapper project
 public static class EntityVoidStatusExtensions
 {
     public static VoidStatus ToModel(this Entity.Infaq.VoidStatus voidStatus)

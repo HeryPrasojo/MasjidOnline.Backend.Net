@@ -3,6 +3,7 @@ using MasjidOnline.Library.Exceptions;
 
 namespace MasjidOnline.Business.Infaq.Expire.Mapper;
 
+// todo move to Mapper project
 public static class EntityExpireStatusExtensions
 {
     public static ExpireStatus ToModel(this Entity.Infaq.ExpireStatus expireStatus)

@@ -3,6 +3,7 @@ using MasjidOnline.Library.Exceptions;
 
 namespace MasjidOnline.Business.Infaq.Success.Mapper;
 
+// todo move to Mapper project
 public static class ModelSuccessStatusExtensions
 {
     public static Entity.Infaq.SuccessStatus? ToEntity(this SuccessStatus? successStatus)

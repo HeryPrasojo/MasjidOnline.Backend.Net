@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Business.User.Interface.Model.Internal;
-using MasjidOnline.Business.User.Internal.Mapper;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
@@ -27,7 +26,7 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
             Data = new()
             {
                 DateTime = @internal.DateTime,
-                Status = @internal.Status.ToModel(),
+                Status = Mapper.Mapper.User.InternalUserStatus[@internal.Status],
                 UpdateDateTime = @internal.UpdateDateTime,
                 UpdateUserId = @internal.UpdateUserId,
                 UserId = @internal.UserId,

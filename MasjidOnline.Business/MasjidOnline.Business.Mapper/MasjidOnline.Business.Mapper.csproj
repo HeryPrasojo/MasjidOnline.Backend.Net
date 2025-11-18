@@ -12,6 +12,7 @@
     <ProjectReference Include="..\MasjidOnline.Business.Event.Interface\MasjidOnline.Business.Event.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Infaq.Interface\MasjidOnline.Business.Infaq.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Payment.Interface\MasjidOnline.Business.Payment.Interface.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Business.User.Interface\MasjidOnline.Business.User.Interface.csproj" />
   </ItemGroup>
 
 </Project>
