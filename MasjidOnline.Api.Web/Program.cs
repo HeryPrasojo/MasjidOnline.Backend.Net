@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Text.Json.Serialization;
 using MasjidOnline.Api.Web;
 using MasjidOnline.Api.Web.Filter;
@@ -18,28 +17,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
-//var r = new Response()
-//{
-//    ResultCode = ResponseResultCode.DataMismatch,
-//};
-//var s = JsonSerializer.Serialize(r);
-//Console.WriteLine(s);
-//return;
 
 var webApplication = BuildApplication(args);
 
 await webApplication.InitializeAsync();
 
-if (webApplication.Environment.IsDevelopment() || Debugger.IsAttached)
-{
-    webApplication.UseMiddleware<DevelopmentExceptionMiddleware>();
-}
-else
-{
-    webApplication.UseMiddleware<ExceptionMiddleware>();
-}
+webApplication.UseMiddleware<ExceptionMiddleware>();
 
 webApplication.UseCors();
 

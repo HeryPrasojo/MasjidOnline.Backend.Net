@@ -1,15 +1,14 @@
 using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface;
-using MasjidOnline.Business.Session.Interface.Model;
+using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Extensions;
-using MasjidOnline.Service.Interface;
 using Microsoft.AspNetCore.SignalR;
 
 namespace MasjidOnline.Api.Web.Filter;
 
-public class HubFilter(IBusiness _business, IService _service) : IHubFilter
+public class HubFilter(IBusiness _business) : IHubFilter
 {
     public async Task OnConnectedAsync(HubLifetimeContext context, Func<HubLifetimeContext, Task> next)
     {
@@ -19,8 +18,11 @@ public class HubFilter(IBusiness _business, IService _service) : IHubFilter
         }
         catch (Exception exception)
         {
-            await HandleExceptionAsync(context.ServiceProvider, exception);
+            var _data = context.ServiceProvider.GetServiceOrThrow<IData>();
 
+            await _business.Event.Exception.LogAsync(_data, exception);
+
+            // todo signalr custom exception response
             throw;
         }
     }
@@ -33,7 +35,9 @@ public class HubFilter(IBusiness _business, IService _service) : IHubFilter
         }
         catch (Exception catchException)
         {
-            await HandleExceptionAsync(context.ServiceProvider, catchException);
+            var _data = context.ServiceProvider.GetServiceOrThrow<IData>();
+
+            await _business.Event.Exception.LogAsync(_data, catchException);
 
             throw;
         }
@@ -43,27 +47,20 @@ public class HubFilter(IBusiness _business, IService _service) : IHubFilter
     {
         try
         {
-            var result = await next(invocationContext);
-
-            if (result == default) return default;
-
-
-            var session = invocationContext.ServiceProvider.GetServiceOrThrow<Session>();
-
-            return _service.Serializer.Serialize(result, session.CultureInfo);
+            return await next(invocationContext);
         }
         catch (Exception exception)
         {
-            await HandleExceptionAsync(invocationContext.ServiceProvider, exception);
+            var exceptionResponse = _business.ExceptionResponse.Build(exception);
 
-            throw;
+            if (exceptionResponse.ResultCode == ResponseResultCode.Error)
+            {
+                var _data = invocationContext.ServiceProvider.GetServiceOrThrow<IData>();
+
+                await _business.Event.Exception.LogAsync(_data, exception);
+            }
+
+            return exceptionResponse;
         }
-    }
-
-    private async Task HandleExceptionAsync(IServiceProvider serviceProvider, Exception exception)
-    {
-        var _data = serviceProvider.GetServiceOrThrow<IData>();
-
-        await _business.Event.Exception.HandleAsync(_data, exception);
     }
 }

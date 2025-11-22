@@ -3,9 +3,9 @@ using MasjidOnline.Data.Interface;
 
 namespace MasjidOnline.Business.Event;
 
-public class ExceptionEventBusiness() : IExceptionEventBusiness
+public class ExceptionEventBusiness : IExceptionEventBusiness
 {
-    public async Task HandleAsync(IData _data, Exception exception)
+    public async Task LogAsync(IData _data, Exception exception)
     {
         var exceptionEntities = new List<Entity.Event.Exception>();
 

@@ -78,7 +78,7 @@ public class SchedulerHostedService : IHostedService
             }
             catch (Exception exception)
             {
-                await _business.Event.Exception.HandleAsync(_data, exception);
+                await _business.Event.Exception.LogAsync(_data, exception);
             }
         }
         catch (Exception exception)

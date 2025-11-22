@@ -1,20 +1,16 @@
 using System;
 using MasjidOnline.Business.Interface;
 using MasjidOnline.Business.Model.Responses;
-using MasjidOnline.Library.Exceptions;
-using Microsoft.AspNetCore.Http;
 
-namespace MasjidOnline.Api.Web.Middleware;
+namespace MasjidOnline.Business;
 
-public class DevelopmentExceptionMiddleware(
-    IBusiness _business,
-    RequestDelegate _nextRequestDelegate) : ExceptionMiddleware(_business, _nextRequestDelegate)
+public class DevelopmentExceptionResponseBusiness : ExceptionResponseBusiness, IExceptionResponseBusiness
 {
-    protected override ExceptionResponse BuildExceptionResponse(Exception exception)
+    public override ExceptionResponse Build(Exception exception)
     {
-        var exceptionResponse = base.BuildExceptionResponse(exception);
+        var exceptionResponse = base.Build(exception);
 
-        if (exception is PermissionException)
+        if (exceptionResponse.ResultMessage == default)
         {
             exceptionResponse.ResultMessage = exception.Message;
         }

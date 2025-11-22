@@ -19,6 +19,7 @@ public interface IBusiness
     IPaymentBusiness Payment { get; }
     ISessionBusiness Session { get; }
     IUserBusiness User { get; }
+    IExceptionResponseBusiness ExceptionResponse { get; }
 
     Task InitializeAsync(IData _data);
 }

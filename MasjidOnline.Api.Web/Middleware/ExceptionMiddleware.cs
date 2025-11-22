@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface;
 using MasjidOnline.Business.Model.Responses;
+using MasjidOnline.Business.Session.Interface.Model;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using Microsoft.AspNetCore.Http;
@@ -21,7 +22,7 @@ public class ExceptionMiddleware(
     };
 
     // first parameter must be HttpContext
-    public async Task InvokeAsync(HttpContext httpContext, IData _data)
+    public async Task InvokeAsync(HttpContext httpContext, IData _data, Session session)
     {
         try
         {
@@ -29,7 +30,18 @@ public class ExceptionMiddleware(
         }
         catch (Exception exception)
         {
-            await HandleExceptionAsync(httpContext, exception, _data);
+            var exceptionResponse = _business.ExceptionResponse.Build(exception);
+
+            if (exceptionResponse.ResultCode == ResponseResultCode.Error)
+            {
+                await _business.Event.Exception.LogAsync(_data, exception);
+            }
+
+            httpContext.Response.ContentType = "application/json";
+
+            var responseString = JsonSerializer.Serialize(exceptionResponse, options: _jsonSerializerOptions);
+
+            await httpContext.Response.WriteAsync(responseString);
         }
     }
 
@@ -60,22 +72,5 @@ public class ExceptionMiddleware(
         }
 
         return exceptionResponse;
-    }
-
-    private async Task HandleExceptionAsync(HttpContext httpContext, Exception exception, IData _data)
-    {
-        var exceptionResponse = BuildExceptionResponse(exception);
-
-        httpContext.Response.ContentType = "application/json";
-
-        var responseString = JsonSerializer.Serialize(exceptionResponse, options: _jsonSerializerOptions);
-
-        await httpContext.Response.WriteAsync(responseString);
-
-
-        if (exceptionResponse.ResultCode == ResponseResultCode.Error)
-        {
-            await _business.Event.Exception.HandleAsync(_data, exception);
-        }
     }
 }

@@ -16,6 +16,8 @@ using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Business.User;
 using MasjidOnline.Business.User.Interface;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Service.Interface;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Business;
@@ -24,18 +26,20 @@ namespace MasjidOnline.Business;
 public class Business : IBusiness
 {
     public Business(
-        IOptionsMonitor<BusinessOptions> optionsMonitor,
-        Service.Interface.IService service
+        IOptionsMonitor<BusinessOptions> _optionsMonitor,
+        IHostEnvironment _hostEnvironment,
+        IService _service
     )
     {
         Authorization = new AuthorizationBusiness();
 
-        Accountancy = new AccountancyBusiness(Authorization, service);
+        Accountancy = new AccountancyBusiness(Authorization, _service);
         Event = new EventBusiness();
-        Infaq = new InfaqBusiness(optionsMonitor, Authorization, service);
-        Payment = new PaymentBusiness(service);
-        Session = new SessionBusiness(service);
-        User = new UserBusiness(optionsMonitor, Authorization, service);
+        ExceptionResponse = _hostEnvironment.IsDevelopment() ? new DevelopmentExceptionResponseBusiness() : new ExceptionResponseBusiness();
+        Infaq = new InfaqBusiness(_optionsMonitor, Authorization, _service);
+        Payment = new PaymentBusiness(_service);
+        Session = new SessionBusiness(_service);
+        User = new UserBusiness(_optionsMonitor, Authorization, _service);
     }
 
     public IAccountancyBusiness Accountancy { get; }
@@ -43,6 +47,8 @@ public class Business : IBusiness
     public IAuthorizationBusiness Authorization { get; }
 
     public IEventBusiness Event { get; }
+
+    public IExceptionResponseBusiness ExceptionResponse { get; }
 
     public IInfaqBusiness Infaq { get; }
 

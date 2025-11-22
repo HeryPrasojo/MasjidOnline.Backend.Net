@@ -11,7 +11,6 @@ using MasjidOnline.Service.Interface;
 using MasjidOnline.Service.Localization;
 using MasjidOnline.Service.Mail.Interface.Model;
 using MasjidOnline.Service.Mail.MailKit;
-using MasjidOnline.Service.Serializer;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
@@ -26,7 +25,6 @@ public class Service : IService
     private readonly Hash128Service _hash128Service;
     private readonly Hash256Service _hash256Service;
     private readonly Hash512Service _hash512Service;
-    private readonly JsonSerializerService _jsonSerializerService;
     private readonly LocalizationService _localizationService;
     private readonly SmtpMailSenderService _mailSenderService;
 
@@ -51,7 +49,6 @@ public class Service : IService
 
         _captchaService = new(!isEnvironmentDevelopment, httpClientFactory, googleOptions);
         _encryption128b256kService = new(cryptographyOption, _hash256Service);
-        _jsonSerializerService = new(_localizationService);
         _mailSenderService = new(isEnvironmentDevelopment, mailOption);
     }
 
@@ -63,7 +60,6 @@ public class Service : IService
     public Hash.Interface.IHash512Service Hash512 => _hash512Service;
     public Mail.Interface.IMailSenderService MailSender => _mailSenderService;
     public Localization.Interface.ILocalizationService Localization => _localizationService;
-    public Serializer.Interface.ISerializerService Serializer => _jsonSerializerService;
 
     public void Initialize(IEnumerable<string> createDirectories)
     {

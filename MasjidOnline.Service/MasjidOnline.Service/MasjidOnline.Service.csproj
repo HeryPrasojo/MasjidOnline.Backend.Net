@@ -20,7 +20,6 @@
         <ProjectReference Include="..\MasjidOnline.Service.Interface\MasjidOnline.Service.Interface.csproj" />
         <ProjectReference Include="..\MasjidOnline.Service.Mail.MailKit\MasjidOnline.Service.Mail.MailKit.csproj" />
         <ProjectReference Include="..\MasjidOnline.Service.Localization\MasjidOnline.Service.Localization.csproj" />
-        <ProjectReference Include="..\MasjidOnline.Service.Serializer\MasjidOnline.Service.Serializer.csproj" />
     </ItemGroup>
 
 </Project>

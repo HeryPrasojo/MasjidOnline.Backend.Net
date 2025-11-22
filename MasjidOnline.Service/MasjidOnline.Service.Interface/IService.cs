@@ -6,7 +6,6 @@ using MasjidOnline.Service.File.Interface;
 using MasjidOnline.Service.Hash.Interface;
 using MasjidOnline.Service.Localization.Interface;
 using MasjidOnline.Service.Mail.Interface;
-using MasjidOnline.Service.Serializer.Interface;
 
 namespace MasjidOnline.Service.Interface;
 
@@ -20,7 +19,6 @@ public interface IService
     IMailSenderService MailSender { get; }
     IFileService File { get; }
     ILocalizationService Localization { get; }
-    ISerializerService Serializer { get; }
 
     void Initialize(IEnumerable<string> createDirectories);
 }

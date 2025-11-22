@@ -26,6 +26,7 @@ public class ApproveBusiness(
 
         if (@internal == default) throw new InputMismatchException($"{nameof(approveRequest.Id)}: {approveRequest.Id}");
 
+        // todo new DataMismatchException
         if (@internal.Status != Entity.Accountancy.ExpenditureStatus.New) throw new InputMismatchException($"{nameof(@internal.Status)}: {@internal.Status}");
 
 
