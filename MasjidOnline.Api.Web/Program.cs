@@ -37,9 +37,15 @@ webApplication.Run();
 
 static WebApplication BuildApplication(string[] args)
 {
-    var webApplicationBuilder = WebApplication.CreateSlimBuilder(args);
+    var webApplicationBuilder = WebApplication.CreateEmptyBuilder(
+        new WebApplicationOptions()
+        {
+            Args = args,
+        });
+    //var webApplicationBuilder = WebApplication.CreateSlimBuilder(args);
 
-    webApplicationBuilder.Configuration.AddJsonFile("appsettings.Local.json", true, true);
+    webApplicationBuilder.Configuration.AddJsonFile("appsettings.json", true, true)
+        .AddJsonFile("appsettings.Local.json", true, true);
 
     var businessOption = webApplicationBuilder.Configuration.Get<BusinessOptions>() ?? throw new ApplicationException($"Get {nameof(BusinessOptions)} fail");
 
