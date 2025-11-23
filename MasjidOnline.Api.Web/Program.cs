@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Text.Json.Serialization;
 using MasjidOnline.Api.Web;
 using MasjidOnline.Api.Web.Filter;
@@ -36,7 +37,7 @@ webApplication.Run();
 
 static WebApplication BuildApplication(string[] args)
 {
-    var webApplicationBuilder = WebApplication.CreateBuilder(args);
+    var webApplicationBuilder = WebApplication.CreateSlimBuilder(args);
 
     webApplicationBuilder.Configuration.AddJsonFile("appsettings.Local.json", true, true);
 
@@ -91,6 +92,13 @@ static WebApplication BuildApplication(string[] args)
     #endregion
 
     webApplicationBuilder.Services.AddHostedServices();
+
+
+    if (Debugger.IsAttached)
+    {
+        webApplicationBuilder.WebHost.UseKestrelHttpsConfiguration();
+    }
+
 
     webApplicationBuilder.WebHost.UseShutdownTimeout(TimeSpan.FromSeconds(16));
 
