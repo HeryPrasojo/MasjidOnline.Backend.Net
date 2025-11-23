@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using MasjidOnline.Api.Web;
 using MasjidOnline.Api.Web.Filter;
@@ -43,13 +44,7 @@ static WebApplication BuildApplication(string[] args)
 
     var businessOption = webApplicationBuilder.Configuration.Get<BusinessOptions>() ?? throw new ApplicationException($"Get {nameof(BusinessOptions)} fail");
 
-    webApplicationBuilder.Services.ConfigureHttpJsonOptions(options =>
-    {
-        options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault;
-        options.SerializerOptions.NumberHandling = JsonNumberHandling.Strict;
-        options.SerializerOptions.PreferredObjectCreationHandling = JsonObjectCreationHandling.Populate;
-        options.SerializerOptions.PropertyNamingPolicy = null;
-    });
+    webApplicationBuilder.Services.ConfigureHttpJsonOptions(jsonOptions => SetJsonOptions(jsonOptions.SerializerOptions));
 
     webApplicationBuilder.Services.AddCors(
         corsOptions =>
@@ -68,10 +63,11 @@ static WebApplication BuildApplication(string[] args)
 
 
     webApplicationBuilder.Services.AddSignalR(
-        hubOptions =>
-    {
-        hubOptions.AddFilter<HubFilter>();
-    });
+            hubOptions =>
+        {
+            hubOptions.AddFilter<HubFilter>();
+        })
+        .AddJsonProtocol(jsonHubProtocolOptions => SetJsonOptions(jsonHubProtocolOptions.PayloadSerializerOptions));
 
     webApplicationBuilder.Services.AddSingleton<ConnectionHub>();
     webApplicationBuilder.Services.AddSingleton<HubFilter>();
@@ -103,4 +99,12 @@ static WebApplication BuildApplication(string[] args)
     webApplicationBuilder.WebHost.UseShutdownTimeout(TimeSpan.FromSeconds(16));
 
     return webApplicationBuilder.Build();
+}
+
+static void SetJsonOptions(JsonSerializerOptions jsonSerializerOptions)
+{
+    jsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault;
+    jsonSerializerOptions.NumberHandling = JsonNumberHandling.Strict;
+    jsonSerializerOptions.PreferredObjectCreationHandling = JsonObjectCreationHandling.Populate;
+    jsonSerializerOptions.PropertyNamingPolicy = null;
 }

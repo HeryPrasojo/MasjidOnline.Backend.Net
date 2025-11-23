@@ -12,17 +12,22 @@ namespace MasjidOnline.Business.User.Internal;
 
 public class GetManyBusiness(IService _service) : IGetManyBusiness
 {
-    public async Task<Response<GetManyResponse<GetManyResponseRecord>>> GetAsync(Session.Interface.Model.Session session, IData _data, GetManyRequest? getManyRequest)
+    public async Task<Response<GetManyResponse<GetManyResponseRecord>>> GetAsync(
+        Session.Interface.Model.Session session,
+        IData _data,
+        GetManyRequest? getManyRequest)
     {
         getManyRequest = _service.FieldValidator.ValidateRequired(getManyRequest);
-        getManyRequest.Status = _service.FieldValidator.ValidateRequiredEnum(getManyRequest.Status);
+        getManyRequest.Status = _service.FieldValidator.ValidateOptionalEnum(getManyRequest.Status);
         getManyRequest.Page = _service.FieldValidator.ValidateRequiredPlus(getManyRequest.Page);
 
 
         var take = 10;
 
+        var requestStatus = getManyRequest.Status.HasValue ? Mapper.Mapper.User.InternalUserStatus[getManyRequest.Status.Value] : default;
+
         var getManyResult = await _data.User.InternalUser.GetManyAsync(
-            status: Mapper.Mapper.User.InternalUserStatus[getManyRequest.Status.Value],
+            status: requestStatus,
             getManyOrderBy: ManyOrderBy.DateTime,
             orderByDirection: OrderByDirection.Descending,
             skip: (getManyRequest.Page.Value - 1) * take,
@@ -36,7 +41,7 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
             Data = new()
             {
                 PageCount = ((getManyResult.RecordCount - 1) / take) + 1,
-                RecordCount = getManyResult.RecordCount,
+                RecordCount = _service.Localization[getManyResult.RecordCount, session.CultureInfo],
                 Records = getManyResult.Records.Select(e => new GetManyResponseRecord
                 {
                     DateTime = e.DateTime,

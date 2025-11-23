@@ -44,10 +44,11 @@ internal static class InfaqEndpoint
 
         internal static async Task<Response<GetManyResponse<Business.Infaq.Interface.Model.Expire.GetManyResponseRecord>>> GetManyAsync(
             IBusiness _business,
+            Session session,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Expire.GetManyRequest? getManyRequest)
         {
-            return await _business.Infaq.Expire.GetMany.GetAsync(_data, getManyRequest);
+            return await _business.Infaq.Expire.GetMany.GetAsync(_data, session, getManyRequest);
         }
 
         internal static async Task<Response<Business.Infaq.Interface.Model.Expire.GetOneResponse>> GetOneAsync(
@@ -158,10 +159,11 @@ internal static class InfaqEndpoint
 
         internal static async Task<Response<GetManyResponse<Business.Infaq.Interface.Model.Success.GetManyResponseRecord>>> GetManyAsync(
             IBusiness _business,
+            Session session,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Success.GetManyRequest? getManyRequest)
         {
-            return await _business.Infaq.Success.GetMany.GetAsync(_data, getManyRequest);
+            return await _business.Infaq.Success.GetMany.GetAsync(_data, session, getManyRequest);
         }
 
         internal static async Task<Response<Business.Infaq.Interface.Model.Success.GetOneResponse>> GetOneAsync(
@@ -213,10 +215,11 @@ internal static class InfaqEndpoint
 
         internal static async Task<Response<GetManyResponse<Business.Infaq.Interface.Model.Void.GetManyResponseRecord>>> GetManyAsync(
             IBusiness _business,
+            Session session,
             IData _data,
             [FromBody] Business.Infaq.Interface.Model.Void.GetManyRequest? getManyRequest)
         {
-            return await _business.Infaq.Void.GetMany.GetAsync(_data, getManyRequest);
+            return await _business.Infaq.Void.GetMany.GetAsync(_data, session, getManyRequest);
         }
 
         internal static async Task<Response<Business.Infaq.Interface.Model.Void.GetOneResponse>> GetOneAsync(

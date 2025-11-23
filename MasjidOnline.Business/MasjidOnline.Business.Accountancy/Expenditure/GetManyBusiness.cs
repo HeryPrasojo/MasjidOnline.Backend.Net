@@ -13,7 +13,10 @@ namespace MasjidOnline.Business.Accountancy.Expenditure;
 
 public class GetManyBusiness(IService _service) : IGetManyBusiness
 {
-    public async Task<Response<GetManyResponse<GetManyResponseRecord>>> GetAsync(IData _data, GetManyRequest? getManyRequest)
+    public async Task<Response<GetManyResponse<GetManyResponseRecord>>> GetAsync(
+        IData _data,
+        Session.Interface.Model.Session session,
+        GetManyRequest? getManyRequest)
     {
         getManyRequest = _service.FieldValidator.ValidateRequired(getManyRequest);
         getManyRequest.Page = _service.FieldValidator.ValidateRequiredPlus(getManyRequest.Page);
@@ -34,7 +37,7 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
             Data = new()
             {
                 PageCount = ((getManyResult.RecordCount - 1) / take) + 1,
-                RecordCount = getManyResult.RecordCount,
+                RecordCount = _service.Localization[getManyResult.RecordCount, session.CultureInfo],
                 Records = getManyResult.Records.Select(e => new GetManyResponseRecord
                 {
                     Amount = e.Amount,

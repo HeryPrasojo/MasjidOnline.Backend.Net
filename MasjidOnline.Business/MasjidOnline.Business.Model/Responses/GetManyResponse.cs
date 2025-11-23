@@ -6,7 +6,7 @@ public class GetManyResponse<TRecords>
 {
     public required IEnumerable<TRecords> Records { get; set; }
 
-    public required long RecordCount { get; set; }
+    public required string RecordCount { get; set; }
 
     public required long PageCount { get; set; }
 }

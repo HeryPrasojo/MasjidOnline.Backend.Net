@@ -48,7 +48,7 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
             Data = new()
             {
                 PageCount = ((getManyResult.RecordCount - 1) / take) + 1,
-                RecordCount = getManyResult.RecordCount,
+                RecordCount = _service.Localization[getManyResult.RecordCount, session.CultureInfo],
                 Records = getManyResult.Records.Select(e => new GetManyResponseRecord
                 {
                     Amount = e.Amount,
