@@ -23,13 +23,11 @@ var webApplication = BuildApplication(args);
 
 await webApplication.InitializeAsync();
 
-webApplication.UseMiddleware<ExceptionMiddleware>();
-
 webApplication.UseCors();
 
 webApplication.UseMiddleware<AuthenticationMiddleware>();
 
-webApplication.MapHub<ConnectionHub>("/hub", httpConnectionDispatcherOptions => { });
+webApplication.MapHub<ConnectionHub>("/hub"/*, httpConnectionDispatcherOptions => { }*/);
 
 webApplication.MapEndpoints();
 
@@ -47,7 +45,9 @@ static WebApplication BuildApplication(string[] args)
     webApplicationBuilder.Services.ConfigureHttpJsonOptions(options =>
     {
         options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault;
-        options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        options.SerializerOptions.NumberHandling = JsonNumberHandling.Strict;
+        options.SerializerOptions.PreferredObjectCreationHandling = JsonObjectCreationHandling.Populate;
+        options.SerializerOptions.PropertyNamingPolicy = null;
     });
 
     webApplicationBuilder.Services.AddCors(

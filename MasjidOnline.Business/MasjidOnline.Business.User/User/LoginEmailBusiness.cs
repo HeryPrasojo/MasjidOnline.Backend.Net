@@ -26,26 +26,28 @@ public class LoginEmailBusiness(IAuthorizationBusiness _authorizationBusiness, I
 
         _service.FieldValidator.ValidateRequired(loginRequest.Client, m => m != Event.Interface.Model.UserLoginClient.Default);
 
-        var userId = await _data.User.UserEmailAddress.GetUserIdAsync(loginRequest.EmailAddress);
 
-        if (userId == default) throw new InputMismatchException(nameof(loginRequest.EmailAddress));
-
-
-        var isCaptchaVerified = await _service.Captcha.VerifyAsync(loginRequest.CaptchaToken, "setPassword");
+        var isCaptchaVerified = await _service.Captcha.VerifyAsync(loginRequest.CaptchaToken, "login");
 
         if (!isCaptchaVerified) throw new InputMismatchException(nameof(loginRequest.CaptchaToken));
 
 
+        var userId = await _data.User.UserEmailAddress.GetUserIdAsync(loginRequest.EmailAddress);
+
+        if (userId == default) throw new InputMismatchException(nameof(loginRequest.EmailAddress) + " or " + nameof(loginRequest.Password));
+
+
         var user = await _data.User.User.GetForLoginAsync(userId.Value);
 
-        if (user == default) throw new InputMismatchException(nameof(loginRequest.EmailAddress));
+        if (user == default) throw new InputMismatchException(nameof(loginRequest.EmailAddress) + " or " + nameof(loginRequest.Password));
 
         if (user.Password == default) throw new InputMismatchException(nameof(user.Password));
 
 
         var requestPasswordHashBytes = _service.Hash512.Hash(loginRequest.Password);
 
-        if (!requestPasswordHashBytes.SequenceEqual(user.Password)) throw new InputMismatchException(nameof(loginRequest.Password));
+        if (!requestPasswordHashBytes.SequenceEqual(user.Password))
+            throw new InputMismatchException(nameof(loginRequest.EmailAddress) + " or " + nameof(loginRequest.Password));
 
 
         var userPreferenceApplicationCulture = await _data.User.UserPreference.GetApplicationCultureAsync(userId.Value);
