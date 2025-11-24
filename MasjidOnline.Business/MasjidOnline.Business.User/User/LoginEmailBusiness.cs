@@ -14,7 +14,7 @@ namespace MasjidOnline.Business.User.User;
 
 public class LoginEmailBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : ILoginEmailBusiness
 {
-    public async Task<Response> LoginAsync(IData _data, Session.Interface.Model.Session session, LoginRequest? loginRequest)
+    public async Task<Response<LoginResponse>> LoginAsync(IData _data, Session.Interface.Model.Session session, LoginRequest? loginRequest)
     {
         _authorizationBusiness.AuthorizeAnonymous(session);
 
@@ -84,9 +84,44 @@ public class LoginEmailBusiness(IAuthorizationBusiness _authorizationBusiness, I
 
         await _data.Transaction.CommitAsync();
 
+
+        LoginResponsePermission? loginResponsePermission = default;
+
+        var userInternalPermission = await _data.Authorization.UserInternalPermission.FirstOrDefaultAsync(session.UserId);
+
+        if (userInternalPermission != default)
+        {
+            loginResponsePermission = new()
+            {
+                AccountancyExpenditureAdd = userInternalPermission.AccountancyExpenditureAdd,
+                AccountancyExpenditureApprove = userInternalPermission.AccountancyExpenditureApprove,
+                AccountancyExpenditureCancel = userInternalPermission.AccountancyExpenditureCancel,
+
+                InfaqExpireAdd = userInternalPermission.InfaqExpireAdd,
+                InfaqExpireApprove = userInternalPermission.InfaqExpireApprove,
+                InfaqExpireCancel = userInternalPermission.InfaqExpireCancel,
+
+                InfaqSuccessAdd = userInternalPermission.InfaqSuccessAdd,
+                InfaqSuccessApprove = userInternalPermission.InfaqSuccessApprove,
+                InfaqSuccessCancel = userInternalPermission.InfaqSuccessCancel,
+
+                InfaqVoidAdd = userInternalPermission.InfaqVoidAdd,
+                InfaqVoidApprove = userInternalPermission.InfaqVoidApprove,
+                InfaqVoidCancel = userInternalPermission.InfaqVoidCancel,
+
+                UserInternalAdd = userInternalPermission.UserInternalAdd,
+                UserInternalApprove = userInternalPermission.UserInternalApprove,
+                UserInternalCancel = userInternalPermission.UserInternalCancel,
+            };
+        }
+
         return new()
         {
-            ResultCode = ResponseResultCode.Success
+            ResultCode = ResponseResultCode.Success,
+            Data = new LoginResponse
+            {
+                Permission = loginResponsePermission,
+            },
         };
     }
 }
