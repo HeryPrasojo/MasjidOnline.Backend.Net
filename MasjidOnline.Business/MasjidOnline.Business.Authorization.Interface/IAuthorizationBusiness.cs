@@ -1,4 +1,3 @@
-
 namespace MasjidOnline.Business.Authorization.Interface;
 
 public interface IAuthorizationBusiness

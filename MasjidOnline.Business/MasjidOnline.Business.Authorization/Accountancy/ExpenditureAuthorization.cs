@@ -8,16 +8,16 @@ internal class ExpenditureAuthorization : AuthorizationBase, IExpenditureAuthori
 {
     public async Task AuthorizeAddAync(Session.Interface.Model.Session session, IData _data)
     {
-        await AuthorizePermissionAsync(session, _data, accountancyExpenditureAdd: true);
+        await AuthorizePermissionAllAsync(_data, session, accountancyExpenditureAdd: true);
     }
 
     public async Task AuthorizeApproveAync(Session.Interface.Model.Session session, IData _data)
     {
-        await AuthorizePermissionAsync(session, _data, accountancyExpenditureApprove: true);
+        await AuthorizePermissionAllAsync(_data, session, accountancyExpenditureApprove: true);
     }
 
     public async Task AuthorizeCancelAync(Session.Interface.Model.Session session, IData _data)
     {
-        await AuthorizePermissionAsync(session, _data, accountancyExpenditureCancel: true);
+        await AuthorizePermissionAllAsync(_data, session, accountancyExpenditureCancel: true);
     }
 }

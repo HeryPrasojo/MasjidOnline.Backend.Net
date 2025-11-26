@@ -8,16 +8,21 @@ internal class InternalAuthorization : AuthorizationBase, IInternalAuthorization
 {
     public async Task AuthorizeAddAync(Session.Interface.Model.Session session, IData _data)
     {
-        await AuthorizePermissionAsync(session, _data, userInternalAdd: true);
+        await AuthorizePermissionAllAsync(_data, session, userInternalAdd: true);
     }
 
     public async Task AuthorizeApproveAync(Session.Interface.Model.Session session, IData _data)
     {
-        await AuthorizePermissionAsync(session, _data, userInternalApprove: true);
+        await AuthorizePermissionAllAsync(_data, session, userInternalApprove: true);
     }
 
     public async Task AuthorizeCancelAync(Session.Interface.Model.Session session, IData _data)
     {
-        await AuthorizePermissionAsync(session, _data, userInternalCancel: true);
+        await AuthorizePermissionAllAsync(_data, session, userInternalCancel: true);
+    }
+
+    public async Task AuthorizeReadAync(Session.Interface.Model.Session session, IData _data)
+    {
+        await AuthorizePermissionAnyAsync(_data, session, userInternalAdd: true, userInternalApprove: true, userInternalCancel: true);
     }
 }
