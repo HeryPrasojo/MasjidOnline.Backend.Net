@@ -256,9 +256,9 @@ public class FieldValidatorService : IFieldValidatorService
         if (value == default) throw new InputInvalidException(valueExpression);
 
 
-        var length = value.Length;
+        if (value.Length < 8) throw new InputInvalidException(valueExpression);
 
-        if (length < 8) throw new InputInvalidException(valueExpression);
+        if (value.Length > 64) throw new InputInvalidException(valueExpression);
 
 
         var isDigitExists = false;

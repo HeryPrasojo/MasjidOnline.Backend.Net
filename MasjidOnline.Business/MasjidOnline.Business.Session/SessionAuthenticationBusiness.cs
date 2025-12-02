@@ -12,12 +12,11 @@ namespace MasjidOnline.Business.Session;
 
 public class SessionAuthenticationBusiness(IService _service) : ISessionAuthenticationBusiness
 {
-    // todo move culture to /session/culture/set
     public async Task AuthenticateAsync(
         Interface.Model.Session session,
         IData _data,
         string? codeBase64,
-        string? cultureName,
+        string? cultureName, // hack move to user preference business
         [CallerArgumentExpression(nameof(codeBase64))] string? codeBase64Expression = default)
     {
         if (codeBase64 == default) return;
