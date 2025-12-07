@@ -1,6 +1,6 @@
-namespace MasjidOnline.Business.User.Interface.Model.User;
+namespace MasjidOnline.Business.Authorization.Interface.Model;
 
-public class LoginResponsePermission
+public class UserInternalPermission
 {
     public required bool AccountancyExpenditureAdd { get; set; }
     public required bool AccountancyExpenditureApprove { get; set; }

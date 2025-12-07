@@ -62,12 +62,14 @@ public class SetPasswordBusiness(
 
             await _data.Audit.UserLog.AddSetFirstPasswordAsync(_data.IdGenerator.Audit.UserLogId, utcNow, userId.Value, firstPasswordUser);
         }
-        else
+        else if (userStatus == UserStatus.Active)
         {
             var passwordUser = _data.User.User.SetPassword(userId.Value, passwordBytes);
 
             await _data.Audit.UserLog.AddSetPasswordAsync(_data.IdGenerator.Audit.UserLogId, utcNow, userId.Value, passwordUser);
         }
+
+        else throw new DataMismatchException(nameof(userStatus));
 
 
         _data.User.PasswordCode.SetUseDateTime(codeBytes, utcNow);

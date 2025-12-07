@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface;
+using MasjidOnline.Business.Authorization.Interface.Model;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.User.Interface.Model.User;
 using MasjidOnline.Business.User.Interface.User;
@@ -85,13 +86,13 @@ public class LoginEmailBusiness(IAuthorizationBusiness _authorizationBusiness, I
         await _data.Transaction.CommitAsync();
 
 
-        LoginResponsePermission? loginResponsePermission = default;
+        UserInternalPermission? userInternalPermissionResponse = default;
 
         var userInternalPermission = await _data.Authorization.UserInternalPermission.FirstOrDefaultAsync(session.UserId);
 
         if (userInternalPermission != default)
         {
-            loginResponsePermission = new()
+            userInternalPermissionResponse = new()
             {
                 AccountancyExpenditureAdd = userInternalPermission.AccountancyExpenditureAdd,
                 AccountancyExpenditureApprove = userInternalPermission.AccountancyExpenditureApprove,
@@ -120,7 +121,8 @@ public class LoginEmailBusiness(IAuthorizationBusiness _authorizationBusiness, I
             ResultCode = ResponseResultCode.Success,
             Data = new LoginResponse
             {
-                Permission = loginResponsePermission,
+                Permission = userInternalPermissionResponse,
+                UserType = Mapper.Mapper.User.UserType[user.Type],
             },
         };
     }

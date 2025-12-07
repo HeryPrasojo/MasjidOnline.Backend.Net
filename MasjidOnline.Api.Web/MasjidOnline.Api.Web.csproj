@@ -7,21 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MasjidOnline.Business\MasjidOnline.Business.Authorization\MasjidOnline.Business.Authorization.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Business\MasjidOnline.Business.Infaq\MasjidOnline.Business.Infaq.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Business\MasjidOnline.Business.Session\MasjidOnline.Business.Session.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Business\MasjidOnline.Business.User.Interface\MasjidOnline.Business.User.Interface.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Business\MasjidOnline.Business.User\MasjidOnline.Business.User.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business\MasjidOnline.Business\MasjidOnline.Business.csproj" />
     <ProjectReference Include="..\MasjidOnline.Data\MasjidOnline.Data.EntityFramework.SqLite\MasjidOnline.Data.EntityFramework.SqLite.csproj" />
     <ProjectReference Include="..\MasjidOnline.Data\MasjidOnline.Data\MasjidOnline.Data.csproj" />
     <ProjectReference Include="..\MasjidOnline.Library\MasjidOnline.Library.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Service\MasjidOnline.Service.Captcha.ReCaptcha\MasjidOnline.Service.Captcha.ReCaptcha.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Service\MasjidOnline.Service.Cryptography\MasjidOnline.Service.Cryptography.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Service\MasjidOnline.Service.FieldValidator\MasjidOnline.Service.FieldValidator.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Service\MasjidOnline.Service.Hash\MasjidOnline.Service.Hash.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Service\MasjidOnline.Service.Mail.Interface\MasjidOnline.Service.Mail.Interface.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Service\MasjidOnline.Service.Mail.MailKit\MasjidOnline.Service.Mail.MailKit.csproj" />
     <ProjectReference Include="..\MasjidOnline.Service\MasjidOnline.Service\MasjidOnline.Service.csproj" />
   </ItemGroup>
 

@@ -48,6 +48,7 @@ public class UserRepository(DbContext _dbContext) : IUserRepository
             .Select(e => new ForLogin
             {
                 Password = e.Password,
+                Type = e.Type,
             })
             .FirstOrDefaultAsync();
     }
