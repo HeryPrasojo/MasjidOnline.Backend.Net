@@ -81,13 +81,14 @@ internal static class InfaqEndpoint
             [FromForm] DateTime? manualDateTime,
             [FromForm] string? manualNotes,
             [FromForm] string? munfiqName,
-            [FromForm] PaymentType? paymentType)
+            [FromForm] PaymentType? paymentType,
+            [FromForm] IFormFileCollection? files)
         {
             var addByAnonymRequest = new Business.Infaq.Interface.Model.Infaq.AddByAnonymRequest
             {
                 Amount = amount,
                 CaptchaToken = captchaToken,
-                Files = _httpContext.Request.Form.Files.Select(f => f.OpenReadStream()),
+                Files = files?.Select(f => f.OpenReadStream()),
                 ManualDateTime = manualDateTime,
                 ManualNotes = manualNotes,
                 MunfiqName = munfiqName,

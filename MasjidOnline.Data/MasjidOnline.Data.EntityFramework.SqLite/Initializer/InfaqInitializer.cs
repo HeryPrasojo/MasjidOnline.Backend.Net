@@ -89,7 +89,7 @@ public class InfaqInitializer(
             (
                 InfaqId INTEGER PRIMARY KEY,
                 DateTime TEXT NOT NULL,
-                Notes TEXT NOT NULL COLLATE NOCASE
+                Notes TEXT COLLATE NOCASE
             )";
 
         await _infaqDataContext.Database.ExecuteSqlAsync(sql);

@@ -10,7 +10,7 @@ namespace MasjidOnline.Business.Payment.Manual;
 
 public class GetRecommendationNoteBusiness(IService _service) : IGetRecommendationNoteBusiness
 {
-    private const string _notesFormat = "MO Infaq 0";
+    private const string _notesFormat = "0";
 
     public async Task<Response<string>> GetAsync(
         IData _data,
@@ -32,7 +32,7 @@ public class GetRecommendationNoteBusiness(IService _service) : IGetRecommendati
 
 
 
-        var isCaptchaVerified = await _service.Captcha.VerifyAsync(getRecommendationNoteRequest.CaptchaToken, "setPassword");
+        var isCaptchaVerified = await _service.Captcha.VerifyAsync(getRecommendationNoteRequest.CaptchaToken, "recommendationNote");
 
         if (!isCaptchaVerified) throw new InputMismatchException(nameof(getRecommendationNoteRequest.CaptchaToken));
 
