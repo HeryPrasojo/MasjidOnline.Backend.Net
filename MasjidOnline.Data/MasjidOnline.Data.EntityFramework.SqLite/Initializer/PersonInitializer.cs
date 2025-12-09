@@ -10,6 +10,19 @@ public class PersonInitializer(
     PersonDataContext _personDataContext,
     IPersonDefinition _personDefinition) : MasjidOnline.Data.Initializer.PersonInitializer(_personDefinition)
 {
+    protected override async Task CreateTablePersonAsync()
+    {
+        FormattableString sql = @$"
+            CREATE TABLE Person
+            (
+                Id INTEGER PRIMARY KEY,
+                UserId INTEGER,
+                Name TEXT NOT NULL COLLATE NOCASE
+            )";
+
+        await _personDataContext.Database.ExecuteSqlAsync(sql);
+    }
+
     protected override async Task CreateTablePersonSettingAsync()
     {
         FormattableString sql = @$"

@@ -15,6 +15,8 @@ public abstract class PersonInitializer(IPersonDefinition _personDefinition)
         {
             await CreateTablePersonSettingAsync();
 
+            await CreateTablePersonAsync();
+
 
             var personSetting = new PersonSetting
             {
@@ -29,4 +31,6 @@ public abstract class PersonInitializer(IPersonDefinition _personDefinition)
 
 
     protected abstract Task CreateTablePersonSettingAsync();
+
+    protected abstract Task CreateTablePersonAsync();
 }

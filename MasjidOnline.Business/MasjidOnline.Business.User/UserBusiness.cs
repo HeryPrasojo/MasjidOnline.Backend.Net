@@ -53,19 +53,6 @@ public class UserBusiness(
         await _data.User.User.AddAsync(user);
 
 
-        var internalUser = new InternalUser
-        {
-            DateTime = utcNow,
-            EmailAddress = option.RootUserEmailAddress,
-            Id = _data.IdGenerator.User.InternalId,
-            Status = InternalUserStatus.Approve,
-            UpdateDateTime = utcNow,
-            UpdateUserId = Constant.UserId.System,
-            UserId = Constant.UserId.Root,
-        };
-
-        await _data.User.InternalUser.AddAsync(internalUser);
-
 
         user = new Entity.User.User
         {
@@ -100,6 +87,20 @@ public class UserBusiness(
         await _data.User.PasswordCode.AddAsync(passwordCode);
 
 
+        var internalUser = new InternalUser
+        {
+            DateTime = utcNow,
+            EmailAddress = option.RootUserEmailAddress,
+            Id = _data.IdGenerator.User.InternalId,
+            Status = InternalUserStatus.Approve,
+            UpdateDateTime = utcNow,
+            UpdateUserId = Constant.UserId.System,
+            UserId = Constant.UserId.Root,
+        };
+
+        await _data.User.InternalUser.AddAsync(internalUser);
+
+
         var userInternalPermission = new UserInternalPermission
         {
             UserId = user.Id,
@@ -124,6 +125,9 @@ public class UserBusiness(
         await _data.Authorization.UserInternalPermission.AddAsync(userInternalPermission);
 
         await _data.Audit.UserInternalPermissionLog.AddAddAsync(_data.IdGenerator.Audit.PermissionLogId, utcNow, Constant.UserId.System, userInternalPermission);
+
+
+        _data.Person.Person.AddAsync;
 
 
         await _data.Transaction.CommitAsync();

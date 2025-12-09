@@ -48,7 +48,7 @@ public class AddBusiness(
 
         // todo wait approver notification
 
-        // todo wait undone person
+        // todo wait undone person, from existing user
 
         return new()
         {

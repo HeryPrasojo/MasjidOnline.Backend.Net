@@ -9,6 +9,7 @@ public class PersonDataContext(DbContextOptions _dbContextOptions) : DbContext(_
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<Person>();
         modelBuilder.Entity<PersonSetting>();
     }
 }
