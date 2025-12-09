@@ -52,6 +52,13 @@ public class ConnectionHub(IBusiness _business) : Hub
     }
 
 
+    public async Task<Response> UserInternalAdd(
+        IData _data,
+        Business.User.Interface.Model.Internal.AddRequest? addRequest)
+    {
+        return await _business.User.Internal.Add.AddAsync(Session, _data, addRequest);
+    }
+
     public async Task<Response<GetManyResponse<Business.User.Interface.Model.Internal.GetManyResponseRecord>>> UserInternalList(
         IData _data,
         Business.User.Interface.Model.Internal.GetManyRequest? getManyRequest)
@@ -59,8 +66,7 @@ public class ConnectionHub(IBusiness _business) : Hub
         return await _business.User.Internal.GetMany.GetAsync(Session, _data, getManyRequest);
     }
 
-    public async Task UserUserLogout(
-        IData _data)
+    public async Task UserUserLogout(IData _data)
     {
         await _business.User.User.Logout.LogoutAsync(Session, _data);
 

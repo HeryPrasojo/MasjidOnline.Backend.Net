@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 
 var webApplication = BuildApplication(args);
@@ -65,6 +66,9 @@ static WebApplication BuildApplication(string[] args)
     webApplicationBuilder.Services.AddSignalR(
             hubOptions =>
         {
+            hubOptions.EnableDetailedErrors = webApplicationBuilder.Environment.IsDevelopment();
+            hubOptions.KeepAliveInterval = TimeSpan.FromSeconds(32);
+
             hubOptions.AddFilter<HubFilter>();
         })
         .AddJsonProtocol(jsonHubProtocolOptions => SetJsonOptions(jsonHubProtocolOptions.PayloadSerializerOptions));

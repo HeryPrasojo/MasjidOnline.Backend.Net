@@ -13,15 +13,6 @@ internal static class UserEndpoint
 {
     internal static class Internal
     {
-        internal static async Task<Response> AddAsync(
-            IBusiness _business,
-            Session session,
-            IData _data,
-            [FromBody] Business.User.Interface.Model.Internal.AddRequest? addRequest)
-        {
-            return await _business.User.Internal.Add.AddAsync(session, _data, addRequest);
-        }
-
         internal static async Task<Response> ApproveAsync(
             IBusiness _business,
             Session session,

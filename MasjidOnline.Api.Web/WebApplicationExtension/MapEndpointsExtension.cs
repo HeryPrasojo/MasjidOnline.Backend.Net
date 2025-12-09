@@ -91,7 +91,6 @@ internal static class MapEndpointsExtension
 
         var userInternalGroup = userGroup.MapGroup("internal/");
 
-        userInternalGroup.MapPost("add", UserEndpoint.Internal.AddAsync);
         userInternalGroup.MapPost("approve", UserEndpoint.Internal.ApproveAsync);
         userInternalGroup.MapPost("cancel", UserEndpoint.Internal.CancelAsync);
         userInternalGroup.MapPost("getOne", UserEndpoint.Internal.GetOneAsync);
