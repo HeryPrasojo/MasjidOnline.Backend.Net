@@ -46,7 +46,6 @@ public class GetManyBusiness(IAuthorizationBusiness _authorizationBusiness, ISer
                 Records = getManyResult.Records.Select(e => new GetManyResponseRecord
                 {
                     DateTime = e.DateTime,
-                    EmailAddress = e.EmailAddress,
                     Id = e.Id,
                     Status = Mapper.Mapper.User.InternalUserStatus[e.Status],
                     UpdateDateTime = e.UpdateDateTime,

@@ -10,9 +10,9 @@ public interface IInternalUserRepository
 {
     Task AddAndSaveAsync(InternalUser internalUser);
     Task AddAsync(InternalUser internalUser);
-    Task<bool> AnyAsync(string emailAddress, InternalUserStatus status);
-    Task<ForApprove?> GetForApproveAsync(int id);
-    Task<ManyResult<ManyRecord>> GetManyAsync(InternalUserStatus? status = default, ManyOrderBy getManyOrderBy = ManyOrderBy.None, OrderByDirection orderByDirection = OrderByDirection.Default, int skip = 0, int take = 1);
+    //Task<bool> AnyAsync(string emailAddress, InternalUserStatus status);
+    //Task<ForApprove?> GetForApproveAsync(int id);
+    Task<ManyResult<ManyRecord>> GetManyAsync(InternalUserStatus? status = default, ManyOrderBy getManyOrderBy = ManyOrderBy.None, OrderByDirection orderByDirection = default, int skip = 0, int take = 1);
     Task<int> GetMaxIdAsync();
     Task<One?> GetOneAsync(int id);
     Task<InternalUserStatus> GetStatusAsync(int id);

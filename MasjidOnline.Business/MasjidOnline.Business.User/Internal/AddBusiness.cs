@@ -1,11 +1,9 @@
-using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.User.Internal;
@@ -25,26 +23,26 @@ public class AddBusiness(
         addRequest.Name = _service.FieldValidator.ValidateRequiredTextDb255(addRequest.Name);
 
 
-        var any = await _data.User.InternalUser.AnyAsync(addRequest.EmailAddress, Entity.User.InternalUserStatus.New);
+        //var any = await _data.User.InternalUser.AnyAsync(addRequest.EmailAddress, Entity.User.InternalUserStatus.New);
 
-        if (any) throw new InputMismatchException($"New {addRequest.EmailAddress} exists");
-
-
-        any = await _data.User.UserEmailAddress.AnyAsync(addRequest.EmailAddress);
-
-        if (any) throw new InputMismatchException($"{addRequest.EmailAddress} exists");
+        //if (any) throw new InputMismatchException($"New {addRequest.EmailAddress} exists");
 
 
-        var internalUser = new Entity.User.InternalUser
-        {
-            DateTime = DateTime.UtcNow,
-            EmailAddress = addRequest.EmailAddress,
-            Id = _data.IdGenerator.User.InternalId,
-            Status = Entity.User.InternalUserStatus.New,
-            UserId = session.UserId,
-        };
+        //any = await _data.User.UserEmailAddress.AnyAsync(addRequest.EmailAddress);
 
-        await _data.User.InternalUser.AddAndSaveAsync(internalUser);
+        //if (any) throw new InputMismatchException($"{addRequest.EmailAddress} exists");
+
+
+        //var internalUser = new Entity.User.InternalUser
+        //{
+        //    DateTime = DateTime.UtcNow,
+        //    EmailAddress = addRequest.EmailAddress,
+        //    Id = _data.IdGenerator.User.InternalId,
+        //    Status = Entity.User.InternalUserStatus.New,
+        //    UserId = ,
+        //};
+
+        //await _data.User.InternalUser.AddAndSaveAsync(internalUser);
 
         // todo wait approver notification
 

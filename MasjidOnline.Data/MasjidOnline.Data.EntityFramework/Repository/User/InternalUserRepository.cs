@@ -25,21 +25,21 @@ public class InternalUserRepository(DbContext _dbContext) : IInternalUserReposit
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<bool> AnyAsync(string emailAddress, InternalUserStatus status)
-    {
-        return await _dbSet.AnyAsync(e => (e.EmailAddress == emailAddress) && (e.Status == status));
-    }
+    //public async Task<bool> AnyAsync(string emailAddress, InternalUserStatus status)
+    //{
+    //    return await _dbSet.AnyAsync(e => (e.EmailAddress == emailAddress) && (e.Status == status));
+    //}
 
-    public async Task<ForApprove?> GetForApproveAsync(int id)
-    {
-        return await _dbSet.Where(e => e.Id == id)
-            .Select(e => new ForApprove
-            {
-                EmailAddress = e.EmailAddress,
-                Status = e.Status,
-            })
-            .FirstOrDefaultAsync();
-    }
+    //public async Task<ForApprove?> GetForApproveAsync(int id)
+    //{
+    //    return await _dbSet.Where(e => e.Id == id)
+    //        .Select(e => new ForApprove
+    //        {
+    //            EmailAddress = e.EmailAddress,
+    //            Status = e.Status,
+    //        })
+    //        .FirstOrDefaultAsync();
+    //}
 
     public async Task<int> GetMaxIdAsync()
     {
@@ -77,8 +77,9 @@ public class InternalUserRepository(DbContext _dbContext) : IInternalUserReposit
                 .Take(take)
                 .Select(e => new ManyRecord
                 {
+                    AddUserId = e.AddUserId,
                     DateTime = e.DateTime,
-                    EmailAddress = e.EmailAddress,
+                    Description = e.Description,
                     Id = e.Id,
                     Status = e.Status,
                     UpdateDateTime = e.UpdateDateTime,
@@ -95,8 +96,9 @@ public class InternalUserRepository(DbContext _dbContext) : IInternalUserReposit
         return await _dbSet.Where(e => e.Id == id)
             .Select(e => new One
             {
+                AddUserId = e.AddUserId,
                 DateTime = e.DateTime,
-                EmailAddress = e.EmailAddress,
+                Description = e.Description,
                 Status = e.Status,
                 UpdateDateTime = e.UpdateDateTime,
                 UpdateUserId = e.UpdateUserId,

@@ -17,10 +17,10 @@ public class UserInitializer(
             (
                 Id INTEGER PRIMARY KEY,
                 DateTime TEXT NOT NULL,
-                EmailAddress TEXT NOT NULL COLLATE NOCASE,
                 UserId INTEGER NOT NULL,
                 Status INTEGER NOT NULL,
                 Description TEXT COLLATE NOCASE,
+                AddUserId INTEGER NOT NULL,
                 UpdateDateTime TEXT,
                 UpdateUserId INTEGER
             )";

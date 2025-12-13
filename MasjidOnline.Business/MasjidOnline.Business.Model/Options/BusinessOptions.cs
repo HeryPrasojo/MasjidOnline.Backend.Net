@@ -8,5 +8,8 @@ public class BusinessOptions
 
     public required string RootUserEmailAddress { get; set; }
 
+    public required string RootPersonName { get; set; }
+
     public required UriOptions Uri { get; set; }
+
 }

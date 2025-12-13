@@ -5,13 +5,15 @@ namespace MasjidOnline.Data.Interface.ViewModel.User.Internal;
 
 public class One
 {
-    public required string EmailAddress { get; set; }
-
     public required DateTime DateTime { get; set; }
 
     public required int UserId { get; set; }
 
     public InternalUserStatus Status { get; set; }
+
+    public required string? Description { get; set; }
+
+    public required int AddUserId { get; set; }
 
     public required DateTime? UpdateDateTime { get; set; }
 

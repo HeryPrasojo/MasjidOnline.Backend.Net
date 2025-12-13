@@ -8,13 +8,13 @@ public class InternalUser
 
     public DateTime DateTime { get; set; }
 
-    public string EmailAddress { get; set; } = default!;
-
     public int UserId { get; set; }
 
     public required InternalUserStatus Status { get; set; }
 
-    public string? Description { get; set; }
+    public required string? Description { get; set; }
+
+    public int AddUserId { get; set; }
 
     public DateTime? UpdateDateTime { get; set; }
 

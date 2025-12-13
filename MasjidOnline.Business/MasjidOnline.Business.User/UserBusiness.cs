@@ -7,6 +7,7 @@ using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.User.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.Authorization;
+using MasjidOnline.Entity.Person;
 using MasjidOnline.Entity.User;
 using MasjidOnline.Library.Extensions;
 using MasjidOnline.Service.Interface;
@@ -33,13 +34,13 @@ public class UserBusiness(
         if (any) return;
 
 
-        await _data.Transaction.BeginAsync(_data.User, _data.Authorization, _data.Audit);
+        await _data.Transaction.BeginAsync(_data.User, _data.Audit, _data.Authorization, _data.Person);
 
 
-        var option = _optionsMonitor.CurrentValue;
+        var options = _optionsMonitor.CurrentValue;
 
-        if (option.RootUserEmailAddress.IsNullOrEmptyOrWhiteSpace())
-            throw new ApplicationException($"{nameof(option.RootUserEmailAddress)}");
+        if (options.RootUserEmailAddress.IsNullOrEmptyOrWhiteSpace())
+            throw new ApplicationException($"{nameof(options.RootUserEmailAddress)}");
 
         var utcNow = DateTime.UtcNow;
 
@@ -68,7 +69,7 @@ public class UserBusiness(
 
         var userEmailAddress = new UserEmailAddress
         {
-            EmailAddress = option.RootUserEmailAddress,
+            EmailAddress = options.RootUserEmailAddress,
             UserId = user.Id,
         };
 
@@ -87,15 +88,26 @@ public class UserBusiness(
         await _data.User.PasswordCode.AddAsync(passwordCode);
 
 
+        var person = new Person
+        {
+            Id = _data.IdGenerator.Person.PersonId,
+            Name = options.RootPersonName,
+            UserId = user.Id,
+        };
+
+        await _data.Person.Person.AddAsync(person);
+
+
         var internalUser = new InternalUser
         {
+            AddUserId = Constant.UserId.System,
             DateTime = utcNow,
-            EmailAddress = option.RootUserEmailAddress,
+            Description = "Initial",
             Id = _data.IdGenerator.User.InternalId,
             Status = InternalUserStatus.Approve,
             UpdateDateTime = utcNow,
             UpdateUserId = Constant.UserId.System,
-            UserId = Constant.UserId.Root,
+            UserId = user.Id,
         };
 
         await _data.User.InternalUser.AddAsync(internalUser);
@@ -126,14 +138,10 @@ public class UserBusiness(
 
         await _data.Audit.UserInternalPermissionLog.AddAddAsync(_data.IdGenerator.Audit.PermissionLogId, utcNow, Constant.UserId.System, userInternalPermission);
 
-
-        _data.Person.Person.AddAsync;
-
-
         await _data.Transaction.CommitAsync();
 
 
-        var uri = option.Uri.UserPassword + HttpUtility.UrlEncode(Convert.ToBase64String(passwordCode.Code.AsSpan()));
+        var uri = options.Uri.UserPassword + HttpUtility.UrlEncode(Convert.ToBase64String(passwordCode.Code.AsSpan()));
 
         var mailMessage = new MailMessage
         {
