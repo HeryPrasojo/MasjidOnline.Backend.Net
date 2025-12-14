@@ -40,36 +40,32 @@ public class SetPasswordBusiness(
         }
 
 
-        var code = await _data.User.PasswordCode.GetLatestCodeForSetPasswordAsync(userId.Value);
-
-        if (code == default) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
-
-        if (!code.SequenceEqual(codeBytes)) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
-
-
-
         var utcNow = DateTime.UtcNow;
 
+        var passwordCode = await _data.User.PasswordCode.GetForSetPasswordAsync(userId.Value);
+
+        if (passwordCode == default) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+
+        if (!passwordCode.Code.SequenceEqual(codeBytes)) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+
+        if (passwordCode.UseDateTime.HasValue) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+
+        if (passwordCode.DateTime < utcNow.AddMinutes(-8)) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+
+
+
         var userStatus = await _data.User.User.GetStatusAsync(userId.Value);
+
+        if (userStatus != UserStatus.Active) throw new DataMismatchException(nameof(userStatus));
+
 
         await _data.Transaction.BeginAsync(_data.User, _data.Audit, _data.Session);
 
         var passwordBytes = _service.Hash512.Hash(setPasswordRequest.Password);
 
-        if (userStatus == UserStatus.New)
-        {
-            var firstPasswordUser = _data.User.User.SetFirstPassword(userId.Value, passwordBytes);
+        var passwordUser = _data.User.User.SetPassword(userId.Value, passwordBytes);
 
-            await _data.Audit.UserLog.AddSetFirstPasswordAsync(_data.IdGenerator.Audit.UserLogId, utcNow, userId.Value, firstPasswordUser);
-        }
-        else if (userStatus == UserStatus.Active)
-        {
-            var passwordUser = _data.User.User.SetPassword(userId.Value, passwordBytes);
-
-            await _data.Audit.UserLog.AddSetPasswordAsync(_data.IdGenerator.Audit.UserLogId, utcNow, userId.Value, passwordUser);
-        }
-
-        else throw new DataMismatchException(nameof(userStatus));
+        await _data.Audit.UserLog.AddSetPasswordAsync(_data.IdGenerator.Audit.UserLogId, utcNow, userId.Value, passwordUser);
 
 
         _data.User.PasswordCode.SetUseDateTime(codeBytes, utcNow);

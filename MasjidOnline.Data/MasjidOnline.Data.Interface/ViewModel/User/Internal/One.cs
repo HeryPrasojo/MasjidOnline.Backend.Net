@@ -9,7 +9,7 @@ public class One
 
     public required int UserId { get; set; }
 
-    public InternalUserStatus Status { get; set; }
+    public required InternalUserStatus Status { get; set; }
 
     public required string? Description { get; set; }
 

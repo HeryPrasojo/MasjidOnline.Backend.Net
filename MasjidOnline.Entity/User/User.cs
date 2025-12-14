@@ -8,5 +8,5 @@ public class User
 
     public UserType Type { get; set; }
 
-    public byte[]? Password { get; set; }
+    public required byte[] Password { get; set; }
 }

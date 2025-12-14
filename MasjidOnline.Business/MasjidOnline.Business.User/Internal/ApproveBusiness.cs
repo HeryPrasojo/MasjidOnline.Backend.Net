@@ -6,8 +6,6 @@ using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Entity.Authorization;
-using MasjidOnline.Entity.User;
 using MasjidOnline.Service.Interface;
 using Microsoft.Extensions.Options;
 
@@ -45,14 +43,14 @@ public class ApproveBusiness(
             session.UserId);
 
 
-        var user = new Entity.User.User
-        {
-            Id = _data.IdGenerator.User.UserId,
-            Status = UserStatus.New,
-            Type = UserType.Internal,
-        };
+        //var user = new Entity.User.User
+        //{
+        //    Id = _data.IdGenerator.User.UserId,
+        //    Status = UserStatus.New,
+        //    Type = UserType.Internal,
+        //};
 
-        await _data.User.User.AddAsync(user);
+        //await _data.User.User.AddAsync(user);
 
 
         //var userEmailAddress = new UserEmailAddress
@@ -66,45 +64,45 @@ public class ApproveBusiness(
         //await _data.Audit.UserEmailAddressLog.AddAddAsync(_data.IdGenerator.Audit.UserEmailAddressLogId, utcNow, session.UserId, userEmailAddress);
 
 
-        var userInternalPermission = new UserInternalPermission
-        {
-            UserId = user.Id,
+        //var userInternalPermission = new UserInternalPermission
+        //{
+        //    UserId = user.Id,
 
-            AccountancyExpenditureAdd = false,
-            AccountancyExpenditureApprove = false,
-            AccountancyExpenditureCancel = false,
-            InfaqExpireAdd = false,
-            InfaqExpireApprove = false,
-            InfaqExpireCancel = false,
-            InfaqSuccessAdd = false,
-            InfaqSuccessApprove = false,
-            InfaqSuccessCancel = false,
-            InfaqVoidAdd = false,
-            InfaqVoidApprove = false,
-            InfaqVoidCancel = false,
-            UserInternalAdd = false,
-            UserInternalApprove = false,
-            UserInternalCancel = false,
-        };
+        //    AccountancyExpenditureAdd = false,
+        //    AccountancyExpenditureApprove = false,
+        //    AccountancyExpenditureCancel = false,
+        //    InfaqExpireAdd = false,
+        //    InfaqExpireApprove = false,
+        //    InfaqExpireCancel = false,
+        //    InfaqSuccessAdd = false,
+        //    InfaqSuccessApprove = false,
+        //    InfaqSuccessCancel = false,
+        //    InfaqVoidAdd = false,
+        //    InfaqVoidApprove = false,
+        //    InfaqVoidCancel = false,
+        //    UserInternalAdd = false,
+        //    UserInternalApprove = false,
+        //    UserInternalCancel = false,
+        //};
 
-        await _data.Authorization.UserInternalPermission.AddAsync(userInternalPermission);
+        //await _data.Authorization.UserInternalPermission.AddAsync(userInternalPermission);
 
-        await _data.Audit.UserInternalPermissionLog.AddAddAsync(_data.IdGenerator.Audit.PermissionLogId, utcNow, session.UserId, userInternalPermission);
+        //await _data.Audit.UserInternalPermissionLog.AddAddAsync(_data.IdGenerator.Audit.PermissionLogId, utcNow, session.UserId, userInternalPermission);
 
 
-        var passwordCode = new PasswordCode
-        {
-            Code = _service.Hash512.RandomByteArray,
-            DateTime = DateTime.UtcNow,
-            UserId = user.Id,
-        };
+        //var passwordCode = new PasswordCode
+        //{
+        //    Code = _service.Hash512.RandomByteArray,
+        //    DateTime = DateTime.UtcNow,
+        //    UserId = user.Id,
+        //};
 
-        await _data.User.PasswordCode.AddAsync(passwordCode);
+        //await _data.User.PasswordCode.AddAsync(passwordCode);
 
         await _data.Transaction.CommitAsync();
 
 
-        var uri = _optionsMonitor.CurrentValue.Uri.UserPassword + Convert.ToHexString(passwordCode.Code.AsSpan());
+        //var uri = _optionsMonitor.CurrentValue.Uri.UserPassword + Convert.ToHexString(passwordCode.Code.AsSpan());
 
         //var mailMessage = new MailMessage
         //{

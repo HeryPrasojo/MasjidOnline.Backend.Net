@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Repository.User;
+using MasjidOnline.Data.Interface.ViewModel.User.PasswordCode;
 using MasjidOnline.Entity.User;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,11 +17,16 @@ public class PasswordCodeRepository(DbContext _dbContext) : IPasswordCodeReposit
         await _dbSet.AddAsync(passwordCode);
     }
 
-    public async Task<byte[]?> GetLatestCodeForSetPasswordAsync(int userId)
+    public async Task<ForSetPassword?> GetForSetPasswordAsync(int userId)
     {
-        return await _dbSet.Where(e => (e.UserId == userId) && (e.UseDateTime == default))
+        return await _dbSet.Where(e => e.UserId == userId)
             .OrderByDescending(e => e.DateTime)
-            .Select(e => e.Code)
+            .Select(e => new ForSetPassword
+            {
+                Code = e.Code,
+                DateTime = e.DateTime,
+                UseDateTime = e.UseDateTime,
+            })
             .FirstOrDefaultAsync();
     }
 

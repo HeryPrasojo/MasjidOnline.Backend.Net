@@ -28,30 +28,13 @@ public class UserLogRepository(DbContext _dbContext) : IUserLogRepository
         await _dbSet.AddAsync(userLog);
     }
 
-    public async Task AddSetFirstPasswordAsync(int id, DateTime dateTime, int logUserId, Entity.User.User user)
-    {
-        var userLog = new UserLog
-        {
-            Id = id,
-            LogDateTime = dateTime,
-            LogType = UserLogType.SetFirstPassword,
-            LogUserId = logUserId,
-
-            Password = user.Password,
-            Status = user.Status,
-            UserId = user.Id,
-        };
-
-        await _dbSet.AddAsync(userLog);
-    }
-
     public async Task AddSetPasswordAsync(int id, DateTime dateTime, int logUserId, Entity.User.User user)
     {
         var userLog = new UserLog
         {
             Id = id,
             LogDateTime = dateTime,
-            LogType = UserLogType.SetFirstPassword,
+            LogType = UserLogType.SetPassword,
             LogUserId = logUserId,
 
             Password = user.Password,

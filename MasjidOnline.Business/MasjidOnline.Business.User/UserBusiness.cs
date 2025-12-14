@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using System.Web;
 using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Model;
 using MasjidOnline.Business.Model.Options;
@@ -47,6 +46,7 @@ public class UserBusiness(
         var user = new Entity.User.User
         {
             Id = Constant.UserId.System,
+            Password = _service.Hash512.RandomByteArray,
             Status = UserStatus.System,
             Type = UserType.System,
         };
@@ -58,7 +58,8 @@ public class UserBusiness(
         user = new Entity.User.User
         {
             Id = Constant.UserId.Root,
-            Status = UserStatus.New,
+            Password = _service.Hash512.RandomByteArray,
+            Status = UserStatus.Active,
             Type = UserType.Internal,
         };
 
@@ -141,14 +142,20 @@ public class UserBusiness(
         await _data.Transaction.CommitAsync();
 
 
-        var uri = options.Uri.UserPassword + HttpUtility.UrlEncode(Convert.ToBase64String(passwordCode.Code.AsSpan()));
+        var codeBase64 = Convert.ToBase64String(passwordCode.Code.AsSpan());
+
+        codeBase64 = codeBase64.Replace('+', '-')
+            .Replace('/', '_')
+            .TrimEnd('=');
+
+        var uri = options.Uri.WebOrigin + options.Uri.UserPassword + codeBase64;
 
         var mailMessage = new MailMessage
         {
             BodyHtml = $"<p>Please use the following link to set your password: <a href='{uri}'>{uri}</a></p>",
             BodyText = "Please use the following link to set your password: " + uri,
             Subject = "MasjidOnline User Account",
-            To = [new MailAddress("MasjidOnline Root User", userEmailAddress.EmailAddress)],
+            To = [new MailAddress(person.Name, userEmailAddress.EmailAddress)],
         };
 
         await _service.MailSender.SendMailAsync(mailMessage);

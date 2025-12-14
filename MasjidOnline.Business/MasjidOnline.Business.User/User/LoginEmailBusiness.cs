@@ -38,6 +38,7 @@ public class LoginEmailBusiness(IAuthorizationBusiness _authorizationBusiness, I
         if (userId == default) throw new InputMismatchException(nameof(loginRequest.EmailAddress) + " or " + nameof(loginRequest.Password));
 
 
+        // undone check status
         var user = await _data.User.User.GetForLoginAsync(userId.Value);
 
         if (user == default) throw new InputMismatchException(nameof(loginRequest.EmailAddress) + " or " + nameof(loginRequest.Password));

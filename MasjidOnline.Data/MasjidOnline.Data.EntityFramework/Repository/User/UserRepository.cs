@@ -54,23 +54,6 @@ public class UserRepository(DbContext _dbContext) : IUserRepository
     }
 
 
-    public Entity.User.User SetFirstPassword(int id, byte[] password)
-    {
-        var user = new Entity.User.User
-        {
-            Id = id,
-            Password = password,
-            Status = UserStatus.Active,
-        };
-
-        var entityEntry = _dbSet.Attach(user);
-
-        entityEntry.Property(e => e.Password).IsModified = true;
-        entityEntry.Property(e => e.Status).IsModified = true;
-
-        return user;
-    }
-
     public Entity.User.User SetPassword(int id, byte[] password)
     {
         var user = new Entity.User.User
