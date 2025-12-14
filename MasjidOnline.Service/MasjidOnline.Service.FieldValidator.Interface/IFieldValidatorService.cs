@@ -26,4 +26,5 @@ public interface IFieldValidatorService
     DateTime ValidateRequiredFuture(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
     DateTime ValidateOptionalFuture(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
     void ValidateRequired<TObject>(TObject value, Func<TObject, bool> predicate, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
+    byte[] ValidateRequiredBase64Url(string? value, int valueLength, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
 }

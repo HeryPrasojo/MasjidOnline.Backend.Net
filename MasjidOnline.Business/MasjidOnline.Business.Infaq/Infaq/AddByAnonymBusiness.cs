@@ -33,11 +33,6 @@ public class AddByAnonymBusiness(
         addByAnonymRequest.ManualNotes = _service.FieldValidator.ValidateOptionalTextDb255(addByAnonymRequest.ManualNotes);
 
 
-        var isCaptchaVerified = await _service.Captcha.VerifyAsync(addByAnonymRequest.CaptchaToken, "infaq");
-
-        if (!isCaptchaVerified) throw new InputMismatchException(nameof(addByAnonymRequest.CaptchaToken));
-
-
         var supportedPaymentTypes = new Payment.Interface.Model.PaymentType[]
         {
             Payment.Interface.Model.PaymentType.ManualBankTransfer,
@@ -55,6 +50,11 @@ public class AddByAnonymBusiness(
         {
             addByAnonymRequest.ManualDateTime = _service.FieldValidator.ValidateRequiredPast(addByAnonymRequest.ManualDateTime);
         }
+
+
+        var isCaptchaVerified = await _service.Captcha.VerifyAsync(addByAnonymRequest.CaptchaToken, "infaq");
+
+        if (!isCaptchaVerified) throw new InputMismatchException(nameof(addByAnonymRequest.CaptchaToken));
 
 
         await _data.Transaction.BeginAsync(_data.Infaq, _data.Payment);

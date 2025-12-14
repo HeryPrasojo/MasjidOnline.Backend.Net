@@ -18,7 +18,7 @@ public class SetPasswordBusiness(
     {
         setPasswordRequest = _service.FieldValidator.ValidateRequired(setPasswordRequest);
         setPasswordRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(setPasswordRequest.CaptchaToken);
-        var codeBytes = _service.FieldValidator.ValidateRequiredBase64(setPasswordRequest.PasswordCode, 88);
+        var codeBytes = _service.FieldValidator.ValidateRequiredBase64Url(setPasswordRequest.PasswordCode, 86);
         setPasswordRequest.Password = _service.FieldValidator.ValidateRequiredPassword(setPasswordRequest.Password);
         setPasswordRequest.Password2 = _service.FieldValidator.ValidateRequired(setPasswordRequest.Password2);
 
@@ -50,7 +50,7 @@ public class SetPasswordBusiness(
 
         if (passwordCode.UseDateTime.HasValue) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
 
-        if (passwordCode.DateTime < utcNow.AddMinutes(-8)) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+        //if (passwordCode.DateTime < utcNow.AddMinutes(-8)) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
 
 
 

@@ -133,6 +133,32 @@ public class FieldValidatorService : IFieldValidatorService
         }
     }
 
+    public byte[] ValidateRequiredBase64Url(string? value, int valueLength, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    {
+        if (value == default) throw new InputInvalidException(valueExpression);
+
+
+        value = value.Trim();
+
+        if (value.Length != valueLength) throw new InputInvalidException(valueExpression);
+
+
+        valueLength = valueLength + (4 - (valueLength % 4));
+
+        value = value.PadRight(valueLength, '=')
+            .Replace('_', '/')
+            .Replace('-', '+');
+
+        try
+        {
+            return Convert.FromBase64String(value);
+        }
+        catch (Exception exception)
+        {
+            throw new InputInvalidException(valueExpression, exception);
+        }
+    }
+
     public DateTime ValidateRequiredBirth(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
     {
         if (!value.HasValue) throw new InputInvalidException(valueExpression);

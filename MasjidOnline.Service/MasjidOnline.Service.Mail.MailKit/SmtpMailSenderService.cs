@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using MailKit.Net.Smtp;
 using MailKit.Security;
@@ -39,7 +40,7 @@ public class SmtpMailSenderService(bool isEnvirontmentDevelopment, IOptionsMonit
 
         if (isEnvirontmentDevelopment)
         {
-            mimeMessage.Subject = "Test " + string.Join(", ", mailMessage.To) + ' ' + mimeMessage.Subject;
+            mimeMessage.Subject = "Test " + string.Join(", ", mailMessage.To.Select(e => e.Address)) + ' ' + mimeMessage.Subject;
         }
 
         foreach (var to in mailMessage.To)
