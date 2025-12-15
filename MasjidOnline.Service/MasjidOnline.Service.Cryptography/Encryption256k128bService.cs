@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Service.Cryptography;
 
-public class Encryption128b256kService(IOptionsMonitor<CryptographyOptions> _options, IHash256Service _hash256Service) : IEncryption128b256kService
+public class Encryption256k128bService(IOptionsMonitor<CryptographyOptions> _options, IHash256Service _hash256Service) : IEncryption256k128bService
 {
     private readonly byte[] _key = _hash256Service.Hash(Convert.FromBase64String(_options.CurrentValue.Key256Base64));
 

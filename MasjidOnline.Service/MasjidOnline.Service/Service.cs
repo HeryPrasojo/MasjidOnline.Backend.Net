@@ -19,7 +19,8 @@ namespace MasjidOnline.Service;
 public class Service : IService
 {
     private readonly CaptchaService _captchaService;
-    private readonly Encryption128b256kService _encryption128b256kService;
+    private readonly CryptographyService _cryptographyService;
+    private readonly Encryption256k128bService _encryption256k128bService;
     private readonly FieldValidatorService _fieldValidatorService;
     private readonly FileService _fileService;
     private readonly Hash128Service _hash128Service;
@@ -40,6 +41,7 @@ public class Service : IService
 
         var isEnvironmentDevelopment = hostEnvironment.IsDevelopment();
 
+        _cryptographyService = new();
         _fieldValidatorService = new();
         _fileService = new();
         _hash128Service = new();
@@ -48,12 +50,13 @@ public class Service : IService
         _localizationService = new();
 
         _captchaService = new(!isEnvironmentDevelopment, httpClientFactory, googleOptions);
-        _encryption128b256kService = new(cryptographyOption, _hash256Service);
+        _encryption256k128bService = new(cryptographyOption, _hash256Service);
         _mailSenderService = new(isEnvironmentDevelopment, mailOption);
     }
 
     public Captcha.Interface.ICaptchaService Captcha => _captchaService;
-    public Cryptography.Interface.IEncryption128b256kService Encryption128b256kService => _encryption128b256kService;
+    public Cryptography.Interface.ICryptographyService Cryptography => _cryptographyService; // undone last
+    public Cryptography.Interface.IEncryption256k128bService Encryption256k128bService => _encryption256k128bService;
     public FieldValidator.Interface.IFieldValidatorService FieldValidator => _fieldValidatorService;
     public File.Interface.IFileService File => _fileService;
     public Hash.Interface.IHash128Service Hash128 => _hash128Service;

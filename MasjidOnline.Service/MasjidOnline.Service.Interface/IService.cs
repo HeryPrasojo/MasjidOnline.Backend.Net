@@ -12,7 +12,7 @@ namespace MasjidOnline.Service.Interface;
 public interface IService
 {
     ICaptchaService Captcha { get; }
-    IEncryption128b256kService Encryption128b256kService { get; }
+    IEncryption256k128bService Encryption256k128bService { get; }
     IFieldValidatorService FieldValidator { get; }
     IHash128Service Hash128 { get; }
     IHash512Service Hash512 { get; }

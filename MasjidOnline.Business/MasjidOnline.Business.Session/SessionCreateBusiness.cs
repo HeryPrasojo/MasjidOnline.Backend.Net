@@ -46,7 +46,7 @@ public class SessionCreateBusiness(IService _service) : ISessionCreateBusiness
         return new()
         {
             ResultCode = ResponseResultCode.Success,
-            Data = Convert.ToBase64String(_service.Encryption128b256kService.Encrypt(sessionEntity.Code.AsSpan())),
+            Data = Convert.ToBase64String(_service.Encryption256k128bService.Encrypt(sessionEntity.Code.AsSpan())),
         };
     }
 }
