@@ -52,6 +52,27 @@ public class UserInitializer(
         await _userDataContext.Database.ExecuteSqlAsync(sql);
     }
 
+    protected override async Task CreateTableRegisterAsync()
+    {
+        FormattableString sql = @$"
+            CREATE TABLE Register
+            (
+                Id INTEGER PRIMARY KEY,
+                DateTime TEXT NOT NULL,
+                With INTEGER NOT NULL,
+                WithId TEXT NOT NULL,
+                Code TEXT NOT NULL,
+                UseDateTime TEXT
+            )";
+
+        await _userDataContext.Database.ExecuteSqlAsync(sql);
+
+
+        sql = $@"CREATE INDEX PasswordCodeDateTime ON PasswordCode (DateTime)";
+
+        await _userDataContext.Database.ExecuteSqlAsync(sql);
+    }
+
     protected override async Task CreateTableUserAsync()
     {
         FormattableString sql = @$"

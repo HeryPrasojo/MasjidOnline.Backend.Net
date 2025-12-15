@@ -8,6 +8,7 @@ using MasjidOnline.Business.User.Interface.Model.User;
 using MasjidOnline.Business.User.Interface.User;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.Event;
+using MasjidOnline.Entity.User;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
 
@@ -38,10 +39,11 @@ public class LoginEmailBusiness(IAuthorizationBusiness _authorizationBusiness, I
         if (userId == default) throw new InputMismatchException(nameof(loginRequest.EmailAddress) + " or " + nameof(loginRequest.Password));
 
 
-        // undone check status
         var user = await _data.User.User.GetForLoginAsync(userId.Value);
 
         if (user == default) throw new InputMismatchException(nameof(loginRequest.EmailAddress) + " or " + nameof(loginRequest.Password));
+
+        if (user.Status != UserStatus.Active) throw new InputMismatchException(nameof(user.Status));
 
         if (user.Password == default) throw new InputMismatchException(nameof(user.Password));
 

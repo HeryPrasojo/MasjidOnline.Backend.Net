@@ -4,7 +4,7 @@ namespace MasjidOnline.Business.User.Interface;
 
 public interface IUserUserBusiness
 {
-    IAddRegisterBusiness AddRegister { get; }
+    IRegisterEmailBusiness RegisterEmail { get; }
     ILoginEmailBusiness LoginEmail { get; }
     ISetPasswordBusiness SetPassword { get; }
     ILogoutBusiness Logout { get; }

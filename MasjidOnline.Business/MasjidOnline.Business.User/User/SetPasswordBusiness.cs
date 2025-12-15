@@ -50,7 +50,7 @@ public class SetPasswordBusiness(
 
         if (passwordCode.UseDateTime.HasValue) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
 
-        //if (passwordCode.DateTime < utcNow.AddMinutes(-8)) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+        if (passwordCode.DateTime < utcNow.AddMinutes(-8)) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
 
 
 
