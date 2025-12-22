@@ -16,7 +16,7 @@ public class IdGenerator() : IIdGenerator
     private readonly PersonIdGenerator _personIdGenerator = new();
     private readonly SessionIdGenerator _sessionIdGenerator = new();
     private readonly UserIdGenerator _userIdGenerator = new();
-    //private readonly DatabaseTemplateIdGenerator _databaseTemplateIdGenerator = new();
+    private readonly VerificationIdGenerator _verificationIdGenerator = new();
 
     public IAccountancyIdGenerator Accountancy => _accountancyIdGenerator;
     public IAuditIdGenerator Audit => _auditIdGenerator;
@@ -27,7 +27,7 @@ public class IdGenerator() : IIdGenerator
     public IPersonIdGenerator Person => _personIdGenerator;
     public ISessionIdGenerator Session => _sessionIdGenerator;
     public IUserIdGenerator User => _userIdGenerator;
-    //public IDatabaseTemplateIdGenerator DatabaseTemplate => _databaseTemplateIdGenerator;
+    public IVerificationIdGenerator Verification => _verificationIdGenerator;
 
     public async Task InitializeAsync(IData _data)
     {
@@ -40,6 +40,6 @@ public class IdGenerator() : IIdGenerator
         await _personIdGenerator.InitializeAsync(_data);
         await _sessionIdGenerator.InitializeAsync(_data);
         await _userIdGenerator.InitializeAsync(_data);
-        //await _databaseTemplateIdGenerator.InitializeAsync(_data);
+        await _verificationIdGenerator.InitializeAsync(_data);
     }
 }

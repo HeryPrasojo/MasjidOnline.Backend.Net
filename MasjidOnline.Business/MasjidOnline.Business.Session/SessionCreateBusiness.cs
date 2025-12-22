@@ -6,6 +6,7 @@ using MasjidOnline.Business.Session.Interface.Model.Sessions;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
+using MasjidOnline.Service.Localization.Interface;
 
 namespace MasjidOnline.Business.Session;
 
@@ -28,13 +29,13 @@ public class SessionCreateBusiness(IService _service) : ISessionCreateBusiness
         if (!isVerified) throw new InputMismatchException(nameof(createRequest.CaptchaToken));
 
 
-        session.CultureInfo = Service.Localization.Interface.Model.Constant.CultureInfoEnglish;
+        session.CultureInfo = Constant.English.CultureInfo;
         session.Id = _data.IdGenerator.Session.SessionId;
         session.UserId = Model.Constant.UserId.Anonymous;
 
         var sessionEntity = new Entity.Session.Session
         {
-            ApplicationCulture = Mapper.Mapper.User.UserPreferenceApplicationCulture[session.CultureInfo],
+            ApplicationCulture = Mapper.Mapper.Session.UserPreferenceApplicationCulture[session.CultureInfo],
             DateTime = DateTime.UtcNow,
             Code = _service.Hash512.RandomByteArray,
             Id = session.Id,
@@ -46,7 +47,7 @@ public class SessionCreateBusiness(IService _service) : ISessionCreateBusiness
         return new()
         {
             ResultCode = ResponseResultCode.Success,
-            Data = Convert.ToBase64String(_service.Encryption256k128bService.Encrypt(sessionEntity.Code.AsSpan())),
+            Data = Convert.ToBase64String(_service.Encryption256kService.Encrypt(sessionEntity.Code.AsSpan())),
         };
     }
 }

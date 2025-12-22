@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using MasjidOnline.Library.Extensions;
 using MasjidOnline.Service.Localization.Interface;
-using MasjidOnline.Service.Localization.Interface.Model;
 
 namespace MasjidOnline.Service.Localization;
 
@@ -13,26 +11,10 @@ public class LocalizationService() : ILocalizationService
     {
         {
             "Invalid",
-            new Dictionary<CultureInfo, string>
+            new()
             {
-                {Constant.CultureInfoEnglish, "Invalid"},
-                {Constant.CultureInfoIndonesian, "Tidak sah"},
-            }
-        },
-        {
-            "New",
-            new Dictionary<CultureInfo, string>
-            {
-                {Constant.CultureInfoEnglish, ""},
-                {Constant.CultureInfoIndonesian, ""},
-            }
-        },
-        {
-            "",
-            new Dictionary<CultureInfo, string>
-            {
-                {Constant.CultureInfoEnglish, ""},
-                {Constant.CultureInfoIndonesian, ""},
+                {Constant.English.CultureInfo,    "Invalid"},
+                {Constant.Indonesian.CultureInfo, "Tidak sah"},
             }
         },
     };
@@ -56,17 +38,16 @@ public class LocalizationService() : ILocalizationService
 
             var valueString = valueDictionary.GetValueOrDefault(cultureInfo);
 
-            if (!valueString.IsNullOrEmptyOrWhiteSpace()) return valueString!;
+            if (valueString != default) return valueString!;
 
 
-            if (cultureInfo == Constant.CultureInfoEnglish) return key;
+            if (cultureInfo == Constant.English.CultureInfo) return key;
 
-            valueString = valueDictionary.GetValueOrDefault(Constant.CultureInfoEnglish);
+            valueString = valueDictionary.GetValueOrDefault(Constant.English.CultureInfo);
 
-            if (valueString.IsNullOrEmptyOrWhiteSpace()) return key;
+            if (valueString == default) return key;
 
             return valueString!;
-            //return _strings[key][cultureInfo];
         }
     }
 }

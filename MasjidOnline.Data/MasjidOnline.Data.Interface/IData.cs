@@ -10,7 +10,6 @@ public interface IData
     IAuditDatabase Audit { get; }
     IAuthorizationDatabase Authorization { get; }
     ICaptchaDatabase Captcha { get; }
-    IDatabaseTemplateDatabase DatabaseTemplate { get; }
     IEventDatabase Event { get; }
     IInfaqDatabase Infaq { get; }
     IIdGenerator IdGenerator { get; }
@@ -18,4 +17,5 @@ public interface IData
     IPersonDatabase Person { get; }
     ISessionDatabase Session { get; }
     IUserDatabase User { get; }
+    IVerificationDatabase Verification { get; }
 }

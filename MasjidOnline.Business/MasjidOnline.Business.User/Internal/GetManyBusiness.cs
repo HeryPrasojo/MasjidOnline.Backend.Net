@@ -21,8 +21,8 @@ public class GetManyBusiness(IAuthorizationBusiness _authorizationBusiness, ISer
         await _authorizationBusiness.User.Internal.AuthorizeReadAync(session, _data);
 
         getManyRequest = _service.FieldValidator.ValidateRequired(getManyRequest);
-        getManyRequest.Status = _service.FieldValidator.ValidateOptionalEnum(getManyRequest.Status);
         getManyRequest.Page = _service.FieldValidator.ValidateRequiredPlus(getManyRequest.Page);
+        _service.FieldValidator.ValidateOptionalEnum(getManyRequest.Status);
 
 
         var take = 10;

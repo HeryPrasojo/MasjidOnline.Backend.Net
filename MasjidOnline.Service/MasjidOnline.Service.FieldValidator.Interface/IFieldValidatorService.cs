@@ -18,13 +18,13 @@ public interface IFieldValidatorService
     string ValidateRequiredPhoneNumber(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
     string ValidateRequired(string? value, int valueMinimumLength, int valueMaximumLength, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
     string ValidateRequired(string? value, int valueLength, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
-    DateTime ValidateRequiredBirth(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
     TEnum ValidateRequiredEnum<TEnum>(TEnum? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null) where TEnum : struct, Enum;
     string ValidateRequired(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
-    DateTime? ValidateOptionalBirth(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
-    TEnum? ValidateOptionalEnum<TEnum>(TEnum? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null) where TEnum : struct, Enum;
+    void ValidateOptionalPast(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
+    void ValidateOptionalEnum<TEnum>(TEnum? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null) where TEnum : struct, Enum;
     DateTime ValidateRequiredFuture(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
-    DateTime ValidateOptionalFuture(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
+    void ValidateOptionalFuture(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
     void ValidateRequired<TObject>(TObject value, Func<TObject, bool> predicate, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
     byte[] ValidateRequiredBase64Url(string? value, int valueLength, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
+    void ValidateOptionalEnums<TEnum>(System.Collections.Generic.IEnumerable<TEnum>? values, [CallerArgumentExpression(nameof(values))] string? valueExpression = null) where TEnum : struct, Enum;
 }

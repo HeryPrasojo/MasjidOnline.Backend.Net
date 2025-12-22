@@ -8,6 +8,7 @@ using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.Authorization;
 using MasjidOnline.Entity.Person;
 using MasjidOnline.Entity.User;
+using MasjidOnline.Entity.Verification;
 using MasjidOnline.Library.Extensions;
 using MasjidOnline.Service.Interface;
 using MasjidOnline.Service.Mail.Interface.Model;
@@ -79,14 +80,18 @@ public class UserBusiness(
         await _data.Audit.UserEmailAddressLog.AddAddAsync(_data.IdGenerator.Audit.UserEmailAddressLogId, utcNow, Constant.UserId.System, userEmailAddress);
 
 
-        var passwordCode = new PasswordCode
+        var verificationCode = new VerificationCode
         {
+            Contact = userEmailAddress.EmailAddress,
+            ContactType = ContactType.Email,
             Code = _service.Hash512.RandomByteArray,
             DateTime = utcNow,
+            Id = _data.IdGenerator.Verification.VerificationCodeId,
             UserId = user.Id,
+            Type = VerificationCodeType.Password,
         };
 
-        await _data.User.PasswordCode.AddAsync(passwordCode);
+        await _data.Verification.VerificationCode.AddAsync(verificationCode);
 
 
         var person = new Person
@@ -142,7 +147,7 @@ public class UserBusiness(
         await _data.Transaction.CommitAsync();
 
 
-        var codeBase64 = Convert.ToBase64String(passwordCode.Code.AsSpan());
+        var codeBase64 = Convert.ToBase64String(_service.Encryption256kService.Encrypt(verificationCode.Code.AsSpan()));
 
         codeBase64 = codeBase64.Replace('+', '-')
             .Replace('/', '_')

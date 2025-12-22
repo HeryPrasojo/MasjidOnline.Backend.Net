@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
@@ -9,36 +10,40 @@ namespace MasjidOnline.Service.FieldValidator;
 
 public class FieldValidatorService : IFieldValidatorService
 {
-    public DateTime? ValidateOptionalBirth(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    public void ValidateOptionalEnum<TEnum>(TEnum? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default) where TEnum : struct, Enum
     {
-        if (!value.HasValue) return default;
-
-        if (value.Value == default) throw new InputInvalidException(valueExpression);
-
-        // hack move parameter to db setting
-        if (value > DateTime.UtcNow.AddYears(-2)) throw new InputInvalidException(valueExpression);
-
-        return value.Value;
-    }
-
-    public TEnum? ValidateOptionalEnum<TEnum>(TEnum? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default) where TEnum : struct, Enum
-    {
-        if (!value.HasValue) return default;
+        if (!value.HasValue) return;
 
         var valueType = value.Value.GetType();
 
         if (!Enum.IsDefined(valueType, value.Value)) throw new InputInvalidException(valueExpression);
-
-        return value.Value;
     }
 
-    public DateTime ValidateOptionalFuture(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    public void ValidateOptionalEnums<TEnum>(IEnumerable<TEnum>? values, [CallerArgumentExpression(nameof(values))] string? valueExpression = default) where TEnum : struct, Enum
     {
-        if (!value.HasValue) return default;
+        if (values != default)
+        {
+            foreach (var value in values)
+            {
+                ValidateRequiredEnum<TEnum>(value, valueExpression);
+            }
+        }
+    }
+
+    public void ValidateOptionalFuture(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    {
+        if (!value.HasValue) return;
 
         if (value <= DateTime.UtcNow) throw new InputInvalidException(valueExpression);
+    }
 
-        return value.Value;
+    public void ValidateOptionalPast(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    {
+        if (!value.HasValue) return;
+
+        if (value.Value == default) throw new InputInvalidException(valueExpression);
+
+        if (value >= DateTime.UtcNow) throw new InputInvalidException(valueExpression);
     }
 
     public string? ValidateOptionalTextDb255(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
@@ -157,18 +162,6 @@ public class FieldValidatorService : IFieldValidatorService
         {
             throw new InputInvalidException(valueExpression, exception);
         }
-    }
-
-    public DateTime ValidateRequiredBirth(DateTime? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
-    {
-        if (!value.HasValue) throw new InputInvalidException(valueExpression);
-
-        if (value.Value == default) throw new InputInvalidException(valueExpression);
-
-        // hack move parameter to db setting
-        if (value > DateTime.UtcNow.AddYears(-2)) throw new InputInvalidException(valueExpression);
-
-        return value.Value;
     }
 
     public string ValidateRequiredEmailAddress(string? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)

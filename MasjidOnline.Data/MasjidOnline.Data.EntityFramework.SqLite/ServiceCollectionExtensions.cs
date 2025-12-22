@@ -35,11 +35,6 @@ public static class ServiceCollectionExtensions
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking),
             poolSize: 2);
 
-        services.AddDbContextPool<DatabaseTemplateDataContext>(
-            b => b.UseSqlite(connectionStrings.DatabaseTemplate)
-                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking),
-            poolSize: 2);
-
         services.AddDbContextPool<EventDataContext>(
             b => b.UseSqlite(connectionStrings.Event)
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking),
@@ -67,6 +62,11 @@ public static class ServiceCollectionExtensions
 
         services.AddDbContextPool<UserDataContext>(
             b => b.UseSqlite(connectionStrings.User)
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking),
+            poolSize: 2);
+
+        services.AddDbContextPool<VerificationDataContext>(
+            b => b.UseSqlite(connectionStrings.Verification)
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking),
             poolSize: 2);
 

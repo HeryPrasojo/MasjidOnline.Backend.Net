@@ -52,8 +52,8 @@ public class SuccessRepository(DbContext _dbContext) : ISuccessRepository
 
         if (getManyOrderBy == ManyOrderBy.DateTime)
         {
-            if (orderByDirection == OrderByDirection.Descending) queryable = queryable.OrderByDescending(e => e.DateTime);
-            else queryable = queryable.OrderBy(e => e.DateTime);
+            if (orderByDirection == OrderByDirection.Ascending) queryable = queryable.OrderBy(e => e.DateTime);
+            else if (orderByDirection == OrderByDirection.Descending) queryable = queryable.OrderByDescending(e => e.DateTime);
         }
 
 

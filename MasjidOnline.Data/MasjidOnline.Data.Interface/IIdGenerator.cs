@@ -14,7 +14,7 @@ public interface IIdGenerator
     IPersonIdGenerator Person { get; }
     ISessionIdGenerator Session { get; }
     IUserIdGenerator User { get; }
-    //IDatabaseTemplateIdGenerator DatabaseTemplate { get; }
+    IVerificationIdGenerator Verification { get; }
 
     Task InitializeAsync(IData _data);
 }

@@ -26,8 +26,6 @@ public class LoginEmailBusiness(IAuthorizationBusiness _authorizationBusiness, I
         loginRequest.Password = _service.FieldValidator.ValidateRequiredTextDb255(loginRequest.Password);
         loginRequest.Client = _service.FieldValidator.ValidateRequiredEnum(loginRequest.Client);
 
-        _service.FieldValidator.ValidateRequired(loginRequest.Client, m => m != Event.Interface.Model.UserLoginClient.Default);
-
 
         var isCaptchaVerified = await _service.Captcha.VerifyAsync(loginRequest.CaptchaToken, "login");
 
@@ -61,7 +59,7 @@ public class LoginEmailBusiness(IAuthorizationBusiness _authorizationBusiness, I
         var utcNow = DateTime.UtcNow;
 
         session.UserId = userId.Value;
-        session.CultureInfo = Mapper.Mapper.User.UserPreferenceApplicationCulture[userPreferenceApplicationCulture];
+        session.CultureInfo = Mapper.Mapper.Session.UserPreferenceApplicationCulture[userPreferenceApplicationCulture];
         session.UserId = userId.Value;
 
         _data.Session.Session.SetForLogin(session.Id, session.UserId, utcNow, userPreferenceApplicationCulture);

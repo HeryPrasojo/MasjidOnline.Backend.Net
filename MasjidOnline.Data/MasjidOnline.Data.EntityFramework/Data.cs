@@ -13,7 +13,6 @@ public class Data(IServiceProvider _serviceProvider) : MasjidOnline.Data.Data()
     private IAuditDatabase? _auditDatabase;
     private IAuthorizationDatabase? _authorizationDatabase;
     private ICaptchaDatabase? _captchaDatabase;
-    private IDatabaseTemplateDatabase? _databaseTemplateDatabase;
     private IEventDatabase? _eventDatabase;
     private IIdGenerator? _idGenerator;
     private IInfaqDatabase? _infaqDatabase;
@@ -21,6 +20,7 @@ public class Data(IServiceProvider _serviceProvider) : MasjidOnline.Data.Data()
     private IPersonDatabase? _personDatabase;
     private ISessionDatabase? _sessionDatabase;
     private IUserDatabase? _userDatabase;
+    private IVerificationDatabase? _verificationDatabase;
 
     public override IAccountancyDatabase Accountancy
     {
@@ -79,21 +79,6 @@ public class Data(IServiceProvider _serviceProvider) : MasjidOnline.Data.Data()
             }
 
             return _captchaDatabase;
-        }
-    }
-
-    public override IDatabaseTemplateDatabase DatabaseTemplate
-    {
-        get
-        {
-            if (_databaseTemplateDatabase == default)
-            {
-                var dataContext = _serviceProvider.GetServiceOrThrow<DatabaseTemplateDataContext>();
-
-                _databaseTemplateDatabase = new DatabaseTemplateDatabase(dataContext);
-            }
-
-            return _databaseTemplateDatabase;
         }
     }
 
@@ -197,6 +182,21 @@ public class Data(IServiceProvider _serviceProvider) : MasjidOnline.Data.Data()
             }
 
             return _userDatabase;
+        }
+    }
+
+    public override IVerificationDatabase Verification
+    {
+        get
+        {
+            if (_verificationDatabase == default)
+            {
+                var dataContext = _serviceProvider.GetServiceOrThrow<VerificationDataContext>();
+
+                _verificationDatabase = new VerificationDatabase(dataContext);
+            }
+
+            return _verificationDatabase;
         }
     }
 }

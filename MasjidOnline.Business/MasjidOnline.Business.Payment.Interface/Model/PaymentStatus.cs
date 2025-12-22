@@ -2,7 +2,6 @@ namespace MasjidOnline.Business.Payment.Interface.Model;
 
 public enum PaymentStatus
 {
-    Invalid = 0,
     Pending = 11,
     CancelRequest = 22,
     Cancel = 33,

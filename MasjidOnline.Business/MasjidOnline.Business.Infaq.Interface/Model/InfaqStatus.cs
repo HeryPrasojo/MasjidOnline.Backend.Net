@@ -2,7 +2,6 @@ namespace MasjidOnline.Business.Infaq.Interface.Model;
 
 public enum InfaqStatus
 {
-    Invalid = 0,
     New = 11,
     CancelRequest = 22,
     Cancel = 33,

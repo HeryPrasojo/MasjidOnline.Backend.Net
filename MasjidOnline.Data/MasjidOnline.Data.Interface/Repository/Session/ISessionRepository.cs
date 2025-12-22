@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.ViewModel.Session;
 using MasjidOnline.Entity.User;
@@ -9,11 +10,11 @@ public interface ISessionRepository
 {
     Task AddAndSaveAsync(Entity.Session.Session session);
     Task AddAsync(Entity.Session.Session setting);
-    Task<SessionForStart?> GetForStartAsync(byte[] digest);
+    Task<SessionForStart?> GetForStartAsync(IEnumerable<byte> code);
     Task<int> GetMaxIdAsync();
     Task<UserPreferenceApplicationCulture> GetUserPreferenceApplicationCultureAsync(int id);
     Task RemoveExpireAsync(DateTime dateTime);
-    void SetForAuthenticate(int id, DateTime dateTime, UserPreferenceApplicationCulture? applicationCulture);
+    Task SetForAuthenticateAsync(int id, DateTime dateTime);
     void SetForLogin(int id, int userId, DateTime dateTime, UserPreferenceApplicationCulture userPreferenceApplicationCulture);
     void SetForSetPassword(int id, int userId, DateTime dateTime, UserPreferenceApplicationCulture userPreferenceApplicationCulture);
     void SetUserId(int id, int userId, DateTime dateTime);

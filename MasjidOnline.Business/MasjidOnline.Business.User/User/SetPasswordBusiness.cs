@@ -1,11 +1,11 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.User.Interface.Model.User;
 using MasjidOnline.Business.User.Interface.User;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.User;
+using MasjidOnline.Entity.Verification;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
 
@@ -18,7 +18,9 @@ public class SetPasswordBusiness(
     {
         setPasswordRequest = _service.FieldValidator.ValidateRequired(setPasswordRequest);
         setPasswordRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(setPasswordRequest.CaptchaToken);
-        var codeBytes = _service.FieldValidator.ValidateRequiredBase64Url(setPasswordRequest.PasswordCode, 86);
+        var codeBytes = _service.FieldValidator.ValidateRequiredBase64Url(setPasswordRequest.PasswordCode, 64 + _service.Encryption256kService.OverHeadSize);
+        setPasswordRequest.ContactType = _service.FieldValidator.ValidateRequiredEnum(setPasswordRequest.ContactType);
+        setPasswordRequest.Contact = _service.FieldValidator.ValidateRequiredTextDb255(setPasswordRequest.Contact);
         setPasswordRequest.Password = _service.FieldValidator.ValidateRequiredPassword(setPasswordRequest.Password);
         setPasswordRequest.Password2 = _service.FieldValidator.ValidateRequired(setPasswordRequest.Password2);
 
@@ -30,31 +32,42 @@ public class SetPasswordBusiness(
         if (!isCaptchaVerified) throw new InputMismatchException(nameof(setPasswordRequest.CaptchaToken));
 
 
-        var userId = await _data.User.PasswordCode.GetUserIdForSetPasswordAsync(codeBytes);
+        var contactType = Mapper.Mapper.Verification.ContactType[setPasswordRequest.ContactType.Value];
 
-        if (userId == default) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+        var verificationCode = await _data.Verification.VerificationCode.GetByCodeAsync(codeBytes);
 
-        if (!session.IsUserAnonymous)
+        if (verificationCode == default) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+
+        if (verificationCode.ContactType != contactType) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+
+        if (verificationCode.ContactType == ContactType.Email)
         {
-            if (userId.Value != session.UserId) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+            verificationCode.Contact = _service.FieldValidator.ValidateRequiredEmailAddress(verificationCode.Contact);
         }
 
+        if (verificationCode.Type == VerificationCodeType.Password) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+
+        if (verificationCode.UseDateTime.HasValue) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
 
         var utcNow = DateTime.UtcNow;
 
-        var passwordCode = await _data.User.PasswordCode.GetForSetPasswordAsync(userId.Value);
+        if (verificationCode.DateTime < utcNow.AddMinutes(-8)) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
 
-        if (passwordCode == default) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
-
-        if (!passwordCode.Code.SequenceEqual(codeBytes)) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
-
-        if (passwordCode.UseDateTime.HasValue) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
-
-        if (passwordCode.DateTime < utcNow.AddMinutes(-8)) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+        if (!session.IsUserAnonymous)
+        {
+            if (verificationCode.UserId != session.UserId) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+        }
 
 
+        if (verificationCode.ContactType == ContactType.Email)
+        {
+            var userId = await _data.User.UserEmailAddress.GetUserIdAsync(verificationCode.Contact);
 
-        var userStatus = await _data.User.User.GetStatusAsync(userId.Value);
+            if (userId != verificationCode.UserId) throw new InputMismatchException(nameof(setPasswordRequest.Contact));
+        }
+
+
+        var userStatus = await _data.User.User.GetStatusAsync(verificationCode.UserId);
 
         if (userStatus != UserStatus.Active) throw new DataMismatchException(nameof(userStatus));
 
@@ -63,20 +76,20 @@ public class SetPasswordBusiness(
 
         var passwordBytes = _service.Hash512.Hash(setPasswordRequest.Password);
 
-        var passwordUser = _data.User.User.SetPassword(userId.Value, passwordBytes);
+        var passwordUser = _data.User.User.SetPassword(verificationCode.UserId, passwordBytes);
 
-        await _data.Audit.UserLog.AddSetPasswordAsync(_data.IdGenerator.Audit.UserLogId, utcNow, userId.Value, passwordUser);
+        await _data.Audit.UserLog.AddSetPasswordAsync(_data.IdGenerator.Audit.UserLogId, utcNow, verificationCode.UserId, passwordUser);
 
 
-        _data.User.PasswordCode.SetUseDateTime(codeBytes, utcNow);
+        _data.Verification.VerificationCode.SetUseDateTime(verificationCode.Id, utcNow);
 
 
         if (session.IsUserAnonymous)
         {
-            var userPreferenceApplicationCulture = await _data.User.UserPreference.GetApplicationCultureAsync(userId.Value);
+            var userPreferenceApplicationCulture = await _data.User.UserPreference.GetApplicationCultureAsync(verificationCode.UserId);
 
-            session.CultureInfo = Mapper.Mapper.User.UserPreferenceApplicationCulture[userPreferenceApplicationCulture];
-            session.UserId = userId.Value;
+            session.CultureInfo = Mapper.Mapper.Session.UserPreferenceApplicationCulture[userPreferenceApplicationCulture];
+            session.UserId = verificationCode.UserId;
 
             _data.Session.Session.SetForSetPassword(session.Id, session.UserId, utcNow, userPreferenceApplicationCulture);
         }

@@ -19,6 +19,7 @@ public interface IService
     IMailSenderService MailSender { get; }
     IFileService File { get; }
     ILocalizationService Localization { get; }
+    IEncryption256kService Encryption256kService { get; }
 
     void Initialize(IEnumerable<string> createDirectories);
 }

@@ -10,13 +10,13 @@ public class DataInitializer(
     AuditDataContext _auditDataContext,
     AuthorizationDataContext _authorizationDataContext,
     CaptchaDataContext _captchaDataContext,
-    //DatabaseTemplateDataContext _databaseTemplateDataContext,
     EventDataContext _eventDataContext,
     InfaqDataContext _infaqDataContext,
     PaymentDataContext _paymentDataContext,
     PersonDataContext _personDataContext,
     SessionDataContext _sessionDataContext,
-    UserDataContext _userDataContext
+    UserDataContext _userDataContext,
+    VerificationDataContext _verificationDataContext
     ) : IDataInitializer
 {
     private readonly AccountancyInitializer _accountancyInitializer =
@@ -49,8 +49,8 @@ public class DataInitializer(
     private readonly UserInitializer _userInitializer =
         new(_userDataContext, new DataDefinition<UserDataContext>(_userDataContext));
 
-    //private readonly DatabaseTemplateInitializer _databaseTemplateInitializer =
-    //    new(_databaseTemplateDataContext, new DataDefinition<DatabaseTemplateDataContext>(_databaseTemplateDataContext));
+    private readonly VerificationInitializer _verificationInitializer =
+        new(_verificationDataContext, new DataDefinition<VerificationDataContext>(_verificationDataContext));
 
     public async Task InitializeAsync(IData data)
     {
@@ -64,6 +64,6 @@ public class DataInitializer(
         await _personInitializer.InitializeDatabaseAsync(data);
         await _sessionInitializer.InitializeDatabaseAsync(data);
         await _userInitializer.InitializeDatabaseAsync(data);
-        //await _databaseTemplateInitializer.InitializeDatabaseAsync(data);
+        await _verificationInitializer.InitializeDatabaseAsync(data);
     }
 }

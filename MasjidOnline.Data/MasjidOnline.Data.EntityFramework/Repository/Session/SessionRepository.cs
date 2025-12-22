@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Repository.Session;
@@ -38,7 +39,7 @@ public class SessionRepository(DbContext _dbContext) : ISessionRepository
     }
 
 
-    public async Task<SessionForStart?> GetForStartAsync(byte[] code)
+    public async Task<SessionForStart?> GetForStartAsync(IEnumerable<byte> code)
     {
         return await _dbSet.Where(e => e.Code.SequenceEqual(code))
             .Select(e => new SessionForStart
@@ -81,7 +82,7 @@ public class SessionRepository(DbContext _dbContext) : ISessionRepository
     }
 
 
-    public void SetForAuthenticate(int id, DateTime dateTime, UserPreferenceApplicationCulture? applicationCulture)
+    public async Task SetForAuthenticateAsync(int id, DateTime dateTime)
     {
         var session = new Entity.Session.Session
         {
@@ -89,15 +90,11 @@ public class SessionRepository(DbContext _dbContext) : ISessionRepository
             Id = id,
         };
 
-        if (applicationCulture.HasValue) session.ApplicationCulture = applicationCulture.Value;
-
-
         var entityEntry = _dbSet.Attach(session);
 
         entityEntry.Property(e => e.DateTime).IsModified = true;
 
-        if (applicationCulture.HasValue)
-            entityEntry.Property(e => e.ApplicationCulture).IsModified = true;
+        await _dbContext.SaveChangesAsync();
     }
 
     public void SetForLogin(int id, int userId, DateTime dateTime, UserPreferenceApplicationCulture userPreferenceApplicationCulture)

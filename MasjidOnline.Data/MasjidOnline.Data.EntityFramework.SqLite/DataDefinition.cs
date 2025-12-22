@@ -12,13 +12,13 @@ public class DataDefinition<TDataContext>(TDataContext _tDataContext) :
     IAccountancyDefinition,
     IAuditDefinition,
     ICaptchaDefinition,
-    IDatabaseTemplateDefinition,
     IPaymentDefinition,
     IPersonDefinition,
     IEventDefinition,
     ISessionsDefinition,
     IInfaqsDefinition,
-    IUsersDefinition
+    IUsersDefinition,
+    IVerificationDefinition
     where TDataContext : DbContext
 {
     public async Task<bool> CheckTableExistsAsync(string name)

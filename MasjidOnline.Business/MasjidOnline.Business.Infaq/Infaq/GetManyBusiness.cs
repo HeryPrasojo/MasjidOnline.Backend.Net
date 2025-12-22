@@ -1,12 +1,9 @@
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
-using MasjidOnline.Entity.Infaq;
-using MasjidOnline.Entity.Payment;
 using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.Infaq.Infaq;
@@ -20,19 +17,12 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
     {
         getManyRequest = _service.FieldValidator.ValidateRequired(getManyRequest);
         getManyRequest.Page = _service.FieldValidator.ValidateRequiredPlus(getManyRequest.Page);
+        _service.FieldValidator.ValidateOptionalEnums(getManyRequest.PaymentTypes);
+        _service.FieldValidator.ValidateOptionalEnums(getManyRequest.Statuses);
 
 
-        IEnumerable<PaymentType>? paymentTypes = default;
-
-        if (getManyRequest.PaymentTypes != default)
-            paymentTypes = getManyRequest.PaymentTypes.Select(m => Mapper.Mapper.Payment.PaymentType[m]);
-
-
-        IEnumerable<InfaqStatus>? infaqStatuses = default;
-
-        if (getManyRequest.Statuses != default)
-            infaqStatuses = getManyRequest.Statuses.Select(m => Mapper.Mapper.Infaq.InfaqStatus[m]);
-
+        var paymentTypes = getManyRequest.PaymentTypes?.Select(pt => Mapper.Mapper.Payment.PaymentType[pt]);
+        var infaqStatuses = getManyRequest.Statuses?.Select(m => Mapper.Mapper.Infaq.InfaqStatus[m]);
 
         var take = 10;
 

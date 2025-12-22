@@ -11,7 +11,6 @@ public class UserDataContext(DbContextOptions _dbContextOptions) : DbContext(_db
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<InternalUser>();
-        modelBuilder.Entity<PasswordCode>();
         modelBuilder.Entity<UserInternalPermission>();
         modelBuilder.Entity<User>();
         modelBuilder.Entity<UserEmailAddress>();
