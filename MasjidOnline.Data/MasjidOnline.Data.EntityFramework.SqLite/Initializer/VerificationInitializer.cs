@@ -30,7 +30,7 @@ public class VerificationInitializer(
             (
                 Id INTEGER PRIMARY KEY,
                 Code BLOB NOT NULL,
-                UserId INTEGER NOT NULL
+                UserId INTEGER NOT NULL,
                 DateTime TEXT NOT NULL,
                 Type INTEGER NOT NULL,
                 ContactType INTEGER NOT NULL,

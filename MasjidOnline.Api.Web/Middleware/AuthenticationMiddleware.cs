@@ -1,47 +1,72 @@
+using System;
+using System.Text.Json;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Session.Interface;
+using MasjidOnline.Business.Interface;
+using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Session.Interface.Model;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Library.Exceptions;
 using Microsoft.AspNetCore.Http;
 
 namespace MasjidOnline.Api.Web.Middleware;
 
-public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate, ISessionAuthenticationBusiness _sessionAuthenticationBusiness)
+public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate, IBusiness _business)
 {
     public async Task Invoke(HttpContext httpContext, Session session, IData _data)
     {
-        if (httpContext.Request.Path.StartsWithSegments("/hub"))
+        try
         {
-            if (httpContext.Request.Path == "/hub")
+            if (httpContext.Request.Path.StartsWithSegments("/hub"))
             {
-                await _sessionAuthenticationBusiness.AuthenticateAsync(
+                if (httpContext.Request.Path == "/hub")
+                {
+                    await _business.Session.Authentication.AuthenticateAsync(
+                        session,
+                        _data,
+                        httpContext.Request.Query["access_token"]);
+                }
+                else
+                {
+                    await _business.Session.Authentication.AuthenticateAsync(
+                        session,
+                        _data,
+                        httpContext.Request.Headers[Constant.HttpHeaderName.Session]);
+                }
+
+                if ((session.Id == default) || session.IsUserAnonymous) return;
+            }
+            else if (httpContext.Request.Path != "/session/create")
+            {
+                await _business.Session.Authentication.AuthenticateAsync(
                     session,
                     _data,
-                    httpContext.Request.Query["access_token"],
-                    default);
-            }
-            else
-            {
-                await _sessionAuthenticationBusiness.AuthenticateAsync(
-                    session,
-                    _data,
-                    httpContext.Request.Headers[Constant.HttpHeaderName.Session],
-                    httpContext.Request.Query["culture"]);
+                    httpContext.Request.Headers[Constant.HttpHeaderName.Session]);
+
+                if (session.Id == default) return;
             }
 
-            if ((session.Id == default) || session.IsUserAnonymous) return;
+            await _nextRequestDelegate(httpContext);
         }
-        else if (httpContext.Request.Path != "/session/create")
+        catch (Exception exception)
         {
-            await _sessionAuthenticationBusiness.AuthenticateAsync(
-                session,
-                _data,
-                httpContext.Request.Headers[Constant.HttpHeaderName.Session],
-                httpContext.Request.Query["culture"]);
+            if (exception.GetType() == typeof(BadHttpRequestException))
+            {
+                exception = new InputInvalidException("BadHttpRequestException", exception);
+            }
 
-            if (session.Id == default) return;
+
+            var exceptionResponse = _business.ExceptionResponse.Build(exception);
+
+            if (exceptionResponse.ResultCode == ResponseResultCode.Error)
+            {
+                await _business.Event.Exception.LogAsync(_data, exception);
+            }
+
+            httpContext.Response.ContentType = "application/json";
+
+            var responseString = JsonSerializer.Serialize(exceptionResponse, options: JsonSerializerOptions.Web);
+
+            await httpContext.Response.WriteAsync(responseString);
         }
-
-        await _nextRequestDelegate(httpContext);
     }
 }

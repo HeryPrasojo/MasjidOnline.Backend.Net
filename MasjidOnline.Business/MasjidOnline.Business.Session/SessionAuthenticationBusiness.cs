@@ -19,9 +19,9 @@ public class SessionAuthenticationBusiness(IService _service) : ISessionAuthenti
         if (codeBase64 == default) return;
 
 
-        var requestSessionIdBytes = _service.FieldValidator.ValidateRequiredBase64(codeBase64, 64 + _service.Encryption256kService.OverHeadSize, codeBase64Expression);
+        var requestSessionIdBytes = _service.FieldValidator.ValidateRequiredBase64(codeBase64, 128, codeBase64Expression);
 
-        var decryptedRquestSessionIdBytes = _service.Encryption256k128bService.Decrypt(requestSessionIdBytes);
+        var decryptedRquestSessionIdBytes = _service.Encryption256kService.Decrypt(requestSessionIdBytes);
 
         if (decryptedRquestSessionIdBytes == default) return;
 

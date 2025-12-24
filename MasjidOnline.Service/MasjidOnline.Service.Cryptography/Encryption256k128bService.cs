@@ -12,7 +12,6 @@ public class Encryption256k128bService(IOptionsMonitor<CryptographyOptions> _opt
 {
     private readonly byte[] _key = _hash256Service.Hash(Convert.FromBase64String(_options.CurrentValue.Key256Base64));
 
-    // undone change to AesGcm
     private static Aes CreateAes()
     {
         var aes = Aes.Create();

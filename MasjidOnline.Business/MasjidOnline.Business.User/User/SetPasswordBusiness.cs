@@ -18,7 +18,7 @@ public class SetPasswordBusiness(
     {
         setPasswordRequest = _service.FieldValidator.ValidateRequired(setPasswordRequest);
         setPasswordRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(setPasswordRequest.CaptchaToken);
-        var codeBytes = _service.FieldValidator.ValidateRequiredBase64Url(setPasswordRequest.PasswordCode, 64 + _service.Encryption256kService.OverHeadSize);
+        var codeBytes = _service.FieldValidator.ValidateRequiredBase64Url(setPasswordRequest.PasswordCode, 126);
         setPasswordRequest.ContactType = _service.FieldValidator.ValidateRequiredEnum(setPasswordRequest.ContactType);
         setPasswordRequest.Contact = _service.FieldValidator.ValidateRequiredTextDb255(setPasswordRequest.Contact);
         setPasswordRequest.Password = _service.FieldValidator.ValidateRequiredPassword(setPasswordRequest.Password);
@@ -32,9 +32,14 @@ public class SetPasswordBusiness(
         if (!isCaptchaVerified) throw new InputMismatchException(nameof(setPasswordRequest.CaptchaToken));
 
 
+        var codeDecrypted = _service.Encryption256kService.Decrypt(codeBytes);
+
+        if (codeDecrypted == default) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+
+
         var contactType = Mapper.Mapper.Verification.ContactType[setPasswordRequest.ContactType.Value];
 
-        var verificationCode = await _data.Verification.VerificationCode.GetByCodeAsync(codeBytes);
+        var verificationCode = await _data.Verification.VerificationCode.GetByCodeAsync(codeDecrypted);
 
         if (verificationCode == default) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
 
@@ -45,7 +50,7 @@ public class SetPasswordBusiness(
             verificationCode.Contact = _service.FieldValidator.ValidateRequiredEmailAddress(verificationCode.Contact);
         }
 
-        if (verificationCode.Type == VerificationCodeType.Password) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
+        if (verificationCode.Type != VerificationCodeType.Password) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
 
         if (verificationCode.UseDateTime.HasValue) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
 

@@ -34,7 +34,7 @@ public class UserBusiness(
         if (any) return;
 
 
-        await _data.Transaction.BeginAsync(_data.User, _data.Audit, _data.Authorization, _data.Person);
+        await _data.Transaction.BeginAsync(_data.User, _data.Audit, _data.Verification, _data.Person, _data.Authorization);
 
 
         var options = _optionsMonitor.CurrentValue;

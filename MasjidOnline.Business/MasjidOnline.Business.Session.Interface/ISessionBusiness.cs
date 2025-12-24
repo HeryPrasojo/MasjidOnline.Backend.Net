@@ -4,4 +4,5 @@ public interface ISessionBusiness
 {
     ISessionCreateBusiness Create { get; }
     ISessionExpireBusiness Expire { get; }
+    ISessionAuthenticationBusiness Authentication { get; }
 }

@@ -95,6 +95,8 @@ public class SessionRepository(DbContext _dbContext) : ISessionRepository
         entityEntry.Property(e => e.DateTime).IsModified = true;
 
         await _dbContext.SaveChangesAsync();
+
+        _dbContext.ChangeTracker.Clear();
     }
 
     public void SetForLogin(int id, int userId, DateTime dateTime, UserPreferenceApplicationCulture userPreferenceApplicationCulture)
