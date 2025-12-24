@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Accountancy.Expenditure.Mapper;
 using MasjidOnline.Business.Accountancy.Interface.Expenditure;
 using MasjidOnline.Business.Accountancy.Interface.Model.Expenditure;
 using MasjidOnline.Business.Model.Responses;
@@ -20,12 +19,12 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
     {
         getManyRequest = _service.FieldValidator.ValidateRequired(getManyRequest);
         getManyRequest.Page = _service.FieldValidator.ValidateRequiredPlus(getManyRequest.Page);
-
+        _service.FieldValidator.ValidateOptionalEnum(getManyRequest.Status);
 
         var take = 10;
 
         var getManyResult = await _data.Accountancy.Expenditure.GetManyAsync(
-            status: getManyRequest.Status.ToEntity(),
+            status: getManyRequest.Status.HasValue ? Mapper.Mapper.Accountancy.ExpenditureStatus[getManyRequest.Status.Value] : default,
             getManyOrderBy: ManyOrderBy.DateTime,
             orderByDirection: OrderByDirection.Descending,
             skip: (getManyRequest.Page.Value - 1) * take,
@@ -44,7 +43,7 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
                     DateTime = e.DateTime,
                     Description = e.Description,
                     Id = e.Id,
-                    Status = e.Status.ToModel(),
+                    Status = Mapper.Mapper.Accountancy.ExpenditureStatus[e.Status],
                     StatusDescription = e.StatusDescription,
                     UpdateDateTime = e.UpdateDateTime,
                     UpdateUserId = e.UpdateUserId,

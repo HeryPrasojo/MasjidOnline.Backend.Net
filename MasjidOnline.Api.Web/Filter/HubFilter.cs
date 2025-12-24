@@ -22,7 +22,7 @@ public class HubFilter(IBusiness _business) : IHubFilter
 
             await _business.Event.Exception.LogAsync(_data, exception);
 
-            // todo signalr custom exception response
+            // hack signalr custom exception response
             throw;
         }
     }

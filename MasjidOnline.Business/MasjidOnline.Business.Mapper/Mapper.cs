@@ -1,3 +1,4 @@
+using MasjidOnline.Business.Mapper.Accountancy;
 using MasjidOnline.Business.Mapper.Event;
 using MasjidOnline.Business.Mapper.Infaq;
 using MasjidOnline.Business.Mapper.Payment;
@@ -8,6 +9,11 @@ namespace MasjidOnline.Business.Mapper;
 
 public static class Mapper
 {
+    public static class Accountancy
+    {
+        public static ExpenditureStatusMapper ExpenditureStatus => new();
+    }
+
     public static class Event
     {
         public static UserLoginClientMapper UserLoginClient => new();

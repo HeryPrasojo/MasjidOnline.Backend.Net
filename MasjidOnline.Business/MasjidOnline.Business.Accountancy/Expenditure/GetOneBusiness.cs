@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using MasjidOnline.Business.Accountancy.Expenditure.Mapper;
 using MasjidOnline.Business.Accountancy.Interface.Expenditure;
 using MasjidOnline.Business.Accountancy.Interface.Model.Expenditure;
 using MasjidOnline.Business.Model.Responses;
@@ -27,7 +26,7 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
             Data = new()
             {
                 DateTime = expenditure.DateTime,
-                Status = expenditure.Status.ToModel(),
+                Status = Mapper.Mapper.Accountancy.ExpenditureStatus[expenditure.Status],
                 UpdateDateTime = expenditure.UpdateDateTime,
                 UpdateUserId = expenditure.UpdateUserId,
                 UserId = expenditure.UserId,
