@@ -1,3 +1,5 @@
+using System;
+
 namespace MasjidOnline.Business.Infaq.Interface.Model.Expire;
 
 public class GetOneResponse

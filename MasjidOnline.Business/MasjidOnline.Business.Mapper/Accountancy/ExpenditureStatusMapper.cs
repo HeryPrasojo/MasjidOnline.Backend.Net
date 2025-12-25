@@ -1,4 +1,6 @@
-﻿namespace MasjidOnline.Business.Mapper.Accountancy;
+﻿using System.Collections.Generic;
+
+namespace MasjidOnline.Business.Mapper.Accountancy;
 
 public class ExpenditureStatusMapper
 {

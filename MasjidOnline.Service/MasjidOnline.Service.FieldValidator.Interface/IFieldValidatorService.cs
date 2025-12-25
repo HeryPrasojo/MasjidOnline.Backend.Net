@@ -27,4 +27,5 @@ public interface IFieldValidatorService
     void ValidateRequired<TObject>(TObject value, Func<TObject, bool> predicate, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
     byte[] ValidateRequiredBase64Url(string? value, int valueLength, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
     void ValidateOptionalEnums<TEnum>(System.Collections.Generic.IEnumerable<TEnum>? values, [CallerArgumentExpression(nameof(values))] string? valueExpression = null) where TEnum : struct, Enum;
+    bool ValidateRequiredTrue(bool? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = null);
 }

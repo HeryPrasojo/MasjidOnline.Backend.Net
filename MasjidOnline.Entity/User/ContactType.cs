@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Entity.Verification;
+﻿namespace MasjidOnline.Entity.User;
 
 public enum ContactType
 {

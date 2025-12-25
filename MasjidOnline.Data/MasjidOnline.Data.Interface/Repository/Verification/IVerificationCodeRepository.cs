@@ -7,6 +7,7 @@ namespace MasjidOnline.Data.Interface.Repository.Verification;
 
 public interface IVerificationCodeRepository
 {
+    Task AddAndSaveAsync(VerificationCode verificationCode);
     Task AddAsync(VerificationCode verificationCode);
     Task<OneByCode?> GetByCodeAsync(byte[] code);
     Task<int> GetMaxIdAsync();

@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using MasjidOnline.Data.Interface;
 
 namespace MasjidOnline.Business.Event.Interface;

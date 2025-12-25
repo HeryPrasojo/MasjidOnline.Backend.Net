@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.11.35327.3
+# Visual Studio Version 18
+VisualStudioVersion = 18.1.11312.151 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Api.Web", "MasjidOnline.Api.Web\MasjidOnline.Api.Web.csproj", "{86C5F90E-1610-45D1-A323-366CEEFF5C7A}"
 EndProject
@@ -95,6 +95,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Event.Interface", "MasjidOnline.Business\MasjidOnline.Business.Event.Interface\MasjidOnline.Business.Event.Interface.csproj", "{4DCCDCCC-C3A1-4494-B00D-131AF82C00D8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Mapper", "MasjidOnline.Business\MasjidOnline.Business.Mapper\MasjidOnline.Business.Mapper.csproj", "{FECD4EA7-C5B7-4419-8404-BA4CCC7A5366}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Service.Verification", "MasjidOnline.Service\MasjidOnline.Service.Verification\MasjidOnline.Service.Verification.csproj", "{D9D7174B-7769-41E6-BE07-46CFD68C32F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -266,6 +268,10 @@ Global
 		{FECD4EA7-C5B7-4419-8404-BA4CCC7A5366}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FECD4EA7-C5B7-4419-8404-BA4CCC7A5366}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FECD4EA7-C5B7-4419-8404-BA4CCC7A5366}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9D7174B-7769-41E6-BE07-46CFD68C32F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9D7174B-7769-41E6-BE07-46CFD68C32F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9D7174B-7769-41E6-BE07-46CFD68C32F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9D7174B-7769-41E6-BE07-46CFD68C32F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -309,6 +315,7 @@ Global
 		{5E9CA55F-6577-4FCC-A1CB-EFB9652F04D4} = {9532ED15-56B2-415E-8DDF-F24515892619}
 		{4DCCDCCC-C3A1-4494-B00D-131AF82C00D8} = {9532ED15-56B2-415E-8DDF-F24515892619}
 		{FECD4EA7-C5B7-4419-8404-BA4CCC7A5366} = {9532ED15-56B2-415E-8DDF-F24515892619}
+		{D9D7174B-7769-41E6-BE07-46CFD68C32F1} = {2E44B54A-491D-4C1C-88CA-9D332653F92E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E21BDE61-C24C-41E1-87AC-909B6CE35E70}

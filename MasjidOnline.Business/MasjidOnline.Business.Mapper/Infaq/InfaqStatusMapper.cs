@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace MasjidOnline.Business.Mapper.Infaq;
 
 public class InfaqStatusMapper

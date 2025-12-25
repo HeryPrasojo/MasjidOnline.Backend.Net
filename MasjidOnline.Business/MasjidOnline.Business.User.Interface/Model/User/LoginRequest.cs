@@ -6,7 +6,9 @@ public class LoginRequest
 {
     public string? CaptchaToken { get; set; }
 
-    public string? EmailAddress { get; set; }
+    public ContactType? ContactType { get; set; }
+
+    public string? Contact { get; set; }
 
     public string? Password { get; set; }
 

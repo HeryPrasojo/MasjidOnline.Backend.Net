@@ -11,8 +11,8 @@ public class UserUserBusiness(
     Service.Interface.IService _service
     ) : IUserUserBusiness
 {
-    public IRegisterEmailBusiness RegisterEmail { get; } = new RegisterEmailBusiness();
-    public ILoginEmailBusiness LoginEmail { get; } = new LoginEmailBusiness(_authorizationBusiness, _service);
+    public IRegisterBusiness Register { get; } = new RegisterBusiness(_authorizationBusiness, _service);
+    public ILoginBusiness Login { get; } = new LoginBusiness(_authorizationBusiness, _service);
     public ILogoutBusiness Logout { get; } = new LogoutBusiness();
     public ISetPasswordBusiness SetPassword { get; } = new SetPasswordBusiness(_service);
 }

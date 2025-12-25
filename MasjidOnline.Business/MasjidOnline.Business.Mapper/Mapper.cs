@@ -3,7 +3,6 @@ using MasjidOnline.Business.Mapper.Event;
 using MasjidOnline.Business.Mapper.Infaq;
 using MasjidOnline.Business.Mapper.Payment;
 using MasjidOnline.Business.Mapper.User;
-using MasjidOnline.Business.Mapper.Verification;
 
 namespace MasjidOnline.Business.Mapper;
 
@@ -36,15 +35,12 @@ public static class Mapper
 
     public static class User
     {
+        public static readonly ContactTypeMapper ContactType = new();
+
         public static readonly InternalUserStatusMapper InternalUserStatus = new();
 
         public static readonly UserPreferenceApplicationCultureMapper UserPreferenceApplicationCulture = new();
 
         public static readonly UserTypeMapper UserType = new();
-    }
-
-    public static class Verification
-    {
-        public static readonly ContactTypeMapper ContactType = new();
     }
 }

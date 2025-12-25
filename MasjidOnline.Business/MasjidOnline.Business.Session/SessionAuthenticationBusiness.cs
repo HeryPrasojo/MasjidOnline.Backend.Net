@@ -36,10 +36,22 @@ public class SessionAuthenticationBusiness(IService _service) : ISessionAuthenti
         }
 
 
+        var utcNow = DateTime.UtcNow;
+
+        if (sessionEntity.DateTime.AddSeconds(4) > utcNow)
+        {
+            await _data.Session.Session.SetForAuthenticateAsync(sessionEntity.Id, utcNow);
+
+            // hack do something
+
+            return;
+        }
+
+
         session.Id = sessionEntity.Id;
         session.UserId = sessionEntity.UserId;
         session.CultureInfo = Mapper.Mapper.Session.UserPreferenceApplicationCulture[sessionEntity.ApplicationCulture];
 
-        await _data.Session.Session.SetForAuthenticateAsync(session.Id, DateTime.UtcNow);
+        await _data.Session.Session.SetForAuthenticateAsync(session.Id, utcNow);
     }
 }

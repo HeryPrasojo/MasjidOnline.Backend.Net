@@ -17,6 +17,13 @@ public class VerificationCodeRepository(DbContext _dbContext) : IVerificationCod
         await _dbSet.AddAsync(verificationCode);
     }
 
+    public async Task AddAndSaveAsync(VerificationCode verificationCode)
+    {
+        await AddAsync(verificationCode);
+
+        await _dbContext.SaveChangesAsync();
+    }
+
     public async Task<int> GetMaxIdAsync()
     {
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;

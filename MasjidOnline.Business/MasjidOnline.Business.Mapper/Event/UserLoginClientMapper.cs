@@ -1,4 +1,6 @@
 
+using System.Collections.Generic;
+
 namespace MasjidOnline.Business.Mapper.Event;
 
 public class UserLoginClientMapper

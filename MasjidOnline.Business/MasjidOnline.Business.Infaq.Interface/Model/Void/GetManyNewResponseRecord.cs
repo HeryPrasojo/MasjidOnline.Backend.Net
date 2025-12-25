@@ -1,3 +1,5 @@
+using System;
+
 namespace MasjidOnline.Business.Infaq.Interface.Model.Void;
 
 public class GetManyNewResponseRecord

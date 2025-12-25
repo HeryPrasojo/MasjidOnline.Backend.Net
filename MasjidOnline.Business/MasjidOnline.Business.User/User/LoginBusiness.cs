@@ -14,7 +14,7 @@ using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.User.User;
 
-public class LoginEmailBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : ILoginEmailBusiness
+public class LoginBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : ILoginBusiness
 {
     public async Task<Response<LoginResponse>> LoginAsync(IData _data, Session.Interface.Model.Session session, LoginRequest? loginRequest)
     {
@@ -22,9 +22,18 @@ public class LoginEmailBusiness(IAuthorizationBusiness _authorizationBusiness, I
 
         loginRequest = _service.FieldValidator.ValidateRequired(loginRequest);
         loginRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(loginRequest.CaptchaToken);
-        loginRequest.EmailAddress = _service.FieldValidator.ValidateRequiredEmailAddress(loginRequest.EmailAddress);
+        loginRequest.ContactType = _service.FieldValidator.ValidateRequiredEnum(loginRequest.ContactType);
         loginRequest.Password = _service.FieldValidator.ValidateRequiredTextDb255(loginRequest.Password);
         loginRequest.Client = _service.FieldValidator.ValidateRequiredEnum(loginRequest.Client);
+
+
+        var contactType = Mapper.Mapper.User.ContactType[loginRequest.ContactType.Value];
+
+        loginRequest.Contact = contactType switch
+        {
+            Entity.User.ContactType.Email => _service.FieldValidator.ValidateRequiredEmailAddress(loginRequest.Contact),
+            _ => throw new InputInvalidException(nameof(loginRequest.Contact)),
+        };
 
 
         var isCaptchaVerified = await _service.Captcha.VerifyAsync(loginRequest.CaptchaToken, "login");
@@ -32,14 +41,19 @@ public class LoginEmailBusiness(IAuthorizationBusiness _authorizationBusiness, I
         if (!isCaptchaVerified) throw new InputMismatchException(nameof(loginRequest.CaptchaToken));
 
 
-        var userId = await _data.User.UserEmailAddress.GetUserIdAsync(loginRequest.EmailAddress);
 
-        if (userId == default) throw new InputMismatchException(nameof(loginRequest.EmailAddress) + " or " + nameof(loginRequest.Password));
+        var userId = contactType switch
+        {
+            Entity.User.ContactType.Email => await _data.User.UserEmailAddress.GetUserIdAsync(loginRequest.Contact),
+            _ => default,
+        };
+
+        if (userId == default) throw new InputMismatchException(nameof(loginRequest.Contact) + " or " + nameof(loginRequest.Password));
 
 
-        var user = await _data.User.User.GetForLoginAsync(userId.Value);
+        var user = await _data.User.User.GetForLoginAsync(userId!.Value);
 
-        if (user == default) throw new InputMismatchException(nameof(loginRequest.EmailAddress) + " or " + nameof(loginRequest.Password));
+        if (user == default) throw new InputMismatchException(nameof(loginRequest.Contact) + " or " + nameof(loginRequest.Password));
 
         if (user.Status != UserStatus.Active) throw new InputMismatchException(nameof(user.Status));
 
@@ -49,7 +63,7 @@ public class LoginEmailBusiness(IAuthorizationBusiness _authorizationBusiness, I
         var requestPasswordHashBytes = _service.Hash512.Hash(loginRequest.Password);
 
         if (!requestPasswordHashBytes.SequenceEqual(user.Password))
-            throw new InputMismatchException(nameof(loginRequest.EmailAddress) + " or " + nameof(loginRequest.Password));
+            throw new InputMismatchException(nameof(loginRequest.Contact) + " or " + nameof(loginRequest.Password));
 
 
         var userPreferenceApplicationCulture = await _data.User.UserPreference.GetApplicationCultureAsync(userId.Value);
@@ -68,6 +82,8 @@ public class LoginEmailBusiness(IAuthorizationBusiness _authorizationBusiness, I
         var userLogin = new UserLogin
         {
             DateTime = utcNow,
+            Contact = loginRequest.Contact,
+            ContactType = contactType,
             Id = _data.IdGenerator.Event.UserLoginId,
             IpAddress = loginRequest.IpAddress,
             LocationAltitude = loginRequest.LocationAltitude,
@@ -79,7 +95,6 @@ public class LoginEmailBusiness(IAuthorizationBusiness _authorizationBusiness, I
             SessionId = session.Id,
             UserAgent = loginRequest.UserAgent,
             UserId = session.UserId,
-            UserIdString = loginRequest.EmailAddress,
         };
 
         await _data.Event.UserLogin.AddAsync(userLogin);

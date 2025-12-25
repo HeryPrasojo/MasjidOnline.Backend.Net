@@ -1,4 +1,5 @@
 ﻿using System;
+using MasjidOnline.Entity.User;
 using MasjidOnline.Entity.Verification;
 
 namespace MasjidOnline.Data.Interface.ViewModel.Verification.VerificationCode;

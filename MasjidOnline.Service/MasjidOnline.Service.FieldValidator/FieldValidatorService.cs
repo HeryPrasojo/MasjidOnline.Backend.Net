@@ -148,7 +148,7 @@ public class FieldValidatorService : IFieldValidatorService
         if (value.Length != valueLength) throw new InputInvalidException(valueExpression);
 
 
-        valueLength = valueLength + (4 - (valueLength % 4));
+        valueLength += 4 - (valueLength % 4);
 
         value = value.PadRight(valueLength, '=')
             .Replace('_', '/')
@@ -372,5 +372,12 @@ public class FieldValidatorService : IFieldValidatorService
         if (length == 0 || length > 255) throw new InputInvalidException(valueExpression);
 
         return ValidateRequired(value, 1, 255);
+    }
+
+    public bool ValidateRequiredTrue(bool? value, [CallerArgumentExpression(nameof(value))] string? valueExpression = default)
+    {
+        if (value != true) throw new InputInvalidException(valueExpression);
+
+        return value.Value;
     }
 }

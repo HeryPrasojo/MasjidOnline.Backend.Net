@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace MasjidOnline.Business.Mapper.User;
 
 public class UserPreferenceApplicationCultureMapper

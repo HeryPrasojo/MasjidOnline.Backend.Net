@@ -1,4 +1,5 @@
 using System;
+using MasjidOnline.Entity.User;
 
 namespace MasjidOnline.Entity.Event;
 
@@ -10,7 +11,9 @@ public class UserLogin
 
     public required int SessionId { get; set; }
 
-    public required string UserIdString { get; set; }
+    public required string Contact { get; set; }
+
+    public required ContactType ContactType { get; set; }
 
     public required DateTime DateTime { get; set; }
 

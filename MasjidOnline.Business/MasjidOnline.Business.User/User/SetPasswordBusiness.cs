@@ -37,7 +37,7 @@ public class SetPasswordBusiness(
         if (codeDecrypted == default) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
 
 
-        var contactType = Mapper.Mapper.Verification.ContactType[setPasswordRequest.ContactType.Value];
+        var contactType = Mapper.Mapper.User.ContactType[setPasswordRequest.ContactType.Value];
 
         var verificationCode = await _data.Verification.VerificationCode.GetByCodeAsync(codeDecrypted);
 
@@ -45,7 +45,7 @@ public class SetPasswordBusiness(
 
         if (verificationCode.ContactType != contactType) throw new InputMismatchException(nameof(setPasswordRequest.PasswordCode));
 
-        if (verificationCode.ContactType == ContactType.Email)
+        if (verificationCode.ContactType == Entity.User.ContactType.Email)
         {
             verificationCode.Contact = _service.FieldValidator.ValidateRequiredEmailAddress(verificationCode.Contact);
         }
@@ -64,7 +64,7 @@ public class SetPasswordBusiness(
         }
 
 
-        if (verificationCode.ContactType == ContactType.Email)
+        if (verificationCode.ContactType == Entity.User.ContactType.Email)
         {
             var userId = await _data.User.UserEmailAddress.GetUserIdAsync(verificationCode.Contact);
 

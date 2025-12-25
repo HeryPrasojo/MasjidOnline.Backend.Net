@@ -69,7 +69,7 @@ internal static class UserEndpoint
                     ?? _httpContext.Connection.RemoteIpAddress?.ToString();
             }
 
-            return await _business.User.User.LoginEmail.LoginAsync(_data, session, loginRequest);
+            return await _business.User.User.Login.LoginAsync(_data, session, loginRequest);
         }
 
         internal static async Task<Response> SetPasswordAsync(

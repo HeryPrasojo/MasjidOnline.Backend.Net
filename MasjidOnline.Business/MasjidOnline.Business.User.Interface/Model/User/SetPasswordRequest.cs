@@ -1,6 +1,3 @@
-
-using MasjidOnline.Business.Model.Verification;
-
 namespace MasjidOnline.Business.User.Interface.Model.User;
 
 public class SetPasswordRequest
