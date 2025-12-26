@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Infaq.Interface.Infaq;
-using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
+using MasjidOnline.Business.Model.Infaq.Infaq;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Service.Interface;
@@ -11,7 +11,7 @@ namespace MasjidOnline.Business.Infaq.Infaq;
 public class GetManyBusiness(IService _service) : IGetManyBusiness
 {
     public async Task<Response<GetManyResponse<GetManyResponseRecord>>> GetAsync(
-        Session.Interface.Model.Session session,
+        Model.Session.Session session,
         IData _data,
         GetManyRequest? getManyRequest)
     {

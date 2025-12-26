@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using MasjidOnline.Business.User.Interface.Model.UserPreference;
+using MasjidOnline.Business.Model.User.UserPreference;
 using MasjidOnline.Business.User.Interface.UserPreference;
 
 namespace MasjidOnline.Business.User.UserPreference;

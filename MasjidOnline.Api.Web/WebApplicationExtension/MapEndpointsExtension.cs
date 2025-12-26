@@ -86,7 +86,8 @@ internal static class MapEndpointsExtension
             .AddEndpointFilter(endpointFilter);
 
         userGroup.MapPost("login", UserEndpoint.User.LoginAsync);
-        userGroup.MapPost("setPassword", UserEndpoint.User.SetPasswordAsync);
+        userGroup.MapPost("register", UserEndpoint.User.RegisterAsync);
+        userGroup.MapPost("verifySetPassword", UserEndpoint.User.VerifySetPasswordAsync);
 
 
         var userInternalGroup = userGroup.MapGroup("internal/");

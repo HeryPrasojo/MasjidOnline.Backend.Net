@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using MasjidOnline.Business.User.Interface.Model.User;
+using MasjidOnline.Business.Model.User.User;
 
 namespace MasjidOnline.Business.Mapper.User;
 

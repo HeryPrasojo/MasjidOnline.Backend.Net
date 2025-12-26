@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Accountancy.Interface.Expenditure;
-using MasjidOnline.Business.Accountancy.Interface.Model.Expenditure;
 using MasjidOnline.Business.Authorization.Interface;
+using MasjidOnline.Business.Model.Accountancy.Expenditure;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
@@ -14,7 +14,7 @@ public class ApproveBusiness(
     IAuthorizationBusiness _authorizationBusiness,
     IService _service) : IApproveBusiness
 {
-    public async Task<Response> ApproveAsync(Session.Interface.Model.Session session, IData _data, ApproveRequest? approveRequest)
+    public async Task<Response> ApproveAsync(Model.Session.Session session, IData _data, ApproveRequest? approveRequest)
     {
         await _authorizationBusiness.Accountancy.Expenditure.AuthorizeApproveAync(session, _data);
 

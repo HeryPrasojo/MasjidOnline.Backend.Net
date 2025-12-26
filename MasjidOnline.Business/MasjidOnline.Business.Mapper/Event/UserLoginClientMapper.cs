@@ -1,17 +1,18 @@
 
 using System.Collections.Generic;
+using MasjidOnline.Business.Model.Event;
 
 namespace MasjidOnline.Business.Mapper.Event;
 
 public class UserLoginClientMapper
 {
-    private static readonly Dictionary<Business.Event.Interface.Model.UserLoginClient, Entity.Event.UserLoginClient> _toEntities = new()
+    private static readonly Dictionary<UserLoginClient, Entity.Event.UserLoginClient> _toEntities = new()
     {
-        { Business.Event.Interface.Model.UserLoginClient.Android, Entity.Event.UserLoginClient.Android },
-        { Business.Event.Interface.Model.UserLoginClient.Web,     Entity.Event.UserLoginClient.Web },
+        { UserLoginClient.Android, Entity.Event.UserLoginClient.Android },
+        { UserLoginClient.Web,     Entity.Event.UserLoginClient.Web },
     };
 
-    public Entity.Event.UserLoginClient this[Business.Event.Interface.Model.UserLoginClient model]
+    public Entity.Event.UserLoginClient this[UserLoginClient model]
     {
         get => _toEntities[model];
     }

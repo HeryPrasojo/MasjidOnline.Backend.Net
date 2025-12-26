@@ -6,17 +6,17 @@ namespace MasjidOnline.Business.Authorization.Accountancy;
 
 internal class ExpenditureAuthorization : AuthorizationBase, IExpenditureAuthorization
 {
-    public async Task AuthorizeAddAync(Session.Interface.Model.Session session, IData _data)
+    public async Task AuthorizeAddAync(Model.Session.Session session, IData _data)
     {
         await AuthorizePermissionAllAsync(_data, session, accountancyExpenditureAdd: true);
     }
 
-    public async Task AuthorizeApproveAync(Session.Interface.Model.Session session, IData _data)
+    public async Task AuthorizeApproveAync(Model.Session.Session session, IData _data)
     {
         await AuthorizePermissionAllAsync(_data, session, accountancyExpenditureApprove: true);
     }
 
-    public async Task AuthorizeCancelAync(Session.Interface.Model.Session session, IData _data)
+    public async Task AuthorizeCancelAync(Model.Session.Session session, IData _data)
     {
         await AuthorizePermissionAllAsync(_data, session, accountancyExpenditureCancel: true);
     }

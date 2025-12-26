@@ -7,8 +7,9 @@ public class UserPreferenceApplicationCultureMapper
 {
     private static readonly Dictionary<Entity.User.UserPreferenceApplicationCulture, CultureInfo> _toCultureInfo = new()
     {
-        { Entity.User.UserPreferenceApplicationCulture.English, Service.Localization.Interface.Constant.English.CultureInfo },
-        { default,                                              Service.Localization.Interface.Constant.Indonesian.CultureInfo },
+        { Entity.User.UserPreferenceApplicationCulture.English,    Service.Localization.Interface.Constant.English.CultureInfo },
+        { Entity.User.UserPreferenceApplicationCulture.Indonesian, Service.Localization.Interface.Constant.Indonesian.CultureInfo },
+        { default,                                                 Service.Localization.Interface.Constant.English.CultureInfo },
     };
 
     private static readonly Dictionary<CultureInfo, Entity.User.UserPreferenceApplicationCulture> _toEntity = new()

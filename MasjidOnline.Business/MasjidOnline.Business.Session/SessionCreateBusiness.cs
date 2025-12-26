@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Model.Responses;
+using MasjidOnline.Business.Model.Session.Sessions;
 using MasjidOnline.Business.Session.Interface;
-using MasjidOnline.Business.Session.Interface.Model.Sessions;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
@@ -12,7 +12,7 @@ namespace MasjidOnline.Business.Session;
 
 public class SessionCreateBusiness(IService _service) : ISessionCreateBusiness
 {
-    public async Task<Response<string>> CreateAsync(IData _data, Interface.Model.Session session, CreateRequest createRequest)
+    public async Task<Response<string>> CreateAsync(IData _data, Model.Session.Session session, CreateRequest createRequest)
     {
         if (session.Id != default) return new()
         {
@@ -24,12 +24,12 @@ public class SessionCreateBusiness(IService _service) : ISessionCreateBusiness
         createRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(createRequest.CaptchaToken);
 
 
-        var isVerified = await _service.Captcha.VerifyAsync(createRequest.CaptchaToken, "session");
+        var isVerified = await _service.Captcha.VerifySessionAsync(createRequest.CaptchaToken);
 
         if (!isVerified) throw new InputMismatchException(nameof(createRequest.CaptchaToken));
 
 
-        session.CultureInfo = Constant.English.CultureInfo;
+        session.CultureInfo = Constant.English.CultureInfo; // hack get from request
         session.Id = _data.IdGenerator.Session.SessionId;
         session.UserId = Model.Constant.UserId.Anonymous;
 
@@ -47,7 +47,7 @@ public class SessionCreateBusiness(IService _service) : ISessionCreateBusiness
         return new()
         {
             ResultCode = ResponseResultCode.Success,
-            Data = Convert.ToBase64String(_service.Encryption256kService.Encrypt(sessionEntity.Code.AsSpan())),
+            Data = _service.Encryption256kService.EncryptBase64(sessionEntity.Code.AsSpan()),
         };
     }
 }

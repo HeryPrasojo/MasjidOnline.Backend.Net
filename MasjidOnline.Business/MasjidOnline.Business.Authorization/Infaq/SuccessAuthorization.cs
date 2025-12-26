@@ -6,17 +6,17 @@ namespace MasjidOnline.Business.Authorization.Infaq;
 
 internal class SuccessAuthorization : AuthorizationBase, ISuccessAuthorization
 {
-    public async Task AuthorizeAddAync(Session.Interface.Model.Session session, IData _data)
+    public async Task AuthorizeAddAync(Model.Session.Session session, IData _data)
     {
         await AuthorizePermissionAllAsync(_data, session, infaqSuccessAdd: true);
     }
 
-    public async Task AuthorizeApproveAync(Session.Interface.Model.Session session, IData _data)
+    public async Task AuthorizeApproveAync(Model.Session.Session session, IData _data)
     {
         await AuthorizePermissionAllAsync(_data, session, infaqSuccessApprove: true);
     }
 
-    public async Task AuthorizeCancelAync(Session.Interface.Model.Session session, IData _data)
+    public async Task AuthorizeCancelAync(Model.Session.Session session, IData _data)
     {
         await AuthorizePermissionAllAsync(_data, session, infaqSuccessCancel: true);
     }

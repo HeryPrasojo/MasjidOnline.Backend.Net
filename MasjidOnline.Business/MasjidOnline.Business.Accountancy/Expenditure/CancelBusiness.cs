@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Accountancy.Interface.Expenditure;
-using MasjidOnline.Business.Accountancy.Interface.Model.Expenditure;
 using MasjidOnline.Business.Authorization.Interface;
+using MasjidOnline.Business.Model.Accountancy.Expenditure;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
@@ -12,7 +12,7 @@ namespace MasjidOnline.Business.Accountancy.Expenditure;
 
 public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : ICancelBusiness
 {
-    public async Task<Response> CancelAsync(Session.Interface.Model.Session session, IData _data, CancelRequest? cancelRequest)
+    public async Task<Response> CancelAsync(Model.Session.Session session, IData _data, CancelRequest? cancelRequest)
     {
         await _authorizationBusiness.Accountancy.Expenditure.AuthorizeCancelAync(session, _data);
 

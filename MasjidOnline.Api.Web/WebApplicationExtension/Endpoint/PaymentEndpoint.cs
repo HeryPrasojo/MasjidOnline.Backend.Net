@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface;
+using MasjidOnline.Business.Model.Payment.Manual;
 using MasjidOnline.Business.Model.Responses;
-using MasjidOnline.Business.Payment.Interface.Model.Manual;
-using MasjidOnline.Business.Session.Interface.Model;
+using MasjidOnline.Business.Model.Session;
 using MasjidOnline.Data.Interface;
 using Microsoft.AspNetCore.Mvc;
 

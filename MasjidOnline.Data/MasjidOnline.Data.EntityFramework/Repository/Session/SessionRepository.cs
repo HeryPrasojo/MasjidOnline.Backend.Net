@@ -111,25 +111,10 @@ public class SessionRepository(DbContext _dbContext) : ISessionRepository
 
         var entityEntry = _dbSet.Attach(session);
 
-        entityEntry.Property(e => e.ApplicationCulture).IsModified = true;
         entityEntry.Property(e => e.DateTime).IsModified = true;
         entityEntry.Property(e => e.UserId).IsModified = true;
-    }
 
-    public void SetForSetPassword(int id, int userId, DateTime dateTime, UserPreferenceApplicationCulture userPreferenceApplicationCulture)
-    {
-        var session = new Entity.Session.Session
-        {
-            ApplicationCulture = userPreferenceApplicationCulture,
-            DateTime = dateTime,
-            Id = id,
-            UserId = userId,
-        };
-
-        var entityEntry = _dbSet.Attach(session);
-
-        entityEntry.Property(e => e.ApplicationCulture).IsModified = true;
-        entityEntry.Property(e => e.DateTime).IsModified = true;
-        entityEntry.Property(e => e.UserId).IsModified = true;
+        if (userPreferenceApplicationCulture != default)
+            entityEntry.Property(e => e.ApplicationCulture).IsModified = true;
     }
 }

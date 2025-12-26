@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Infaq.Interface.Infaq;
-using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
+using MasjidOnline.Business.Model.Infaq.Infaq;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.Infaq;
@@ -14,7 +14,7 @@ namespace MasjidOnline.Business.Infaq.Infaq;
 
 public class GetOneBusiness(IService _service) : IGetOneBusiness
 {
-    public async Task<Response<GetOneResponse>> GetAsync(Session.Interface.Model.Session session, IData _data, GetOneRequest? getOneRequest)
+    public async Task<Response<GetOneResponse>> GetAsync(Model.Session.Session session, IData _data, GetOneRequest? getOneRequest)
     {
         getOneRequest = _service.FieldValidator.ValidateRequired(getOneRequest);
         getOneRequest.Id = _service.FieldValidator.ValidateRequiredPlus(getOneRequest.Id);

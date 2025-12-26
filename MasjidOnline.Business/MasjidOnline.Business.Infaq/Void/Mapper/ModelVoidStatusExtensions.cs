@@ -1,4 +1,4 @@
-using MasjidOnline.Business.Infaq.Interface.Model.Void;
+using MasjidOnline.Business.Model.Infaq.Void;
 using MasjidOnline.Library.Exceptions;
 
 namespace MasjidOnline.Business.Infaq.Void.Mapper;

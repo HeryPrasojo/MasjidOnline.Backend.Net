@@ -1,7 +1,8 @@
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface;
+using MasjidOnline.Business.Model.Accountancy.Expenditure;
 using MasjidOnline.Business.Model.Responses;
-using MasjidOnline.Business.Session.Interface.Model;
+using MasjidOnline.Business.Model.Session;
 using MasjidOnline.Data.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +16,7 @@ internal static class AccountancyEndpoint
             IBusiness _business,
             IData _data,
             Session session,
-            [FromBody] Business.Accountancy.Interface.Model.Expenditure.AddRequest? addRequest)
+            [FromBody] AddRequest? addRequest)
         {
             return await _business.Accountancy.Expenditure.Add.AddAsync(session, _data, addRequest);
         }
@@ -24,7 +25,7 @@ internal static class AccountancyEndpoint
             IBusiness _business,
             Session session,
             IData _data,
-            [FromBody] Business.Accountancy.Interface.Model.Expenditure.ApproveRequest? approveRequest)
+            [FromBody] ApproveRequest? approveRequest)
         {
             return await _business.Accountancy.Expenditure.Approve.ApproveAsync(session, _data, approveRequest);
         }
@@ -33,24 +34,24 @@ internal static class AccountancyEndpoint
             IBusiness _business,
             Session session,
             IData _data,
-            [FromBody] Business.Accountancy.Interface.Model.Expenditure.CancelRequest? cancelRequest)
+            [FromBody] CancelRequest? cancelRequest)
         {
             return await _business.Accountancy.Expenditure.Cancel.CancelAsync(session, _data, cancelRequest);
         }
 
-        internal static async Task<Response<GetManyResponse<Business.Accountancy.Interface.Model.Expenditure.GetManyResponseRecord>>> GetManyAsync(
+        internal static async Task<Response<GetManyResponse<GetManyResponseRecord>>> GetManyAsync(
             IBusiness _business,
             IData _data,
             Session session,
-            [FromBody] Business.Accountancy.Interface.Model.Expenditure.GetManyRequest? getManyRequest)
+            [FromBody] GetManyRequest? getManyRequest)
         {
             return await _business.Accountancy.Expenditure.GetMany.GetAsync(_data, session, getManyRequest);
         }
 
-        internal static async Task<Response<Business.Accountancy.Interface.Model.Expenditure.GetOneResponse>> GetOneAsync(
+        internal static async Task<Response<GetOneResponse>> GetOneAsync(
             IBusiness _business,
             IData _data,
-            [FromBody] Business.Accountancy.Interface.Model.Expenditure.GetOneRequest? getOneRequest)
+            [FromBody] GetOneRequest? getOneRequest)
         {
             return await _business.Accountancy.Expenditure.GetOne.GetAsync(_data, getOneRequest);
         }
@@ -59,7 +60,7 @@ internal static class AccountancyEndpoint
             IBusiness _business,
             Session session,
             IData _data,
-            [FromBody] Business.Accountancy.Interface.Model.Expenditure.RejectRequest? rejectRequest)
+            [FromBody] RejectRequest? rejectRequest)
         {
             return await _business.Accountancy.Expenditure.Reject.RejectAsync(session, _data, rejectRequest);
         }

@@ -42,7 +42,36 @@ public class CaptchaService(bool _enabled, IHttpClientFactory _httpClientFactory
             throw new Exception($"{nameof(_optionsMonitor.CurrentValue.ReCaptcha.ActionAffix)} IsNullOrEmptyOrWhiteSpace");
     }
 
-    public async Task<bool> VerifyAsync(string token, string action)
+    public async Task<bool> VerifyInfaqAsync(string token)
+    {
+        return await VerifyAsync(token, "infaq");
+    }
+    public async Task<bool> VerifyLoginAsync(string token)
+    {
+        return await VerifyAsync(token, "login");
+    }
+    public async Task<bool> VerifyRecommendationNoteAsync(string token)
+    {
+        return await VerifyAsync(token, "recommendationNote");
+    }
+    public async Task<bool> VerifyRegisterAsync(string token)
+    {
+        return await VerifyAsync(token, "register");
+    }
+    public async Task<bool> VerifySessionAsync(string token)
+    {
+        return await VerifyAsync(token, "session");
+    }
+    public async Task<bool> VerifyVerifyRegisterSessionAsync(string token)
+    {
+        return await VerifyAsync(token, "verifyRegister");
+    }
+    public async Task<bool> VerifyVerifySetPasswordAsync(string token)
+    {
+        return await VerifyAsync(token, "verifySetPassword");
+    }
+
+    private async Task<bool> VerifyAsync(string token, string action)
     {
         if (!_enabled) return true;
 

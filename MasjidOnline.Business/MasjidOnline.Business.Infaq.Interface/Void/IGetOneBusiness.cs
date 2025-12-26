@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using MasjidOnline.Business.Infaq.Interface.Model.Void;
+using MasjidOnline.Business.Model.Infaq.Void;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 

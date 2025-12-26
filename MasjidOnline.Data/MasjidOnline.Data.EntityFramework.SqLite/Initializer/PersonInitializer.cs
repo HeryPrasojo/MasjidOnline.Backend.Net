@@ -17,7 +17,7 @@ public class PersonInitializer(
             (
                 Id INTEGER PRIMARY KEY,
                 UserId INTEGER,
-                Name TEXT NOT NULL COLLATE NOCASE
+                Name TEXT COLLATE NOCASE
             )";
 
         await _personDataContext.Database.ExecuteSqlAsync(sql);

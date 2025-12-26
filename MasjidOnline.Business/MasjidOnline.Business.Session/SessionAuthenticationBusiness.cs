@@ -11,7 +11,7 @@ namespace MasjidOnline.Business.Session;
 public class SessionAuthenticationBusiness(IService _service) : ISessionAuthenticationBusiness
 {
     public async Task AuthenticateAsync(
-        Interface.Model.Session session,
+        Model.Session.Session session,
         IData _data,
         string? codeBase64,
         [CallerArgumentExpression(nameof(codeBase64))] string? codeBase64Expression = default)

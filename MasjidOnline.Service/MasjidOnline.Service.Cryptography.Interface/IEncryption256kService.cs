@@ -8,4 +8,6 @@ public interface IEncryption256kService
 
     byte[]? Decrypt(ReadOnlySpan<byte> bytes);
     byte[] Encrypt(ReadOnlySpan<byte> bytes);
+    string EncryptBase64(ReadOnlySpan<byte> bytes);
+    string EncryptBase64Url(ReadOnlySpan<byte> bytes);
 }

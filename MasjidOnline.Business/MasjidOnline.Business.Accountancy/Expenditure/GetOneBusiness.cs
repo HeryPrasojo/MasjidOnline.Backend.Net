@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using MasjidOnline.Business.Accountancy.Interface.Expenditure;
-using MasjidOnline.Business.Accountancy.Interface.Model.Expenditure;
+using MasjidOnline.Business.Model.Accountancy.Expenditure;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;

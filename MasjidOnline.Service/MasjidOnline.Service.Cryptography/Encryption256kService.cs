@@ -34,7 +34,14 @@ public class Encryption256kService(IOptionsMonitor<CryptographyOptions> _options
 
         using var aesGcm = new AesGcm(_key.AsSpan(), _tagSize);
 
-        aesGcm.Decrypt(nonce, cipherText, tag, plainText, associatedData);
+        try
+        {
+            aesGcm.Decrypt(nonce, cipherText, tag, plainText, associatedData);
+        }
+        catch (Exception)
+        {
+            return default;
+        }
 
         return plainText;
     }
@@ -64,5 +71,18 @@ public class Encryption256kService(IOptionsMonitor<CryptographyOptions> _options
         aesGcm.Encrypt(nonce, bytes, ciphertext, tag, associatedData);
 
         return buffer;
+    }
+    public string EncryptBase64(ReadOnlySpan<byte> bytes)
+    {
+        var encryypted = Encrypt(bytes);
+
+        return Convert.ToBase64String(encryypted);
+    }
+    public string EncryptBase64Url(ReadOnlySpan<byte> bytes)
+    {
+        return EncryptBase64(bytes)
+            .Replace('+', '-')
+            .Replace('/', '_')
+            .TrimEnd('=');
     }
 }

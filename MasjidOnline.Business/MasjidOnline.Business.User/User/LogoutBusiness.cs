@@ -9,7 +9,7 @@ namespace MasjidOnline.Business.User.User;
 
 public class LogoutBusiness : ILogoutBusiness
 {
-    public async Task<Response> LogoutAsync(Session.Interface.Model.Session session, IData _data)
+    public async Task<Response> LogoutAsync(Model.Session.Session session, IData _data)
     {
         session.UserId = Constant.UserId.Anonymous;
 

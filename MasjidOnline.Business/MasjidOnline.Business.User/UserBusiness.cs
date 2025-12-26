@@ -24,7 +24,7 @@ public class UserBusiness(
 {
     public IUserInternalBusiness Internal { get; } = new UserInternalBusiness(_optionsMonitor, _authorizationBusiness, _service);
     public IUserPreferenceBusiness UserPreference { get; } = new UserPreferenceBusiness();
-    public IUserUserBusiness User { get; } = new UserUserBusiness(_authorizationBusiness, _service);
+    public IUserUserBusiness User { get; } = new UserUserBusiness(_optionsMonitor, _authorizationBusiness, _service);
 
 
     public async Task InitializeAsync(IData _data)
@@ -77,7 +77,11 @@ public class UserBusiness(
 
         await _data.User.UserEmailAddress.AddAsync(userEmailAddress);
 
-        await _data.Audit.UserEmailAddressLog.AddAddAsync(_data.IdGenerator.Audit.UserEmailAddressLogId, utcNow, Constant.UserId.System, userEmailAddress);
+        await _data.Audit.UserEmailAddressLog.AddAddAsync(
+            _data.IdGenerator.Audit.UserEmailAddressLogId,
+            utcNow,
+            Constant.UserId.System,
+            userEmailAddress);
 
 
         var verificationCode = new VerificationCode
@@ -142,18 +146,18 @@ public class UserBusiness(
 
         await _data.Authorization.UserInternalPermission.AddAsync(userInternalPermission);
 
-        await _data.Audit.UserInternalPermissionLog.AddAddAsync(_data.IdGenerator.Audit.PermissionLogId, utcNow, Constant.UserId.System, userInternalPermission);
+        await _data.Audit.UserInternalPermissionLog.AddAddAsync(
+            _data.IdGenerator.Audit.PermissionLogId,
+            utcNow,
+            Constant.UserId.System,
+            userInternalPermission);
 
         await _data.Transaction.CommitAsync();
 
 
-        var codeBase64 = Convert.ToBase64String(_service.Encryption256kService.Encrypt(verificationCode.Code.AsSpan()));
+        var codeBase64Url = _service.Encryption256kService.EncryptBase64Url(verificationCode.Code.AsSpan());
 
-        codeBase64 = codeBase64.Replace('+', '-')
-            .Replace('/', '_')
-            .TrimEnd('=');
-
-        var uri = options.Uri.WebOrigin + options.Uri.UserPassword + codeBase64;
+        var uri = options.Uri.WebOrigin + options.Uri.UserPasswordEmail + codeBase64Url;
 
         var mailMessage = new MailMessage
         {

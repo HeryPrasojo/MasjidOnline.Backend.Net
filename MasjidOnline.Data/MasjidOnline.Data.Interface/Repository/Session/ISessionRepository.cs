@@ -16,7 +16,6 @@ public interface ISessionRepository
     Task RemoveExpireAsync(DateTime dateTime);
     Task SetForAuthenticateAsync(int id, DateTime dateTime);
     void SetForLogin(int id, int userId, DateTime dateTime, UserPreferenceApplicationCulture userPreferenceApplicationCulture);
-    void SetForSetPassword(int id, int userId, DateTime dateTime, UserPreferenceApplicationCulture userPreferenceApplicationCulture);
     void SetUserId(int id, int userId, DateTime dateTime);
     Task SetUserIdAndSaveAsync(int id, int userId, DateTime dateTime);
 }

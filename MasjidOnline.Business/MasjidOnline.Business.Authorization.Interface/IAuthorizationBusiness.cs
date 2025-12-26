@@ -6,6 +6,6 @@ public interface IAuthorizationBusiness
     IUserAuthorizationBusiness User { get; }
     IInfaqAuthorizationBusiness Infaq { get; }
 
-    void AuthorizeAnonymous(Session.Interface.Model.Session session);
-    void AuthorizeNonAnonymous(Session.Interface.Model.Session session);
+    void AuthorizeAnonymous(Model.Session.Session session);
+    void AuthorizeNonAnonymous(Model.Session.Session session);
 }

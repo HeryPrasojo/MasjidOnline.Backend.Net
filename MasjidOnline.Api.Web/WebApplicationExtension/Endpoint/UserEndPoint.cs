@@ -2,7 +2,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface;
 using MasjidOnline.Business.Model.Responses;
-using MasjidOnline.Business.Session.Interface.Model;
+using MasjidOnline.Business.Model.Session;
+using MasjidOnline.Business.Model.User.Internal;
+using MasjidOnline.Business.Model.User.User;
 using MasjidOnline.Data.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +19,7 @@ internal static class UserEndpoint
             IBusiness _business,
             Session session,
             IData _data,
-            [FromBody] Business.User.Interface.Model.Internal.ApproveRequest? approveRequest)
+            [FromBody] ApproveRequest? approveRequest)
         {
             return await _business.User.Internal.Approve.ApproveAsync(session, _data, approveRequest);
         }
@@ -26,15 +28,15 @@ internal static class UserEndpoint
             IBusiness _business,
             Session session,
             IData _data,
-            [FromBody] Business.User.Interface.Model.Internal.CancelRequest? cancelRequest)
+            [FromBody] CancelRequest? cancelRequest)
         {
             return await _business.User.Internal.Cancel.CancelAsync(session, _data, cancelRequest);
         }
 
-        internal static async Task<Response<Business.User.Interface.Model.Internal.GetOneResponse>> GetOneAsync(
+        internal static async Task<Response<GetOneResponse>> GetOneAsync(
             IBusiness _business,
             IData _data,
-            [FromBody] Business.User.Interface.Model.Internal.GetOneRequest? getOneRequest)
+            [FromBody] GetOneRequest? getOneRequest)
         {
             return await _business.User.Internal.GetOne.GetAsync(_data, getOneRequest);
         }
@@ -43,7 +45,7 @@ internal static class UserEndpoint
             IBusiness _business,
             Session session,
             IData _data,
-            [FromBody] Business.User.Interface.Model.Internal.RejectRequest? rejectRequest)
+            [FromBody] RejectRequest? rejectRequest)
         {
             return await _business.User.Internal.Reject.RejectAsync(session, _data, rejectRequest);
         }
@@ -56,7 +58,7 @@ internal static class UserEndpoint
             IBusiness _business,
             IData _data,
             Session session,
-            [FromBody] Business.User.Interface.Model.User.LoginRequest? loginRequest)
+            [FromBody] LoginRequest? loginRequest)
         {
             if (loginRequest != default)
             {
@@ -72,13 +74,22 @@ internal static class UserEndpoint
             return await _business.User.User.Login.LoginAsync(_data, session, loginRequest);
         }
 
-        internal static async Task<Response> SetPasswordAsync(
+        internal static async Task<Response> RegisterAsync(
             IBusiness _business,
             IData _data,
             Session session,
-            [FromBody] Business.User.Interface.Model.User.SetPasswordRequest? setPasswordRequest)
+            [FromBody] RegisterRequest? registerRequest)
         {
-            return await _business.User.User.SetPassword.SetAsync(session, _data, setPasswordRequest);
+            return await _business.User.User.Register.RegisterAsync(_data, session, registerRequest);
+        }
+
+        internal static async Task<Response> VerifySetPasswordAsync(
+            IBusiness _business,
+            IData _data,
+            Session session,
+            [FromBody] VerifySetPasswordRequest? verifySetPasswordRequest)
+        {
+            return await _business.User.User.VerifySetPassword.VerifyAsync(session, _data, verifySetPasswordRequest);
         }
     }
 }

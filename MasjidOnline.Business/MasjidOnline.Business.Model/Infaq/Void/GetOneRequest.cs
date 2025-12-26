@@ -1,0 +1,6 @@
+namespace MasjidOnline.Business.Model.Infaq.Void;
+
+public class GetOneRequest
+{
+    public int? Id { get; set; }
+}

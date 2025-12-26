@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Repository.Verification;
 using MasjidOnline.Data.Interface.ViewModel.Verification.VerificationCode;
+using MasjidOnline.Entity.User;
 using MasjidOnline.Entity.Verification;
 using Microsoft.EntityFrameworkCore;
 
@@ -42,6 +43,22 @@ public class VerificationCodeRepository(DbContext _dbContext) : IVerificationCod
                 UserId = e.UserId,
                 Type = e.Type,
             })
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<int> GetLastIdByContactAsync(ContactType contactType, string contact)
+    {
+        return await _dbSet.Where(e => (e.ContactType == contactType) && (e.Contact == contact))
+            .OrderByDescending(e => e.Id)
+            .Select(e => e.Id)
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<int> GetLastIdByUserIdAsync(int userId)
+    {
+        return await _dbSet.Where(e => e.UserId == userId)
+            .OrderByDescending(e => e.Id)
+            .Select(e => e.Id)
             .FirstOrDefaultAsync();
     }
 

@@ -5,8 +5,8 @@ namespace MasjidOnline.Business.Authorization.Interface.User;
 
 public interface IInternalAuthorization
 {
-    Task AuthorizeAddAync(Session.Interface.Model.Session session, IData _data);
-    Task AuthorizeApproveAync(Session.Interface.Model.Session session, IData _data);
-    Task AuthorizeCancelAync(Session.Interface.Model.Session session, IData _data);
-    Task AuthorizeReadAync(Session.Interface.Model.Session session, IData _data);
+    Task AuthorizeAddAync(Model.Session.Session session, IData _data);
+    Task AuthorizeApproveAync(Model.Session.Session session, IData _data);
+    Task AuthorizeCancelAync(Model.Session.Session session, IData _data);
+    Task AuthorizeReadAync(Model.Session.Session session, IData _data);
 }

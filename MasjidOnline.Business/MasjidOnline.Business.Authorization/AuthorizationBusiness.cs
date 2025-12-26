@@ -9,12 +9,12 @@ public class AuthorizationBusiness : IAuthorizationBusiness
     public IInfaqAuthorizationBusiness Infaq { get; } = new InfaqAuthorizationBusiness();
     public IUserAuthorizationBusiness User { get; } = new UserAuthorizationBusiness();
 
-    public void AuthorizeAnonymous(Session.Interface.Model.Session session)
+    public void AuthorizeAnonymous(Model.Session.Session session)
     {
         if (!session.IsUserAnonymous) throw new PermissionException(nameof(session.IsUserAnonymous));
     }
 
-    public void AuthorizeNonAnonymous(Session.Interface.Model.Session session)
+    public void AuthorizeNonAnonymous(Model.Session.Session session)
     {
         if (session.IsUserAnonymous) throw new PermissionException(nameof(session.IsUserAnonymous));
     }

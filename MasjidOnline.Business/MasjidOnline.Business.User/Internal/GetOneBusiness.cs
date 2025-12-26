@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using MasjidOnline.Business.Model.Responses;
+using MasjidOnline.Business.Model.User.Internal;
 using MasjidOnline.Business.User.Interface.Internal;
-using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;

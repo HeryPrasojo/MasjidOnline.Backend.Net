@@ -2,22 +2,29 @@ using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Model;
-using MasjidOnline.Business.User.Interface.Model.User;
+using MasjidOnline.Business.Model.Options;
+using MasjidOnline.Business.Model.Responses;
+using MasjidOnline.Business.Model.User.User;
 using MasjidOnline.Business.User.Interface.User;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.Verification;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
+using MasjidOnline.Service.Mail.Interface.Model;
+using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Business.User.User;
 
-public class RegisterBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : IRegisterBusiness
+public class RegisterBusiness(
+    IOptionsMonitor<BusinessOptions> _optionsMonitor,
+    IAuthorizationBusiness _authorizationBusiness,
+    IService _service) : IRegisterBusiness
 {
-    // undone last
-    public async Task RegisterAsync(IData _data, Session.Interface.Model.Session session, RegisterRequest registerRequest)
+    public async Task<Response> RegisterAsync(IData _data, Model.Session.Session session, RegisterRequest? registerRequest)
     {
         _authorizationBusiness.AuthorizeAnonymous(session);
 
+        registerRequest = _service.FieldValidator.ValidateRequired(registerRequest);
         registerRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(registerRequest.CaptchaToken);
         registerRequest.ContactType = _service.FieldValidator.ValidateRequiredEnum(registerRequest.ContactType);
 
@@ -33,7 +40,7 @@ public class RegisterBusiness(IAuthorizationBusiness _authorizationBusiness, ISe
         };
 
 
-        var isCaptchaVerified = await _service.Captcha.VerifyAsync(registerRequest.CaptchaToken, "register");
+        var isCaptchaVerified = await _service.Captcha.VerifyRegisterAsync(registerRequest.CaptchaToken);
 
         if (!isCaptchaVerified) throw new InputMismatchException(nameof(registerRequest.CaptchaToken));
 
@@ -57,15 +64,31 @@ public class RegisterBusiness(IAuthorizationBusiness _authorizationBusiness, ISe
             DateTime = utcNow,
             Id = _data.IdGenerator.Verification.VerificationCodeId,
             UserId = Constant.UserId.Anonymous,
-            Type = VerificationCodeType.Password,
+            Type = VerificationCodeType.Register,
         };
 
         await _data.Verification.VerificationCode.AddAndSaveAsync(verificationCode);
 
 
+        var codeBase64Url = _service.Encryption256kService.EncryptBase64Url(verificationCode.Code.AsSpan());
+
+        var businessOptions = _optionsMonitor.CurrentValue;
+
+        var uri = businessOptions.Uri.WebOrigin + businessOptions.Uri.UserRegisterEmail + codeBase64Url;
+
         if (contactType == Entity.User.ContactType.Email)
         {
+            var mailMessage = new MailMessage
+            {
+                BodyHtml = $"<p>Please use the following link to to signup with email: <a href='{uri}'>{uri}</a></p>",
+                BodyText = "Please use the following link to signup with email: " + uri,
+                Subject = "MasjidOnline Email Verification",
+                To = [new MailAddress(registerRequest.Contact, registerRequest.Contact)],
+            };
 
+            await _service.MailSender.SendMailAsync(mailMessage);
         }
+
+        return new() { ResultCode = ResponseResultCode.Success };
     }
 }

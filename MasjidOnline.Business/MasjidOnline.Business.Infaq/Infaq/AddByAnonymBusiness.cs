@@ -5,8 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Infaq.Interface.Infaq;
-using MasjidOnline.Business.Infaq.Interface.Model.Infaq;
+using MasjidOnline.Business.Model.Infaq.Infaq;
 using MasjidOnline.Business.Model.Options;
+using MasjidOnline.Business.Model.Payment;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.Infaq;
@@ -21,7 +22,7 @@ public class AddByAnonymBusiness(
     IService _service,
     IOptionsMonitor<BusinessOptions> _optionsMonitor) : Add, IAddByAnonymBusiness
 {
-    public async Task<Response> AddAsync(IData _data, Session.Interface.Model.Session session, AddByAnonymRequest? addByAnonymRequest)
+    public async Task<Response> AddAsync(IData _data, Model.Session.Session session, AddByAnonymRequest? addByAnonymRequest)
     {
         _authorizationBusiness.AuthorizeAnonymous(session);
 
@@ -33,17 +34,17 @@ public class AddByAnonymBusiness(
         addByAnonymRequest.ManualNotes = _service.FieldValidator.ValidateOptionalTextDb255(addByAnonymRequest.ManualNotes);
 
 
-        var supportedPaymentTypes = new Payment.Interface.Model.PaymentType[]
+        var supportedPaymentTypes = new PaymentType[]
         {
-            Payment.Interface.Model.PaymentType.ManualBankTransfer,
+            PaymentType.ManualBankTransfer,
         };
 
         if (!supportedPaymentTypes.Any(t => t == addByAnonymRequest.PaymentType)) throw new InputInvalidException(nameof(addByAnonymRequest.PaymentType));
 
 
-        var manualPaymentTypes = new Payment.Interface.Model.PaymentType[]
+        var manualPaymentTypes = new PaymentType[]
         {
-            Payment.Interface.Model.PaymentType.ManualBankTransfer,
+            PaymentType.ManualBankTransfer,
         };
 
         if (manualPaymentTypes.Any(t => t == addByAnonymRequest.PaymentType))
@@ -52,7 +53,7 @@ public class AddByAnonymBusiness(
         }
 
 
-        var isCaptchaVerified = await _service.Captcha.VerifyAsync(addByAnonymRequest.CaptchaToken, "infaq");
+        var isCaptchaVerified = await _service.Captcha.VerifyInfaqAsync(addByAnonymRequest.CaptchaToken);
 
         if (!isCaptchaVerified) throw new InputMismatchException(nameof(addByAnonymRequest.CaptchaToken));
 

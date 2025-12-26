@@ -6,6 +6,6 @@ public interface IUserUserBusiness
 {
     IRegisterBusiness Register { get; }
     ILoginBusiness Login { get; }
-    ISetPasswordBusiness SetPassword { get; }
+    IVerifySetPasswordBusiness VerifySetPassword { get; }
     ILogoutBusiness Logout { get; }
 }

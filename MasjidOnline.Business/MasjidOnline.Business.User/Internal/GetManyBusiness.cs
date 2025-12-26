@@ -2,8 +2,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Model.Responses;
+using MasjidOnline.Business.Model.User.Internal;
 using MasjidOnline.Business.User.Interface.Internal;
-using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.ViewModel.Repository;
 using MasjidOnline.Data.Interface.ViewModel.User.Internal;
@@ -14,7 +14,7 @@ namespace MasjidOnline.Business.User.Internal;
 public class GetManyBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : IGetManyBusiness
 {
     public async Task<Response<GetManyResponse<GetManyResponseRecord>>> GetAsync(
-        Session.Interface.Model.Session session,
+        Model.Session.Session session,
         IData _data,
         GetManyRequest? getManyRequest)
     {

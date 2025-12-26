@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface;
-using MasjidOnline.Business.Infaq.Interface.Model.Success;
 using MasjidOnline.Business.Infaq.Interface.Success;
+using MasjidOnline.Business.Model.Infaq.Success;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.Infaq;
@@ -13,7 +13,7 @@ namespace MasjidOnline.Business.Infaq.Success;
 
 public class ApproveBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : IApproveBusiness
 {
-    public async Task<Response> ApproveAsync(Session.Interface.Model.Session session, IData _data, ApproveRequest? approveRequest)
+    public async Task<Response> ApproveAsync(Model.Session.Session session, IData _data, ApproveRequest? approveRequest)
     {
         await _authorizationBusiness.Infaq.Success.AuthorizeApproveAync(session, _data);
 

@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Model.Responses;
+using MasjidOnline.Business.Model.User.Internal;
 using MasjidOnline.Business.User.Interface.Internal;
-using MasjidOnline.Business.User.Interface.Model.Internal;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Service.Interface;
 
@@ -12,7 +12,7 @@ public class AddBusiness(
     IAuthorizationBusiness _authorizationBusiness,
     IService _service) : IAddBusiness
 {
-    public async Task<Response> AddAsync(Session.Interface.Model.Session session, IData _data, AddRequest? addRequest)
+    public async Task<Response> AddAsync(Model.Session.Session session, IData _data, AddRequest? addRequest)
     {
         await _authorizationBusiness.User.Internal.AuthorizeAddAync(session, _data);
 

@@ -2,9 +2,9 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface;
-using MasjidOnline.Business.Authorization.Interface.Model;
+using MasjidOnline.Business.Model.Authorization;
 using MasjidOnline.Business.Model.Responses;
-using MasjidOnline.Business.User.Interface.Model.User;
+using MasjidOnline.Business.Model.User.User;
 using MasjidOnline.Business.User.Interface.User;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.Event;
@@ -16,7 +16,7 @@ namespace MasjidOnline.Business.User.User;
 
 public class LoginBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : ILoginBusiness
 {
-    public async Task<Response<LoginResponse>> LoginAsync(IData _data, Session.Interface.Model.Session session, LoginRequest? loginRequest)
+    public async Task<Response<LoginResponse>> LoginAsync(IData _data, Model.Session.Session session, LoginRequest? loginRequest)
     {
         _authorizationBusiness.AuthorizeAnonymous(session);
 
@@ -25,6 +25,7 @@ public class LoginBusiness(IAuthorizationBusiness _authorizationBusiness, IServi
         loginRequest.ContactType = _service.FieldValidator.ValidateRequiredEnum(loginRequest.ContactType);
         loginRequest.Password = _service.FieldValidator.ValidateRequiredTextDb255(loginRequest.Password);
         loginRequest.Client = _service.FieldValidator.ValidateRequiredEnum(loginRequest.Client);
+        loginRequest.ApplicationCulture = _service.FieldValidator.ValidateRequiredEnum(loginRequest.ApplicationCulture);
 
 
         var contactType = Mapper.Mapper.User.ContactType[loginRequest.ContactType.Value];
@@ -36,7 +37,7 @@ public class LoginBusiness(IAuthorizationBusiness _authorizationBusiness, IServi
         };
 
 
-        var isCaptchaVerified = await _service.Captcha.VerifyAsync(loginRequest.CaptchaToken, "login");
+        var isCaptchaVerified = await _service.Captcha.VerifyLoginAsync(loginRequest.CaptchaToken);
 
         if (!isCaptchaVerified) throw new InputMismatchException(nameof(loginRequest.CaptchaToken));
 
@@ -66,6 +67,8 @@ public class LoginBusiness(IAuthorizationBusiness _authorizationBusiness, IServi
             throw new InputMismatchException(nameof(loginRequest.Contact) + " or " + nameof(loginRequest.Password));
 
 
+        // undone
+        //-;
         var userPreferenceApplicationCulture = await _data.User.UserPreference.GetApplicationCultureAsync(userId.Value);
 
         await _data.Transaction.BeginAsync(_data.Session, _data.Event);
@@ -73,8 +76,9 @@ public class LoginBusiness(IAuthorizationBusiness _authorizationBusiness, IServi
         var utcNow = DateTime.UtcNow;
 
         session.UserId = userId.Value;
-        session.CultureInfo = Mapper.Mapper.Session.UserPreferenceApplicationCulture[userPreferenceApplicationCulture];
-        session.UserId = userId.Value;
+
+        if (userPreferenceApplicationCulture != default)
+            session.CultureInfo = Mapper.Mapper.Session.UserPreferenceApplicationCulture[userPreferenceApplicationCulture];
 
         _data.Session.Session.SetForLogin(session.Id, session.UserId, utcNow, userPreferenceApplicationCulture);
 

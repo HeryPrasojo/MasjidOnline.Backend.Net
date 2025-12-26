@@ -9,7 +9,7 @@ internal abstract class AuthorizationBase
 {
     protected static async Task AuthorizePermissionAllAsync(
         IData _data,
-        Session.Interface.Model.Session session,
+        Model.Session.Session session,
         bool accountancyExpenditureAdd = default,
         bool accountancyExpenditureApprove = default,
         bool accountancyExpenditureCancel = default,
@@ -57,7 +57,7 @@ internal abstract class AuthorizationBase
 
     protected static async Task AuthorizePermissionAnyAsync(
         IData _data,
-        Session.Interface.Model.Session session,
+        Model.Session.Session session,
         bool accountancyExpenditureAdd = default,
         bool accountancyExpenditureApprove = default,
         bool accountancyExpenditureCancel = default,
@@ -105,7 +105,7 @@ internal abstract class AuthorizationBase
         throw new PermissionException(nameof(userInternalPermission));
     }
 
-    private static async Task AuthorizeInternalAsync(IData _data, Session.Interface.Model.Session session)
+    private static async Task AuthorizeInternalAsync(IData _data, Model.Session.Session session)
     {
         if (session.IsUserAnonymous) throw new PermissionException(nameof(session.IsUserAnonymous));
 

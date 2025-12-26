@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using MasjidOnline.Business.Infaq.Interface.Model.Void;
 using MasjidOnline.Business.Infaq.Interface.Void;
 using MasjidOnline.Business.Infaq.Void.Mapper;
+using MasjidOnline.Business.Model.Infaq.Void;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;

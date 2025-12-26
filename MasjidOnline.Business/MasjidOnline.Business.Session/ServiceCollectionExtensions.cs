@@ -6,7 +6,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddSessionBusiness(this IServiceCollection services)
     {
-        services.AddScoped<Interface.Model.Session>();
+        services.AddScoped<Model.Session.Session>();
 
         return services;
     }

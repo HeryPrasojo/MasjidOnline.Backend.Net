@@ -6,5 +6,5 @@ namespace MasjidOnline.Business.User.Interface.User;
 
 public interface ILogoutBusiness
 {
-    Task<Response> LogoutAsync(Session.Interface.Model.Session session, IData _data);
+    Task<Response> LogoutAsync(Business.Model.Session.Session session, IData _data);
 }

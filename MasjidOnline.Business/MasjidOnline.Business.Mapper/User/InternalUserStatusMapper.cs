@@ -1,32 +1,33 @@
 using System.Collections.Generic;
+using MasjidOnline.Business.Model.User.Internal;
 
 namespace MasjidOnline.Business.Mapper.User;
 
 public class InternalUserStatusMapper
 {
-    private static readonly Dictionary<Business.User.Interface.Model.Internal.InternalUserStatus, Entity.User.InternalUserStatus> _toEntity = new()
+    private static readonly Dictionary<InternalUserStatus, Entity.User.InternalUserStatus> _toEntity = new()
     {
-        { Business.User.Interface.Model.Internal.InternalUserStatus.Approve, Entity.User.InternalUserStatus.Approve },
-        { Business.User.Interface.Model.Internal.InternalUserStatus.Cancel,  Entity.User.InternalUserStatus.Cancel },
-        { Business.User.Interface.Model.Internal.InternalUserStatus.New,     Entity.User.InternalUserStatus.New },
-        { Business.User.Interface.Model.Internal.InternalUserStatus.Reject,  Entity.User.InternalUserStatus.Reject },
+        { InternalUserStatus.Approve, Entity.User.InternalUserStatus.Approve },
+        { InternalUserStatus.Cancel,  Entity.User.InternalUserStatus.Cancel },
+        { InternalUserStatus.New,     Entity.User.InternalUserStatus.New },
+        { InternalUserStatus.Reject,  Entity.User.InternalUserStatus.Reject },
     };
 
-    private static readonly Dictionary<Entity.User.InternalUserStatus, Business.User.Interface.Model.Internal.InternalUserStatus> _toModel = new()
+    private static readonly Dictionary<Entity.User.InternalUserStatus, InternalUserStatus> _toModel = new()
     {
-        { Entity.User.InternalUserStatus.Approve, Business.User.Interface.Model.Internal.InternalUserStatus.Approve },
-        { Entity.User.InternalUserStatus.Cancel,  Business.User.Interface.Model.Internal.InternalUserStatus.Cancel },
-        { Entity.User.InternalUserStatus.New,     Business.User.Interface.Model.Internal.InternalUserStatus.New },
-        { Entity.User.InternalUserStatus.Reject,  Business.User.Interface.Model.Internal.InternalUserStatus.Reject },
+        { Entity.User.InternalUserStatus.Approve, InternalUserStatus.Approve },
+        { Entity.User.InternalUserStatus.Cancel,  InternalUserStatus.Cancel },
+        { Entity.User.InternalUserStatus.New,     InternalUserStatus.New },
+        { Entity.User.InternalUserStatus.Reject,  InternalUserStatus.Reject },
     };
 
 
-    public Business.User.Interface.Model.Internal.InternalUserStatus this[Entity.User.InternalUserStatus entity]
+    public InternalUserStatus this[Entity.User.InternalUserStatus entity]
     {
         get => _toModel[entity];
     }
 
-    public Entity.User.InternalUserStatus this[Business.User.Interface.Model.Internal.InternalUserStatus model]
+    public Entity.User.InternalUserStatus this[InternalUserStatus model]
     {
         get => _toEntity[model];
     }

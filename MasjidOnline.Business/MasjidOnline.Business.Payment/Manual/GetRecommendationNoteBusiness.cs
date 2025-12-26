@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
+using MasjidOnline.Business.Model.Payment.Manual;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Payment.Interface.Manual;
-using MasjidOnline.Business.Payment.Interface.Model.Manual;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
@@ -14,7 +14,7 @@ public class GetRecommendationNoteBusiness(IService _service) : IGetRecommendati
 
     public async Task<Response<string>> GetAsync(
         IData _data,
-        Session.Interface.Model.Session session,
+        Model.Session.Session session,
         GetRecommendationNoteRequest getRecommendationNoteRequest)
     {
         getRecommendationNoteRequest = _service.FieldValidator.ValidateRequired(getRecommendationNoteRequest);
@@ -32,7 +32,7 @@ public class GetRecommendationNoteBusiness(IService _service) : IGetRecommendati
 
 
 
-        var isCaptchaVerified = await _service.Captcha.VerifyAsync(getRecommendationNoteRequest.CaptchaToken, "recommendationNote");
+        var isCaptchaVerified = await _service.Captcha.VerifyRecommendationNoteAsync(getRecommendationNoteRequest.CaptchaToken);
 
         if (!isCaptchaVerified) throw new InputMismatchException(nameof(getRecommendationNoteRequest.CaptchaToken));
 

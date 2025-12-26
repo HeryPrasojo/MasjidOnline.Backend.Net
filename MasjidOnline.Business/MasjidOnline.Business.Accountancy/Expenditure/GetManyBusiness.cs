@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Accountancy.Interface.Expenditure;
-using MasjidOnline.Business.Accountancy.Interface.Model.Expenditure;
+using MasjidOnline.Business.Model.Accountancy.Expenditure;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.ViewModel.Accountancy.Expenditure;
@@ -14,7 +14,7 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
 {
     public async Task<Response<GetManyResponse<GetManyResponseRecord>>> GetAsync(
         IData _data,
-        Session.Interface.Model.Session session,
+        Model.Session.Session session,
         GetManyRequest? getManyRequest)
     {
         getManyRequest = _service.FieldValidator.ValidateRequired(getManyRequest);

@@ -1,8 +1,8 @@
 using System.Linq;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Infaq.Interface.Model.Success;
 using MasjidOnline.Business.Infaq.Interface.Success;
 using MasjidOnline.Business.Infaq.Success.Mapper;
+using MasjidOnline.Business.Model.Infaq.Success;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Data.Interface.ViewModel.Infaq.Success;
@@ -15,7 +15,7 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
 {
     public async Task<Response<GetManyResponse<GetManyResponseRecord>>> GetAsync(
         IData _data,
-        Session.Interface.Model.Session session,
+        Model.Session.Session session,
         GetManyRequest? getManyRequest)
     {
         getManyRequest = _service.FieldValidator.ValidateRequired(getManyRequest);

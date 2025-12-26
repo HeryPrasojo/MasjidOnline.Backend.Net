@@ -2,6 +2,7 @@
 
 public class UriOptions
 {
-    public required string UserPassword { get; set; }
+    public required string UserPasswordEmail { get; set; }
+    public required string UserRegisterEmail { get; set; }
     public required string WebOrigin { get; set; }
 }

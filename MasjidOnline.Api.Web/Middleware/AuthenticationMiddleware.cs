@@ -3,7 +3,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface;
 using MasjidOnline.Business.Model.Responses;
-using MasjidOnline.Business.Session.Interface.Model;
+using MasjidOnline.Business.Model.Session;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using Microsoft.AspNetCore.Http;

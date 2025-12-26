@@ -1,4 +1,4 @@
-using MasjidOnline.Business.Infaq.Interface.Model.Success;
+using MasjidOnline.Business.Model.Infaq.Success;
 using MasjidOnline.Library.Exceptions;
 
 namespace MasjidOnline.Business.Infaq.Success.Mapper;

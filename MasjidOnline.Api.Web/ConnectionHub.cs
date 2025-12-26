@@ -3,7 +3,8 @@ using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface;
 using MasjidOnline.Business.Model.Responses;
-using MasjidOnline.Business.Session.Interface.Model;
+using MasjidOnline.Business.Model.Session;
+using MasjidOnline.Business.Model.User.Internal;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Library.Extensions;
@@ -57,14 +58,14 @@ public class ConnectionHub(IBusiness _business) : Hub
 
     public async Task<Response> UserInternalAdd(
         IData _data,
-        Business.User.Interface.Model.Internal.AddRequest? addRequest)
+        AddRequest? addRequest)
     {
         return await _business.User.Internal.Add.AddAsync(Session, _data, addRequest);
     }
 
-    public async Task<Response<GetManyResponse<Business.User.Interface.Model.Internal.GetManyResponseRecord>>> UserInternalList(
+    public async Task<Response<GetManyResponse<GetManyResponseRecord>>> UserInternalList(
         IData _data,
-        Business.User.Interface.Model.Internal.GetManyRequest? getManyRequest)
+        GetManyRequest? getManyRequest)
     {
         return await _business.User.Internal.GetMany.GetAsync(Session, _data, getManyRequest);
     }
