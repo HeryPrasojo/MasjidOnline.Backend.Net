@@ -1,5 +1,4 @@
 using MasjidOnline.Business.Model.Event;
-using MasjidOnline.Business.Model.User.UserPreference;
 
 namespace MasjidOnline.Business.Model.User.User;
 
@@ -16,8 +15,6 @@ public class LoginRequest
     public string? UserAgent { get; set; }
 
     public UserLoginClient? Client { get; set; }
-
-    public UserPreferenceApplicationCulture? ApplicationCulture { get; set; }
 
     public double? LocationLatitude { get; set; }
     public double? LocationLongitude { get; set; }

@@ -21,11 +21,11 @@ public class LoginBusiness(IAuthorizationBusiness _authorizationBusiness, IServi
         _authorizationBusiness.AuthorizeAnonymous(session);
 
         loginRequest = _service.FieldValidator.ValidateRequired(loginRequest);
+
         loginRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(loginRequest.CaptchaToken);
         loginRequest.ContactType = _service.FieldValidator.ValidateRequiredEnum(loginRequest.ContactType);
         loginRequest.Password = _service.FieldValidator.ValidateRequiredTextDb255(loginRequest.Password);
         loginRequest.Client = _service.FieldValidator.ValidateRequiredEnum(loginRequest.Client);
-        loginRequest.ApplicationCulture = _service.FieldValidator.ValidateRequiredEnum(loginRequest.ApplicationCulture);
 
 
         var contactType = Mapper.Mapper.User.ContactType[loginRequest.ContactType.Value];
@@ -46,13 +46,13 @@ public class LoginBusiness(IAuthorizationBusiness _authorizationBusiness, IServi
         var userId = contactType switch
         {
             Entity.User.ContactType.Email => await _data.User.UserEmailAddress.GetUserIdAsync(loginRequest.Contact),
-            _ => default,
+            _ => throw new ErrorException(nameof(contactType)),
         };
 
         if (userId == default) throw new InputMismatchException(nameof(loginRequest.Contact) + " or " + nameof(loginRequest.Password));
 
 
-        var user = await _data.User.User.GetForLoginAsync(userId!.Value);
+        var user = await _data.User.User.GetForLoginAsync(userId.Value);
 
         if (user == default) throw new InputMismatchException(nameof(loginRequest.Contact) + " or " + nameof(loginRequest.Password));
 
@@ -67,8 +67,37 @@ public class LoginBusiness(IAuthorizationBusiness _authorizationBusiness, IServi
             throw new InputMismatchException(nameof(loginRequest.Contact) + " or " + nameof(loginRequest.Password));
 
 
-        // undone
-        //-;
+        UserInternalPermission? userInternalPermissionResponse = default;
+
+        var userInternalPermission = await _data.Authorization.UserInternalPermission.FirstOrDefaultAsync(userId.Value);
+
+        if (userInternalPermission != default)
+        {
+            userInternalPermissionResponse = new()
+            {
+                AccountancyExpenditureAdd = userInternalPermission.AccountancyExpenditureAdd,
+                AccountancyExpenditureApprove = userInternalPermission.AccountancyExpenditureApprove,
+                AccountancyExpenditureCancel = userInternalPermission.AccountancyExpenditureCancel,
+
+                InfaqExpireAdd = userInternalPermission.InfaqExpireAdd,
+                InfaqExpireApprove = userInternalPermission.InfaqExpireApprove,
+                InfaqExpireCancel = userInternalPermission.InfaqExpireCancel,
+
+                InfaqSuccessAdd = userInternalPermission.InfaqSuccessAdd,
+                InfaqSuccessApprove = userInternalPermission.InfaqSuccessApprove,
+                InfaqSuccessCancel = userInternalPermission.InfaqSuccessCancel,
+
+                InfaqVoidAdd = userInternalPermission.InfaqVoidAdd,
+                InfaqVoidApprove = userInternalPermission.InfaqVoidApprove,
+                InfaqVoidCancel = userInternalPermission.InfaqVoidCancel,
+
+                UserInternalAdd = userInternalPermission.UserInternalAdd,
+                UserInternalApprove = userInternalPermission.UserInternalApprove,
+                UserInternalCancel = userInternalPermission.UserInternalCancel,
+            };
+        }
+
+
         var userPreferenceApplicationCulture = await _data.User.UserPreference.GetApplicationCultureAsync(userId.Value);
 
         await _data.Transaction.BeginAsync(_data.Session, _data.Event);
@@ -105,42 +134,14 @@ public class LoginBusiness(IAuthorizationBusiness _authorizationBusiness, IServi
 
         await _data.Transaction.CommitAsync();
 
-
-        UserInternalPermission? userInternalPermissionResponse = default;
-
-        var userInternalPermission = await _data.Authorization.UserInternalPermission.FirstOrDefaultAsync(session.UserId);
-
-        if (userInternalPermission != default)
-        {
-            userInternalPermissionResponse = new()
-            {
-                AccountancyExpenditureAdd = userInternalPermission.AccountancyExpenditureAdd,
-                AccountancyExpenditureApprove = userInternalPermission.AccountancyExpenditureApprove,
-                AccountancyExpenditureCancel = userInternalPermission.AccountancyExpenditureCancel,
-
-                InfaqExpireAdd = userInternalPermission.InfaqExpireAdd,
-                InfaqExpireApprove = userInternalPermission.InfaqExpireApprove,
-                InfaqExpireCancel = userInternalPermission.InfaqExpireCancel,
-
-                InfaqSuccessAdd = userInternalPermission.InfaqSuccessAdd,
-                InfaqSuccessApprove = userInternalPermission.InfaqSuccessApprove,
-                InfaqSuccessCancel = userInternalPermission.InfaqSuccessCancel,
-
-                InfaqVoidAdd = userInternalPermission.InfaqVoidAdd,
-                InfaqVoidApprove = userInternalPermission.InfaqVoidApprove,
-                InfaqVoidCancel = userInternalPermission.InfaqVoidCancel,
-
-                UserInternalAdd = userInternalPermission.UserInternalAdd,
-                UserInternalApprove = userInternalPermission.UserInternalApprove,
-                UserInternalCancel = userInternalPermission.UserInternalCancel,
-            };
-        }
-
         return new()
         {
             ResultCode = ResponseResultCode.Success,
-            Data = new LoginResponse
+            Data = new()
             {
+                ApplicationCulture = (userPreferenceApplicationCulture == default)
+                    ? null
+                    : Mapper.Mapper.User.UserPreferenceApplicationCulture[userPreferenceApplicationCulture],
                 Permission = userInternalPermissionResponse,
                 UserType = Mapper.Mapper.User.UserType[user.Type],
             },

@@ -1,5 +1,3 @@
-using MasjidOnline.Business.Model.User.UserPreference;
-
 namespace MasjidOnline.Business.Model.User.User;
 
 public class VerifySetPasswordRequest
@@ -10,5 +8,4 @@ public class VerifySetPasswordRequest
     public string? Contact { get; set; }
     public string? Password { get; set; }
     public string? Password2 { get; set; }
-    public UserPreferenceApplicationCulture? ApplicationCulture { get; set; }
 }

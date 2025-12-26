@@ -54,6 +54,17 @@ public class UserRepository(DbContext _dbContext) : IUserRepository
             .FirstOrDefaultAsync();
     }
 
+    public async Task<ForSetPassword?> GetForSetPasswordAsync(int id)
+    {
+        return await _dbSet.Where(e => e.Id == id)
+            .Select(e => new ForSetPassword
+            {
+                Status = e.Status,
+                Type = e.Type,
+            })
+            .FirstOrDefaultAsync();
+    }
+
 
     public Entity.User.User SetPassword(int id, byte[] password)
     {

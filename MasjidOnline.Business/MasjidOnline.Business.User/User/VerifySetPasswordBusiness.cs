@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using MasjidOnline.Business.Model.Authorization;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Model.User.User;
 using MasjidOnline.Business.User.Interface.User;
@@ -13,15 +14,16 @@ namespace MasjidOnline.Business.User.User;
 
 public class VerifySetPasswordBusiness(IService _service) : IVerifySetPasswordBusiness
 {
-    public async Task<Response> VerifyAsync(Model.Session.Session session, IData _data, VerifySetPasswordRequest? verifySetPasswordRequest)
+    public async Task<Response<LoginResponse>> VerifyAsync(Model.Session.Session session, IData _data, VerifySetPasswordRequest? verifySetPasswordRequest)
     {
         verifySetPasswordRequest = _service.FieldValidator.ValidateRequired(verifySetPasswordRequest);
+
         verifySetPasswordRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(verifySetPasswordRequest.CaptchaToken);
         verifySetPasswordRequest.ContactType = _service.FieldValidator.ValidateRequiredEnum(verifySetPasswordRequest.ContactType);
         verifySetPasswordRequest.Contact = _service.FieldValidator.ValidateRequiredTextDb255(verifySetPasswordRequest.Contact);
         verifySetPasswordRequest.Password = _service.FieldValidator.ValidateRequiredPassword(verifySetPasswordRequest.Password);
         verifySetPasswordRequest.Password2 = _service.FieldValidator.ValidateRequired(verifySetPasswordRequest.Password2);
-        verifySetPasswordRequest.ApplicationCulture = _service.FieldValidator.ValidateRequiredEnum(verifySetPasswordRequest.ApplicationCulture);
+
         var codeBytes = _service.FieldValidator.ValidateRequiredBase64Url(verifySetPasswordRequest.PasswordCode, 126);
 
         if (verifySetPasswordRequest.Password != verifySetPasswordRequest.Password2)
@@ -82,10 +84,45 @@ public class VerifySetPasswordBusiness(IService _service) : IVerifySetPasswordBu
         }
 
 
-        var userStatus = await _data.User.User.GetStatusAsync(verificationCode.UserId);
+        var user = await _data.User.User.GetForSetPasswordAsync(verificationCode.UserId);
 
-        if (userStatus != UserStatus.Active) throw new DataMismatchException(nameof(userStatus));
+        if (user == default) throw new DataMismatchException(nameof(user));
 
+        if (user.Status != UserStatus.Active) throw new DataMismatchException(nameof(user));
+
+
+        UserInternalPermission? userInternalPermissionResponse = default;
+
+        var userInternalPermission = await _data.Authorization.UserInternalPermission.FirstOrDefaultAsync(verificationCode.UserId);
+
+        if (userInternalPermission != default)
+        {
+            userInternalPermissionResponse = new()
+            {
+                AccountancyExpenditureAdd = userInternalPermission.AccountancyExpenditureAdd,
+                AccountancyExpenditureApprove = userInternalPermission.AccountancyExpenditureApprove,
+                AccountancyExpenditureCancel = userInternalPermission.AccountancyExpenditureCancel,
+
+                InfaqExpireAdd = userInternalPermission.InfaqExpireAdd,
+                InfaqExpireApprove = userInternalPermission.InfaqExpireApprove,
+                InfaqExpireCancel = userInternalPermission.InfaqExpireCancel,
+
+                InfaqSuccessAdd = userInternalPermission.InfaqSuccessAdd,
+                InfaqSuccessApprove = userInternalPermission.InfaqSuccessApprove,
+                InfaqSuccessCancel = userInternalPermission.InfaqSuccessCancel,
+
+                InfaqVoidAdd = userInternalPermission.InfaqVoidAdd,
+                InfaqVoidApprove = userInternalPermission.InfaqVoidApprove,
+                InfaqVoidCancel = userInternalPermission.InfaqVoidCancel,
+
+                UserInternalAdd = userInternalPermission.UserInternalAdd,
+                UserInternalApprove = userInternalPermission.UserInternalApprove,
+                UserInternalCancel = userInternalPermission.UserInternalCancel,
+            };
+        }
+
+
+        var userPreferenceApplicationCulture = await _data.User.UserPreference.GetApplicationCultureAsync(verificationCode.UserId);
 
         await _data.Transaction.BeginAsync(_data.User, _data.Audit, _data.Verification, _data.Session);
 
@@ -100,10 +137,7 @@ public class VerifySetPasswordBusiness(IService _service) : IVerifySetPasswordBu
 
 
         if (session.IsUserAnonymous)
-        {// undone
-         //            -;
-            var userPreferenceApplicationCulture = await _data.User.UserPreference.GetApplicationCultureAsync(verificationCode.UserId);
-
+        {
             session.UserId = verificationCode.UserId;
 
             if (userPreferenceApplicationCulture != default)
@@ -114,9 +148,17 @@ public class VerifySetPasswordBusiness(IService _service) : IVerifySetPasswordBu
 
         await _data.Transaction.CommitAsync();
 
-        return new Response()
+        return new()
         {
             ResultCode = ResponseResultCode.Success,
+            Data = new()
+            {
+                ApplicationCulture = (userPreferenceApplicationCulture == default)
+                    ? null
+                    : Mapper.Mapper.User.UserPreferenceApplicationCulture[userPreferenceApplicationCulture],
+                Permission = userInternalPermissionResponse,
+                UserType = Mapper.Mapper.User.UserType[user.Type],
+            },
         };
     }
 }

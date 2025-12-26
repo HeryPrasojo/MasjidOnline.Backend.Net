@@ -1,6 +1,4 @@
-﻿using MasjidOnline.Business.Model.User.UserPreference;
-
-namespace MasjidOnline.Business.Model.User.User;
+﻿namespace MasjidOnline.Business.Model.User.User;
 
 public class VerifyRegisterRequest
 {
@@ -11,5 +9,4 @@ public class VerifyRegisterRequest
     public string? Name { get; set; }
     public string? Password { get; set; }
     public string? Password2 { get; set; }
-    public UserPreferenceApplicationCulture? ApplicationCulture { get; set; }
 }

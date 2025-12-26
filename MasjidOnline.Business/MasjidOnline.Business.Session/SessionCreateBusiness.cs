@@ -6,7 +6,6 @@ using MasjidOnline.Business.Session.Interface;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
-using MasjidOnline.Service.Localization.Interface;
 
 namespace MasjidOnline.Business.Session;
 
@@ -22,6 +21,7 @@ public class SessionCreateBusiness(IService _service) : ISessionCreateBusiness
         createRequest = _service.FieldValidator.ValidateRequired(createRequest);
 
         createRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(createRequest.CaptchaToken);
+        createRequest.ApplicationCulture = _service.FieldValidator.ValidateRequiredEnum(createRequest.ApplicationCulture);
 
 
         var isVerified = await _service.Captcha.VerifySessionAsync(createRequest.CaptchaToken);
@@ -29,13 +29,15 @@ public class SessionCreateBusiness(IService _service) : ISessionCreateBusiness
         if (!isVerified) throw new InputMismatchException(nameof(createRequest.CaptchaToken));
 
 
-        session.CultureInfo = Constant.English.CultureInfo; // hack get from request
+        var userPreferenceApplicationCultureEntity = Mapper.Mapper.User.UserPreferenceApplicationCulture[createRequest.ApplicationCulture.Value];
+
+        session.CultureInfo = Mapper.Mapper.Session.UserPreferenceApplicationCulture[userPreferenceApplicationCultureEntity];
         session.Id = _data.IdGenerator.Session.SessionId;
         session.UserId = Model.Constant.UserId.Anonymous;
 
         var sessionEntity = new Entity.Session.Session
         {
-            ApplicationCulture = Mapper.Mapper.Session.UserPreferenceApplicationCulture[session.CultureInfo],
+            ApplicationCulture = userPreferenceApplicationCultureEntity,
             DateTime = DateTime.UtcNow,
             Code = _service.Hash512.RandomByteArray,
             Id = session.Id,

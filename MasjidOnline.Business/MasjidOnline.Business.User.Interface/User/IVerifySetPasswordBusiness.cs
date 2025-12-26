@@ -7,5 +7,5 @@ namespace MasjidOnline.Business.User.Interface.User;
 
 public interface IVerifySetPasswordBusiness
 {
-    Task<Response> VerifyAsync(Business.Model.Session.Session session, IData _data, VerifySetPasswordRequest? verifySetPasswordRequest);
+    Task<Response<LoginResponse>> VerifyAsync(Business.Model.Session.Session session, IData _data, VerifySetPasswordRequest? verifySetPasswordRequest);
 }

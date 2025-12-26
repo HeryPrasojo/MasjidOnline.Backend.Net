@@ -9,6 +9,7 @@ public interface IUserRepository
     Task AddAsync(Entity.User.User user);
     Task<bool> GetAnyAsync(int id);
     Task<ForLogin?> GetForLoginAsync(int id);
+    Task<ForSetPassword?> GetForSetPasswordAsync(int id);
     Task<int> GetMaxIdAsync();
     Task<UserStatus> GetStatusAsync(int id);
     Task<UserType> GetTypeAsync(int id);

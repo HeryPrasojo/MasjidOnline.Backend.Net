@@ -20,14 +20,16 @@ public class VerifyRegisterBusiness(IAuthorizationBusiness _authorizationBusines
         _authorizationBusiness.AuthorizeAnonymous(session);
 
         verifyRegisterRequest = _service.FieldValidator.ValidateRequired(verifyRegisterRequest);
+
         verifyRegisterRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(verifyRegisterRequest.CaptchaToken);
         verifyRegisterRequest.ContactType = _service.FieldValidator.ValidateRequiredEnum(verifyRegisterRequest.ContactType);
         verifyRegisterRequest.Contact = _service.FieldValidator.ValidateRequiredTextDb255(verifyRegisterRequest.Contact);
         verifyRegisterRequest.Name = _service.FieldValidator.ValidateOptionalTextDb255(verifyRegisterRequest.Name);
         verifyRegisterRequest.Password = _service.FieldValidator.ValidateRequiredPassword(verifyRegisterRequest.Password);
         verifyRegisterRequest.Password2 = _service.FieldValidator.ValidateRequired(verifyRegisterRequest.Password2);
-        verifyRegisterRequest.ApplicationCulture = _service.FieldValidator.ValidateRequiredEnum(verifyRegisterRequest.ApplicationCulture);
+
         var codeBytes = _service.FieldValidator.ValidateRequiredBase64Url(verifyRegisterRequest.RegisterCode, 126);
+
 
         if (verifyRegisterRequest.Password != verifyRegisterRequest.Password2)
             throw new InputInvalidException(nameof(verifyRegisterRequest.Password2));
@@ -81,8 +83,6 @@ public class VerifyRegisterBusiness(IAuthorizationBusiness _authorizationBusines
             if (any) throw new DataMismatchException(nameof(verifyRegisterRequest.Contact));
         }
 
-        // undone
-        //        -;
 
         await _data.Transaction.BeginAsync(_data.User, _data.Audit, _data.Person, _data.Verification, _data.Session);
 
@@ -123,16 +123,18 @@ public class VerifyRegisterBusiness(IAuthorizationBusiness _authorizationBusines
         await _data.Person.Person.AddAsync(person);
 
 
+        var passwordBytes = _service.Hash512.Hash(verifyRegisterRequest.Password);
+
+        var passwordUser = _data.User.User.SetPassword(verificationCode.UserId, passwordBytes);
+
+        await _data.Audit.UserLog.AddSetPasswordAsync(_data.IdGenerator.Audit.UserLogId, utcNow, verificationCode.UserId, passwordUser);
+
+
         _data.Verification.VerificationCode.SetUseDateTime(verificationCode.Id, utcNow);
 
-        // undone
-        //        -;
-        var userPreferenceApplicationCulture = await _data.User.UserPreference.GetApplicationCultureAsync(verificationCode.UserId);
-
-        session.CultureInfo = Mapper.Mapper.Session.UserPreferenceApplicationCulture[userPreferenceApplicationCulture];
         session.UserId = verificationCode.UserId;
 
-        _data.Session.Session.SetForLogin(session.Id, session.UserId, utcNow, userPreferenceApplicationCulture);
+        _data.Session.Session.SetForLogin(session.Id, session.UserId, utcNow, default);
 
         await _data.Transaction.CommitAsync();
 
