@@ -7,6 +7,6 @@ public interface IUserDataRepository
 {
     Task AddAsync(UserData userData);
     Task<bool> AnyAsync(int userId);
-    Task<ApplicationCulture> GetApplicationCultureAsync(int userId);
+    Task<ApplicationCulture?> GetApplicationCultureAsync(int userId);
     void SetApplicationCulture(int userId, ApplicationCulture applicationCulture);
 }

@@ -5,6 +5,7 @@ using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Model.User.User;
 using MasjidOnline.Business.User.Interface.User;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Entity.Event;
 using MasjidOnline.Entity.User;
 using MasjidOnline.Entity.Verification;
 using MasjidOnline.Library.Exceptions;
@@ -19,6 +20,7 @@ public class VerifySetPasswordBusiness(IService _service) : IVerifySetPasswordBu
         verifySetPasswordRequest = _service.FieldValidator.ValidateRequired(verifySetPasswordRequest);
 
         verifySetPasswordRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(verifySetPasswordRequest.CaptchaToken);
+        verifySetPasswordRequest.Client = _service.FieldValidator.ValidateRequiredEnum(verifySetPasswordRequest.Client);
         verifySetPasswordRequest.ContactType = _service.FieldValidator.ValidateRequiredEnum(verifySetPasswordRequest.ContactType);
         verifySetPasswordRequest.Contact = _service.FieldValidator.ValidateRequiredTextDb255(verifySetPasswordRequest.Contact);
         verifySetPasswordRequest.Password = _service.FieldValidator.ValidateRequiredPassword(verifySetPasswordRequest.Password);
@@ -124,7 +126,7 @@ public class VerifySetPasswordBusiness(IService _service) : IVerifySetPasswordBu
 
         var userPreferenceApplicationCulture = await _data.User.UserData.GetApplicationCultureAsync(verificationCode.UserId);
 
-        await _data.Transaction.BeginAsync(_data.User, _data.Audit, _data.Verification, _data.Session);
+        await _data.Transaction.BeginAsync(_data.User, _data.Audit, _data.Verification, _data.Session, _data.Event);
 
         var passwordBytes = _service.Hash512.Hash(verifySetPasswordRequest.Password);
 
@@ -141,10 +143,31 @@ public class VerifySetPasswordBusiness(IService _service) : IVerifySetPasswordBu
             session.UserId = verificationCode.UserId;
 
             if (userPreferenceApplicationCulture != default)
-                session.CultureInfo = Mapper.Mapper.Session.UserPreferenceApplicationCulture[userPreferenceApplicationCulture];
+                session.CultureInfo = Mapper.Mapper.Session.UserPreferenceApplicationCulture[userPreferenceApplicationCulture.Value];
 
             _data.Session.Session.SetForLogin(session.Id, session.UserId, utcNow, userPreferenceApplicationCulture);
         }
+
+
+        var userLogin = new UserLogin
+        {
+            DateTime = utcNow,
+            Contact = verifySetPasswordRequest.Contact,
+            ContactType = contactType,
+            Id = _data.IdGenerator.Event.UserLoginId,
+            IpAddress = verifySetPasswordRequest.IpAddress,
+            LocationAltitude = verifySetPasswordRequest.LocationAltitude,
+            LocationAltitudePrecision = verifySetPasswordRequest.LocationAltitudePrecision,
+            LocationLatitude = verifySetPasswordRequest.LocationLatitude,
+            LocationLongitude = verifySetPasswordRequest.LocationLongitude,
+            LocationPrecision = verifySetPasswordRequest.LocationPrecision,
+            Client = Mapper.Mapper.Event.UserLoginClient[verifySetPasswordRequest.Client.Value],
+            SessionId = session.Id,
+            UserAgent = verifySetPasswordRequest.UserAgent,
+            UserId = session.UserId,
+        };
+
+        await _data.Event.UserLogin.AddAsync(userLogin);
 
         await _data.Transaction.CommitAsync();
 
@@ -155,7 +178,7 @@ public class VerifySetPasswordBusiness(IService _service) : IVerifySetPasswordBu
             {
                 ApplicationCulture = (userPreferenceApplicationCulture == default)
                     ? null
-                    : Mapper.Mapper.User.UserPreferenceApplicationCulture[userPreferenceApplicationCulture],
+                    : Mapper.Mapper.User.UserPreferenceApplicationCulture[userPreferenceApplicationCulture.Value],
                 Permission = userInternalPermissionResponse,
                 UserType = Mapper.Mapper.User.UserType[user.Type],
             },

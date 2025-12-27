@@ -9,12 +9,15 @@ public class AuditDatabase(DbContext _dbContext) : Database(_dbContext), IAuditD
 {
     private IAuditSettingRepository? _auditSettingRepository;
     private IUserLogRepository? _userLogRepository;
+    private IUserDataLogRepository? _userDataLogRepository;
     private IUserEmailAddressLogRepository? _userEmailAddressLogRepository;
     private IUserInternalPermissionLogRepository? _userInternalPermissionLogRepository;
 
     public IAuditSettingRepository AuditSetting => _auditSettingRepository ??= new AuditSettingRepository(_dbContext);
 
     public IUserLogRepository UserLog => _userLogRepository ??= new UserLogRepository(_dbContext);
+
+    public IUserDataLogRepository UserDataLog => _userDataLogRepository ??= new UserDataLogRepository(_dbContext);
 
     public IUserEmailAddressLogRepository UserEmailAddressLog => _userEmailAddressLogRepository ??= new UserEmailAddressLogRepository(_dbContext);
 

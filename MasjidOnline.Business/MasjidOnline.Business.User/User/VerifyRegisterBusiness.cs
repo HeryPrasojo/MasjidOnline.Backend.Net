@@ -5,6 +5,7 @@ using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Model.User.User;
 using MasjidOnline.Business.User.Interface.User;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Entity.Event;
 using MasjidOnline.Entity.Person;
 using MasjidOnline.Entity.User;
 using MasjidOnline.Entity.Verification;
@@ -22,8 +23,10 @@ public class VerifyRegisterBusiness(IAuthorizationBusiness _authorizationBusines
         verifyRegisterRequest = _service.FieldValidator.ValidateRequired(verifyRegisterRequest);
 
         verifyRegisterRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(verifyRegisterRequest.CaptchaToken);
+        verifyRegisterRequest.Client = _service.FieldValidator.ValidateRequiredEnum(verifyRegisterRequest.Client);
         verifyRegisterRequest.ContactType = _service.FieldValidator.ValidateRequiredEnum(verifyRegisterRequest.ContactType);
         verifyRegisterRequest.Contact = _service.FieldValidator.ValidateRequiredTextDb255(verifyRegisterRequest.Contact);
+        verifyRegisterRequest.IsAcceptAgreement = _service.FieldValidator.ValidateRequiredTrue(verifyRegisterRequest.IsAcceptAgreement);
         verifyRegisterRequest.Name = _service.FieldValidator.ValidateOptionalTextDb255(verifyRegisterRequest.Name);
         verifyRegisterRequest.Password = _service.FieldValidator.ValidateRequiredPassword(verifyRegisterRequest.Password);
         verifyRegisterRequest.Password2 = _service.FieldValidator.ValidateRequired(verifyRegisterRequest.Password2);
@@ -84,7 +87,7 @@ public class VerifyRegisterBusiness(IAuthorizationBusiness _authorizationBusines
         }
 
 
-        await _data.Transaction.BeginAsync(_data.User, _data.Audit, _data.Person, _data.Verification, _data.Session);
+        await _data.Transaction.BeginAsync(_data.User, _data.Audit, _data.Person, _data.Verification, _data.Session, _data.Event);
 
         var user = new Entity.User.User
         {
@@ -113,6 +116,17 @@ public class VerifyRegisterBusiness(IAuthorizationBusiness _authorizationBusines
         }
 
 
+        var userData = new UserData
+        {
+            UserId = user.Id,
+            IsAcceptAgreement = verifyRegisterRequest.IsAcceptAgreement.Value,
+        };
+
+        await _data.User.UserData.AddAsync(userData);
+
+        await _data.Audit.UserDataLog.AddAddAsync(_data.IdGenerator.Audit.UserDataLogId, utcNow, user.Id, userData);
+
+
         var person = new Person
         {
             Id = _data.IdGenerator.Person.PersonId,
@@ -135,6 +149,27 @@ public class VerifyRegisterBusiness(IAuthorizationBusiness _authorizationBusines
         session.UserId = verificationCode.UserId;
 
         _data.Session.Session.SetForLogin(session.Id, session.UserId, utcNow, default);
+
+
+        var userLogin = new UserLogin
+        {
+            DateTime = utcNow,
+            Contact = verifyRegisterRequest.Contact,
+            ContactType = contactType,
+            Id = _data.IdGenerator.Event.UserLoginId,
+            IpAddress = verifyRegisterRequest.IpAddress,
+            LocationAltitude = verifyRegisterRequest.LocationAltitude,
+            LocationAltitudePrecision = verifyRegisterRequest.LocationAltitudePrecision,
+            LocationLatitude = verifyRegisterRequest.LocationLatitude,
+            LocationLongitude = verifyRegisterRequest.LocationLongitude,
+            LocationPrecision = verifyRegisterRequest.LocationPrecision,
+            Client = Mapper.Mapper.Event.UserLoginClient[verifyRegisterRequest.Client.Value],
+            SessionId = session.Id,
+            UserAgent = verifyRegisterRequest.UserAgent,
+            UserId = session.UserId,
+        };
+
+        await _data.Event.UserLogin.AddAsync(userLogin);
 
         await _data.Transaction.CommitAsync();
 

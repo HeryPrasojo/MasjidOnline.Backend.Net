@@ -99,11 +99,11 @@ public class SessionRepository(DbContext _dbContext) : ISessionRepository
         _dbContext.ChangeTracker.Clear();
     }
 
-    public void SetForLogin(int id, int userId, DateTime dateTime, ApplicationCulture applicationCulture)
+    public void SetForLogin(int id, int userId, DateTime dateTime, ApplicationCulture? applicationCulture)
     {
         var session = new Entity.Session.Session
         {
-            ApplicationCulture = applicationCulture,
+            ApplicationCulture = applicationCulture ?? default,
             DateTime = dateTime,
             Id = id,
             UserId = userId,

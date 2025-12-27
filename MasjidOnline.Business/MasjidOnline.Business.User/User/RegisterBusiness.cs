@@ -28,8 +28,6 @@ public class RegisterBusiness(
         registerRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(registerRequest.CaptchaToken);
         registerRequest.ContactType = _service.FieldValidator.ValidateRequiredEnum(registerRequest.ContactType);
 
-        _service.FieldValidator.ValidateRequiredTrue(registerRequest.IsTncAgree);
-
 
         var contactType = Mapper.Mapper.User.ContactType[registerRequest.ContactType.Value];
 
@@ -80,9 +78,9 @@ public class RegisterBusiness(
         {
             var mailMessage = new MailMessage
             {
-                BodyHtml = $"<p>Please use the following link to to signup with email: <a href='{uri}'>{uri}</a></p>",
-                BodyText = "Please use the following link to signup with email: " + uri,
-                Subject = "MasjidOnline Email Verification",
+                BodyHtml = $"<p>Please use the following link to to continue signup: <a href='{uri}'>{uri}</a></p>",
+                BodyText = "Please use the following link to continue signup: " + uri,
+                Subject = "MasjidOnline Signup Email Verification",
                 To = [new MailAddress(registerRequest.Contact, registerRequest.Contact)],
             };
 

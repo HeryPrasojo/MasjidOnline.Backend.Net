@@ -87,6 +87,7 @@ internal static class MapEndpointsExtension
 
         userGroup.MapPost("login", UserEndpoint.User.LoginAsync);
         userGroup.MapPost("register", UserEndpoint.User.RegisterAsync);
+        userGroup.MapPost("verifyRegister", UserEndpoint.User.VerifyRegisterAsync);
         userGroup.MapPost("verifySetPassword", UserEndpoint.User.VerifySetPasswordAsync);
 
 

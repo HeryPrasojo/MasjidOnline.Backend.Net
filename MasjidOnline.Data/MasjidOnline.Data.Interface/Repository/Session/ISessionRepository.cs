@@ -15,7 +15,7 @@ public interface ISessionRepository
     Task<ApplicationCulture> GetApplicationCultureAsync(int id);
     Task RemoveExpireAsync(DateTime dateTime);
     Task SetForAuthenticateAsync(int id, DateTime dateTime);
-    void SetForLogin(int id, int userId, DateTime dateTime, ApplicationCulture applicationCulture);
+    void SetForLogin(int id, int userId, DateTime dateTime, ApplicationCulture? applicationCulture);
     void SetUserId(int id, int userId, DateTime dateTime);
     Task SetUserIdAndSaveAsync(int id, int userId, DateTime dateTime);
 }

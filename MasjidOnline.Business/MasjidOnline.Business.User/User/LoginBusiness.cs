@@ -107,7 +107,7 @@ public class LoginBusiness(IAuthorizationBusiness _authorizationBusiness, IServi
         session.UserId = userId.Value;
 
         if (userPreferenceApplicationCulture != default)
-            session.CultureInfo = Mapper.Mapper.Session.UserPreferenceApplicationCulture[userPreferenceApplicationCulture];
+            session.CultureInfo = Mapper.Mapper.Session.UserPreferenceApplicationCulture[userPreferenceApplicationCulture.Value];
 
         _data.Session.Session.SetForLogin(session.Id, session.UserId, utcNow, userPreferenceApplicationCulture);
 
@@ -141,7 +141,7 @@ public class LoginBusiness(IAuthorizationBusiness _authorizationBusiness, IServi
             {
                 ApplicationCulture = (userPreferenceApplicationCulture == default)
                     ? null
-                    : Mapper.Mapper.User.UserPreferenceApplicationCulture[userPreferenceApplicationCulture],
+                    : Mapper.Mapper.User.UserPreferenceApplicationCulture[userPreferenceApplicationCulture.Value],
                 Permission = userInternalPermissionResponse,
                 UserType = Mapper.Mapper.User.UserType[user.Type],
             },

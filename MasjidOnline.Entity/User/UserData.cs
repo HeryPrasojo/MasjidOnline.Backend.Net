@@ -7,5 +7,7 @@ public class UserData
     [Key]
     public required int UserId { get; set; }
 
-    public required ApplicationCulture ApplicationCulture { get; set; }
+    public ApplicationCulture? ApplicationCulture { get; set; }
+
+    public bool IsAcceptAgreement { get; set; }
 }

@@ -1,3 +1,5 @@
+using MasjidOnline.Business.Model.Event;
+
 namespace MasjidOnline.Business.Model.User.User;
 
 public class VerifySetPasswordRequest
@@ -8,4 +10,16 @@ public class VerifySetPasswordRequest
     public string? Contact { get; set; }
     public string? Password { get; set; }
     public string? Password2 { get; set; }
+
+    public string? UserAgent { get; set; }
+
+    public UserLoginClient? Client { get; set; }
+
+    public double? LocationLatitude { get; set; }
+    public double? LocationLongitude { get; set; }
+    public double? LocationPrecision { get; set; }
+    public double? LocationAltitude { get; set; }
+    public double? LocationAltitudePrecision { get; set; }
+
+    public string? IpAddress { get; set; }
 }

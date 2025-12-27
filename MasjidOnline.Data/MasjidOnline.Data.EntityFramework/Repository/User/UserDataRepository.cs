@@ -20,7 +20,7 @@ public class UserDataRepository(DbContext _dbContext) : IUserDataRepository
         return await _dbSet.AnyAsync(e => e.UserId == userId);
     }
 
-    public async Task<ApplicationCulture> GetApplicationCultureAsync(int userId)
+    public async Task<ApplicationCulture?> GetApplicationCultureAsync(int userId)
     {
         return await _dbSet.Where(e => e.UserId == userId)
             .Select(e => e.ApplicationCulture)

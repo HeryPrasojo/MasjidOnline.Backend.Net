@@ -75,7 +75,8 @@ public class UserInitializer(
             CREATE TABLE UserData
             (
                 UserId INTEGER PRIMARY KEY,
-                ApplicationCulture INTEGER NOT NULL
+                ApplicationCulture INTEGER NOT NULL,
+                IsAcceptAgreement INTEGER NOT NULL
             )";
 
         await _userDataContext.Database.ExecuteSqlAsync(sql);

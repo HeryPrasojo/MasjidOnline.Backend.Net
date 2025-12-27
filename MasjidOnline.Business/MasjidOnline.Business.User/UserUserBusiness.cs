@@ -16,5 +16,6 @@ public class UserUserBusiness(
     public IRegisterBusiness Register { get; } = new RegisterBusiness(_optionsMonitor, _authorizationBusiness, _service);
     public ILoginBusiness Login { get; } = new LoginBusiness(_authorizationBusiness, _service);
     public ILogoutBusiness Logout { get; } = new LogoutBusiness();
+    public IVerifyRegisterBusiness VerifyRegister { get; } = new VerifyRegisterBusiness(_authorizationBusiness, _service);
     public IVerifySetPasswordBusiness VerifySetPassword { get; } = new VerifySetPasswordBusiness(_service);
 }

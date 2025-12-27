@@ -8,4 +8,5 @@ public interface IUserUserBusiness
     ILoginBusiness Login { get; }
     IVerifySetPasswordBusiness VerifySetPassword { get; }
     ILogoutBusiness Logout { get; }
+    IVerifyRegisterBusiness VerifyRegister { get; }
 }

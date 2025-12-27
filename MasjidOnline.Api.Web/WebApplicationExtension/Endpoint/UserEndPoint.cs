@@ -62,7 +62,7 @@ internal static class UserEndpoint
         {
             if (loginRequest != default)
             {
-                loginRequest.UserAgent = _httpContext.Request.Headers.UserAgent.FirstOrDefault();
+                loginRequest.UserAgent ??= _httpContext.Request.Headers.UserAgent.FirstOrDefault();
 
                 loginRequest.IpAddress = _httpContext.Request.Headers["X-Forwarded-For"]
                     .FirstOrDefault()
@@ -83,12 +83,45 @@ internal static class UserEndpoint
             return await _business.User.User.Register.RegisterAsync(_data, session, registerRequest);
         }
 
+        internal static async Task<Response> VerifyRegisterAsync(
+            HttpContext _httpContext,
+            IBusiness _business,
+            IData _data,
+            Session session,
+            [FromBody] VerifyRegisterRequest? verifyRegisterRequest)
+        {
+            if (verifyRegisterRequest != default)
+            {
+                verifyRegisterRequest.UserAgent ??= _httpContext.Request.Headers.UserAgent.FirstOrDefault();
+
+                verifyRegisterRequest.IpAddress = _httpContext.Request.Headers["X-Forwarded-For"]
+                    .FirstOrDefault()
+                    ?.Split(',')
+                    .FirstOrDefault()
+                    ?? _httpContext.Connection.RemoteIpAddress?.ToString();
+            }
+
+            return await _business.User.User.VerifyRegister.VerifyAsync(session, _data, verifyRegisterRequest);
+        }
+
         internal static async Task<Response> VerifySetPasswordAsync(
+            HttpContext _httpContext,
             IBusiness _business,
             IData _data,
             Session session,
             [FromBody] VerifySetPasswordRequest? verifySetPasswordRequest)
         {
+            if (verifySetPasswordRequest != default)
+            {
+                verifySetPasswordRequest.UserAgent ??= _httpContext.Request.Headers.UserAgent.FirstOrDefault();
+
+                verifySetPasswordRequest.IpAddress = _httpContext.Request.Headers["X-Forwarded-For"]
+                    .FirstOrDefault()
+                    ?.Split(',')
+                    .FirstOrDefault()
+                    ?? _httpContext.Connection.RemoteIpAddress?.ToString();
+            }
+
             return await _business.User.User.VerifySetPassword.VerifyAsync(session, _data, verifySetPasswordRequest);
         }
     }

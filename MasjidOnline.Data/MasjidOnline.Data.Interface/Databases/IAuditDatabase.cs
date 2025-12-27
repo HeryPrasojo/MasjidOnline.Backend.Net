@@ -9,4 +9,5 @@ public interface IAuditDatabase : IDatabase
     IUserInternalPermissionLogRepository UserInternalPermissionLog { get; }
     IUserLogRepository UserLog { get; }
     IUserEmailAddressLogRepository UserEmailAddressLog { get; }
+    IUserDataLogRepository UserDataLog { get; }
 }
