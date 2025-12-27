@@ -9,7 +9,7 @@ public class UserDatabase(DbContext _dbContext) : Database(_dbContext), IUserDat
 {
     private IInternalUserRepository? _internalUserRepository;
     private IUserRepository? _userRepository;
-    private IUserPreferenceRepository? _userPreferenceRepository;
+    private IUserDataRepository? _userDataRepository;
     private IUserEmailAddressRepository? _userEmailAddressRepository;
     private IUserSettingRepository? _userSettingRepository;
 
@@ -18,7 +18,7 @@ public class UserDatabase(DbContext _dbContext) : Database(_dbContext), IUserDat
 
     public IUserRepository User => _userRepository ??= new UserRepository(_dbContext);
 
-    public IUserPreferenceRepository UserPreference => _userPreferenceRepository ??= new UserPreferenceRepository(_dbContext);
+    public IUserDataRepository UserData => _userDataRepository ??= new UserDataRepository(_dbContext);
 
     public IUserEmailAddressRepository UserEmailAddress => _userEmailAddressRepository ??= new UserEmailAddressRepository(_dbContext);
 

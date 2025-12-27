@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MasjidOnline.Data.EntityFramework.Repository.User;
 
-public class UserPreferenceRepository(DbContext _dbContext) : IUserPreferenceRepository
+public class UserDataRepository(DbContext _dbContext) : IUserDataRepository
 {
-    private readonly DbSet<UserPreference> _dbSet = _dbContext.Set<UserPreference>();
+    private readonly DbSet<UserData> _dbSet = _dbContext.Set<UserData>();
 
-    public async Task AddAsync(UserPreference userPreference)
+    public async Task AddAsync(UserData userData)
     {
-        await _dbSet.AddAsync(userPreference);
+        await _dbSet.AddAsync(userData);
     }
 
     public async Task<bool> AnyAsync(int userId)
@@ -20,7 +20,7 @@ public class UserPreferenceRepository(DbContext _dbContext) : IUserPreferenceRep
         return await _dbSet.AnyAsync(e => e.UserId == userId);
     }
 
-    public async Task<UserPreferenceApplicationCulture> GetApplicationCultureAsync(int userId)
+    public async Task<ApplicationCulture> GetApplicationCultureAsync(int userId)
     {
         return await _dbSet.Where(e => e.UserId == userId)
             .Select(e => e.ApplicationCulture)
@@ -28,9 +28,9 @@ public class UserPreferenceRepository(DbContext _dbContext) : IUserPreferenceRep
     }
 
 
-    public void SetApplicationCulture(int userId, UserPreferenceApplicationCulture applicationCulture)
+    public void SetApplicationCulture(int userId, ApplicationCulture applicationCulture)
     {
-        var user = new UserPreference
+        var user = new UserData
         {
             UserId = userId,
             ApplicationCulture = applicationCulture,

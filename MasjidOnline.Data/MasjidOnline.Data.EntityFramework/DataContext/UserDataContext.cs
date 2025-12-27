@@ -13,8 +13,8 @@ public class UserDataContext(DbContextOptions _dbContextOptions) : DbContext(_db
         modelBuilder.Entity<InternalUser>();
         modelBuilder.Entity<UserInternalPermission>();
         modelBuilder.Entity<User>();
+        modelBuilder.Entity<UserData>();
         modelBuilder.Entity<UserEmailAddress>();
-        modelBuilder.Entity<UserPreference>();
         modelBuilder.Entity<UserSetting>();
     }
 }

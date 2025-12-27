@@ -31,7 +31,7 @@ public class SessionRepository(DbContext _dbContext) : ISessionRepository
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
     }
 
-    public async Task<UserPreferenceApplicationCulture> GetUserPreferenceApplicationCultureAsync(int id)
+    public async Task<ApplicationCulture> GetApplicationCultureAsync(int id)
     {
         return await _dbSet.Where(e => e.Id == id)
             .Select(e => e.ApplicationCulture)
@@ -99,11 +99,11 @@ public class SessionRepository(DbContext _dbContext) : ISessionRepository
         _dbContext.ChangeTracker.Clear();
     }
 
-    public void SetForLogin(int id, int userId, DateTime dateTime, UserPreferenceApplicationCulture userPreferenceApplicationCulture)
+    public void SetForLogin(int id, int userId, DateTime dateTime, ApplicationCulture applicationCulture)
     {
         var session = new Entity.Session.Session
         {
-            ApplicationCulture = userPreferenceApplicationCulture,
+            ApplicationCulture = applicationCulture,
             DateTime = dateTime,
             Id = id,
             UserId = userId,
@@ -114,7 +114,7 @@ public class SessionRepository(DbContext _dbContext) : ISessionRepository
         entityEntry.Property(e => e.DateTime).IsModified = true;
         entityEntry.Property(e => e.UserId).IsModified = true;
 
-        if (userPreferenceApplicationCulture != default)
+        if (applicationCulture != default)
             entityEntry.Property(e => e.ApplicationCulture).IsModified = true;
     }
 }

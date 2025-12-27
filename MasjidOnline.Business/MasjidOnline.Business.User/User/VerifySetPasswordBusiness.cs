@@ -122,7 +122,7 @@ public class VerifySetPasswordBusiness(IService _service) : IVerifySetPasswordBu
         }
 
 
-        var userPreferenceApplicationCulture = await _data.User.UserPreference.GetApplicationCultureAsync(verificationCode.UserId);
+        var userPreferenceApplicationCulture = await _data.User.UserData.GetApplicationCultureAsync(verificationCode.UserId);
 
         await _data.Transaction.BeginAsync(_data.User, _data.Audit, _data.Verification, _data.Session);
 

@@ -8,5 +8,5 @@ public interface IUserDatabase : IDatabase
     IUserRepository User { get; }
     IUserEmailAddressRepository UserEmailAddress { get; }
     IUserSettingRepository UserSetting { get; }
-    IUserPreferenceRepository UserPreference { get; }
+    IUserDataRepository UserData { get; }
 }

@@ -11,5 +11,5 @@ public class SessionForStart
 
     public required int UserId { get; set; }
 
-    public required UserPreferenceApplicationCulture ApplicationCulture { get; set; }
+    public required ApplicationCulture ApplicationCulture { get; set; }
 }

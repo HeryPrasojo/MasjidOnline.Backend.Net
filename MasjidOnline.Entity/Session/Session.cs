@@ -15,5 +15,5 @@ public class Session
 
 
     // hack low move to new SessionData
-    public UserPreferenceApplicationCulture ApplicationCulture { get; set; }
+    public ApplicationCulture ApplicationCulture { get; set; }
 }

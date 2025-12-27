@@ -1,27 +1,28 @@
 using System.Collections.Generic;
+using MasjidOnline.Business.Model.User.UserData;
 
 namespace MasjidOnline.Business.Mapper.User;
 
 public class UserPreferenceApplicationCultureMapper
 {
-    private static readonly Dictionary<Entity.User.UserPreferenceApplicationCulture, Model.User.UserPreference.UserPreferenceApplicationCulture> _toModel = new()
+    private static readonly Dictionary<Entity.User.ApplicationCulture, ApplicationCulture> _toModel = new()
     {
-        { Entity.User.UserPreferenceApplicationCulture.English, Model.User.UserPreference.UserPreferenceApplicationCulture.English },
+        { Entity.User.ApplicationCulture.English, ApplicationCulture.English },
     };
 
-    private static readonly Dictionary<Model.User.UserPreference.UserPreferenceApplicationCulture, Entity.User.UserPreferenceApplicationCulture> _toEntity = new()
+    private static readonly Dictionary<ApplicationCulture, Entity.User.ApplicationCulture> _toEntity = new()
     {
-        { Model.User.UserPreference.UserPreferenceApplicationCulture.English, Entity.User.UserPreferenceApplicationCulture.English },
+        { ApplicationCulture.English, Entity.User.ApplicationCulture.English },
     };
 
 
-    public Entity.User.UserPreferenceApplicationCulture this[Model.User.UserPreference.UserPreferenceApplicationCulture cultureInfo]
+    public Entity.User.ApplicationCulture this[ApplicationCulture cultureInfo]
     {
         get => _toEntity[cultureInfo];
     }
 
-    public Model.User.UserPreference.UserPreferenceApplicationCulture this[Entity.User.UserPreferenceApplicationCulture userPreferenceApplicationCulture]
+    public ApplicationCulture this[Entity.User.ApplicationCulture applicationCulture]
     {
-        get => _toModel[userPreferenceApplicationCulture];
+        get => _toModel[applicationCulture];
     }
 }

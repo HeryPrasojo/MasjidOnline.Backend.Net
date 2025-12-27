@@ -1,5 +1,5 @@
 using MasjidOnline.Business.Model.Authorization;
-using MasjidOnline.Business.Model.User.UserPreference;
+using MasjidOnline.Business.Model.User.UserData;
 
 namespace MasjidOnline.Business.Model.User.User;
 
@@ -9,5 +9,5 @@ public class LoginResponse
 
     public required UserType? UserType { get; set; }
 
-    public required UserPreferenceApplicationCulture? ApplicationCulture { get; set; }
+    public required ApplicationCulture? ApplicationCulture { get; set; }
 }

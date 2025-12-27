@@ -12,10 +12,10 @@ public interface ISessionRepository
     Task AddAsync(Entity.Session.Session setting);
     Task<SessionForStart?> GetForStartAsync(IEnumerable<byte> code);
     Task<int> GetMaxIdAsync();
-    Task<UserPreferenceApplicationCulture> GetUserPreferenceApplicationCultureAsync(int id);
+    Task<ApplicationCulture> GetApplicationCultureAsync(int id);
     Task RemoveExpireAsync(DateTime dateTime);
     Task SetForAuthenticateAsync(int id, DateTime dateTime);
-    void SetForLogin(int id, int userId, DateTime dateTime, UserPreferenceApplicationCulture userPreferenceApplicationCulture);
+    void SetForLogin(int id, int userId, DateTime dateTime, ApplicationCulture applicationCulture);
     void SetUserId(int id, int userId, DateTime dateTime);
     Task SetUserIdAndSaveAsync(int id, int userId, DateTime dateTime);
 }

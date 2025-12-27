@@ -69,10 +69,10 @@ public class UserInitializer(
         await _userDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task CreateTableUserPreferenceAsync()
+    protected override async Task CreateTableUserDataAsync()
     {
         FormattableString sql = @$"
-            CREATE TABLE UserPreference
+            CREATE TABLE UserData
             (
                 UserId INTEGER PRIMARY KEY,
                 ApplicationCulture INTEGER NOT NULL

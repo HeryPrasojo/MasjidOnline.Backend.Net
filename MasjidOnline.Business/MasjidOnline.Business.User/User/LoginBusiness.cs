@@ -98,7 +98,7 @@ public class LoginBusiness(IAuthorizationBusiness _authorizationBusiness, IServi
         }
 
 
-        var userPreferenceApplicationCulture = await _data.User.UserPreference.GetApplicationCultureAsync(userId.Value);
+        var userPreferenceApplicationCulture = await _data.User.UserData.GetApplicationCultureAsync(userId.Value);
 
         await _data.Transaction.BeginAsync(_data.Session, _data.Event);
 
