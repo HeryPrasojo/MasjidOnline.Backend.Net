@@ -13,7 +13,7 @@ public class SchedulerHostedService : IHostedService
 {
     private readonly IServiceProvider _serviceProvider;
     private readonly IBusiness _business;
-    private readonly Timer _timer;
+    private readonly Timer _timer; // hack separate hourly, daily, weekly, monthly, yearly.
 
     public SchedulerHostedService(IServiceProvider serviceProvider, IBusiness business)
     {
