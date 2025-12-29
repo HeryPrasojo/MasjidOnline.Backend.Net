@@ -12,12 +12,11 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace MasjidOnline.Api.Web;
 
-// undone unsingleton
 public class ConnectionHub(IBusiness _business) : Hub
 {
     // hack move to db
     // handle flood
-    private readonly ConcurrentDictionary<string, Session> _sessions = new();
+    private static readonly ConcurrentDictionary<string, Session> _sessions = new();
 
     private Session Session => _sessions[Context.ConnectionId];
 

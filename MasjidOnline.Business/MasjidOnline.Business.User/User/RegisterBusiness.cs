@@ -45,7 +45,7 @@ public class RegisterBusiness(
 
         var any = contactType switch
         {
-            // hack low should we ignore symbols?
+            // hack low should we ignore period (.) symbols?
             Entity.User.ContactType.Email => await _data.User.UserEmailAddress.AnyAsync(registerRequest.Contact),
             _ => throw new InputInvalidException(nameof(registerRequest.Contact)),
         };

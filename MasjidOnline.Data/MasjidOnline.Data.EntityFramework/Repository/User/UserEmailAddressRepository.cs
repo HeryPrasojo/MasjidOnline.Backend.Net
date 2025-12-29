@@ -17,7 +17,13 @@ public class UserEmailAddressRepository(DbContext _dbContext) : IUserEmailAddres
 
     public async Task<bool> AnyAsync(string emailAddress)
     {
-        return await _dbSet.AnyAsync(e => e.EmailAddress == emailAddress);
+        var pair = emailAddress.Split('@');
+
+        var pair0 = pair[0].Split('+');
+
+        var emailAddressLikePattern = (pair0.Length == 1) ? $"{pair[0]}+%@{pair[1]}" : $"{pair0[0]}+%@{pair[1]}";
+
+        return await _dbSet.AnyAsync(e => (e.EmailAddress == emailAddress) || EF.Functions.Like(e.EmailAddress, emailAddressLikePattern));
     }
 
     public async Task<int?> GetUserIdAsync(string emailAddress)

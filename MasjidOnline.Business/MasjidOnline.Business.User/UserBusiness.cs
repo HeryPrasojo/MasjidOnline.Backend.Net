@@ -82,7 +82,7 @@ public class UserBusiness(
 
         var userEmailAddress = new UserEmailAddress
         {
-            EmailAddress = options.RootUserEmailAddress,
+            EmailAddress = options.RootUserEmailAddress.ToLowerInvariant(),
             UserId = user.Id,
         };
 

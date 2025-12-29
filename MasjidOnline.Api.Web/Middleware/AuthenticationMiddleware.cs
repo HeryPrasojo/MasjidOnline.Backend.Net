@@ -34,6 +34,8 @@ public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate, IBus
                 }
 
                 if ((session.Id == default) || session.IsUserAnonymous) return;
+
+                // hack handle flood
             }
             else if (httpContext.Request.Path != "/session/create")
             {
@@ -43,6 +45,8 @@ public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate, IBus
                     httpContext.Request.Headers[Constant.HttpHeaderName.Session]);
 
                 if (session.Id == default) return;
+
+                // hack handle flood
             }
 
             await _nextRequestDelegate(httpContext);

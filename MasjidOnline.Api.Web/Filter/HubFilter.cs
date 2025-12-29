@@ -47,6 +47,8 @@ public class HubFilter(IBusiness _business) : IHubFilter
     {
         try
         {
+            // hack handle flood
+
             return await next(invocationContext);
         }
         catch (Exception exception)

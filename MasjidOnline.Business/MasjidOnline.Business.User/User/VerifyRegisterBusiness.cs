@@ -69,7 +69,7 @@ public class VerifyRegisterBusiness(IAuthorizationBusiness _authorizationBusines
 
         var utcNow = DateTime.UtcNow;
 
-        if (verificationCode.DateTime < utcNow.AddMinutes(-8)) throw new InputMismatchException(nameof(verifyRegisterRequest.RegisterCode));
+        if (verificationCode.DateTime < utcNow.AddMinutes(-32)) throw new InputMismatchException(nameof(verifyRegisterRequest.RegisterCode));
 
 
         var id = await _data.Verification.VerificationCode.GetLastIdByContactAsync(verificationCode.ContactType, verificationCode.Contact);
@@ -137,11 +137,11 @@ public class VerifyRegisterBusiness(IAuthorizationBusiness _authorizationBusines
         await _data.Person.Person.AddAsync(person);
 
 
-        var passwordBytes = _service.Hash512.Hash(verifyRegisterRequest.Password);
+        //var passwordBytes = _service.Hash512.Hash(verifyRegisterRequest.Password);
 
-        var passwordUser = _data.User.User.SetPassword(verificationCode.UserId, passwordBytes);
+        //var passwordUser = _data.User.User.SetPassword(verificationCode.UserId, passwordBytes);
 
-        await _data.Audit.UserLog.AddSetPasswordAsync(_data.IdGenerator.Audit.UserLogId, utcNow, verificationCode.UserId, passwordUser);
+        //await _data.Audit.UserLog.AddSetPasswordAsync(_data.IdGenerator.Audit.UserLogId, utcNow, verificationCode.UserId, passwordUser);
 
 
         _data.Verification.VerificationCode.SetUseDateTime(verificationCode.Id, utcNow);

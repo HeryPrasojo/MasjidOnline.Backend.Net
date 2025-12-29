@@ -73,7 +73,6 @@ static WebApplication BuildApplication(string[] args)
         })
         .AddJsonProtocol(jsonHubProtocolOptions => SetJsonOptions(jsonHubProtocolOptions.PayloadSerializerOptions));
 
-    webApplicationBuilder.Services.AddSingleton<ConnectionHub>();
     webApplicationBuilder.Services.AddSingleton<HubFilter>();
 
     webApplicationBuilder.Services.AddSingleton<IEndpointFilter, EndpointFilter>();
