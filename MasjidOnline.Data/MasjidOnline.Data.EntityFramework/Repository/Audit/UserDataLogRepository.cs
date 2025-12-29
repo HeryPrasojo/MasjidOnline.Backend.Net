@@ -29,6 +29,6 @@ public class UserDataLogRepository(DbContext _dbContext) : IUserDataLogRepositor
 
     public async Task<int> GetMaxIdAsync()
     {
-        return await _dbSet.MaxAsync(e => e.Id);
+        return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
     }
 }

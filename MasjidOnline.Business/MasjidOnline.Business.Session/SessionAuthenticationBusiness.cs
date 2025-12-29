@@ -36,6 +36,7 @@ public class SessionAuthenticationBusiness(IService _service) : ISessionAuthenti
         }
 
 
+        // undone move up to middleware
         var utcNow = DateTime.UtcNow;
 
         if (sessionEntity.DateTime.AddSeconds(4) > utcNow)

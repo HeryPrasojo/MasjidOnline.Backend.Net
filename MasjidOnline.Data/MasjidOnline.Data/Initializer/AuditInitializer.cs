@@ -15,6 +15,7 @@ public abstract class AuditInitializer(IAuditDefinition _auditDefinition)
         {
             await CreateTableAuditSettingAsync();
             await CreateTableUserLogAsync();
+            await CreateTableUserDataLogAsync();
             await CreateTableUserEmailAddressLogAsync();
             await CreateTableUserInternalPermissionLogAsync();
 
@@ -33,6 +34,7 @@ public abstract class AuditInitializer(IAuditDefinition _auditDefinition)
 
     protected abstract Task CreateTableAuditSettingAsync();
     protected abstract Task CreateTableUserLogAsync();
+    protected abstract Task CreateTableUserDataLogAsync();
     protected abstract Task CreateTableUserEmailAddressLogAsync();
     protected abstract Task CreateTableUserInternalPermissionLogAsync();
 }
