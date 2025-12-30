@@ -72,6 +72,8 @@ public class ConnectionHub(IBusiness _business) : Hub
     {
         await _business.User.User.Logout.LogoutAsync(Session, _data);
 
+        await Clients.Caller.SendAsync("logout");
+
         Context.Abort();
     }
 }

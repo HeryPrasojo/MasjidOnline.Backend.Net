@@ -38,7 +38,7 @@ public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate, IBus
                     await _business.Session.Authentication.AuthenticateAsync(
                         session,
                         _data,
-                        httpContext.Request.Headers[Constant.HttpHeaderName.Session]);
+                        httpContext.Request.Headers.Authorization[0]?[7..]);
                 }
 
                 if ((session.Id == default) || session.IsUserAnonymous) return;
