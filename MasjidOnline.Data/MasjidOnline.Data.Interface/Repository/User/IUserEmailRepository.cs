@@ -8,5 +8,5 @@ public interface IUserEmailRepository
     Task AddAsync(UserEmail userEmail);
     Task<bool> AnyAsync(string emailAddress);
     Task<int> GetMaxIdAsync();
-    Task<int?> GetUserIdAsync(string emailAddress);
+    Task<int> GetUserIdAsync(string emailAddress);
 }

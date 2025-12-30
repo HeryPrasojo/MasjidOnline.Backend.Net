@@ -42,6 +42,17 @@ public class UserRepository(DbContext _dbContext) : IUserRepository
     }
 
 
+    public async Task<ForInternalAdd?> GetForInternalAddAsync(int id)
+    {
+        return await _dbSet.Where(e => e.Id == id)
+            .Select(e => new ForInternalAdd
+            {
+                Status = e.Status,
+                Type = e.Type,
+            })
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<ForLogin?> GetForLoginAsync(int id)
     {
         return await _dbSet.Where(e => e.Id == id)

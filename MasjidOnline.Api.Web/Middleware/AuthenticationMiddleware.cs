@@ -1,5 +1,6 @@
 using System;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface;
 using MasjidOnline.Business.Model.Responses;
@@ -12,6 +13,13 @@ namespace MasjidOnline.Api.Web.Middleware;
 
 public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate, IBusiness _business)
 {
+    private static readonly JsonSerializerOptions _jsonSerializerOptions = new()
+    {
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
+        NumberHandling = JsonNumberHandling.Strict,
+        PropertyNamingPolicy = null,
+    };
+
     public async Task Invoke(HttpContext httpContext, Session session, IData _data)
     {
         try
@@ -68,7 +76,7 @@ public class AuthenticationMiddleware(RequestDelegate _nextRequestDelegate, IBus
 
             httpContext.Response.ContentType = "application/json";
 
-            var responseString = JsonSerializer.Serialize(exceptionResponse, options: JsonSerializerOptions.Web);
+            var responseString = JsonSerializer.Serialize(exceptionResponse, options: _jsonSerializerOptions);
 
             await httpContext.Response.WriteAsync(responseString);
         }

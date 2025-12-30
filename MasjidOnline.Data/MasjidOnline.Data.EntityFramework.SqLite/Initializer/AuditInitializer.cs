@@ -71,7 +71,7 @@ public class AuditInitializer(
                 LogUserId INTEGER NOT NULL,
 
                 UserId INTEGER NOT NULL,
-                EmailAddress TEXT NOT NULL
+                Address TEXT NOT NULL
             )";
 
         await _auditDataContext.Database.ExecuteSqlAsync(sql);

@@ -14,15 +14,14 @@ namespace MasjidOnline.Api.Web;
 
 public class ConnectionHub(IBusiness _business) : Hub
 {
-    // hack move to db
-    // handle flood
+    // hack handle flood
     private static readonly ConcurrentDictionary<string, Session> _sessions = new();
 
     private Session Session => _sessions[Context.ConnectionId];
 
     public override async Task OnConnectedAsync()
     {
-        var httpContext = Context.GetHttpContext() ?? throw new ErrorException("Get GetHttpContext fail");
+        var httpContext = Context.GetHttpContext() ?? throw new ErrorException("GetHttpContext fail");
 
         var _session = httpContext.RequestServices.GetServiceOrThrow<Session>();
 

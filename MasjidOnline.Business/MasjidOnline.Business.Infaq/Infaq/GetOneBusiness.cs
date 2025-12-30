@@ -28,7 +28,7 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
         var getOneResponseInfaq = new GetOneResponseInfaq()
         {
             Amount = _service.Localization[infaq.Amount, session.CultureInfo],
-            DateTime = _service.Localization[infaq.DateTime, session.CultureInfo],
+            DateTime = _service.Localization[infaq.DateTime, session.CultureInfo, "yyyy MMM dd, HH:mm"],
             MunfiqName = infaq.MunfiqName,
             PaymentStatus = _service.Localization[infaq.Status, session.CultureInfo],
             PaymentType = _service.Localization[infaq.PaymentType, session.CultureInfo],
@@ -112,7 +112,7 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
             Data = new GetOneResponse()
             {
                 Amount = _service.Localization[infaq.Amount, session.CultureInfo],
-                DateTime = _service.Localization[infaq.DateTime, session.CultureInfo],
+                DateTime = _service.Localization[infaq.DateTime, session.CultureInfo, "yyyy MMM dd, HH:mm"],
                 MunfiqName = infaq.MunfiqName,
                 Status = _service.Localization[infaq.Status, session.CultureInfo],
                 PaymentType = _service.Localization[infaq.PaymentType, session.CultureInfo],

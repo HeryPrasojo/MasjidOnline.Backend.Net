@@ -1,9 +1,11 @@
+using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Model.User.Internal;
 using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.User.Internal;
@@ -19,34 +21,41 @@ public class AddBusiness(
 
         addRequest = _service.FieldValidator.ValidateRequired(addRequest);
 
-        addRequest.EmailAddress = _service.FieldValidator.ValidateRequiredEmailAddress(addRequest.EmailAddress);
-        addRequest.Name = _service.FieldValidator.ValidateRequiredTextDb255(addRequest.Name);
+        addRequest.Contact = _service.FieldValidator.ValidateRequiredTextDb255(addRequest.Contact);
 
 
-        //var any = await _data.User.InternalUser.AnyAsync(addRequest.EmailAddress, Entity.User.InternalUserStatus.New);
+        var userId = await _data.User.UserEmail.GetUserIdAsync(addRequest.Contact);
 
-        //if (any) throw new InputMismatchException($"New {addRequest.EmailAddress} exists");
-
-
-        //any = await _data.User.UserEmailAddress.AnyAsync(addRequest.EmailAddress);
-
-        //if (any) throw new InputMismatchException($"{addRequest.EmailAddress} exists");
+        if (userId == default) throw new InputMismatchException(nameof(addRequest.Contact));
 
 
-        //var internalUser = new Entity.User.InternalUser
-        //{
-        //    DateTime = DateTime.UtcNow,
-        //    EmailAddress = addRequest.EmailAddress,
-        //    Id = _data.IdGenerator.User.InternalId,
-        //    Status = Entity.User.InternalUserStatus.New,
-        //    UserId = ,
-        //};
+        var user = await _data.User.User.GetForInternalAddAsync(userId);
 
-        //await _data.User.InternalUser.AddAndSaveAsync(internalUser);
+        if (user == default) throw new DataMismatchException(nameof(addRequest.Contact));
+
+        if (user.Type != Entity.User.UserType.External) throw new InputMismatchException(nameof(addRequest.Contact));
+
+        if (user.Status != Entity.User.UserStatus.Active) throw new InputMismatchException(nameof(addRequest.Contact));
+
+
+        var any = await _data.User.InternalUser.AnyNewAsync(userId);
+
+        if (any) throw new InputMismatchException(nameof(addRequest.Contact));
+
+
+        var internalUser = new Entity.User.InternalUser
+        {
+            AddUserId = session.UserId,
+            DateTime = DateTime.UtcNow,
+            Id = _data.IdGenerator.User.InternalId,
+            Status = Entity.User.InternalUserStatus.New,
+            UserId = userId,
+        };
+
+        await _data.User.InternalUser.AddAndSaveAsync(internalUser);
+
 
         // todo wait approver notification
-
-        // todo wait undone person, from existing user
 
         return new()
         {

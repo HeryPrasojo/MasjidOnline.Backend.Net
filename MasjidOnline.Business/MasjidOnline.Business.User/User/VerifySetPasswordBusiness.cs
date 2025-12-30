@@ -63,7 +63,7 @@ public class VerifySetPasswordBusiness(IService _service) : IVerifySetPasswordBu
 
         var utcNow = DateTime.UtcNow;
 
-        if (verificationCode.DateTime < utcNow.AddMinutes(-16)) throw new InputMismatchException(nameof(verifySetPasswordRequest.PasswordCode));
+        if (verificationCode.DateTime < utcNow.AddMinutes(-160)) throw new InputMismatchException(nameof(verifySetPasswordRequest.PasswordCode));
 
         if (!session.IsUserAnonymous)
         {

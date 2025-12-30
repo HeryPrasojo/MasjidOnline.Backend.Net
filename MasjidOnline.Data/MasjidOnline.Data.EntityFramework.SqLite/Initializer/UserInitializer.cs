@@ -58,7 +58,7 @@ public class UserInitializer(
             CREATE TABLE UserEmail
             (
                 Id INTEGER PRIMARY KEY,
-                EmailAddress TEXT NOT NULL,
+                Address TEXT NOT NULL,
                 UserId INTEGER NOT NULL
             )";
 

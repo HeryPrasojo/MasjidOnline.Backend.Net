@@ -31,10 +31,10 @@ public class UserEmailRepository(DbContext _dbContext) : IUserEmailRepository
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
     }
 
-    public async Task<int?> GetUserIdAsync(string emailAddress)
+    public async Task<int> GetUserIdAsync(string emailAddress)
     {
         return await _dbSet.Where(e => e.Address == emailAddress)
-            .Select(e => (int?)e.UserId)
+            .Select(e => e.UserId)
             .FirstOrDefaultAsync();
     }
 }

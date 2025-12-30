@@ -16,8 +16,4 @@ public class ManyRecord
     public required string? Description { get; set; }
 
     public required int AddUserId { get; set; }
-
-    public required DateTime? UpdateDateTime { get; set; }
-
-    public required int? UpdateUserId { get; set; }
 }

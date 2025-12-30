@@ -27,7 +27,7 @@ public class GetManyBusiness(IAuthorizationBusiness _authorizationBusiness, ISer
 
         var take = 10;
 
-        var requestStatus = getManyRequest.Status.HasValue ? Mapper.Mapper.User.InternalUserStatus[getManyRequest.Status.Value] : default;
+        Entity.User.InternalUserStatus? requestStatus = getManyRequest.Status.HasValue ? Mapper.Mapper.User.InternalUserStatus[getManyRequest.Status.Value] : null;
 
         var getManyResult = await _data.User.InternalUser.GetManyAsync(
             status: requestStatus,
@@ -35,6 +35,15 @@ public class GetManyBusiness(IAuthorizationBusiness _authorizationBusiness, ISer
             orderByDirection: OrderByDirection.Descending,
             skip: (getManyRequest.Page.Value - 1) * take,
             take: take);
+
+
+        var userIds = getManyResult.Records.Select(e => e.UserId);
+        var addUserIds = getManyResult.Records.Select(e => e.AddUserId);
+
+        var allUserIds = userIds.Concat(addUserIds);
+
+        var persons = await _data.Person.Person.GetNamesAsync(allUserIds);
+
 
         return new()
         {
@@ -45,12 +54,11 @@ public class GetManyBusiness(IAuthorizationBusiness _authorizationBusiness, ISer
                 RecordCount = _service.Localization[getManyResult.RecordCount, session.CultureInfo],
                 Records = getManyResult.Records.Select(e => new GetManyResponseRecord
                 {
-                    DateTime = e.DateTime,
+                    AddPersonName = persons.FirstOrDefault(p => p.UserId == e.AddUserId)?.Name,
+                    DateTime = _service.Localization[e.DateTime, session.CultureInfo, "yyyy MMM dd, HH:mm"],
                     Id = e.Id,
-                    Status = Mapper.Mapper.User.InternalUserStatus[e.Status],
-                    UpdateDateTime = e.UpdateDateTime,
-                    UpdateUserId = e.UpdateUserId,
-                    UserId = e.UserId,
+                    PersonName = persons.FirstOrDefault(p => p.UserId == e.UserId)?.Name,
+                    Status = _service.Localization[Mapper.Mapper.User.InternalUserStatus[e.Status], session.CultureInfo],
                 }),
             },
         };

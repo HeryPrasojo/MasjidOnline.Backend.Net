@@ -25,10 +25,10 @@ public class InternalUserRepository(DbContext _dbContext) : IInternalUserReposit
         await _dbContext.SaveChangesAsync();
     }
 
-    //public async Task<bool> AnyAsync(string emailAddress, InternalUserStatus status)
-    //{
-    //    return await _dbSet.AnyAsync(e => (e.EmailAddress == emailAddress) && (e.Status == status));
-    //}
+    public async Task<bool> AnyNewAsync(int userId)
+    {
+        return await _dbSet.AnyAsync(e => (e.UserId == userId) && (e.Status == InternalUserStatus.New));
+    }
 
     //public async Task<ForApprove?> GetForApproveAsync(int id)
     //{
@@ -82,8 +82,6 @@ public class InternalUserRepository(DbContext _dbContext) : IInternalUserReposit
                     Description = e.Description,
                     Id = e.Id,
                     Status = e.Status,
-                    UpdateDateTime = e.UpdateDateTime,
-                    UpdateUserId = e.UpdateUserId,
                     UserId = e.UserId,
                 })
                 .ToArrayAsync(),

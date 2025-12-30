@@ -52,7 +52,7 @@ public class LoginBusiness(IAuthorizationBusiness _authorizationBusiness, IServi
         if (userId == default) throw new InputMismatchException(nameof(loginRequest.Contact) + " or " + nameof(loginRequest.Password));
 
 
-        var user = await _data.User.User.GetForLoginAsync(userId.Value);
+        var user = await _data.User.User.GetForLoginAsync(userId);
 
         if (user == default) throw new InputMismatchException(nameof(loginRequest.Contact) + " or " + nameof(loginRequest.Password));
 
@@ -69,7 +69,7 @@ public class LoginBusiness(IAuthorizationBusiness _authorizationBusiness, IServi
 
         UserInternalPermission? userInternalPermissionResponse = default;
 
-        var userInternalPermission = await _data.Authorization.UserInternalPermission.FirstOrDefaultAsync(userId.Value);
+        var userInternalPermission = await _data.Authorization.UserInternalPermission.FirstOrDefaultAsync(userId);
 
         if (userInternalPermission != default)
         {
@@ -98,13 +98,13 @@ public class LoginBusiness(IAuthorizationBusiness _authorizationBusiness, IServi
         }
 
 
-        var userPreferenceApplicationCulture = await _data.User.UserData.GetApplicationCultureAsync(userId.Value);
+        var userPreferenceApplicationCulture = await _data.User.UserData.GetApplicationCultureAsync(userId);
 
         await _data.Transaction.BeginAsync(_data.Session, _data.Event);
 
         var utcNow = DateTime.UtcNow;
 
-        session.UserId = userId.Value;
+        session.UserId = userId;
 
         if (userPreferenceApplicationCulture != default)
             session.CultureInfo = Mapper.Mapper.Session.UserPreferenceApplicationCulture[userPreferenceApplicationCulture.Value];
