@@ -8,5 +8,5 @@ namespace MasjidOnline.Business.User.Interface.User;
 
 public interface IVerifyRegisterBusiness
 {
-    Task<Response> VerifyAsync(Session session, IData _data, VerifyRegisterRequest verifyRegisterRequest);
+    Task<Response> VerifyAsync(Session session, IData _data, VerifyRegisterRequest? verifyRegisterRequest);
 }

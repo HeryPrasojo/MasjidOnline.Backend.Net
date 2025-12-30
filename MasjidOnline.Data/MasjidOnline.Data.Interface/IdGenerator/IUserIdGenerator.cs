@@ -6,6 +6,7 @@ public interface IUserIdGenerator
 {
     int UserId { get; }
     int InternalId { get; }
+    int UserEmailId { get; }
 
     Task InitializeAsync(IData data);
 }

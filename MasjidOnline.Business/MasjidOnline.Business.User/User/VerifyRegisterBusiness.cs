@@ -16,7 +16,7 @@ namespace MasjidOnline.Business.User.User;
 
 public class VerifyRegisterBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : IVerifyRegisterBusiness
 {
-    public async Task<Response> VerifyAsync(Model.Session.Session session, IData _data, VerifyRegisterRequest verifyRegisterRequest)
+    public async Task<Response> VerifyAsync(Model.Session.Session session, IData _data, VerifyRegisterRequest? verifyRegisterRequest)
     {
         _authorizationBusiness.AuthorizeAnonymous(session);
 
@@ -81,7 +81,7 @@ public class VerifyRegisterBusiness(IAuthorizationBusiness _authorizationBusines
 
         if (verificationCode.ContactType == Entity.User.ContactType.Email)
         {
-            var any = await _data.User.UserEmailAddress.AnyAsync(verificationCode.Contact);
+            var any = await _data.User.UserEmail.AnyAsync(verificationCode.Contact);
 
             if (any) throw new DataMismatchException(nameof(verifyRegisterRequest.Contact));
         }
@@ -104,15 +104,16 @@ public class VerifyRegisterBusiness(IAuthorizationBusiness _authorizationBusines
 
         if (verificationCode.ContactType == Entity.User.ContactType.Email)
         {
-            var userEmailAddress = new UserEmailAddress
+            var userEmail = new UserEmail
             {
-                EmailAddress = verifyRegisterRequest.Contact,
+                Address = verifyRegisterRequest.Contact,
+                Id = _data.IdGenerator.User.UserEmailId,
                 UserId = user.Id,
             };
 
-            await _data.User.UserEmailAddress.AddAsync(userEmailAddress);
+            await _data.User.UserEmail.AddAsync(userEmail);
 
-            await _data.Audit.UserEmailAddressLog.AddAddAsync(_data.IdGenerator.Audit.UserEmailAddressLogId, utcNow, user.Id, userEmailAddress);
+            await _data.Audit.UserEmailLog.AddAddAsync(_data.IdGenerator.Audit.UserEmailLogId, utcNow, user.Id, userEmail);
         }
 
 

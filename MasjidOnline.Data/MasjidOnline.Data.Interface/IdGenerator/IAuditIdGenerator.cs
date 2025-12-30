@@ -4,6 +4,6 @@ public interface IAuditIdGenerator
 {
     int PermissionLogId { get; }
     int UserLogId { get; }
-    int UserEmailAddressLogId { get; }
+    int UserEmailLogId { get; }
     int UserDataLogId { get; }
 }

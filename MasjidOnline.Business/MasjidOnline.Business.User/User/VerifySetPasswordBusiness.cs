@@ -80,7 +80,7 @@ public class VerifySetPasswordBusiness(IService _service) : IVerifySetPasswordBu
 
         if (verificationCode.ContactType == Entity.User.ContactType.Email)
         {
-            var userId = await _data.User.UserEmailAddress.GetUserIdAsync(verificationCode.Contact);
+            var userId = await _data.User.UserEmail.GetUserIdAsync(verificationCode.Contact);
 
             if (userId != verificationCode.UserId) throw new InputMismatchException(nameof(verifySetPasswordRequest.Contact));
         }

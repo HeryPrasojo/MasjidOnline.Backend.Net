@@ -1,6 +1,6 @@
 namespace MasjidOnline.Entity.Audit;
 
-public enum UserEmailAddressLogType
+public enum UserEmailLogType
 {
     Add = 1,
 }

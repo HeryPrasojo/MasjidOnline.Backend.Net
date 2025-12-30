@@ -80,24 +80,25 @@ public class UserBusiness(
         await _data.Audit.UserDataLog.AddAddAsync(_data.IdGenerator.Audit.UserDataLogId, utcNow, Constant.UserId.System, userData);
 
 
-        var userEmailAddress = new UserEmailAddress
+        var userEmail = new UserEmail
         {
-            EmailAddress = options.RootUserEmailAddress.ToLowerInvariant(),
+            Address = options.RootUserEmailAddress.ToLowerInvariant(),
+            Id = _data.IdGenerator.User.UserEmailId,
             UserId = user.Id,
         };
 
-        await _data.User.UserEmailAddress.AddAsync(userEmailAddress);
+        await _data.User.UserEmail.AddAsync(userEmail);
 
-        await _data.Audit.UserEmailAddressLog.AddAddAsync(
-            _data.IdGenerator.Audit.UserEmailAddressLogId,
+        await _data.Audit.UserEmailLog.AddAddAsync(
+            _data.IdGenerator.Audit.UserEmailLogId,
             utcNow,
             Constant.UserId.System,
-            userEmailAddress);
+            userEmail);
 
 
         var verificationCode = new VerificationCode
         {
-            Contact = userEmailAddress.EmailAddress,
+            Contact = userEmail.Address,
             ContactType = ContactType.Email,
             Code = _service.Hash512.RandomByteArray,
             DateTime = utcNow,
@@ -175,7 +176,7 @@ public class UserBusiness(
             BodyHtml = $"<p>Please use the following link to set your password: <a href='{uri}'>{uri}</a></p>",
             BodyText = "Please use the following link to set your password: " + uri,
             Subject = "MasjidOnline User Account",
-            To = [new MailAddress(person.Name, userEmailAddress.EmailAddress)],
+            To = [new MailAddress(person.Name, userEmail.Address)],
         };
 
         await _service.MailSender.SendMailAsync(mailMessage);

@@ -52,19 +52,20 @@ public class UserInitializer(
         await _userDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task CreateTableUserEmailAddressAsync()
+    protected override async Task CreateTableUserEmailAsync()
     {
         FormattableString sql = @$"
-            CREATE TABLE UserEmailAddress
+            CREATE TABLE UserEmail
             (
-                EmailAddress TEXT PRIMARY KEY,
+                Id INTEGER PRIMARY KEY,
+                EmailAddress TEXT NOT NULL,
                 UserId INTEGER NOT NULL
             )";
 
         await _userDataContext.Database.ExecuteSqlAsync(sql);
 
 
-        sql = $@"CREATE INDEX UserEmailAddressUserId ON UserEmailAddress (UserId)";
+        sql = $@"CREATE INDEX UserEmailUserId ON UserEmail (UserId)";
 
         await _userDataContext.Database.ExecuteSqlAsync(sql);
     }

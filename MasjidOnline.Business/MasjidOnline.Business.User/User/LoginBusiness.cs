@@ -45,7 +45,7 @@ public class LoginBusiness(IAuthorizationBusiness _authorizationBusiness, IServi
 
         var userId = contactType switch
         {
-            Entity.User.ContactType.Email => await _data.User.UserEmailAddress.GetUserIdAsync(loginRequest.Contact),
+            Entity.User.ContactType.Email => await _data.User.UserEmail.GetUserIdAsync(loginRequest.Contact),
             _ => throw new ErrorException(nameof(contactType)),
         };
 

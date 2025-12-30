@@ -6,7 +6,7 @@ public interface IUserDatabase : IDatabase
 {
     IInternalUserRepository InternalUser { get; }
     IUserRepository User { get; }
-    IUserEmailAddressRepository UserEmailAddress { get; }
+    IUserEmailRepository UserEmail { get; }
     IUserSettingRepository UserSetting { get; }
     IUserDataRepository UserData { get; }
 }

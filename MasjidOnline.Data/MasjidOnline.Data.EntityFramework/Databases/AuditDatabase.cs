@@ -10,7 +10,7 @@ public class AuditDatabase(DbContext _dbContext) : Database(_dbContext), IAuditD
     private IAuditSettingRepository? _auditSettingRepository;
     private IUserLogRepository? _userLogRepository;
     private IUserDataLogRepository? _userDataLogRepository;
-    private IUserEmailAddressLogRepository? _userEmailAddressLogRepository;
+    private IUserEmailLogRepository? _userEmailLogRepository;
     private IUserInternalPermissionLogRepository? _userInternalPermissionLogRepository;
 
     public IAuditSettingRepository AuditSetting => _auditSettingRepository ??= new AuditSettingRepository(_dbContext);
@@ -19,7 +19,7 @@ public class AuditDatabase(DbContext _dbContext) : Database(_dbContext), IAuditD
 
     public IUserDataLogRepository UserDataLog => _userDataLogRepository ??= new UserDataLogRepository(_dbContext);
 
-    public IUserEmailAddressLogRepository UserEmailAddressLog => _userEmailAddressLogRepository ??= new UserEmailAddressLogRepository(_dbContext);
+    public IUserEmailLogRepository UserEmailLog => _userEmailLogRepository ??= new UserEmailLogRepository(_dbContext);
 
     public IUserInternalPermissionLogRepository UserInternalPermissionLog => _userInternalPermissionLogRepository ??= new UserInternalPermissionLogRepository(_dbContext);
 }

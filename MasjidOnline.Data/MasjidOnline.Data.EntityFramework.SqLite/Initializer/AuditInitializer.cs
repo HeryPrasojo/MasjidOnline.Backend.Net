@@ -60,10 +60,10 @@ public class AuditInitializer(
         await _auditDataContext.Database.ExecuteSqlAsync(sql);
     }
 
-    protected override async Task CreateTableUserEmailAddressLogAsync()
+    protected override async Task CreateTableUserEmailLogAsync()
     {
         FormattableString sql = @$"
-            CREATE TABLE UserEmailAddressLog
+            CREATE TABLE UserEmailLog
             (
                 Id INTEGER PRIMARY KEY,
                 LogDateTime TEXT NOT NULL,
