@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface;
+using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Model.User.User;
 using MasjidOnline.Business.User.Interface.User;
@@ -11,10 +12,14 @@ using MasjidOnline.Entity.User;
 using MasjidOnline.Entity.Verification;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
+using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Business.User.User;
 
-public class VerifyRegisterBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : IVerifyRegisterBusiness
+public class VerifyRegisterBusiness(
+    IOptionsMonitor<BusinessOptions> _optionsMonitor,
+    IAuthorizationBusiness _authorizationBusiness,
+    IService _service) : IVerifyRegisterBusiness
 {
     public async Task<Response> VerifyAsync(Model.Session.Session session, IData _data, VerifyRegisterRequest? verifyRegisterRequest)
     {
@@ -67,9 +72,12 @@ public class VerifyRegisterBusiness(IAuthorizationBusiness _authorizationBusines
 
         if (verificationCode.UseDateTime.HasValue) throw new InputMismatchException(nameof(verifyRegisterRequest.RegisterCode));
 
+
         var utcNow = DateTime.UtcNow;
 
-        if (verificationCode.DateTime < utcNow.AddMinutes(-32)) throw new InputMismatchException(nameof(verifyRegisterRequest.RegisterCode));
+        var expireDateTime = verificationCode.DateTime.AddMinutes(_optionsMonitor.CurrentValue.VerificationExpire);
+
+        if (expireDateTime > utcNow) throw new InputMismatchException(nameof(verifyRegisterRequest.RegisterCode));
 
 
         var id = await _data.Verification.VerificationCode.GetLastIdByContactAsync(verificationCode.ContactType, verificationCode.Contact);
@@ -138,16 +146,9 @@ public class VerifyRegisterBusiness(IAuthorizationBusiness _authorizationBusines
         await _data.Person.Person.AddAsync(person);
 
 
-        //var passwordBytes = _service.Hash512.Hash(verifyRegisterRequest.Password);
-
-        //var passwordUser = _data.User.User.SetPassword(verificationCode.UserId, passwordBytes);
-
-        //await _data.Audit.UserLog.AddSetPasswordAsync(_data.IdGenerator.Audit.UserLogId, utcNow, verificationCode.UserId, passwordUser);
-
-
         _data.Verification.VerificationCode.SetUseDateTime(verificationCode.Id, utcNow);
 
-        session.UserId = verificationCode.UserId;
+        session.UserId = user.Id;
 
         _data.Session.Session.SetForLogin(session.Id, session.UserId, utcNow, default);
 

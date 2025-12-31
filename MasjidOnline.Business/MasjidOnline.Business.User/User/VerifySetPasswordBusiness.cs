@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Model.Authorization;
+using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Model.User.User;
 using MasjidOnline.Business.User.Interface.User;
@@ -10,10 +11,11 @@ using MasjidOnline.Entity.User;
 using MasjidOnline.Entity.Verification;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
+using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Business.User.User;
 
-public class VerifySetPasswordBusiness(IService _service) : IVerifySetPasswordBusiness
+public class VerifySetPasswordBusiness(IOptionsMonitor<BusinessOptions> _optionsMonitor, IService _service) : IVerifySetPasswordBusiness
 {
     public async Task<Response<LoginResponse>> VerifyAsync(Model.Session.Session session, IData _data, VerifySetPasswordRequest? verifySetPasswordRequest)
     {
@@ -61,9 +63,12 @@ public class VerifySetPasswordBusiness(IService _service) : IVerifySetPasswordBu
 
         if (verificationCode.UseDateTime.HasValue) throw new InputMismatchException(nameof(verifySetPasswordRequest.PasswordCode));
 
+
         var utcNow = DateTime.UtcNow;
 
-        if (verificationCode.DateTime < utcNow.AddMinutes(-160)) throw new InputMismatchException(nameof(verifySetPasswordRequest.PasswordCode));
+        var expireDateTime = verificationCode.DateTime.AddMinutes(_optionsMonitor.CurrentValue.VerificationExpire);
+
+        if (expireDateTime > utcNow) throw new InputMismatchException(nameof(verifySetPasswordRequest.PasswordCode));
 
         if (!session.IsUserAnonymous)
         {
