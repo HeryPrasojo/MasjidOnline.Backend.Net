@@ -110,6 +110,8 @@ public class VerifyRegisterBusiness(
         await _data.Audit.UserLog.AddAddAsync(_data.IdGenerator.Audit.UserLogId, utcNow, user.Id, user);
 
 
+        int mainContactId;
+
         if (verificationCode.ContactType == Entity.User.ContactType.Email)
         {
             var userEmail = new UserEmail
@@ -122,13 +124,18 @@ public class VerifyRegisterBusiness(
             await _data.User.UserEmail.AddAsync(userEmail);
 
             await _data.Audit.UserEmailLog.AddAddAsync(_data.IdGenerator.Audit.UserEmailLogId, utcNow, user.Id, userEmail);
+
+            mainContactId = userEmail.Id;
         }
+        else throw new ErrorException(nameof(verificationCode.ContactType));
 
 
         var userData = new UserData
         {
-            UserId = user.Id,
+            MainContactId = mainContactId,
+            MainContactType = verificationCode.ContactType,
             IsAcceptAgreement = verifyRegisterRequest.IsAcceptAgreement.Value,
+            UserId = user.Id,
         };
 
         await _data.User.UserData.AddAsync(userData);

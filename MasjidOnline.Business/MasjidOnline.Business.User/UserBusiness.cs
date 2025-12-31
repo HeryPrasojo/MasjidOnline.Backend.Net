@@ -81,17 +81,6 @@ public class UserBusiness(
         await _data.Audit.UserLog.AddAddAsync(_data.IdGenerator.Audit.UserLogId, utcNow, Constant.UserId.System, user);
 
 
-        var userData = new UserData
-        {
-            UserId = user.Id,
-            IsAcceptAgreement = true,
-        };
-
-        await _data.User.UserData.AddAsync(userData);
-
-        await _data.Audit.UserDataLog.AddAddAsync(_data.IdGenerator.Audit.UserDataLogId, utcNow, Constant.UserId.System, userData);
-
-
         var userEmail = new UserEmail
         {
             Address = options.RootUserEmailAddress.ToLowerInvariant(),
@@ -106,6 +95,19 @@ public class UserBusiness(
             utcNow,
             Constant.UserId.System,
             userEmail);
+
+
+        var userData = new UserData
+        {
+            IsAcceptAgreement = true,
+            MainContactId = userEmail.Id,
+            MainContactType = ContactType.Email,
+            UserId = user.Id,
+        };
+
+        await _data.User.UserData.AddAsync(userData);
+
+        await _data.Audit.UserDataLog.AddAddAsync(_data.IdGenerator.Audit.UserDataLogId, utcNow, Constant.UserId.System, userData);
 
 
         var verificationCode = new VerificationCode
