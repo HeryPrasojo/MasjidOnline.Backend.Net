@@ -55,6 +55,18 @@ public class UserBusiness(
         await _data.User.User.AddAsync(user);
 
 
+        var person = new Person
+        {
+            Id = _data.IdGenerator.Person.PersonId,
+            Name = nameof(UserType.System),
+            UserId = user.Id,
+        };
+
+        await _data.Person.Person.AddAsync(person);
+
+        await _data.Audit.PersonLog.AddAddAsync(_data.IdGenerator.Audit.PersonLogId, utcNow, Constant.UserId.System, person);
+
+
 
         user = new Entity.User.User
         {
@@ -110,7 +122,7 @@ public class UserBusiness(
         await _data.Verification.VerificationCode.AddAsync(verificationCode);
 
 
-        var person = new Person
+        person = new Person
         {
             Id = _data.IdGenerator.Person.PersonId,
             Name = options.RootPersonName,

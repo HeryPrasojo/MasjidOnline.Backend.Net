@@ -24,6 +24,7 @@ using Microsoft.Extensions.Hosting;
 
 var webApplication = BuildApplication(args);
 
+// hack move to a new dedicated application
 await webApplication.InitializeAsync();
 
 webApplication.UseCors();

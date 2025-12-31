@@ -8,12 +8,15 @@ namespace MasjidOnline.Data.EntityFramework.Databases;
 public class AuditDatabase(DbContext _dbContext) : Database(_dbContext), IAuditDatabase
 {
     private IAuditSettingRepository? _auditSettingRepository;
+    private IPersonLogRepository? _personLogRepository;
     private IUserLogRepository? _userLogRepository;
     private IUserDataLogRepository? _userDataLogRepository;
     private IUserEmailLogRepository? _userEmailLogRepository;
     private IUserInternalPermissionLogRepository? _userInternalPermissionLogRepository;
 
     public IAuditSettingRepository AuditSetting => _auditSettingRepository ??= new AuditSettingRepository(_dbContext);
+
+    public IPersonLogRepository PersonLog => _personLogRepository ??= new PersonLogRepository(_dbContext);
 
     public IUserLogRepository UserLog => _userLogRepository ??= new UserLogRepository(_dbContext);
 

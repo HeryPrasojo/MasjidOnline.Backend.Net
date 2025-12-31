@@ -68,7 +68,7 @@ public class VerifySetPasswordBusiness(IOptionsMonitor<BusinessOptions> _options
 
         var expireDateTime = verificationCode.DateTime.AddMinutes(_optionsMonitor.CurrentValue.VerificationExpire);
 
-        if (expireDateTime > utcNow) throw new InputMismatchException(nameof(verifySetPasswordRequest.PasswordCode));
+        if (expireDateTime < utcNow) throw new InputMismatchException(nameof(verifySetPasswordRequest.PasswordCode));
 
         if (!session.IsUserAnonymous)
         {

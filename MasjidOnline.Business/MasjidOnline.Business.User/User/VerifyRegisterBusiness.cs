@@ -77,7 +77,7 @@ public class VerifyRegisterBusiness(
 
         var expireDateTime = verificationCode.DateTime.AddMinutes(_optionsMonitor.CurrentValue.VerificationExpire);
 
-        if (expireDateTime > utcNow) throw new InputMismatchException(nameof(verifyRegisterRequest.RegisterCode));
+        if (expireDateTime < utcNow) throw new InputMismatchException(nameof(verifyRegisterRequest.RegisterCode));
 
 
         var id = await _data.Verification.VerificationCode.GetLastIdByContactAsync(verificationCode.ContactType, verificationCode.Contact);
@@ -144,6 +144,8 @@ public class VerifyRegisterBusiness(
         };
 
         await _data.Person.Person.AddAsync(person);
+
+        await _data.Audit.PersonLog.AddAddAsync(_data.IdGenerator.Audit.PersonLogId, utcNow, user.Id, person);
 
 
         _data.Verification.VerificationCode.SetUseDateTime(verificationCode.Id, utcNow);

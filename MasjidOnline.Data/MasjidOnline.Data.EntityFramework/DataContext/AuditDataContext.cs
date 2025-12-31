@@ -10,6 +10,8 @@ public class AuditDataContext(DbContextOptions _dbContextOptions) : DbContext(_d
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<AuditSetting>();
+
+        modelBuilder.Entity<PersonLog>();
         modelBuilder.Entity<UserLog>();
         modelBuilder.Entity<UserDataLog>();
         modelBuilder.Entity<UserEmailLog>();

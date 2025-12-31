@@ -23,6 +23,24 @@ public class AuditInitializer(
         await _auditDataContext.Database.ExecuteSqlAsync(sql);
     }
 
+    protected override async Task CreateTablePersonLogAsync()
+    {
+        FormattableString sql = @$"
+            CREATE TABLE PersonLog
+            (
+                Id INTEGER PRIMARY KEY,
+                LogDateTime TEXT NOT NULL,
+                LogType TEXT NOT NULL,
+                LogUserId INTEGER NOT NULL,
+
+                PersonId INTEGER NOT NULL,
+                UserId INTEGER,
+                Name TEXT COLLATE NOCASE
+            )";
+
+        await _auditDataContext.Database.ExecuteSqlAsync(sql);
+    }
+
     protected override async Task CreateTableUserLogAsync()
     {
         FormattableString sql = @$"
