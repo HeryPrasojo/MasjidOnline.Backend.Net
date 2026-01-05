@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MasjidOnline.Entity.Authorization;
 
+// todo remove cancel, use add
 public class UserInternalPermission
 {
     [Key]

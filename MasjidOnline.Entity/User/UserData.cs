@@ -9,9 +9,9 @@ public class UserData
 
     public bool IsAcceptAgreement { get; set; }
 
-    public ContactType MainContactType { get; set; }
-
     public int MainContactId { get; set; }
+
+    public ContactType MainContactType { get; set; }
 
     public ApplicationCulture? ApplicationCulture { get; set; }
 }

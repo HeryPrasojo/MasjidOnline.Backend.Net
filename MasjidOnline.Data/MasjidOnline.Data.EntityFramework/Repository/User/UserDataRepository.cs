@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Repository.User;
+using MasjidOnline.Data.Interface.ViewModel.User.UserData;
 using MasjidOnline.Entity.User;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +27,19 @@ public class UserDataRepository(DbContext _dbContext) : IUserDataRepository
         return await _dbSet.Where(e => e.UserId == userId)
             .Select(e => e.ApplicationCulture)
             .FirstOrDefaultAsync();
+    }
+
+
+    public async Task<IEnumerable<ForOneInternalUser>?> GetForOneInternalUserAsync(IEnumerable<int> userIds)
+    {
+        return await _dbSet.Where(e => userIds.Any(i => i == e.UserId))
+            .Select(e => new ForOneInternalUser
+            {
+                MainContactId = e.MainContactId,
+                MainContactType = e.MainContactType,
+                UserId = e.UserId,
+            })
+            .ToArrayAsync();
     }
 
 

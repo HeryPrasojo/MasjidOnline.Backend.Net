@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Data.Interface.Repository.User;
+using MasjidOnline.Data.Interface.ViewModel.User.UserEmail;
 using MasjidOnline.Entity.User;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,9 +23,7 @@ public class UserEmailRepository(DbContext _dbContext) : IUserEmailRepository
 
         var pair0 = pair[0].Split('+');
 
-        var emailAddressLikePattern = (pair0.Length == 1) ? $"{pair[0]}+%@{pair[1]}" : $"{pair0[0]}+%@{pair[1]}";
-
-        return await _dbSet.AnyAsync(e => (e.Address == emailAddress) || EF.Functions.Like(e.Address, emailAddressLikePattern));
+        return await _dbSet.AnyAsync(e => (e.Address == $"{pair0[0]}@{pair[1]}") || EF.Functions.Like(e.Address, $"{pair0[0]}+%@{pair[1]}"));
     }
 
     public async Task<int> GetMaxIdAsync()
@@ -36,5 +36,17 @@ public class UserEmailRepository(DbContext _dbContext) : IUserEmailRepository
         return await _dbSet.Where(e => e.Address == emailAddress)
             .Select(e => e.UserId)
             .FirstOrDefaultAsync();
+    }
+
+
+    public async Task<IEnumerable<ForOneInternalUser>?> GetForOneInternalUserAsync(IEnumerable<int> ids)
+    {
+        return await _dbSet.Where(e => ids.Any(i => i == e.Id))
+            .Select(e => new ForOneInternalUser
+            {
+                Address = e.Address,
+                Id = e.Id,
+            })
+            .ToArrayAsync();
     }
 }

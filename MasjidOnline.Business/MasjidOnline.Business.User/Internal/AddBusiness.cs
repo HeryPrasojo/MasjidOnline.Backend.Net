@@ -21,7 +21,13 @@ public class AddBusiness(
 
         addRequest = _service.FieldValidator.ValidateRequired(addRequest);
 
+        addRequest.CaptchaToken = _service.FieldValidator.ValidateRequired(addRequest.CaptchaToken);
         addRequest.Contact = _service.FieldValidator.ValidateRequiredTextDb255(addRequest.Contact);
+
+
+        var isCaptchaVerified = await _service.Captcha.VerifyAddInternalUserAsync(addRequest.CaptchaToken);
+
+        if (!isCaptchaVerified) throw new InputMismatchException(nameof(addRequest.CaptchaToken));
 
 
         var userId = await _data.User.UserEmail.GetUserIdAsync(addRequest.Contact);

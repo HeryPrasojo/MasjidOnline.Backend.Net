@@ -43,7 +43,7 @@ public class VerifyRegisterBusiness(
             throw new InputInvalidException(nameof(verifyRegisterRequest.Password2));
 
 
-        var isCaptchaVerified = await _service.Captcha.VerifyVerifyRegisterSessionAsync(verifyRegisterRequest.CaptchaToken);
+        var isCaptchaVerified = await _service.Captcha.VerifyVerifyRegisterAsync(verifyRegisterRequest.CaptchaToken);
 
         if (!isCaptchaVerified) throw new InputMismatchException(nameof(verifyRegisterRequest.CaptchaToken));
 

@@ -17,14 +17,15 @@ using Microsoft.Extensions.Options;
 namespace MasjidOnline.Business.User;
 
 public class UserBusiness(
-    IOptionsMonitor<BusinessOptions> _optionsMonitor,
+    IOptionsMonitor<BusinessOptions> _businessOptionsMonitor,
+    IOptionsMonitor<MailOptions> _mailOptionsMonitor,
     IAuthorizationBusiness _authorizationBusiness,
     IService _service
     ) : IUserBusiness
 {
-    public IUserInternalBusiness Internal { get; } = new UserInternalBusiness(_optionsMonitor, _authorizationBusiness, _service);
+    public IUserInternalBusiness Internal { get; } = new UserInternalBusiness(_businessOptionsMonitor, _authorizationBusiness, _service);
     public IUserPreferenceBusiness UserPreference { get; } = new UserPreferenceBusiness();
-    public IUserUserBusiness User { get; } = new UserUserBusiness(_optionsMonitor, _authorizationBusiness, _service);
+    public IUserUserBusiness User { get; } = new UserUserBusiness(_businessOptionsMonitor, _authorizationBusiness, _service);
 
 
     public async Task InitializeAsync(IData _data)
@@ -37,10 +38,11 @@ public class UserBusiness(
         await _data.Transaction.BeginAsync(_data.User, _data.Audit, _data.Verification, _data.Person, _data.Authorization);
 
 
-        var options = _optionsMonitor.CurrentValue;
+        var businessOptions = _businessOptionsMonitor.CurrentValue;
+        var mailOptions = _mailOptionsMonitor.CurrentValue;
 
-        if (options.RootUserEmailAddress.IsNullOrEmptyOrWhiteSpace())
-            throw new ApplicationException($"{nameof(options.RootUserEmailAddress)}");
+        if (businessOptions.RootUserEmailAddress.IsNullOrEmptyOrWhiteSpace())
+            throw new ApplicationException($"{nameof(businessOptions.RootUserEmailAddress)}");
 
         var utcNow = DateTime.UtcNow;
 
@@ -53,6 +55,31 @@ public class UserBusiness(
         };
 
         await _data.User.User.AddAsync(user);
+
+
+        var userEmail = new UserEmail
+        {
+            Address = mailOptions.DefaultFromAddress.ToLowerInvariant(),
+            Id = _data.IdGenerator.User.UserEmailId,
+            UserId = user.Id,
+        };
+
+        await _data.User.UserEmail.AddAsync(userEmail);
+
+        await _data.Audit.UserEmailLog.AddAddAsync(_data.IdGenerator.Audit.UserEmailLogId, utcNow, Constant.UserId.System, userEmail);
+
+
+        var userData = new UserData
+        {
+            IsAcceptAgreement = true,
+            MainContactId = userEmail.Id,
+            MainContactType = ContactType.Email,
+            UserId = user.Id,
+        };
+
+        await _data.User.UserData.AddAsync(userData);
+
+        await _data.Audit.UserDataLog.AddAddAsync(_data.IdGenerator.Audit.UserDataLogId, utcNow, Constant.UserId.System, userData);
 
 
         var person = new Person
@@ -81,23 +108,19 @@ public class UserBusiness(
         await _data.Audit.UserLog.AddAddAsync(_data.IdGenerator.Audit.UserLogId, utcNow, Constant.UserId.System, user);
 
 
-        var userEmail = new UserEmail
+        userEmail = new UserEmail
         {
-            Address = options.RootUserEmailAddress.ToLowerInvariant(),
+            Address = businessOptions.RootUserEmailAddress.ToLowerInvariant(),
             Id = _data.IdGenerator.User.UserEmailId,
             UserId = user.Id,
         };
 
         await _data.User.UserEmail.AddAsync(userEmail);
 
-        await _data.Audit.UserEmailLog.AddAddAsync(
-            _data.IdGenerator.Audit.UserEmailLogId,
-            utcNow,
-            Constant.UserId.System,
-            userEmail);
+        await _data.Audit.UserEmailLog.AddAddAsync(_data.IdGenerator.Audit.UserEmailLogId, utcNow, Constant.UserId.System, userEmail);
 
 
-        var userData = new UserData
+        userData = new UserData
         {
             IsAcceptAgreement = true,
             MainContactId = userEmail.Id,
@@ -110,28 +133,16 @@ public class UserBusiness(
         await _data.Audit.UserDataLog.AddAddAsync(_data.IdGenerator.Audit.UserDataLogId, utcNow, Constant.UserId.System, userData);
 
 
-        var verificationCode = new VerificationCode
-        {
-            Contact = userEmail.Address,
-            ContactType = ContactType.Email,
-            Code = _service.Hash512.RandomByteArray,
-            DateTime = utcNow,
-            Id = _data.IdGenerator.Verification.VerificationCodeId,
-            UserId = user.Id,
-            Type = VerificationCodeType.Password,
-        };
-
-        await _data.Verification.VerificationCode.AddAsync(verificationCode);
-
-
         person = new Person
         {
             Id = _data.IdGenerator.Person.PersonId,
-            Name = options.RootPersonName,
+            Name = businessOptions.RootPersonName,
             UserId = user.Id,
         };
 
         await _data.Person.Person.AddAsync(person);
+
+        await _data.Audit.PersonLog.AddAddAsync(_data.IdGenerator.Audit.PersonLogId, utcNow, Constant.UserId.System, person);
 
 
         var internalUser = new InternalUser
@@ -178,12 +189,26 @@ public class UserBusiness(
             Constant.UserId.System,
             userInternalPermission);
 
+
+        var verificationCode = new VerificationCode
+        {
+            Contact = userEmail.Address,
+            ContactType = ContactType.Email,
+            Code = _service.Hash512.RandomByteArray,
+            DateTime = utcNow,
+            Id = _data.IdGenerator.Verification.VerificationCodeId,
+            UserId = user.Id,
+            Type = VerificationCodeType.Password,
+        };
+
+        await _data.Verification.VerificationCode.AddAsync(verificationCode);
+
         await _data.Transaction.CommitAsync();
 
 
         var codeBase64Url = _service.Encryption256kService.EncryptBase64Url(verificationCode.Code.AsSpan());
 
-        var uri = options.Uri.WebOrigin + options.Uri.UserPasswordEmail + codeBase64Url;
+        var uri = businessOptions.Uri.WebOrigin + businessOptions.Uri.UserPasswordEmail + codeBase64Url;
 
         var mailMessage = new MailMessage
         {

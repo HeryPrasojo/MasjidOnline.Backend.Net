@@ -151,28 +151,28 @@ public class VerifySetPasswordBusiness(IOptionsMonitor<BusinessOptions> _options
                 session.CultureInfo = Mapper.Mapper.Session.UserPreferenceApplicationCulture[userPreferenceApplicationCulture.Value];
 
             _data.Session.Session.SetForLogin(session.Id, session.UserId, utcNow, userPreferenceApplicationCulture);
+
+
+            var userLogin = new UserLogin
+            {
+                DateTime = utcNow,
+                Contact = verifySetPasswordRequest.Contact,
+                ContactType = contactType,
+                Id = _data.IdGenerator.Event.UserLoginId,
+                IpAddress = verifySetPasswordRequest.IpAddress,
+                LocationAltitude = verifySetPasswordRequest.LocationAltitude,
+                LocationAltitudePrecision = verifySetPasswordRequest.LocationAltitudePrecision,
+                LocationLatitude = verifySetPasswordRequest.LocationLatitude,
+                LocationLongitude = verifySetPasswordRequest.LocationLongitude,
+                LocationPrecision = verifySetPasswordRequest.LocationPrecision,
+                Client = Mapper.Mapper.Event.UserLoginClient[verifySetPasswordRequest.Client.Value],
+                SessionId = session.Id,
+                UserAgent = verifySetPasswordRequest.UserAgent,
+                UserId = session.UserId,
+            };
+
+            await _data.Event.UserLogin.AddAsync(userLogin);
         }
-
-
-        var userLogin = new UserLogin
-        {
-            DateTime = utcNow,
-            Contact = verifySetPasswordRequest.Contact,
-            ContactType = contactType,
-            Id = _data.IdGenerator.Event.UserLoginId,
-            IpAddress = verifySetPasswordRequest.IpAddress,
-            LocationAltitude = verifySetPasswordRequest.LocationAltitude,
-            LocationAltitudePrecision = verifySetPasswordRequest.LocationAltitudePrecision,
-            LocationLatitude = verifySetPasswordRequest.LocationLatitude,
-            LocationLongitude = verifySetPasswordRequest.LocationLongitude,
-            LocationPrecision = verifySetPasswordRequest.LocationPrecision,
-            Client = Mapper.Mapper.Event.UserLoginClient[verifySetPasswordRequest.Client.Value],
-            SessionId = session.Id,
-            UserAgent = verifySetPasswordRequest.UserAgent,
-            UserId = session.UserId,
-        };
-
-        await _data.Event.UserLogin.AddAsync(userLogin);
 
         await _data.Transaction.CommitAsync();
 

@@ -2,5 +2,6 @@
 
 public class AddRequest
 {
+    public string? CaptchaToken { get; set; }
     public string? Contact { get; set; }
 }

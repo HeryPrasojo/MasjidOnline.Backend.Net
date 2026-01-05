@@ -21,6 +21,8 @@ public class LocalizationService() : ILocalizationService
 
     public string this[DateTime value, CultureInfo cultureInfo, string format] => value.ToString(format, cultureInfo);
 
+    public string? this[DateTime? value, CultureInfo cultureInfo, string format] => value?.ToString(format, cultureInfo);
+
     public string this[decimal value, CultureInfo cultureInfo] => value.ToString(cultureInfo);
 
     public string this[Enum value, CultureInfo cultureInfo] => this[value.ToString(), cultureInfo];

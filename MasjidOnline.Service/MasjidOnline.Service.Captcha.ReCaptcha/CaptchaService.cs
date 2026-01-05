@@ -42,6 +42,10 @@ public class CaptchaService(bool _enabled, IHttpClientFactory _httpClientFactory
             throw new Exception($"{nameof(_optionsMonitor.CurrentValue.ReCaptcha.ActionAffix)} IsNullOrEmptyOrWhiteSpace");
     }
 
+    public async Task<bool> VerifyAddInternalUserAsync(string token)
+    {
+        return await VerifyAsync(token, "addInternalUser");
+    }
     public async Task<bool> VerifyInfaqAsync(string token)
     {
         return await VerifyAsync(token, "infaq");
@@ -62,7 +66,7 @@ public class CaptchaService(bool _enabled, IHttpClientFactory _httpClientFactory
     {
         return await VerifyAsync(token, "session");
     }
-    public async Task<bool> VerifyVerifyRegisterSessionAsync(string token)
+    public async Task<bool> VerifyVerifyRegisterAsync(string token)
     {
         return await VerifyAsync(token, "verifyRegister");
     }
