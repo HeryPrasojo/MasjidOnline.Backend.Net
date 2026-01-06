@@ -17,6 +17,7 @@ public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IServ
         await _authorizationBusiness.User.Internal.AuthorizeCancelAync(session, _data);
 
         cancelRequest = _service.FieldValidator.ValidateRequired(cancelRequest);
+
         cancelRequest.Id = _service.FieldValidator.ValidateRequiredPlus(cancelRequest.Id);
         cancelRequest.Description = _service.FieldValidator.ValidateRequiredTextDb255(cancelRequest.Description);
 

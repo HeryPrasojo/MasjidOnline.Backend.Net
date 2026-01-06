@@ -24,15 +24,6 @@ internal static class UserEndpoint
             return await _business.User.Internal.Approve.ApproveAsync(session, _data, approveRequest);
         }
 
-        internal static async Task<Response> CancelAsync(
-            IBusiness _business,
-            Session session,
-            IData _data,
-            [FromBody] CancelRequest? cancelRequest)
-        {
-            return await _business.User.Internal.Cancel.CancelAsync(session, _data, cancelRequest);
-        }
-
         internal static async Task<Response<GetManyResponse<GetManyResponseRecord>>> GetManyAsync(
             IBusiness _business,
             Session session,

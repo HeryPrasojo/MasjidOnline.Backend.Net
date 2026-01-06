@@ -61,6 +61,13 @@ public class ConnectionHub(IBusiness _business) : Hub
         return await _business.User.Internal.Add.AddAsync(Session, _data, addRequest);
     }
 
+    public async Task<Response> UserInternalCancelAsync(
+    IData _data,
+    CancelRequest? cancelRequest)
+    {
+        return await _business.User.Internal.Cancel.CancelAsync(Session, _data, cancelRequest);
+    }
+
     public async Task<Response<GetManyResponse<GetManyResponseRecord>>> UserInternalGetMany(
         IData _data,
         GetManyRequest? getManyRequest)
