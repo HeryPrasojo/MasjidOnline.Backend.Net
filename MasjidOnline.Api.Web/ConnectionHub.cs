@@ -54,31 +54,23 @@ public class ConnectionHub(IBusiness _business) : Hub
     }
 
 
-    public async Task<Response> UserInternalAdd(
-        IData _data,
-        AddRequest? addRequest)
+    public async Task<Response> UserInternalAdd(IData _data, AddRequest? addRequest)
     {
         return await _business.User.Internal.Add.AddAsync(Session, _data, addRequest);
     }
 
-    public async Task<Response> UserInternalCancelAsync(
-    IData _data,
-    CancelRequest? cancelRequest)
+    public async Task<Response> UserInternalCancel(IData _data, CancelRequest? cancelRequest)
     {
         return await _business.User.Internal.Cancel.CancelAsync(Session, _data, cancelRequest);
     }
 
-    public async Task<Response<GetManyResponse<GetManyResponseRecord>>> UserInternalGetMany(
-        IData _data,
-        GetManyRequest? getManyRequest)
+    public async Task<Response<GetManyResponse<GetManyResponseRecord>>> UserInternalGetMany(IData _data, GetManyRequest? getManyRequest)
     {
         return await _business.User.Internal.GetMany.GetAsync(Session, _data, getManyRequest);
     }
 
     // hack separate new status
-    public async Task<Response<GetOneResponse>> UserInternalGetOne(
-        IData _data,
-        GetOneRequest? getOneRequest)
+    public async Task<Response<GetOneResponse>> UserInternalGetOne(IData _data, GetOneRequest? getOneRequest)
     {
         return await _business.User.Internal.GetOne.GetAsync(Session, _data, getOneRequest);
     }
