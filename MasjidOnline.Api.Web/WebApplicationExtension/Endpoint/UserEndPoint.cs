@@ -15,15 +15,6 @@ internal static class UserEndpoint
 {
     internal static class Internal
     {
-        internal static async Task<Response> ApproveAsync(
-            IBusiness _business,
-            Session session,
-            IData _data,
-            [FromBody] ApproveRequest? approveRequest)
-        {
-            return await _business.User.Internal.Approve.ApproveAsync(session, _data, approveRequest);
-        }
-
         internal static async Task<Response<GetManyResponse<GetManyResponseRecord>>> GetManyAsync(
             IBusiness _business,
             Session session,
@@ -40,15 +31,6 @@ internal static class UserEndpoint
             [FromBody] GetOneRequest? getOneRequest)
         {
             return await _business.User.Internal.GetOne.GetAsync(session, _data, getOneRequest);
-        }
-
-        internal static async Task<Response> RejectAsync(
-            IBusiness _business,
-            Session session,
-            IData _data,
-            [FromBody] RejectRequest? rejectRequest)
-        {
-            return await _business.User.Internal.Reject.RejectAsync(session, _data, rejectRequest);
         }
     }
 

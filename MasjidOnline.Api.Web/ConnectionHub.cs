@@ -59,6 +59,11 @@ public class ConnectionHub(IBusiness _business) : Hub
         return await _business.User.Internal.Add.AddAsync(Session, _data, addRequest);
     }
 
+    public async Task<Response> UserInternalApprove(IData _data, ApproveRequest? approveRequest)
+    {
+        return await _business.User.Internal.Approve.ApproveAsync(Session, _data, approveRequest);
+    }
+
     public async Task<Response> UserInternalCancel(IData _data, CancelRequest? cancelRequest)
     {
         return await _business.User.Internal.Cancel.CancelAsync(Session, _data, cancelRequest);
@@ -73,6 +78,11 @@ public class ConnectionHub(IBusiness _business) : Hub
     public async Task<Response<GetOneResponse>> UserInternalGetOne(IData _data, GetOneRequest? getOneRequest)
     {
         return await _business.User.Internal.GetOne.GetAsync(Session, _data, getOneRequest);
+    }
+
+    public async Task<Response> UserInternalReject(IData _data, RejectRequest? rejectRequest)
+    {
+        return await _business.User.Internal.Reject.RejectAsync(Session, _data, rejectRequest);
     }
 
 
