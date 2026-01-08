@@ -15,9 +15,4 @@ internal class SuccessAuthorization : AuthorizationBase, ISuccessAuthorization
     {
         await AuthorizePermissionAllAsync(_data, session, infaqSuccessApprove: true);
     }
-
-    public async Task AuthorizeCancelAync(Model.Session.Session session, IData _data)
-    {
-        await AuthorizePermissionAllAsync(_data, session, infaqSuccessCancel: true);
-    }
 }

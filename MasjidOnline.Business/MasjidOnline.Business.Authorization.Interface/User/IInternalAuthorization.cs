@@ -7,6 +7,4 @@ public interface IInternalAuthorization
 {
     Task AuthorizeAddAync(Model.Session.Session session, IData _data);
     Task AuthorizeApproveAync(Model.Session.Session session, IData _data);
-    Task AuthorizeCancelAync(Model.Session.Session session, IData _data);
-    Task AuthorizeReadAync(Model.Session.Session session, IData _data);
 }

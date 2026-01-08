@@ -7,5 +7,4 @@ public interface IVoidAuthorization
 {
     Task AuthorizeAddAync(Model.Session.Session session, IData _data);
     Task AuthorizeApproveAync(Model.Session.Session session, IData _data);
-    Task AuthorizeCancelAync(Model.Session.Session session, IData _data);
 }

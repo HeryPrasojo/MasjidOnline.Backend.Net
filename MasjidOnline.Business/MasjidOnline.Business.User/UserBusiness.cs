@@ -166,19 +166,15 @@ public class UserBusiness(
 
             AccountancyExpenditureAdd = true,
             AccountancyExpenditureApprove = true,
-            AccountancyExpenditureCancel = true,
             InfaqExpireAdd = true,
             InfaqExpireApprove = true,
-            InfaqExpireCancel = true,
             InfaqSuccessAdd = true,
             InfaqSuccessApprove = true,
-            InfaqSuccessCancel = true,
             InfaqVoidAdd = true,
             InfaqVoidApprove = true,
-            InfaqVoidCancel = true,
             UserInternalAdd = true,
             UserInternalApprove = true,
-            UserInternalCancel = true,
+            UserInternalPermissionUpdate = true,
         };
 
         await _data.Authorization.UserInternalPermission.AddAsync(userInternalPermission);

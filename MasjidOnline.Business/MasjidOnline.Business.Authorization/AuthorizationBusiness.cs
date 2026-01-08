@@ -5,6 +5,7 @@ namespace MasjidOnline.Business.Authorization;
 
 public class AuthorizationBusiness : IAuthorizationBusiness
 {
+    public IAuthorizationAuthorizationBusiness Authorization { get; } = new AuthorizationAuthorizationBusiness();
     public IAccountancyAuthorizationBusiness Accountancy { get; } = new AccountancyAuthorizationBusiness();
     public IInfaqAuthorizationBusiness Infaq { get; } = new InfaqAuthorizationBusiness();
     public IUserAuthorizationBusiness User { get; } = new UserAuthorizationBusiness();

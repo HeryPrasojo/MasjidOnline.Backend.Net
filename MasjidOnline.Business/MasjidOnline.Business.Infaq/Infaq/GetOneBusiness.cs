@@ -80,14 +80,10 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
                         else if (infaq.Status == InfaqStatus.ExpireRequest)
                         {
                             if (userInternalPermission.InfaqExpireApprove) getOneResponseFlags.CanApproveExpire = true;
-
-                            if (userInternalPermission.InfaqExpireCancel) getOneResponseFlags.CanCancelExpire = true;
                         }
                         else if (infaq.Status == InfaqStatus.SuccessRequest)
                         {
                             if (userInternalPermission.InfaqSuccessApprove) getOneResponseFlags.CanApproveSuccess = true;
-
-                            if (userInternalPermission.InfaqSuccessCancel) getOneResponseFlags.CanCancelSuccess = true;
                         }
                         else if (infaq.Status == InfaqStatus.Success)
                         {
@@ -97,8 +93,6 @@ public class GetOneBusiness(IService _service) : IGetOneBusiness
                         else if (infaq.Status == InfaqStatus.VoidRequest)
                         {
                             if (userInternalPermission.InfaqVoidApprove) getOneResponseFlags.CanAddVoid = true;
-
-                            if (userInternalPermission.InfaqVoidCancel) getOneResponseFlags.CanAddVoid = true;
                         }
                     }
                 }

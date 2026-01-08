@@ -23,19 +23,15 @@ public class UserInternalPermissionLogRepository(DbContext _dbContext) : IUserIn
             UserId = userInternalPermission.UserId,
             AccountancyExpenditureAdd = userInternalPermission.AccountancyExpenditureAdd,
             AccountancyExpenditureApprove = userInternalPermission.AccountancyExpenditureApprove,
-            AccountancyExpenditureCancel = userInternalPermission.AccountancyExpenditureCancel,
             InfaqExpireAdd = userInternalPermission.InfaqExpireAdd,
             InfaqExpireApprove = userInternalPermission.InfaqExpireApprove,
-            InfaqExpireCancel = userInternalPermission.InfaqExpireCancel,
             InfaqSuccessAdd = userInternalPermission.InfaqSuccessAdd,
             InfaqSuccessApprove = userInternalPermission.InfaqSuccessApprove,
-            InfaqSuccessCancel = userInternalPermission.InfaqSuccessCancel,
             InfaqVoidAdd = userInternalPermission.InfaqVoidAdd,
             InfaqVoidApprove = userInternalPermission.InfaqVoidApprove,
-            InfaqVoidCancel = userInternalPermission.InfaqVoidCancel,
             UserInternalAdd = userInternalPermission.UserInternalAdd,
             UserInternalApprove = userInternalPermission.UserInternalApprove,
-            UserInternalCancel = userInternalPermission.UserInternalCancel,
+            UserInternalPermissionUpdate = userInternalPermission.UserInternalPermissionUpdate,
         };
 
         await _dbSet.AddAsync(userInternalPermissionLog);

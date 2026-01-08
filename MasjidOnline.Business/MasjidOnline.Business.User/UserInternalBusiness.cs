@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Business.User;
 
+// todo revoke
 public class UserInternalBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor,
     Authorization.Interface.IAuthorizationBusiness _authorizationBusiness,

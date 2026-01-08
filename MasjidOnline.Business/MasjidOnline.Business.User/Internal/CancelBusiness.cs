@@ -14,7 +14,7 @@ public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IServ
 {
     public async Task<Response> CancelAsync(Model.Session.Session session, IData _data, CancelRequest? cancelRequest)
     {
-        await _authorizationBusiness.User.Internal.AuthorizeCancelAync(session, _data);
+        await _authorizationBusiness.User.Internal.AuthorizeAddAync(session, _data);
 
         cancelRequest = _service.FieldValidator.ValidateRequired(cancelRequest);
 

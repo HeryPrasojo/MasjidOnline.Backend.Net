@@ -15,14 +15,4 @@ internal class InternalAuthorization : AuthorizationBase, IInternalAuthorization
     {
         await AuthorizePermissionAllAsync(_data, session, userInternalApprove: true);
     }
-
-    public async Task AuthorizeCancelAync(Model.Session.Session session, IData _data)
-    {
-        await AuthorizePermissionAllAsync(_data, session, userInternalCancel: true);
-    }
-
-    public async Task AuthorizeReadAync(Model.Session.Session session, IData _data)
-    {
-        await AuthorizePermissionAnyAsync(_data, session, userInternalAdd: true, userInternalApprove: true, userInternalCancel: true);
-    }
 }

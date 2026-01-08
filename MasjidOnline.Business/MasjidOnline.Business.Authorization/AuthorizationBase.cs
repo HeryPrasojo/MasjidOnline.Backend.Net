@@ -12,19 +12,15 @@ internal abstract class AuthorizationBase
         Model.Session.Session session,
         bool accountancyExpenditureAdd = default,
         bool accountancyExpenditureApprove = default,
-        bool accountancyExpenditureCancel = default,
         bool infaqExpireAdd = default,
         bool infaqExpireApprove = default,
-        bool infaqExpireCancel = default,
         bool infaqSuccessAdd = default,
         bool infaqSuccessApprove = default,
-        bool infaqSuccessCancel = default,
         bool infaqVoidAdd = default,
         bool infaqVoidApprove = default,
-        bool infaqVoidCancel = default,
         bool userInternalAdd = default,
         bool userInternalApprove = default,
-        bool userInternalCancel = default)
+        bool userInternalPermissionUpdate = default)
     {
         await AuthorizeInternalAsync(_data, session);
 
@@ -34,25 +30,43 @@ internal abstract class AuthorizationBase
         if (userInternalPermission == default) throw new PermissionException(nameof(session.UserId));
 
 
-        if (accountancyExpenditureAdd && !userInternalPermission.AccountancyExpenditureAdd) throw new PermissionException(nameof(userInternalPermission.AccountancyExpenditureAdd));
-        if (accountancyExpenditureApprove && !userInternalPermission.AccountancyExpenditureApprove) throw new PermissionException(nameof(userInternalPermission.AccountancyExpenditureApprove));
-        if (accountancyExpenditureCancel && !userInternalPermission.AccountancyExpenditureCancel) throw new PermissionException(nameof(userInternalPermission.AccountancyExpenditureCancel));
+        if (accountancyExpenditureAdd && !userInternalPermission.AccountancyExpenditureAdd)
+            throw new PermissionException(nameof(userInternalPermission.AccountancyExpenditureAdd));
 
-        if (infaqExpireAdd && !userInternalPermission.InfaqExpireAdd) throw new PermissionException(nameof(userInternalPermission.InfaqExpireAdd));
-        if (infaqExpireApprove && !userInternalPermission.InfaqExpireApprove) throw new PermissionException(nameof(userInternalPermission.InfaqExpireApprove));
-        if (infaqExpireCancel && !userInternalPermission.InfaqExpireCancel) throw new PermissionException(nameof(userInternalPermission.InfaqExpireCancel));
+        if (accountancyExpenditureApprove && !userInternalPermission.AccountancyExpenditureApprove)
+            throw new PermissionException(nameof(userInternalPermission.AccountancyExpenditureApprove));
 
-        if (infaqSuccessAdd && !userInternalPermission.InfaqSuccessAdd) throw new PermissionException(nameof(userInternalPermission.InfaqSuccessAdd));
-        if (infaqSuccessApprove && !userInternalPermission.InfaqSuccessApprove) throw new PermissionException(nameof(userInternalPermission.InfaqSuccessApprove));
-        if (infaqSuccessCancel && !userInternalPermission.InfaqSuccessCancel) throw new PermissionException(nameof(userInternalPermission.InfaqSuccessCancel));
 
-        if (infaqVoidAdd && !userInternalPermission.InfaqVoidAdd) throw new PermissionException(nameof(userInternalPermission.InfaqVoidAdd));
-        if (infaqVoidApprove && !userInternalPermission.InfaqVoidApprove) throw new PermissionException(nameof(userInternalPermission.InfaqVoidApprove));
-        if (infaqVoidCancel && !userInternalPermission.InfaqVoidCancel) throw new PermissionException(nameof(userInternalPermission.InfaqVoidCancel));
+        if (infaqExpireAdd && !userInternalPermission.InfaqExpireAdd)
+            throw new PermissionException(nameof(userInternalPermission.InfaqExpireAdd));
 
-        if (userInternalAdd && !userInternalPermission.UserInternalAdd) throw new PermissionException(nameof(userInternalPermission.UserInternalAdd));
-        if (userInternalApprove && !userInternalPermission.UserInternalApprove) return;
-        if (userInternalCancel && !userInternalPermission.UserInternalCancel) return;
+        if (infaqExpireApprove && !userInternalPermission.InfaqExpireApprove)
+            throw new PermissionException(nameof(userInternalPermission.InfaqExpireApprove));
+
+
+        if (infaqSuccessAdd && !userInternalPermission.InfaqSuccessAdd)
+            throw new PermissionException(nameof(userInternalPermission.InfaqSuccessAdd));
+
+        if (infaqSuccessApprove && !userInternalPermission.InfaqSuccessApprove)
+            throw new PermissionException(nameof(userInternalPermission.InfaqSuccessApprove));
+
+
+        if (infaqVoidAdd && !userInternalPermission.InfaqVoidAdd)
+            throw new PermissionException(nameof(userInternalPermission.InfaqVoidAdd));
+
+        if (infaqVoidApprove && !userInternalPermission.InfaqVoidApprove)
+            throw new PermissionException(nameof(userInternalPermission.InfaqVoidApprove));
+
+
+        if (userInternalAdd && !userInternalPermission.UserInternalAdd)
+            throw new PermissionException(nameof(userInternalPermission.UserInternalAdd));
+
+        if (userInternalApprove && !userInternalPermission.UserInternalApprove)
+            throw new PermissionException(nameof(userInternalPermission.UserInternalApprove));
+
+
+        if (userInternalPermissionUpdate && !userInternalPermission.UserInternalPermissionUpdate)
+            throw new PermissionException(nameof(userInternalPermission.UserInternalPermissionUpdate));
     }
 
     protected static async Task AuthorizePermissionAnyAsync(
@@ -60,19 +74,15 @@ internal abstract class AuthorizationBase
         Model.Session.Session session,
         bool accountancyExpenditureAdd = default,
         bool accountancyExpenditureApprove = default,
-        bool accountancyExpenditureCancel = default,
         bool infaqExpireAdd = default,
         bool infaqExpireApprove = default,
-        bool infaqExpireCancel = default,
         bool infaqSuccessAdd = default,
         bool infaqSuccessApprove = default,
-        bool infaqSuccessCancel = default,
         bool infaqVoidAdd = default,
         bool infaqVoidApprove = default,
-        bool infaqVoidCancel = default,
         bool userInternalAdd = default,
         bool userInternalApprove = default,
-        bool userInternalCancel = default)
+        bool userInternalPermissionUpdate = default)
     {
         await AuthorizeInternalAsync(_data, session);
 
@@ -84,23 +94,20 @@ internal abstract class AuthorizationBase
 
         if (accountancyExpenditureAdd && userInternalPermission.AccountancyExpenditureAdd) return;
         if (accountancyExpenditureApprove && userInternalPermission.AccountancyExpenditureApprove) return;
-        if (accountancyExpenditureCancel && userInternalPermission.AccountancyExpenditureCancel) return;
 
         if (infaqExpireAdd && userInternalPermission.InfaqExpireAdd) return;
         if (infaqExpireApprove && userInternalPermission.InfaqExpireApprove) return;
-        if (infaqExpireCancel && userInternalPermission.InfaqExpireCancel) return;
 
         if (infaqSuccessAdd && userInternalPermission.InfaqSuccessAdd) return;
         if (infaqSuccessApprove && userInternalPermission.InfaqSuccessApprove) return;
-        if (infaqSuccessCancel && userInternalPermission.InfaqSuccessCancel) return;
 
         if (infaqVoidAdd && userInternalPermission.InfaqVoidAdd) return;
         if (infaqVoidApprove && userInternalPermission.InfaqVoidApprove) return;
-        if (infaqVoidCancel && userInternalPermission.InfaqVoidCancel) return;
 
         if (userInternalAdd && userInternalPermission.UserInternalAdd) return;
         if (userInternalApprove && userInternalPermission.UserInternalApprove) return;
-        if (userInternalCancel && userInternalPermission.UserInternalCancel) return;
+
+        if (userInternalPermissionUpdate && userInternalPermission.UserInternalPermissionUpdate) return;
 
         throw new PermissionException(nameof(userInternalPermission));
     }

@@ -15,9 +15,4 @@ internal class VoidAuthorization : AuthorizationBase, IVoidAuthorization
     {
         await AuthorizePermissionAllAsync(_data, session, infaqVoidApprove: true);
     }
-
-    public async Task AuthorizeCancelAync(Model.Session.Session session, IData _data)
-    {
-        await AuthorizePermissionAllAsync(_data, session, infaqVoidCancel: true);
-    }
 }

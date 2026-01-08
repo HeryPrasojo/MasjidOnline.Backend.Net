@@ -108,19 +108,15 @@ public class AuditInitializer(
                 UserId INTEGER NOT NULL,
                 AccountancyExpenditureAdd INTEGER NOT NULL,
                 AccountancyExpenditureApprove INTEGER NOT NULL,
-                AccountancyExpenditureCancel INTEGER NOT NULL,
                 InfaqExpireAdd INTEGER NOT NULL,
                 InfaqExpireApprove INTEGER NOT NULL,
-                InfaqExpireCancel INTEGER NOT NULL,
                 InfaqSuccessAdd INTEGER NOT NULL,
                 InfaqSuccessApprove INTEGER NOT NULL,
-                InfaqSuccessCancel INTEGER NOT NULL,
                 InfaqVoidAdd INTEGER NOT NULL,
                 InfaqVoidApprove INTEGER NOT NULL,
-                InfaqVoidCancel INTEGER NOT NULL,
                 UserInternalAdd INTEGER NOT NULL,
                 UserInternalApprove INTEGER NOT NULL,
-                UserInternalCancel INTEGER NOT NULL
+                UserInternalPermissionUpdate INTEGER NOT NULL
             )";
 
         await _auditDataContext.Database.ExecuteSqlAsync(sql);

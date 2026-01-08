@@ -15,9 +15,4 @@ internal class ExpireAuthorization : AuthorizationBase, IExpireAuthorization
     {
         await AuthorizePermissionAllAsync(_data, session, infaqExpireApprove: true);
     }
-
-    public async Task AuthorizeCancelAync(Model.Session.Session session, IData _data)
-    {
-        await AuthorizePermissionAllAsync(_data, session, infaqExpireCancel: true);
-    }
 }

@@ -2,6 +2,7 @@ namespace MasjidOnline.Business.Authorization.Interface;
 
 public interface IAuthorizationBusiness
 {
+    IAuthorizationAuthorizationBusiness Authorization { get; }
     IAccountancyAuthorizationBusiness Accountancy { get; }
     IUserAuthorizationBusiness User { get; }
     IInfaqAuthorizationBusiness Infaq { get; }
