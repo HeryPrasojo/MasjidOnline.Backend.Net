@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using MasjidOnline.Api.Web;
@@ -92,12 +91,6 @@ static WebApplication BuildApplication(string[] args)
     #endregion
 
     webApplicationBuilder.Services.AddHostedServices();
-
-
-    if (Debugger.IsAttached)
-    {
-        webApplicationBuilder.WebHost.UseKestrelHttpsConfiguration();
-    }
 
 
     webApplicationBuilder.WebHost.UseShutdownTimeout(TimeSpan.FromSeconds(16));
