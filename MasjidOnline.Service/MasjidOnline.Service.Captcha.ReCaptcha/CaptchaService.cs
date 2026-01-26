@@ -38,8 +38,8 @@ public class CaptchaService(bool _enabled, IHttpClientFactory _httpClientFactory
 
     public void Initialize()
     {
-        if (_optionsMonitor.CurrentValue.ReCaptcha.ActionAffix.IsNullOrEmptyOrWhiteSpace())
-            throw new Exception($"{nameof(_optionsMonitor.CurrentValue.ReCaptcha.ActionAffix)} IsNullOrEmptyOrWhiteSpace");
+        if (_optionsMonitor.CurrentValue.ReCaptcha.ActionPrefix.IsNullOrEmptyOrWhiteSpace())
+            throw new Exception($"{nameof(_optionsMonitor.CurrentValue.ReCaptcha.ActionPrefix)} IsNullOrEmptyOrWhiteSpace");
     }
 
     public async Task<bool> VerifyAddInternalUserAsync(string token)
@@ -84,7 +84,7 @@ public class CaptchaService(bool _enabled, IHttpClientFactory _httpClientFactory
         var httpClient = _httpClientFactory.CreateClient(Constant.HttpClientName);
 
         var serializedRequest = _serializedRequest
-            .Replace("[action]", action + _optionsMonitor.CurrentValue.ReCaptcha.ActionAffix)
+            .Replace("[action]", _optionsMonitor.CurrentValue.ReCaptcha.ActionPrefix + action)
             .Replace("[token]", token);
 
         using var stringContent = new StringContent(serializedRequest, Encoding.UTF8, "application/json");
