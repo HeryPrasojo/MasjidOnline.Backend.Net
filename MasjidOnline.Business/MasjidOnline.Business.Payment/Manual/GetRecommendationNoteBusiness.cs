@@ -49,7 +49,7 @@ public class GetRecommendationNoteBusiness(IService _service) : IGetRecommendati
         return new()
         {
             ResultCode = ResponseResultCode.Success,
-            Data = manualRecommendationId.Id.ToString(_notesFormat),
+            Data = "MO Infaq " + manualRecommendationId.Id.ToString(_notesFormat),
         };
     }
 }
