@@ -12,8 +12,7 @@ public class One
 
     public required decimal Amount { get; set; }
 
-
-    public required PaymentType PaymentType { get; set; }
+    public PaymentType PaymentType { get; set; }
 
     public required InfaqStatus Status { get; set; }
 }

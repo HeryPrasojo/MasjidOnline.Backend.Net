@@ -10,8 +10,5 @@ public class InfaqBusiness(
     Service.Interface.IService _service
     ) : IInfaqBusiness
 {
-    public IInfaqExpireBusiness Expire { get; } = new InfaqExpireBusiness(_optionsMonitor, _authorizationBusiness, _service);
     public IInfaqInfaqBusiness Infaq { get; } = new InfaqInfaqBusiness(_authorizationBusiness, _service, _optionsMonitor);
-    public IInfaqSuccessBusiness Success { get; } = new InfaqSuccessBusiness(_optionsMonitor, _authorizationBusiness, _service);
-    public IInfaqVoidBusiness Void { get; } = new InfaqVoidBusiness(_optionsMonitor, _authorizationBusiness, _service);
 }

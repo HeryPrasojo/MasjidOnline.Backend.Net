@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore;
 namespace MasjidOnline.Data.EntityFramework.SqLite.Initializer;
 
 public class PaymentInitializer(
-    PaymentDataContext _databaseDataContext,
-    IPaymentDefinition _databaseDefinition) : MasjidOnline.Data.Initializer.PaymentInitializer(_databaseDefinition)
+    PaymentDataContext _paymentDataContext,
+    IPaymentDefinition _paymentDefinition) : MasjidOnline.Data.Initializer.PaymentInitializer(_paymentDefinition)
 {
     protected override async Task CreateTablePaymentSettingAsync()
     {
@@ -20,7 +20,7 @@ public class PaymentInitializer(
                 Value TEXT NOT NULL COLLATE NOCASE
             )";
 
-        await _databaseDataContext.Database.ExecuteSqlAsync(sql);
+        await _paymentDataContext.Database.ExecuteSqlAsync(sql);
     }
 
     protected override async Task CreateTableManualRecommendationIdAsync()
@@ -33,11 +33,40 @@ public class PaymentInitializer(
                 Used INTEGER NOT NULL
             )";
 
-        await _databaseDataContext.Database.ExecuteSqlAsync(sql);
+        await _paymentDataContext.Database.ExecuteSqlAsync(sql);
 
 
         sql = $@"CREATE INDEX ManualRecommendationIdSessionId ON ManualRecommendationId (SessionId)";
 
-        await _databaseDataContext.Database.ExecuteSqlAsync(sql);
+        await _paymentDataContext.Database.ExecuteSqlAsync(sql);
+    }
+
+    protected override async Task CreateTablePaymentAsync()
+    {
+        FormattableString sql = @$"
+            CREATE TABLE Payment
+            (
+                Id INTEGER PRIMARY KEY,
+                PaymentType INTEGER NOT NULL,
+                DateTime TEXT NOT NULL,
+                Status INTEGER NOT NULL,
+                ManualNotes TEXT,
+                UpdateDateTime TEXT,
+                UpdateNotes TEXT
+            )";
+
+        await _paymentDataContext.Database.ExecuteSqlAsync(sql);
+    }
+
+    protected override async Task CreateTablePaymentFileAsync()
+    {
+        FormattableString sql = @$"
+            CREATE TABLE PaymentFile
+            (
+                Id INTEGER PRIMARY KEY,
+                PaymentId INTEGER NOT NULL
+            )";
+
+        await _paymentDataContext.Database.ExecuteSqlAsync(sql);
     }
 }

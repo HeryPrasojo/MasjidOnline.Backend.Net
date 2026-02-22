@@ -4,7 +4,9 @@ namespace MasjidOnline.Data.Interface.Databases;
 
 public interface IPaymentDatabase : IDatabase
 {
-    IPaymentSettingRepository DatabaseSetting { get; }
+    IPaymentSettingRepository PaymentSetting { get; }
 
     IManualRecommendationIdRepository ManualRecommendationId { get; }
+    IPaymentRepository Payment { get; }
+    IPaymentFileRepository PaymentFile { get; }
 }

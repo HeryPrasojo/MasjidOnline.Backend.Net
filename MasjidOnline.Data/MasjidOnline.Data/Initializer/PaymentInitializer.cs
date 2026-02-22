@@ -5,16 +5,18 @@ using MasjidOnline.Entity.Payment;
 
 namespace MasjidOnline.Data.Initializer;
 
-public abstract class PaymentInitializer(IPaymentDefinition _databaseDefinition)
+public abstract class PaymentInitializer(IPaymentDefinition _paymentDefinition)
 {
     public async Task InitializeDatabaseAsync(IData data)
     {
-        var settingTableExists = await _databaseDefinition.CheckTableExistsAsync(nameof(PaymentSetting));
+        var settingTableExists = await _paymentDefinition.CheckTableExistsAsync(nameof(PaymentSetting));
 
         if (!settingTableExists)
         {
             await CreateTablePaymentSettingAsync();
             await CreateTableManualRecommendationIdAsync();
+            await CreateTablePaymentAsync();
+            await CreateTablePaymentFileAsync();
 
 
             var databaseSetting = new PaymentSetting
@@ -24,11 +26,13 @@ public abstract class PaymentInitializer(IPaymentDefinition _databaseDefinition)
                 Value = "1",
             };
 
-            await data.Payment.DatabaseSetting.AddAndSaveAsync(databaseSetting);
+            await data.Payment.PaymentSetting.AddAndSaveAsync(databaseSetting);
         }
     }
 
 
+    protected abstract Task CreateTablePaymentAsync();
+    protected abstract Task CreateTablePaymentFileAsync();
     protected abstract Task CreateTablePaymentSettingAsync();
     protected abstract Task CreateTableManualRecommendationIdAsync();
 }

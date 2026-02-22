@@ -8,9 +8,13 @@ namespace MasjidOnline.Data.EntityFramework.Databases;
 public class PaymentDatabase(
     DbContext _dbContext) : Database(_dbContext), IPaymentDatabase
 {
-    private IPaymentSettingRepository? _databaseSettingRepository;
     private IManualRecommendationIdRepository? _userInternalPermissionLogRepository;
+    private IPaymentRepository? _paymentRepository;
+    private IPaymentFileRepository? _paymentFileRepository;
+    private IPaymentSettingRepository? _paymentSettingRepository;
 
-    public IPaymentSettingRepository DatabaseSetting => _databaseSettingRepository ??= new PaymentSettingRepository(_dbContext);
     public IManualRecommendationIdRepository ManualRecommendationId => _userInternalPermissionLogRepository ??= new ManualRecommendationIdRepository(_dbContext);
+    public IPaymentRepository Payment => _paymentRepository ??= new PaymentRepository(_dbContext);
+    public IPaymentFileRepository PaymentFile => _paymentFileRepository ??= new PaymentFileRepository(_dbContext);
+    public IPaymentSettingRepository PaymentSetting => _paymentSettingRepository ??= new PaymentSettingRepository(_dbContext);
 }

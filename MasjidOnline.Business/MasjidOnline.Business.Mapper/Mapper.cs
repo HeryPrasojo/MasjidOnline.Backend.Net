@@ -26,6 +26,7 @@ public static class Mapper
     public static class Payment
     {
         public static PaymentTypeMapper PaymentType => new();
+        public static PaymentStatusMapper PaymentStatus => new();
     }
 
     public static class Session

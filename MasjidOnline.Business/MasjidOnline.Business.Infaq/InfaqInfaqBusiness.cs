@@ -13,7 +13,7 @@ public class InfaqInfaqBusiness(
     IOptionsMonitor<BusinessOptions> _optionsMonitor
     ) : IInfaqInfaqBusiness
 {
-    public IAddByAnonymBusiness AddByAnonym { get; } = new AddByAnonymBusiness(_authorizationBusiness, _service, _optionsMonitor);
+    public IAddBusiness Add { get; } = new AddBusiness(_authorizationBusiness, _service, _optionsMonitor);
     public IGetManyBusiness GetMany { get; } = new GetManyBusiness(_service);
     public IGetOneBusiness GetOne { get; } = new GetOneBusiness(_service);
 }

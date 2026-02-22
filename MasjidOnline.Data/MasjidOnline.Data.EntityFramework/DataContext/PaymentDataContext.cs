@@ -9,7 +9,9 @@ public class PaymentDataContext(DbContextOptions _dbContextOptions) : DbContext(
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<PaymentSetting>();
         modelBuilder.Entity<ManualRecommendationId>();
+        modelBuilder.Entity<Payment>();
+        modelBuilder.Entity<PaymentFile>();
+        modelBuilder.Entity<PaymentSetting>();
     }
 }

@@ -26,7 +26,6 @@ public class InfaqRepository(DbContext _dbContext) : IInfaqRepository
             {
                 DateTime = e.DateTime,
                 Status = e.Status,
-                PaymentType = e.PaymentType,
             })
             .FirstOrDefaultAsync();
     }
@@ -38,7 +37,6 @@ public class InfaqRepository(DbContext _dbContext) : IInfaqRepository
             {
                 DateTime = e.DateTime,
                 Status = e.Status,
-                PaymentType = e.PaymentType,
             })
             .FirstOrDefaultAsync();
     }
@@ -50,7 +48,6 @@ public class InfaqRepository(DbContext _dbContext) : IInfaqRepository
             {
                 DateTime = e.DateTime,
                 Status = e.Status,
-                PaymentType = e.PaymentType,
             })
             .FirstOrDefaultAsync();
     }
@@ -106,8 +103,8 @@ public class InfaqRepository(DbContext _dbContext) : IInfaqRepository
                 Amount = e.Amount,
                 DateTime = e.DateTime,
                 MunfiqName = e.MunfiqName,
-                Status = e.Status,
                 PaymentType = e.PaymentType,
+                Status = e.Status,
             })
             .FirstOrDefaultAsync();
     }

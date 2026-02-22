@@ -8,11 +8,8 @@
 
   <ItemGroup>
     <Compile Remove="Repository\Table\**" />
-    <Compile Remove="ViewModel\Infaq\Expire\ManyNewRecord.cs\**" />
     <EmbeddedResource Remove="Repository\Table\**" />
-    <EmbeddedResource Remove="ViewModel\Infaq\Expire\ManyNewRecord.cs\**" />
     <None Remove="Repository\Table\**" />
-    <None Remove="ViewModel\Infaq\Expire\ManyNewRecord.cs\**" />
   </ItemGroup>
 
   <ItemGroup>

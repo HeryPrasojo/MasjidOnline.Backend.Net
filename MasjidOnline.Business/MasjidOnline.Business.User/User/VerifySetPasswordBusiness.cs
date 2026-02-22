@@ -109,14 +109,8 @@ public class VerifySetPasswordBusiness(IOptionsMonitor<BusinessOptions> _options
                 AccountancyExpenditureAdd = userInternalPermission.AccountancyExpenditureAdd,
                 AccountancyExpenditureApprove = userInternalPermission.AccountancyExpenditureApprove,
 
-                InfaqExpireAdd = userInternalPermission.InfaqExpireAdd,
-                InfaqExpireApprove = userInternalPermission.InfaqExpireApprove,
-
-                InfaqSuccessAdd = userInternalPermission.InfaqSuccessAdd,
-                InfaqSuccessApprove = userInternalPermission.InfaqSuccessApprove,
-
-                InfaqVoidAdd = userInternalPermission.InfaqVoidAdd,
-                InfaqVoidApprove = userInternalPermission.InfaqVoidApprove,
+                InfaqStatusApprove = userInternalPermission.InfaqStatusApprove,
+                InfaqStatusRequest = userInternalPermission.InfaqStatusRequest,
 
                 UserInternalAdd = userInternalPermission.UserInternalAdd,
                 UserInternalApprove = userInternalPermission.UserInternalApprove,

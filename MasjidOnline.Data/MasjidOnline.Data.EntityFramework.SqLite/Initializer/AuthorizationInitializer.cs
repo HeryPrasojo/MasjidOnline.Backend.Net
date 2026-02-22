@@ -33,14 +33,8 @@ public class AuthorizationInitializer(
                 AccountancyExpenditureAdd INTEGER NOT NULL,
                 AccountancyExpenditureApprove INTEGER NOT NULL,
 
-                InfaqExpireAdd INTEGER NOT NULL,
-                InfaqExpireApprove INTEGER NOT NULL,
-
-                InfaqSuccessAdd INTEGER NOT NULL,
-                InfaqSuccessApprove INTEGER NOT NULL,
-
-                InfaqVoidAdd INTEGER NOT NULL,
-                InfaqVoidApprove INTEGER NOT NULL,
+                InfaqStatusRequest INTEGER NOT NULL,
+                InfaqStatusApprove INTEGER NOT NULL,
 
                 UserInternalAdd INTEGER NOT NULL,
                 UserInternalApprove INTEGER NOT NULL,
