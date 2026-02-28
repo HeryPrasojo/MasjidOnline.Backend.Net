@@ -32,7 +32,7 @@ public class SessionAuthenticationBusiness(IService _service) : ISessionAuthenti
         {
             // hack log event
 
-            throw new SessionExpireException(default);
+            throw new SessionExpireException("Session not found");
         }
 
 
