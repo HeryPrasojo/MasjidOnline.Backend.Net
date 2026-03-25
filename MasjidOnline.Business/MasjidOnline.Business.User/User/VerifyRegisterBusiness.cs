@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface;
+using MasjidOnline.Business.Model.Authorization;
 using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Model.User.User;
@@ -21,7 +22,7 @@ public class VerifyRegisterBusiness(
     IAuthorizationBusiness _authorizationBusiness,
     IService _service) : IVerifyRegisterBusiness
 {
-    public async Task<Response> VerifyAsync(Model.Session.Session session, IData _data, VerifyRegisterRequest? verifyRegisterRequest)
+    public async Task<Response<LoginResponse>> VerifyAsync(Model.Session.Session session, IData _data, VerifyRegisterRequest? verifyRegisterRequest)
     {
         _authorizationBusiness.AuthorizeAnonymous(session);
 
@@ -66,7 +67,7 @@ public class VerifyRegisterBusiness(
             verificationCode.Contact = _service.FieldValidator.ValidateRequiredEmailAddress(verificationCode.Contact);
         }
 
-        if (verificationCode.Contact != verifyRegisterRequest.Contact) throw new InputMismatchException(nameof(verifyRegisterRequest.Contact));
+        if (verificationCode.Contact != verifyRegisterRequest.Contact) throw new InputMismatchException(_service.Localization["Contact not match", session.CultureInfo]);
 
         if (verificationCode.Type != VerificationCodeType.Register) throw new InputMismatchException(nameof(verifyRegisterRequest.RegisterCode));
 
@@ -92,6 +93,30 @@ public class VerifyRegisterBusiness(
             var any = await _data.User.UserEmail.AnyAsync(verificationCode.Contact);
 
             if (any) throw new DataMismatchException(nameof(verifyRegisterRequest.Contact));
+        }
+
+
+        var userPreferenceApplicationCulture = await _data.User.UserData.GetApplicationCultureAsync(verificationCode.UserId);
+
+        UserInternalPermission? userInternalPermissionResponse = default;
+
+        var userInternalPermission = await _data.Authorization.UserInternalPermission.FirstOrDefaultAsync(verificationCode.UserId);
+
+        if (userInternalPermission != default)
+        {
+            userInternalPermissionResponse = new()
+            {
+                AccountancyExpenditureAdd = userInternalPermission.AccountancyExpenditureAdd,
+                AccountancyExpenditureApprove = userInternalPermission.AccountancyExpenditureApprove,
+
+                InfaqStatusApprove = userInternalPermission.InfaqStatusApprove,
+                InfaqStatusRequest = userInternalPermission.InfaqStatusRequest,
+
+                UserInternalAdd = userInternalPermission.UserInternalAdd,
+                UserInternalApprove = userInternalPermission.UserInternalApprove,
+
+                UserInternalPermissionUpdate = userInternalPermission.UserInternalPermissionUpdate,
+            };
         }
 
 
@@ -157,9 +182,13 @@ public class VerifyRegisterBusiness(
 
         _data.Verification.VerificationCode.SetUseDateTime(verificationCode.Id, utcNow);
 
+
         session.UserId = user.Id;
 
-        _data.Session.Session.SetForLogin(session.Id, session.UserId, utcNow, default);
+        if (userPreferenceApplicationCulture != default)
+            session.CultureInfo = Mapper.Mapper.Session.UserPreferenceApplicationCulture[userPreferenceApplicationCulture.Value];
+
+        _data.Session.Session.SetForLogin(session.Id, session.UserId, utcNow, userPreferenceApplicationCulture);
 
 
         var userLogin = new UserLogin
@@ -184,10 +213,17 @@ public class VerifyRegisterBusiness(
 
         await _data.Transaction.CommitAsync();
 
-        return new Response()
+        return new()
         {
             ResultCode = ResponseResultCode.Success,
+            Data = new()
+            {
+                ApplicationCulture = (userPreferenceApplicationCulture == default)
+                    ? null
+                    : Mapper.Mapper.User.UserPreferenceApplicationCulture[userPreferenceApplicationCulture.Value],
+                Permission = userInternalPermissionResponse,
+                UserType = Mapper.Mapper.User.UserType[user.Type],
+            },
         };
-
     }
 }

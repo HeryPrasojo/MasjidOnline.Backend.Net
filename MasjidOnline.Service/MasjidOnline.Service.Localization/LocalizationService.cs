@@ -13,8 +13,7 @@ public class LocalizationService() : ILocalizationService
             "Invalid",
             new()
             {
-                {Constant.English.CultureInfo,    "Invalid"},
-                {Constant.Indonesian.CultureInfo, "Tidak sah"},
+                {Constant.Indonesian.CultureInfo, "Tidak valid"},
             }
         },
     };
@@ -40,7 +39,7 @@ public class LocalizationService() : ILocalizationService
 
             var valueString = valueDictionary.GetValueOrDefault(cultureInfo);
 
-            if (valueString != default) return valueString!;
+            if (valueString != default) return valueString;
 
 
             if (cultureInfo == Constant.English.CultureInfo) return key;

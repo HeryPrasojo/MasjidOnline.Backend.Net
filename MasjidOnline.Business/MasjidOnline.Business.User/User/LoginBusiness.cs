@@ -18,7 +18,7 @@ public class LoginBusiness(IAuthorizationBusiness _authorizationBusiness, IServi
 {
     public async Task<Response<LoginResponse>> LoginAsync(IData _data, Model.Session.Session session, LoginRequest? loginRequest)
     {
-        _authorizationBusiness.AuthorizeAnonymous(session);
+        //_authorizationBusiness.AuthorizeAnonymous(session);
 
         loginRequest = _service.FieldValidator.ValidateRequired(loginRequest);
 

@@ -50,7 +50,7 @@ public class RegisterBusiness(
             _ => throw new InputInvalidException(nameof(registerRequest.Contact)),
         };
 
-        if (any) throw new InputMismatchException(nameof(registerRequest.Contact));
+        if (any) throw new InputMismatchException(_service.Localization["Contact already exists", session.CultureInfo]);
 
 
         var utcNow = DateTime.UtcNow;
