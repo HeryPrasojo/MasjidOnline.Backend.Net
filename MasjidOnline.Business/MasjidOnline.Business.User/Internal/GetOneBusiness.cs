@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Model.User.Internal;
 using MasjidOnline.Business.User.Interface.Internal;
@@ -10,13 +11,16 @@ using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.User.Internal;
 
-public class GetOneBusiness(IService _service) : IGetOneBusiness
+public class GetOneBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : IGetOneBusiness
 {
     public async Task<Response<GetOneResponse>> GetAsync(
         Model.Session.Session session,
         IData _data,
         GetOneRequest? getOneRequest)
     {
+        await _authorizationBusiness.User.Internal.AuthorizeGetAync(session, _data);
+
+
         getOneRequest = _service.FieldValidator.ValidateRequired(getOneRequest);
         getOneRequest.Id = _service.FieldValidator.ValidateRequiredPlus(getOneRequest.Id);
 

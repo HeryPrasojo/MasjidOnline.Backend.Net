@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
+using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Model.User.Internal;
 using MasjidOnline.Business.User.Interface.Internal;
@@ -10,13 +11,15 @@ using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.User.Internal;
 
-public class GetManyBusiness(IService _service) : IGetManyBusiness
+public class GetManyBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : IGetManyBusiness
 {
     public async Task<Response<GetManyResponse<GetManyResponseRecord>>> GetAsync(
         Model.Session.Session session,
         IData _data,
         GetManyRequest? getManyRequest)
     {
+        await _authorizationBusiness.User.Internal.AuthorizeGetAync(session, _data);
+
         getManyRequest = _service.FieldValidator.ValidateRequired(getManyRequest);
         getManyRequest.Page = _service.FieldValidator.ValidateRequiredPlus(getManyRequest.Page);
         _service.FieldValidator.ValidateOptionalEnum(getManyRequest.Status);

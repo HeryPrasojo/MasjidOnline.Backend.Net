@@ -7,6 +7,16 @@ namespace MasjidOnline.Business.Authorization;
 
 internal abstract class AuthorizationBase
 {
+    protected static async Task AuthorizeInternalAsync(IData _data, Model.Session.Session session)
+    {
+        if (session.IsUserAnonymous) throw new PermissionException(nameof(session.IsUserAnonymous));
+
+
+        var userType = await _data.User.User.GetTypeAsync(session.UserId);
+
+        if (userType != UserType.Internal) throw new PermissionException(nameof(UserType));
+    }
+
     protected static async Task AuthorizePermissionAllAsync(
         IData _data,
         Model.Session.Session session,
@@ -49,15 +59,5 @@ internal abstract class AuthorizationBase
 
         if (userInternalPermissionUpdate && !userInternalPermission.UserInternalPermissionUpdate)
             throw new PermissionException(nameof(userInternalPermission.UserInternalPermissionUpdate));
-    }
-
-    private static async Task AuthorizeInternalAsync(IData _data, Model.Session.Session session)
-    {
-        if (session.IsUserAnonymous) throw new PermissionException(nameof(session.IsUserAnonymous));
-
-
-        var userType = await _data.User.User.GetTypeAsync(session.UserId);
-
-        if (userType != UserType.Internal) throw new PermissionException(nameof(UserType));
     }
 }
