@@ -18,6 +18,6 @@ internal class InternalAuthorization : AuthorizationBase, IInternalAuthorization
 
     public async Task AuthorizeGetAync(Model.Session.Session session, IData _data)
     {
-        await AuthorizeInternalAsync(_data, session);
+        await AuthorizePermissionAnyAsync(_data, session, userInternalAdd: true, userInternalApprove: true);
     }
 }

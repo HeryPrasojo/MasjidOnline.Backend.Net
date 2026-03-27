@@ -60,4 +60,32 @@ internal abstract class AuthorizationBase
         if (userInternalPermissionUpdate && !userInternalPermission.UserInternalPermissionUpdate)
             throw new PermissionException(nameof(userInternalPermission.UserInternalPermissionUpdate));
     }
+
+    protected static async Task AuthorizePermissionAnyAsync(
+        IData _data,
+        Model.Session.Session session,
+        bool accountancyExpenditureAdd = default,
+        bool accountancyExpenditureApprove = default,
+        bool userInternalAdd = default,
+        bool userInternalApprove = default,
+        bool userInternalPermissionUpdate = default)
+    {
+        await AuthorizeInternalAsync(_data, session);
+
+
+        var userInternalPermission = await _data.Authorization.UserInternalPermission.FirstOrDefaultAsync(session.UserId);
+
+        if (userInternalPermission == default) throw new PermissionException(nameof(session.UserId));
+
+
+        if (accountancyExpenditureAdd && userInternalPermission.AccountancyExpenditureAdd) return;
+        if (accountancyExpenditureApprove && userInternalPermission.AccountancyExpenditureApprove) return;
+
+        if (userInternalAdd && userInternalPermission.UserInternalAdd) return;
+        if (userInternalApprove && userInternalPermission.UserInternalApprove) return;
+
+        if (userInternalPermissionUpdate && userInternalPermission.UserInternalPermissionUpdate) return;
+
+        throw new PermissionException(nameof(userInternalPermission));
+    }
 }
