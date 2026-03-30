@@ -17,10 +17,9 @@ public class InfaqInitializer(
             (
                 Id INTEGER PRIMARY KEY,
                 ReceiverType INTEGER NOT NULL,
-                ReceiverId INTEGER NOT NULL,
+                ReceiverId INTEGER,
                 DateTime TEXT NOT NULL,
                 UserId INTEGER NOT NULL,
-                ByUserId INTEGER NOT NULL,
                 MunfiqName INTEGER NOT NULL,
                 Amount REAL NOT NULL,
                 PaymentId INTEGER NOT NULL,

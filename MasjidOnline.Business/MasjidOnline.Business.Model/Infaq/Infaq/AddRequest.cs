@@ -10,9 +10,6 @@ public class AddRequest
 {
     public string? CaptchaToken { get; set; }
 
-    // on behalf of
-    public int? ForUserId { get; set; }
-
     public string? MunfiqName { get; set; }
 
     public decimal? Amount { get; set; }

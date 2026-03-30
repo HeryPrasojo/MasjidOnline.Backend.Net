@@ -15,8 +15,6 @@ public class Infaq
 
     public int UserId { get; set; }
 
-    public int? ByUserId { get; set; }
-
     public string MunfiqName { get; set; } = default!;
 
     public decimal Amount { get; set; }
