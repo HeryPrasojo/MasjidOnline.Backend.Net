@@ -176,6 +176,7 @@ public class VerifySetPasswordBusiness(IOptionsMonitor<BusinessOptions> _options
                     ? null
                     : Mapper.Mapper.User.UserPreferenceApplicationCulture[userPreferenceApplicationCulture.Value],
                 Permission = userInternalPermissionResponse,
+                UserId = verificationCode.UserId,
                 UserType = Mapper.Mapper.User.UserType[user.Type],
             },
         };

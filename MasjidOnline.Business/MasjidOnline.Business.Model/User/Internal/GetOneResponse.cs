@@ -28,4 +28,6 @@ public class GetOneResponse
     public string? EditContact { get; set; }
 
     public string? EditContactType { get; set; }
+
+    public required int UserId { get; set; }
 }

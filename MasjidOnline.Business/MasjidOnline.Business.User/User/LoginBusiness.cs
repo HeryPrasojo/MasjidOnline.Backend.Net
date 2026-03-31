@@ -134,6 +134,7 @@ public class LoginBusiness(IAuthorizationBusiness _authorizationBusiness, IServi
                     ? null
                     : Mapper.Mapper.User.UserPreferenceApplicationCulture[userPreferenceApplicationCulture.Value],
                 Permission = userInternalPermissionResponse,
+                UserId = userId,
                 UserType = Mapper.Mapper.User.UserType[user.Type],
             },
         };

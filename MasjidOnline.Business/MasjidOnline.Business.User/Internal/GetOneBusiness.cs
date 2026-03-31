@@ -159,6 +159,7 @@ public class GetOneBusiness(IAuthorizationBusiness _authorizationBusiness, IServ
                         PersonName = person.Name,
                         Status = status,
                         StatusText = _service.Localization[status, session.CultureInfo],
+                        UserId = internalUser.UserId,
                     },
                 };
             }
@@ -177,6 +178,7 @@ public class GetOneBusiness(IAuthorizationBusiness _authorizationBusiness, IServ
                 PersonName = person.Name,
                 Status = status,
                 StatusText = _service.Localization[Mapper.Mapper.User.InternalUserStatus[internalUser.Status], session.CultureInfo],
+                UserId = internalUser.UserId,
             },
         };
     }

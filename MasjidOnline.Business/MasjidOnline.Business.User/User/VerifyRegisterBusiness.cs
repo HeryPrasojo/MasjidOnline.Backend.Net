@@ -222,6 +222,7 @@ public class VerifyRegisterBusiness(
                     ? null
                     : Mapper.Mapper.User.UserPreferenceApplicationCulture[userPreferenceApplicationCulture.Value],
                 Permission = userInternalPermissionResponse,
+                UserId = user.Id,
                 UserType = Mapper.Mapper.User.UserType[user.Type],
             },
         };
