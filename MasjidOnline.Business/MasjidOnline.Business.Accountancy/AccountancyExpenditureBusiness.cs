@@ -12,7 +12,7 @@ public class AccountancyExpenditureBusiness(
     public IAddBusiness Add { get; } = new AddBusiness(_authorizationBusiness, _service);
     public IApproveBusiness Approve { get; } = new ApproveBusiness(_authorizationBusiness, _service);
     public ICancelBusiness Cancel { get; } = new CancelBusiness(_authorizationBusiness, _service);
-    public IGetManyBusiness GetMany { get; } = new GetManyBusiness(_service);
+    public IGetTableBusiness GetTable { get; } = new GetTableBusiness(_service);
     public IGetViewBusiness GetView { get; } = new GetViewBusiness(_service);
     public IRejectBusiness Reject { get; } = new RejectBusiness(_authorizationBusiness, _service);
 }

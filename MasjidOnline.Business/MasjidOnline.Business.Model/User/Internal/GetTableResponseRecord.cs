@@ -1,6 +1,6 @@
 namespace MasjidOnline.Business.Model.User.Internal;
 
-public class GetManyResponseRecord
+public class GetTableResponseRecord
 {
     public required int Id { get; set; }
 

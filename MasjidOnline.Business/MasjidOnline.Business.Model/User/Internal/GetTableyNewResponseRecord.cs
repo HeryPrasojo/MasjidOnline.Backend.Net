@@ -2,7 +2,7 @@ using System;
 
 namespace MasjidOnline.Business.Model.User.Internal;
 
-public class GetManyNewResponseRecord
+public class GetTableyNewResponseRecord
 {
     public required DateTime DateTime { get; set; }
 

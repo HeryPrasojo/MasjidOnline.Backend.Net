@@ -7,7 +7,7 @@ public interface IUserInternalBusiness
     public IAddBusiness Add { get; }
     public IApproveBusiness Approve { get; }
     public ICancelBusiness Cancel { get; }
-    public IGetManyBusiness GetMany { get; }
+    public IGetTableBusiness GetTable { get; }
     public IGetViewBusiness GetView { get; }
     public IRejectBusiness Reject { get; }
 }

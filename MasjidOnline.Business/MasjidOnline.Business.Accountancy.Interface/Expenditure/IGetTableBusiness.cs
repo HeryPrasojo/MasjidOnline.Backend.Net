@@ -5,7 +5,7 @@ using MasjidOnline.Data.Interface;
 
 namespace MasjidOnline.Business.Accountancy.Interface.Expenditure;
 
-public interface IGetManyBusiness
+public interface IGetTableBusiness
 {
-    Task<Response<GetManyResponse<GetManyResponseRecord>>> GetAsync(IData _data, Model.Session.Session session, GetManyRequest? getManyRequest);
+    Task<Response<GetTableResponse<GetTableResponseRecord>>> GetAsync(IData _data, Model.Session.Session session, GetTableRequest? getTableRequest);
 }

@@ -52,7 +52,7 @@ public class InfaqRepository(DbContext _dbContext) : IInfaqRepository
             .FirstOrDefaultAsync();
     }
 
-    public async Task<ManyResult<ManyRecord>> GetManyAsync(
+    public async Task<ManyResult<ManyRecord>> GetTableAsync(
         IEnumerable<PaymentType>? paymentTypes = default,
         IEnumerable<InfaqStatus>? paymentStatuses = default,
         int skip = 0,

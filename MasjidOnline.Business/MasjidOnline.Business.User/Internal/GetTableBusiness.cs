@@ -11,34 +11,34 @@ using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.User.Internal;
 
-public class GetManyBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : IGetManyBusiness
+public class GetTableBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : IGetTableBusiness
 {
-    public async Task<Response<GetManyResponse<GetManyResponseRecord>>> GetAsync(
+    public async Task<Response<GetTableResponse<GetTableResponseRecord>>> GetAsync(
         Model.Session.Session session,
         IData _data,
-        GetManyRequest? getManyRequest)
+        GetTableRequest? getTableRequest)
     {
         await _authorizationBusiness.User.Internal.AuthorizeGetAync(session, _data);
 
-        getManyRequest = _service.FieldValidator.ValidateRequired(getManyRequest);
-        getManyRequest.Page = _service.FieldValidator.ValidateRequiredPlus(getManyRequest.Page);
-        _service.FieldValidator.ValidateOptionalEnum(getManyRequest.Status);
+        getTableRequest = _service.FieldValidator.ValidateRequired(getTableRequest);
+        getTableRequest.Page = _service.FieldValidator.ValidateRequiredPlus(getTableRequest.Page);
+        _service.FieldValidator.ValidateOptionalEnum(getTableRequest.Status);
 
 
         var take = 10;
 
-        Entity.User.InternalUserStatus? requestStatus = getManyRequest.Status.HasValue ? Mapper.Mapper.User.InternalUserStatus[getManyRequest.Status.Value] : null;
+        Entity.User.InternalUserStatus? requestStatus = getTableRequest.Status.HasValue ? Mapper.Mapper.User.InternalUserStatus[getTableRequest.Status.Value] : null;
 
-        var getManyResult = await _data.User.InternalUser.GetManyAsync(
+        var getTableResult = await _data.User.InternalUser.GetTableAsync(
             status: requestStatus,
-            getManyOrderBy: ManyOrderBy.DateTime,
+            getTableOrderBy: ManyOrderBy.DateTime,
             orderByDirection: OrderByDirection.Descending,
-            skip: (getManyRequest.Page.Value - 1) * take,
+            skip: (getTableRequest.Page.Value - 1) * take,
             take: take);
 
 
-        var userIds = getManyResult.Records.Select(e => e.UserId);
-        var addUserIds = getManyResult.Records.Select(e => e.AddUserId);
+        var userIds = getTableResult.Records.Select(e => e.UserId);
+        var addUserIds = getTableResult.Records.Select(e => e.AddUserId);
 
         var allUserIds = userIds.Concat(addUserIds);
 
@@ -50,9 +50,9 @@ public class GetManyBusiness(IAuthorizationBusiness _authorizationBusiness, ISer
             ResultCode = ResponseResultCode.Success,
             Data = new()
             {
-                PageCount = ((getManyResult.RecordCount - 1) / take) + 1,
-                RecordCount = _service.Localization[getManyResult.RecordCount, session.CultureInfo],
-                Records = getManyResult.Records.Select(e => new GetManyResponseRecord
+                PageCount = ((getTableResult.RecordCount - 1) / take) + 1,
+                RecordCount = _service.Localization[getTableResult.RecordCount, session.CultureInfo],
+                Records = getTableResult.Records.Select(e => new GetTableResponseRecord
                 {
                     AddPersonName = persons.FirstOrDefault(p => p.UserId == e.AddUserId)?.Name,
                     DateTime = _service.Localization[e.DateTime, session.CultureInfo, "yyyy MMM dd, HH:mm"],

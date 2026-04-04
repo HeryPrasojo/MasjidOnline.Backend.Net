@@ -2,7 +2,7 @@ using System;
 
 namespace MasjidOnline.Business.Model.Infaq.Infaq;
 
-public class GetManyDueResponseRecord
+public class GetTableDueResponseRecord
 {
     public required int Id { get; set; }
 

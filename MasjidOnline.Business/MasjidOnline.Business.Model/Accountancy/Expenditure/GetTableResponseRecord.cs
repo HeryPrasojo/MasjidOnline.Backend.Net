@@ -2,7 +2,7 @@ using System;
 
 namespace MasjidOnline.Business.Model.Accountancy.Expenditure;
 
-public class GetManyResponseRecord
+public class GetTableResponseRecord
 {
     public required int Id { get; set; }
 

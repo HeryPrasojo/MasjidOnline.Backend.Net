@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace MasjidOnline.Business.Model.Responses;
 
-public class GetManyResponse<TRecords>
+public class GetTableResponse<TRecords>
 {
     public required IEnumerable<TRecords> Records { get; set; }
 

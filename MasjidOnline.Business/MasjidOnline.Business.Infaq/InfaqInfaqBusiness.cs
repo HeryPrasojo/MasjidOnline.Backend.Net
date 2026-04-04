@@ -14,6 +14,6 @@ public class InfaqInfaqBusiness(
     ) : IInfaqInfaqBusiness
 {
     public IAddBusiness Add { get; } = new AddBusiness(_authorizationBusiness, _service, _optionsMonitor);
-    public IGetManyBusiness GetMany { get; } = new GetManyBusiness(_service);
+    public IGetTableBusiness GetTable { get; } = new GetTableBusiness(_service);
     public IGetViewBusiness GetView { get; } = new GetViewBusiness(_service);
 }

@@ -5,6 +5,6 @@ namespace MasjidOnline.Business.Infaq.Interface;
 public interface IInfaqInfaqBusiness
 {
     IAddBusiness Add { get; }
-    IGetManyBusiness GetMany { get; }
+    IGetTableBusiness GetTable { get; }
     IGetViewBusiness GetView { get; }
 }

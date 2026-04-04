@@ -8,28 +8,28 @@ using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.Infaq.Infaq;
 
-public class GetManyBusiness(IService _service) : IGetManyBusiness
+public class GetTableBusiness(IService _service) : IGetTableBusiness
 {
-    public async Task<Response<GetManyResponse<GetManyResponseRecord>>> GetAsync(
+    public async Task<Response<GetTableResponse<GetTableResponseRecord>>> GetAsync(
         Model.Session.Session session,
         IData _data,
-        GetManyRequest? getManyRequest)
+        GetTableRequest? getTableRequest)
     {
-        getManyRequest = _service.FieldValidator.ValidateRequired(getManyRequest);
-        getManyRequest.Page = _service.FieldValidator.ValidateRequiredPlus(getManyRequest.Page);
-        _service.FieldValidator.ValidateOptionalEnums(getManyRequest.PaymentTypes);
-        _service.FieldValidator.ValidateOptionalEnums(getManyRequest.Statuses);
+        getTableRequest = _service.FieldValidator.ValidateRequired(getTableRequest);
+        getTableRequest.Page = _service.FieldValidator.ValidateRequiredPlus(getTableRequest.Page);
+        _service.FieldValidator.ValidateOptionalEnums(getTableRequest.PaymentTypes);
+        _service.FieldValidator.ValidateOptionalEnums(getTableRequest.Statuses);
 
 
-        var paymentTypes = getManyRequest.PaymentTypes?.Select(pt => Mapper.Mapper.Payment.PaymentType[pt]);
-        var infaqStatuses = getManyRequest.Statuses?.Select(m => Mapper.Mapper.Infaq.InfaqStatus[m]);
+        var paymentTypes = getTableRequest.PaymentTypes?.Select(pt => Mapper.Mapper.Payment.PaymentType[pt]);
+        var infaqStatuses = getTableRequest.Statuses?.Select(m => Mapper.Mapper.Infaq.InfaqStatus[m]);
 
         var take = 10;
 
-        var getManyResult = await _data.Infaq.Infaq.GetManyAsync(
+        var getTableResult = await _data.Infaq.Infaq.GetTableAsync(
             paymentTypes: paymentTypes,
             paymentStatuses: infaqStatuses,
-            skip: (getManyRequest.Page.Value - 1) * take,
+            skip: (getTableRequest.Page.Value - 1) * take,
             take: take);
 
         return new()
@@ -37,9 +37,9 @@ public class GetManyBusiness(IService _service) : IGetManyBusiness
             ResultCode = ResponseResultCode.Success,
             Data = new()
             {
-                PageCount = ((getManyResult.RecordCount - 1) / take) + 1,
-                RecordCount = _service.Localization[getManyResult.RecordCount, session.CultureInfo],
-                Records = getManyResult.Records.Select(e => new GetManyResponseRecord
+                PageCount = ((getTableResult.RecordCount - 1) / take) + 1,
+                RecordCount = _service.Localization[getTableResult.RecordCount, session.CultureInfo],
+                Records = getTableResult.Records.Select(e => new GetTableResponseRecord
                 {
                     Amount = _service.Localization[e.Amount, session.CultureInfo],
                     DateTime = _service.Localization[e.DateTime, session.CultureInfo, "yyyy MMM dd, HH:mm"],

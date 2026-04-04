@@ -54,13 +54,13 @@ internal static class InfaqEndpoint
             return response;
         }
 
-        internal static async Task<Response<GetManyResponse<Business.Model.Infaq.Infaq.GetManyResponseRecord>>> GetManyAsync(
+        internal static async Task<Response<GetTableResponse<Business.Model.Infaq.Infaq.GetTableResponseRecord>>> GetTableAsync(
             IBusiness _business,
             Session session,
             IData _data,
-            [FromBody] Business.Model.Infaq.Infaq.GetManyRequest? getManyRequest)
+            [FromBody] Business.Model.Infaq.Infaq.GetTableRequest? getTableRequest)
         {
-            return await _business.Infaq.Infaq.GetMany.GetAsync(session, _data, getManyRequest);
+            return await _business.Infaq.Infaq.GetTable.GetAsync(session, _data, getTableRequest);
         }
 
         internal static async Task<Response<Business.Model.Infaq.Infaq.GetViewResponse>> GetViewAsync(

@@ -15,13 +15,13 @@ internal static class UserEndpoint
 {
     internal static class Internal
     {
-        internal static async Task<Response<GetManyResponse<GetManyResponseRecord>>> GetManyAsync(
+        internal static async Task<Response<GetTableResponse<GetTableResponseRecord>>> GetTableAsync(
             IBusiness _business,
             Session session,
             IData _data,
-            [FromBody] GetManyRequest? getManyRequest)
+            [FromBody] GetTableRequest? getTableRequest)
         {
-            return await _business.User.Internal.GetMany.GetAsync(session, _data, getManyRequest);
+            return await _business.User.Internal.GetTable.GetAsync(session, _data, getTableRequest);
         }
 
         internal static async Task<Response<GetViewResponse>> GetViewAsync(

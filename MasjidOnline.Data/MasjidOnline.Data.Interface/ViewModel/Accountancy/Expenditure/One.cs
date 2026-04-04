@@ -5,7 +5,6 @@ namespace MasjidOnline.Data.Interface.ViewModel.Accountancy.Expenditure;
 
 public class One
 {
-
     public required DateTime DateTime { get; set; }
 
     public required int UserId { get; set; }
