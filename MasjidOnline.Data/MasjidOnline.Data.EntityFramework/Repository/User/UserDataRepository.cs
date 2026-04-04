@@ -30,10 +30,10 @@ public class UserDataRepository(DbContext _dbContext) : IUserDataRepository
     }
 
 
-    public async Task<IEnumerable<ForOneInternalUser>?> GetForOneInternalUserAsync(IEnumerable<int> userIds)
+    public async Task<IEnumerable<ForInternalUserView>?> GetForInternalUserViewAsync(IEnumerable<int> userIds)
     {
         return await _dbSet.Where(e => userIds.Any(i => i == e.UserId))
-            .Select(e => new ForOneInternalUser
+            .Select(e => new ForInternalUserView
             {
                 MainContactId = e.MainContactId,
                 MainContactType = e.MainContactType,

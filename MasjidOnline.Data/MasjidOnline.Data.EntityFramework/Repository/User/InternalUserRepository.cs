@@ -89,10 +89,10 @@ public class InternalUserRepository(DbContext _dbContext) : IInternalUserReposit
         };
     }
 
-    public async Task<One?> GetFirstOrDefaultAsync(int id)
+    public async Task<View?> GetFirstOrDefaultAsync(int id)
     {
         return await _dbSet.Where(e => e.Id == id)
-            .Select(e => new One
+            .Select(e => new View
             {
                 AddUserId = e.AddUserId,
                 DateTime = e.DateTime,

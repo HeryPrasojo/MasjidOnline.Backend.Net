@@ -4,7 +4,7 @@ using MasjidOnline.Entity.Verification;
 
 namespace MasjidOnline.Data.Interface.ViewModel.Verification.VerificationCode;
 
-public class OneByCode
+public class ViewByCode
 {
     public required int Id { get; set; }
 

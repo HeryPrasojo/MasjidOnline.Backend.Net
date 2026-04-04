@@ -3,7 +3,7 @@ using MasjidOnline.Entity.User;
 
 namespace MasjidOnline.Data.Interface.ViewModel.User.Internal;
 
-public class One
+public class View
 {
     public required DateTime DateTime { get; set; }
 

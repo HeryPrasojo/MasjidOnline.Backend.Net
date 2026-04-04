@@ -39,10 +39,10 @@ public class UserEmailRepository(DbContext _dbContext) : IUserEmailRepository
     }
 
 
-    public async Task<IEnumerable<ForOneInternalUser>?> GetForOneInternalUserAsync(IEnumerable<int> ids)
+    public async Task<IEnumerable<ForInternalUserView>?> GetForInternalUserViewAsync(IEnumerable<int> ids)
     {
         return await _dbSet.Where(e => ids.Any(i => i == e.Id))
-            .Select(e => new ForOneInternalUser
+            .Select(e => new ForInternalUserView
             {
                 Address = e.Address,
                 Id = e.Id,

@@ -10,7 +10,7 @@ public interface IVerificationCodeRepository
 {
     Task AddAndSaveAsync(VerificationCode verificationCode);
     Task AddAsync(VerificationCode verificationCode);
-    Task<OneByCode?> GetByCodeAsync(byte[] code);
+    Task<ViewByCode?> GetByCodeAsync(byte[] code);
     Task<int> GetLastIdByContactAsync(ContactType contactType, string contact);
     Task<int> GetLastIdByUserIdAsync(int userId);
     Task<int> GetMaxIdAsync();

@@ -37,7 +37,7 @@ public class GetViewBusiness(IAuthorizationBusiness _authorizationBusiness, ISer
 
         if (internalUser.UpdateUserId.HasValue) userIds.Add(internalUser.UpdateUserId.Value);
 
-        var userDatas = await _data.User.UserData.GetForOneInternalUserAsync(userIds)
+        var userDatas = await _data.User.UserData.GetForInternalUserViewAsync(userIds)
             ?? throw new DataMismatchException(nameof(userIds));
 
 
@@ -68,7 +68,7 @@ public class GetViewBusiness(IAuthorizationBusiness _authorizationBusiness, ISer
         }
 
 
-        var persons = await _data.Person.Person.GetForOneInternalUserAsync(userIds)
+        var persons = await _data.Person.Person.GetForInternalUserViewAsync(userIds)
             ?? throw new DataMismatchException(nameof(userIds));
 
         var person = persons.FirstOrDefault(e => e.UserId == internalUser.UserId)
@@ -101,7 +101,7 @@ public class GetViewBusiness(IAuthorizationBusiness _authorizationBusiness, ISer
 
                 if (userEmailIds.Count > 0)
                 {
-                    var userEmails = await _data.User.UserEmail.GetForOneInternalUserAsync(userEmailIds)
+                    var userEmails = await _data.User.UserEmail.GetForInternalUserViewAsync(userEmailIds)
                         ?? throw new DataMismatchException(nameof(userEmailIds));
 
 

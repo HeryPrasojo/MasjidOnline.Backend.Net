@@ -95,10 +95,10 @@ public class InfaqRepository(DbContext _dbContext) : IInfaqRepository
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
     }
 
-    public async Task<One?> GetFirstOrDefaultAsync(int id)
+    public async Task<View?> GetFirstOrDefaultAsync(int id)
     {
         return await _dbSet.Where(e => e.Id == id)
-            .Select(e => new One
+            .Select(e => new View
             {
                 Amount = e.Amount,
                 DateTime = e.DateTime,

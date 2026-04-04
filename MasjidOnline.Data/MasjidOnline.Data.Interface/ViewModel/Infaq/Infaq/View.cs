@@ -4,7 +4,7 @@ using MasjidOnline.Entity.Payment;
 
 namespace MasjidOnline.Data.Interface.ViewModel.Infaq.Infaq;
 
-public class One
+public class View
 {
     public required DateTime DateTime { get; set; }
 

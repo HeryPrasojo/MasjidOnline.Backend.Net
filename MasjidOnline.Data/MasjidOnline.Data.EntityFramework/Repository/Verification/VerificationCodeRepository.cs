@@ -30,10 +30,10 @@ public class VerificationCodeRepository(DbContext _dbContext) : IVerificationCod
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
     }
 
-    public async Task<OneByCode?> GetByCodeAsync(byte[] code)
+    public async Task<ViewByCode?> GetByCodeAsync(byte[] code)
     {
         return await _dbSet.Where(e => e.Code.SequenceEqual(code))
-            .Select(e => new OneByCode
+            .Select(e => new ViewByCode
             {
                 Contact = e.Contact,
                 ContactType = e.ContactType,

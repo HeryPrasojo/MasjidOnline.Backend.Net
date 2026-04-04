@@ -3,7 +3,7 @@ using MasjidOnline.Entity.Accountancy;
 
 namespace MasjidOnline.Data.Interface.ViewModel.Accountancy.Expenditure;
 
-public class One
+public class View
 {
     public required DateTime DateTime { get; set; }
 

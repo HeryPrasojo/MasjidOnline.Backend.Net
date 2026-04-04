@@ -2,7 +2,7 @@
 
 namespace MasjidOnline.Data.Interface.ViewModel.User.UserData;
 
-public class ForOneInternalUser
+public class ForInternalUserView
 {
     public required int UserId { get; set; }
 

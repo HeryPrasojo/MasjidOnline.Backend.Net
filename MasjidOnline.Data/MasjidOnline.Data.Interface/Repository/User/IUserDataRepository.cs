@@ -10,6 +10,6 @@ public interface IUserDataRepository
     Task AddAsync(UserData userData);
     Task<bool> AnyAsync(int userId);
     Task<ApplicationCulture?> GetApplicationCultureAsync(int userId);
-    Task<IEnumerable<ForOneInternalUser>?> GetForOneInternalUserAsync(IEnumerable<int> userIds);
+    Task<IEnumerable<ForInternalUserView>?> GetForInternalUserViewAsync(IEnumerable<int> userIds);
     void SetApplicationCulture(int userId, ApplicationCulture applicationCulture);
 }

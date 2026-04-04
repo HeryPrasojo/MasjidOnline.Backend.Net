@@ -16,7 +16,7 @@ public interface IInternalUserRepository
     //Task<ForApprove?> GetForApproveAsync(int id);
     Task<ManyResult<ManyRecord>> GetTableAsync(InternalUserStatus? status = default, ManyOrderBy getTableOrderBy = default, OrderByDirection orderByDirection = default, int skip = 0, int take = 1);
     Task<int> GetMaxIdAsync();
-    Task<One?> GetFirstOrDefaultAsync(int id);
+    Task<View?> GetFirstOrDefaultAsync(int id);
     Task<InternalUserStatus> GetStatusAsync(int id);
     void SetStatus(int id, InternalUserStatus status, string? description, DateTime updateDateTime, int updateUserId);
     Task SetStatusAndSaveAsync(int id, InternalUserStatus status, string? description, DateTime updateDateTime, int updateUserId);

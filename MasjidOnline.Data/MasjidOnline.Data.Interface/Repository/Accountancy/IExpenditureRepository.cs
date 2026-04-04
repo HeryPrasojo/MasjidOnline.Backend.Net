@@ -12,7 +12,7 @@ public interface IExpenditureRepository
     Task<ForApprove?> GetForApproveAsync(int id);
     Task<ManyResult<ManyRecord>> GetTableAsync(ExpenditureStatus? status = null, ManyOrderBy getTableOrderBy = default, OrderByDirection orderByDirection = default, int skip = 0, int take = 1);
     Task<int> GetMaxIdAsync();
-    Task<One?> GetFirstOrDefaultAsync(int id);
+    Task<View?> GetFirstOrDefaultAsync(int id);
     Task<ExpenditureStatus> GetStatusAsync(int id);
     Task SetStatusAndSaveAsync(int id, ExpenditureStatus status, string? statusDescription, DateTime updateDateTime, int updateUserId);
 }

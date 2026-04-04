@@ -1,6 +1,6 @@
 ﻿namespace MasjidOnline.Data.Interface.ViewModel.User.UserEmail;
 
-public class ForOneInternalUser
+public class ForInternalUserView
 {
     public required int Id { get; set; }
 
