@@ -5,7 +5,7 @@ using MasjidOnline.Data.Interface;
 
 namespace MasjidOnline.Business.Accountancy.Interface.Expenditure;
 
-public interface IGetOneBusiness
+public interface IGetViewBusiness
 {
-    Task<Response<GetOneResponse>> GetAsync(IData _data, GetOneRequest? getOneRequest);
+    Task<Response<GetViewResponse>> GetAsync(IData _data, GetViewRequest? getViewRequest);
 }

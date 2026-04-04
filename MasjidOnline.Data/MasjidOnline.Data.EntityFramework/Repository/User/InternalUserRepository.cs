@@ -89,7 +89,7 @@ public class InternalUserRepository(DbContext _dbContext) : IInternalUserReposit
         };
     }
 
-    public async Task<One?> GetOneAsync(int id)
+    public async Task<One?> GetFirstOrDefaultAsync(int id)
     {
         return await _dbSet.Where(e => e.Id == id)
             .Select(e => new One

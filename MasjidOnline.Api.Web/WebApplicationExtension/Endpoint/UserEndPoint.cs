@@ -24,13 +24,13 @@ internal static class UserEndpoint
             return await _business.User.Internal.GetMany.GetAsync(session, _data, getManyRequest);
         }
 
-        internal static async Task<Response<GetOneResponse>> GetOneAsync(
+        internal static async Task<Response<GetViewResponse>> GetViewAsync(
             IBusiness _business,
             Session session,
             IData _data,
-            [FromBody] GetOneRequest? getOneRequest)
+            [FromBody] GetViewRequest? getViewRequest)
         {
-            return await _business.User.Internal.GetOne.GetAsync(session, _data, getOneRequest);
+            return await _business.User.Internal.GetView.GetAsync(session, _data, getViewRequest);
         }
     }
 

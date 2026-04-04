@@ -1,6 +1,6 @@
 namespace MasjidOnline.Business.Model.User.Internal;
 
-public class GetOneRequest
+public class GetViewRequest
 {
     public int? Id { get; set; }
 }

@@ -83,7 +83,7 @@ public class ExpenditureRepository(DbContext _dbContext) : IExpenditureRepositor
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
     }
 
-    public async Task<One?> GetOneAsync(int id)
+    public async Task<One?> GetFirstOrDefaultAsync(int id)
     {
         return await _dbSet.Where(e => e.Id == id)
             .Select(e => new One

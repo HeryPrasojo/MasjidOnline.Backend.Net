@@ -17,6 +17,6 @@ public class UserInternalBusiness(
     public IApproveBusiness Approve { get; } = new ApproveBusiness(_optionsMonitor, _authorizationBusiness, _service);
     public ICancelBusiness Cancel { get; } = new CancelBusiness(_authorizationBusiness, _service);
     public IGetManyBusiness GetMany { get; } = new GetManyBusiness(_authorizationBusiness, _service);
-    public IGetOneBusiness GetOne { get; } = new GetOneBusiness(_authorizationBusiness, _service);
+    public IGetViewBusiness GetView { get; } = new GetViewBusiness(_authorizationBusiness, _service);
     public IRejectBusiness Reject { get; } = new RejectBusiness(_authorizationBusiness, _service);
 }

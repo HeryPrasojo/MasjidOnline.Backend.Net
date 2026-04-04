@@ -8,6 +8,6 @@ public interface IUserInternalBusiness
     public IApproveBusiness Approve { get; }
     public ICancelBusiness Cancel { get; }
     public IGetManyBusiness GetMany { get; }
-    public IGetOneBusiness GetOne { get; }
+    public IGetViewBusiness GetView { get; }
     public IRejectBusiness Reject { get; }
 }

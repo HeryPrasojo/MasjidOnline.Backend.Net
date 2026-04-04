@@ -6,5 +6,5 @@ public interface IInfaqInfaqBusiness
 {
     IAddBusiness Add { get; }
     IGetManyBusiness GetMany { get; }
-    IGetOneBusiness GetOne { get; }
+    IGetViewBusiness GetView { get; }
 }

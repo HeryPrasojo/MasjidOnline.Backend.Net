@@ -48,12 +48,12 @@ internal static class AccountancyEndpoint
             return await _business.Accountancy.Expenditure.GetMany.GetAsync(_data, session, getManyRequest);
         }
 
-        internal static async Task<Response<GetOneResponse>> GetOneAsync(
+        internal static async Task<Response<GetViewResponse>> GetViewAsync(
             IBusiness _business,
             IData _data,
-            [FromBody] GetOneRequest? getOneRequest)
+            [FromBody] GetViewRequest? getViewRequest)
         {
-            return await _business.Accountancy.Expenditure.GetOne.GetAsync(_data, getOneRequest);
+            return await _business.Accountancy.Expenditure.GetView.GetAsync(_data, getViewRequest);
         }
 
         internal static async Task<Response> RejectAsync(

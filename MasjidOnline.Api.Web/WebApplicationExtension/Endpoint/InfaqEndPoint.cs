@@ -63,13 +63,13 @@ internal static class InfaqEndpoint
             return await _business.Infaq.Infaq.GetMany.GetAsync(session, _data, getManyRequest);
         }
 
-        internal static async Task<Response<Business.Model.Infaq.Infaq.GetOneResponse>> GetOneAsync(
+        internal static async Task<Response<Business.Model.Infaq.Infaq.GetViewResponse>> GetViewAsync(
             IBusiness _business,
             Session session,
             IData _data,
-            [FromBody] Business.Model.Infaq.Infaq.GetOneRequest? getOneRequest)
+            [FromBody] Business.Model.Infaq.Infaq.GetViewRequest? getViewRequest)
         {
-            return await _business.Infaq.Infaq.GetOne.GetAsync(session, _data, getOneRequest);
+            return await _business.Infaq.Infaq.GetView.GetAsync(session, _data, getViewRequest);
         }
     }
 }

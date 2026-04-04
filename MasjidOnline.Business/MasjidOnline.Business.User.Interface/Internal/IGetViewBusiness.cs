@@ -6,7 +6,7 @@ using MasjidOnline.Data.Interface;
 
 namespace MasjidOnline.Business.User.Interface.Internal;
 
-public interface IGetOneBusiness
+public interface IGetViewBusiness
 {
-    Task<Response<GetOneResponse>> GetAsync(Session session, IData _data, GetOneRequest? getOneRequest);
+    Task<Response<GetViewResponse>> GetAsync(Session session, IData _data, GetViewRequest? getViewRequest);
 }

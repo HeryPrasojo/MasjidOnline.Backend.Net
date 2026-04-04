@@ -1,8 +1,8 @@
 using System;
 
-namespace MasjidOnline.Business.Model.User.Internal;
+namespace MasjidOnline.Business.Model.Accountancy.Expenditure;
 
-public class GetOneNewResponse
+public class GetViewNewResponse
 {
     public required string EmailAddress { get; set; }
 

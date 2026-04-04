@@ -1,6 +1,6 @@
 namespace MasjidOnline.Business.Model.Infaq.Infaq;
 
-public class GetOneResponse
+public class GetViewResponse
 {
     public required string DateTime { get; set; }
 

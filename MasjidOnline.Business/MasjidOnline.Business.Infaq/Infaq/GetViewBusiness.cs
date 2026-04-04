@@ -8,23 +8,23 @@ using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.Infaq.Infaq;
 
-public class GetOneBusiness(IService _service) : IGetOneBusiness
+public class GetViewBusiness(IService _service) : IGetViewBusiness
 {
-    public async Task<Response<GetOneResponse>> GetAsync(Model.Session.Session session, IData _data, GetOneRequest? getOneRequest)
+    public async Task<Response<GetViewResponse>> GetAsync(Model.Session.Session session, IData _data, GetViewRequest? getViewRequest)
     {
-        getOneRequest = _service.FieldValidator.ValidateRequired(getOneRequest);
-        getOneRequest.Id = _service.FieldValidator.ValidateRequiredPlus(getOneRequest.Id);
+        getViewRequest = _service.FieldValidator.ValidateRequired(getViewRequest);
+        getViewRequest.Id = _service.FieldValidator.ValidateRequiredPlus(getViewRequest.Id);
 
 
-        var infaq = await _data.Infaq.Infaq.GetOneAsync(getOneRequest.Id.Value);
+        var infaq = await _data.Infaq.Infaq.GetFirstOrDefaultAsync(getViewRequest.Id.Value);
 
-        if (infaq == default) throw new InputMismatchException($"{nameof(getOneRequest.Id)}: {getOneRequest.Id}");
+        if (infaq == default) throw new InputMismatchException($"{nameof(getViewRequest.Id)}: {getViewRequest.Id}");
 
 
         return new()
         {
             ResultCode = ResponseResultCode.Success,
-            Data = new GetOneResponse()
+            Data = new GetViewResponse()
             {
                 Amount = _service.Localization[infaq.Amount, session.CultureInfo],
                 DateTime = _service.Localization[infaq.DateTime, session.CultureInfo, "yyyy MMM dd, HH:mm"],

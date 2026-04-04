@@ -11,22 +11,22 @@ using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.User.Internal;
 
-public class GetOneBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : IGetOneBusiness
+public class GetViewBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : IGetViewBusiness
 {
-    public async Task<Response<GetOneResponse>> GetAsync(
+    public async Task<Response<GetViewResponse>> GetAsync(
         Model.Session.Session session,
         IData _data,
-        GetOneRequest? getOneRequest)
+        GetViewRequest? getViewRequest)
     {
         await _authorizationBusiness.User.Internal.AuthorizeGetAync(session, _data);
 
 
-        getOneRequest = _service.FieldValidator.ValidateRequired(getOneRequest);
-        getOneRequest.Id = _service.FieldValidator.ValidateRequiredPlus(getOneRequest.Id);
+        getViewRequest = _service.FieldValidator.ValidateRequired(getViewRequest);
+        getViewRequest.Id = _service.FieldValidator.ValidateRequiredPlus(getViewRequest.Id);
 
 
-        var internalUser = await _data.User.InternalUser.GetOneAsync(getOneRequest.Id.Value)
-            ?? throw new InputMismatchException($"{nameof(getOneRequest.Id)}: {getOneRequest.Id}");
+        var internalUser = await _data.User.InternalUser.GetFirstOrDefaultAsync(getViewRequest.Id.Value)
+            ?? throw new InputMismatchException($"{nameof(getViewRequest.Id)}: {getViewRequest.Id}");
 
 
         var userIds = new List<int>

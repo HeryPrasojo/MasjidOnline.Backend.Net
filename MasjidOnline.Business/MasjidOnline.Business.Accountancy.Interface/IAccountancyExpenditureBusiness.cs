@@ -8,6 +8,6 @@ public interface IAccountancyExpenditureBusiness
     IApproveBusiness Approve { get; }
     ICancelBusiness Cancel { get; }
     IGetManyBusiness GetMany { get; }
-    IGetOneBusiness GetOne { get; }
+    IGetViewBusiness GetView { get; }
     IRejectBusiness Reject { get; }
 }

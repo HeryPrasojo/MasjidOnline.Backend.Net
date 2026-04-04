@@ -4,12 +4,13 @@ using MasjidOnline.Business.Authorization.Interface.Authorization.UserInternalPe
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Service.Interface;
 
-namespace MasjidOnline.Business.Model.Authorization.UserInternalPermission;
+namespace MasjidOnline.Business.Authorization.Authorization.UserInternalPermission;
 
 public class GetViewBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : IGetViewBusiness
 {
-    public async Task<Response<GetViewResponse>> getAsync()
+    public async Task<Response/*<GetViewResponse>*/> getAsync()
     {
-
+        // undone
+        return null;
     }
 }

@@ -2,7 +2,7 @@ using System;
 
 namespace MasjidOnline.Business.Model.Infaq.Infaq;
 
-public class GetOneDueResponse
+public class GetViewDueResponse
 {
     public required DateTime DateTime { get; set; }
 

@@ -8,17 +8,17 @@ using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.Accountancy.Expenditure;
 
-public class GetOneBusiness(IService _service) : IGetOneBusiness
+public class GetViewBusiness(IService _service) : IGetViewBusiness
 {
-    public async Task<Response<GetOneResponse>> GetAsync(IData _data, GetOneRequest? getOneRequest)
+    public async Task<Response<GetViewResponse>> GetAsync(IData _data, GetViewRequest? getViewRequest)
     {
-        getOneRequest = _service.FieldValidator.ValidateRequired(getOneRequest);
-        getOneRequest.Id = _service.FieldValidator.ValidateRequiredPlus(getOneRequest.Id);
+        getViewRequest = _service.FieldValidator.ValidateRequired(getViewRequest);
+        getViewRequest.Id = _service.FieldValidator.ValidateRequiredPlus(getViewRequest.Id);
 
 
-        var expenditure = await _data.Accountancy.Expenditure.GetOneAsync(getOneRequest.Id.Value);
+        var expenditure = await _data.Accountancy.Expenditure.GetFirstOrDefaultAsync(getViewRequest.Id.Value);
 
-        if (expenditure == default) throw new InputMismatchException($"{nameof(getOneRequest.Id)}: {getOneRequest.Id}");
+        if (expenditure == default) throw new InputMismatchException($"{nameof(getViewRequest.Id)}: {getViewRequest.Id}");
 
         return new()
         {
