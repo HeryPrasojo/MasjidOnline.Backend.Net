@@ -32,9 +32,9 @@ public class ExpenditureRepository(DbContext _dbContext) : IExpenditureRepositor
             .FirstOrDefaultAsync();
     }
 
-    public async Task<ManyResult<ManyRecord>> GetTableAsync(
+    public async Task<TableResult<TableRecord>> GetTableAsync(
         ExpenditureStatus? status = default,
-        ManyOrderBy getTableOrderBy = default,
+        TableOrderBy getTableOrderBy = default,
         OrderByDirection orderByDirection = default,
         int skip = 0,
         int take = 1)
@@ -48,7 +48,7 @@ public class ExpenditureRepository(DbContext _dbContext) : IExpenditureRepositor
         var countTask = queryable.LongCountAsync();
 
 
-        if (getTableOrderBy == ManyOrderBy.DateTime)
+        if (getTableOrderBy == TableOrderBy.DateTime)
         {
             if (orderByDirection == OrderByDirection.Ascending) queryable = queryable.OrderBy(e => e.DateTime);
             else if (orderByDirection == OrderByDirection.Descending) queryable = queryable.OrderByDescending(e => e.DateTime);
@@ -61,7 +61,7 @@ public class ExpenditureRepository(DbContext _dbContext) : IExpenditureRepositor
         {
             Records = await queryable.Skip(skip)
                 .Take(take)
-                .Select(e => new ManyRecord
+                .Select(e => new TableRecord
                 {
                     Amount = e.Amount,
                     DateTime = e.DateTime,

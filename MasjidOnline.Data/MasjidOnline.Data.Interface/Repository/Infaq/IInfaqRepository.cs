@@ -12,7 +12,7 @@ public interface IInfaqRepository
     Task AddAsync(Entity.Infaq.Infaq infaq);
     Task<int> GetMaxIdAsync();
     Task<View?> GetFirstOrDefaultAsync(int id);
-    Task<ManyResult<ManyRecord>> GetTableAsync(IEnumerable<PaymentType>? paymentTypes = null, IEnumerable<InfaqStatus>? paymentStatuses = null, int skip = 0, int take = 1);
+    Task<TableResult<TableRecord>> GetTableAsync(IEnumerable<PaymentType>? paymentTypes = null, IEnumerable<InfaqStatus>? paymentStatuses = null, int skip = 0, int take = 1);
     Task<ExpireAdd?> GetForExpireAddAsync(int id);
     void SetStatus(int id, InfaqStatus paymentStatus);
     Task<SuccessAdd?> GetForSuccessAddAsync(int id);

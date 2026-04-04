@@ -3,7 +3,7 @@ using MasjidOnline.Entity.Accountancy;
 
 namespace MasjidOnline.Data.Interface.ViewModel.Accountancy.Expenditure;
 
-public class ManyRecord
+public class TableRecord
 {
     public required int Id { get; set; }
 

@@ -13,7 +13,7 @@ namespace MasjidOnline.Business.User.Internal;
 
 public class GetTableBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : IGetTableBusiness
 {
-    public async Task<Response<GetTableResponse<GetTableResponseRecord>>> GetAsync(
+    public async Task<Response<TableResponse<GetTableResponseRecord>>> GetAsync(
         Model.Session.Session session,
         IData _data,
         GetTableRequest? getTableRequest)
@@ -31,7 +31,7 @@ public class GetTableBusiness(IAuthorizationBusiness _authorizationBusiness, ISe
 
         var getTableResult = await _data.User.InternalUser.GetTableAsync(
             status: requestStatus,
-            getTableOrderBy: ManyOrderBy.DateTime,
+            getTableOrderBy: TableOrderBy.DateTime,
             orderByDirection: OrderByDirection.Descending,
             skip: (getTableRequest.Page.Value - 1) * take,
             take: take);

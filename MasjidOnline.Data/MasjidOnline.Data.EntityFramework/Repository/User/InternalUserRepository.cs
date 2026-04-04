@@ -46,9 +46,9 @@ public class InternalUserRepository(DbContext _dbContext) : IInternalUserReposit
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
     }
 
-    public async Task<ManyResult<ManyRecord>> GetTableAsync(
+    public async Task<TableResult<TableRecord>> GetTableAsync(
         InternalUserStatus? status = default,
-        ManyOrderBy getTableOrderBy = default,
+        TableOrderBy getTableOrderBy = default,
         OrderByDirection orderByDirection = default,
         int skip = 0,
         int take = 1)
@@ -62,7 +62,7 @@ public class InternalUserRepository(DbContext _dbContext) : IInternalUserReposit
         var countTask = queryable.LongCountAsync();
 
 
-        if (getTableOrderBy == ManyOrderBy.DateTime)
+        if (getTableOrderBy == TableOrderBy.DateTime)
         {
             if (orderByDirection == OrderByDirection.Ascending) queryable = queryable.OrderBy(e => e.DateTime);
             else if (orderByDirection == OrderByDirection.Descending) queryable = queryable.OrderByDescending(e => e.DateTime);
@@ -75,7 +75,7 @@ public class InternalUserRepository(DbContext _dbContext) : IInternalUserReposit
         {
             Records = await queryable.Skip(skip)
                 .Take(take)
-                .Select(e => new ManyRecord
+                .Select(e => new TableRecord
                 {
                     AddUserId = e.AddUserId,
                     DateTime = e.DateTime,

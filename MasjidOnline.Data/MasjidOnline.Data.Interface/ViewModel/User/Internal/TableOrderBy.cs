@@ -1,6 +1,6 @@
 namespace MasjidOnline.Data.Interface.ViewModel.User.Internal;
 
-public enum ManyOrderBy
+public enum TableOrderBy
 {
     DateTime = 1,
 }

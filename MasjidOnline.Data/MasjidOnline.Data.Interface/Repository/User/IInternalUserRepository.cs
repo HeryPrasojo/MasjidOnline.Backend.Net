@@ -14,7 +14,7 @@ public interface IInternalUserRepository
 
     //Task<bool> AnyAsync(string emailAddress, InternalUserStatus status);
     //Task<ForApprove?> GetForApproveAsync(int id);
-    Task<ManyResult<ManyRecord>> GetTableAsync(InternalUserStatus? status = default, ManyOrderBy getTableOrderBy = default, OrderByDirection orderByDirection = default, int skip = 0, int take = 1);
+    Task<TableResult<TableRecord>> GetTableAsync(InternalUserStatus? status = default, TableOrderBy getTableOrderBy = default, OrderByDirection orderByDirection = default, int skip = 0, int take = 1);
     Task<int> GetMaxIdAsync();
     Task<View?> GetFirstOrDefaultAsync(int id);
     Task<InternalUserStatus> GetStatusAsync(int id);

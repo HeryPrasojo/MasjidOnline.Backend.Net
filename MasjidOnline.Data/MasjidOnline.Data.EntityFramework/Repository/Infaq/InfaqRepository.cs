@@ -52,7 +52,7 @@ public class InfaqRepository(DbContext _dbContext) : IInfaqRepository
             .FirstOrDefaultAsync();
     }
 
-    public async Task<ManyResult<ManyRecord>> GetTableAsync(
+    public async Task<TableResult<TableRecord>> GetTableAsync(
         IEnumerable<PaymentType>? paymentTypes = default,
         IEnumerable<InfaqStatus>? paymentStatuses = default,
         int skip = 0,
@@ -76,7 +76,7 @@ public class InfaqRepository(DbContext _dbContext) : IInfaqRepository
         {
             Records = await queryable.Skip(skip)
                 .Take(take)
-                .Select(e => new ManyRecord
+                .Select(e => new TableRecord
                 {
                     Amount = e.Amount,
                     DateTime = e.DateTime,

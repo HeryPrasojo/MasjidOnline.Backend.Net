@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace MasjidOnline.Data.Interface.ViewModel.Repository;
 
-public class ManyResult<TRecords>
+public class TableResult<TRecords>
 {
     public required long RecordCount { get; set; }
 

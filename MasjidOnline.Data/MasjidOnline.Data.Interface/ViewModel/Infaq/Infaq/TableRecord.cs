@@ -4,7 +4,7 @@ using MasjidOnline.Entity.Payment;
 
 namespace MasjidOnline.Data.Interface.ViewModel.Infaq.Infaq;
 
-public class ManyRecord
+public class TableRecord
 {
     public required int Id { get; set; }
 

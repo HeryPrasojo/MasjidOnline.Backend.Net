@@ -10,7 +10,7 @@ namespace MasjidOnline.Business.Infaq.Infaq;
 
 public class GetTableBusiness(IService _service) : IGetTableBusiness
 {
-    public async Task<Response<GetTableResponse<GetTableResponseRecord>>> GetAsync(
+    public async Task<Response<TableResponse<GetTableResponseRecord>>> GetAsync(
         Model.Session.Session session,
         IData _data,
         GetTableRequest? getTableRequest)

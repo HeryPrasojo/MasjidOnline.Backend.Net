@@ -3,7 +3,7 @@ using MasjidOnline.Entity.User;
 
 namespace MasjidOnline.Data.Interface.ViewModel.User.Internal;
 
-public class ManyRecord
+public class TableRecord
 {
     public required int Id { get; set; }
 

@@ -12,7 +12,7 @@ namespace MasjidOnline.Business.Accountancy.Expenditure;
 
 public class GetTableBusiness(IService _service) : IGetTableBusiness
 {
-    public async Task<Response<GetTableResponse<GetTableResponseRecord>>> GetAsync(
+    public async Task<Response<TableResponse<GetTableResponseRecord>>> GetAsync(
         IData _data,
         Model.Session.Session session,
         GetTableRequest? getTableRequest)
@@ -25,7 +25,7 @@ public class GetTableBusiness(IService _service) : IGetTableBusiness
 
         var getTableResult = await _data.Accountancy.Expenditure.GetTableAsync(
             status: getTableRequest.Status.HasValue ? Mapper.Mapper.Accountancy.ExpenditureStatus[getTableRequest.Status.Value] : default,
-            getTableOrderBy: ManyOrderBy.DateTime,
+            getTableOrderBy: TableOrderBy.DateTime,
             orderByDirection: OrderByDirection.Descending,
             skip: (getTableRequest.Page.Value - 1) * take,
             take: take);

@@ -15,7 +15,7 @@ internal static class UserEndpoint
 {
     internal static class Internal
     {
-        internal static async Task<Response<GetTableResponse<GetTableResponseRecord>>> GetTableAsync(
+        internal static async Task<Response<TableResponse<GetTableResponseRecord>>> GetTableAsync(
             IBusiness _business,
             Session session,
             IData _data,

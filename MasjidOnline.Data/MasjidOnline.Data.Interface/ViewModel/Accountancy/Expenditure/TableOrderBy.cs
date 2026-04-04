@@ -1,6 +1,6 @@
 namespace MasjidOnline.Data.Interface.ViewModel.Accountancy.Expenditure;
 
-public enum ManyOrderBy
+public enum TableOrderBy
 {
     DateTime = 1,
 }

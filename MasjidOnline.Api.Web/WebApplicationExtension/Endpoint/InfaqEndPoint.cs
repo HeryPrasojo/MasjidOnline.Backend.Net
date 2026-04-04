@@ -54,7 +54,7 @@ internal static class InfaqEndpoint
             return response;
         }
 
-        internal static async Task<Response<GetTableResponse<Business.Model.Infaq.Infaq.GetTableResponseRecord>>> GetTableAsync(
+        internal static async Task<Response<TableResponse<Business.Model.Infaq.Infaq.GetTableResponseRecord>>> GetTableAsync(
             IBusiness _business,
             Session session,
             IData _data,
