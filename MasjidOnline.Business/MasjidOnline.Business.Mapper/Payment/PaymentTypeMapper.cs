@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using MasjidOnline.Business.Model.Payment;
+using MasjidOnline.Business.Model.Payment.Payment;
 
 namespace MasjidOnline.Business.Mapper.Payment;
 

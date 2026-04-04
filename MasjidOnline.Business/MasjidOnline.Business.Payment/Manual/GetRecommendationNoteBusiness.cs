@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using MasjidOnline.Business.Model.Payment.Manual;
+using MasjidOnline.Business.Model.Payment.ManualRecommendationId;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Payment.Interface.Manual;
 using MasjidOnline.Data.Interface;

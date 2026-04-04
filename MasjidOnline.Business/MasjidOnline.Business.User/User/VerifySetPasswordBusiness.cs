@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using MasjidOnline.Business.Model.Authorization;
+using MasjidOnline.Business.Model.Authorization.UserInternalPermission;
 using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Model.User.User;
@@ -98,7 +98,7 @@ public class VerifySetPasswordBusiness(IOptionsMonitor<BusinessOptions> _options
         if (user.Status != UserStatus.Active) throw new DataMismatchException(nameof(user));
 
 
-        UserInternalPermission? userInternalPermissionResponse = default;
+        ForLoginResponse? userInternalPermissionResponse = default;
 
         var userInternalPermission = await _data.Authorization.UserInternalPermission.FirstOrDefaultAsync(verificationCode.UserId);
 

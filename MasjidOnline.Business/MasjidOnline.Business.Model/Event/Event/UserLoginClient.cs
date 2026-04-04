@@ -1,4 +1,4 @@
-namespace MasjidOnline.Business.Model.Event;
+namespace MasjidOnline.Business.Model.Event.Event;
 
 public enum UserLoginClient
 {

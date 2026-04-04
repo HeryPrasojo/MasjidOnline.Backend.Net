@@ -2,6 +2,6 @@
 
 namespace MasjidOnline.Business.Authorization.Authorization;
 
-public class UserInternalAuthorization : IUserInternalAuthorization
+internal class UserInternalPermissionAuthorization : AuthorizationBase, IUserInternalPermissionAuthorization
 {
 }

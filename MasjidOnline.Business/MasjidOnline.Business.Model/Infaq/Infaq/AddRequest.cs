@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using MasjidOnline.Business.Model.Payment;
+using MasjidOnline.Business.Model.Payment.Payment;
 
 namespace MasjidOnline.Business.Model.Infaq.Infaq;
 

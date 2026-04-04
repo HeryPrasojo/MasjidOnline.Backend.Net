@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using MasjidOnline.Business.Model.Infaq;
+using MasjidOnline.Business.Model.Infaq.Infaq;
 
 namespace MasjidOnline.Business.Mapper.Infaq;
 

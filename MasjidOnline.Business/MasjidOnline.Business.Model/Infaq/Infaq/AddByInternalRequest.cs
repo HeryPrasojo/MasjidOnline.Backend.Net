@@ -1,5 +1,5 @@
 using System;
-using MasjidOnline.Business.Model.Payment;
+using MasjidOnline.Business.Model.Payment.Payment;
 
 namespace MasjidOnline.Business.Model.Infaq.Infaq;
 

@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface;
-using MasjidOnline.Business.Model.Authorization;
+using MasjidOnline.Business.Model.Authorization.UserInternalPermission;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Model.User.User;
 using MasjidOnline.Business.User.Interface.User;
@@ -67,7 +67,7 @@ public class LoginBusiness(IAuthorizationBusiness _authorizationBusiness, IServi
             throw new InputMismatchException(nameof(loginRequest.Contact) + " or " + nameof(loginRequest.Password));
 
 
-        UserInternalPermission? userInternalPermissionResponse = default;
+        ForLoginResponse? userInternalPermissionResponse = default;
 
         var userInternalPermission = await _data.Authorization.UserInternalPermission.FirstOrDefaultAsync(userId);
 

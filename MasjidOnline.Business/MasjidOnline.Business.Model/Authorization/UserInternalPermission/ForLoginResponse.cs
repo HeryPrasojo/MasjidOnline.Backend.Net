@@ -1,6 +1,6 @@
-namespace MasjidOnline.Business.Model.Authorization;
+namespace MasjidOnline.Business.Model.Authorization.UserInternalPermission;
 
-public class UserInternalPermission
+public class ForLoginResponse
 {
     public required bool AccountancyExpenditureAdd { get; set; }
     public required bool AccountancyExpenditureApprove { get; set; }

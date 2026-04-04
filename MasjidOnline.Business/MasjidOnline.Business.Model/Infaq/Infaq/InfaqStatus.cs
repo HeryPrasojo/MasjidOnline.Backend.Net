@@ -1,4 +1,4 @@
-namespace MasjidOnline.Business.Model.Infaq;
+namespace MasjidOnline.Business.Model.Infaq.Infaq;
 
 public enum InfaqStatus
 {

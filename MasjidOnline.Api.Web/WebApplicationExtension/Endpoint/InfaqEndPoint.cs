@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface;
-using MasjidOnline.Business.Model.Payment;
+using MasjidOnline.Business.Model.Payment.Payment;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Model.Session;
 using MasjidOnline.Data.Interface;

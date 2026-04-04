@@ -6,7 +6,7 @@ using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Infaq.Interface.Infaq;
 using MasjidOnline.Business.Model.Infaq.Infaq;
 using MasjidOnline.Business.Model.Options;
-using MasjidOnline.Business.Model.Payment;
+using MasjidOnline.Business.Model.Payment.Payment;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Entity.Infaq;
@@ -77,7 +77,7 @@ public class AddBusiness(
             PaymentId = payment.Id,
             PaymentType = Mapper.Mapper.Payment.PaymentType[addRequest.PaymentType.Value],
             ReceiverType = ReceiverType.MasjidOnline,
-            Status = InfaqStatus.New,
+            Status = Entity.Infaq.InfaqStatus.New,
             UserId = session.UserId,
         };
 

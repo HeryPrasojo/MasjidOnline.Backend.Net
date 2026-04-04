@@ -1,5 +1,5 @@
 ﻿namespace MasjidOnline.Business.Authorization.Interface.Authorization;
 
-public interface IUserInternalAuthorization
+public interface IUserInternalPermissionAuthorization
 {
 }

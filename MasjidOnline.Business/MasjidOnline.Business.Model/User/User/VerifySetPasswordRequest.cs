@@ -1,4 +1,4 @@
-using MasjidOnline.Business.Model.Event;
+using MasjidOnline.Business.Model.Event.Event;
 
 namespace MasjidOnline.Business.Model.User.User;
 
