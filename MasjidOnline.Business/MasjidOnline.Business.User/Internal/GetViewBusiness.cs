@@ -13,10 +13,10 @@ namespace MasjidOnline.Business.User.Internal;
 
 public class GetViewBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : IGetViewBusiness
 {
-    public async Task<Response<GetViewResponse>> GetAsync(
+    public async Task<Response<ViewResponse>> GetAsync(
         Model.Session.Session session,
         IData _data,
-        GetViewRequest? getViewRequest)
+        ViewRequest? getViewRequest)
     {
         await _authorizationBusiness.User.Internal.AuthorizeGetAync(session, _data);
 

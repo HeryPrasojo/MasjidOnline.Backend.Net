@@ -7,5 +7,5 @@ namespace MasjidOnline.Business.Infaq.Interface.Infaq;
 
 public interface IGetViewBusiness
 {
-    Task<Response<GetViewResponse>> GetAsync(Model.Session.Session session, IData _data, GetViewRequest? getViewRequest);
+    Task<Response<ViewResponse>> GetAsync(Model.Session.Session session, IData _data, ViewRequest? getViewRequest);
 }

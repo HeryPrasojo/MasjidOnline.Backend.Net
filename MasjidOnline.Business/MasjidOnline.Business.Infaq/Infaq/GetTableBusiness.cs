@@ -10,10 +10,10 @@ namespace MasjidOnline.Business.Infaq.Infaq;
 
 public class GetTableBusiness(IService _service) : IGetTableBusiness
 {
-    public async Task<Response<TableResponse<GetTableResponseRecord>>> GetAsync(
+    public async Task<Response<TableResponse<TableResponseRecord>>> GetAsync(
         Model.Session.Session session,
         IData _data,
-        GetTableRequest? getTableRequest)
+        TableRequest? getTableRequest)
     {
         getTableRequest = _service.FieldValidator.ValidateRequired(getTableRequest);
         getTableRequest.Page = _service.FieldValidator.ValidateRequiredPlus(getTableRequest.Page);
@@ -39,7 +39,7 @@ public class GetTableBusiness(IService _service) : IGetTableBusiness
             {
                 PageCount = ((getTableResult.RecordCount - 1) / take) + 1,
                 RecordCount = _service.Localization[getTableResult.RecordCount, session.CultureInfo],
-                Records = getTableResult.Records.Select(e => new GetTableResponseRecord
+                Records = getTableResult.Records.Select(e => new TableResponseRecord
                 {
                     Amount = _service.Localization[e.Amount, session.CultureInfo],
                     DateTime = _service.Localization[e.DateTime, session.CultureInfo, "yyyy MMM dd, HH:mm"],

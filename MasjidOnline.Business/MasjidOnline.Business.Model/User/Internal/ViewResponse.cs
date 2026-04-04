@@ -1,6 +1,6 @@
 namespace MasjidOnline.Business.Model.User.Internal;
 
-public class GetViewResponse
+public class ViewResponse
 {
     public required string DateTime { get; set; }
 

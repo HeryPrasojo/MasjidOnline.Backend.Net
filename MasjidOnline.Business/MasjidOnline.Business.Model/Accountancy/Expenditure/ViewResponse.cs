@@ -2,7 +2,7 @@ using System;
 
 namespace MasjidOnline.Business.Model.Accountancy.Expenditure;
 
-public class GetViewResponse
+public class ViewResponse
 {
     public required DateTime DateTime { get; set; }
 

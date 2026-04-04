@@ -10,7 +10,7 @@ namespace MasjidOnline.Business.Accountancy.Expenditure;
 
 public class GetViewBusiness(IService _service) : IGetViewBusiness
 {
-    public async Task<Response<GetViewResponse>> GetAsync(IData _data, GetViewRequest? getViewRequest)
+    public async Task<Response<ViewResponse>> GetAsync(IData _data, ViewRequest? getViewRequest)
     {
         getViewRequest = _service.FieldValidator.ValidateRequired(getViewRequest);
         getViewRequest.Id = _service.FieldValidator.ValidateRequiredPlus(getViewRequest.Id);

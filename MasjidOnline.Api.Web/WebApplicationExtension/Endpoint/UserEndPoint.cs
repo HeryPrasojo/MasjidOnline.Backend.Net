@@ -15,20 +15,20 @@ internal static class UserEndpoint
 {
     internal static class Internal
     {
-        internal static async Task<Response<TableResponse<GetTableResponseRecord>>> GetTableAsync(
+        internal static async Task<Response<TableResponse<TableResponseRecord>>> GetTableAsync(
             IBusiness _business,
             Session session,
             IData _data,
-            [FromBody] GetTableRequest? getTableRequest)
+            [FromBody] TableRequest? getTableRequest)
         {
             return await _business.User.Internal.GetTable.GetAsync(session, _data, getTableRequest);
         }
 
-        internal static async Task<Response<GetViewResponse>> GetViewAsync(
+        internal static async Task<Response<ViewResponse>> GetViewAsync(
             IBusiness _business,
             Session session,
             IData _data,
-            [FromBody] GetViewRequest? getViewRequest)
+            [FromBody] ViewRequest? getViewRequest)
         {
             return await _business.User.Internal.GetView.GetAsync(session, _data, getViewRequest);
         }

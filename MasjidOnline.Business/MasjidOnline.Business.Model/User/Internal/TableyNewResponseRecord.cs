@@ -1,8 +1,8 @@
 using System;
 
-namespace MasjidOnline.Business.Model.Accountancy.Expenditure;
+namespace MasjidOnline.Business.Model.User.Internal;
 
-public class GetTableNewResponseRecord
+public class TableyNewResponseRecord
 {
     public required DateTime DateTime { get; set; }
 

@@ -39,19 +39,19 @@ internal static class AccountancyEndpoint
             return await _business.Accountancy.Expenditure.Cancel.CancelAsync(session, _data, cancelRequest);
         }
 
-        internal static async Task<Response<TableResponse<GetTableResponseRecord>>> GetTableAsync(
+        internal static async Task<Response<TableResponse<TableResponseRecord>>> GetTableAsync(
             IBusiness _business,
             IData _data,
             Session session,
-            [FromBody] GetTableRequest? getTableRequest)
+            [FromBody] TableRequest? getTableRequest)
         {
             return await _business.Accountancy.Expenditure.GetTable.GetAsync(_data, session, getTableRequest);
         }
 
-        internal static async Task<Response<GetViewResponse>> GetViewAsync(
+        internal static async Task<Response<ViewResponse>> GetViewAsync(
             IBusiness _business,
             IData _data,
-            [FromBody] GetViewRequest? getViewRequest)
+            [FromBody] ViewRequest? getViewRequest)
         {
             return await _business.Accountancy.Expenditure.GetView.GetAsync(_data, getViewRequest);
         }

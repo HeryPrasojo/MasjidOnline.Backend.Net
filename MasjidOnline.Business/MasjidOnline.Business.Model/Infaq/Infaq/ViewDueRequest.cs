@@ -1,6 +1,6 @@
 ﻿namespace MasjidOnline.Business.Model.Infaq.Infaq;
 
-public class GetViewRequest
+public class ViewDueRequest
 {
     public int? Id { get; set; }
 }

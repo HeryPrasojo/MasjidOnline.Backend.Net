@@ -2,8 +2,10 @@ using System;
 
 namespace MasjidOnline.Business.Model.Infaq.Infaq;
 
-public class GetViewDueResponse
+public class TableDueResponseRecord
 {
+    public required int Id { get; set; }
+
     public required DateTime DateTime { get; set; }
 
     public required string? MunfiqName { get; set; }

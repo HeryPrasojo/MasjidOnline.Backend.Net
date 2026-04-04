@@ -7,5 +7,5 @@ namespace MasjidOnline.Business.User.Interface.Internal;
 
 public interface IGetTableBusiness
 {
-    Task<Response<TableResponse<GetTableResponseRecord>>> GetAsync(Business.Model.Session.Session session, IData _data, GetTableRequest? getTableRequest);
+    Task<Response<TableResponse<TableResponseRecord>>> GetAsync(Business.Model.Session.Session session, IData _data, TableRequest? getTableRequest);
 }

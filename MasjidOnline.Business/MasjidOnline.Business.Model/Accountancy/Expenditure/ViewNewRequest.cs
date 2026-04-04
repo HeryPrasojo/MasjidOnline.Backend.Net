@@ -1,6 +1,6 @@
 namespace MasjidOnline.Business.Model.Accountancy.Expenditure;
 
-public class GetTableNewRequest
+public class ViewNewRequest
 {
-    public int? Page { get; set; }
+    public int? Id { get; set; }
 }

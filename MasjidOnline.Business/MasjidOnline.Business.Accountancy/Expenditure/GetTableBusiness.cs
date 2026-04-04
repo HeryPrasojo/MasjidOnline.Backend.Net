@@ -12,10 +12,10 @@ namespace MasjidOnline.Business.Accountancy.Expenditure;
 
 public class GetTableBusiness(IService _service) : IGetTableBusiness
 {
-    public async Task<Response<TableResponse<GetTableResponseRecord>>> GetAsync(
+    public async Task<Response<TableResponse<TableResponseRecord>>> GetAsync(
         IData _data,
         Model.Session.Session session,
-        GetTableRequest? getTableRequest)
+        TableRequest? getTableRequest)
     {
         getTableRequest = _service.FieldValidator.ValidateRequired(getTableRequest);
         getTableRequest.Page = _service.FieldValidator.ValidateRequiredPlus(getTableRequest.Page);
@@ -37,7 +37,7 @@ public class GetTableBusiness(IService _service) : IGetTableBusiness
             {
                 PageCount = ((getTableResult.RecordCount - 1) / take) + 1,
                 RecordCount = _service.Localization[getTableResult.RecordCount, session.CultureInfo],
-                Records = getTableResult.Records.Select(e => new GetTableResponseRecord
+                Records = getTableResult.Records.Select(e => new TableResponseRecord
                 {
                     Amount = e.Amount,
                     DateTime = e.DateTime,

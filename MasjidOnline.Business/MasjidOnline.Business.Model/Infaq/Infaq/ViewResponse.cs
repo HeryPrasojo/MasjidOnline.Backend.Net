@@ -1,9 +1,7 @@
 namespace MasjidOnline.Business.Model.Infaq.Infaq;
 
-public class GetTableResponseRecord
+public class ViewResponse
 {
-    public required int Id { get; set; }
-
     public required string DateTime { get; set; }
 
     public required string? MunfiqName { get; set; }

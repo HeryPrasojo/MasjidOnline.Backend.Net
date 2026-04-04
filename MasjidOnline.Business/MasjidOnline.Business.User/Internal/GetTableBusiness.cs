@@ -13,10 +13,10 @@ namespace MasjidOnline.Business.User.Internal;
 
 public class GetTableBusiness(IAuthorizationBusiness _authorizationBusiness, IService _service) : IGetTableBusiness
 {
-    public async Task<Response<TableResponse<GetTableResponseRecord>>> GetAsync(
+    public async Task<Response<TableResponse<TableResponseRecord>>> GetAsync(
         Model.Session.Session session,
         IData _data,
-        GetTableRequest? getTableRequest)
+        TableRequest? getTableRequest)
     {
         await _authorizationBusiness.User.Internal.AuthorizeGetAync(session, _data);
 
@@ -52,7 +52,7 @@ public class GetTableBusiness(IAuthorizationBusiness _authorizationBusiness, ISe
             {
                 PageCount = ((getTableResult.RecordCount - 1) / take) + 1,
                 RecordCount = _service.Localization[getTableResult.RecordCount, session.CultureInfo],
-                Records = getTableResult.Records.Select(e => new GetTableResponseRecord
+                Records = getTableResult.Records.Select(e => new TableResponseRecord
                 {
                     AddPersonName = persons.FirstOrDefault(p => p.UserId == e.AddUserId)?.Name,
                     DateTime = _service.Localization[e.DateTime, session.CultureInfo, "yyyy MMM dd, HH:mm"],

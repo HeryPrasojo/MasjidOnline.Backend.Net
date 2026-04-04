@@ -3,7 +3,7 @@ using MasjidOnline.Business.Model.Payment.Payment;
 
 namespace MasjidOnline.Business.Model.Infaq.Infaq;
 
-public class GetTableDueRequest
+public class TableDueRequest
 {
     public IEnumerable<PaymentType>? PaymentTypes { get; set; }
     public int? Page { get; set; }

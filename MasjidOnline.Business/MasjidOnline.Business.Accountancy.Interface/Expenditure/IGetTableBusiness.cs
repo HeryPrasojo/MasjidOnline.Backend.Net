@@ -7,5 +7,5 @@ namespace MasjidOnline.Business.Accountancy.Interface.Expenditure;
 
 public interface IGetTableBusiness
 {
-    Task<Response<TableResponse<GetTableResponseRecord>>> GetAsync(IData _data, Model.Session.Session session, GetTableRequest? getTableRequest);
+    Task<Response<TableResponse<TableResponseRecord>>> GetAsync(IData _data, Model.Session.Session session, TableRequest? getTableRequest);
 }

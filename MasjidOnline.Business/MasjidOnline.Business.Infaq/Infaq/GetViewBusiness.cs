@@ -10,7 +10,7 @@ namespace MasjidOnline.Business.Infaq.Infaq;
 
 public class GetViewBusiness(IService _service) : IGetViewBusiness
 {
-    public async Task<Response<GetViewResponse>> GetAsync(Model.Session.Session session, IData _data, GetViewRequest? getViewRequest)
+    public async Task<Response<ViewResponse>> GetAsync(Model.Session.Session session, IData _data, ViewRequest? getViewRequest)
     {
         getViewRequest = _service.FieldValidator.ValidateRequired(getViewRequest);
         getViewRequest.Id = _service.FieldValidator.ValidateRequiredPlus(getViewRequest.Id);
@@ -24,7 +24,7 @@ public class GetViewBusiness(IService _service) : IGetViewBusiness
         return new()
         {
             ResultCode = ResponseResultCode.Success,
-            Data = new GetViewResponse()
+            Data = new ViewResponse()
             {
                 Amount = _service.Localization[infaq.Amount, session.CultureInfo],
                 DateTime = _service.Localization[infaq.DateTime, session.CultureInfo, "yyyy MMM dd, HH:mm"],
