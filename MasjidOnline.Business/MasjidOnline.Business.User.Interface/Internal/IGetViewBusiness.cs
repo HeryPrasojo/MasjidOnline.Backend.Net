@@ -8,5 +8,5 @@ namespace MasjidOnline.Business.User.Interface.Internal;
 
 public interface IGetViewBusiness
 {
-    Task<Response<ViewResponse>> GetAsync(Session session, IData _data, ViewRequest? getViewRequest);
+    Task<Response<ViewResponse>> GetAsync(Session session, IData _data, ViewRequest? viewRequest);
 }

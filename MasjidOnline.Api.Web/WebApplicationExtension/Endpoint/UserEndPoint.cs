@@ -28,9 +28,9 @@ internal static class UserEndpoint
             IBusiness _business,
             Session session,
             IData _data,
-            [FromBody] ViewRequest? getViewRequest)
+            [FromBody] ViewRequest? viewRequest)
         {
-            return await _business.User.Internal.GetView.GetAsync(session, _data, getViewRequest);
+            return await _business.User.Internal.GetView.GetAsync(session, _data, viewRequest);
         }
     }
 

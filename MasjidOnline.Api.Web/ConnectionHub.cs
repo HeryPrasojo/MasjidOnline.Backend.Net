@@ -74,9 +74,9 @@ public class ConnectionHub(IBusiness _business) : Hub
         return await _business.User.Internal.GetTable.GetAsync(Session, _data, getTableRequest);
     }
 
-    public async Task<Response<ViewResponse>> UserInternalGetView(IData _data, ViewRequest? getViewRequest)
+    public async Task<Response<ViewResponse>> UserInternalGetView(IData _data, ViewRequest? viewRequest)
     {
-        return await _business.User.Internal.GetView.GetAsync(Session, _data, getViewRequest);
+        return await _business.User.Internal.GetView.GetAsync(Session, _data, viewRequest);
     }
 
     public async Task<Response> UserInternalReject(IData _data, RejectRequest? rejectRequest)

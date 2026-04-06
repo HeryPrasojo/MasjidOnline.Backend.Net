@@ -51,9 +51,9 @@ internal static class AccountancyEndpoint
         internal static async Task<Response<ViewResponse>> GetViewAsync(
             IBusiness _business,
             IData _data,
-            [FromBody] ViewRequest? getViewRequest)
+            [FromBody] ViewRequest? viewRequest)
         {
-            return await _business.Accountancy.Expenditure.GetView.GetAsync(_data, getViewRequest);
+            return await _business.Accountancy.Expenditure.GetView.GetAsync(_data, viewRequest);
         }
 
         internal static async Task<Response> RejectAsync(

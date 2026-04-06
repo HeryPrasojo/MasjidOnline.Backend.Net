@@ -10,15 +10,15 @@ namespace MasjidOnline.Business.Accountancy.Expenditure;
 
 public class GetViewBusiness(IService _service) : IGetViewBusiness
 {
-    public async Task<Response<ViewResponse>> GetAsync(IData _data, ViewRequest? getViewRequest)
+    public async Task<Response<ViewResponse>> GetAsync(IData _data, ViewRequest? viewRequest)
     {
-        getViewRequest = _service.FieldValidator.ValidateRequired(getViewRequest);
-        getViewRequest.Id = _service.FieldValidator.ValidateRequiredPlus(getViewRequest.Id);
+        viewRequest = _service.FieldValidator.ValidateRequired(viewRequest);
+        viewRequest.Id = _service.FieldValidator.ValidateRequiredPlus(viewRequest.Id);
 
 
-        var expenditure = await _data.Accountancy.Expenditure.GetFirstOrDefaultAsync(getViewRequest.Id.Value);
+        var expenditure = await _data.Accountancy.Expenditure.GetFirstOrDefaultAsync(viewRequest.Id.Value);
 
-        if (expenditure == default) throw new InputMismatchException($"{nameof(getViewRequest.Id)}: {getViewRequest.Id}");
+        if (expenditure == default) throw new InputMismatchException($"{nameof(viewRequest.Id)}: {viewRequest.Id}");
 
         return new()
         {

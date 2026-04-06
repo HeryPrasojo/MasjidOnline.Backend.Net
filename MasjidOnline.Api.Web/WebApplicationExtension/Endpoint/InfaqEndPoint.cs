@@ -67,9 +67,9 @@ internal static class InfaqEndpoint
             IBusiness _business,
             Session session,
             IData _data,
-            [FromBody] Business.Model.Infaq.Infaq.ViewRequest? getViewRequest)
+            [FromBody] Business.Model.Infaq.Infaq.ViewRequest? viewRequest)
         {
-            return await _business.Infaq.Infaq.GetView.GetAsync(session, _data, getViewRequest);
+            return await _business.Infaq.Infaq.GetView.GetAsync(session, _data, viewRequest);
         }
     }
 }

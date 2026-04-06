@@ -10,15 +10,15 @@ namespace MasjidOnline.Business.Infaq.Infaq;
 
 public class GetViewBusiness(IService _service) : IGetViewBusiness
 {
-    public async Task<Response<ViewResponse>> GetAsync(Model.Session.Session session, IData _data, ViewRequest? getViewRequest)
+    public async Task<Response<ViewResponse>> GetAsync(Model.Session.Session session, IData _data, ViewRequest? viewRequest)
     {
-        getViewRequest = _service.FieldValidator.ValidateRequired(getViewRequest);
-        getViewRequest.Id = _service.FieldValidator.ValidateRequiredPlus(getViewRequest.Id);
+        viewRequest = _service.FieldValidator.ValidateRequired(viewRequest);
+        viewRequest.Id = _service.FieldValidator.ValidateRequiredPlus(viewRequest.Id);
 
 
-        var infaq = await _data.Infaq.Infaq.GetFirstOrDefaultAsync(getViewRequest.Id.Value);
+        var infaq = await _data.Infaq.Infaq.GetFirstOrDefaultAsync(viewRequest.Id.Value);
 
-        if (infaq == default) throw new InputMismatchException($"{nameof(getViewRequest.Id)}: {getViewRequest.Id}");
+        if (infaq == default) throw new InputMismatchException($"{nameof(viewRequest.Id)}: {viewRequest.Id}");
 
 
         return new()

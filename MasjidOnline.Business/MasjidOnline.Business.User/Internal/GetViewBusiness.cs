@@ -16,17 +16,17 @@ public class GetViewBusiness(IAuthorizationBusiness _authorizationBusiness, ISer
     public async Task<Response<ViewResponse>> GetAsync(
         Model.Session.Session session,
         IData _data,
-        ViewRequest? getViewRequest)
+        ViewRequest? viewRequest)
     {
         await _authorizationBusiness.User.Internal.AuthorizeGetAync(session, _data);
 
 
-        getViewRequest = _service.FieldValidator.ValidateRequired(getViewRequest);
-        getViewRequest.Id = _service.FieldValidator.ValidateRequiredPlus(getViewRequest.Id);
+        viewRequest = _service.FieldValidator.ValidateRequired(viewRequest);
+        viewRequest.Id = _service.FieldValidator.ValidateRequiredPlus(viewRequest.Id);
 
 
-        var internalUser = await _data.User.InternalUser.GetFirstOrDefaultAsync(getViewRequest.Id.Value)
-            ?? throw new InputMismatchException($"{nameof(getViewRequest.Id)}: {getViewRequest.Id}");
+        var internalUser = await _data.User.InternalUser.GetFirstOrDefaultAsync(viewRequest.Id.Value)
+            ?? throw new InputMismatchException($"{nameof(viewRequest.Id)}: {viewRequest.Id}");
 
 
         var userIds = new List<int>
