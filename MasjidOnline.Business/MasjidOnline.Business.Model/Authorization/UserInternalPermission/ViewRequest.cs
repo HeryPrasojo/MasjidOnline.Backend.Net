@@ -2,4 +2,5 @@
 
 public class ViewRequest
 {
+    public int? UserId { get; set; }
 }

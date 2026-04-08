@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using MasjidOnline.Data.Interface.ViewModel.Authorization.UserInternalPermission;
 using MasjidOnline.Entity.Authorization;
 
 namespace MasjidOnline.Data.Interface.Repository.Authorization;
@@ -6,5 +7,5 @@ namespace MasjidOnline.Data.Interface.Repository.Authorization;
 public interface IUserInternalPermissionRepository
 {
     Task AddAsync(UserInternalPermission userInternalPermission);
-    Task<UserInternalPermission?> FirstOrDefaultAsync(int userId);
+    Task<View?> FirstOrDefaultAsync(int userId);
 }

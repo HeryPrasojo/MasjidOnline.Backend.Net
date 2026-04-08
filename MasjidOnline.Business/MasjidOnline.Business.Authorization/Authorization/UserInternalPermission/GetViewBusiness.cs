@@ -16,7 +16,27 @@ public class GetViewBusiness(IAuthorizationBusiness _authorizationBusiness, ISer
         ViewRequest? viewRequest)
     {
         await _authorizationBusiness.Authorization.UserInternalPermission.AuthorizeGetAync(session, _data);
-        // undone
-        return null;
+
+
+        viewRequest = _service.FieldValidator.ValidateRequired(viewRequest);
+        viewRequest.UserId = _service.FieldValidator.ValidateRequiredPlus(viewRequest.UserId);
+
+
+        var userInternalPermission = await _data.Authorization.UserInternalPermission.FirstOrDefaultAsync(viewRequest.UserId.Value);
+
+        return new()
+        {
+            ResultCode = ResponseResultCode.Success,
+            Data = new()
+            {
+                AccountancyExpenditureAdd = userInternalPermission?.AccountancyExpenditureAdd ?? false,
+                AccountancyExpenditureApprove = userInternalPermission?.AccountancyExpenditureApprove ?? false,
+                InfaqStatusRequest = userInternalPermission?.InfaqStatusRequest ?? false,
+                InfaqStatusApprove = userInternalPermission?.InfaqStatusApprove ?? false,
+                UserInternalAdd = userInternalPermission?.UserInternalAdd ?? false,
+                UserInternalApprove = userInternalPermission?.UserInternalApprove ?? false,
+                UserInternalPermissionUpdate = userInternalPermission?.UserInternalPermissionUpdate ?? false,
+            },
+        };
     }
 }

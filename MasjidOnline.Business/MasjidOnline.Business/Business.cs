@@ -33,7 +33,7 @@ public class Business : IBusiness
         IService _service
     )
     {
-        Authorization = new AuthorizationBusiness();
+        Authorization = new AuthorizationBusiness(_service);
 
         Accountancy = new AccountancyBusiness(Authorization, _service);
         Event = new EventBusiness();

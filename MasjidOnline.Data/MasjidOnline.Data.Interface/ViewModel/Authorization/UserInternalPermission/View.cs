@@ -1,6 +1,6 @@
-﻿namespace MasjidOnline.Business.Model.Authorization.UserInternalPermission;
+﻿namespace MasjidOnline.Data.Interface.ViewModel.Authorization.UserInternalPermission;
 
-public class ViewResponse
+public class View
 {
     public required bool AccountancyExpenditureAdd { get; set; }
     public required bool AccountancyExpenditureApprove { get; set; }
