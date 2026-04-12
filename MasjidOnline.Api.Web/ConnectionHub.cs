@@ -88,6 +88,13 @@ public class ConnectionHub(IBusiness _business) : Hub
     }
 
 
+    public async Task<Response> UserInternalPermissionUpdate(
+        IData _data,
+        Business.Model.Authorization.UserInternalPermission.UpdateRequest? updateRequest)
+    {
+        return await _business.Authorization.Authorization.UserInternalPermission.Update.UpdateAsync(_data, Session, updateRequest);
+    }
+
     public async Task<Response<Business.Model.Authorization.UserInternalPermission.ViewResponse>> UserInternalPermissionView(
         IData _data,
         Business.Model.Authorization.UserInternalPermission.ViewRequest? viewRequest)

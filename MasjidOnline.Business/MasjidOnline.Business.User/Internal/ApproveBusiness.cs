@@ -1,18 +1,16 @@
 using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface;
-using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Model.User.Internal;
 using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
-using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Business.User.Internal;
 
 public class ApproveBusiness(
-    IOptionsMonitor<BusinessOptions> _optionsMonitor,
     IAuthorizationBusiness _authorizationBusiness,
     IService _service) : IApproveBusiness
 {
@@ -24,95 +22,21 @@ public class ApproveBusiness(
         approveRequest.Id = _service.FieldValidator.ValidateRequiredPlus(approveRequest.Id);
 
 
-        //var @internal = await _data.User.InternalUser.GetForApproveAsync(approveRequest.Id.Value);
+        var status = await _data.User.InternalUser.GetStatusAsync(approveRequest.Id.Value);
 
-        //if (@internal == default) throw new InputMismatchException($"{nameof(approveRequest.Id)}: {approveRequest.Id}");
+        if (status == default) throw new InputMismatchException($"{nameof(approveRequest.Id)}: {approveRequest.Id}");
 
-        //if (@internal.Status != Entity.User.InternalUserStatus.New) throw new InputMismatchException($"{nameof(@internal.Status)}: {@internal.Status}");
+        if (status != Entity.User.InternalUserStatus.New) throw new InputMismatchException($"{nameof(status)}: {status}");
 
-
-        await _data.Transaction.BeginAsync(_data.User, _data.Authorization, _data.Audit);
 
         var utcNow = DateTime.UtcNow;
 
-        _data.User.InternalUser.SetStatus(
+        await _data.User.InternalUser.SetStatusAndSaveAsync(
             approveRequest.Id.Value,
             Entity.User.InternalUserStatus.Approve,
             default,
             utcNow,
             session.UserId);
-
-
-        //var user = new Entity.User.User
-        //{
-        //    Id = _data.IdGenerator.User.UserId,
-        //    Status = UserStatus.New,
-        //    Type = UserType.Internal,
-        //};
-
-        //await _data.User.User.AddAsync(user);
-
-
-        //var userEmailAddress = new UserEmailAddress
-        //{
-        //    EmailAddress = @internal.EmailAddress,
-        //    UserId = user.Id,
-        //};
-
-        //await _data.User.UserEmailAddress.AddAsync(userEmailAddress);
-
-        //await _data.Audit.UserEmailAddressLog.AddAddAsync(_data.IdGenerator.Audit.UserEmailAddressLogId, utcNow, session.UserId, userEmailAddress);
-
-
-        //var userInternalPermission = new UserInternalPermission
-        //{
-        //    UserId = user.Id,
-
-        //    AccountancyExpenditureAdd = false,
-        //    AccountancyExpenditureApprove = false,
-        //    AccountancyExpenditureCancel = false,
-        //    InfaqExpireAdd = false,
-        //    InfaqExpireApprove = false,
-        //    InfaqExpireCancel = false,
-        //    InfaqSuccessAdd = false,
-        //    InfaqSuccessApprove = false,
-        //    InfaqSuccessCancel = false,
-        //    InfaqVoidAdd = false,
-        //    InfaqVoidApprove = false,
-        //    InfaqVoidCancel = false,
-        //    UserInternalAdd = false,
-        //    UserInternalApprove = false,
-        //    UserInternalCancel = false,
-        //};
-
-        //await _data.Authorization.UserInternalPermission.AddAsync(userInternalPermission);
-
-        //await _data.Audit.UserInternalPermissionLog.AddAddAsync(_data.IdGenerator.Audit.PermissionLogId, utcNow, session.UserId, userInternalPermission);
-
-
-        //var passwordCode = new PasswordCode
-        //{
-        //    Code = _service.Hash512.RandomByteArray,
-        //    DateTime = DateTime.UtcNow,
-        //    UserId = user.Id,
-        //};
-
-        //await _data.User.PasswordCode.AddAsync(passwordCode);
-
-        await _data.Transaction.CommitAsync();
-
-
-        //var uri = _optionsMonitor.CurrentValue.Uri.UserPassword + Convert.ToHexString(passwordCode.Code.AsSpan());
-
-        //var mailMessage = new MailMessage
-        //{
-        //    BodyHtml = $"<p>Please use the following link to set your password: <a href='{uri}'>{uri}</a> first.</p>",
-        //    BodyText = $"Please use the following link to set your password: {uri} first",
-        //    Subject = "MasjidOnline Password",
-        //    To = [new MailAddress("MasjidOnline Internal User", userEmailAddress.EmailAddress)],
-        //};
-
-        //await _service.MailSender.SendMailAsync(mailMessage);
 
         return new()
         {

@@ -24,6 +24,8 @@ public class CancelBusiness(IAuthorizationBusiness _authorizationBusiness, IServ
 
         var status = await _data.User.InternalUser.GetStatusAsync(cancelRequest.Id.Value);
 
+        if (status == default) throw new InputMismatchException($"{nameof(cancelRequest.Id)}: {cancelRequest.Id}");
+
         if (status != Entity.User.InternalUserStatus.New) throw new InputMismatchException($"{nameof(status)}: {status}");
 
 

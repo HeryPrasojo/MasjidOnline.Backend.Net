@@ -23,7 +23,7 @@ public class UserBusiness(
     IService _service
     ) : IUserBusiness
 {
-    public IUserInternalBusiness Internal { get; } = new UserInternalBusiness(_businessOptionsMonitor, _authorizationBusiness, _service);
+    public IUserInternalBusiness Internal { get; } = new UserInternalBusiness(_authorizationBusiness, _service);
     public IUserPreferenceBusiness UserPreference { get; } = new UserPreferenceBusiness();
     public IUserUserBusiness User { get; } = new UserUserBusiness(_businessOptionsMonitor, _authorizationBusiness, _service);
 

@@ -1,0 +1,32 @@
+1 initialize database
+2 verify contact
+3 new user
+	1 register
+	2 verify contact
+4 user
+	1 login
+	2 set preference
+	3 logout
+5 internal user
+	1 add
+	2 cancel
+	3 reject
+	4 approve
+	5 update permission
+6 infaq
+	1 add
+		1 anonym
+			1 manual bank transfer
+		2 user
+			1 manual bank transfer
+	2 reject expired
+	3 approve
+7 contact
+	1 add
+	2 remove
+	3 blocked
+		1 add
+		2 remove
+8 message
+	1 person
+	2 group

@@ -1,20 +1,17 @@
-using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.User.Interface;
 using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Business.User.Internal;
-using Microsoft.Extensions.Options;
 
 namespace MasjidOnline.Business.User;
 
 // todo revoke
 public class UserInternalBusiness(
-    IOptionsMonitor<BusinessOptions> _optionsMonitor,
     Authorization.Interface.IAuthorizationBusiness _authorizationBusiness,
     Service.Interface.IService _service
     ) : IUserInternalBusiness
 {
     public IAddBusiness Add { get; } = new AddBusiness(_authorizationBusiness, _service);
-    public IApproveBusiness Approve { get; } = new ApproveBusiness(_optionsMonitor, _authorizationBusiness, _service);
+    public IApproveBusiness Approve { get; } = new ApproveBusiness(_authorizationBusiness, _service);
     public ICancelBusiness Cancel { get; } = new CancelBusiness(_authorizationBusiness, _service);
     public IGetTableBusiness GetTable { get; } = new GetTableBusiness(_authorizationBusiness, _service);
     public IGetViewBusiness GetView { get; } = new GetViewBusiness(_authorizationBusiness, _service);

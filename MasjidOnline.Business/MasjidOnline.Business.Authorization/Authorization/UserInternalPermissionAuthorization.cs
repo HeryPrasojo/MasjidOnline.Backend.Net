@@ -8,15 +8,22 @@ using MasjidOnline.Service.Interface;
 
 namespace MasjidOnline.Business.Authorization.Authorization;
 
+// hack 
 internal class UserInternalPermissionAuthorization(
     IAuthorizationBusiness _authorizationBusiness,
     IService _service) : AuthorizationBase, IUserInternalPermissionAuthorization
 {
-
     public async Task AuthorizeGetAync(Model.Session.Session session, IData _data)
     {
         await AuthorizePermissionAnyAsync(_data, session, userInternalAdd: true, userInternalApprove: true, userInternalPermissionUpdate: true);
     }
 
+    public async Task AuthorizUpdateAync(Model.Session.Session session, IData _data)
+    {
+        await AuthorizePermissionAnyAsync(_data, session, userInternalPermissionUpdate: true);
+    }
+
     public IGetViewBusiness GetView { get; } = new GetViewBusiness(_authorizationBusiness, _service);
+
+    public IUpdateBusiness Update { get; } = new UpdateBusiness(_authorizationBusiness, _service);
 }

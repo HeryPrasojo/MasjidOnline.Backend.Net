@@ -13,11 +13,26 @@ public class UserInternalPermissionLogRepository(DbContext _dbContext) : IUserIn
 
     public async Task AddAddAsync(int id, DateTime dateTime, int logUserId, UserInternalPermission userInternalPermission)
     {
+        await AddAsync(id, dateTime, UserInternalPermissionLogType.Add, logUserId, userInternalPermission);
+    }
+
+    public async Task AddUpdateAsync(int id, DateTime dateTime, int logUserId, UserInternalPermission userInternalPermission)
+    {
+        await AddAsync(id, dateTime, UserInternalPermissionLogType.Update, logUserId, userInternalPermission);
+    }
+
+    private async Task AddAsync(
+        int id,
+        DateTime dateTime,
+        UserInternalPermissionLogType userInternalPermissionLogType,
+        int logUserId,
+        UserInternalPermission userInternalPermission)
+    {
         var userInternalPermissionLog = new UserInternalPermissionLog
         {
             Id = id,
             LogDateTime = dateTime,
-            LogType = UserInternalPermissionLogType.Add,
+            LogType = userInternalPermissionLogType,
             LogUserId = logUserId,
 
             UserId = userInternalPermission.UserId,
