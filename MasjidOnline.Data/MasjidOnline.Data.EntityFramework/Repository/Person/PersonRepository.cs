@@ -16,6 +16,13 @@ public class PersonRepository(DbContext _dbContext) : IPersonRepository
         await _dbSet.AddAsync(person);
     }
 
+    public async Task<string?> GetNameAsync(int userId)
+    {
+        return await _dbSet.Where(e => e.UserId == userId)
+            .Select(e => e.Name)
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<IEnumerable<ForGetNames>> GetNamesAsync(IEnumerable<int> userIds)
     {
         return await _dbSet.Where(e => userIds.Any(i => i == e.UserId))

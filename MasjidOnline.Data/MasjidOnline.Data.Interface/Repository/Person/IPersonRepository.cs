@@ -9,5 +9,6 @@ public interface IPersonRepository
     Task AddAsync(Entity.Person.Person person);
     Task<IEnumerable<ForInternalUserView>?> GetForInternalUserViewAsync(IEnumerable<int> userIds);
     Task<int> GetMaxIdAsync();
+    Task<string?> GetNameAsync(int userId);
     Task<IEnumerable<ForGetNames>> GetNamesAsync(IEnumerable<int> userIds);
 }

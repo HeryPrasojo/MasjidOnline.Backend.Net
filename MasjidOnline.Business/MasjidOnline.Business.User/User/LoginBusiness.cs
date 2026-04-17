@@ -67,6 +67,9 @@ public class LoginBusiness(IAuthorizationBusiness _authorizationBusiness, IServi
             throw new InputMismatchException(nameof(loginRequest.Contact) + " or " + nameof(loginRequest.Password));
 
 
+        var personName = await _data.Person.Person.GetNameAsync(userId);
+
+
         ForLoginResponse? userInternalPermissionResponse = default;
 
         var userInternalPermission = await _data.Authorization.UserInternalPermission.FirstOrDefaultAsync(userId);
@@ -134,6 +137,7 @@ public class LoginBusiness(IAuthorizationBusiness _authorizationBusiness, IServi
                     ? null
                     : Mapper.Mapper.User.UserPreferenceApplicationCulture[userPreferenceApplicationCulture.Value],
                 Permission = userInternalPermissionResponse,
+                PersonName = personName,
                 UserId = userId,
                 UserType = Mapper.Mapper.User.UserType[user.Type],
             },

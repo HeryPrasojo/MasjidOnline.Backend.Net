@@ -122,6 +122,10 @@ public class VerifySetPasswordBusiness(IOptionsMonitor<BusinessOptions> _options
 
         var userPreferenceApplicationCulture = await _data.User.UserData.GetApplicationCultureAsync(verificationCode.UserId);
 
+
+        var personName = await _data.Person.Person.GetNameAsync(verificationCode.UserId);
+
+
         await _data.Transaction.BeginAsync(_data.User, _data.Audit, _data.Verification, _data.Session, _data.Event);
 
         var passwordBytes = _service.Hash512.Hash(verifySetPasswordRequest.Password);
@@ -176,6 +180,7 @@ public class VerifySetPasswordBusiness(IOptionsMonitor<BusinessOptions> _options
                     ? null
                     : Mapper.Mapper.User.UserPreferenceApplicationCulture[userPreferenceApplicationCulture.Value],
                 Permission = userInternalPermissionResponse,
+                PersonName = personName,
                 UserId = verificationCode.UserId,
                 UserType = Mapper.Mapper.User.UserType[user.Type],
             },
