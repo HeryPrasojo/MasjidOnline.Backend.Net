@@ -27,7 +27,7 @@ public class GetRecommendationNoteBusiness(IService _service) : IGetRecommendati
         if ((lastManualRecommendationId != default) && (!lastManualRecommendationId.Used)) return new()
         {
             ResultCode = ResponseResultCode.Success,
-            Data = lastManualRecommendationId.Id.ToString(_notesFormat),
+            Data = GenerateRecommendationNotes(lastManualRecommendationId.Id),
         };
 
 
@@ -49,7 +49,12 @@ public class GetRecommendationNoteBusiness(IService _service) : IGetRecommendati
         return new()
         {
             ResultCode = ResponseResultCode.Success,
-            Data = "MO Infaq " + manualRecommendationId.Id.ToString(_notesFormat),
+            Data = GenerateRecommendationNotes(manualRecommendationId.Id),
         };
+    }
+
+    private static string GenerateRecommendationNotes(int manualRecommendationIdId)
+    {
+        return "MO Infaq " + manualRecommendationIdId.ToString(_notesFormat);
     }
 }
