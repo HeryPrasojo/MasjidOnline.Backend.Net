@@ -3,14 +3,25 @@ namespace MasjidOnline.Entity.Infaq;
 public enum InfaqStatus
 {
     New = 2,
+
+
     CancelRequest = 4,
     Cancel = 6,
-    FailRequest = 8,
-    Fail = 10,
-    ExpireRequest = 12,
-    Expire = 14,
-    SuccessRequest = 16,
-    Success = 18,
-    VoidRequest = 20,
-    Void = 22,
+
+    ExpireRequest = 8,
+    Expire = 10,
+
+    FailRequest = 12,
+    Fail = 14,
+
+    RejectRequest = 16,
+    Reject = 18,
+
+
+    SuccessRequest = 20,
+    Success = 22,
+
+
+    RefundRequest = 24,
+    Refund = 26,
 }

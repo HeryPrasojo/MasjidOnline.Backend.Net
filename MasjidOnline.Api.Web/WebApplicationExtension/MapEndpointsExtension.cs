@@ -19,7 +19,7 @@ internal static class MapEndpointsExtension
         expenditureGroup.MapPost("add", AccountancyEndpoint.Expenditure.AddAsync);
         expenditureGroup.MapPost("approve", AccountancyEndpoint.Expenditure.ApproveAsync);
         expenditureGroup.MapPost("cancel", AccountancyEndpoint.Expenditure.CancelAsync);
-        expenditureGroup.MapPost("getTable", AccountancyEndpoint.Expenditure.GetTableAsync);
+        expenditureGroup.MapPost("table", AccountancyEndpoint.Expenditure.GetTableAsync);
         expenditureGroup.MapPost("view", AccountancyEndpoint.Expenditure.GetViewAsync);
         expenditureGroup.MapPost("reject", AccountancyEndpoint.Expenditure.RejectAsync);
 
@@ -31,7 +31,7 @@ internal static class MapEndpointsExtension
         var infaqInfaqGroup = infaqGroup.MapGroup("infaq/");
 
         infaqInfaqGroup.MapPost("add", InfaqEndpoint.Infaq.AddAsync);
-        infaqInfaqGroup.MapPost("getTable", InfaqEndpoint.Infaq.GetTableAsync);
+        infaqInfaqGroup.MapPost("table", InfaqEndpoint.Infaq.GetTableAsync);
         infaqInfaqGroup.MapPost("view", InfaqEndpoint.Infaq.GetViewAsync);
 
 
@@ -63,7 +63,7 @@ internal static class MapEndpointsExtension
 
         var userInternalGroup = userGroup.MapGroup("internal/");
 
-        userInternalGroup.MapPost("getTable", UserEndpoint.Internal.GetTableAsync);
+        userInternalGroup.MapPost("table", UserEndpoint.Internal.GetTableAsync);
         userInternalGroup.MapPost("view", UserEndpoint.Internal.GetViewAsync);
 
 

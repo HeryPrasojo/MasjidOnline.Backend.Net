@@ -14,10 +14,12 @@ public class InfaqStatusMapper
         { InfaqStatus.Fail,           Entity.Infaq.InfaqStatus.Fail },
         { InfaqStatus.FailRequest,    Entity.Infaq.InfaqStatus.FailRequest },
         { InfaqStatus.New,            Entity.Infaq.InfaqStatus.New },
+        { InfaqStatus.RefundRequest,  Entity.Infaq.InfaqStatus.RefundRequest },
+        { InfaqStatus.Refund,         Entity.Infaq.InfaqStatus.Refund },
+        { InfaqStatus.RejectRequest,  Entity.Infaq.InfaqStatus.RejectRequest },
+        { InfaqStatus.Reject,         Entity.Infaq.InfaqStatus.Reject },
         { InfaqStatus.Success,        Entity.Infaq.InfaqStatus.Success },
         { InfaqStatus.SuccessRequest, Entity.Infaq.InfaqStatus.SuccessRequest },
-        { InfaqStatus.Void,           Entity.Infaq.InfaqStatus.Void },
-        { InfaqStatus.VoidRequest,    Entity.Infaq.InfaqStatus.VoidRequest },
     };
 
     private static readonly Dictionary<Entity.Infaq.InfaqStatus, InfaqStatus> _toModel = new()
@@ -29,10 +31,12 @@ public class InfaqStatusMapper
         { Entity.Infaq.InfaqStatus.Fail,           InfaqStatus.Fail },
         { Entity.Infaq.InfaqStatus.FailRequest,    InfaqStatus.FailRequest },
         { Entity.Infaq.InfaqStatus.New,            InfaqStatus.New },
+        { Entity.Infaq.InfaqStatus.Refund,         InfaqStatus.Refund },
+        { Entity.Infaq.InfaqStatus.RefundRequest,  InfaqStatus.RefundRequest },
+        { Entity.Infaq.InfaqStatus.Reject,         InfaqStatus.Reject },
+        { Entity.Infaq.InfaqStatus.RejectRequest,  InfaqStatus.RejectRequest },
         { Entity.Infaq.InfaqStatus.Success,        InfaqStatus.Success },
         { Entity.Infaq.InfaqStatus.SuccessRequest, InfaqStatus.SuccessRequest },
-        { Entity.Infaq.InfaqStatus.Void,           InfaqStatus.Void },
-        { Entity.Infaq.InfaqStatus.VoidRequest,    InfaqStatus.VoidRequest },
     };
 
 
