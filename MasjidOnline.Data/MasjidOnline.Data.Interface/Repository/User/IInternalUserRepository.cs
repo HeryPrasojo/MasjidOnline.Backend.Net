@@ -20,4 +20,5 @@ public interface IInternalUserRepository
     Task<InternalUserStatus> GetStatusAsync(int id);
     void SetStatus(int id, InternalUserStatus status, string? description, DateTime updateDateTime, int updateUserId);
     Task SetStatusAndSaveAsync(int id, InternalUserStatus status, string? description, DateTime updateDateTime, int updateUserId);
+    Task<ForApprove?> GetForApproveAsync(int id);
 }

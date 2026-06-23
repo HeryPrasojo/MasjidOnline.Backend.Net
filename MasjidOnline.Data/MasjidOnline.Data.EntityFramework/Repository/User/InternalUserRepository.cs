@@ -112,6 +112,17 @@ public class InternalUserRepository(DbContext _dbContext) : IInternalUserReposit
             .FirstOrDefaultAsync();
     }
 
+    public async Task<ForApprove?> GetForApproveAsync(int id)
+    {
+        return await _dbSet.Where(e => e.Id == id)
+            .Select(e => new ForApprove
+            {
+                Status = e.Status,
+                UserId = e.UserId,
+            })
+            .FirstOrDefaultAsync();
+    }
+
     public void SetStatus(int id, InternalUserStatus status, string? description, DateTime updateDateTime, int updateUserId)
     {
         var internalUser = new InternalUser

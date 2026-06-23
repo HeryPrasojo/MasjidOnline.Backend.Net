@@ -91,4 +91,17 @@ public class UserRepository(DbContext _dbContext) : IUserRepository
 
         return user;
     }
+
+    public void SetType(int id, UserType userType)
+    {
+        var user = new Entity.User.User
+        {
+            Id = id,
+            Type = userType,
+        };
+
+        var entityEntry = _dbSet.Attach(user);
+
+        entityEntry.Property(e => e.Type).IsModified = true;
+    }
 }

@@ -5,6 +5,7 @@ using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Model.User.Internal;
 using MasjidOnline.Business.User.Interface.Internal;
 using MasjidOnline.Data.Interface;
+using MasjidOnline.Entity.User;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
 
@@ -22,21 +23,25 @@ public class ApproveBusiness(
         approveRequest.Id = _service.FieldValidator.ValidateRequiredPlus(approveRequest.Id);
 
 
-        var status = await _data.User.InternalUser.GetStatusAsync(approveRequest.Id.Value);
+        var internalUser = await _data.User.InternalUser.GetForApproveAsync(approveRequest.Id.Value);
 
-        if (status == default) throw new InputMismatchException($"{nameof(approveRequest.Id)}: {approveRequest.Id}");
+        if (internalUser == default) throw new InputMismatchException($"{nameof(approveRequest.Id)}: {approveRequest.Id}");
 
-        if (status != Entity.User.InternalUserStatus.New) throw new InputMismatchException($"{nameof(status)}: {status}");
+        if (internalUser.Status != Entity.User.InternalUserStatus.New) throw new InputMismatchException($"{nameof(internalUser.Status)}: {internalUser.Status}");
 
 
         var utcNow = DateTime.UtcNow;
 
-        await _data.User.InternalUser.SetStatusAndSaveAsync(
+        _data.User.InternalUser.SetStatus(
             approveRequest.Id.Value,
             Entity.User.InternalUserStatus.Approve,
             default,
             utcNow,
             session.UserId);
+
+        _data.User.User.SetType(internalUser.UserId, UserType.Internal);
+
+        await _data.User.SaveAsync();
 
         return new()
         {

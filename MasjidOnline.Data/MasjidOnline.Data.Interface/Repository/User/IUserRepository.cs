@@ -15,4 +15,5 @@ public interface IUserRepository
     Task<UserStatus> GetStatusAsync(int id);
     Task<UserType> GetTypeAsync(int id);
     Entity.User.User SetPassword(int id, byte[] password);
+    void SetType(int id, UserType userType);
 }
