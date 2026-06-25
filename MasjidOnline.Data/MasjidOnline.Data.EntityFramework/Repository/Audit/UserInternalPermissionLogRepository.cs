@@ -38,8 +38,8 @@ public class UserInternalPermissionLogRepository(DbContext _dbContext) : IUserIn
             UserId = userInternalPermission.UserId,
             AccountancyExpenditureAdd = userInternalPermission.AccountancyExpenditureAdd,
             AccountancyExpenditureApprove = userInternalPermission.AccountancyExpenditureApprove,
-            InfaqStatusApprove = userInternalPermission.InfaqStatusApprove,
-            InfaqStatusRequest = userInternalPermission.InfaqStatusRequest,
+            DonationStatusApprove = userInternalPermission.DonationStatusApprove,
+            DonationStatusRequest = userInternalPermission.DonationStatusRequest,
             UserInternalAdd = userInternalPermission.UserInternalAdd,
             UserInternalApprove = userInternalPermission.UserInternalApprove,
             UserInternalPermissionUpdate = userInternalPermission.UserInternalPermissionUpdate,
@@ -53,3 +53,4 @@ public class UserInternalPermissionLogRepository(DbContext _dbContext) : IUserIn
         return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
     }
 }
+

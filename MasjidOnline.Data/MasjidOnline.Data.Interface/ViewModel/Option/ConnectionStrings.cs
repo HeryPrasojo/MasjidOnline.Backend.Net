@@ -12,7 +12,7 @@ public class ConnectionStrings
 
     public required string Event { get; set; }
 
-    public required string Infaq { get; set; }
+    public required string Donation { get; set; }
 
     public required string Payment { get; set; }
 
@@ -24,3 +24,4 @@ public class ConnectionStrings
 
     public required string Verification { get; set; }
 }
+

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Model.Authorization.UserInternalPermission;
@@ -109,8 +109,8 @@ public class VerifyRegisterBusiness(
                 AccountancyExpenditureAdd = userInternalPermission.AccountancyExpenditureAdd,
                 AccountancyExpenditureApprove = userInternalPermission.AccountancyExpenditureApprove,
 
-                InfaqStatusApprove = userInternalPermission.InfaqStatusApprove,
-                InfaqStatusRequest = userInternalPermission.InfaqStatusRequest,
+                DonationStatusApprove = userInternalPermission.DonationStatusApprove,
+                DonationStatusRequest = userInternalPermission.DonationStatusRequest,
 
                 UserInternalAdd = userInternalPermission.UserInternalAdd,
                 UserInternalApprove = userInternalPermission.UserInternalApprove,
@@ -229,3 +229,4 @@ public class VerifyRegisterBusiness(
         };
     }
 }
+

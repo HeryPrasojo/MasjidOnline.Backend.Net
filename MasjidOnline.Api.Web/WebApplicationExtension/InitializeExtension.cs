@@ -28,10 +28,11 @@ internal static class InitializeExtension
 
         await data.IdGenerator.InitializeAsync(data);
 
-        service.Initialize([businessOptions.Directory.Infaq]);
+        service.Initialize([businessOptions.Directory.Donation]);
 
         await business.InitializeAsync(data);
 
         return webApplication;
     }
 }
+

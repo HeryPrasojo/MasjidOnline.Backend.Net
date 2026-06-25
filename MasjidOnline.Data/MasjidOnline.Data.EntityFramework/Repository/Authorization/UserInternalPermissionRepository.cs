@@ -29,8 +29,8 @@ public class UserInternalPermissionRepository(DbContext _dbContext) : IUserInter
             {
                 AccountancyExpenditureAdd = e.AccountancyExpenditureAdd,
                 AccountancyExpenditureApprove = e.AccountancyExpenditureApprove,
-                InfaqStatusRequest = e.InfaqStatusRequest,
-                InfaqStatusApprove = e.InfaqStatusApprove,
+                DonationStatusRequest = e.DonationStatusRequest,
+                DonationStatusApprove = e.DonationStatusApprove,
                 UserInternalAdd = e.UserInternalAdd,
                 UserInternalApprove = e.UserInternalApprove,
                 UserInternalPermissionUpdate = e.UserInternalPermissionUpdate,
@@ -44,10 +44,11 @@ public class UserInternalPermissionRepository(DbContext _dbContext) : IUserInter
 
         entityEntry.Property(e => e.AccountancyExpenditureAdd).IsModified = true;
         entityEntry.Property(e => e.AccountancyExpenditureApprove).IsModified = true;
-        entityEntry.Property(e => e.InfaqStatusRequest).IsModified = true;
-        entityEntry.Property(e => e.InfaqStatusApprove).IsModified = true;
+        entityEntry.Property(e => e.DonationStatusRequest).IsModified = true;
+        entityEntry.Property(e => e.DonationStatusApprove).IsModified = true;
         entityEntry.Property(e => e.UserInternalAdd).IsModified = true;
         entityEntry.Property(e => e.UserInternalApprove).IsModified = true;
         entityEntry.Property(e => e.UserInternalPermissionUpdate).IsModified = true;
     }
 }
+

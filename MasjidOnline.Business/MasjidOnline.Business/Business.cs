@@ -5,8 +5,8 @@ using MasjidOnline.Business.Authorization;
 using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Event;
 using MasjidOnline.Business.Event.Interface;
-using MasjidOnline.Business.Infaq;
-using MasjidOnline.Business.Infaq.Interface;
+using MasjidOnline.Business.Donation;
+using MasjidOnline.Business.Donation.Interface;
 using MasjidOnline.Business.Interface;
 using MasjidOnline.Business.Model.Options;
 using MasjidOnline.Business.Payment;
@@ -38,7 +38,7 @@ public class Business : IBusiness
         Accountancy = new AccountancyBusiness(Authorization, _service);
         Event = new EventBusiness();
         ExceptionResponse = _hostEnvironment.IsDevelopment() ? new DevelopmentExceptionResponseBusiness() : new ExceptionResponseBusiness();
-        Infaq = new InfaqBusiness(_businessOptionsMonitor, Authorization, _service);
+        Donation = new DonationBusiness(_businessOptionsMonitor, Authorization, _service);
         Payment = new PaymentBusiness(_service);
         Session = new SessionBusiness(_service);
         User = new UserBusiness(_businessOptionsMonitor, _mailOptionsMonitor, Authorization, _service);
@@ -52,7 +52,7 @@ public class Business : IBusiness
 
     public IExceptionResponseBusiness ExceptionResponse { get; }
 
-    public IInfaqBusiness Infaq { get; }
+    public IDonationBusiness Donation { get; }
 
     public IPaymentBusiness Payment { get; }
 
@@ -65,3 +65,5 @@ public class Business : IBusiness
         await User.InitializeAsync(_data);
     }
 }
+
+

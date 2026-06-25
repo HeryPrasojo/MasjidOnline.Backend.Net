@@ -108,8 +108,8 @@ public class AuditInitializer(
                 UserId INTEGER NOT NULL,
                 AccountancyExpenditureAdd INTEGER NOT NULL,
                 AccountancyExpenditureApprove INTEGER NOT NULL,
-                InfaqStatusApprove INTEGER NOT NULL,
-                InfaqStatusRequest INTEGER NOT NULL,
+                DonationStatusApprove INTEGER NOT NULL,
+                DonationStatusRequest INTEGER NOT NULL,
                 UserInternalAdd INTEGER NOT NULL,
                 UserInternalApprove INTEGER NOT NULL,
                 UserInternalPermissionUpdate INTEGER NOT NULL
@@ -133,3 +133,4 @@ public class AuditInitializer(
         await _auditDataContext.Database.ExecuteSqlAsync(sql);
     }
 }
+

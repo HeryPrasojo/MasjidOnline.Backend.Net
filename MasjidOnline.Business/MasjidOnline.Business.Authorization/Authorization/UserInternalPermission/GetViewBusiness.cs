@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Authorization.Interface.Authorization.UserInternalPermission;
 using MasjidOnline.Business.Model.Authorization.UserInternalPermission;
@@ -31,8 +31,8 @@ public class GetViewBusiness(IAuthorizationBusiness _authorizationBusiness, ISer
             {
                 AccountancyExpenditureAdd = userInternalPermission?.AccountancyExpenditureAdd ?? false,
                 AccountancyExpenditureApprove = userInternalPermission?.AccountancyExpenditureApprove ?? false,
-                InfaqStatusRequest = userInternalPermission?.InfaqStatusRequest ?? false,
-                InfaqStatusApprove = userInternalPermission?.InfaqStatusApprove ?? false,
+                DonationStatusRequest = userInternalPermission?.DonationStatusRequest ?? false,
+                DonationStatusApprove = userInternalPermission?.DonationStatusApprove ?? false,
                 UserInternalAdd = userInternalPermission?.UserInternalAdd ?? false,
                 UserInternalApprove = userInternalPermission?.UserInternalApprove ?? false,
                 UserInternalPermissionUpdate = userInternalPermission?.UserInternalPermissionUpdate ?? false,
@@ -40,3 +40,4 @@ public class GetViewBusiness(IAuthorizationBusiness _authorizationBusiness, ISer
         };
     }
 }
+

@@ -14,7 +14,7 @@ public abstract class Data() : IData
     public abstract IAuthorizationDatabase Authorization { get; }
     public abstract ICaptchaDatabase Captcha { get; }
     public abstract IEventDatabase Event { get; }
-    public abstract IInfaqDatabase Infaq { get; }
+    public abstract IDonationDatabase Donation { get; }
     public abstract IIdGenerator IdGenerator { get; }
     public abstract IPaymentDatabase Payment { get; }
     public abstract IPersonDatabase Person { get; }
@@ -22,3 +22,5 @@ public abstract class Data() : IData
     public abstract IUserDatabase User { get; }
     public abstract IVerificationDatabase Verification { get; }
 }
+
+

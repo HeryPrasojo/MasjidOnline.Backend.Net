@@ -5,8 +5,10 @@ public interface IAuthorizationBusiness
     IAuthorizationAuthorizationBusiness Authorization { get; }
     IAccountancyAuthorizationBusiness Accountancy { get; }
     IUserAuthorizationBusiness User { get; }
-    IInfaqAuthorizationBusiness Infaq { get; }
+    IDonationAuthorizationBusiness Donation { get; }
 
     void AuthorizeAnonymous(Model.Session.Session session);
     void AuthorizeNonAnonymous(Model.Session.Session session);
 }
+
+

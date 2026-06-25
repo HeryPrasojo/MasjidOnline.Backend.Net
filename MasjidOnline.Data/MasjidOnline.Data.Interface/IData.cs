@@ -11,7 +11,7 @@ public interface IData
     IAuthorizationDatabase Authorization { get; }
     ICaptchaDatabase Captcha { get; }
     IEventDatabase Event { get; }
-    IInfaqDatabase Infaq { get; }
+    IDonationDatabase Donation { get; }
     IIdGenerator IdGenerator { get; }
     IPaymentDatabase Payment { get; }
     IPersonDatabase Person { get; }
@@ -19,3 +19,5 @@ public interface IData
     IUserDatabase User { get; }
     IVerificationDatabase Verification { get; }
 }
+
+

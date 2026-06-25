@@ -15,7 +15,7 @@ public class Data(IServiceProvider _serviceProvider) : MasjidOnline.Data.Data()
     private ICaptchaDatabase? _captchaDatabase;
     private IEventDatabase? _eventDatabase;
     private IIdGenerator? _idGenerator;
-    private IInfaqDatabase? _infaqDatabase;
+    private IDonationDatabase? _DonationDatabase;
     private IPaymentDatabase? _paymentDatabase;
     private IPersonDatabase? _personDatabase;
     private ISessionDatabase? _sessionDatabase;
@@ -97,18 +97,18 @@ public class Data(IServiceProvider _serviceProvider) : MasjidOnline.Data.Data()
         }
     }
 
-    public override IInfaqDatabase Infaq
+    public override IDonationDatabase Donation
     {
         get
         {
-            if (_infaqDatabase == default)
+            if (_DonationDatabase == default)
             {
-                var dataContext = _serviceProvider.GetServiceOrThrow<InfaqDataContext>();
+                var dataContext = _serviceProvider.GetServiceOrThrow<DonationDataContext>();
 
-                _infaqDatabase = new InfaqDatabase(dataContext);
+                _DonationDatabase = new DonationDatabase(dataContext);
             }
 
-            return _infaqDatabase;
+            return _DonationDatabase;
         }
     }
 
@@ -200,3 +200,5 @@ public class Data(IServiceProvider _serviceProvider) : MasjidOnline.Data.Data()
         }
     }
 }
+
+

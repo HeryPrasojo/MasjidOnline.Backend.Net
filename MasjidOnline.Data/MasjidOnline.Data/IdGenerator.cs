@@ -11,7 +11,7 @@ public class IdGenerator() : IIdGenerator
     private readonly AuditIdGenerator _auditIdGenerator = new();
     private readonly AuthorizationIdGenerator _authorizationIdGenerator = new();
     private readonly EventIdGenerator _eventIdGenerator = new();
-    private readonly InfaqIdGenerator _infaqIdGenerator = new();
+    private readonly DonationIdGenerator _DonationIdGenerator = new();
     private readonly PaymentIdGenerator _paymentIdGenerator = new();
     private readonly PersonIdGenerator _personIdGenerator = new();
     private readonly SessionIdGenerator _sessionIdGenerator = new();
@@ -22,7 +22,7 @@ public class IdGenerator() : IIdGenerator
     public IAuditIdGenerator Audit => _auditIdGenerator;
     public IAuthorizationIdGenerator Authorization => _authorizationIdGenerator;
     public IEventIdGenerator Event => _eventIdGenerator;
-    public IInfaqIdGenerator Infaq => _infaqIdGenerator;
+    public IDonationIdGenerator Donation => _DonationIdGenerator;
     public IPaymentIdGenerator Payment => _paymentIdGenerator;
     public IPersonIdGenerator Person => _personIdGenerator;
     public ISessionIdGenerator Session => _sessionIdGenerator;
@@ -35,7 +35,7 @@ public class IdGenerator() : IIdGenerator
         await _auditIdGenerator.InitializeAsync(_data);
         await _authorizationIdGenerator.InitializeAsync(_data);
         await _eventIdGenerator.InitializeAsync(_data);
-        await _infaqIdGenerator.InitializeAsync(_data);
+        await _DonationIdGenerator.InitializeAsync(_data);
         await _paymentIdGenerator.InitializeAsync(_data);
         await _personIdGenerator.InitializeAsync(_data);
         await _sessionIdGenerator.InitializeAsync(_data);
@@ -43,3 +43,4 @@ public class IdGenerator() : IIdGenerator
         await _verificationIdGenerator.InitializeAsync(_data);
     }
 }
+

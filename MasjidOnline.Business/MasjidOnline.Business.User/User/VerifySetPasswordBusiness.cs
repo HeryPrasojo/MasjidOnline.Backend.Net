@@ -109,8 +109,8 @@ public class VerifySetPasswordBusiness(IOptionsMonitor<BusinessOptions> _options
                 AccountancyExpenditureAdd = userInternalPermission.AccountancyExpenditureAdd,
                 AccountancyExpenditureApprove = userInternalPermission.AccountancyExpenditureApprove,
 
-                InfaqStatusApprove = userInternalPermission.InfaqStatusApprove,
-                InfaqStatusRequest = userInternalPermission.InfaqStatusRequest,
+                DonationStatusApprove = userInternalPermission.DonationStatusApprove,
+                DonationStatusRequest = userInternalPermission.DonationStatusRequest,
 
                 UserInternalAdd = userInternalPermission.UserInternalAdd,
                 UserInternalApprove = userInternalPermission.UserInternalApprove,
@@ -187,3 +187,4 @@ public class VerifySetPasswordBusiness(IOptionsMonitor<BusinessOptions> _options
         };
     }
 }
+

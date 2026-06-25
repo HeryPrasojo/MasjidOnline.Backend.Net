@@ -24,15 +24,15 @@ internal static class MapEndpointsExtension
         expenditureGroup.MapPost("reject", AccountancyEndpoint.Expenditure.RejectAsync);
 
 
-        var infaqGroup = webApplication.MapGroup("/infaq/")
+        var donationGroup = webApplication.MapGroup("/donation/")
             .DisableAntiforgery()
             .AddEndpointFilter(endpointFilter);
 
-        var infaqInfaqGroup = infaqGroup.MapGroup("infaq/");
+        var donationDonationGroup = donationGroup.MapGroup("donation/");
 
-        infaqInfaqGroup.MapPost("add", InfaqEndpoint.Infaq.AddAsync);
-        infaqInfaqGroup.MapPost("table", InfaqEndpoint.Infaq.GetTableAsync);
-        infaqInfaqGroup.MapPost("view", InfaqEndpoint.Infaq.GetViewAsync);
+        donationDonationGroup.MapPost("add", DonationEndpoint.Donation.AddAsync);
+        donationDonationGroup.MapPost("table", DonationEndpoint.Donation.GetTableAsync);
+        donationDonationGroup.MapPost("view", DonationEndpoint.Donation.GetViewAsync);
 
 
         var paymentGroup = webApplication.MapGroup("/payment/")
@@ -70,3 +70,5 @@ internal static class MapEndpointsExtension
         return webApplication;
     }
 }
+
+

@@ -33,8 +33,8 @@ public class AuthorizationInitializer(
                 AccountancyExpenditureAdd INTEGER NOT NULL,
                 AccountancyExpenditureApprove INTEGER NOT NULL,
 
-                InfaqStatusRequest INTEGER NOT NULL,
-                InfaqStatusApprove INTEGER NOT NULL,
+                DonationStatusRequest INTEGER NOT NULL,
+                DonationStatusApprove INTEGER NOT NULL,
 
                 UserInternalAdd INTEGER NOT NULL,
                 UserInternalApprove INTEGER NOT NULL,
@@ -45,3 +45,4 @@ public class AuthorizationInitializer(
         await _authorizationDataContext.Database.ExecuteSqlAsync(sql);
     }
 }
+

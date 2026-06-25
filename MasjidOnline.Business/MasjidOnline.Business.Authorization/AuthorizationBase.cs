@@ -22,8 +22,8 @@ internal abstract class AuthorizationBase
         Model.Session.Session session,
         bool accountancyExpenditureAdd = default,
         bool accountancyExpenditureApprove = default,
-        bool infaqStatusRequest = default,
-        bool infaqStatusApprove = default,
+        bool DonationStatusRequest = default,
+        bool DonationStatusApprove = default,
         bool userInternalAdd = default,
         bool userInternalApprove = default,
         bool userInternalPermissionUpdate = default)
@@ -43,11 +43,11 @@ internal abstract class AuthorizationBase
             throw new PermissionException(nameof(userInternalPermission.AccountancyExpenditureApprove));
 
 
-        if (infaqStatusRequest && !userInternalPermission.InfaqStatusRequest)
-            throw new PermissionException(nameof(userInternalPermission.InfaqStatusRequest));
+        if (DonationStatusRequest && !userInternalPermission.DonationStatusRequest)
+            throw new PermissionException(nameof(userInternalPermission.DonationStatusRequest));
 
-        if (infaqStatusApprove && !userInternalPermission.InfaqStatusApprove)
-            throw new PermissionException(nameof(userInternalPermission.InfaqStatusApprove));
+        if (DonationStatusApprove && !userInternalPermission.DonationStatusApprove)
+            throw new PermissionException(nameof(userInternalPermission.DonationStatusApprove));
 
 
         if (userInternalAdd && !userInternalPermission.UserInternalAdd)
@@ -89,3 +89,4 @@ internal abstract class AuthorizationBase
         throw new PermissionException(nameof(userInternalPermission));
     }
 }
+

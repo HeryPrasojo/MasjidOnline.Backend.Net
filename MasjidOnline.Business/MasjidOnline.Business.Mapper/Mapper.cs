@@ -1,6 +1,6 @@
 using MasjidOnline.Business.Mapper.Accountancy;
 using MasjidOnline.Business.Mapper.Event;
-using MasjidOnline.Business.Mapper.Infaq;
+using MasjidOnline.Business.Mapper.Donation;
 using MasjidOnline.Business.Mapper.Payment;
 using MasjidOnline.Business.Mapper.User;
 
@@ -18,9 +18,9 @@ public static class Mapper
         public static UserLoginClientMapper UserLoginClient => new();
     }
 
-    public static class Infaq
+    public static class Donation
     {
-        public static InfaqStatusMapper InfaqStatus => new();
+        public static DonationStatusMapper DonationStatus => new();
     }
 
     public static class Payment
@@ -45,3 +45,5 @@ public static class Mapper
         public static readonly UserTypeMapper UserType = new();
     }
 }
+
+

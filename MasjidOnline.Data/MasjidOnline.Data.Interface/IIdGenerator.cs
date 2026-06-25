@@ -9,7 +9,7 @@ public interface IIdGenerator
     IAuditIdGenerator Audit { get; }
     IAuthorizationIdGenerator Authorization { get; }
     IEventIdGenerator Event { get; }
-    IInfaqIdGenerator Infaq { get; }
+    IDonationIdGenerator Donation { get; }
     IPaymentIdGenerator Payment { get; }
     IPersonIdGenerator Person { get; }
     ISessionIdGenerator Session { get; }
@@ -18,3 +18,5 @@ public interface IIdGenerator
 
     Task InitializeAsync(IData _data);
 }
+
+

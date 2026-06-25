@@ -40,8 +40,8 @@ public static class ServiceCollectionExtensions
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking),
             poolSize: 2);
 
-        services.AddDbContextPool<InfaqDataContext>(
-            b => b.UseSqlite(connectionStrings.Infaq)
+        services.AddDbContextPool<DonationDataContext>(
+            b => b.UseSqlite(connectionStrings.Donation)
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking),
             poolSize: 2);
 
@@ -75,3 +75,5 @@ public static class ServiceCollectionExtensions
         return services;
     }
 }
+
+

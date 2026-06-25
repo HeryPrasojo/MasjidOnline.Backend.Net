@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -18,8 +18,8 @@
     <ProjectReference Include="..\MasjidOnline.Business.Authorization\MasjidOnline.Business.Authorization.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Event.Interface\MasjidOnline.Business.Event.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Event\MasjidOnline.Business.Event.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Business.Infaq.Interface\MasjidOnline.Business.Infaq.Interface.csproj" />
-    <ProjectReference Include="..\MasjidOnline.Business.Infaq\MasjidOnline.Business.Infaq.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Business.Donation.Interface\MasjidOnline.Business.Donation.Interface.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Business.Donation\MasjidOnline.Business.Donation.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Interface\MasjidOnline.Business.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Payment\MasjidOnline.Business.Payment.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Session\MasjidOnline.Business.Session.csproj" />
@@ -28,3 +28,4 @@
   </ItemGroup>
 
 </Project>
+

@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
 VisualStudioVersion = 18.1.11312.151 d18.0
@@ -23,9 +23,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Autho
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Interface", "MasjidOnline.Business\MasjidOnline.Business.Interface\MasjidOnline.Business.Interface.csproj", "{D33F70CF-AB89-450A-BAC9-7E0E68B5A4B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Infaq", "MasjidOnline.Business\MasjidOnline.Business.Infaq\MasjidOnline.Business.Infaq.csproj", "{8E56A3AB-158B-453A-B747-631CE496DB6E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Donation", "MasjidOnline.Business\MasjidOnline.Business.Donation\MasjidOnline.Business.Donation.csproj", "{8E56A3AB-158B-453A-B747-631CE496DB6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Infaq.Interface", "MasjidOnline.Business\MasjidOnline.Business.Infaq.Interface\MasjidOnline.Business.Infaq.Interface.csproj", "{B979E9C7-35EB-4C3F-BDCE-7F89D50E41E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Donation.Interface", "MasjidOnline.Business\MasjidOnline.Business.Donation.Interface\MasjidOnline.Business.Donation.Interface.csproj", "{B979E9C7-35EB-4C3F-BDCE-7F89D50E41E1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasjidOnline.Business.Session", "MasjidOnline.Business\MasjidOnline.Business.Session\MasjidOnline.Business.Session.csproj", "{92780EE7-EA9F-4CE5-939F-1C028B5EF84E}"
 EndProject
@@ -321,3 +321,4 @@ Global
 		SolutionGuid = {E21BDE61-C24C-41E1-87AC-909B6CE35E70}
 	EndGlobalSection
 EndGlobal
+

@@ -11,7 +11,7 @@ public class DataInitializer(
     AuthorizationDataContext _authorizationDataContext,
     CaptchaDataContext _captchaDataContext,
     EventDataContext _eventDataContext,
-    InfaqDataContext _infaqDataContext,
+    DonationDataContext _DonationDataContext,
     PaymentDataContext _paymentDataContext,
     PersonDataContext _personDataContext,
     SessionDataContext _sessionDataContext,
@@ -34,8 +34,8 @@ public class DataInitializer(
     private readonly EventInitializer _eventInitializer =
         new(_eventDataContext, new DataDefinition<EventDataContext>(_eventDataContext));
 
-    private readonly InfaqInitializer _infaqInitializer =
-        new(_infaqDataContext, new DataDefinition<InfaqDataContext>(_infaqDataContext));
+    private readonly DonationInitializer _DonationInitializer =
+        new(_DonationDataContext, new DataDefinition<DonationDataContext>(_DonationDataContext));
 
     private readonly PaymentInitializer _paymentInitializer =
         new(_paymentDataContext, new DataDefinition<PaymentDataContext>(_paymentDataContext));
@@ -59,7 +59,7 @@ public class DataInitializer(
         await _authorizationInitializer.InitializeDatabaseAsync(data);
         await _captchaInitializer.InitializeDatabaseAsync(data);
         await _eventInitializer.InitializeDatabaseAsync(data);
-        await _infaqInitializer.InitializeDatabaseAsync(data);
+        await _DonationInitializer.InitializeDatabaseAsync(data);
         await _paymentInitializer.InitializeDatabaseAsync(data);
         await _personInitializer.InitializeDatabaseAsync(data);
         await _sessionInitializer.InitializeDatabaseAsync(data);
@@ -67,3 +67,4 @@ public class DataInitializer(
         await _verificationInitializer.InitializeDatabaseAsync(data);
     }
 }
+

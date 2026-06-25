@@ -7,8 +7,8 @@ public class UserInternalPermissionLog : Log<UserInternalPermissionLogType>
     public required bool AccountancyExpenditureAdd { get; set; }
     public required bool AccountancyExpenditureApprove { get; set; }
 
-    public required bool InfaqStatusRequest { get; set; }
-    public required bool InfaqStatusApprove { get; set; }
+    public required bool DonationStatusRequest { get; set; }
+    public required bool DonationStatusApprove { get; set; }
 
 
     public required bool UserInternalAdd { get; set; }

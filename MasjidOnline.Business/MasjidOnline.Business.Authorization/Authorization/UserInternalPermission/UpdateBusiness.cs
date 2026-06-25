@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Authorization.Interface;
 using MasjidOnline.Business.Authorization.Interface.Authorization.UserInternalPermission;
@@ -31,8 +31,8 @@ public class UpdateBusiness(
 
             AccountancyExpenditureAdd = updateRequest.AccountancyExpenditureAdd ?? false,
             AccountancyExpenditureApprove = updateRequest.AccountancyExpenditureApprove ?? false,
-            InfaqStatusRequest = updateRequest.InfaqStatusRequest ?? false,
-            InfaqStatusApprove = updateRequest.InfaqStatusApprove ?? false,
+            DonationStatusRequest = updateRequest.DonationStatusRequest ?? false,
+            DonationStatusApprove = updateRequest.DonationStatusApprove ?? false,
             UserInternalAdd = updateRequest.UserInternalAdd ?? false,
             UserInternalApprove = updateRequest.UserInternalApprove ?? false,
             UserInternalPermissionUpdate = updateRequest.UserInternalPermissionUpdate ?? false,
@@ -64,3 +64,4 @@ public class UpdateBusiness(
         return new() { ResultCode = ResponseResultCode.Success };
     }
 }
+

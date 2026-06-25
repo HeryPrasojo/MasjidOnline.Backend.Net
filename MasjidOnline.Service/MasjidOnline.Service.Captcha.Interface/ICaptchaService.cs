@@ -6,7 +6,7 @@ public interface ICaptchaService
 {
     void Initialize();
     Task<bool> VerifyAddInternalUserAsync(string token);
-    Task<bool> VerifyInfaqAsync(string token);
+    Task<bool> VerifyDonationAsync(string token);
     Task<bool> VerifyLoginAsync(string token);
     Task<bool> VerifyRecommendationNoteAsync(string token);
     Task<bool> VerifyRegisterAsync(string token);

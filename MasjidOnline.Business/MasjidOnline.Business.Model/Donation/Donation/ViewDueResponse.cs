@@ -1,0 +1,16 @@
+using System;
+
+namespace MasjidOnline.Business.Model.Donation.Donation;
+
+public class ViewDueResponse
+{
+    public required DateTime DateTime { get; set; }
+
+    public required string? MunfiqName { get; set; }
+
+    public required decimal Amount { get; set; }
+
+
+    //public required PaymentType PaymentType { get; set; }
+}
+

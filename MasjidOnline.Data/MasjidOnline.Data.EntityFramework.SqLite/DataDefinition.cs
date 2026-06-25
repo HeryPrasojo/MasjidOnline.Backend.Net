@@ -16,7 +16,7 @@ public class DataDefinition<TDataContext>(TDataContext _tDataContext) :
     IPersonDefinition,
     IEventDefinition,
     ISessionsDefinition,
-    IInfaqsDefinition,
+    IDonationsDefinition,
     IUsersDefinition,
     IVerificationDefinition
     where TDataContext : DbContext

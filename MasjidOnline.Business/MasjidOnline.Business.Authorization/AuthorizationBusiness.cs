@@ -13,7 +13,7 @@ public class AuthorizationBusiness : IAuthorizationBusiness
 
     public IAuthorizationAuthorizationBusiness Authorization { get; }
     public IAccountancyAuthorizationBusiness Accountancy { get; } = new AccountancyAuthorizationBusiness();
-    public IInfaqAuthorizationBusiness Infaq { get; } = new InfaqAuthorizationBusiness();
+    public IDonationAuthorizationBusiness Donation { get; } = new DonationAuthorizationBusiness();
     public IUserAuthorizationBusiness User { get; } = new UserAuthorizationBusiness();
 
     public void AuthorizeAnonymous(Model.Session.Session session)
@@ -26,3 +26,5 @@ public class AuthorizationBusiness : IAuthorizationBusiness
         if (session.IsUserAnonymous) throw new PermissionException(nameof(session.IsUserAnonymous));
     }
 }
+
+

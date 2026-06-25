@@ -166,8 +166,8 @@ public class UserBusiness(
 
             AccountancyExpenditureAdd = true,
             AccountancyExpenditureApprove = true,
-            InfaqStatusApprove = true,
-            InfaqStatusRequest = true,
+            DonationStatusApprove = true,
+            DonationStatusRequest = true,
             UserInternalAdd = true,
             UserInternalApprove = true,
             UserInternalPermissionUpdate = true,
@@ -213,3 +213,4 @@ public class UserBusiness(
         await _service.MailSender.SendMailAsync(mailMessage);
     }
 }
+

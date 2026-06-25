@@ -46,9 +46,9 @@ public class CaptchaService(bool _enabled, IHttpClientFactory _httpClientFactory
     {
         return await VerifyAsync(token, "addInternalUser");
     }
-    public async Task<bool> VerifyInfaqAsync(string token)
+    public async Task<bool> VerifyDonationAsync(string token)
     {
-        return await VerifyAsync(token, "infaq");
+        return await VerifyAsync(token, "donation");
     }
     public async Task<bool> VerifyLoginAsync(string token)
     {

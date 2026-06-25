@@ -81,8 +81,8 @@ public class LoginBusiness(IAuthorizationBusiness _authorizationBusiness, IServi
                 AccountancyExpenditureAdd = userInternalPermission.AccountancyExpenditureAdd,
                 AccountancyExpenditureApprove = userInternalPermission.AccountancyExpenditureApprove,
 
-                InfaqStatusApprove = userInternalPermission.InfaqStatusApprove,
-                InfaqStatusRequest = userInternalPermission.InfaqStatusRequest,
+                DonationStatusApprove = userInternalPermission.DonationStatusApprove,
+                DonationStatusRequest = userInternalPermission.DonationStatusRequest,
 
                 UserInternalAdd = userInternalPermission.UserInternalAdd,
                 UserInternalApprove = userInternalPermission.UserInternalApprove,
@@ -144,3 +144,4 @@ public class LoginBusiness(IAuthorizationBusiness _authorizationBusiness, IServi
         };
     }
 }
+
