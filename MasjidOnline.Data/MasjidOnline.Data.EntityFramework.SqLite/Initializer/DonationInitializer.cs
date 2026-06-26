@@ -43,5 +43,3 @@ public class DonationInitializer(
         await _DonationDataContext.Database.ExecuteSqlAsync(sql);
     }
 }
-
-

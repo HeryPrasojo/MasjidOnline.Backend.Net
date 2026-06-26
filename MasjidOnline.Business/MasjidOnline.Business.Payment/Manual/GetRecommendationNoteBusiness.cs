@@ -55,7 +55,7 @@ public class GetRecommendationNoteBusiness(IService _service) : IGetRecommendati
 
     private static string GenerateRecommendationNotes(int manualRecommendationIdId)
     {
-        return "MO Donation " + manualRecommendationIdId.ToString(_notesFormat);
+        return "MO Donate " + manualRecommendationIdId.ToString(_notesFormat);
     }
 }
 
