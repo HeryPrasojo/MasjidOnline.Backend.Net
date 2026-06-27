@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using MasjidOnline.Business.Interface;
+using MasjidOnline.Business.Model.Donation.Donation;
 using MasjidOnline.Business.Model.Payment.Payment;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Business.Model.Session;
@@ -52,6 +53,14 @@ internal static class DonationEndpoint
             }
 
             return response;
+        }
+        internal static async Task<Response<string>> GetRecommendationNoteAsync(
+            IBusiness _business,
+            Session session,
+            IData _data,
+            [FromBody] GetRecommendationNoteRequest getRecommendationNoteRequest)
+        {
+            return await _business.Donation.Donation.GetRecommendationNote.GetAsync(_data, session, getRecommendationNoteRequest);
         }
 
         internal static async Task<Response<TableResponse<Business.Model.Donation.Donation.TableResponseRecord>>> GetTableAsync(

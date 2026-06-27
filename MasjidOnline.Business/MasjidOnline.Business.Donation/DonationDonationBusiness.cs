@@ -14,6 +14,7 @@ public class DonationDonationBusiness(
     ) : IDonationDonationBusiness
 {
     public IAddBusiness Add { get; } = new AddBusiness(_authorizationBusiness, _service, _optionsMonitor);
+    public IGetRecommendationNoteBusiness GetRecommendationNote { get; } = new GetRecommendationNoteBusiness(_service);
     public IGetTableBusiness GetTable { get; } = new GetTableBusiness(_service);
     public IGetViewBusiness GetView { get; } = new GetViewBusiness(_service);
 }

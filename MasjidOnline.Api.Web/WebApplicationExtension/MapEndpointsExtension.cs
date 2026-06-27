@@ -31,6 +31,7 @@ internal static class MapEndpointsExtension
         var donationDonationGroup = donationGroup.MapGroup("donation/");
 
         donationDonationGroup.MapPost("add", DonationEndpoint.Donation.AddAsync);
+        donationDonationGroup.MapPost("recommendationNote", DonationEndpoint.Donation.GetRecommendationNoteAsync);
         donationDonationGroup.MapPost("table", DonationEndpoint.Donation.GetTableAsync);
         donationDonationGroup.MapPost("view", DonationEndpoint.Donation.GetViewAsync);
 
@@ -41,7 +42,7 @@ internal static class MapEndpointsExtension
 
         var paymentManualGroup = paymentGroup.MapGroup("manual/");
 
-        paymentManualGroup.MapPost("getRecommendationNote", PaymentEndpoint.Manual.GetRecommendationNoteAsync);
+        //paymentManualGroup.MapPost("getRecommendationNote", PaymentEndpoint.Manual.GetRecommendationNoteAsync);
 
 
         var sessionSessionGroup = webApplication.MapGroup("session/")

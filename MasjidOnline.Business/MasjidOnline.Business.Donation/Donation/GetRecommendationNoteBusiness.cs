@@ -1,12 +1,12 @@
 using System.Threading.Tasks;
-using MasjidOnline.Business.Model.Payment.ManualRecommendationId;
+using MasjidOnline.Business.Donation.Interface.Donation;
+using MasjidOnline.Business.Model.Donation.Donation;
 using MasjidOnline.Business.Model.Responses;
-using MasjidOnline.Business.Payment.Interface.Manual;
 using MasjidOnline.Data.Interface;
 using MasjidOnline.Library.Exceptions;
 using MasjidOnline.Service.Interface;
 
-namespace MasjidOnline.Business.Payment.Manual;
+namespace MasjidOnline.Business.Donation.Donation;
 
 public class GetRecommendationNoteBusiness(IService _service) : IGetRecommendationNoteBusiness
 {
@@ -58,4 +58,3 @@ public class GetRecommendationNoteBusiness(IService _service) : IGetRecommendati
         return "MO Donate " + manualRecommendationIdId.ToString(_notesFormat);
     }
 }
-

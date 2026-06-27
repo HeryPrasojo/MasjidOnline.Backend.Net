@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
-using MasjidOnline.Business.Model.Payment.ManualRecommendationId;
+using MasjidOnline.Business.Model.Donation.Donation;
 using MasjidOnline.Business.Model.Responses;
 using MasjidOnline.Data.Interface;
 
-namespace MasjidOnline.Business.Payment.Interface.Manual;
+namespace MasjidOnline.Business.Donation.Interface.Donation;
 
 public interface IGetRecommendationNoteBusiness
 {

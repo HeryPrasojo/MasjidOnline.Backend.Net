@@ -1,4 +1,4 @@
-﻿namespace MasjidOnline.Business.Model.Payment.ManualRecommendationId;
+﻿namespace MasjidOnline.Business.Model.Donation.Donation;
 
 public class GetRecommendationNoteRequest
 {
