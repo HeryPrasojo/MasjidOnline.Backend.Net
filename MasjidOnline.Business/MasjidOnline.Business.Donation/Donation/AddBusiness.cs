@@ -76,7 +76,7 @@ public class AddBusiness(
             MunfiqName = addRequest.MunfiqName,
             PaymentId = payment.Id,
             PaymentType = Mapper.Mapper.Payment.PaymentType[addRequest.PaymentType.Value],
-            ReceiverType = ReceiverType.MasjidOnline,
+            Type = DonationType.MasjidOnline,
             Status = Entity.Donation.DonationStatus.New,
             UserId = session.UserId,
         };

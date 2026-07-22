@@ -7,9 +7,9 @@ public class Donation
 {
     public required int Id { get; set; }
 
-    public ReceiverType ReceiverType { get; set; }
+    public DonationType Type { get; set; }
 
-    public int? ReceiverId { get; set; }
+    public int? TypeId { get; set; }
 
     public DateTime DateTime { get; set; }
 

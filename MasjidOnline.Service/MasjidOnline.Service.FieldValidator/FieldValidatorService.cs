@@ -83,7 +83,7 @@ public class FieldValidatorService : IFieldValidatorService
 
         value = value.Trim();
 
-        if (value.Length < 1) throw new InputInvalidException(valueExpression);
+        if (value.Length < 2) throw new InputInvalidException(valueExpression);
 
         return value;
     }

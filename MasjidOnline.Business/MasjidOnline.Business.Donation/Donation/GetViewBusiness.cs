@@ -29,8 +29,10 @@ public class GetViewBusiness(IService _service) : IGetViewBusiness
                 Amount = _service.Localization[Donation.Amount, session.CultureInfo],
                 DateTime = _service.Localization[Donation.DateTime, session.CultureInfo, "yyyy MMM dd, HH:mm"],
                 MunfiqName = Donation.MunfiqName,
-                Status = _service.Localization[Donation.Status, session.CultureInfo],
-                PaymentType = _service.Localization[Donation.PaymentType, session.CultureInfo],
+                Status = Mapper.Mapper.Donation.DonationStatus[Donation.Status],
+                StatusText = _service.Localization[Donation.Status, session.CultureInfo],
+                PaymentType = Mapper.Mapper.Payment.PaymentType[Donation.PaymentType],
+                PaymentTypeText = _service.Localization[Donation.PaymentType, session.CultureInfo],
             },
         };
     }

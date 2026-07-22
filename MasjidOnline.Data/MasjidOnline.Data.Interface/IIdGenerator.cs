@@ -6,6 +6,7 @@ namespace MasjidOnline.Data.Interface;
 public interface IIdGenerator
 {
     IAccountancyIdGenerator Accountancy { get; }
+    IApprovalIdGenerator Approval { get; }
     IAuditIdGenerator Audit { get; }
     IAuthorizationIdGenerator Authorization { get; }
     IEventIdGenerator Event { get; }

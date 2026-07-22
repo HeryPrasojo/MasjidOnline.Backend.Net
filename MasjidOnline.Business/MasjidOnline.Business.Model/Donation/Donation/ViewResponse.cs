@@ -1,3 +1,5 @@
+using MasjidOnline.Business.Model.Payment.Payment;
+
 namespace MasjidOnline.Business.Model.Donation.Donation;
 
 public class ViewResponse
@@ -9,8 +11,10 @@ public class ViewResponse
     public required string Amount { get; set; }
 
 
-    public required string PaymentType { get; set; }
+    public required PaymentType PaymentType { get; set; }
+    public required string PaymentTypeText { get; set; }
 
-    public required string Status { get; set; }
+    public required DonationStatus Status { get; set; }
+    public required string StatusText { get; set; }
 }
 

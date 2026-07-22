@@ -1,6 +1,6 @@
 namespace MasjidOnline.Entity.Donation;
 
-public enum ReceiverType
+public enum DonationType
 {
     MasjidOnline = 2,
     Masjid = 4,

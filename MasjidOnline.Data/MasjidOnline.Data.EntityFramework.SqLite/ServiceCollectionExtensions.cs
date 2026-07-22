@@ -20,6 +20,11 @@ public static class ServiceCollectionExtensions
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking),
             poolSize: 2);
 
+        services.AddDbContextPool<ApprovalDataContext>(
+            b => b.UseSqlite(connectionStrings.Approval)
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking),
+            poolSize: 2);
+
         services.AddDbContextPool<AuditDataContext>(
             b => b.UseSqlite(connectionStrings.Audit)
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking),

@@ -50,9 +50,7 @@ public class PaymentInitializer(
                 PaymentType INTEGER NOT NULL,
                 DateTime TEXT NOT NULL,
                 Status INTEGER NOT NULL,
-                ManualNotes TEXT,
-                UpdateDateTime TEXT,
-                UpdateNotes TEXT
+                ManualNotes TEXT
             )";
 
         await _paymentDataContext.Database.ExecuteSqlAsync(sql);

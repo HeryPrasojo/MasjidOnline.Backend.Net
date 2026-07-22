@@ -10,6 +10,7 @@ public abstract class Data() : IData
     public IDataTransaction Transaction => _dataTransaction ??= new DataTransaction();
 
     public abstract IAccountancyDatabase Accountancy { get; }
+    public abstract IApprovalDatabase Approval { get; }
     public abstract IAuditDatabase Audit { get; }
     public abstract IAuthorizationDatabase Authorization { get; }
     public abstract ICaptchaDatabase Captcha { get; }

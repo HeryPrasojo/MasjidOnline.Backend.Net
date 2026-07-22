@@ -8,6 +8,7 @@ public interface IDonationDonationBusiness
     IGetRecommendationNoteBusiness GetRecommendationNote { get; }
     IGetTableBusiness GetTable { get; }
     IGetViewBusiness GetView { get; }
+    IRequestFailBusiness RequestFail { get; }
 }
 
 

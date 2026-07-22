@@ -16,8 +16,8 @@ public class DonationInitializer(
             CREATE TABLE Donation
             (
                 Id INTEGER PRIMARY KEY,
-                ReceiverType INTEGER NOT NULL,
-                ReceiverId INTEGER,
+                Type INTEGER NOT NULL,
+                TypeId INTEGER,
                 DateTime TEXT NOT NULL,
                 UserId INTEGER NOT NULL,
                 MunfiqName INTEGER NOT NULL,

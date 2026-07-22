@@ -19,36 +19,10 @@ public class DonationRepository(DbContext _dbContext) : IDonationRepository
         await _dbSet.AddAsync(Donation);
     }
 
-    public async Task<ExpireAdd?> GetForExpireAddAsync(int id)
+    public async Task<DonationStatus> GetStatusAsync(int id)
     {
         return await _dbSet.Where(e => e.Id == id)
-            .Select(e => new ExpireAdd
-            {
-                DateTime = e.DateTime,
-                Status = e.Status,
-            })
-            .FirstOrDefaultAsync();
-    }
-
-    public async Task<SuccessAdd?> GetForSuccessAddAsync(int id)
-    {
-        return await _dbSet.Where(e => e.Id == id)
-            .Select(e => new SuccessAdd
-            {
-                DateTime = e.DateTime,
-                Status = e.Status,
-            })
-            .FirstOrDefaultAsync();
-    }
-
-    public async Task<VoidAdd?> GetForVoidAddAsync(int id)
-    {
-        return await _dbSet.Where(e => e.Id == id)
-            .Select(e => new VoidAdd
-            {
-                DateTime = e.DateTime,
-                Status = e.Status,
-            })
+            .Select(e => e.Status)
             .FirstOrDefaultAsync();
     }
 

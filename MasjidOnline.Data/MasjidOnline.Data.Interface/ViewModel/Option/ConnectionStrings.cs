@@ -4,6 +4,8 @@ public class ConnectionStrings
 {
     public required string Accountancy { get; set; }
 
+    public required string Approval { get; set; }
+
     public required string Audit { get; set; }
 
     public required string Authorization { get; set; }

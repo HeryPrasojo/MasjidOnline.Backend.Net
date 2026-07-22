@@ -10,6 +10,7 @@ public class DataDefinition<TDataContext>(TDataContext _tDataContext) :
     IDataDefinition,
     IAuthorizationDefinition,
     IAccountancyDefinition,
+    IApprovalDefinition,
     IAuditDefinition,
     ICaptchaDefinition,
     IPaymentDefinition,

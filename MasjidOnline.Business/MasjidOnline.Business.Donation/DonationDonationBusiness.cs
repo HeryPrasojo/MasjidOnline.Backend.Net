@@ -17,6 +17,7 @@ public class DonationDonationBusiness(
     public IGetRecommendationNoteBusiness GetRecommendationNote { get; } = new GetRecommendationNoteBusiness(_service);
     public IGetTableBusiness GetTable { get; } = new GetTableBusiness(_service);
     public IGetViewBusiness GetView { get; } = new GetViewBusiness(_service);
+    public IRequestFailBusiness RequestFail { get; } = new RequestFailBusiness(_authorizationBusiness, _service);
 }
 
 

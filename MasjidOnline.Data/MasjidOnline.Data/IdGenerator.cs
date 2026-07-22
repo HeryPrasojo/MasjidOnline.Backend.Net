@@ -8,6 +8,7 @@ namespace MasjidOnline.Data;
 public class IdGenerator() : IIdGenerator
 {
     private readonly AccountancyIdGenerator _accountancyIdGenerator = new();
+    private readonly ApprovalIdGenerator _approvalIdGenerator = new();
     private readonly AuditIdGenerator _auditIdGenerator = new();
     private readonly AuthorizationIdGenerator _authorizationIdGenerator = new();
     private readonly EventIdGenerator _eventIdGenerator = new();
@@ -19,6 +20,7 @@ public class IdGenerator() : IIdGenerator
     private readonly VerificationIdGenerator _verificationIdGenerator = new();
 
     public IAccountancyIdGenerator Accountancy => _accountancyIdGenerator;
+    public IApprovalIdGenerator Approval => _approvalIdGenerator;
     public IAuditIdGenerator Audit => _auditIdGenerator;
     public IAuthorizationIdGenerator Authorization => _authorizationIdGenerator;
     public IEventIdGenerator Event => _eventIdGenerator;

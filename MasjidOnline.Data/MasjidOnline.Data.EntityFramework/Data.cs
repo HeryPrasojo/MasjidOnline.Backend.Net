@@ -10,6 +10,7 @@ namespace MasjidOnline.Data.EntityFramework;
 public class Data(IServiceProvider _serviceProvider) : MasjidOnline.Data.Data()
 {
     private IAccountancyDatabase? _accountancyDatabase;
+    private IApprovalDatabase? _approvalDatabase;
     private IAuditDatabase? _auditDatabase;
     private IAuthorizationDatabase? _authorizationDatabase;
     private ICaptchaDatabase? _captchaDatabase;
@@ -34,6 +35,21 @@ public class Data(IServiceProvider _serviceProvider) : MasjidOnline.Data.Data()
             }
 
             return _accountancyDatabase;
+        }
+    }
+
+    public override IApprovalDatabase Approval
+    {
+        get
+        {
+            if (_approvalDatabase == default)
+            {
+                var dataContext = _serviceProvider.GetServiceOrThrow<ApprovalDataContext>();
+
+                _approvalDatabase = new ApprovalDatabase(dataContext);
+            }
+
+            return _approvalDatabase;
         }
     }
 

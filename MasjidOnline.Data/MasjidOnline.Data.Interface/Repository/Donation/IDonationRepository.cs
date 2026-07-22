@@ -13,10 +13,8 @@ public interface IDonationRepository
     Task<int> GetMaxIdAsync();
     Task<View?> GetFirstOrDefaultAsync(int id);
     Task<TableResult<TableRecord>> GetTableAsync(IEnumerable<PaymentType>? paymentTypes = null, IEnumerable<DonationStatus>? paymentStatuses = null, int skip = 0, int take = 1);
-    Task<ExpireAdd?> GetForExpireAddAsync(int id);
     void SetStatus(int id, DonationStatus paymentStatus);
-    Task<SuccessAdd?> GetForSuccessAddAsync(int id);
-    Task<VoidAdd?> GetForVoidAddAsync(int id);
+    Task<DonationStatus> GetStatusAsync(int id);
 }
 
 

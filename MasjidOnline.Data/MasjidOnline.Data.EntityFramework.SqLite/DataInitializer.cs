@@ -7,6 +7,7 @@ namespace MasjidOnline.Data.EntityFramework.SqLite;
 
 public class DataInitializer(
     AccountancyDataContext _accountancyDataContext,
+    ApprovalDataContext _approvalDataContext,
     AuditDataContext _auditDataContext,
     AuthorizationDataContext _authorizationDataContext,
     CaptchaDataContext _captchaDataContext,
@@ -21,6 +22,9 @@ public class DataInitializer(
 {
     private readonly AccountancyInitializer _accountancyInitializer =
         new(_accountancyDataContext, new DataDefinition<AccountancyDataContext>(_accountancyDataContext));
+
+    private readonly ApprovalInitializer _approvalInitializer =
+        new(_approvalDataContext, new DataDefinition<ApprovalDataContext>(_approvalDataContext));
 
     private readonly AuditInitializer _auditInitializer =
         new(_auditDataContext, new DataDefinition<AuditDataContext>(_auditDataContext));
@@ -55,6 +59,7 @@ public class DataInitializer(
     public async Task InitializeAsync(IData data)
     {
         await _accountancyInitializer.InitializeDatabaseAsync(data);
+        await _approvalInitializer.InitializeDatabaseAsync(data);
         await _auditInitializer.InitializeDatabaseAsync(data);
         await _authorizationInitializer.InitializeDatabaseAsync(data);
         await _captchaInitializer.InitializeDatabaseAsync(data);

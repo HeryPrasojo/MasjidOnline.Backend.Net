@@ -7,6 +7,7 @@ public interface IData
     IDataTransaction Transaction { get; }
 
     IAccountancyDatabase Accountancy { get; }
+    IApprovalDatabase Approval { get; }
     IAuditDatabase Audit { get; }
     IAuthorizationDatabase Authorization { get; }
     ICaptchaDatabase Captcha { get; }
