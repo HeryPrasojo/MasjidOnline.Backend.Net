@@ -16,5 +16,8 @@ public class ViewResponse
 
     public required DonationStatus Status { get; set; }
     public required string StatusText { get; set; }
+
+    public string? RequestBy { get; set; }
+    public string? RequestDateTime { get; set; }
 }
 

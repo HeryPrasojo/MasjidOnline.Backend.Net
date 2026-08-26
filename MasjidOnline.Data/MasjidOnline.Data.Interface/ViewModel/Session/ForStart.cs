@@ -3,7 +3,7 @@ using MasjidOnline.Entity.User;
 
 namespace MasjidOnline.Data.Interface.ViewModel.Session;
 
-public class SessionForStart
+public class ForStart
 {
     public required int Id { get; set; }
 

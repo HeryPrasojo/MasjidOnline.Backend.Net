@@ -74,6 +74,7 @@ public class UserBusiness(
             IsAcceptAgreement = true,
             MainContactId = userEmail.Id,
             MainContactType = ContactType.Email,
+            MainEmailId = userEmail.Id,
             UserId = user.Id,
         };
 

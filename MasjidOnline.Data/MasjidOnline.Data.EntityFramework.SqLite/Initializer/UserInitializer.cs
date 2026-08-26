@@ -77,8 +77,9 @@ public class UserInitializer(
             (
                 UserId INTEGER PRIMARY KEY,
                 IsAcceptAgreement INTEGER NOT NULL,
-                MainContactId INTEGER NOT NULL,
                 MainContactType INTEGER NOT NULL,
+                MainContactId INTEGER NOT NULL,
+                MainEmailId INTEGER,
                 ApplicationCulture INTEGER
             )";
 

@@ -40,6 +40,16 @@ public class PersonRepository(DbContext _dbContext) : IPersonRepository
     }
 
 
+    public async Task<ForDonationView?> GetForDonationViewAsync(int userId)
+    {
+        return await _dbSet.Where(e => e.UserId == userId)
+            .Select(e => new ForDonationView
+            {
+                Name = e.Name,
+            })
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<IEnumerable<ForInternalUserView>?> GetForInternalUserViewAsync(IEnumerable<int> userIds)
     {
         return await _dbSet.Where(e => userIds.Any(i => i == e.UserId))

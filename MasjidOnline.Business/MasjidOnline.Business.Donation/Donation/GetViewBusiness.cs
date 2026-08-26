@@ -16,25 +16,43 @@ public class GetViewBusiness(IService _service) : IGetViewBusiness
         viewRequest.Id = _service.FieldValidator.ValidateRequiredPlus(viewRequest.Id);
 
 
-        var Donation = await _data.Donation.Donation.GetFirstOrDefaultAsync(viewRequest.Id.Value);
+        var donation = await _data.Donation.Donation.GetFirstOrDefaultAsync(viewRequest.Id.Value);
 
-        if (Donation == default) throw new InputMismatchException($"{nameof(viewRequest.Id)}: {viewRequest.Id}");
+        if (donation == default) throw new InputMismatchException($"{nameof(viewRequest.Id)}: {viewRequest.Id}");
 
 
-        return new()
+        var response = new Response<ViewResponse>()
         {
             ResultCode = ResponseResultCode.Success,
             Data = new ViewResponse()
             {
-                Amount = _service.Localization[Donation.Amount, session.CultureInfo],
-                DateTime = _service.Localization[Donation.DateTime, session.CultureInfo, "yyyy MMM dd, HH:mm"],
-                MunfiqName = Donation.MunfiqName,
-                Status = Mapper.Mapper.Donation.DonationStatus[Donation.Status],
-                StatusText = _service.Localization[Donation.Status, session.CultureInfo],
-                PaymentType = Mapper.Mapper.Payment.PaymentType[Donation.PaymentType],
-                PaymentTypeText = _service.Localization[Donation.PaymentType, session.CultureInfo],
+                Amount = _service.Localization[donation.Amount, session.CultureInfo],
+                DateTime = _service.Localization[donation.DateTime, session.CultureInfo, "yyyy MMM dd, HH:mm"],
+                MunfiqName = donation.MunfiqName,
+                Status = Mapper.Mapper.Donation.DonationStatus[donation.Status],
+                StatusText = _service.Localization[donation.Status, session.CultureInfo],
+                PaymentType = Mapper.Mapper.Payment.PaymentType[donation.PaymentType],
+                PaymentTypeText = _service.Localization[donation.PaymentType, session.CultureInfo],
             },
         };
+
+        if (donation.Status == Entity.Donation.DonationStatus.FailRequest)
+        {
+            var approval = await _data.Approval.Approval.GetViewAsync(Entity.Approval.ApprovalType.Donation, viewRequest.Id.Value);
+
+            var person = await _data.Person.Person.GetForDonationViewAsync(approval!.UserId);
+
+
+            var mainEmailId = await _data.User.UserData.GetMainEmailIdAsync(approval.UserId);
+
+            var emailAddress = await _data.User.UserEmail.GetAddressAsync(mainEmailId!.Value);
+
+
+            response.Data.RequestBy = person?.Name + " (" + emailAddress + ")";
+            response.Data.RequestDateTime = _service.Localization[approval?.DateTime, session.CultureInfo, "yyyy MMM dd, HH:mm"];
+        }
+
+        return response;
     }
 }
 

@@ -157,11 +157,17 @@ public class VerifyRegisterBusiness(
 
         var userData = new UserData
         {
+            IsAcceptAgreement = verifyRegisterRequest.IsAcceptAgreement.Value,
             MainContactId = mainContactId,
             MainContactType = verificationCode.ContactType,
-            IsAcceptAgreement = verifyRegisterRequest.IsAcceptAgreement.Value,
             UserId = user.Id,
         };
+
+        if (verificationCode.ContactType == Entity.User.ContactType.Email)
+        {
+            userData.MainEmailId = mainContactId;
+        }
+
 
         await _data.User.UserData.AddAsync(userData);
 

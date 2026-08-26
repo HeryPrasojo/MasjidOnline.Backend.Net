@@ -11,5 +11,6 @@ public interface IUserDataRepository
     Task<bool> AnyAsync(int userId);
     Task<ApplicationCulture?> GetApplicationCultureAsync(int userId);
     Task<IEnumerable<ForInternalUserView>?> GetForInternalUserViewAsync(IEnumerable<int> userIds);
+    Task<int?> GetMainEmailIdAsync(int userId);
     void SetApplicationCulture(int userId, ApplicationCulture applicationCulture);
 }

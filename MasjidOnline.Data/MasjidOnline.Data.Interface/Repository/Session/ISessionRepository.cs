@@ -10,7 +10,7 @@ public interface ISessionRepository
 {
     Task AddAndSaveAsync(Entity.Session.Session session);
     Task AddAsync(Entity.Session.Session setting);
-    Task<SessionForStart?> GetForStartAsync(IEnumerable<byte> code);
+    Task<ForStart?> GetForStartAsync(IEnumerable<byte> code);
     Task<int> GetMaxIdAsync();
     Task<ApplicationCulture> GetApplicationCultureAsync(int id);
     Task RemoveExpireAsync(DateTime dateTime);

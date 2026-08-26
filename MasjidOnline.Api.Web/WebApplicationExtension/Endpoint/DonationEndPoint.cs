@@ -29,7 +29,7 @@ internal static class DonationEndpoint
             [FromForm] PaymentType? paymentType,
             [FromForm] IFormFileCollection? files)
         {
-            var addRequest = new Business.Model.Donation.Donation.AddRequest
+            var addRequest = new AddRequest
             {
                 Amount = amount,
                 CaptchaToken = captchaToken,
@@ -63,20 +63,20 @@ internal static class DonationEndpoint
             return await _business.Donation.Donation.GetRecommendationNote.GetAsync(_data, session, getRecommendationNoteRequest);
         }
 
-        internal static async Task<Response<TableResponse<Business.Model.Donation.Donation.TableResponseRecord>>> GetTableAsync(
+        internal static async Task<Response<TableResponse<TableResponseRecord>>> GetTableAsync(
             IBusiness _business,
             Session session,
             IData _data,
-            [FromBody] Business.Model.Donation.Donation.TableRequest? getTableRequest)
+            [FromBody] TableRequest? getTableRequest)
         {
             return await _business.Donation.Donation.GetTable.GetAsync(session, _data, getTableRequest);
         }
 
-        internal static async Task<Response<Business.Model.Donation.Donation.ViewResponse>> GetViewAsync(
+        internal static async Task<Response<ViewResponse>> GetViewAsync(
             IBusiness _business,
             Session session,
             IData _data,
-            [FromBody] Business.Model.Donation.Donation.ViewRequest? viewRequest)
+            [FromBody] ViewRequest? viewRequest)
         {
             return await _business.Donation.Donation.GetView.GetAsync(session, _data, viewRequest);
         }

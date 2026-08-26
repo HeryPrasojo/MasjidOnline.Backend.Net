@@ -39,10 +39,10 @@ public class SessionRepository(DbContext _dbContext) : ISessionRepository
     }
 
 
-    public async Task<SessionForStart?> GetForStartAsync(IEnumerable<byte> code)
+    public async Task<ForStart?> GetForStartAsync(IEnumerable<byte> code)
     {
         return await _dbSet.Where(e => e.Code.SequenceEqual(code))
-            .Select(e => new SessionForStart
+            .Select(e => new ForStart
             {
                 ApplicationCulture = e.ApplicationCulture,
                 DateTime = e.DateTime,

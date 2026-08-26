@@ -7,6 +7,7 @@ namespace MasjidOnline.Data.Interface.Repository.Person;
 public interface IPersonRepository
 {
     Task AddAsync(Entity.Person.Person person);
+    Task<ForDonationView?> GetForDonationViewAsync(int userId);
     Task<IEnumerable<ForInternalUserView>?> GetForInternalUserViewAsync(IEnumerable<int> userIds);
     Task<int> GetMaxIdAsync();
     Task<string?> GetNameAsync(int userId);
