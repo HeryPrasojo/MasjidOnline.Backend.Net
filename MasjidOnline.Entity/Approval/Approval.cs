@@ -6,11 +6,11 @@ public class Approval
 {
     public required int Id { get; set; }
 
-    public required ApprovalType Type { get; set; }
-    public required int TypeId { get; set; }
+    public ApprovalType Type { get; set; }
+    public int TypeId { get; set; }
 
-    public required DateTime DateTime { get; set; }
-    public required int UserId { get; set; }
+    public DateTime DateTime { get; set; }
+    public int UserId { get; set; }
     public string? Description { get; set; }
 
     public required int Step { get; set; }

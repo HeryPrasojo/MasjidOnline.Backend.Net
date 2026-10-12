@@ -16,10 +16,21 @@ public class ApprovalRepository(DbContext _dbContext) : IApprovalRepository
         await _dbSet.AddAsync(approval);
     }
 
+    public async Task<int> GetIdAsync(ApprovalType approvalType, int typeId)
+    {
+        return await _dbSet.Where(e => (e.Type == approvalType) && (e.TypeId == typeId))
+            .Select(e => e.Id)
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<int> GetMaxIdAsync()
+    {
+        return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
+    }
+
     public async Task<View?> GetViewAsync(ApprovalType approvalType, int typeId)
     {
         return await _dbSet.Where(e => (e.Type == approvalType) && (e.TypeId == typeId))
-            .OrderByDescending(e => e.Id)
             .Select(e => new View
             {
                 DateTime = e.DateTime,
@@ -29,8 +40,18 @@ public class ApprovalRepository(DbContext _dbContext) : IApprovalRepository
             .FirstOrDefaultAsync();
     }
 
-    public async Task<int> GetMaxIdAsync()
+    public async Task SetStatusAsync(int id, int step, ApprovalStatus status)
     {
-        return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
+        var approval = new Entity.Approval.Approval
+        {
+            Id = id,
+            Status = status,
+            Step = step,
+        };
+
+        var entityEntry = _dbSet.Attach(approval);
+
+        entityEntry.Property(e => e.Step).IsModified = true;
+        entityEntry.Property(e => e.Status).IsModified = true;
     }
 }

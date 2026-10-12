@@ -34,6 +34,7 @@ public class IdGenerator() : IIdGenerator
     public async Task InitializeAsync(IData _data)
     {
         await _accountancyIdGenerator.InitializeAsync(_data);
+        await _approvalIdGenerator.InitializeAsync(_data);
         await _auditIdGenerator.InitializeAsync(_data);
         await _authorizationIdGenerator.InitializeAsync(_data);
         await _eventIdGenerator.InitializeAsync(_data);

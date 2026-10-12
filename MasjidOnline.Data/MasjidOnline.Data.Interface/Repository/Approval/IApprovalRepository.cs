@@ -7,6 +7,8 @@ namespace MasjidOnline.Data.Interface.Repository.Approval;
 public interface IApprovalRepository
 {
     Task AddAsync(Entity.Approval.Approval approval);
+    Task<int> GetIdAsync(ApprovalType approvalType, int typeId);
     Task<int> GetMaxIdAsync();
     Task<View?> GetViewAsync(ApprovalType approvalType, int typeId);
+    Task SetStatusAsync(int id, int step, ApprovalStatus status);
 }

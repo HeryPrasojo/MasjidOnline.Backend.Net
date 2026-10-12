@@ -9,6 +9,7 @@ public interface IDonationDonationBusiness
     IGetTableBusiness GetTable { get; }
     IGetViewBusiness GetView { get; }
     IRequestFailBusiness RequestFail { get; }
+    IRejectFailBusiness RejectFail { get; }
 }
 
 

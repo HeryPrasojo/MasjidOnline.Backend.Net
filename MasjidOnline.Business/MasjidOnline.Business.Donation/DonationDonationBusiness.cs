@@ -18,6 +18,7 @@ public class DonationDonationBusiness(
     public IGetTableBusiness GetTable { get; } = new GetTableBusiness(_service);
     public IGetViewBusiness GetView { get; } = new GetViewBusiness(_service);
     public IRequestFailBusiness RequestFail { get; } = new RequestFailBusiness(_authorizationBusiness, _service);
+    public IRejectFailBusiness RejectFail { get; } = new RejectFailBusiness(_authorizationBusiness, _service);
 }
 
 

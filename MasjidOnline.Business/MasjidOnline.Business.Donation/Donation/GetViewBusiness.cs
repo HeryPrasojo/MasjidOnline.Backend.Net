@@ -38,9 +38,11 @@ public class GetViewBusiness(IService _service) : IGetViewBusiness
 
         if (donation.Status == Entity.Donation.DonationStatus.FailRequest)
         {
-            var approval = await _data.Approval.Approval.GetViewAsync(Entity.Approval.ApprovalType.Donation, viewRequest.Id.Value);
+            var approval = await _data.Approval.Approval.GetViewAsync(Entity.Approval.ApprovalType.Donation, viewRequest.Id.Value)
+                ?? throw new DataMismatchException($"donation id: {viewRequest.Id}");
 
-            var person = await _data.Person.Person.GetForDonationViewAsync(approval!.UserId);
+            var person = await _data.Person.Person.GetForDonationViewAsync(approval.UserId)
+                ?? throw new DataMismatchException($"user id: {approval.UserId}");
 
 
             var mainEmailId = await _data.User.UserData.GetMainEmailIdAsync(approval.UserId);
@@ -48,7 +50,7 @@ public class GetViewBusiness(IService _service) : IGetViewBusiness
             var emailAddress = await _data.User.UserEmail.GetAddressAsync(mainEmailId!.Value);
 
 
-            response.Data.RequestBy = person?.Name + " (" + emailAddress + ")";
+            response.Data.RequestBy = person.Name + " (" + emailAddress + ")";
             response.Data.RequestDateTime = _service.Localization[approval?.DateTime, session.CultureInfo, "yyyy MMM dd, HH:mm"];
         }
 
