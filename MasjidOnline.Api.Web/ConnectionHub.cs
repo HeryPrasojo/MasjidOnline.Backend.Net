@@ -53,6 +53,11 @@ public class ConnectionHub(IBusiness _business) : Hub
     }
 
 
+    public async Task<Response> DonationDonationApproveFail(IData _data, Business.Model.Donation.Donation.ApproveFailRequest approveFailRequest)
+    {
+        return await _business.Donation.Donation.ApproveFail.ApproveAsync(Session, _data, approveFailRequest);
+    }
+
     public async Task<Response> DonationDonationRejectFail(IData _data, Business.Model.Donation.Donation.RejectFailRequest rejectFailRequest)
     {
         return await _business.Donation.Donation.RejectFail.RejectAsync(Session, _data, rejectFailRequest);

@@ -10,6 +10,7 @@ public interface IDonationDonationBusiness
     IGetViewBusiness GetView { get; }
     IRequestFailBusiness RequestFail { get; }
     IRejectFailBusiness RejectFail { get; }
+    IApproveFailBusiness ApproveFail { get; }
 }
 
 
