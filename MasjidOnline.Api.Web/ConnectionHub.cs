@@ -63,9 +63,20 @@ public class ConnectionHub(IBusiness _business) : Hub
         return await _business.Donation.Donation.RejectFail.RejectAsync(Session, _data, rejectFailRequest);
     }
 
+    public async Task<Response> DonationDonationRejectSuccess(IData _data, Business.Model.Donation.Donation.RejectSuccessRequest rejectSuccessRequest)
+    {
+        return await _business.Donation.Donation.RejectSuccess.RejectAsync(Session, _data, rejectSuccessRequest);
+    }
+
     public async Task<Response> DonationDonationRequestFail(IData _data, Business.Model.Donation.Donation.RequestFailRequest requestFailRequest)
     {
         return await _business.Donation.Donation.RequestFail.RequestAsync(Session, _data, requestFailRequest);
+    }
+
+
+    public async Task<Response> DonationDonationRequestSuccess(IData _data, Business.Model.Donation.Donation.RequestSuccessRequest requestSuccessRequest)
+    {
+        return await _business.Donation.Donation.RequestSuccess.RequestAsync(Session, _data, requestSuccessRequest);
     }
 
 

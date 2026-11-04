@@ -8,5 +8,5 @@ namespace MasjidOnline.Business.Donation.Interface.Donation;
 
 public interface IRequestFailBusiness
 {
-    Task<Response> RequestAsync(Session session, IData _data, RequestFailRequest failRequest);
+    Task<Response> RequestAsync(Session session, IData _data, RequestFailRequest requestFailRequest);
 }

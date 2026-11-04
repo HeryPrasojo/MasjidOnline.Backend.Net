@@ -36,7 +36,7 @@ public class GetViewBusiness(IService _service) : IGetViewBusiness
             },
         };
 
-        if (donation.Status == Entity.Donation.DonationStatus.FailRequest)
+        if (donation.Status is Entity.Donation.DonationStatus.FailRequest or Entity.Donation.DonationStatus.SuccessRequest)
         {
             var approval = await _data.Approval.Approval.GetViewAsync(Entity.Approval.ApprovalType.Donation, viewRequest.Id.Value)
                 ?? throw new DataMismatchException($"donation id: {viewRequest.Id}");
