@@ -12,6 +12,7 @@ public interface IDonationDonationBusiness
     IRejectFailBusiness RejectFail { get; }
     IRejectSuccessBusiness RejectSuccess { get; }
     IApproveFailBusiness ApproveFail { get; }
+    IApproveSuccessBusiness ApproveSuccess { get; }
     IRequestSuccessBusiness RequestSuccess { get; }
 }
 
