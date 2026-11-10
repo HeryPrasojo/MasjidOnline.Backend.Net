@@ -7,4 +7,5 @@ namespace MasjidOnline.Data.Interface.Repository.ContactList;
 public interface IContactListRepository
 {
     Task AddAsync(ContactListEntity contactList);
+    Task<int> GetMaxIdAsync();
 }

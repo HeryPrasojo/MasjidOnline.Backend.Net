@@ -11,6 +11,7 @@ public class IdGenerator() : IIdGenerator
     private readonly ApprovalIdGenerator _approvalIdGenerator = new();
     private readonly AuditIdGenerator _auditIdGenerator = new();
     private readonly AuthorizationIdGenerator _authorizationIdGenerator = new();
+    private readonly ContactListIdGenerator _contactListIdGenerator = new();
     private readonly EventIdGenerator _eventIdGenerator = new();
     private readonly DonationIdGenerator _DonationIdGenerator = new();
     private readonly PaymentIdGenerator _paymentIdGenerator = new();
@@ -23,6 +24,7 @@ public class IdGenerator() : IIdGenerator
     public IApprovalIdGenerator Approval => _approvalIdGenerator;
     public IAuditIdGenerator Audit => _auditIdGenerator;
     public IAuthorizationIdGenerator Authorization => _authorizationIdGenerator;
+    public IContactListIdGenerator ContactList => _contactListIdGenerator;
     public IEventIdGenerator Event => _eventIdGenerator;
     public IDonationIdGenerator Donation => _DonationIdGenerator;
     public IPaymentIdGenerator Payment => _paymentIdGenerator;
@@ -37,6 +39,7 @@ public class IdGenerator() : IIdGenerator
         await _approvalIdGenerator.InitializeAsync(_data);
         await _auditIdGenerator.InitializeAsync(_data);
         await _authorizationIdGenerator.InitializeAsync(_data);
+        await _contactListIdGenerator.InitializeAsync(_data);
         await _eventIdGenerator.InitializeAsync(_data);
         await _DonationIdGenerator.InitializeAsync(_data);
         await _paymentIdGenerator.InitializeAsync(_data);

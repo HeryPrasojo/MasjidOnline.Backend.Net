@@ -9,6 +9,7 @@ public interface IIdGenerator
     IApprovalIdGenerator Approval { get; }
     IAuditIdGenerator Audit { get; }
     IAuthorizationIdGenerator Authorization { get; }
+    IContactListIdGenerator ContactList { get; }
     IEventIdGenerator Event { get; }
     IDonationIdGenerator Donation { get; }
     IPaymentIdGenerator Payment { get; }

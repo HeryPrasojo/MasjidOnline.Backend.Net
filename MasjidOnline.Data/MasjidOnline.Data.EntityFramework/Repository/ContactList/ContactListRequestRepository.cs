@@ -13,4 +13,9 @@ public class ContactListRequestRepository(DbContext _dbContext) : IContactListRe
     {
         await _dbSet.AddAsync(contactListRequest);
     }
+
+    public async Task<int> GetMaxIdAsync()
+    {
+        return await _dbSet.MaxAsync(e => (int?)e.Id) ?? 0;
+    }
 }
