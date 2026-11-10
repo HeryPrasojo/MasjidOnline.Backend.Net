@@ -12,6 +12,8 @@ public class ConnectionStrings
 
     public required string Captcha { get; set; }
 
+    public required string ContactList { get; set; }
+
     public required string Event { get; set; }
 
     public required string Donation { get; set; }

@@ -14,6 +14,7 @@ public class Data(IServiceProvider _serviceProvider) : MasjidOnline.Data.Data()
     private IAuditDatabase? _auditDatabase;
     private IAuthorizationDatabase? _authorizationDatabase;
     private ICaptchaDatabase? _captchaDatabase;
+    private IContactListDatabase? _contactListDatabase;
     private IEventDatabase? _eventDatabase;
     private IIdGenerator? _idGenerator;
     private IDonationDatabase? _DonationDatabase;
@@ -95,6 +96,21 @@ public class Data(IServiceProvider _serviceProvider) : MasjidOnline.Data.Data()
             }
 
             return _captchaDatabase;
+        }
+    }
+
+    public override IContactListDatabase ContactList
+    {
+        get
+        {
+            if (_contactListDatabase == default)
+            {
+                var dataContext = _serviceProvider.GetServiceOrThrow<ContactListDataContext>();
+
+                _contactListDatabase = new ContactListDatabase(dataContext);
+            }
+
+            return _contactListDatabase;
         }
     }
 

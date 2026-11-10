@@ -40,6 +40,11 @@ public static class ServiceCollectionExtensions
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking),
             poolSize: 2);
 
+        services.AddDbContextPool<ContactListDataContext>(
+            b => b.UseSqlite(connectionStrings.ContactList)
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking),
+            poolSize: 2);
+
         services.AddDbContextPool<EventDataContext>(
             b => b.UseSqlite(connectionStrings.Event)
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking),

@@ -11,6 +11,7 @@ public class DataInitializer(
     AuditDataContext _auditDataContext,
     AuthorizationDataContext _authorizationDataContext,
     CaptchaDataContext _captchaDataContext,
+    ContactListDataContext _contactListDataContext,
     EventDataContext _eventDataContext,
     DonationDataContext _DonationDataContext,
     PaymentDataContext _paymentDataContext,
@@ -34,6 +35,9 @@ public class DataInitializer(
 
     private readonly CaptchaInitializer _captchaInitializer =
         new(_captchaDataContext, new DataDefinition<CaptchaDataContext>(_captchaDataContext));
+
+    private readonly ContactListInitializer _contactListInitializer =
+        new(_contactListDataContext, new DataDefinition<ContactListDataContext>(_contactListDataContext));
 
     private readonly EventInitializer _eventInitializer =
         new(_eventDataContext, new DataDefinition<EventDataContext>(_eventDataContext));
@@ -63,6 +67,7 @@ public class DataInitializer(
         await _auditInitializer.InitializeDatabaseAsync(data);
         await _authorizationInitializer.InitializeDatabaseAsync(data);
         await _captchaInitializer.InitializeDatabaseAsync(data);
+        await _contactListInitializer.InitializeDatabaseAsync(data);
         await _eventInitializer.InitializeDatabaseAsync(data);
         await _DonationInitializer.InitializeDatabaseAsync(data);
         await _paymentInitializer.InitializeDatabaseAsync(data);

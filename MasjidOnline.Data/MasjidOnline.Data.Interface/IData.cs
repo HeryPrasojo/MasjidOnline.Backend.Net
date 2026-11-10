@@ -11,6 +11,7 @@ public interface IData
     IAuditDatabase Audit { get; }
     IAuthorizationDatabase Authorization { get; }
     ICaptchaDatabase Captcha { get; }
+    IContactListDatabase ContactList { get; }
     IEventDatabase Event { get; }
     IDonationDatabase Donation { get; }
     IIdGenerator IdGenerator { get; }
