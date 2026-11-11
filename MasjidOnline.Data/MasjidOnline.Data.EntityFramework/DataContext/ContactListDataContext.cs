@@ -10,7 +10,6 @@ public class ContactListDataContext(DbContextOptions _dbContextOptions) : DbCont
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<ContactList>();
-        modelBuilder.Entity<ContactListRequest>();
         modelBuilder.Entity<ContactListSetting>();
     }
 }

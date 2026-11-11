@@ -13,7 +13,6 @@ public class ContactListIdGenerator : IContactListIdGenerator
     public async Task InitializeAsync(IData data)
     {
         _contactListId = await data.ContactList.ContactList.GetMaxIdAsync();
-        _contactListRequestId = await data.ContactList.ContactListRequest.GetMaxIdAsync();
     }
 
     public int ContactListId => Interlocked.Increment(ref _contactListId);
