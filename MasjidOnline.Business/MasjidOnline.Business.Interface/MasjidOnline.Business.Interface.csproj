@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MasjidOnline.Business.Accountancy.Interface\MasjidOnline.Business.Accountancy.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Authorization.Interface\MasjidOnline.Business.Authorization.Interface.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Business.ContactList.Interface\MasjidOnline.Business.ContactList.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Event.Interface\MasjidOnline.Business.Event.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Donation.Interface\MasjidOnline.Business.Donation.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Payment\MasjidOnline.Business.Payment.csproj" />

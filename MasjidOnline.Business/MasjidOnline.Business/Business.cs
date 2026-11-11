@@ -3,6 +3,8 @@ using MasjidOnline.Business.Accountancy;
 using MasjidOnline.Business.Accountancy.Interface;
 using MasjidOnline.Business.Authorization;
 using MasjidOnline.Business.Authorization.Interface;
+using MasjidOnline.Business.ContactList;
+using MasjidOnline.Business.ContactList.Interface;
 using MasjidOnline.Business.Event;
 using MasjidOnline.Business.Event.Interface;
 using MasjidOnline.Business.Donation;
@@ -36,6 +38,7 @@ public class Business : IBusiness
         Authorization = new AuthorizationBusiness(_service);
 
         Accountancy = new AccountancyBusiness(Authorization, _service);
+        ContactList = new ContactListBusiness();
         Event = new EventBusiness();
         ExceptionResponse = _hostEnvironment.IsDevelopment() ? new DevelopmentExceptionResponseBusiness() : new ExceptionResponseBusiness();
         Donation = new DonationBusiness(_businessOptionsMonitor, Authorization, _service);
@@ -47,6 +50,8 @@ public class Business : IBusiness
     public IAccountancyBusiness Accountancy { get; }
 
     public IAuthorizationBusiness Authorization { get; }
+
+    public IContactListBusiness ContactList { get; }
 
     public IEventBusiness Event { get; }
 

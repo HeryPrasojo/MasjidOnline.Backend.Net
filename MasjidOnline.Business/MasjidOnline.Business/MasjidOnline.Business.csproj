@@ -16,6 +16,8 @@
     <ProjectReference Include="..\MasjidOnline.Business.Accountancy\MasjidOnline.Business.Accountancy.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Authorization.Interface\MasjidOnline.Business.Authorization.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Authorization\MasjidOnline.Business.Authorization.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Business.ContactList\MasjidOnline.Business.ContactList.csproj" />
+    <ProjectReference Include="..\MasjidOnline.Business.ContactList.Interface\MasjidOnline.Business.ContactList.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Event.Interface\MasjidOnline.Business.Event.Interface.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Event\MasjidOnline.Business.Event.csproj" />
     <ProjectReference Include="..\MasjidOnline.Business.Donation.Interface\MasjidOnline.Business.Donation.Interface.csproj" />

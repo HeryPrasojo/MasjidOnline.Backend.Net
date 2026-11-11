@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using MasjidOnline.Business.Accountancy.Interface;
 using MasjidOnline.Business.Authorization.Interface;
+using MasjidOnline.Business.ContactList.Interface;
 using MasjidOnline.Business.Event.Interface;
 using MasjidOnline.Business.Donation.Interface;
 using MasjidOnline.Business.Payment.Interface;
@@ -14,6 +15,7 @@ public interface IBusiness
 {
     IAccountancyBusiness Accountancy { get; }
     IAuthorizationBusiness Authorization { get; }
+    IContactListBusiness ContactList { get; }
     IEventBusiness Event { get; }
     IDonationBusiness Donation { get; }
     IPaymentBusiness Payment { get; }
