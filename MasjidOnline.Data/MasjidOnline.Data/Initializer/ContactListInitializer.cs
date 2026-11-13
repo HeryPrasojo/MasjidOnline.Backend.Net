@@ -15,7 +15,6 @@ public abstract class ContactListInitializer(IContactListDefinition _contactList
         {
             await CreateTableContactListSettingAsync();
             await CreateTableContactListAsync();
-            await CreateTableContactListRequestAsync();
 
             var contactListSetting = new ContactListSetting
             {
@@ -31,6 +30,4 @@ public abstract class ContactListInitializer(IContactListDefinition _contactList
     protected abstract Task CreateTableContactListSettingAsync();
 
     protected abstract Task CreateTableContactListAsync();
-
-    protected abstract Task CreateTableContactListRequestAsync();
 }
